@@ -1,0 +1,35 @@
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+
+ERROR - 2016-08-01 04:46:55 --> 404 Page Not Found: /index
+ERROR - 2016-08-01 04:46:56 --> 404 Page Not Found: /index
+ERROR - 2016-08-01 05:25:46 --> 404 Page Not Found: /index
+ERROR - 2016-08-01 05:26:52 --> 404 Page Not Found: /index
+ERROR - 2016-08-01 07:15:55 --> 404 Page Not Found: /index
+ERROR - 2016-08-01 07:15:56 --> 404 Page Not Found: /index
+ERROR - 2016-08-01 07:15:58 --> 404 Page Not Found: /index
+ERROR - 2016-08-01 07:16:02 --> 404 Page Not Found: /index
+ERROR - 2016-08-01 07:18:44 --> 404 Page Not Found: /index
+ERROR - 2016-08-01 07:18:46 --> 404 Page Not Found: /index
+ERROR - 2016-08-01 10:11:36 --> 404 Page Not Found: /index
+ERROR - 2016-08-01 10:11:36 --> 404 Page Not Found: /index
+ERROR - 2016-08-01 10:11:38 --> 404 Page Not Found: /index
+ERROR - 2016-08-01 10:11:39 --> 404 Page Not Found: /index
+ERROR - 2016-08-01 10:11:40 --> 404 Page Not Found: /index
+ERROR - 2016-08-01 10:11:41 --> 404 Page Not Found: /index
+ERROR - 2016-08-01 10:11:42 --> 404 Page Not Found: /index
+ERROR - 2016-08-01 10:11:42 --> 404 Page Not Found: /index
+ERROR - 2016-08-01 10:11:43 --> 404 Page Not Found: /index
+ERROR - 2016-08-01 10:11:44 --> 404 Page Not Found: /index
+ERROR - 2016-08-01 10:11:45 --> 404 Page Not Found: /index
+ERROR - 2016-08-01 10:11:45 --> 404 Page Not Found: /index
+ERROR - 2016-08-01 10:11:46 --> 404 Page Not Found: /index
+ERROR - 2016-08-01 10:11:48 --> 404 Page Not Found: /index
+ERROR - 2016-08-01 10:11:48 --> 404 Page Not Found: /index
+ERROR - 2016-08-01 16:46:01 --> 404 Page Not Found: /index
+ERROR - 2016-08-01 17:32:36 --> 404 Page Not Found: /index
+ERROR - 2016-08-01 20:50:44 --> 404 Page Not Found: /index
+ERROR - 2016-08-01 20:50:50 --> 404 Page Not Found: ../modules/login/controllers/Login/index.html
+ERROR - 2016-08-01 20:50:53 --> 404 Page Not Found: ../modules/login/controllers/Login/login
+ERROR - 2016-08-01 22:14:33 --> 404 Page Not Found: /index
+ERROR - 2016-08-01 22:14:33 --> 404 Page Not Found: /index
+ERROR - 2016-08-01 22:14:34 --> 404 Page Not Found: /index

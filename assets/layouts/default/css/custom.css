@@ -1,0 +1,29 @@
+/* here you can put your own css to customize and override the theme */
+.datatable td {
+  overflow: hidden; /* this is what fixes the expansion */
+  text-overflow: ellipsis; /* not supported in all browsers, but I accepted the tradeoff */
+  white-space: nowrap;
+}
+div.dataTables_paginate > ul > li.next > a, div.dataTables_paginate > ul > li.prev > a{ padding: 9px 10px;}
+
+/*FILE UPLOAD MODAL*/
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+.pointer{cursor: pointer; background: #e1e5ec !important}
