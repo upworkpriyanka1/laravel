@@ -19,11 +19,7 @@
  */
 	//define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
 $domain = ! empty($_SERVER['HTTP_HOST']) ? strtolower($_SERVER['HTTP_HOST']) : 'cli';
-if (strpos( $domain,'.nix') !==FALSE || 
-strpos( $domain,'naz.') !==FALSE || 
-strpos( $domain,'dev.') !==FALSE || 
-strpos( $domain,'front.') !==FALSE || 
-$domain === 'cli'){//if local or dev
+if (strpos( $domain,'.nix') !==FALSE || strpos( $domain,'naz.') !==FALSE || strpos( $domain,'.dev') !==FALSE || strpos( $domain,'.front') !==FALSE || $domain === 'cli'){//if local or dev
 	define('ENVIRONMENT', 'development');
 }else {
 	define('ENVIRONMENT', 'production');
