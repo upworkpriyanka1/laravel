@@ -33,7 +33,8 @@ if (!function_exists('MyCustom_menu')){
 	    $menu .= ' class="'.$class.'"';
 	}
 	$menu .= _stringify_attributes($attributes).">\n";
-	if ($select){$menu .= '<option value="">'.lang('select')."</option>\n";}
+//	if ($select){$menu .= '<option value="">'.lang('select')."</option>\n";}
+	if ($select){$menu .= '<option value="">'.$select."</option>\n";}
 	//if ($default ==''){$menu .= '<option value="">'.lang('select')."</option>\n";}
 	foreach ($array as $key => $val){
 	    $selected = ($default == $key) ? ' selected="selected"' : '';

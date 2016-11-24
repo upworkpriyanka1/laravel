@@ -77,7 +77,171 @@ var init_clientsTable = function () {
 
 }//end init
 
+function clientsListFilterApplied() {
+    alert( "clientsListFilterApplied 1::"+var_dump(1) )
+}
+
+function onSubmit(IsReopen) {
+    var theForm = $("#form_category_edit");
+    alert( "onSubmit theForm::"+var_dump(theForm) )
+    $("#is_reopen").val(IsReopen)
+    theForm.submit();
+}
+
 $(document).ready(function() {
-    init_clientsTable();
+    $('[data-toggle="tooltip"]').tooltip()
+    // init_clientsTable();
 });
 
+
+function clearAllData() {
+    $('.editable_field').each(function () {
+        var type = this.type || this.tagName.toLowerCase();
+        var className= $(this).attr('class')
+        var is_datepicker= $(this).hasClass("datepicker")
+        var is_chosen_select= $(this).hasClass("chosen-select")
+        //alert( "this ::"+(typeof this)+"  type::"+type + " id:"+ $(this).id + " ??? className:"+ className + " !  type:"+ $(this).attr("type")  + " ++Type:"+ $(this).attr('type') +" value::"+ $(this).val() +"  :  "+ var_dump($(this)))
+        //alert( "is_datepicker::"+is_datepicker + "  is_chosen_select::"+is_chosen_select)
+        //alert( "context::"+var_dump($(this.context)) )
+
+        // className:datepicker form-control editable_field
+        // className:form-control chosen-select editable_field
+        if ( type == "text" ) {
+            if ( is_datepicker ) {
+                $(this).val("").datepicker('update')
+            } else {
+                $(this).val("")
+            }
+        }
+        if ( type == "select-one" ) {
+            $(this).val("")
+        }
+        if ( type == "file" ) {
+            $(this).val("")
+        }
+        if ( type == "textarea" ) {
+            $(this).html("");
+        }
+        if ( type == "checkbox" ) {
+            $(this).prop('checked', false);
+        }
+        if ( type == "radio" ) {
+            $(this).prop('checked', false);
+        }
+        if ( type == "select-multiple" && is_chosen_select ) {
+            //alert( "select-multiple this::"+var_dump(this) )
+            $(this).val("Select");
+            $(this).trigger("chosen:updated");
+        }
+    });
+    // $('#datepicker').val('').datepicker('update');
+}
+
+function clientsListMakeFilterDialogSubmit() {
+    $("#hidden_filter_client_name").val( jQuery.trim($("#filter_client_name").val()) )
+    $("#hidden_filter_client_is_active").val( $("#filter_client_is_active").val() )
+    $("#hidden_filter_client_type").val( jQuery.trim($("#filter_client_type").val()) )
+    $("#hidden_filter_client_zip").val( jQuery.trim($("#filter_client_zip").val()) )
+
+    var from_root_obj= $("#filter_created_at_from_root")
+    var till_root_obj= $("#filter_created_at_till_root")
+
+
+    var from_formatted_hidden= from_root_obj.next();
+    if ( (typeof from_formatted_hidden != "object") ) {
+        alert( "Invalid From Date ! " )
+        return;
+    }
+
+    var till_formatted_hidden= till_root_obj.next();
+    if ( (typeof till_formatted_hidden != "object") ) {
+        alert( "Invalid Till Date ! " )
+        return;
+    }
+    $("#hidden_filter_created_at_from").val( from_formatted_hidden.val() )
+    $("#hidden_filter_created_at_till").val( till_formatted_hidden.val() )
+
+    $("#page_number").val(1)
+    var theForm = document.getElementById("form_clients");
+    theForm.submit();
+}
+
+function clientsListFilterApplied( ) {
+    $('.tooltip-inner').css('display', 'none');
+
+    $( "#clients_list_dialog_filter" ).modal(  {
+        "backdrop": "static",
+        "keyboard": true,
+        "show": true
+    }  );
+    // $('#clients_list_dialog_filter').on('hidden.bs.modal', function () {
+    //     $(".datepicker").css('display', 'none');
+    //     $(".datepicker-days").css('display', 'none');
+    // })
+    $("#filter_client_name").val( jQuery.trim($("#hidden_filter_client_name").val()) )
+    $("#filter_client_type").val( jQuery.trim($("#hidden_filter_client_type").val()) )
+    $("#filter_client_is_active").val( jQuery.trim($("#hidden_filter_client_is_active").val()) )
+    $("#filter_client_zip").val( jQuery.trim($("#hidden_filter_client_zip").val()) )
+
+    $("#filter_created_at_from").css("display", "block")
+    $("#filter_created_at_till").css("display", "block")
+
+    $("#filter_created_at_from").val($("#hidden_filter_created_at_from_formatted").val())
+    $("#filter_created_at_till").val($("#hidden_filter_created_at_till_formatted").val())
+
+
+    $('#filter_created_at_from').pickadate( {
+        formatSubmit: 'yyyy-mm-dd',
+        format: 'd mmmm, yyyy',
+        hiddenName: true,
+    })       // http://amsul.ca/pickadate.js/date/
+    $('#filter_created_at_till').pickadate( {
+        formatSubmit: 'yyyy-mm-dd',
+        format: 'd mmmm, yyyy',
+        hiddenName: true
+    })
+}
+
+
+function deleteClient( base_url, id, client_name, PageParametersWithSort ) {
+
+    $.confirm({
+        icon: 'glyphicon glyphicon-signal',
+        title: 'Confirm!',
+        content: "Do you want to delete '" + client_name + "' client with all related data ?",
+        confirmButton: 'YES',
+        cancelButton: 'Cancel',
+        confirmButtonClass: 'btn-info',
+        cancelButtonClass: 'btn-danger',
+        keyboardEnabled: true,
+        confirm: function(){
+            document.location = base_url+"admin/client/delete/" + id + PageParametersWithSort
+        }
+    });
+}
+
+
+
+function var_dump(oElem, from_line, till_line) {
+    var sStr = '';
+    if (typeof(oElem) == 'string' || typeof(oElem) == 'number')     {
+        sStr = oElem;
+    } else {
+        var sValue = '';
+        for (var oItem in oElem) {
+            sValue = oElem[oItem];
+            if (typeof(oElem) == 'innerHTML' || typeof(oElem) == 'outerHTML') {
+                sValue = sValue.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            }
+            sStr += 'obj.' + oItem + ' = ' + sValue + '\n';
+        }
+    }
+    //alert( "from_line::"+(typeof from_line) )
+    if ( typeof from_line == "number" && typeof till_line == "number" ) {
+        return sStr.substr( from_line, till_line );
+    }
+    if ( typeof from_line == "number" ) {
+        return sStr.substr( from_line );
+    }
+    return sStr;
+}

@@ -4,12 +4,16 @@
  *
  * ****************************/
 class Sys_admin_mdl extends CI_Model {
-
-        function __construct()
-        {
-            parent::__construct();
-
-        }
+    private $m_clients_table;
+    private $m_clients_groups_table;
+    private $m_clients_types_table;
+    function __construct()
+    {
+        parent::__construct();
+        $this->m_clients_table= 'clients';
+        $this->m_clients_types_table= 'clients_types';
+        $this->m_clients_groups_table= 'clients_groups';
+    }
 /**********************
 * Get all clients
 * First row is admin client
@@ -18,13 +22,105 @@ class Sys_admin_mdl extends CI_Model {
 * return query array
 *********************************/
     public function get_clients(){
-        $this->db->select('*');
-        $this->db->from('clients');
-        $this->db->join('clients_groups', 'clients_groups.client_id = clients.cid');
-        $this->db->join('clients_types', 'clients_types.type_id = clients_groups.client_group_id');
-        //$this->db->where('clients.cid !=', '1');
-        $query = $this->db->get();
-        return $query->result();
+//        $this->db->select('*');
+//        $this->db->select('clients.client_name, clients.client_email, clients.client_owner, clients.client_phone, clients_types.type_description, clients.cid');
+//        $this->db->from('clients');
+//        $this->db->join('clients_groups', 'clients_groups.client_id = clients.cid');
+//        $this->db->join('clients_types', 'clients_types.type_id = clients_groups.client_group_id');
+//        //$this->db->where('clients.cid !=', '1');
+//        $query = $this->db->get();
+//        return $query->result();
+    }
+
+    /**********************
+     * Get clients list/rows count depending of filters parameters
+     * access public
+     * @ params : $OutputFormatCount = TRUE- returns number of rows, FALSE- returns array of client objects; $page - page number($OutputFormatCount must be = FALSE)
+     * $filters : assoc keys of fieldname=>fieldvalue, if field value is not empty filter is set by this value for client_is_active, client_zip, client_type and between
+     * created_at_from and created_at_till
+     * filters work independently on $OutputFormatCount returning list(FALSE) or rows count(TRUE).
+     * Sense of using $OutputFormatCount with $filters is to have common function with same filter parameters
+     * $sort_direction - current sort direction(asc/desc) and $sort - current sort Both have sense if $OutputFormatCount= false
+     * return query array
+     *********************************/
+    public function getClientsList($OutputFormatCount = false, $page = 0, $filters = array(), $sort = '', $sort_direction = '')
+    {
+        if (empty($sort))
+            $sort = 'client_name';
+        $config_data = $this->config->config;
+        $ci = & get_instance();
+        $items_per_page= $ci->common_lib->getSettings('items_per_page');
+        $limit = !empty($filters['limit']) ? $filters['limit'] : '';
+        $offset = !empty($filters['offset']) ? $filters['offset'] : '';
+        $is_page_positive_integer= $ci->common_lib->is_positive_integer($page);
+        $is_client_type_joined = false;
+        if ( !empty($page) and $is_page_positive_integer ) {
+            $limit = '';
+            $offset = '';
+        }
+        if (!empty($items_per_page) and $is_page_positive_integer) {
+            $per_page= ( !empty($filters['per_page']) and $ci->common_lib->is_positive_integer($filters['per_page']) ) ? $filters['per_page'] : $items_per_page;
+            $limit = $per_page;
+            $offset = ($page - 1) * $per_page;
+        }
+
+        if (!empty($filters['client_name'])) {
+            $this->db->like( $this->m_clients_table . '.client_name', $filters['client_name'] );
+        }
+        if (!empty($filters['client_is_active']) or strlen($filters['client_is_active']) > 0) {
+            $this->db->where($this->m_clients_table.'.client_is_active = ' . "'" . $filters['client_is_active'] . "'");
+        }
+        if (!empty($filters['client_zip'])) {
+            $this->db->where($this->m_clients_table.'.client_zip = ' . "'" . $filters['client_zip'] . "'");
+        }
+        if (!empty($filters['client_type'])) {
+            $this->db->where($this->m_clients_table.'.clients_types_id = ' . "'" . $filters['client_type'] . "'");
+
+        }
+        if (!empty($filters['created_at_from'])) {
+            $this->db->where($this->m_clients_table.'.created_at >= ' . "'" . $filters['created_at_from'] . "'");
+        }
+        if (!empty($filters['created_at_till'])) {
+            $this->db->where($this->m_clients_table.'.created_at <= ' . "'" . $filters['created_at_till'] . " 23:59:59'");
+        }
+
+        $additive_fields_for_select = "";
+        $fields_for_select = $this->m_clients_table . ".*";
+        if ( !empty($filters['show_client_type_description']) ) {
+            $additive_fields_for_select .= ", type_description as type_description ";
+            if ( !$is_client_type_joined ) {
+                $is_client_type_joined= true;
+                $this->db->join($this->m_clients_types_table, $this->m_clients_types_table . '.type_id = ' . $this->m_clients_table . '.clients_types_id', 'left');
+            }
+        }
+
+        if ( ( !empty($limit) and $ci->common_lib->is_positive_integer($limit) ) and ( !empty($offset) and $ci->common_lib->is_positive_integer($offset) ) ) {
+            $this->db->limit($limit, $offset);
+        }
+
+        if ( ( !empty($limit) and $ci->common_lib->is_positive_integer($limit) ) ) {
+            $this->db->limit($limit);
+        }
+
+
+        $fields_for_select.= ' ' . $additive_fields_for_select;
+        if (!empty($sort)) {
+            $this->db->order_by($sort, ((strtolower($sort_direction) == 'desc' or strtolower($sort_direction) == 'asc') ? $sort_direction : ''));
+        }
+
+
+//        echo '<pre>$fields_for_select::'.print_r($fields_for_select,true).'</pre>';
+        if ($OutputFormatCount) {
+            return $this->db->count_all_results($this->m_clients_table);
+        } else {
+            $query = $this->db->from($this->m_clients_table);
+            $ci = & get_instance();
+            if (strlen(trim($fields_for_select)) > 0) {
+                $query->select($fields_for_select);
+            }
+            $ret_array= $query->get()->result();
+            return $ret_array;
+        }
     }
 
 /**********************
@@ -38,6 +134,90 @@ class Sys_admin_mdl extends CI_Model {
         $this->db->from('clients_types');
         $query = $this->db->get();
         return $query->result();
+    }
+
+    /**********************
+     * Get client types in assoc array as key->value
+     * access public
+     * $filters : assoc keys of fieldname => fieldvalue, if field value is not empty filter is set by this value for client_is_active, client_zip, client_type and between created_at_from and created_at_till
+     * Does not depend on $OutputFormatCount
+     * $sort_direction - current sort direction(asc/desc) and $sort - current sort
+     * return query array  in assoc array as key->value
+     *********************************/
+    public function getClient_TypesSelectionList( $filters = array(), $sort = 'type_name',  $sort_direction = 'asc') : array
+    {
+        $ci = & get_instance();
+        $client_typesList = $ci->admin_mdl->getClient_TypesList(false, 0, $filters, $sort, $sort_direction);
+        $ResArray = array();
+        foreach ($client_typesList as $lclient_type) {
+            $ResArray[] = array('key' => $lclient_type->type_id, 'value' => $lclient_type->type_description);
+        }
+        return $ResArray;
+    }
+
+    /**********************
+     * Get client Types list/rows count depending of filters parameters
+     * access public
+     * @ params : $OutputFormatCount = TRUE- returns number of rows, FALSE- returns array of client types objects; $page - page number($OutputFormatCount must be = FALSE)
+     * $filters : assoc keys of fieldname=>fieldvalue, if field value is not empty filter is set by this value for type_name,
+     * filters work independently on $OutputFormatCount returning list(FALSE) or rows count(TRUE).
+     * Sense of using $OutputFormatCount with $filters is to have common function with same filter parameters
+     * $sort_direction - current sort direction(asc/desc) and $sort - current sort Both have sense if $OutputFormatCount= false
+     * return query array
+     *********************************/
+    public function getClient_TypesList( $OutputFormatCount = false, $page = 0, $filters = array(), $sort = '', $sort_direction = '')
+    {
+        if (empty( $sort ))
+            $sort = 'type_name';
+        $config_data = $this->config->config;
+        $ci = & get_instance();
+        $items_per_page= $ci->common_lib->getSettings('items_per_page');
+        $limit = !empty($filters['limit']) ? $filters['limit'] : '';
+        $offset = !empty($filters['offset']) ? $filters['offset'] : '';
+        $is_page_positive_integer= $ci->common_lib->is_positive_integer($page);
+        if ( !empty($page) and $is_page_positive_integer ) {
+            $limit = '';
+            $offset = '';
+        }
+        if (!empty($config_data) and $is_page_positive_integer) {
+            $per_page= ( !empty($filters['per_page']) and $ci->common_lib->is_positive_integer($filters['per_page']) ) ? $filters['per_page'] : $items_per_page;
+            $limit = $per_page;
+            $offset = ($page - 1) * $per_page;
+        }
+
+        if (!empty($filters['type_name'])) {
+            $this->db->like( $this->m_clients_types_table.'.type_name', $filters['type_name'] );
+        }
+
+        $additive_fields_for_select= "";
+        $fields_for_select= $this->m_clients_types_table.".*";
+
+        if ( ( !empty($limit) and $ci->common_lib->is_positive_integer($limit) ) and ( !empty($offset) and $ci->common_lib->is_positive_integer($offset) ) ) {
+            $this->db->limit($limit, $offset);
+        }
+
+        if ( ( !empty($limit) and $ci->common_lib->is_positive_integer($limit) ) ) {
+            $this->db->limit($limit);
+        }
+
+
+        $fields_for_select.= ' ' . $additive_fields_for_select;
+
+        if (!empty($sort)) {
+            $this->db->order_by($sort, ((strtolower($sort_direction) == 'desc' or strtolower($sort_direction) == 'asc') ? $sort_direction : ''));
+        }
+
+        if ($OutputFormatCount) {
+            return $this->db->count_all_results($this->m_clients_types_table);
+        } else {
+            $query = $this->db->from($this->m_clients_types_table);
+            if (strlen(trim($fields_for_select)) > 0) {
+                $query->select($fields_for_select);
+            }
+            $ci = & get_instance();
+            $ret_array= $query->get()->result();
+            return $ret_array;
+        }
     }
 
 /**********************
@@ -59,6 +239,27 @@ class Sys_admin_mdl extends CI_Model {
 * @ params
 * return query array
 *********************************/
+    public function clients_count_in_db()
+    {
+//        return '09 clients_in_db';
+        $this->db->select('count(*) as clients_count ');
+//        $this->db->select('users.id AS UserID', FALSE);
+        $this->db->from('clients');
+//        $this->db->join('users_groups', 'users_groups.user_id = users.id');
+//        $this->db->join('groups', 'groups.id = users_groups.group_id');
+//        $this->db->join('users_jobs', 'users_jobs.user_id = users.id');
+//        $this->db->join('jobs', 'jobs.id = users_jobs.job_id');
+//        $this->db->join('users_clients', 'users_clients.uc_user_id = users.id');
+//        $this->db->join('clients', 'clients.cid = users_clients.uc_client_id');
+//        $this->db->where('users.id !=', '1');
+//        $this->db->where('users.is_patient', '0');
+//        $this->db->where('clients.cid !=', '1');
+//        $this->db->where('users_groups.id !=', '1');
+//        $this->db->where('groups.id !=', '1');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
     public function get_users(){
         $this->db->select('*');
         $this->db->select('users.id AS UserID', FALSE);

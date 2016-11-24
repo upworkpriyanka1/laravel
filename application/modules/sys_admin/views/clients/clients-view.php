@@ -1,3 +1,9 @@
+<?php $ci = &get_instance();
+echo link_tag('assets/global/plugins/picker/classic.css');
+echo link_tag('assets/global/plugins/picker/classic.date.css');
+
+?>
+
 <div class="row">
     <div class="col-md-12">
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
@@ -8,21 +14,38 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="btn-group">
-                                <a class="btn sbold green" href="<?= base_url($this->uri->segment(1).'/clients-add');?>">
-                                    <?= lang('add-new');?> <i class="fa fa-plus"></i>
-                                </a>
+<!--                                <a class="btn sbold green" href="--><?//= base_url($this->uri->segment(1).'/clients-add');?><!--">-->
+<!--                                    --><?//= lang('add-new');?><!-- <i class="fa fa-plus"></i>-->
+<!--                                </a>-->
+                                &nbsp;&nbsp;clients count in db : <b><?= $clients_count_in_db; ?>&nbsp;,
+                                <a href="<?= base_url($this->uri->segment(1).'/add_dummy_clients'); ?> ">Add Dummy 1000 clients</a>&nbsp;&nbsp;&nbsp;,
+                                <a href="<?= base_url($this->uri->segment(1).'/delete_dummy_clients'); ?> ">Delete Dummy clients</a>
+                                ENVIRONMENT::<?= ENVIRONMENT ?>
                             </div>
                         </div>
                     </div>
                 </div>
-                <table class="table table-striped table-bordered table-hover  order-column" id="clients">
+
+                <div class="table-toolbar table_info">
+                    <? if ( count($clients) > 0 ) { ?>
+                        <?= count($clients); ?>&nbsp;Row<? if ( count($clients) > 1 ) { ?>s<? } ?>&nbsp;of&nbsp;<?= $RowsInTable ?>&nbsp;(Page # <strong><?= $page_number ?> </strong>)
+                    <? } ?>
+
+                    <button type="button" class="btn btn-default btn-sm pull_right_only_on_xs padding_right_sm" onclick="javascript:clientsListFilterApplied();" data-toggle="tooltip" data-html="true" data-placement="top" title="" data-original-title="Open dialog window to set filter for Clients. <?= ( trim($filters_label) != "" ? "Current filter(s):".$filters_label : "") ?> "><i class="glyphicon glyphicon-filter"></i>&nbsp;Filter </button>
+                </div>
+
+                <div class="table-responsive">
+
+                <table class="table table-striped table-bordered table-hover  order-column" id="clients_listing">
                     <thead>
                         <tr>
 
-                            <th> <?= lang('client_name');?> </th>
-                            <th> <?= lang('client_owner');?> </th>
-                            <th> <?= lang('phone');?> </th>
-                            <th> <?= lang('clients-type');?> </th>
+                            <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $PageParametersWithoutSort, lang('client_name'), "client_name", $sort_direction, $sort ) ?></th>
+                            <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $PageParametersWithoutSort, lang('client_owner'), "client_owner", $sort_direction, $sort ) ?></th>
+                            <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $PageParametersWithoutSort, lang('phone'), "client_phone", $sort_direction, $sort ) ?></th>
+                            <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $PageParametersWithoutSort, lang('clients-type'), "type_description", $sort_direction, $sort ) ?></th>
+                            <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $PageParametersWithoutSort, lang('created_at'), "created_at", $sort_direction, $sort ) ?></th>
+                            <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $PageParametersWithoutSort, lang('updated_at'), "updated_at", $sort_direction, $sort ) ?></th>
                             <th><i class="fa fa-pencil"></i></th>
                         </tr>
                     </thead>
@@ -35,9 +58,11 @@
                             <td>
                                 <a href="mailto:<?php echo $row->client_email;?>"> <?php echo $row->client_owner;?> </a>
                             </td>
-                            <td> <?php echo $row->client_phone;?>  </td>
+                            <td><?php echo $row->client_phone;?>  </td>
                             <td><?php echo $row->type_description;?></td>
-                            <td><a class="btn btn-sm blue" href="<?= base_url($this->uri->segment(1).'/clients-edit/'.$row->cid);?>">
+                            <td><?php echo $ci->common_lib->format_datetime( $row->created_at) ?></td>
+                            <td><?php echo $ci->common_lib->format_datetime( $row->updated_at ) ?></td>
+                            <td><a class="btn btn-sm blue" href="<?= base_url($this->uri->segment(1).'/clients-edit/'.$row->cid);?>/<?= $PageParametersWithSort ?>">
                                 <i class="fa fa-pencil"></i>
                             </a></td>
                         </tr>
@@ -49,6 +74,12 @@
 
                     </tbody>
                 </table>
+                </div>
+
+                <div class="table_pagination">
+                <?= $pagination_links;?>
+                </div>
+
             </div>
         </div>
         <!-- END EXAMPLE TABLE PORTLET-->
@@ -74,3 +105,104 @@ var table_pdf               = "<?= lang('table_pdf');?>";
 var table_excel             = "<?= lang('table_excel');?>";
 var table_csv               = "<?= lang('table_csv');?>";
 </script>
+
+<div class="modal fade" id="clients_list_dialog_filter" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="padding-right: 20px;">
+            <section class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                <div class="modal-title">Clients&nbsp;Filter&nbsp;Setup</div>
+            </section>
+
+            <section class="modal-body">
+                <form role="form" class="form-horizontal" id="form_clients" name="form_clients" method="post"  enctype="multipart/form-data" >
+
+                    <input type="hidden" id="page_number" name="page_number" value="1">
+                    <input type="hidden" id="hidden_filter_client_name" name="filter_client_name" value="<?= $filter_client_name ?>">
+                    <input type="hidden" id="hidden_filter_client_is_active" name="filter_client_is_active" value="<?= $filter_client_is_active ?>">
+                    <input type="hidden" id="hidden_filter_client_type" name="filter_client_type" value="<?= $filter_client_type ?>">
+                    <input type="hidden" id="hidden_filter_client_zip" name="filter_client_zip" value="<?= $filter_client_zip ?>">
+                    <input type="hidden" id="hidden_filter_created_at_from" name="filter_created_at_from" value="<?= $filter_created_at_from ?>">
+                    <input type="hidden" id="hidden_filter_created_at_till" name="filter_created_at_till" value="<?= $filter_created_at_till ?>">
+                    <input type="hidden" id="hidden_filter_created_at_from_formatted" name="filter_created_at_from_formatted" value="<?= $filter_created_at_from_formatted ?>">
+                    <input type="hidden" id="hidden_filter_created_at_till_formatted" name="filter_created_at_till_formatted" value="<?= $filter_created_at_till_formatted ?>">
+
+                    <div class="row">
+                        <div class="form-group" >
+                            <label class="col-xs-12 col-sm-4 control-label" for="filter_client_name">Client name</label>
+                            <div class="col-xs-12 col-sm-8">
+                                <input class="form-control editable_field" value="" id="filter_client_name" type="text" size="20" maxlength="100">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group" >
+                            <label class="col-xs-12 col-sm-4 control-label" for="filter_client_is_active">Client Is Active</label>
+                            <div class="col-xs-12 col-sm-8">
+                                <select id="filter_client_is_active"  class="form-control editable_field">
+                                    <option value="">  -Select All-  </option>
+                                    <option value="1">  Only Active users  </option>
+                                    <option value="0">  Only Inactive users  </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group" >
+                            <label class="col-xs-12 col-sm-4 control-label" for="filter_client_type">Client Type</label>
+                            <div class="col-xs-12 col-sm-8">
+                                <select id="filter_client_type"  class="form-control editable_field">
+                                    <option value="">  -Select All-  </option>
+                                    <?php foreach( $client_TypesSelectionList as $next_key=>$next_Client_Type ) { ?>
+                                    <option value="<?= $next_Client_Type['key'] ?>" ><?= $next_Client_Type['value'] ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group" >
+                            <label class="col-xs-12 col-sm-4 control-label" for="filter_client_zip">Client zip</label>
+                            <div class="col-xs-12 col-sm-8">
+                                <input class="form-control editable_field" value="" id="filter_client_zip" type="text" size="20" maxlength="100">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group" >
+                            <label class="col-xs-12 col-sm-4 control-label" for="filter_created_at_from">Created at from</label>
+                            <div class="col-xs-12 col-sm-8">
+                                <input class="form-control editable_field datepicker_input" value="" id="filter_created_at_from" type="text">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group" >
+                            <label class="col-xs-12 col-sm-4 control-label" for="filter_created_at_till">Created at till</label>
+                            <div class="col-xs-12 col-sm-8">
+                                <input class="form-control editable_field datepicker_input" value="" id="filter_created_at_till" type="text">
+                            </div>
+                        </div>
+                    </div>
+
+
+                </form>
+            </section>
+
+            <section class="modal-footer ">
+                <div class="btn-group  pull-right editor_btn_group " role="group" aria-label="group button">
+                    <button type="button" id="saveImage" class="btn btn-primary" onclick="javascript:clientsListMakeFilterDialogSubmit(); return false; " role="button">Filter</button>
+                    <button type="button" class="btn btn-cancel-action" data-dismiss="modal"  role="button">Cancel</button>
+                    &nbsp;<a class="btn btn-sm" onclick="javascript:clearAllData(); return false; "  alt="Clear All Data" title="Clear All Data">
+                        <i class=" 	fa fa-square-o"></i>
+                    </a>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

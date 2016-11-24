@@ -37,6 +37,8 @@ $lang['action']                 = "Action";
 $lang['date-time']              = "Date &amp Time";
 $lang['url']                    = "URL";
 $lang['edit']                   = "Edit";
+$lang['created_at']             = "Created At";
+$lang['updated_at']             = "Updated At";
 
 //clients section
 $lang['clients']                = "Clients";

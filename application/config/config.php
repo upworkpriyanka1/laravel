@@ -213,7 +213,21 @@ $config['directory_trigger'] = 'd';
 | your log files will fill up very fast.
 |
 */
-$config['log_threshold'] = 1;
+$config['log_threshold'] = 4;
+if ((!empty($_SERVER["HTTP_HOST"]) and !(strpos($_SERVER["HTTP_HOST"], "local-zntral.com") === false))) {
+    $config['log_path'] = '/_wwwroot/zntral/zntral/log/';   // file:///_wwwroot/zntral/zntral/application
+    $config['document_root'] = '/_wwwroot/zntral/zntral/';
+
+    $config['sql_queries_to_file'] = '/_wwwroot/zntral/zntral/log/sql_queries_to_file_';
+    $config['send_error_at_email'] = 'nbler.ru';
+    $config['base_url'] = 'http://local-zntral.com';
+    $config['is_developer_comp'] = 1;
+//    die("-1 XXZ");
+} else { // Permission denied in /home/dev4softreactor/public_html/system/core/Log.php on
+//    $config['log_path'] = '/home/dev4softreactor/public_html/log/'; // '/home/dev9soft/public_html/tb/'
+    //$config['sql_queries_to_file'] = '/home/dev2softreactor/public_html/tb/logs/sql_queries_to_file_';
+//    $config['send_error_at_email'] = 'nilovserge@rambler.ru'; //nilov@softreactor.com';
+}
 
 /*
 |--------------------------------------------------------------------------
@@ -224,7 +238,7 @@ $config['log_threshold'] = 1;
 | application/logs/ directory. Use a full server path with trailing slash.
 |
 */
-$config['log_path'] = '';
+//$config['log_path'] = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -511,3 +525,47 @@ $config['rewrite_short_tags'] = FALSE;
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
 $config['proxy_ips'] = '';
+
+////////////// APP SETTINGS START ////////////////
+$config['items_per_page'] = 20;
+$config['uri_segment'] = 5; //working 5
+$config['num_links'] = 10;
+$config['use_page_numbers'] = TRUE;
+//$config['page_query_string'] = TRUE;
+$config['page_query_string'] = false;
+
+
+$config['full_tag_open'] = '<ul class="pagination" > ';
+$config['full_tag_close'] = '</ul>';
+$config['first_link'] = 'First';
+$config['first_tag_open'] = '<li>';
+$config['first_tag_close'] = '</li>';
+$config['next_tag_open'] = '<li class="next">';
+$config['next_tag_close'] = '</li>';
+$config['prev_tag_open'] = '<li class="prev">';
+$config['prev_tag_close'] = '</li>';
+$config['last_link'] = 'Last';
+$config['last_tag_open'] = '<li>';
+$config['last_tag_close'] = '</li>';
+$config['cur_tag_open'] = ' <li class="active" > <a href="#">';
+$config['cur_tag_close'] = ' </a></li> ';
+$config['next_link'] = '&gt;';
+$config['prev_link'] = '&lt;';
+$config['num_tag_open'] = '<li>';
+$config['num_tag_close'] = '</li>';
+
+
+/* Date Time Formats */
+$config['date_format'] = '%B %d, %Y';
+$config['month_as_text_year_date_format'] = '%B %Y';
+$config['date_time_format'] = '%Y-%m-%d %H:%M';
+$config['date_time_as_text_format'] = '%B %d, %Y %H:%M%p';
+$config['date_as_text_format'] = '%B %d, %Y';
+$config['date_time_mysql_format'] = '%Y-%m-%d %H:%M:%S';
+/*
+    private static $DateTimeFormat = '%Y-%m-%d %H:%M';
+    private static $DateTimeAsTextFormat = '%B %d, %Y %H:%M%p';
+    private static $DateAsTextFormat = '%B %d, %Y';
+    private static $DateTimeMySqlFormat = '%Y-%m-%d %H:%M:%S';
+ */
+////////////// APP SETTINGS END ////////////////

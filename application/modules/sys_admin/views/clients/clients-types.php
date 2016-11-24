@@ -3,6 +3,8 @@
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
         <div class="portlet light bordered">
             <div class="portlet-body">
+
+                <div class="table-responsive">
                 <table class="table table-striped table-bordered table-hover  order-column" id="client_types">
                     <thead>
                         <tr>
@@ -27,6 +29,8 @@
 
                     </tbody>
                 </table>
+                </div>
+
             </div>
         </div>
         <!-- END EXAMPLE TABLE PORTLET-->

@@ -152,7 +152,7 @@
             <div class="col-md-7">
                 <?php 
         
-                echo MyCustom_menu($client_types,'client_type[]','form-control',FALSE,FALSE,'id ="planner_type"'); ?>  
+                echo MyCustom_menu($client_types,'data[clients_types_id]','form-control',FALSE," -Client Type- ",'id ="clients_types_id"'); ?>
             </div>
         </div>    </div>
     <!-- notes -->
