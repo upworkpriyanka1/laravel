@@ -42,6 +42,7 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
 
                             <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $PageParametersWithoutSort, lang('client_name'), "client_name", $sort_direction, $sort ) ?></th>
                             <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $PageParametersWithoutSort, lang('client_owner'), "client_owner", $sort_direction, $sort ) ?></th>
+                            <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $PageParametersWithoutSort, lang('client_active_status'), "client_active_status", $sort_direction, $sort ) ?></th>
                             <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $PageParametersWithoutSort, lang('phone'), "client_phone", $sort_direction, $sort ) ?></th>
                             <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $PageParametersWithoutSort, lang('clients-type'), "type_description", $sort_direction, $sort ) ?></th>
                             <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $PageParametersWithoutSort, lang('created_at'), "created_at", $sort_direction, $sort ) ?></th>
@@ -58,6 +59,7 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
                             <td>
                                 <a href="mailto:<?php echo $row->client_email;?>"> <?php echo $row->client_owner;?> </a>
                             </td>
+                            <td><?php echo $this->common_lib->get_client_active_status_label($row->client_active_status);?>  </td>
                             <td><?php echo $row->client_phone;?>  </td>
                             <td><?php echo $row->type_description;?></td>
                             <td><?php echo $ci->common_lib->format_datetime( $row->created_at) ?></td>
@@ -106,6 +108,7 @@ var table_excel             = "<?= lang('table_excel');?>";
 var table_csv               = "<?= lang('table_csv');?>";
 </script>
 
+<!-- Popup dialog for filtering set -->
 <div class="modal fade" id="clients_list_dialog_filter" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content" style="padding-right: 20px;">
@@ -119,7 +122,7 @@ var table_csv               = "<?= lang('table_csv');?>";
 
                     <input type="hidden" id="page_number" name="page_number" value="1">
                     <input type="hidden" id="hidden_filter_client_name" name="filter_client_name" value="<?= $filter_client_name ?>">
-                    <input type="hidden" id="hidden_filter_client_is_active" name="filter_client_is_active" value="<?= $filter_client_is_active ?>">
+                    <input type="hidden" id="hidden_filter_client_active_status" name="filter_client_active_status" value="<?= $filter_client_active_status ?>">
                     <input type="hidden" id="hidden_filter_client_type" name="filter_client_type" value="<?= $filter_client_type ?>">
                     <input type="hidden" id="hidden_filter_client_zip" name="filter_client_zip" value="<?= $filter_client_zip ?>">
                     <input type="hidden" id="hidden_filter_created_at_from" name="filter_created_at_from" value="<?= $filter_created_at_from ?>">
@@ -138,12 +141,13 @@ var table_csv               = "<?= lang('table_csv');?>";
 
                     <div class="row">
                         <div class="form-group" >
-                            <label class="col-xs-12 col-sm-4 control-label" for="filter_client_is_active">Client Is Active</label>
+                            <label class="col-xs-12 col-sm-4 control-label" for="filter_client_active_status">Client Active Status</label>
                             <div class="col-xs-12 col-sm-8">
-                                <select id="filter_client_is_active"  class="form-control editable_field">
+                                <select id="filter_client_active_status"  class="form-control editable_field">
                                     <option value="">  -Select All-  </option>
-                                    <option value="1">  Only Active users  </option>
-                                    <option value="0">  Only Inactive users  </option>
+                                    <?php foreach( $client_ActiveStatusList as $next_key=>$next_Client_ActiveStatus ) { ?>
+                                        <option value="<?= $next_Client_ActiveStatus['key'] ?>" ><?= $next_Client_ActiveStatus['value'] ?></option>
+                                    <?php } ?>
                                 </select>
                             </div>
                         </div>
@@ -156,7 +160,7 @@ var table_csv               = "<?= lang('table_csv');?>";
                                 <select id="filter_client_type"  class="form-control editable_field">
                                     <option value="">  -Select All-  </option>
                                     <?php foreach( $client_TypesSelectionList as $next_key=>$next_Client_Type ) { ?>
-                                    <option value="<?= $next_Client_Type['key'] ?>" ><?= $next_Client_Type['value'] ?></option>
+                                        <option value="<?= $next_Client_Type['key'] ?>" ><?= $next_Client_Type['value'] ?></option>
                                     <?php } ?>
                                 </select>
                             </div>

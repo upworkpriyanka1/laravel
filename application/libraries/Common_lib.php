@@ -95,6 +95,13 @@ class Common_lib
         $this->CI->layout->view($views, $data);
     }
 
+    /**********************
+     * Get Parameter by name from POST/GET request
+     * access public
+     * @params $Controller ci controller, $UriArray - array of get requests, $PostArray - POST array, Parameter Name, DefaultValue = '', $parameter_splitter - if formatted array
+     * in parameter value
+     * return Parameter Value
+     *********************************/
     public function getParameter($Controller, $UriArray, $PostArray, $ParameterName, $DefaultValue = '', $parameter_splitter = '')
     {
         if (!empty($PostArray)) { // form was submitted
@@ -102,7 +109,6 @@ class Common_lib
         } else {
             $ParameterValue = !empty($UriArray[$ParameterName]) ? $UriArray[$ParameterName] : $DefaultValue;
         }
-        //AppUtils::deb($ParameterValue, '$ParameterValue::');
         if (is_array($ParameterValue)) return $ParameterValue;
         if (!empty($parameter_splitter)) {
             $A = preg_split('/' . $parameter_splitter . '/', (is_string($ParameterValue) ? urldecode($ParameterValue) : $ParameterValue));
@@ -134,6 +140,12 @@ class Common_lib
         return strftime('%d %B, %Y', $tmp_date);
     }
 
+    /**********************
+     * Get Paginations Parameters from config
+     * access public
+     * @params
+     * return Array of Configs
+     *********************************/
     public function getPaginationParams()
     {
         $ci = &get_instance();
@@ -150,6 +162,12 @@ class Common_lib
 
     }
 
+    /**********************
+     * Get Config parameter by name
+     * access public
+     * @params $name, $default_value = '')
+     * return Config Value
+     *********************************/
     public function getSettings($name, $default_value= '')
     {
         $ci = &get_instance();
@@ -162,6 +180,28 @@ class Common_lib
 //        ('items_per_page', $config_data['default_per_page']);
     }
 
+    public static function DebToFile($contents, $IsClearText = true, $FileName = '')
+    {
+        //return;
+        try {
+            if (empty($FileName))
+                $FileName = './log/logging_deb.txt';
+            $fd = fopen($FileName, ($IsClearText ? "w+" : "a+"));
+            fwrite($fd, $contents . chr(13));
+            fclose($fd);
+            return true;
+        } catch (Exception $lException) {
+            return false;
+        }
+    }
+
+    /**********************
+     * Get Key/Values Parameters by and return concatenated string
+     * access public
+     * @params $items_array, $splitter, $count_return= false
+     * in parameter value
+     * return concatenated string/or number of elements(last parameter)
+     *********************************/
     public function get_filters_label($items_array, $splitter, $count_return= false)
     {
         $ret_str= '';
@@ -176,11 +216,22 @@ class Common_lib
     }
 
 
-    public function get_client_is_active_label($client_is_active) {
-        if ( $client_is_active ) return "active";
-        return "inactive";
+    /**********************
+     * Get readable label of client_active_status field
+     * access public
+     * @params $client_active_status
+     * return string label
+     *********************************/
+    public function get_client_active_status_label($active_status) {
+        return $this->CI->admin_mdl->getClientActiveStatusLabel($active_status);
     }
 
+    /**********************
+     * Get readable label of client_type field
+     * access public
+     * @params $client_type
+     * return string label
+     *********************************/
     public function get_client_type_label($client_type_id) {
         if ( $client_type_id ) {
             $client_type= $this->CI->common_mdl->get_client_type($client_type_id);
@@ -189,8 +240,13 @@ class Common_lib
         return "";
     }
 
-//<th>{{ showListHeaderItem ( url='/admin/user/index', filters_str=PageParametersWithoutSort, field_title="Username", fieldname="username", sort_direction=sort_direction, sort=sort )|raw }}</th>
-//<th>{{ showListHeaderItem ( url='/admin/user/index', filters_str=PageParametersWithoutSort, field_title="Username", fieldname="username", sort_direction=sort_direction, sort=sort )|raw }}</th>
+    /**********************
+     * Prepare html of url for header in view listing
+     * access public
+     * @params $url - url of page, $filters_str - string(key/value) with current filters, $field_title - title shown in TH tag, name of sorting field,
+     * $sort_direction - current sort direction(asc/desc), $sort - current sort
+     * return html of a tag
+     *********************************/
     public function showListHeaderItem ($url, $filters_str, $field_title, $fieldname, $sort_direction, $sort ) {
         if (empty($field_title)) {
             $field_title = ucwords($fieldname);
@@ -206,11 +262,14 @@ class Common_lib
         return $res_url; //CHtml::link($field_title . "&nbsp;" . $imgHtlm, $url);
     }
 
+    /**********************
+     * In header of view listing shows image for currently sorted field.
+     * access public
+     * @params $fieldname - field name, * $sort_direction - current sort direction(asc/desc), $sort - current sort
+     * return html of an image
+     *********************************/
     public function tplListSortingImage($fieldname, $sort, $sort_direction)
     {
-//        $ci = & get_instance();
-//        $config_object = $ci->config;
-//        $config_array = $config_object->config;
         if ($sort == $fieldname and strtolower($sort_direction) == 'asc') {
             return '<i class="glyphicon glyphicon-arrow-down" style="display: inline-block;" ></i>';
         }
@@ -222,6 +281,25 @@ class Common_lib
     public function tplSortDirection($fieldname, $sort_direction, $sort)
     {
         return (($sort == $fieldname and $sort_direction == 'asc') ? "desc" : "asc");
+    }
+
+
+    /**********************
+     * return formatted string of given datetime
+     * access public
+     * @params : $time - can be mysql format or unix stamp, $format - output format, if empty would be used date_time_as_text_format format from config
+     * return html of an image
+     *********************************/
+    public function format_datetime( $time, $format = '' )
+    {
+        if (!is_numeric($time)) {
+            $time = strtotime($time);
+        }
+
+        if (empty($format)) {
+            $format= $this->CI->common_lib->getSettings( 'date_time_as_text_format' );
+        }
+        return strftime( $format, $time );
     }
 
 

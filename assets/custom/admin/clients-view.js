@@ -77,35 +77,18 @@ var init_clientsTable = function () {
 
 }//end init
 
-function clientsListFilterApplied() {
-    alert( "clientsListFilterApplied 1::"+var_dump(1) )
-}
 
-function onSubmit(IsReopen) {
-    var theForm = $("#form_category_edit");
-    alert( "onSubmit theForm::"+var_dump(theForm) )
-    $("#is_reopen").val(IsReopen)
-    theForm.submit();
-}
-
-$(document).ready(function() {
-    $('[data-toggle="tooltip"]').tooltip()
-    // init_clientsTable();
-});
-
-
+/**********************
+ * clear all inputs on form with editable_field class
+ * access public
+ * return none
+ *********************************/
 function clearAllData() {
     $('.editable_field').each(function () {
         var type = this.type || this.tagName.toLowerCase();
         var className= $(this).attr('class')
         var is_datepicker= $(this).hasClass("datepicker")
         var is_chosen_select= $(this).hasClass("chosen-select")
-        //alert( "this ::"+(typeof this)+"  type::"+type + " id:"+ $(this).id + " ??? className:"+ className + " !  type:"+ $(this).attr("type")  + " ++Type:"+ $(this).attr('type') +" value::"+ $(this).val() +"  :  "+ var_dump($(this)))
-        //alert( "is_datepicker::"+is_datepicker + "  is_chosen_select::"+is_chosen_select)
-        //alert( "context::"+var_dump($(this.context)) )
-
-        // className:datepicker form-control editable_field
-        // className:form-control chosen-select editable_field
         if ( type == "text" ) {
             if ( is_datepicker ) {
                 $(this).val("").datepicker('update')
@@ -129,17 +112,58 @@ function clearAllData() {
             $(this).prop('checked', false);
         }
         if ( type == "select-multiple" && is_chosen_select ) {
-            //alert( "select-multiple this::"+var_dump(this) )
             $(this).val("Select");
             $(this).trigger("chosen:updated");
         }
     });
-    // $('#datepicker').val('').datepicker('update');
 }
 
+/**********************
+ * clicking on "Filter" button in clients View page filters popup dialog is opened and inputs are filled from "hidden_" hidden inputs of form and date initialization
+ * access public
+ * return none
+ *********************************/
+function clientsListFilterApplied( ) {
+    $('.tooltip-inner').css('display', 'none');
+
+    $( "#clients_list_dialog_filter" ).modal(  {
+        "backdrop": "static",
+        "keyboard": true,
+        "show": true
+    }  );
+    $("#filter_client_name").val( jQuery.trim($("#hidden_filter_client_name").val()) )
+    $("#filter_client_type").val( jQuery.trim($("#hidden_filter_client_type").val()) )
+    $("#filter_client_active_status").val( jQuery.trim($("#hidden_filter_client_active_status").val()) )
+    $("#filter_client_zip").val( jQuery.trim($("#hidden_filter_client_zip").val()) )
+
+    $("#filter_created_at_from").css("display", "block")
+    $("#filter_created_at_till").css("display", "block")
+
+    $("#filter_created_at_from").val($("#hidden_filter_created_at_from_formatted").val())
+    $("#filter_created_at_till").val($("#hidden_filter_created_at_till_formatted").val())
+
+
+    $('#filter_created_at_from').pickadate( { // http://amsul.ca/pickadate.js/date/  lib is used, which is very good in different devices
+        formatSubmit: 'yyyy-mm-dd',
+        format: 'd mmmm, yyyy',
+        hiddenName: true,
+    })
+    $('#filter_created_at_till').pickadate( {
+        formatSubmit: 'yyyy-mm-dd',
+        format: 'd mmmm, yyyy',
+        hiddenName: true
+    })
+}
+
+
+/**********************
+ * In filters popup dialog clicking on "submit " button entered values are written into "hidden_" hidden inputs of form and the form is submitted reropened with filters applied
+ * access public
+ * return none
+ *********************************/
 function clientsListMakeFilterDialogSubmit() {
     $("#hidden_filter_client_name").val( jQuery.trim($("#filter_client_name").val()) )
-    $("#hidden_filter_client_is_active").val( $("#filter_client_is_active").val() )
+    $("#hidden_filter_client_active_status").val( $("#filter_client_active_status").val() )
     $("#hidden_filter_client_type").val( jQuery.trim($("#filter_client_type").val()) )
     $("#hidden_filter_client_zip").val( jQuery.trim($("#filter_client_zip").val()) )
 
@@ -166,62 +190,14 @@ function clientsListMakeFilterDialogSubmit() {
     theForm.submit();
 }
 
-function clientsListFilterApplied( ) {
-    $('.tooltip-inner').css('display', 'none');
-
-    $( "#clients_list_dialog_filter" ).modal(  {
-        "backdrop": "static",
-        "keyboard": true,
-        "show": true
-    }  );
-    // $('#clients_list_dialog_filter').on('hidden.bs.modal', function () {
-    //     $(".datepicker").css('display', 'none');
-    //     $(".datepicker-days").css('display', 'none');
-    // })
-    $("#filter_client_name").val( jQuery.trim($("#hidden_filter_client_name").val()) )
-    $("#filter_client_type").val( jQuery.trim($("#hidden_filter_client_type").val()) )
-    $("#filter_client_is_active").val( jQuery.trim($("#hidden_filter_client_is_active").val()) )
-    $("#filter_client_zip").val( jQuery.trim($("#hidden_filter_client_zip").val()) )
-
-    $("#filter_created_at_from").css("display", "block")
-    $("#filter_created_at_till").css("display", "block")
-
-    $("#filter_created_at_from").val($("#hidden_filter_created_at_from_formatted").val())
-    $("#filter_created_at_till").val($("#hidden_filter_created_at_till_formatted").val())
 
 
-    $('#filter_created_at_from').pickadate( {
-        formatSubmit: 'yyyy-mm-dd',
-        format: 'd mmmm, yyyy',
-        hiddenName: true,
-    })       // http://amsul.ca/pickadate.js/date/
-    $('#filter_created_at_till').pickadate( {
-        formatSubmit: 'yyyy-mm-dd',
-        format: 'd mmmm, yyyy',
-        hiddenName: true
-    })
-}
-
-
-function deleteClient( base_url, id, client_name, PageParametersWithSort ) {
-
-    $.confirm({
-        icon: 'glyphicon glyphicon-signal',
-        title: 'Confirm!',
-        content: "Do you want to delete '" + client_name + "' client with all related data ?",
-        confirmButton: 'YES',
-        cancelButton: 'Cancel',
-        confirmButtonClass: 'btn-info',
-        cancelButtonClass: 'btn-danger',
-        keyboardEnabled: true,
-        confirm: function(){
-            document.location = base_url+"admin/client/delete/" + id + PageParametersWithSort
-        }
-    });
-}
-
-
-
+/**********************
+ * Debugging function of different scalar/object value
+ * params : oElem - scalar/object value. When oElem is too big(say in alert function) number values for from_line and till_line could be given to show big value by parts
+ * access public
+ * return none
+ *********************************/
 function var_dump(oElem, from_line, till_line) {
     var sStr = '';
     if (typeof(oElem) == 'string' || typeof(oElem) == 'number')     {

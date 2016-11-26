@@ -71,7 +71,7 @@ class Sys_admin extends CI_Controller {
             $insert_data= array(   'client_name'=> 'client_name_'.$i, 'client_owner'=> 'client_owner_'.$i, 'client_address1'=>'client_address_'.$i,
                 'client_address2'=>'client_address2_'.$i, 'client_city'=>'client_city_'.$i,	'client_state'=> 'client_state_'.$i, 'client_zip'=> 'client_zip_'.$i,
 	            'client_phone'=> 'client_phone_'.$i, 'client_fax'=> 'client_fax_'.$i, 'client_email'=> 'client_email_'.$i, 'client_website'=> 'client_website_'.$i,
-	            'color_scheme'=> 'color_scheme_'.$i, 'client_notes'=> 'client_notes_'.$i, 'client_is_active'=> 1   );
+	            'color_scheme'=> 'color_scheme_'.$i, 'client_notes'=> 'client_notes_'.$i, 'client_active_status'=> 'A'   );
             if ( $this->db->insert('clients',$insert_data) ) {
                 $new_client_id= $this->db->insert_id();
                 $new_clients_groups_ret = $this->db->insert('clients_groups', array('client_group_id' => rand(1, 6), 'client_id' => $new_client_id));
@@ -103,7 +103,7 @@ class Sys_admin extends CI_Controller {
         $sort_direction = $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort_direction');
         $page_number = $this->common_lib->getParameter($this, $UriArray, $post_array, 'page_number', 1);
         $filter_client_name = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_name');
-        $filter_client_is_active = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_is_active');
+        $filter_client_active_status = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_active_status');
         $filter_client_type = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_type');
         $filter_client_zip = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_zip');
         $filter_created_at_from = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_created_at_from');
@@ -118,21 +118,22 @@ class Sys_admin extends CI_Controller {
         $pagination_config= $this->common_lib->getPaginationParams();
         $pagination_config['base_url'] = base_url() . 'sys-admin/clients-view';
 
-        $RowsInTable= $this->admin_mdl->getClientsList(true, '', array( 'show_client_type_description'=>'', 'client_name'=> $filter_client_name, 'client_is_active'=> $filter_client_is_active, 'client_type'=> $filter_client_type, 'client_zip'=> $filter_client_zip, 'created_at_from'=> $filter_created_at_from, 'created_at_till'=> $filter_created_at_till ), $sort, $sort_direction );  // get number of rows by given parameters
+        $RowsInTable= $this->admin_mdl->getClientsList(true, '', array( 'show_client_type_description'=>'', 'client_name'=> $filter_client_name, 'client_active_status'=> $filter_client_active_status, 'client_type'=> $filter_client_type, 'client_zip'=> $filter_client_zip, 'created_at_from'=> $filter_created_at_from, 'created_at_till'=> $filter_created_at_till ), $sort, $sort_direction );  // get number of rows by given parameters
         $pagination_config['total_rows'] = $RowsInTable;
         $this->pagination->initialize($pagination_config);  // pagination system initialization by parameters in config file
         $data['clients']= array();
         if ($RowsInTable > 0) { // number of rows by given parameters > 0 - get rows by given parameters for given $page_number.
-            $data['clients']= $this->admin_mdl->getClientsList(false, $page_number, array( 'show_client_type_description'=>1, 'client_name'=> $filter_client_name, 'client_is_active'=> $filter_client_is_active, 'client_type'=> $filter_client_type, 'client_zip'=> $filter_client_zip, 'created_at_from'=> $filter_created_at_from, 'created_at_till'=> $filter_created_at_till ), $sort, $sort_direction );
+            $data['clients']= $this->admin_mdl->getClientsList(false, $page_number, array( 'show_client_type_description'=>1, 'client_name'=> $filter_client_name, 'client_active_status'=> $filter_client_active_status, 'client_type'=> $filter_client_type, 'client_zip'=> $filter_client_zip, 'created_at_from'=> $filter_created_at_from, 'created_at_till'=> $filter_created_at_till ), $sort, $sort_direction );
         } // IMPORTANT : all filter parameters must be similar as in calling of getClientsList above
 
         $data['client_TypesSelectionList']= $this->admin_mdl->getClient_TypesSelectionList();
+        $data['client_ActiveStatusList']= $this->admin_mdl->getClientActiveStatusValueArray();
         $data['page']		= 'clients/clients-view';
         $data['page_number']		= $page_number;
         $data['RowsInTable']= $RowsInTable;
 
         $data['filter_client_name']= $filter_client_name;
-        $data['filter_client_is_active']= $filter_client_is_active;
+        $data['filter_client_active_status']= $filter_client_active_status;
         $data['filter_client_type']= $filter_client_type;
         $data['filter_client_zip']= $filter_client_zip;
         $data['filter_created_at_from']= $filter_created_at_from;
@@ -149,7 +150,8 @@ class Sys_admin extends CI_Controller {
         $clients_count_in_db= $this->admin_mdl->clients_count_in_db();
 
         // create label for current parameter so moving mouse over "Filter" button user can see current filters
-        $filters_label_array= array('name'=> $filter_client_name, 'is active'=> $this->common_lib->get_client_is_active_label($filter_client_is_active), 'client type'=> $this->common_lib->get_client_type_label($filter_client_type), 'zip'=> $filter_client_zip, 'created at from'=> $filter_created_at_from, 'created at till'=>$filter_created_at_till);
+        $filters_label_array= array('name'=> $filter_client_name, 'is active'=> $this->common_lib->get_client_active_status_label($filter_client_active_status), 'client type'=>
+            $this->common_lib->get_client_type_label($filter_client_type), 'zip'=> $filter_client_zip, 'created at from'=> $filter_created_at_from, 'created at till'=>$filter_created_at_till);
 
         $filters_label= $this->common_lib->get_filters_label( $filters_label_array, '<br>' );
         $data['clients_count_in_db']= !empty($clients_count_in_db[0]->clients_count) ? $clients_count_in_db[0]->clients_count : 0;
@@ -180,6 +182,7 @@ class Sys_admin extends CI_Controller {
 		$data['group'] 		= $this->group->name;
 
 		$data['client_types']=   object_to_array($this->common_mdl->get_records('clients_types'),'type_id', 'activity_time', 'DESC');
+		$data['client_active_status']= $this->admin_mdl->getClientActiveStatusValueArray(false);
 		$data['page']		= 'clients/clients-add'; //page view to load
 		$data['plugins'] 	= array('validation'); //page plugins
 	  	$data['javascript'] = array( 'assets/custom/admin/client-add-validation.js');//page javascript
@@ -211,7 +214,11 @@ class Sys_admin extends CI_Controller {
 
 		$data['client']		= $this->common_mdl->get_client($this->uri->segment(3), TRUE);
 		$data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
+        $data['client_active_status']= $this->admin_mdl->getClientActiveStatusValueArray(false);
 
+//        echo '<pre>$data[\'client_types\']::'.print_r($data['client_types'],true).'</pre>';
+//        echo '<pre>$data[\'client_active_status\']::'.print_r($data['client_active_status'],true).'</pre>';
+//        die("-1 XXZ");
         $PageParametersWithSort = $this->clientsPreparePageParameters($UriArray, $post_array, false, true);
         $PageParametersWithoutSort = $this->clientsPreparePageParameters($UriArray, $post_array, false, false);
         $data['PageParametersWithSort']= $PageParametersWithSort;
@@ -242,8 +249,8 @@ class Sys_admin extends CI_Controller {
             }
             $filter_client_name = $this->input->post('filter_client_name');
             $ResStr .= !empty($filter_client_name) ? 'filter_client_name/' . $filter_client_name . '/' : '';
-            $filter_client_is_active = $this->input->post('filter_client_is_active');
-            $ResStr .= !empty($filter_client_is_active) ? 'filter_client_is_active/' . $filter_client_is_active . '/' : '';
+            $filter_client_active_status = $this->input->post('filter_client_active_status');
+            $ResStr .= !empty($filter_client_active_status) ? 'filter_client_active_status/' . $filter_client_active_status . '/' : '';
             $filter_client_type = $this->input->post('filter_client_type');
             $ResStr .= !empty($filter_client_type) ? 'filter_client_type/' . $filter_client_type . '/' : '';
             $filter_client_zip = $this->input->post('filter_client_zip');
@@ -263,7 +270,7 @@ class Sys_admin extends CI_Controller {
                 $ResStr .= !empty($UriArray['page_number']) ? 'page_number/' . $UriArray['page_number'] . '/' : 'page_number/1/';
             }
             $ResStr .= !empty($UriArray['filter_client_name']) ? 'filter_client_name/' . $UriArray['filter_client_name'] . '/' : '';
-            $ResStr .= !empty($UriArray['filter_client_is_active']) ? 'filter_client_is_active/' . $UriArray['filter_client_is_active'] . '/' : '';
+            $ResStr .= !empty($UriArray['filter_client_active_status']) ? 'filter_client_active_status/' . $UriArray['filter_client_active_status'] . '/' : '';
             $ResStr .= !empty($UriArray['filter_client_type']) ? 'filter_client_type/' . $UriArray['filter_client_type'] . '/' : '';
             $ResStr .= !empty($UriArray['filter_client_zip']) ? 'filter_client_zip/' . $UriArray['filter_client_zip'] . '/' : '';
             $ResStr .= !empty($UriArray['filter_created_at_from']) ? 'filter_created_at_from/' . $UriArray['filter_created_at_from'] . '/' : '';

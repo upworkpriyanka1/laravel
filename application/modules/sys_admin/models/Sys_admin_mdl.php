@@ -7,6 +7,8 @@ class Sys_admin_mdl extends CI_Model {
     private $m_clients_table;
     private $m_clients_groups_table;
     private $m_clients_types_table;
+    private $ClientActiveStatusLabelValueArray = Array('A' => 'Active', 'I' => 'Inactive', 'N' => 'New');
+
     function __construct()
     {
         parent::__construct();
@@ -14,7 +16,32 @@ class Sys_admin_mdl extends CI_Model {
         $this->m_clients_types_table= 'clients_types';
         $this->m_clients_groups_table= 'clients_groups';
     }
-/**********************
+
+
+    public function getClientActiveStatusValueArray($ret_with_subarray= true)
+    {
+        $ResArray = array();
+        foreach ($this->ClientActiveStatusLabelValueArray as $Key => $Value) {
+            if ( $ret_with_subarray ) {
+                $ResArray[] = array('key' => $Key, 'value' => $Value);
+            }else {
+                $ResArray[$Key]= $Value;
+
+            }
+        }
+        return $ResArray;
+    }
+
+    public function getClientActiveStatusLabel($Type)
+    {
+        if (!empty($this->ClientActiveStatusLabelValueArray[$Type])) {
+            return $this->ClientActiveStatusLabelValueArray[$Type];
+        }
+        return '';
+    }
+
+
+    /**********************
 * Get all clients
 * First row is admin client
 * access public
@@ -36,7 +63,7 @@ class Sys_admin_mdl extends CI_Model {
      * Get clients list/rows count depending of filters parameters
      * access public
      * @ params : $OutputFormatCount = TRUE- returns number of rows, FALSE- returns array of client objects; $page - page number($OutputFormatCount must be = FALSE)
-     * $filters : assoc keys of fieldname=>fieldvalue, if field value is not empty filter is set by this value for client_is_active, client_zip, client_type and between
+     * $filters : assoc keys of fieldname=>fieldvalue, if field value is not empty filter is set by this value for client_active_status, client_zip, client_type and between
      * created_at_from and created_at_till
      * filters work independently on $OutputFormatCount returning list(FALSE) or rows count(TRUE).
      * Sense of using $OutputFormatCount with $filters is to have common function with same filter parameters
@@ -47,6 +74,7 @@ class Sys_admin_mdl extends CI_Model {
     {
         if (empty($sort))
             $sort = 'client_name';
+//        echo '<pre>$filters::'.print_r($filters,true).'</pre>';
         $config_data = $this->config->config;
         $ci = & get_instance();
         $items_per_page= $ci->common_lib->getSettings('items_per_page');
@@ -67,8 +95,8 @@ class Sys_admin_mdl extends CI_Model {
         if (!empty($filters['client_name'])) {
             $this->db->like( $this->m_clients_table . '.client_name', $filters['client_name'] );
         }
-        if (!empty($filters['client_is_active']) or strlen($filters['client_is_active']) > 0) {
-            $this->db->where($this->m_clients_table.'.client_is_active = ' . "'" . $filters['client_is_active'] . "'");
+        if (!empty($filters['client_active_status']) or strlen($filters['client_active_status']) > 0) {
+            $this->db->where($this->m_clients_table.'.client_active_status = ' . "'" . $filters['client_active_status'] . "'");
         }
         if (!empty($filters['client_zip'])) {
             $this->db->where($this->m_clients_table.'.client_zip = ' . "'" . $filters['client_zip'] . "'");
@@ -123,6 +151,43 @@ class Sys_admin_mdl extends CI_Model {
         }
     }
 
+    public function checkIsClient_NameUnique($client_name, $client_id='')
+    {
+        $config_data = $this->config->config;
+        $this->db->like('client_name', $client_name);
+        if (!empty($client_id)) {
+            $this->db->where('cid != ' . $client_id);
+        }
+        $checkCount= $this->db->count_all_results($this->m_clients_table);
+//        AppUtils::DebToFile(' checkIsclient_nameUnique $checkCount::' . print_r($checkCount, true), false);
+        return $checkCount==0;
+    }
+
+    public function checkIsEmailUnique($client_email, $client_id='')
+    {
+        $config_data = $this->config->config;
+        $this->db->like('client_email', $client_email);
+        if (!empty($client_id)) {
+            $this->db->where('cid != ' . $client_id);
+        }
+        $checkCount= $this->db->count_all_results($this->m_clients_table);
+//        AppUtils::DebToFile(' checkIsemailUnique $checkCount::' . print_r($checkCount, true), false);
+        return $checkCount==0;
+    }
+
+
+    public function getRowById( $id )
+    {
+        $this->db->where( $this->m_clients_table . '.cid', $id);
+        $query = $this->db->from($this->m_clients_table);
+        $ci = & get_instance();
+        $resultRows = $query->get()->result();
+        if ( !empty($resultRows[0]) ) {
+            return $resultRows[0];
+        }
+        return false;
+    }
+
 /**********************
 * Get client types
 * First row is admin
@@ -139,7 +204,7 @@ class Sys_admin_mdl extends CI_Model {
     /**********************
      * Get client types in assoc array as key->value
      * access public
-     * $filters : assoc keys of fieldname => fieldvalue, if field value is not empty filter is set by this value for client_is_active, client_zip, client_type and between created_at_from and created_at_till
+     * $filters : assoc keys of fieldname => fieldvalue, if field value is not empty filter is set by this value for client_active_status, client_zip, client_type and between created_at_from and created_at_till
      * Does not depend on $OutputFormatCount
      * $sort_direction - current sort direction(asc/desc) and $sort - current sort
      * return query array  in assoc array as key->value

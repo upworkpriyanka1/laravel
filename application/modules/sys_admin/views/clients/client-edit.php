@@ -42,7 +42,21 @@
             </div> <!-- ./form-group -->
         </div><!-- ./col -->
     </div> <!-- ./row -->
-            
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-4"><?php echo lang('client_active_status') ?>
+                    <span class="required"> * </span>
+                </label>
+                <div class="col-md-7">
+                    <?php echo MyCustom_menu($client_active_status,'data[client_active_status]','form-control',$client->client_active_status," -Client Active Status- ",'id ="client_active_status"'); ?>
+                </div>
+            </div>
+        </div> <!-- ./row -->
+    </div>
+
+
     <div class="row">
     <!-- client Addrtess 1 -->
         <div class="col-md-6">
@@ -152,17 +166,15 @@
                 <label class="control-label col-md-4"><?php echo lang('clients-type') ?>
                     <span class="required"> * </span>
                 </label>
-            <div class="col-md-7">
-                <?php 
-        
-                echo MyCustom_menu($client_types,'data[clients_types_id]','form-control',$client->type_id," -Client Type- ",'id ="clients_types_id"'); ?>
+                <div class="col-md-7">
+                 <?php echo MyCustom_menu($client_types,'data[clients_types_id]','form-control',$client->type_id," -Client Type- ",'id ="clients_types_id"'); ?>
+                </div>
             </div>
-        </div>    </div>
+        </div>
     <!-- notes -->
         <div class="col-md-6">
             <div class="form-group">
                 <label class="control-label col-md-4"><?php echo lang('notes') ?>
-
                 </label>
                 <div class="col-md-7">
                     <textarea name="data[client_notes]"  class="form-control" /> <?= $client->client_notes;?></textarea>
@@ -180,7 +192,7 @@
                 <label class="control-label col-md-4"><?php echo lang('created_at') ?>
                 </label>
                 <div class="col-md-7">
-                    <input type="text" value="<?= strftime( $ci->common_lib->getSettings('date_time_as_text_format'), strtotime( $client->created_at ) )?>" class="form-control" disabled />
+                    <input type="text" value="<?= $ci->common_lib->format_datetime( $client->created_at )?>" class="form-control" disabled />
                 </div><!-- ./col -->
             </div><!-- ./form-group -->
         </div><!-- ./col -->
@@ -191,7 +203,7 @@
                 <label class="control-label col-md-4"><?php echo lang('updated_at') ?>
                 </label>
                 <div class="col-md-7">
-                    <input type="text" value="<?= strftime( $ci->common_lib->getSettings('date_time_as_text_format'), strtotime( $client->updated_at ) )?>" class="form-control" disabled />
+                    <input type="text" value="<?= $ci->common_lib->format_datetime( $client->updated_at ) ?>" class="form-control" disabled />
                 </div><!-- ./col -->
             </div><!-- ./form-group -->
         </div><!-- ./col -->

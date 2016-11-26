@@ -30,7 +30,7 @@ div.dataTables_paginate > ul > li.next > a, div.dataTables_paginate > ul > li.pr
 
 
 
-/* PAGINATIONS BLOCK END */
+/* PAGINATIONS BLOCK START */
 div.table_pagination strong {
     display: table-cell;
     vertical-align: middle;
@@ -76,6 +76,7 @@ div.table_pagination a {
 
 /* PAGINATIONS BLOCK END */
 
+/* BUTTONS BLOCK START */
 .btn-group {
     padding: 0;
     margin-bottom:  0.5em;
@@ -92,6 +93,7 @@ div.table_pagination a {
     border: 0px solid maroon;  /* DEBUGGING */
     font-size: medium;
 }
+/* BUTTONS BLOCK END */
 
 /* Modal Dialogs BLOCK Start */
 .modal-content {

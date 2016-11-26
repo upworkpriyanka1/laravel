@@ -40,7 +40,7 @@ if (!function_exists('MyCustom_menu')){
 	    $selected = ($default == $key) ? ' selected="selected"' : '';
             $menu .= '<option value="'.$key.'"'.$selected.'>'.$val."</option>\n";
 	}
-    return $menu.'</select>';
+    return $menu.' </select>';
     }  
 }
 
