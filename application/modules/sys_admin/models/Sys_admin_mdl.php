@@ -209,7 +209,8 @@ class Sys_admin_mdl extends CI_Model {
      * $sort_direction - current sort direction(asc/desc) and $sort - current sort
      * return query array  in assoc array as key->value
      *********************************/
-    public function getClient_TypesSelectionList( $filters = array(), $sort = 'type_name',  $sort_direction = 'asc') : array
+    //public function getClient_TypesSelectionList( $filters = array(), $sort = 'type_name',  $sort_direction = 'asc') : array
+    public function getClient_TypesSelectionList( $filters = array(), $sort = 'type_name',  $sort_direction = 'asc')
     {
         $ci = & get_instance();
         $client_typesList = $ci->admin_mdl->getClient_TypesList(false, 0, $filters, $sort, $sort_direction);
