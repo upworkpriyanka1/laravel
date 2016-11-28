@@ -39,7 +39,22 @@
             </div> <!-- ./form-group -->
         </div><!-- ./col -->
     </div> <!-- ./row -->
-            
+
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-4"><?php echo lang('client_active_status') ?>
+                    <span class="required"> * </span>
+                </label>
+                <div class="col-md-7">
+                    <?php echo MyCustom_menu($client_active_status,'data[client_active_status]','form-control',FALSE," -Client Active Status- ",'id ="client_active_status"'); ?>
+                </div>
+            </div>
+        </div> <!-- ./row -->
+    </div>
+
+
     <div class="row">
     <!-- client Addrtess 1 -->
         <div class="col-md-6">
@@ -64,8 +79,7 @@
         </div><!-- ./col -->
     </div> <!-- ./row -->
     
-    
-    
+
     <div class="row">
     <!-- client city/state/zip -->
         <div class="col-md-12">
@@ -86,8 +100,7 @@
         </div><!-- ./col -->
     <!-- client state -->
 
-    </div> <!-- ./row -->
-                    
+
     
     
     <div class="row">
@@ -149,12 +162,11 @@
                 <label class="control-label col-md-4"><?php echo lang('clients-type') ?>
                     <span class="required"> * </span>
                 </label>
-            <div class="col-md-7">
-                <?php 
-        
-                echo MyCustom_menu($client_types,'client_type[]','form-control',FALSE,FALSE,'id ="planner_type"'); ?>  
+                <div class="col-md-7">
+                    <?php echo MyCustom_menu($client_types,'data[clients_types_id]','form-control',FALSE," -Client Type- ",'id ="clients_types_id"'); ?>
+                </div>
             </div>
-        </div>    </div>
+        </div>
     <!-- notes -->
         <div class="col-md-6">
             <div class="form-group">

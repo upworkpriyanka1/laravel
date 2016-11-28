@@ -34,9 +34,16 @@ class Sys_admin_lib {
                 }
             endif;
         }else{
+            $ci = &get_instance();
+            $_POST['data']['updated_at']= strftime( $ci->common_lib->getSettings('date_time_mysql_format') ); // fill date fields with current time
+            $_POST['data']['created_at']= strftime( $ci->common_lib->getSettings('date_time_mysql_format') );
             $id=$this->CI->common_mdl->db_insert('clients',$_POST['data'], FALSE); //isert clients
-            $cid=$this->CI->admin_mdl->insert_client_types($id);//isert client types
-            echo $cid;
+//            $cid=$this->CI->admin_mdl->insert_client_types($id);//isert client types
+            echo $id;
+            $this->CI->db->trans_complete();
+            return true;
+//            redirect('./sys-admin/clients-edit/'.$id);
+            // http://local-zntral.com/sys-admin/clients-edit/9
         }
     }
 
@@ -69,8 +76,9 @@ class Sys_admin_lib {
             endif;
         }else{
             $this->CI->db->trans_start();
+            $ci = &get_instance();
+            $_POST['data']['updated_at']= strftime( $ci->common_lib->getSettings('date_time_mysql_format') ); // fill date fields with current time
             $this->CI->common_mdl->db_update('clients',$_POST['data'], 'cid', $this->CI->uri->segment(3));
-            $this->CI->common_mdl->db_update('clients_groups',$_POST['client_type'], 'client_id', $this->CI->uri->segment(3));
             $this->CI->db->trans_complete();
             return true;
         }

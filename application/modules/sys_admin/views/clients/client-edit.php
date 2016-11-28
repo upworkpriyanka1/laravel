@@ -1,3 +1,4 @@
+<?php $ci = &get_instance(); ?>
 <?php if (isset($client) && count($client)>0){
     ?>
 <div class="row">
@@ -7,7 +8,7 @@
             <div class="portlet light portlet-fit portlet-form bordered">
                <div class="portlet-body">
                    <!-- BEGIN FORM-->
-                   <form action="<?php echo current_url();?>/update" method="post" id="client-add" class="form-horizontal">
+                   <form action="<?php echo current_url() ;?>/update/<?= $PageParametersWithSort ?>" method="post" id="client-add" class="form-horizontal">
                        <div class="form-body">
                            <div class="alert alert-danger display-hide">
                                <button class="close" data-close="alert"></button> <?= lang('form_error');?> 
@@ -41,7 +42,21 @@
             </div> <!-- ./form-group -->
         </div><!-- ./col -->
     </div> <!-- ./row -->
-            
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-4"><?php echo lang('client_active_status') ?>
+                    <span class="required"> * </span>
+                </label>
+                <div class="col-md-7">
+                    <?php echo MyCustom_menu($client_active_status,'data[client_active_status]','form-control',$client->client_active_status," -Client Active Status- ",'id ="client_active_status"'); ?>
+                </div>
+            </div>
+        </div> <!-- ./row -->
+    </div>
+
+
     <div class="row">
     <!-- client Addrtess 1 -->
         <div class="col-md-6">
@@ -151,25 +166,50 @@
                 <label class="control-label col-md-4"><?php echo lang('clients-type') ?>
                     <span class="required"> * </span>
                 </label>
-            <div class="col-md-7">
-                <?php 
-        
-                echo MyCustom_menu($client_types,'client_type[client_group_id]','form-control',$client->type_id,FALSE,'id ="planner_type"'); ?>  
+                <div class="col-md-7">
+                 <?php echo MyCustom_menu($client_types,'data[clients_types_id]','form-control',$client->type_id," -Client Type- ",'id ="clients_types_id"'); ?>
+                </div>
             </div>
-        </div>    </div>
+        </div>
     <!-- notes -->
         <div class="col-md-6">
             <div class="form-group">
                 <label class="control-label col-md-4"><?php echo lang('notes') ?>
-
                 </label>
                 <div class="col-md-7">
                     <textarea name="data[client_notes]"  class="form-control" /> <?= $client->client_notes;?></textarea>
                 </div><!-- ./col -->
             </div><!-- ./form-group -->
         </div><!-- ./col -->
-    </div> <!-- ./row -->        
-            
+    </div> <!-- ./row -->
+
+
+
+     <div class="row">
+    <!-- client email -->
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-4"><?php echo lang('created_at') ?>
+                </label>
+                <div class="col-md-7">
+                    <input type="text" value="<?= $ci->common_lib->format_datetime( $client->created_at )?>" class="form-control" disabled />
+                </div><!-- ./col -->
+            </div><!-- ./form-group -->
+        </div><!-- ./col -->
+
+    <!-- client url -->
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label col-md-4"><?php echo lang('updated_at') ?>
+                </label>
+                <div class="col-md-7">
+                    <input type="text" value="<?= $ci->common_lib->format_datetime( $client->updated_at ) ?>" class="form-control" disabled />
+                </div><!-- ./col -->
+            </div><!-- ./form-group -->
+        </div><!-- ./col -->
+    </div> <!-- ./row -->
+
+
     <div class="row">
         <div class="col-md-6">  
             <div class="form-actions">

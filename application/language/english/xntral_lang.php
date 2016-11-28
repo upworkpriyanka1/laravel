@@ -37,6 +37,8 @@ $lang['action']                 = "Action";
 $lang['date-time']              = "Date &amp Time";
 $lang['url']                    = "URL";
 $lang['edit']                   = "Edit";
+$lang['created_at']             = "Created At";
+$lang['updated_at']             = "Updated At";
 
 //clients section
 $lang['clients']                = "Clients";
@@ -47,6 +49,7 @@ $lang['clients-type']           = "Client Types";
 $lang['client_type_help']       = "select min 1 option (Ctrl+Click)";
 $lang['client_name']            = "Client Name";
 $lang['client_owner']           = "Client Owner";
+$lang['client_active_status']   = "Client Active Status";
 
 $lang['company']                = "Company";
 $lang['my-company']             = $lang['profile-company'] = "My Company";

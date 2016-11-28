@@ -93,12 +93,30 @@ class Common_mdl extends CI_Model {
 * join multiple tables
 * return array row
 ******************************/
+    public function get_client_type($id){
+        $this->db->select('*');
+        $this->db->from('clients_types');
+//        $this->db->join('clients_groups', 'clients_groups.client_id = clients.cid');
+        $this->db->where('clients_types.type_id', $id); //if not admin, only their ID
+        $query = $this->db->get();
+        return $query->row();
+    }
+
+/*********************************
+* Get Client info for user
+* Access public
+* @params user_id
+* join multiple tables
+* return array row
+******************************/
     public function get_client($id=false,$admin=false){
         if (!$admin){$id=$this->session->userdata('user_id');}
         $this->db->select('*');
         $this->db->from('clients');
-        $this->db->join('clients_groups', 'clients_groups.client_id = clients.cid');
-        $this->db->join('clients_types', 'clients_types.type_id = clients_groups.client_group_id');
+//        $this->db->join('clients_groups', 'clients_groups.client_id = clients.cid');
+        $this->db->join('clients_types', 'clients_types.type_id = clients.clients_types_id');
+//        $this->db->join('clients_groups', 'clients_groups.client_id = clients.cid');
+//        $this->db->join('clients_types', 'clients_types.type_id = clients_groups.client_group_id');
         $this->db->where('clients.cid', $id); //if not admin, only their ID
         $query = $this->db->get();
         return $query->row();
