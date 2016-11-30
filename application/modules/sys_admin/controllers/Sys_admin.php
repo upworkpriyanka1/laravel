@@ -116,7 +116,8 @@ class Sys_admin extends CI_Controller {
 
         $this->load->library('pagination');
         $pagination_config= $this->common_lib->getPaginationParams();
-        $pagination_config['base_url'] = base_url() . 'sys-admin/clients-view';
+//        $pagination_config['base_url'] = base_url() . 'sys-admin/clients-view';
+        $pagination_config['base_url'] = base_url() . 'sys-admin/clients-view' . $PageParametersWithSort . '/page_number';
 
         $RowsInTable= $this->admin_mdl->getClientsList(true, '', array( 'show_client_type_description'=>'', 'client_name'=> $filter_client_name, 'client_active_status'=> $filter_client_active_status, 'client_type'=> $filter_client_type, 'client_zip'=> $filter_client_zip, 'created_at_from'=> $filter_created_at_from, 'created_at_till'=> $filter_created_at_till ), $sort, $sort_direction );  // get number of rows by given parameters
         $pagination_config['total_rows'] = $RowsInTable;
