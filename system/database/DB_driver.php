@@ -706,6 +706,16 @@ abstract class CI_DB_driver {
 		// Increment the query counter
 		$this->query_count++;
 
+        $CIObj =& get_instance(); // nsn
+        if ( !empty( $CIObj->config->config['sql_queries_to_file'] ) )  {
+            $sql_queries_to_file= $CIObj->config->config['sql_queries_to_file'] . strftime(  '%Y-%m-%d'  ) . '.txt';
+            $fd = fopen( $sql_queries_to_file, "a"  );
+            $time = '';//number_format( ($em + $es) - ($sm + $ss) , 4 );
+            fwrite( $fd, 'Now : '.strftime('%Y-%m-%d %H:%M:%S').'.  Time '.$time . ' :'."\n" );
+            fwrite( $fd, $sql."\n\n\n" );
+            fclose( $fd );
+        }
+
 		// Will we have a result object instantiated? If not - we'll simply return TRUE
 		if ($return_object !== TRUE)
 		{
@@ -898,6 +908,18 @@ abstract class CI_DB_driver {
 	 */
 	public function trans_begin($test_mode = FALSE)
 	{
+
+        $CIObj =& get_instance(); // nsn
+        if ( !empty( $CIObj->config->config['sql_queries_to_file'] ) )  {
+            $sql_queries_to_file= $CIObj->config->config['sql_queries_to_file'] . strftime(  '%Y-%m-%d'  ) . '.txt';
+//            echo '<pre>trans_begin $sql_queries_to_file::'.print_r($sql_queries_to_file,true).'</pre>';
+            $fd = fopen( $sql_queries_to_file, "a"  );
+            $time = '';//number_format( ($em + $es) - ($sm + $ss) , 4 );
+            fwrite( $fd, 'Now : '.strftime('%Y-%m-%d %H:%M:%S').'.  Time '.$time . ' :'."\n" );
+            fwrite( $fd, "TRANS BEGIN"."\n\n\n" );
+            fclose( $fd );
+        }
+
 		if ( ! $this->trans_enabled)
 		{
 			return FALSE;
@@ -932,6 +954,17 @@ abstract class CI_DB_driver {
 	 */
 	public function trans_commit()
 	{
+
+        $CIObj =& get_instance(); // nsn
+        if ( !empty( $CIObj->config->config['sql_queries_to_file'] ) )  {
+            $sql_queries_to_file= $CIObj->config->config['sql_queries_to_file'] . strftime(  '%Y-%m-%d'  ) . '.txt';
+            $fd = fopen( $sql_queries_to_file, "a"  );
+            $time = '';//number_format( ($em + $es) - ($sm + $ss) , 4 );
+            fwrite( $fd, 'Now : '.strftime('%Y-%m-%d %H:%M:%S').'.  Time '.$time . ' :'."\n" );
+            fwrite( $fd, "COMMIT"."\n\n\n" );
+            fclose( $fd );
+        }
+
 		if ( ! $this->trans_enabled OR $this->_trans_depth === 0)
 		{
 			return FALSE;
@@ -955,6 +988,17 @@ abstract class CI_DB_driver {
 	 */
 	public function trans_rollback()
 	{
+
+        $CIObj =& get_instance(); // nsn
+        if ( !empty( $CIObj->config->config['sql_queries_to_file'] ) )  {
+            $sql_queries_to_file= $CIObj->config->config['sql_queries_to_file'] . strftime(  '%Y-%m-%d'  ) . '.txt';
+            $fd = fopen( $sql_queries_to_file, "a"  );
+            $time = '';//number_format( ($em + $es) - ($sm + $ss) , 4 );
+            fwrite( $fd, 'Now : '.strftime('%Y-%m-%d %H:%M:%S').'.  Time '.$time . ' :'."\n" );
+            fwrite( $fd, "ROLLBACK"."\n\n\n" );
+            fclose( $fd );
+        }
+
 		if ( ! $this->trans_enabled OR $this->_trans_depth === 0)
 		{
 			return FALSE;
@@ -1779,6 +1823,19 @@ abstract class CI_DB_driver {
 
 		$error =& load_class('Exceptions', 'core');
 		echo $error->show_error($heading, $message, 'error_db');
+
+        $CIObj =& get_instance(); // nsn
+        if ( !empty( $CIObj->config->config['sql_queries_to_file'] ) )  {
+            $sql_queries_to_file= $CIObj->config->config['sql_queries_to_file'] . strftime(  '%Y-%m-%d'  ) . '.txt';
+            $fd = fopen( $sql_queries_to_file, "a"  );
+            fwrite( $fd, "================ ERROR BEGIN ================= \nNow : ".strftime('%Y-%m-%d %H:%M:%S') . ' :'."\n" );
+            foreach( $message as $next_line ) {
+                fwrite( $fd, $next_line."\n" );
+            }
+            fwrite( $fd, "================ ERROR END ===================\n\n\n" );
+            fclose( $fd );
+        }
+
 		exit(8); // EXIT_DATABASE
 	}
 

@@ -28,7 +28,7 @@ class Api_testing extends CI_Controller {
     }
 
     public function client_post(){
-        $service_url = 'http://local-zntral.com/sys-admin/api/clients/clients';
+        $service_url = base_url() . 'sys-admin/api/clients/clients';
         $curl = curl_init($service_url);
         $curl_post_data = array(
             'client_name' => 'client name ',

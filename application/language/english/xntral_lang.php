@@ -50,6 +50,7 @@ $lang['client_type_help']       = "select min 1 option (Ctrl+Click)";
 $lang['client_name']            = "Client Name";
 $lang['client_owner']           = "Client Owner";
 $lang['client_active_status']   = "Client Active Status";
+//$lang['clients_edit_load_related_users']   = "Related Users";
 
 $lang['company']                = "Company";
 $lang['my-company']             = $lang['profile-company'] = "My Company";
@@ -70,6 +71,8 @@ $lang['first_name']             = "First Name";
 $lang['last_name']              = "Last Name";
 $lang['mobile']                 = "Mobile";
 $lang['users-edit']             = "Edit User";
+$lang['user_active_status']     = "User's Status";
+$lang['uc_active_status']       = "Relation Status";
 $lang['min-5-chars']            = "Minimum 5 characters";
 $lang['password']               = "Password";
 $lang['blank-no-change']        = "Blank if not to be changed";
@@ -85,6 +88,7 @@ $lang['website_help']           = "http://www.demo.com or http://demo.com ";
 $lang['notes']                  = "Notes";
 $lang['select']                 = "Select";
 $lang['submit']                 = "Submit";
+$lang['Filter']                 = "Filter";
 /*TITLES*/
 $lang['t-sys-admin']            = "SYS Admin";
 $lang['t-np']                   = "NP";

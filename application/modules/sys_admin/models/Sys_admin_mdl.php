@@ -4,6 +4,9 @@
  *
  * ****************************/
 class Sys_admin_mdl extends CI_Model {
+    private $m_users_clients_table;
+
+    private $m_users_table;
     private $m_clients_table;
     private $m_clients_groups_table;
     private $m_clients_types_table;
@@ -14,6 +17,8 @@ class Sys_admin_mdl extends CI_Model {
     function __construct()
     {
         parent::__construct();
+        $this->m_users_clients_table= 'users_clients';
+        $this->m_users_table= 'users';
         $this->m_clients_table= 'clients';
         $this->m_clients_types_table= 'clients_types';
         $this->m_clients_groups_table= 'clients_groups';
@@ -101,10 +106,8 @@ class Sys_admin_mdl extends CI_Model {
      *********************************/
     public function getUsersList($OutputFormatCount = false, $page = 0, $filters = array(), $sort = '', $sort_direction = '')
     {
-//        echo '<pre>$filters::'.print_r($filters,true).'</pre>';
         if (empty($sort))
             $sort = 'username';
-//        echo '<pre>$filters::'.print_r($filters,true).'</pre>';
         $config_data = $this->config->config;
         $ci = & get_instance();
         $items_per_page= $ci->common_lib->getSettings('items_per_page');
@@ -140,9 +143,10 @@ class Sys_admin_mdl extends CI_Model {
         }
         if (!empty($filters['client_id'])) {
             if ( !$are_clients_joined ) {
-                $this->db->join($this->m_users_clients_table, $this->m_users_clients_table . '.uc_user_id = ' . $this->m_users_table . '.id', 'left');
+                $this->db->join($this->m_users_clients_table, $this->m_users_clients_table . '.uc_user_id = ' . $this->m_users_table . '.id' . ' AND ' .
+                    $this->m_users_clients_table.'.uc_client_id = ' . "'" . $filters['client_id'] . "'", 'left');
             }
-            $this->db->where($this->m_users_clients_table.'.uc_client_id = ' . "'" . $filters['client_id'] . "'");
+//            $this->db->where($this->m_users_clients_table.'.uc_client_id = ' . "'" . $filters['client_id'] . "'");
 //                $additive_fields_for_select.= ', '.$this->m_users_clients_table.".uc_active_status as uc_is_active";
             $are_clients_joined= true;
         }
@@ -171,14 +175,6 @@ class Sys_admin_mdl extends CI_Model {
             $this->db->where($this->m_users_table.'.created_at <= ' . "'" . $filters['created_at_till'] . " 23:59:59'");
         }
 
-//        if ( !empty($filters['show_user_type_description']) ) {
-//            $additive_fields_for_select .= ", type_description as type_description ";
-//            if ( !$is_user_type_joined ) {
-//                $is_user_type_joined= true;
-//                $this->db->join($this->m_users_types_table, $this->m_users_types_table . '.type_id = ' . $this->m_users_table . '.users_types_id', 'left');
-//            }
-//        }
-
         if ( ( !empty($limit) and $ci->common_lib->is_positive_integer($limit) ) and ( !empty($offset) and $ci->common_lib->is_positive_integer($offset) ) ) {
             $this->db->limit($limit, $offset);
         }
@@ -193,8 +189,6 @@ class Sys_admin_mdl extends CI_Model {
             $this->db->order_by($sort, ((strtolower($sort_direction) == 'desc' or strtolower($sort_direction) == 'asc') ? $sort_direction : ''));
         }
 
-
-//        echo '<pre>$fields_for_select::'.print_r($fields_for_select,true).'</pre>';
         if ($OutputFormatCount) {
             return $this->db->count_all_results($this->m_users_table);
         } else {
@@ -205,6 +199,41 @@ class Sys_admin_mdl extends CI_Model {
             }
             $ret_array= $query->get()->result();
             return $ret_array;
+        }
+    }
+
+    /**********************
+     * update/insert users_clients table with new_status
+     * depending if there is such row
+     * access public
+     * @ params
+     * return users_clients.uc_id
+     *********************************/
+    public function update_users_clients( $client_id, $related_user_id, $new_status ) {
+        $date_time_mysql_format= $this->common_lib->getSettings('date_time_mysql_format', '%Y-%m-%d %H:%M:%S');
+        $this->db->where( $this->m_users_clients_table . '.uc_client_id', $client_id);
+        $this->db->where( $this->m_users_clients_table . '.uc_user_id', $related_user_id);
+        $query = $this->db->from($this->m_users_clients_table);
+        $row = $query->get()->result();
+        if ( !empty($row) and !empty($row[0]->uc_id) ) {
+            $this->db->where( $this->m_users_clients_table . '.uc_id', $row[0]->uc_id);
+            $data = array(
+                'uc_client_id' => $client_id ,
+                'uc_user_id' => $related_user_id,
+                'uc_active_status'=> $new_status,
+                'updated_at'=> strftime($date_time_mysql_format)
+            );
+            $this->db->update($this->m_users_clients_table, $data);
+            return $row[0]->uc_id;
+        } else {
+            $data = array(
+                'uc_client_id' => $client_id ,
+                'uc_user_id' => $related_user_id,
+                'uc_active_status'=> $new_status,
+                'updated_at'=> strftime($date_time_mysql_format)
+            );
+            $this->db->insert($this->m_users_clients_table, $data);
+            return $this->db->insert_id();
         }
     }
 
