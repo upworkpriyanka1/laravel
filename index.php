@@ -23,8 +23,8 @@ if (strpos( $domain,'.nix') !==FALSE || strpos( $domain,'naz.') !==FALSE || strp
         define('ENVIRONMENT', 'development');
 }else if (strpos ($domain,'dev4') !==FALSE)
         define('ENVIRONMENT', 'dev4');
-else if (strpos ($domain,'front1') !==FALSE)
-        define('ENVIRONMENT', 'front1');
+else if (strpos ($domain,'front2') !==FALSE)
+        define('ENVIRONMENT', 'front2');
 else
         define('ENVIRONMENT', 'production');
 
