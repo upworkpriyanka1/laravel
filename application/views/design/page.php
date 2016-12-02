@@ -1,7 +1,19 @@
+<?php if ( $this->common_lib->is_ajax_request() ) : ?>
+
+    <?php
+    if (isset($page)){
+        $this->load->view($page);
+        return;
+    }
+    ?>
+
+<?php endif; ?>
+
 <!-- BEGIN CONTENT -->
 <div class="page-content-wrapper">
     <!-- BEGIN CONTENT BODY -->
     <div class="page-content">
+
         <!-- BEGIN PAGE BAR -->
         <div class="page-bar">
             <ul class="page-breadcrumb">
@@ -17,6 +29,7 @@
             </ul>
         </div>
         <!-- END PAGE BAR -->
+
         <!-- BEGIN PAGE TITLE-->
         <?php
         $page_title= lang('dashboard-title');

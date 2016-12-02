@@ -146,7 +146,7 @@ class Common_lib
      * @params
      * return Array of Configs
      *********************************/
-    public function getPaginationParams()
+    public function getPaginationParams($request_type= '')
     {
         $ci = &get_instance();
         $config_data = $ci->config->config;
@@ -156,8 +156,33 @@ class Common_lib
         $resArray['uri_segment'] = $config_data['uri_segment'];
         $resArray['num_links'] = $config_data['num_links'];
         $resArray['use_page_numbers'] = $config_data['use_page_numbers'];
-        $resArray['page_query_string'] = $config_data['page_query_string'];
-        $resArray['query_string_segment'] = 'page';
+//        $resArray['page_query_string'] = $config_data['page_query_string'];
+        $resArray['page_query_string'] = 'page_number';
+        $resArray['query_string_segment'] = 'page_number';
+
+        if ( $request_type == 'ajax' ) {
+            $resArray['cur_tag_open'] = '  <a href="#" class="active"  >';//class="ajax_link_page"
+            $resArray['cur_tag_close'] = ' </a> ';
+        }
+//        $resArray['full_tag_open'] = '<ul class="pagination" > ';
+//        $resArray['full_tag_close'] = '</ul>';
+//        $resArray['first_link'] = 'First';
+//        $resArray['first_tag_open'] = '<li>';
+//        $resArray['first_tag_close'] = '</li>';
+//        $resArray['next_tag_open'] = '<li class="next">';
+//        $resArray['next_tag_close'] = '</li>';
+//        $resArray['prev_tag_open'] = '<li class="prev">';
+//        $resArray['prev_tag_close'] = '</li>';
+//        $resArray['last_link'] = 'Last';
+//        $resArray['last_tag_open'] = '<li >';
+//        $resArray['last_tag_close'] = '</li>';
+//        $resArray['cur_tag_open'] = ' <li class="active" > <a href="#"  >';//class="ajax_link_page"
+//        $resArray['cur_tag_close'] = ' </a></li> ';
+//        $resArray['next_link'] = '&gt;';
+//        $resArray['prev_link'] = '&lt;';
+//        $resArray['num_tag_open'] = '<li >';
+//        $resArray['num_tag_close'] = '</li>';
+//
         return $resArray;
 
     }
@@ -217,6 +242,19 @@ class Common_lib
 
 
     /**********************
+     * Get readable label of users_clients.uc_active_status field
+     * access public
+     * @params uc_active_status
+     * return string label
+     *********************************/
+    public function get_users_clients_uc_active_status_label($uc_active_status) {
+        return $this->CI->admin_mdl->getUsersClientsUc_ActiveStatusLabel($uc_active_status);
+    }
+    // alter TABLE `users_clients`
+//change uc_is_active uc_active_status enum('E','O','N') NOT NULL default 'N' ; -- E-Employee, O-Only Out Of Staff, N- Not Related
+
+
+    /**********************
      * Get readable label of client_active_status field
      * access public
      * @params $client_active_status
@@ -238,6 +276,23 @@ class Common_lib
             if (!empty($client_type->type_description)) return $client_type->type_description;
         }
         return "";
+    }
+
+    /**********************
+     * Prepare html of url for header in view listing JS based click
+     * access public
+     * @params $url - url of page, $filters_str - string(key/value) with current filters, $field_title - title shown in TH tag, name of sorting field,
+     * $sort_direction - current sort direction(asc/desc), $sort - current sort
+     * return html of a tag
+     *********************************/
+    public function showListHeaderItemJS ($js_funcname, /*$filters_str, */ $field_title, $fieldname , $sort_direction, $sort ) {
+        if (empty($field_title)) {
+            $field_title = ucwords($fieldname);
+        }
+        $field_title = str_replace('', '&nbsp;', $field_title);
+        $imgHtlm = $this->tplListSortingImage($fieldname, $sort, $sort_direction);
+        $res_js = '<a onclick="javascript:' . $js_funcname ."( '". addslashes($field_title)."', '"  .  $fieldname."' "  .  '); "><span>' . $field_title . $imgHtlm . '</span></a>';
+        return $res_js; //CHtml::link($field_title . "&nbsp;" . $imgHtlm, $url);
     }
 
     /**********************
@@ -290,8 +345,10 @@ class Common_lib
      * @params : $time - can be mysql format or unix stamp, $format - output format, if empty would be used date_time_as_text_format format from config
      * return html of an image
      *********************************/
-    public function format_datetime( $time, $format = '' )
+    public function format_datetime( $time, $format = '', $default = '' )
     {
+//        echo '<pre>$time::'.print_r($time,true).'</pre>';
+        if ( $time == '0000-00-00 00:00:00' or empty($time)) return $default;
         if (!is_numeric($time)) {
             $time = strtotime($time);
         }
@@ -300,6 +357,17 @@ class Common_lib
             $format= $this->CI->common_lib->getSettings( 'date_time_as_text_format' );
         }
         return strftime( $format, $time );
+    }
+
+    /**********************
+     * check is ajax request
+     * access public
+     * @params
+     * return booelan
+     *********************************/
+    public function is_ajax_request()
+    {
+        return ( ! empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest');
     }
 
 

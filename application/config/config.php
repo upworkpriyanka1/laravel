@@ -217,16 +217,20 @@ $config['log_threshold'] = 4;
 if ((!empty($_SERVER["HTTP_HOST"]) and !(strpos($_SERVER["HTTP_HOST"], "local-zntral.com") === false))) {
     $config['log_path'] = '/_wwwroot/zntral/zntral/log/';   // file:///_wwwroot/zntral/zntral/application
     $config['document_root'] = '/_wwwroot/zntral/zntral/';
-
     $config['sql_queries_to_file'] = '/_wwwroot/zntral/zntral/log/sql_queries_to_file_';
     $config['send_error_at_email'] = 'nbler.ru';
     $config['base_url'] = 'http://local-zntral.com';
     $config['is_developer_comp'] = 1;
+
 //    die("-1 XXZ");
-} else { // Permission denied in /home/dev4softreactor/public_html/system/core/Log.php on
-//    $config['log_path'] = '/home/dev4softreactor/public_html/log/'; // '/home/dev9soft/public_html/tb/'
-    //$config['sql_queries_to_file'] = '/home/dev2softreactor/public_html/tb/logs/sql_queries_to_file_';
-//    $config['send_error_at_email'] = 'nilovserge@rambler.ru'; //nilov@softreactor.com';
+} else {
+    $config['log_path'] = '/home/zntral/dev4/log/'; // '/home/dev9soft/public_html/tb/'
+    $config['sql_queries_to_file'] = '/home/zntral/dev4/log/sql_queries_to_file_';
+
+    $config['document_root'] = '/home/zntral/dev4/';
+    $config['send_error_at_email'] = 'nbler.ru';
+    $config['base_url'] = 'http://dev4.zntral.net/';
+    $config['is_developer_comp'] = 1;
 }
 
 /*
@@ -527,7 +531,7 @@ $config['rewrite_short_tags'] = FALSE;
 $config['proxy_ips'] = '';
 
 ////////////// APP SETTINGS START ////////////////
-$config['items_per_page'] = 20;
+$config['items_per_page'] = 4; //20;
 $config['uri_segment'] = 5; //working 5
 $config['num_links'] = 10;
 $config['use_page_numbers'] = TRUE;
@@ -547,7 +551,7 @@ $config['prev_tag_close'] = '</li>';
 $config['last_link'] = 'Last';
 $config['last_tag_open'] = '<li>';
 $config['last_tag_close'] = '</li>';
-$config['cur_tag_open'] = ' <li class="active" > <a href="#">';
+$config['cur_tag_open'] = ' <li class="active" > <a href="#" class="ajax_pages" >';
 $config['cur_tag_close'] = ' </a></li> ';
 $config['next_link'] = '&gt;';
 $config['prev_link'] = '&lt;';
