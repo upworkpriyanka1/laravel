@@ -217,23 +217,21 @@ $config['directory_trigger'] = 'd';
 if (ENVIRONMENT == 'production') {
     $config['log_path'] = '/home/zntral/public_html/log/';   // file:///_wwwroot/zntral/zntral/application
     $config['document_root'] = '/home/zntral/public_html/';
-    $config['sql_queries_to_file'] = '/home/zntral/public_html/log/sql_queries_to_file_';
+    $config['sql_queries_to_file'] = '/home/zntral/public_html/logs/sql_queries_to_file_';
     $config['send_error_at_email'] = 'nbler.ru';
     $config['base_url'] = 'https://zntral.net';
     $config['is_developer_comp'] = 1;
 //    die("-1 XXZ");
 } else if (ENVIRONMENT =='dev4') {
     $config['log_path'] = '/home/zntral/dev4/log/'; // '/home/dev9soft/public_html/tb/'
-    $config['sql_queries_to_file'] = '/home/zntral/dev4/log/sql_queries_to_file_';
-
+    $config['sql_queries_to_file'] = '/home/zntral/dev4/logs/sql_queries_to_file_';
     $config['document_root'] = '/home/zntral/dev4/';
     $config['send_error_at_email'] = 'nbler.ru';
     $config['base_url'] = 'https://dev4.zntral.net/';
     $config['is_developer_comp'] = 1;
 } else {
     $config['log_path'] = '/home/zntral/front2/log/'; // '/home/dev9soft/public_html/tb/'
-    $config['sql_queries_to_file'] = '/home/zntral/front2/log/sql_queries_to_file_';
-
+    $config['sql_queries_to_file'] = '/home/zntral/front2/logs/sql_queries_to_file_';
     $config['document_root'] = '/home/zntral/front2/';
     $config['send_error_at_email'] = 'nbler.ru';
     $config['base_url'] = 'https://front2.zntral.net/';
