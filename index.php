@@ -48,7 +48,7 @@ switch (ENVIRONMENT)
 		ini_set('display_errors', 1);
 	break;
 
-	case 'front1':
+	case 'front2':
 		error_reporting(-1);
 		ini_set('display_errors', 1);
 	break;
