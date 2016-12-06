@@ -213,25 +213,31 @@ $config['directory_trigger'] = 'd';
 | your log files will fill up very fast.
 |
 */
-$config['log_threshold'] = 4;
-if ((!empty($_SERVER["HTTP_HOST"]) and !(strpos($_SERVER["HTTP_HOST"], "local-zntral.com") === false))) {
-    $config['log_path'] = '/_wwwroot/zntral/zntral/log/';   // file:///_wwwroot/zntral/zntral/application
-    $config['document_root'] = '/_wwwroot/zntral/zntral/';
-    $config['sql_queries_to_file'] = '/_wwwroot/zntral/zntral/log/sql_queries_to_file_';
+#if ((!empty($_SERVER["HTTP_HOST"]) and !(strpos($_SERVER["HTTP_HOST"], "zntral.net") === false))) {
+if (ENVIRONMENT == 'production') {
+    $config['log_path'] = '/home/zntral/public_html/log/';   // file:///_wwwroot/zntral/zntral/application
+    $config['document_root'] = '/home/zntral/public_html/';
+    $config['sql_queries_to_file'] = '/home/zntral/public_html/logs/sql_queries_to_file_';
     $config['send_error_at_email'] = 'nbler.ru';
-    $config['base_url'] = 'http://local-zntral.com';
+    $config['base_url'] = 'https://zntral.net';
     $config['is_developer_comp'] = 1;
-
 //    die("-1 XXZ");
-} else {
+} else if (ENVIRONMENT =='dev4') {
     $config['log_path'] = '/home/zntral/dev4/log/'; // '/home/dev9soft/public_html/tb/'
-    $config['sql_queries_to_file'] = '/home/zntral/dev4/log/sql_queries_to_file_';
-
+    $config['sql_queries_to_file'] = '/home/zntral/dev4/logs/sql_queries_to_file_';
     $config['document_root'] = '/home/zntral/dev4/';
     $config['send_error_at_email'] = 'nbler.ru';
-    $config['base_url'] = 'http://dev4.zntral.net/';
+    $config['base_url'] = 'https://dev4.zntral.net/';
+    $config['is_developer_comp'] = 1;
+} else {
+    $config['log_path'] = '/home/zntral/front2/log/'; // '/home/dev9soft/public_html/tb/'
+    $config['sql_queries_to_file'] = '/home/zntral/front2/logs/sql_queries_to_file_';
+    $config['document_root'] = '/home/zntral/front2/';
+    $config['send_error_at_email'] = 'nbler.ru';
+    $config['base_url'] = 'https://front2.zntral.net/';
     $config['is_developer_comp'] = 1;
 }
+
 
 /*
 |--------------------------------------------------------------------------
