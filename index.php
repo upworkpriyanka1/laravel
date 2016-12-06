@@ -39,17 +39,26 @@ else
 switch (ENVIRONMENT)
 {
 	case 'development':
-		error_reporting(-1);
+		//Report all errors
+		//error_reporting(-1);
+		//Report only errors and warning. Do not show uninitialized variables because it can break the normal functioning.
+		error_reporting(E_ERROR | E_WARNING);
 		ini_set('display_errors', 1);
 	break;
 	
 	case 'dev4':
-		error_reporting(-1);
+		//Report all errors
+		//error_reporting(-1);
+		//Report only errors and warning. Do not show uninitialized variables because it can break the normal functioning.
+		error_reporting(E_ERROR | E_WARNING);
 		ini_set('display_errors', 1);
 	break;
 
 	case 'front2':
-		error_reporting(-1);
+		//Report all errors
+		//error_reporting(-1);
+		//Report only errors and warning. Do not show uninitialized variables because it can break the normal functioning.
+		error_reporting(E_ERROR | E_WARNING);
 		ini_set('display_errors', 1);
 	break;
 
