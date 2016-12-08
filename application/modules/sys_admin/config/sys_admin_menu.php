@@ -71,3 +71,28 @@ $config['menu_4'] = array(
     					'icon'	=>	'fa fa-bars'
     					)
     );
+
+$config['menu_5'] = array(
+    "icon" => "fa fa-wheelchair",
+    "title" =>'vendors-services', //should be the same as the lang()
+    "sub_1" => array(
+        'href'	=>	'/vendors/vendor-types-view',
+        'title'	=>	'vendor-types-view', //make sure to use dash
+        'icon'	=>	'fa fa-trophy'
+    ),
+    "sub_2" => array(
+        'href'	=>	'/vendors/vendor-types-edit/new', //make sure to use dash
+        'title'	=>	'vendor-types-add',//should be the same as the lang()
+        'icon'	=>	'fa fa-plus'
+    ),
+    "sub_3" => array(
+        'href'	=>	'/vendors/vendors-view', //make sure to use dash
+        'title'	=>	'vendors-view',//should be the same as the lang()
+        'icon'	=>	'fa fa-wheelchair'
+    ),             // /sys-admin/vendors/vendors-edit/new/
+    "sub_4" => array(
+        'href'	=>	'/vendors/vendors-edit/new/', //make sure to use dash
+        'title'	=>	'vendor-add',//should be the same as the lang()
+        'icon'	=>	'fa fa-plus'
+    ),
+);
