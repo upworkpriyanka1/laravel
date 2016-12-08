@@ -95,6 +95,28 @@ class Common_lib
         $this->CI->layout->view($views, $data);
     }
 
+    function  set_field_error_tag($fieldname, $attr) {
+        $is_debug= 0;
+        if ($is_debug) echo '<pre>set_field_error_tag $fieldname::'.print_r($fieldname,true).'</pre>';
+        if ($is_debug) echo '<pre>set_field_error_tag $fieldname::'.print_r($fieldname,true).'</pre>';
+        if (empty($attr)) $attr = ' class="has-error" ';
+        $fieldvalue = strip_tags( form_error($fieldname) );
+        if ($is_debug) echo '<pre>$fieldvalue::'.print_r($fieldvalue,true).'</pre>';
+        if ($is_debug) exit;
+//        die("-1 XXZ");
+        if (!empty($fieldvalue)) {
+            return $attr;
+        }
+    }
+
+    function show_info($editor_message) {
+        if ( $editor_message != '' ) { ?>
+            <div class="alert alert-success display-hide" style="display: block;">
+                <div class="glyphicon glyphicon-info-sign middle_icon pull-left " style = "font-size: xx-large; padding-bottom: 5px;" ></div>&nbsp;
+                <button class="close" data-close="alert"></button> <?= $editor_message ?>
+            </div>
+        <?}
+    }
     /**********************
      * Get Parameter by name from POST/GET request
      * access public
