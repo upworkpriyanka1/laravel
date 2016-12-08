@@ -64,6 +64,34 @@ $lang['avatar']                 = "Avatar";
 $lang['activity']               = "Activities";
 $lang['activity-logs']          = "Activity Logs";
 
+
+$lang['vendors-services']       = "Vendors/Services";
+$lang['vendor-types-view']      = "Vendor Types Listing";
+$lang['vendor-types']           = "Vendor Type";
+$lang['vt_id']                  = "ID";
+$lang['vt_name']                = "Vendor Type";
+$lang['vendor-types-add']       = "Add Vendor Type";
+$lang['vt_description']         = "Description";
+
+$lang['vendors-view']           = "Vendors Listing";
+$lang['vendor-add']             = "Add Vendor";
+$lang['vendor']                 = "Vendor";
+$lang['vn_id']                  = "Vendor ID";
+$lang['vn_name']                = "Vendor name";
+$lang['vn_email']               = "Vendor email";
+$lang['vn_website']             = "Website";
+$lang['vn_description']         = "Description";
+$lang['vendor_has_types_label'] = "Vendor has types";
+
+$lang['vendor_contacts']         = "Vendor Contacts";
+$lang['vendor_contact']         = "Vendor Contact";
+$lang['vc_person_name']         = "Person name";
+$lang['vc_person_description']  = "Person description";
+$lang['vc_phone']               = "Person phone";
+$lang['vc_phone_description']   = "Phone description";
+$lang['vc_person_email']        = "Person email";
+
+
 $lang['username']               = "Username";
 $lang['name']                   = "Name";
 $lang['owner']                  = "Company Owner";
