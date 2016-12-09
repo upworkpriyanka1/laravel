@@ -64,6 +64,13 @@ switch (ENVIRONMENT)
 		ini_set('display_errors', 1);
 	break;
 
+	case 'f3':
+		//Report all errors
+		//error_reporting(-1);
+		//Report only errors and warning. Do not show uninitialized variables because it can break the normal functioning.
+		error_reporting(E_ERROR | E_WARNING);
+		ini_set('display_errors', 1);
+	break;
 
 	case 'testing':
 	case 'production':
