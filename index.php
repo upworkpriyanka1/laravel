@@ -25,6 +25,8 @@ if (strpos( $domain,'.nix') !==FALSE || strpos( $domain,'naz.') !==FALSE || strp
         define('ENVIRONMENT', 'dev4');
 else if (strpos ($domain,'front2') !==FALSE)
         define('ENVIRONMENT', 'front2');
+else if (strpos ($domain,'f3') !==FALSE)
+        define('ENVIRONMENT', 'f3');
 else
         define('ENVIRONMENT', 'production');
 
