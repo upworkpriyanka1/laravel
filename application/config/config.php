@@ -229,6 +229,14 @@ if (ENVIRONMENT == 'production') {
     $config['send_error_at_email'] = 'nbler.ru';
     $config['base_url'] = 'https://dev4.zntral.net/';
     $config['is_developer_comp'] = 1;
+} else if (ENVIRONMENT =='dev4') {
+    $config['log_path'] = '/home/zntral/f3/log/'; // '/home/dev9soft/public_html/tb/'
+    $config['sql_queries_to_file'] = '/home/zntral/f3/logs/sql_queries_to_file_';
+    $config['document_root'] = '/home/zntral/f3/';
+    $config['send_error_at_email'] = 'nbler.ru';
+    $config['base_url'] = 'https://f3.zntral.net/';
+    $config['is_developer_comp'] = 1;
+
 } else {
     $config['log_path'] = '/home/zntral/front2/log/'; // '/home/dev9soft/public_html/tb/'
     $config['sql_queries_to_file'] = '/home/zntral/front2/logs/sql_queries_to_file_';
