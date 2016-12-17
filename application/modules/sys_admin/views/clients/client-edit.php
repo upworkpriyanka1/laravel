@@ -1,13 +1,10 @@
 <?php $ci = &get_instance(); ?>
 <?php if (isset($client) && count($client)>0){  ?>
-    base_url
 
     <script type="text/javascript">
         /*<![CDATA[*/
         var client_id= '<?= $client->cid ?>'
         var base_url= '<?= base_url() ?>'
-        //        alert( "client_id::"+var_dump(client_id) )
-
         /*]]>*/
     </script>
 
@@ -19,6 +16,7 @@
                     <div class="portlet-body">
                         <!-- BEGIN FORM-->
                         <form action="<?php echo current_url() ;?>/update/<?= $PageParametersWithSort ?>" method="post" id="client-add" class="form-horizontal">
+                            <input type="hidden" name="<?= $ci->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
                             <div class="form-body">
                                 <div class="alert alert-danger display-hide">
                                     <button class="close" data-close="alert"></button> <?= lang('form_error');?>
@@ -246,68 +244,98 @@
 
 
     <div class="row" style="padding: 0; margin: 0">
+
+
+
         <ul class="nav nav-tabs">
-            <li class="active" >
-                <a data-toggle="tab" href="#tabpanel_client_related_users in">
-                    <span class="">Related Users</span>
-                </a>
-            </li>
-
-<!--            <li >-->
-<!--                <a data-toggle="tab" href="#tabpanel_another_tab">-->
-<!--                    <span class="">Another Tab</span>-->
-<!--                </a>-->
-<!--            </li>-->
-
+            <li><a data-toggle="tab" href="#tabpanel_client_provide_vendors">Related Users</a></li>
+            <li class="active"><a data-toggle="tab" href="#menu1">Provides Vendor</a></li>
         </ul>
 
-        <div id="tabpanel_client_related_users" class="tab-pane fade in">
+        <div class="tab-content">
 
-            <div class="col-lg-12" style="padding: 5px;">
-                <input type="hidden" name="status" id="status" value="A">
-                <input type="hidden" name="sort_field_name" id="sort_field_name" value="username">
-                <input type="hidden" name="sort_direction" id="sort_direction" value="desc">
 
-                <div class="col-xs-6 col-sm-4" style="padding: 5px;">
-                    <select id="select_related_users_type" class="form-control">
-                        <option value="A">Select All</option>
-                        <option value="E">Only Employees</option>
-                        <option value="O">Only Out Of Staff</option>
-<!--                        <option value="N">Only Not Related</option>-->
-                    </select>
-                </div>
-                <div class="col-xs-6 col-sm-4" style="padding: 5px;">
-                    <select id="select_user_active_status" class="form-control">
-                        <option value="">Select User Status</option>
-                        <?php foreach( $user_active_status_array as $next_key=>$next_user_active_status ) { ?>
-                            <option value="<?=$next_user_active_status['key']  ?>"><?=$next_user_active_status['value']  ?></option>
-                        <?php } ?>
-                    </select>
-                </div>
-                <div class="col-xs-12 col-sm-4" style="padding: 5px;">
-                    <div class="col-xs-8">
-                        <input type="text" id="input_related_users_filter" name="input_related_users_filter" value="" size="20" maxlength="50" class="form-control">
+
+            <div id="tabpanel_client_provide_vendors" class="tab-pane fade">
+                <div class="col-lg-12" style="padding: 5px;">
+                    <input type="hidden" name="status" id="status" value="A">
+                    <input type="hidden" name="sort_field_name" id="sort_field_name" value="username">
+                    <input type="hidden" name="sort_direction" id="sort_direction" value="desc">
+
+                    <div class="col-xs-6 col-sm-4" style="padding: 5px;">
+                        <select id="select_related_users_type" class="form-control">
+                            <option value="A">Select All</option>
+                            <option value="E">Only Employees</option>
+                            <option value="O">Only Out Of Staff</option>
+                            <!--                        <option value="N">Only Not Related</option>-->
+                        </select>
                     </div>
-                    <div class="col-xs-4">
-                        <button type="button" id="BtnFilter" data-action="edit" class="btn green" onclick="javascript:run_related_users_filter();" ><?php echo lang('Filter');?></button>
+                    <div class="col-xs-6 col-sm-4" style="padding: 5px;">
+                        <select id="select_user_active_status" class="form-control">
+                            <option value="">Select User Status</option>
+                            <?php foreach( $user_active_status_array as $next_key=>$next_user_active_status ) { ?>
+                                <option value="<?=$next_user_active_status['key']  ?>"><?=$next_user_active_status['value']  ?></option>
+                            <?php } ?>
+                        </select>
                     </div>
+                    <div class="col-xs-12 col-sm-4" style="padding: 5px;">
+                        <div class="col-xs-8">
+                            <input type="text" id="input_related_users_filter" name="input_related_users_filter" value="" size="20" maxlength="50" class="form-control">
+                        </div>
+                        <div class="col-xs-4">
+                            <button type="button" id="BtnFilter" data-action="edit" class="btn green" onclick="javascript:run_related_users_filter();" ><?php echo lang('Filter');?></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <div id="div_load_related_users"></div>
                 </div>
             </div>
 
-            <div class="col-lg-12">
-                <div id="div_load_related_users"></div>
+
+
+
+
+            <div id="menu1" class="tab-pane fade  in active">
+                <div class="col-lg-12" style="padding: 5px;">
+                    <input type="hidden" name="provides_vendors_status" id="provides_vendors_status" value="A">
+                    <input type="hidden" name="provides_vendors_sort_field_name" id="provides_vendors_sort_field_name" value="vn_name">
+                    <input type="hidden" name="provides_vendors_sort_direction" id="provides_vendors_sort_direction" value="desc">
+
+                    <div class="col-xs-6 col-sm-4" style="padding: 5px;">
+                        <select id="select_provides_vendors_type" class="form-control">
+                            <option value="A">Select All</option>
+                            <option value="P">Only Provided Vendors</option>
+<!--                            <option value="N">Only Not Provided Vendors</option>-->
+                        </select>
+                    </div>
+                    <div class="col-xs-12 col-sm-4" style="padding: 5px;">
+                        <div class="col-xs-8">
+                            <input type="text" id="input_provides_vendors_filter" name="input_provides_vendors_filter" value="" size="20" maxlength="50" class="form-control">
+                        </div>
+                        <div class="col-xs-4">
+                            <button type="button" id="BtnFilter" data-action="edit" class="btn green" onclick="javascript:run_provides_vendors_filter();" ><?php echo lang('Filter');?></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <div id="div_load_provides_vendors"></div>
+                </div>
             </div>
+
+
         </div>
 
-<!--        <div id="tabpanel_another_tab" class="tab-pane fade">-->
-<!--            tabpanel_another_tab-->
-<!--        </div>-->
+
+
 
     </div>
 
 <?php } ?>
 
-<!-- Popup dialog for filtering set -->
+<!-- Popup dialog for related_user enabled dialog -->
 <div class="modal fade" id="related_user_enabled_dialog" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content" style="padding-right: 20px;">
@@ -369,6 +397,76 @@
                             </div>
                         </div>
                     </div>
+
+                </form>
+
+            </div>
+
+            <div class="modal-footer ">
+                <div class="btn-group  pull-right editor_btn_group " role="group" aria-label="group button">
+                    <button type="button" class="btn btn-cancel-action" data-dismiss="modal"  role="button">Cancel</button>
+                </div>
+            </div>
+        </div> <!-- class="modal-body" -->
+    </div>
+
+</div>
+
+
+<!-- Popup dialog for provides_vendor enabled dialog -->
+<div class="modal fade" id="provides_vendor_enabled_dialog" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="padding-right: 20px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                <div class="modal-title">Client/Vendor&nbsp;Provides&nbsp;Setup</div>
+            </div>
+
+            <div class="modal-body">
+                <form role="form" class="form-horizontal" method="post"  enctype="multipart/form-data" >
+
+                    <input type="hidden" id="hidden_related_vendor_id" name="hidden_related_vendor_id" value="">
+
+                    <div class="row">
+                        <div class="form-group" >
+                            <label class="col-xs-12 col-sm-7 control-label" >Choose Provides for client </label>
+                            <div class="col-xs-12 col-sm-5">
+                                <h4><b><span id="span_provides_vendors_client_name"></span></b></h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12 center">
+                            You can set relation for vendor
+                            <b><span id="span_related_user_username"></span></b>
+                            &nbsp;( <b><span id="span_provides_vendors_cv_active_status_label"></span>&nbsp;status</b>&nbsp;)<br>
+                            &nbsp;with email&nbsp;<b><span id="span_related_vendor_email"></span></b>,&nbsp;with website&nbsp;<b><span id="span_related_vendor_website"></span></b>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row" id="div_set_vendors_status_provides">
+                        <div class="form-group" >
+                            <label class="col-xs-12 col-sm-7 control-label" >Set Status "Provides" - client would be able to provides services of the Vendor.</label>
+                            <div class="col-xs-12 col-sm-5">
+                                <button type="button" id="saveImage" class="btn btn-primary" onclick="javascript:setProvidesVendorStatus('P'); return false; " role="button">Set Status "Provides"</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row" id="div_set_vendors_status_not_provides">
+                        <div class="form-group" >
+                            <label class="col-xs-12 col-sm-7 control-label" >Set Status "Not Provides" - client would not be able to provides services of the Vendor.</label>
+                            <div class="col-xs-12 col-sm-5">
+                                <button type="button" id="saveImage" class="btn btn-primary" onclick="javascript:setProvidesVendorStatus('N'); return false; " role="button">Set Status "Not Provides"</button>
+                            </div>
+                        </div>
+                    </div>
+
 
                 </form>
 

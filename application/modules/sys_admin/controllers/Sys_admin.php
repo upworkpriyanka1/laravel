@@ -15,6 +15,7 @@ class Sys_admin extends CI_Controller {
 		}
 		$this->load->library('Sys_admin_lib',NULL,'admin_lib');
 		$this->load->model('sys_admin_mdl','admin_mdl');
+		$this->load->model('clients_mdl','clients_mdl');
 		$this->lang->load('sys_admin');
 		$this->config->load('sys_admin_menu', true );
         $this->menu    			= $this->config->item( 'sys_admin_menu' );
@@ -47,42 +48,6 @@ class Sys_admin extends CI_Controller {
 	}
 
 /**********************
-* action : MUST BE DELETED LATER
-* add_dummy 1000 clients
-* @params
-* returned to clients view page
-*********************************/
-	public function delete_dummy_clients()
-    {
-        $start_client_id= 16;
-//        echo '<pre>add_dummy_clients $start_client_id::'.print_r($start_client_id,true).'</pre>';
-        $this->db->trans_start();
-        $query = $this->db->query(" delete FROM clients_groups WHERE client_id >= " . $start_client_id);
-        $query = $this->db->query(" delete FROM clients WHERE cid >= " . $start_client_id);
-        $this->db->trans_complete();
-        redirect('./sys-admin/clients-view');
-    }
-
-	public function add_dummy_clients()
-    {
-        $rows_count= 1000;
-        $this->db->trans_start();
-        for( $i= 1; $i< $rows_count+1; $i++ ) {
-            $insert_data= array(   'client_name'=> 'client_name_'.$i, 'client_owner'=> 'client_owner_'.$i, 'client_address1'=>'client_address_'.$i,
-                'client_address2'=>'client_address2_'.$i, 'client_city'=>'client_city_'.$i,	'client_state'=> 'client_state_'.$i, 'client_zip'=> 'client_zip_'.$i,
-	            'client_phone'=> 'client_phone_'.$i, 'client_fax'=> 'client_fax_'.$i, 'client_email'=> 'client_email_'.$i, 'client_website'=> 'client_website_'.$i,
-	            'color_scheme'=> 'color_scheme_'.$i, 'client_notes'=> 'client_notes_'.$i, 'client_active_status'=> 'A'   );
-            if ( $this->db->insert('clients',$insert_data) ) {
-                $new_client_id= $this->db->insert_id();
-                $new_clients_groups_ret = $this->db->insert('clients_groups', array('client_group_id' => rand(1, 6), 'client_id' => $new_client_id));
-//                echo '<pre>$new_clients_groups_ret::' . print_r($new_clients_groups_ret, true) . '</pre>';
-            }
-        }
-        $this->db->trans_complete();
-        redirect('./sys-admin/clients-view');
-    }
-
-/**********************
 * view clients
 * access public
 * @params
@@ -98,10 +63,10 @@ class Sys_admin extends CI_Controller {
         $UriArray = $this->uri->uri_to_assoc(3);
         $post_array = $this->input->post();
 
-        /* get and keep all filters/page_number for pagination and sorting parameters*/
+        /* get and keep all filters/page for pagination and sorting parameters*/
         $sort= $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort');
         $sort_direction = $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort_direction');
-        $page_number = $this->common_lib->getParameter($this, $UriArray, $post_array, 'page_number', 1);
+        $page = $this->common_lib->getParameter($this, $UriArray, $post_array, 'page', 1);
         $filter_client_name = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_name');
         $filter_client_active_status = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_active_status');
         $filter_client_type = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_type');
@@ -117,21 +82,21 @@ class Sys_admin extends CI_Controller {
         $this->load->library('pagination');
         $pagination_config= $this->common_lib->getPaginationParams();
 //        echo '<pre>$pagination_config::'.print_r($pagination_config,true).'</pre>';
-        $pagination_config['base_url'] = base_url() . 'sys-admin/clients-view' . $PageParametersWithSort . '/page_number';
+        $pagination_config['base_url'] = base_url() . 'sys-admin/clients-view' . '/page';
 //        $pagination_config['base_url'] = base_url() . 'sys-admin/clients-view';
 
-        $RowsInTable= $this->admin_mdl->getClientsList(true, '', array( 'show_client_type_description'=>'', 'client_name'=> $filter_client_name, 'client_active_status'=> $filter_client_active_status, 'client_type'=> $filter_client_type, 'client_zip'=> $filter_client_zip, 'created_at_from'=> $filter_created_at_from, 'created_at_till'=> $filter_created_at_till ), $sort, $sort_direction );  // get number of rows by given parameters
+        $RowsInTable= $this->clients_mdl->getClientsList(true, '', array( 'show_client_type_description'=>'', 'client_name'=> $filter_client_name, 'client_active_status'=> $filter_client_active_status, 'client_type'=> $filter_client_type, 'client_zip'=> $filter_client_zip, 'created_at_from'=> $filter_created_at_from, 'created_at_till'=> $filter_created_at_till ), $sort, $sort_direction );  // get number of rows by given parameters
         $pagination_config['total_rows'] = $RowsInTable;
         $this->pagination->initialize($pagination_config);  // pagination system initialization by parameters in config file
         $data['clients']= array();
-        if ($RowsInTable > 0) { // number of rows by given parameters > 0 - get rows by given parameters for given $page_number.
-            $data['clients']= $this->admin_mdl->getClientsList(false, $page_number, array( 'show_client_type_description'=>1, 'client_name'=> $filter_client_name, 'client_active_status'=> $filter_client_active_status, 'client_type'=> $filter_client_type, 'client_zip'=> $filter_client_zip, 'created_at_from'=> $filter_created_at_from, 'created_at_till'=> $filter_created_at_till ), $sort, $sort_direction );
+        if ($RowsInTable > 0) { // number of rows by given parameters > 0 - get rows by given parameters for given $page.
+            $data['clients']= $this->clients_mdl->getClientsList(false, $page, array( 'show_client_type_description'=>1, 'client_name'=> $filter_client_name, 'client_active_status'=> $filter_client_active_status, 'client_type'=> $filter_client_type, 'client_zip'=> $filter_client_zip, 'created_at_from'=> $filter_created_at_from, 'created_at_till'=> $filter_created_at_till ), $sort, $sort_direction );
         } // IMPORTANT : all filter parameters must be similar as in calling of getClientsList above
 
-        $data['client_TypesSelectionList']= $this->admin_mdl->getClient_TypesSelectionList();
-        $data['client_ActiveStatusList']= $this->admin_mdl->getClientActiveStatusValueArray();
+        $data['client_TypesSelectionList']= $this->clients_mdl->getClient_TypesSelectionList();
+        $data['client_ActiveStatusList']= $this->clients_mdl->getClientActiveStatusValueArray();
         $data['page']		= 'clients/clients-view';
-        $data['page_number']		= $page_number;
+        $data['page_number']		= $page;
         $data['RowsInTable']= $RowsInTable;
 
         $data['filter_client_name']= $filter_client_name;
@@ -148,6 +113,8 @@ class Sys_admin extends CI_Controller {
         $data['sort_direction']= $sort_direction;
         $data['sort']= $sort;
 
+        $this->pagination->suffix = $this->clientsPreparePageParameters($UriArray, $post_array, false, true);
+        $this->pagination->cur_page= $page;
         $pagination_links = $this->pagination->create_links();
         $clients_count_in_db= $this->admin_mdl->clients_count_in_db();
 
@@ -184,7 +151,7 @@ class Sys_admin extends CI_Controller {
 		$data['group'] 		= $this->group->name;
 
 		$data['client_types']=   object_to_array($this->common_mdl->get_records('clients_types'),'type_id', 'activity_time', 'DESC');
-		$data['client_active_status']= $this->admin_mdl->getClientActiveStatusValueArray(false);
+		$data['client_active_status']= $this->clients_mdl->getClientActiveStatusValueArray(false);
 		$data['page']		= 'clients/clients-add'; //page view to load
 		$data['plugins'] 	= array('validation'); //page plugins
 	  	$data['javascript'] = array( 'assets/custom/admin/client-add-validation.js');//page javascript
@@ -216,8 +183,8 @@ class Sys_admin extends CI_Controller {
 
 		$data['client']		= $this->common_mdl->get_client($this->uri->segment(3), TRUE);
 		$data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
-        $data['client_active_status_array']= $this->admin_mdl->getClientActiveStatusValueArray(false);
-        $data['user_active_status_array']= $this->admin_mdl->getUserActiveStatusValueArray(true);
+        $data['client_active_status_array']= $this->clients_mdl->getClientActiveStatusValueArray(false);
+        $data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
 //        echo '<pre>$data[\'user_active_status_array\']::'.print_r($data['user_active_status_array'],true).'</pre>';
 //        die("-1 XXZ");
 
@@ -248,7 +215,7 @@ class Sys_admin extends CI_Controller {
         $UriArray = $this->uri->uri_to_assoc(3);
         $post_array = $this->input->post();
         $filter_client_id = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_id');
-        $page_number = $this->common_lib->getParameter($this, $UriArray, $post_array, 'page_number');
+        $page = $this->common_lib->getParameter($this, $UriArray, $post_array, 'page');
         $filter_related_users_filter = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_related_users_filter');
         $filter_related_users_type = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_related_users_type');
         $db_filter_related_users_type= $filter_related_users_type;
@@ -258,7 +225,7 @@ class Sys_admin extends CI_Controller {
         if ($filter_related_users_type == 'A') { // SHOW ALL USERS
             $db_filter_related_users_type= '';
         }
-        if ( empty($page_number) ) $page_number= 1;
+        if ( empty($page) ) $page= 1;
 
 
         $PageParametersWithSort = $this->clientsRelatedUsersPreparePageParameters($UriArray, $post_array, false, true);     // keep all sorting parameters for using in sorting
@@ -266,20 +233,24 @@ class Sys_admin extends CI_Controller {
 
         $this->load->library('pagination');
         $pagination_config= $this->common_lib->getPaginationParams('ajax');
-        $pagination_config['base_url'] = base_url() . 'sys-admin/clients_edit_load_related_users' . $PageParametersWithSort.'/page_number';
+        $pagination_config['base_url'] = base_url() . 'sys-admin/clients_edit_load_related_users' . '/page';
         $filters= array('client_id'=>$filter_client_id, 'uc_active_status'=> $db_filter_related_users_type, 'show_uc_active_status'=> 1, 'is_patient'=> '0', 'username'=> $filter_related_users_filter, 'user_active_status'=> $user_active_status);
         $users_count = $this->admin_mdl->getUsersList( true, 0, $filters );
 
         $pagination_config['total_rows'] = $users_count;
+        $this->pagination->suffix = $this->clientsRelatedUsersPreparePageParameters($UriArray, $post_array, false, true);
+
         $this->pagination->initialize($pagination_config);
+        $this->pagination->cur_page= $page;
         $pagination_links = $this->pagination->create_links();
         $related_users_list= [];
         if ( $users_count > 0 ) {
-            $related_users_list = $this->admin_mdl->getUsersList( false, $page_number, $filters, $sort, $sort_direction );
+            $related_users_list = $this->admin_mdl->getUsersList( false, $page, $filters, $sort, $sort_direction );
         }
-        $data = array('related_users_list' => $related_users_list, 'client_id' => $filter_client_id, 'users_count'=> $users_count, 'related_users_type'=> $filter_related_users_type, 'related_users_filter'=> $filter_related_users_filter, 'page_number'=> $page_number, 'sort_direction'=> $sort_direction, 'sort'=> $sort, 		'PageParametersWithSort'=> $PageParametersWithSort, 'PageParametersWithoutSort'=> $PageParametersWithoutSort,
+        $data = array('related_users_list' => $related_users_list, 'client_id' => $filter_client_id, 'users_count'=> $users_count, 'related_users_type'=> $filter_related_users_type, 'related_users_filter'=> $filter_related_users_filter, 'sort_direction'=> $sort_direction, 'sort'=> $sort, 		'PageParametersWithSort'=> $PageParametersWithSort, 'PageParametersWithoutSort'=> $PageParametersWithoutSort,
  'pagination_links'=> 		$pagination_links   );
         $data['page']		= 'clients/load_related_users'; //page view to load
+        $data['page_number']		= $page;
         $data['plugins'] 	= array();
         $data['javascript'] = array();
         $views				= array(  'design/page'  );
@@ -314,11 +285,157 @@ class Sys_admin extends CI_Controller {
 
         $this->output->set_content_type('application/json')->set_output(json_encode(array('ErrorMessage' => '', 'ErrorCode' => 0, 'ret' => $ret )));
     }
+
+
+
+    /**********************
+     * for client load list of provides_vendors, with filters, sorting
+     * access public
+     * @params : filter_client_id - client_id, filter_provides_vendors_filter - filter string by username, filter_provides_vendors_type - users type of relation,
+     * user_active_status - filter by user active_status, sort/sort_direction - order and direction of resulting listing
+     * return list Provides Vendors
+     *********************************/
+    public function clients_edit_load_provides_vendors()
+    {
+        $UriArray = $this->uri->uri_to_assoc(3);
+        $post_array = $this->input->post();
+        $filter_client_id = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_id');
+        $page = $this->common_lib->getParameter($this, $UriArray, $post_array, 'page');
+        $filter_provides_vendors_filter = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_provides_vendors_filter');
+        $filter_provides_vendors_type = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_provides_vendors_type');
+        $db_filter_provides_vendors_type= $filter_provides_vendors_type;
+        $user_active_status = $this->common_lib->getParameter($this, $UriArray, $post_array, 'user_active_status');
+        $sort= $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort', 'vn_name');
+        $sort_direction = $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort_direction', 'desc');
+        if ($filter_provides_vendors_type == 'A') { // SHOW ALL USERS
+            $db_filter_provides_vendors_type= '';
+        }
+        if ( empty($page) ) $page= 1;
+
+
+        $PageParametersWithSort = $this->clientsProvidesVendorsPreparePageParameters($UriArray, $post_array, false, true);     // keep all sorting parameters for using in sorting
+        $PageParametersWithoutSort = $this->clientsProvidesVendorsPreparePageParameters($UriArray, $post_array, false, false); // by column header or at editor submitting to keep current filters
+
+        $this->load->library('pagination');
+        $pagination_config= $this->common_lib->getPaginationParams('ajax');
+        $pagination_config['base_url'] = base_url() . 'sys-admin/clients_edit_load_provides_vendors' . '/page';
+        $filters= array('client_id'=>$filter_client_id, 'cv_active_status'=> $db_filter_provides_vendors_type, 'show_cv_active_status'=> 1/*, 'is_patient'=> '0', 'username'=> $filter_provides_vendors_filter, 'user_active_status'=> $user_active_status */, 'show_vendor_name'=> 1 , 'join_vendors_right'=> ($filter_provides_vendors_type!= 'P') );
+        $client_vendors_count = $this->clients_mdl->getClients_VendorsList( true, 0, $filters );
+//        echo '<pre>$client_vendors_count::'.print_r($client_vendors_count,true).'</pre>';
+        $pagination_config['total_rows'] = $client_vendors_count;
+        $this->pagination->suffix = $this->clientsProvidesVendorsPreparePageParameters($UriArray, $post_array, false, true);
+//        echo '<pre>$PageParametersWithSort::'.print_r($PageParametersWithSort,true).'</pre>';
+//        echo '<pre>$PageParametersWithoutSort::'.print_r($PageParametersWithoutSort,true).'</pre>';
+//        echo '<pre>$this->pagination->suffix::'.print_r($this->pagination->suffix,true).'</pre>';
+//
+        $this->pagination->initialize($pagination_config);
+        $this->pagination->cur_page= $page;
+        $this->pagination->cur_page= $page;
+        $pagination_links = $this->pagination->create_links();
+//        echo '<pre>$pagination_links::'.print_r( htmlspecialchars($pagination_links) ,true).'</pre>';
+//        die("-1 XXZ");
+        $provides_vendors_list= [];
+        if ( $client_vendors_count > 0 ) {
+            $provides_vendors_list = $this->clients_mdl->getClients_VendorsList( false, $page, $filters, $sort, $sort_direction );
+        }
+//        echo '<pre>$provides_vendors_list::'.print_r($provides_vendors_list,true).'</pre>';
+//        echo '<pre>$pagination_links::'.print_r( htmlspecialchars($pagination_links),true).'</pre>';
+//        die("-1 XXZ");
+        $data = array('provides_vendors_list' => $provides_vendors_list, 'client_id' => $filter_client_id, 'client_vendors_count'=> $client_vendors_count, 'provides_vendors_type'=> $filter_provides_vendors_type, 'provides_vendors_filter'=> $filter_provides_vendors_filter, 'sort_direction'=> $sort_direction, 'sort'=> $sort, 		'PageParametersWithSort'=> $PageParametersWithSort, 'PageParametersWithoutSort'=> $PageParametersWithoutSort,
+            'pagination_links'=> 		$pagination_links   );
+        $data['page']		= 'clients/load_provides_vendors'; //page view to load
+        $data['page_number']		= $page;
+        $data['plugins'] 	= array();
+        $data['javascript'] = array();
+        $views				= array(  'design/page'  );
+        ob_start();
+        $this->layout->view($views, $data);
+        $html = ob_get_contents();
+        ob_end_clean();
+        $this->output->set_content_type('application/json')->set_output(json_encode(array('ErrorMessage' => '', 'ErrorCode' => 0, 'client_id' => $filter_client_id, 'client_vendors_count'=> $client_vendors_count, 'html' => $html )));
+
+    }
+
+     //     var href= base_url+"sys-admin/clients_set_vendors_status_status/client_id/"+client_id+"/provides_vendor_id/"+provides_vendor_id+"/new_status/"+new_status
+
+    /**********************
+     * for client update/insert related_user_status
+     * access public
+     * @params : client_id - id of client, provides_vendor_id - id of user to change status, new_status - new status('E' => 'Employee', 'O' => 'Out Of Staff', 'N' => 'Not Related'),
+     * return if operation was succcessful
+     *********************************/
+    function clients_set_vendors_status_status() {
+        $UriArray = $this->uri->uri_to_assoc(3);
+//        echo '<pre>$UriArray::'.print_r($UriArray,true).'</pre>';
+        $post_array = $this->input->post();
+        $client_id = $this->common_lib->getParameter($this, $UriArray, $post_array, 'client_id');
+        $provides_vendor_id = $this->common_lib->getParameter($this, $UriArray, $post_array, 'provides_vendor_id');
+        $new_status = $this->common_lib->getParameter($this, $UriArray, $post_array, 'new_status');
+
+        if ( empty($client_id) or empty($provides_vendor_id) or empty($new_status) ) {
+            $this->output->set_content_type('application/json')->set_output(json_encode(array('ErrorMessage' => 'Invalid parameters !', 'ErrorCode' => 1, 'ret' => 0 )));
+            return;
+        }
+
+        $ret = $this->clients_mdl->update_clients_vendors( $client_id, $provides_vendor_id, $new_status );
+
+        $this->output->set_content_type('application/json')->set_output(json_encode(array('ErrorMessage' => '', 'ErrorCode' => 0, 'ret' => $ret )));
+    }
+
+
     /**********************
      * create string with all sorting parameters for using in sorting by column header or at editor submitting to keep current filters
      * access public
      * @params : $UriArray - $_GET array in assoc array, $_post_array - $_POST array,
-     * $WithPage - if TRUE"page_number" is added to the url, $WithSort - if to show current sort in resulting string. With TRUEif used in links to editoe, with FALSEis used in
+     * $WithPage - if TRUE"page" is added to the url, $WithSort - if to show current sort in resulting string. With TRUEif used in links to editoe, with FALSEis used in
+     * sorting columns, as sorting is set for any column.
+     * return string with filters in pairs filter_name/filter_value
+     *********************************/
+    // http://local-zntral.com/sys-admin/clients_edit_load_provides_vendors/filter_client_id/17029/filter_provides_vendors_type/P/sort/username/sort_direction/desc/page_number/1/filter_provides_vendors_filter/a
+    private function clientsProvidesVendorsPreparePageParameters($UriArray, $_post_array, $WithPage, $WithSort)
+    {
+//        echo '<pre>clientsProvidesVendorsPreparePageParameters $UriArray::'.print_r($UriArray,true).'</pre>';
+        $ResStr = '';
+        if (!empty($_post_array)) { // form was submitted
+            if ($WithPage) {
+                $page = $this->input->post('page');
+                $ResStr .= !empty($page) ? 'page/' . $page . '/' : 'page/1/';
+            }
+            $filter_client_id = $this->input->post('filter_client_id');
+            $ResStr .= !empty($filter_client_id) ? 'filter_client_id/' . $filter_client_id . '/' : '';
+            $filter_related_users_filter = $this->input->post('filter_related_users_filter');
+            $ResStr .= !empty($filter_related_users_filter) ? 'filter_related_users_filter/' . $filter_related_users_filter . '/' : '';
+            $filter_related_users_type = $this->input->post('filter_related_users_type');
+            $ResStr .= !empty($filter_related_users_type) ? 'filter_related_users_type/' . $filter_related_users_type . '/' : '';
+            if ($WithSort) {
+                $sort_direction = $this->input->post('sort_direction');
+                $ResStr .= !empty($sort_direction) ? 'sort_direction/' . $sort_direction . '/' : '';
+                $sort = $this->input->post('sort');
+                $ResStr .= !empty($sort) ? 'sort/' . $sort . '/' : '';
+            }
+        } else {
+            if ($WithPage) {
+                $ResStr .= !empty($UriArray['page']) ? 'page/' . $UriArray['page'] . '/' : 'page/1/';
+            }
+            $ResStr .= !empty($UriArray['filter_client_id']) ? 'filter_client_id/' . $UriArray['filter_client_id'] . '/' : '';
+            $ResStr .= !empty($UriArray['filter_related_users_filter']) ? 'filter_related_users_filter/' . $UriArray['filter_related_users_filter'] . '/' : '';
+            $ResStr .= !empty($UriArray['filter_related_users_type']) ? 'filter_related_users_type/' . $UriArray['filter_related_users_type'] . '/' : '';
+            if ($WithSort) {
+                $ResStr .= !empty($UriArray['sort_direction']) ? 'sort_direction/' . $UriArray['sort_direction'] . '/' : '';
+                $ResStr .= !empty($UriArray['sort']) ? 'sort/' . $UriArray['sort'] . '/' : '';
+            }
+        }
+        if (substr($ResStr, strlen($ResStr) - 1, 1) == '/') {
+            $ResStr = substr($ResStr, 0, strlen($ResStr) - 1);
+        }
+        return '/' . $ResStr;
+    }
+
+    /**********************
+     * create string with all sorting parameters for using in sorting by column header or at editor submitting to keep current filters
+     * access public
+     * @params : $UriArray - $_GET array in assoc array, $_post_array - $_POST array,
+     * $WithPage - if TRUE"page" is added to the url, $WithSort - if to show current sort in resulting string. With TRUEif used in links to editoe, with FALSEis used in
      * sorting columns, as sorting is set for any column.
      * return string with filters in pairs filter_name/filter_value
      *********************************/
@@ -327,8 +444,8 @@ class Sys_admin extends CI_Controller {
         $ResStr = '';
         if (!empty($_post_array)) { // form was submitted
             if ($WithPage) {
-                $page_number = $this->input->post('page_number');
-                $ResStr .= !empty($page) ? 'page_number/' . $page_number . '/' : 'page_number/1/';
+                $page = $this->input->post('page');
+                $ResStr .= !empty($page) ? 'page/' . $page . '/' : 'page/1/';
             }
             $filter_client_name = $this->input->post('filter_client_name');
             $ResStr .= !empty($filter_client_name) ? 'filter_client_name/' . $filter_client_name . '/' : '';
@@ -350,7 +467,7 @@ class Sys_admin extends CI_Controller {
             }
         } else {
             if ($WithPage) {
-                $ResStr .= !empty($UriArray['page_number']) ? 'page_number/' . $UriArray['page_number'] . '/' : 'page_number/1/';
+                $ResStr .= !empty($UriArray['page']) ? 'page/' . $UriArray['page'] . '/' : 'page/1/';
             }
             $ResStr .= !empty($UriArray['filter_client_name']) ? 'filter_client_name/' . $UriArray['filter_client_name'] . '/' : '';
             $ResStr .= !empty($UriArray['filter_client_active_status']) ? 'filter_client_active_status/' . $UriArray['filter_client_active_status'] . '/' : '';
@@ -372,7 +489,7 @@ class Sys_admin extends CI_Controller {
      * create string with all sorting parameters for using in sorting by column header or at editor submitting to keep current filters
      * access public
      * @params : $UriArray - $_GET array in assoc array, $_post_array - $_POST array,
-     * $WithPage - if TRUE"page_number" is added to the url, $WithSort - if to show current sort in resulting string. With TRUEif used in links to editoe, with FALSEis used in
+     * $WithPage - if TRUE"page" is added to the url, $WithSort - if to show current sort in resulting string. With TRUEif used in links to editoe, with FALSEis used in
      * sorting columns, as sorting is set for any column.
      * return string with filters in pairs filter_name/filter_value
      *********************************/
@@ -382,15 +499,15 @@ class Sys_admin extends CI_Controller {
         $ResStr = '';
         if (!empty($_post_array)) { // form was submitted
             if ($WithPage) {
-                $page_number = $this->input->post('page_number');
-                $ResStr .= !empty($page) ? 'page_number/' . $page_number . '/' : 'page_number/1/';
+                $page = $this->input->post('page');
+                $ResStr .= !empty($page) ? 'page/' . $page . '/' : 'page/1/';
             }
             $filter_client_id = $this->input->post('filter_client_id');
             $ResStr .= !empty($filter_client_id) ? 'filter_client_id/' . $filter_client_id . '/' : '';
             $filter_related_users_filter = $this->input->post('filter_related_users_filter');
             $ResStr .= !empty($filter_related_users_filter) ? 'filter_related_users_filter/' . $filter_related_users_filter . '/' : '';
-            $filter_related_users_type = $this->input->post('filter_related_users_type');
-            $ResStr .= !empty($filter_related_users_type) ? 'filter_related_users_type/' . $filter_related_users_type . '/' : '';
+            $filter_provides_vendors_type = $this->input->post('filter_provides_vendors_type');
+            $ResStr .= !empty($filter_provides_vendors_type) ? 'filter_provides_vendors_type/' . $filter_provides_vendors_type . '/' : '';
             if ($WithSort) {
                 $sort_direction = $this->input->post('sort_direction');
                 $ResStr .= !empty($sort_direction) ? 'sort_direction/' . $sort_direction . '/' : '';
@@ -399,11 +516,11 @@ class Sys_admin extends CI_Controller {
             }
         } else {
             if ($WithPage) {
-                $ResStr .= !empty($UriArray['page_number']) ? 'page_number/' . $UriArray['page_number'] . '/' : 'page_number/1/';
+                $ResStr .= !empty($UriArray['page']) ? 'page/' . $UriArray['page'] . '/' : 'page/1/';
             }
             $ResStr .= !empty($UriArray['filter_client_id']) ? 'filter_client_id/' . $UriArray['filter_client_id'] . '/' : '';
             $ResStr .= !empty($UriArray['filter_related_users_filter']) ? 'filter_related_users_filter/' . $UriArray['filter_related_users_filter'] . '/' : '';
-            $ResStr .= !empty($UriArray['filter_related_users_type']) ? 'filter_related_users_type/' . $UriArray['filter_related_users_type'] . '/' : '';
+            $ResStr .= !empty($UriArray['filter_provides_vendors_type']) ? 'filter_provides_vendors_type/' . $UriArray['filter_provides_vendors_type'] . '/' : '';
             if ($WithSort) {
                 $ResStr .= !empty($UriArray['sort_direction']) ? 'sort_direction/' . $UriArray['sort_direction'] . '/' : '';
                 $ResStr .= !empty($UriArray['sort']) ? 'sort/' . $UriArray['sort'] . '/' : '';

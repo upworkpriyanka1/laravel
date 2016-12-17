@@ -10,22 +10,6 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
         <div class="portlet light bordered">
             <div class="portlet-body">
 
-                <div class="table-toolbar">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="btn-group">
-<!--                                <a class="btn sbold green" href="--><?//= base_url($this->uri->segment(1).'/clients-add');?><!--">-->
-<!--                                    --><?//= lang('add-new');?><!-- <i class="fa fa-plus"></i>-->
-<!--                                </a>-->
-                                &nbsp;&nbsp;clients count in db : <b><?= $clients_count_in_db; ?>&nbsp;,
-                                <a href="<?= base_url($this->uri->segment(1).'/add_dummy_clients'); ?> ">Add Dummy 1000 clients</a>&nbsp;&nbsp;&nbsp;,
-                                <a href="<?= base_url($this->uri->segment(1).'/delete_dummy_clients'); ?> ">Delete Dummy clients</a>
-                                ENVIRONMENT::<?= ENVIRONMENT ?>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="table-toolbar table_info">
                     <? if ( count($clients) > 0 ) { ?>
                         <?= count($clients); ?>&nbsp;Row<? if ( count($clients) > 1 ) { ?>s<? } ?>&nbsp;of&nbsp;<?= $RowsInTable ?>&nbsp;(Page # <strong><?= $page_number ?> </strong>)

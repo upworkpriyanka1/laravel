@@ -1,5 +1,6 @@
 $(document).ready(function ($) {
     load_related_users(1)
+    load_provides_vendors(1) // div_load_provides_vendors
     tabInit()
     paginationLinksInit()
 });
@@ -13,14 +14,36 @@ $(document).ready(function ($) {
 function paginationLinksInit() {
     $(document).on('click', "div.table_pagination a",function(){  // LOAD ON PAGE LOAD AND ON CLICK
         var urls = $(this).attr("href");
+         // alert( "paginationLinksInit urls::"+var_dump(urls) )
         if ( urls== "#" ) {
+            load_provides_vendors(1)
             load_related_users(1)
-            return;
         }
-        var value_arr = urls.split( '/page_number/' );
-        if ( value_arr.length == 2 ) { // we have page number
-            load_related_users(value_arr[1])
+        var arr = urls.split( '/clients_edit_load_provides_vendors/' );
+        if (arr.length >= 2) {
+            if ( urls== "#" ) {
+                load_provides_vendors(1)
+                return;
+            }
+            var value_arr = urls.split( '/page/' );
+            if ( value_arr.length == 2 ) { // we have page number
+                load_provides_vendors(value_arr[1])
+            }
         }
+
+
+        var arr = urls.split( '/clients_edit_load_related_users/' );
+        if (arr.length >= 2) {
+            if (urls == "#") {
+                load_related_users(1)
+                return;
+            }
+            var value_arr = urls.split('/page/');
+            if (value_arr.length == 2) { // we have page number
+                load_related_users(value_arr[1])
+            }
+        }
+
         return false;
     });
 }
@@ -60,10 +83,12 @@ function relatedUserSortingClick(field_title, sort_field_name, sort_direction) {
 /**********************
  * List of related users reloading
  * access public
- * params : page_number - witch page must be loaded, the rest of parameters are read from inputs.
+ * params : page - witch page must be loaded, the rest of parameters are read from inputs.
  * return none
  *********************************/
-function load_related_users(page_number) {
+function load_related_users(page) {
+    page= parseInt(page)
+    // alert( "load_related_users  page::"+page )
     var sort_field_name= jQuery.trim( $("#sort_field_name").val() )
     if (sort_field_name == "") sort_field_name= 'username'
     var sort_direction = jQuery.trim( $("#sort_direction").val() )
@@ -75,7 +100,7 @@ function load_related_users(page_number) {
     if (select_user_active_status!= "") {
         select_user_active_status= "/user_active_status/"+select_user_active_status
     }
-    var href= base_url+"sys-admin/clients_edit_load_related_users/filter_client_id/"+client_id+"/filter_related_users_type/"+related_users_type+"/sort/"+sort_field_name+"/sort_direction/"+sort_direction+select_user_active_status + "/page_number/" + page_number + "/filter_related_users_filter/"+related_users_filter
+    var href= base_url+"sys-admin/clients_edit_load_related_users/filter_client_id/"+client_id+"/filter_related_users_type/"+related_users_type+"/sort/"+sort_field_name+"/sort_direction/"+sort_direction+select_user_active_status + "/page/" + page + "/filter_related_users_filter/"+related_users_filter
     $.ajax({
         url: href,
         type: 'GET',
@@ -93,7 +118,7 @@ function load_related_users(page_number) {
 /**********************
  * List of related users reloading
  * access public
- * params : page_number - witch page must be loaded, the rest of parameters are read from inputs.
+ * params : page - witch page must be loaded, the rest of parameters are read from inputs.
  * return none
  *********************************/
 function setRelatedUserEnabled( related_user_username, related_user_active_status_label, related_user_email, related_user_phone, uc_active_status, uc_active_status_label, related_user_id ) {
@@ -160,6 +185,136 @@ function tabInit() {
     })
 }
 
+
+
+/*  PROVIDED VENDORS BLOCK START  */
+/**********************
+ * List of provided vendors reloading
+ * access public
+ * params : page - witch page must be loaded, the rest of parameters are read from inputs.
+ * return none
+ *********************************/
+function load_provides_vendors(page) {
+    page= parseInt(page)
+    // alert( "load_provides_vendors page::"+page )
+    var provides_vendors_sort_field_name= jQuery.trim( $("#provides_vendors_sort_field_name").val() )
+    if (provides_vendors_sort_field_name == "") provides_vendors_sort_field_name= 'username'
+    var load_provided_sort_direction = jQuery.trim( $("#load_provided_sort_direction").val() )
+    if (load_provided_sort_direction == "") load_provided_sort_direction= 'desc'
+
+    var provides_vendors_type= $("#select_provides_vendors_type").val()
+    var provides_vendors_filter= $("#input_provides_vendors_filter").val()
+    // var select_user_active_status= $("#select_user_active_status").val()
+    // if (select_user_active_status!= "") {
+    //     select_user_active_status= "/user_active_status/"+select_user_active_status
+    // }
+    var href= base_url+"sys-admin/clients_edit_load_provides_vendors/filter_client_id/"+client_id+"/filter_provides_vendors_type/"+provides_vendors_type+"/sort/"+provides_vendors_sort_field_name+"/sort_direction/"+load_provided_sort_direction/*+select_user_active_status */ + "/page/" + page + "/filter_provides_vendors_filter/"+provides_vendors_filter
+    $.ajax({
+        url: href,
+        type: 'GET',
+        dataType: 'json',
+        success: function(result) {
+            if (result.ErrorCode == 0) {
+                $('#div_load_provides_vendors').html(result.html)
+            }
+        }
+    });
+
+
+}
+
+function run_provides_vendors_filter() {
+    load_provides_vendors(1)
+}
+
+/**********************
+ * List of related users reloading
+ * access public
+ * params : page - witch page must be loaded, the rest of parameters are read from inputs.
+ * return none
+ *********************************/
+// <a class="btn btn-sm blue" onclick="javascript:setProvidesVendorsEnabled( '<?= addslashes($next_provides_vendor->vn_name) ?>', '<?= $this->clients_mdl->getClientsVendorsActiveStatusLabel( $cv_active_status ) ?>', '<?= $cv_active_status ?>', <?= $next_provides_vendor->cv_id ?>//)">
+
+function setProvidesVendorsEnabled( current_vendor_name, vendor_email, vendor_website, provides_vendors_cv_active_status_label, provides_vendors_cv_active_status, related_vendor_id ) {
+    // alert( "setProvidesVendorsEnabled current_vendor_name::"+current_vendor_name +"  vendor_email::"+vendor_email+"  vendor_website::"+vendor_website+ "  provides_vendors_cv_active_status_label::" +provides_vendors_cv_active_status_label + "  related_vendor_id::"+related_vendor_id )
+    $('.tooltip-inner').css('display', 'none');
+
+    $( "#provides_vendor_enabled_dialog" ).modal(  {
+        "backdrop": "static",
+        "keyboard": true,
+        "show": true
+    }  );
+    var current_client_name = $("#client_name").val()
+     $("#span_provides_vendors_client_name").html( current_client_name )
+    $("#span_vendor_name").html( current_vendor_name )
+    $("#span_related_vendor_email").html( vendor_email )
+    $("#span_related_vendor_website").html( vendor_website )
+    $("#span_provides_vendors_cv_active_status_label").html( provides_vendors_cv_active_status_label )
+    $("#span_provides_vendors_cv_active_status").html( provides_vendors_cv_active_status )
+
+    // $("#span_provides_vendors_active_status_label").html( provides_vendors_active_status_label )
+    $("#hidden_related_vendor_id").val( related_vendor_id )
+
+
+    if ( provides_vendors_cv_active_status == "P" ) {          // -- P-Provides; N-Does Not Provides
+        $("#div_set_vendors_status_provides").css("display","none")
+        $("#div_set_vendors_status_not_provides").css("display","block")
+    }
+
+    if ( provides_vendors_cv_active_status == "N" ) {
+        $("#div_set_vendors_status_provides").css("display","block")
+        $("#div_set_vendors_status_not_provides").css("display","none")
+    }
+
+}
+
+function setProvidesVendorStatus(new_status) {
+    var provides_vendor_id= $("#hidden_related_vendor_id").val()
+    var href= base_url+"sys-admin/clients_set_vendors_status_status/client_id/"+client_id+"/provides_vendor_id/"+provides_vendor_id+"/new_status/"+new_status
+    $.ajax({
+        url: href,
+        type: 'POST',
+        dataType: 'json',
+        success: function(result) {
+            if (result.ErrorCode == 0) {
+                $('#provides_vendor_enabled_dialog').modal('hide');
+                load_provides_vendors(1)
+            }
+        }
+    });
+}
+
+
+/**********************
+ * In pagination by click on item on header link to sort listing by clicked column
+ * access public
+ * params : field name to sort, sort direction
+ * return none
+ *********************************/
+function providesVendorsSortingClick(field_title, sort_field_name, sort_direction) {
+    alert( "providesVendorsSortingClick field_title::"+var_dump(field_title) )
+    var current_sort_field_name= $("#provides_vendors_sort_field_name").val()
+    var current_sort_direction= $("#provides_vendors_sort_direction").val()
+
+    if ( current_sort_field_name == sort_field_name ) {
+        if ( current_sort_direction == 'asc' ) {
+            sort_direction = 'desc'
+        }
+        if ( current_sort_direction == 'desc' ) {
+            sort_direction = 'asc'
+        }
+    }
+
+    $("#provides_vendors_sort_field_name").val(sort_field_name)
+    if ( typeof sort_direction == "undefined" ) {
+        sort_direction = 'asc'
+    }
+
+    $("#provides_vendors_sort_direction").val(sort_direction)
+    load_related_users(1)
+}
+
+/*  PROVIDED VENDORS BLOCK END */
 
 /**********************
  * Debugging function of different scalar/object value

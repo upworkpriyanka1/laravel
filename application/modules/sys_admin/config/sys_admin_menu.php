@@ -89,10 +89,20 @@ $config['menu_5'] = array(
         'href'	=>	'/vendors/vendors-view', //make sure to use dash
         'title'	=>	'vendors-view',//should be the same as the lang()
         'icon'	=>	'fa fa-wheelchair'
-    ),             // /sys-admin/vendors/vendors-edit/new/
+    ),
     "sub_4" => array(
         'href'	=>	'/vendors/vendors-edit/new/', //make sure to use dash
         'title'	=>	'vendor-add',//should be the same as the lang()
+        'icon'	=>	'fa fa-plus'
+    ),
+    "sub_5" => array(
+        'href'	=>	'/services/services-view', //make sure to use dash
+        'title'	=>	'services-view',//should be the same as the lang()
+        'icon'	=>	'fa fa-wifi'
+    ),
+    "sub_6" => array(
+        'href'	=>	'/services/services-edit/new/', //make sure to use dash
+        'title'	=>	'service-add',//should be the same as the lang()
         'icon'	=>	'fa fa-plus'
     ),
 );

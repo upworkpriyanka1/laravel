@@ -127,7 +127,8 @@ class Common_lib
     public function getParameter($Controller, $UriArray, $PostArray, $ParameterName, $DefaultValue = '', $parameter_splitter = '')
     {
         if (!empty($PostArray)) { // form was submitted
-            $ParameterValue = $Controller->input->post($ParameterName);
+            $val= $Controller->input->post($ParameterName);
+            $ParameterValue = !empty($val) ? $val : $DefaultValue;
         } else {
             $ParameterValue = !empty($UriArray[$ParameterName]) ? $UriArray[$ParameterName] : $DefaultValue;
         }
@@ -151,6 +152,7 @@ class Common_lib
 
     public function convertFromMySqlToCalendarFormat($StringDate)
     { // 	2012-12-28      2016-09-05 -> 5 September, 2016
+//        echo '<pre>$StringDate::'.print_r($StringDate,true).'</pre>';
         if (empty($StringDate))
             return '';
         $A = preg_split("/-/", $StringDate);
@@ -210,6 +212,75 @@ class Common_lib
     }
 
     /**********************
+     * Get size of file in bytes and returns human readable size label
+     * access public
+     * @params $FileSize - File Size in bytes
+     * return string  human readable size label
+     *********************************/
+    public function getFileSizeAsString($FileSize)
+    {
+        if ((int)$FileSize < 1024)
+            return $FileSize . ' b';
+        if ((int)$FileSize < 1024 * 1024)
+            return floor($FileSize / 1024) . ' kb';
+        return floor($FileSize / (1024 * 1024)) . ' mb';
+    }
+
+    /**********************
+     * by image path and border(max width/height) get new image size withing returns array of recalculated size
+     * access public
+     * @params $ImageFileName - image path, $orig_width - max width for resize, $orig_height - max height for resize
+     * return array of recalculated old/new size
+     *********************************/
+    public function GetImageShowSize($ImageFileName, $orig_width, $orig_height)
+    {
+        $ResArray = array('Width' => 0, 'Height' => 0, 'OriginalWidth' => 0, 'OriginalHeight' => 0);
+        $FileArray = @getimagesize($ImageFileName);
+        if (empty($FileArray))
+            return $ResArray;
+
+        $width = (int)$FileArray[0];
+        $height = (int)$FileArray[1];
+
+        $ResArray = array('Width' => 0, 'Height' => 0, 'OriginalWidth' => 0, 'OriginalHeight' => 0);
+
+        $FileArray = @getimagesize($ImageFileName);
+        if (empty($FileArray))
+            return $ResArray;
+
+        $width = (int)$FileArray[0];
+        $height = (int)$FileArray[1];
+        $ResArray['OriginalWidth'] = $width;
+        $ResArray['OriginalHeight'] = $height;
+        $ResArray['Width'] = $width;
+        $ResArray['Height'] = $height;
+
+        $Ratio = round($width / $height, 3);
+
+        if ($width > $orig_width) {
+            $ResArray['Width'] = (int)($orig_width);
+            $ResArray['Height'] = (int)($orig_width / $Ratio);
+            if ($ResArray['Width'] <= (int)$orig_width and $ResArray['Height'] <= (int)$orig_height) {
+                return $ResArray;
+            }
+            $width = $ResArray['Width'];
+            $height = $ResArray['Height'];
+        }
+        if ($height > $orig_height and ((int)($orig_height / $Ratio)) <= $orig_width) {
+            $ResArray['Width'] = (int)($orig_height * $Ratio);
+            $ResArray['Height'] = (int)($orig_height);
+            return $ResArray;
+        }
+        if ($height > $orig_height and ((int)($orig_height / $Ratio)) > $orig_width) {
+            $ResArray['Width'] = (int)($orig_height * $Ratio);
+            $ResArray['Height'] = (int)($ResArray['Width'] / $Ratio);
+            return $ResArray;
+        }
+        return $ResArray;
+
+    }
+
+    /**********************
      * Get Config parameter by name
      * access public
      * @params $name, $default_value = '')
@@ -234,11 +305,27 @@ class Common_lib
             if (empty($FileName))
                 $FileName = './log/logging_deb.txt';
             $fd = fopen($FileName, ($IsClearText ? "w+" : "a+"));
-            fwrite($fd, $contents . chr(13));
+            fwrite($fd, print_r($contents,true) . chr(13));
             fclose($fd);
             return true;
         } catch (Exception $lException) {
             return false;
+        }
+    }
+
+
+    /**********************
+     * create directories by given array from the root
+     * access public
+     * @params $directories_list - $directories list started from the root
+     * return Config Value
+     *********************************/
+    public static function createDir(array $directories_list = array(), $mode = 0755)
+    {
+        foreach ($directories_list as $dir) {
+            if ( !file_exists($dir) ) {
+                mkdir($dir, $mode );
+            }
         }
     }
 
@@ -283,7 +370,17 @@ class Common_lib
      * return string label
      *********************************/
     public function get_client_active_status_label($active_status) {
-        return $this->CI->admin_mdl->getClientActiveStatusLabel($active_status);
+        return $this->CI->clients_mdl->getClientActiveStatusLabel($active_status);
+    }
+
+    /**********************
+     * Get readable label of service_active_status field
+     * access public
+     * @params $service_active_status
+     * return string label
+     *********************************/
+    public function get_service_active_status_label($active_status) {
+        return $this->CI->services_mdl->getServiceActiveStatusLabel($active_status);
     }
 
     /**********************
@@ -392,5 +489,71 @@ class Common_lib
         return ( ! empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest');
     }
 
+
+    public function concatStr($Str, $MaxLength = 50,  $AddStr = '...', $ShowHelp = false, $StripTags = true, $additive_code= '')
+    {
+        if ($StripTags) $Str = strip_tags($Str);
+        $ReturnHTML = self::limitChars($Str, ( !empty($MaxLength) ? $MaxLength : self::$ConcatStrMaxLength ), $AddStr);
+        if ($ShowHelp and strlen($Str) > $MaxLength) {
+            $Str = self::nl2br2($Str);
+            $ReturnHTML .= '<i class=" a_link fa fa-object-group" style="font-size:larger;" hidden '.$additive_code.' ></i>';
+        }
+        return $ReturnHTML;
+    }
+
+    /**
+     * Limits a phrase to a given number of characters.
+     *
+     * @param   string   phrase to limit characters of
+     * @param   integer  number of characters to limit to
+     * @param   string   end character or entity
+     * @param   boolean  enable or disable the preservation of words while limiting
+     * @return  string
+     */
+    public function limitChars($str, $limit = 100, $endChar = null, $preserveWords = false)
+    {
+        $endChar = ($endChar === null) ? '&#8230;' : $endChar;
+
+        $limit = (int)$limit;
+
+        if (trim($str) === '' OR strlen($str) <= $limit)
+            return $str;
+
+        if ($limit <= 0)
+            return $endChar;
+
+        if ($preserveWords == false) {
+            return rtrim(substr($str, 0, $limit)) . $endChar;
+        }
+        // TO FIX AND DELETE SPACE BELOW
+        preg_match('/^.{' . ($limit - 1) . '}\S* /us', $str, $matches);
+
+        return rtrim($matches[0]) . (strlen($matches[0]) == strlen($str) ? '' : $endChar);
+    }
+
+    public static function nl2br2($string, $replace_with= "<br>")
+    {
+        $string = str_replace(array("\r\n", "\r", "\n"), $replace_with, $string);
+        return $string;
+    }
+
+
+    public function tbUrlDecode($Url)
+    {
+        $Url = str_replace('ZZZZZ', '/', $Url);
+        $Url = str_replace('XXXXX', '.', $Url);
+        $Url = str_replace('YYYYY', '-', $Url);
+        $Url = str_replace('WWWWW', '_', $Url);
+        return $Url;
+    }
+
+    public function tbUrlEncode($Url)
+    {
+        $Url = str_replace('/', 'ZZZZZ', $Url);
+        $Url = str_replace('.', 'XXXXX', $Url);
+        $Url = str_replace('-', 'YYYYY', $Url);
+        $Url = str_replace('_', 'WWWWW', $Url);
+        return $Url;
+    }
 
 }

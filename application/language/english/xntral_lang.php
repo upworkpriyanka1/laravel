@@ -50,7 +50,7 @@ $lang['client_type_help']       = "select min 1 option (Ctrl+Click)";
 $lang['client_name']            = "Client Name";
 $lang['client_owner']           = "Client Owner";
 $lang['client_active_status']   = "Client Active Status";
-//$lang['clients_edit_load_related_users']   = "Related Users";
+$lang['cv_active_status']       = "Provides Vendor";
 
 $lang['company']                = "Company";
 $lang['my-company']             = $lang['profile-company'] = "My Company";
@@ -90,6 +90,14 @@ $lang['vc_person_description']  = "Person description";
 $lang['vc_phone']               = "Person phone";
 $lang['vc_phone_description']   = "Phone description";
 $lang['vc_person_email']        = "Person email";
+
+
+$lang['services-view']          = "Services Listing";
+$lang['service-add']            = "Add Service";
+$lang['service']                = "Service";
+$lang['sv_active_status']       = "Active Status";
+$lang['sv_title']               = "Title";
+$lang['sv_description']         = "Description";
 
 
 $lang['username']               = "Username";
