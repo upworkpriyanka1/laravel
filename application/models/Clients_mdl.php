@@ -9,7 +9,7 @@ class Clients_mdl extends CI_Model
     public $m_clients_table;
     private $m_clients_types_table;
     public $m_vendor_table;     // P-Provides; N-Does Not Provides
-    private $ClientActiveStatusLabelValueArray = Array('A' => 'Active', 'I' => 'Inactive', 'N' => 'New');
+    private $ClientActiveStatusLabelValueArray = Array('A' => 'Active', 'I' => 'Inactive', 'N' => 'New');  // values/labels for enum field
     private $UsersClientsActiveStatusLabelValueArray = Array('E' => 'Employee', 'O' => 'Out Of Staff', 'N' => 'Not Related');
     private $UserActiveStatusLabelValueArray = Array('N' => 'New', 'A' => 'Active', 'I' => 'Inactive');
     private $ClientsVendorsActiveStatusLabelValueArray = Array('P' => 'Provides', 'N' => 'Does Not Provides');

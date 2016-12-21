@@ -8,10 +8,10 @@ class Services_mdl extends CI_Model
     public $m_services_table;
     public $m_service_images_table;
     public $m_vendor_types_table;
-    private $ServiceActiveStatusLabelValueArray = Array('A' => 'Active', 'I' => 'Inactive');
+    private $ServiceActiveStatusLabelValueArray = Array('A' => 'Active', 'I' => 'Inactive');   // values/labels for enum field
 
     function __construct()
-    { //   `sv_active_status`       enum('A','I') NOT NULL default 'I',
+    {
         parent::__construct();
         $this->m_services_table= 'services';
         $this->m_service_images_table= 'service_images';

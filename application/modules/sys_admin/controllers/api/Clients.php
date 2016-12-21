@@ -24,6 +24,7 @@ class Clients extends REST_Controller {
         // Construct the parent class
         parent::__construct();
         $this->load->model(  'sys_admin_mdl', 'admin_mdl');
+        $this->load->model(  'clients_mdl' );
 
 
 //        $this->load->model(  'modules/sys_admin/models/Sys_admin_mdl');
@@ -45,6 +46,7 @@ class Clients extends REST_Controller {
         if ($id === NULL)
         {
             // Check if the clients data store contains clients (in case the database result returns NULL)
+            // apply all filters to data retrieving
             $show_client_type_description= !empty($uri_array['show_client_type_description']) ? $uri_array['show_client_type_description'] : '';
             $filter_client_name= !empty($uri_array['filter_client_name']) ? $uri_array['filter_client_name'] : '';
             $filter_client_active_status= !empty($uri_array['filter_client_active_status']) ? $uri_array['filter_client_active_status'] : '';
@@ -79,7 +81,7 @@ class Clients extends REST_Controller {
 
 
         // Get the client from db by its id
-        $client = $this->admin_mdl->getRowById($id);
+        $client = $this->clients_mdl->getRowById($id);
 
         if (!empty($client))
         {
@@ -135,10 +137,10 @@ class Clients extends REST_Controller {
         if ( $validateDataObj->has_validation_errors() ) {
             $validation_errors= $validateDataObj->get_validation_errors();
         }
-        if ( !$this->admin_mdl->checkIsEmailUnique($client_email) and empty($validation_errors['client_email']) ) {
+        if ( !$this->clients_mdl->checkIsEmailUnique($client_email) and empty($validation_errors['client_email']) ) {
             $validation_errors['client_email']= array('client_email'=> $client_email, 'error_type'=>'validation_email_is_not_unique');
         }
-        if ( !$this->admin_mdl->checkIsClient_NameUnique($client_name) and empty($validation_errors['client_name']) ) {
+        if ( !$this->clients_mdl->checkIsClient_NameUnique($client_name) and empty($validation_errors['client_name']) ) {
             $validation_errors['client_name']= array('client_name'=> $client_name, 'error_type'=>'validation_client_name_is_not_unique');
         }
 

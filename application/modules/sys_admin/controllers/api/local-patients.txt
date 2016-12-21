@@ -1,0 +1,53 @@
+As I do not have access to dev site, I wrote http://local-zntral.com/ host name.
+It must be replaced with real size.
+
+////////////////////////// Get List of patients ////////////////////////
+all patients sorted by display_name
+http://local-zntral.com/sys-admin/api/patients/patients/sort/pt_patient_login/sort_direction/desc
+
+
+Additive parameters :
+
+filters by pt_zip and pt_patient_login(like condition)
+http://local-zntral.com/sys-admin/api/patients/patients/filter_pt_zip/90057/filter_pt_patient_login/John/
+
+
+Only new patients(pt_patient_active_status/N) and in New york
+http://local-zntral.com/sys-admin/api/patients/patients/filter_pt_patient_active_status/N/filter_pt_state/NY
+pt_patient_active_status cab be 'N' - New, 'A' - Active, 'I' - Inactive
+
+
+All men born in 1980
+http://local-zntral.com/sys-admin/api/patients/patients/filter_pt_gender/M/filter_pt_birth_date_from/1980-01-01/filter_pt_birth_date_till/1980-12-31
+
+
+filter by Social Security Number in format NNN-NN-NNNN
+http://local-zntral.com/sys-admin/api/patients/patients/filter_pt_ss_number/123-45-6789
+
+
+Filter by creation date:
+http://local-zntral.com/sys-admin/api/patients/patients/filter_created_at_from/2016-01-01/filter_created_at_till/2016-12-31
+
+
+filter by Social Security Number in format NNN-NN-NNNN and also return patient_bereavements information for found patient
+http://local-zntral.com/sys-admin/api/patients/patients/filter_pt_ss_number/123-45-6789/show_patient_bereavements/1
+
+
+to example above add contacts list
+http://local-zntral.com/sys-admin/api/patients/patients/filter_pt_ss_number/123-45-6789/show_patient_bereavements/1/show_patient_contacts/1
+
+
+All new patients with contacts list and bereavements information
+http://local-zntral.com/sys-admin/api/patients/patients/filter_pt_patient_active_status/N//show_patient_bereavements/1/show_patient_contacts/1
+
+
+Can be combination of any parameters in format filter key/value.
+
+
+
+
+============
+As some tables needs dictionary listing with option/values listing for selection option, next implemented :
+
+get dictionary items for patient bereavements described at https://docs.google.com/spreadsheets/d/1mYNrJ0iZDlte66T9_4xL3Zt6Yf3a6rkxWOmpFusiIb8/edit#gid=1916121751 (row 65, column 5)
+http://local-zntral.com/sys-admin/api/patients/patients/get_dictionary/patient_bereavements_grieving_process
