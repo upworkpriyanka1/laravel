@@ -65,10 +65,6 @@ class Sys_admin_mdl extends CI_Model {
         if (!empty($filters['email'])) {
             $this->db->where($this->m_users_table.'.email', $filters['email'] );
         }
-        if ( isset($filters['is_patient']) and strlen($filters['is_patient']) > 0 ) {
-            $this->db->where($this->m_users_table.'.is_patient', $filters['is_patient'] );
-
-        }
         if (!empty($filters['client_id'])) {
             if ( !$are_clients_joined ) {
                 $this->db->join($this->m_users_clients_table, $this->m_users_clients_table . '.uc_user_id = ' . $this->m_users_table . '.id' . ' AND ' .
@@ -256,7 +252,6 @@ class Sys_admin_mdl extends CI_Model {
 //        $this->db->join('users_clients', 'users_clients.uc_user_id = users.id');
 //        $this->db->join('clients', 'clients.cid = users_clients.uc_client_id');
 //        $this->db->where('users.id !=', '1');
-//        $this->db->where('users.is_patient', '0');
 //        $this->db->where('clients.cid !=', '1');
 //        $this->db->where('users_groups.id !=', '1');
 //        $this->db->where('groups.id !=', '1');
@@ -275,7 +270,6 @@ class Sys_admin_mdl extends CI_Model {
         $this->db->join('users_clients', 'users_clients.uc_user_id = users.id');
         $this->db->join('clients', 'clients.cid = users_clients.uc_client_id');
         $this->db->where('users.id !=', '1');
-        $this->db->where('users.is_patient', '0');
         $this->db->where('clients.cid !=', '1');
         $this->db->where('users_groups.id !=', '1');
         $this->db->where('groups.id !=', '1');

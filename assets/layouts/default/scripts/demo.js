@@ -184,12 +184,17 @@ var Demo = function() {
         // handle theme colors
         var setColor = function(color) {
             var color_ = (App.isRTL() ? color + '-rtl' : color);
-            $('#style_color').attr("href", Layout.getLayoutCssPath() + 'themes/' + color_ + ".min.css");
-            if (color == 'light2') {
-                $('.page-logo img').attr('src', Layout.getLayoutImgPath() + 'logo-invert.png');
-            } else {
-                $('.page-logo img').attr('src', Layout.getLayoutImgPath() + 'logo.png');
+            if (window.location.host == 'localhost') {
+                var pathname = window.location.host+"/zntral"
+            }else{
+                var pathname = window.location.host;
             }
+            $('#style_color').attr("href", window.location.protocol + "//" + pathname + Layout.getLayoutCssPath() + 'themes/' + color_ + ".min.css");
+            // if (color == 'light2') {
+            //     $('.page-logo img').attr('src', window.location.protocol + "//" + window.location.host +Layout.getLayoutImgPath() + 'logo-invert.png');
+            // } else {
+            //     $('.page-logo img').attr('src', window.location.protocol + "//" + window.location.host +Layout.getLayoutImgPath() + 'logo.png');
+            // }
         };
 
         $('.toggler', panel).click(function() {

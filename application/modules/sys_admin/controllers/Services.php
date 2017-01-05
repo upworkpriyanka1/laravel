@@ -60,9 +60,6 @@ class Services extends CI_Controller
         $page_parameters_with_sort = $this->servicesPreparePageParameters($UriArray, $post_array, false, true);     // keep all sorting parameters for using in sorting
         $page_parameters_without_sort = $this->servicesPreparePageParameters($UriArray, $post_array, false, false); // by column header or at editor submitting to keep current filters
 
-//        echo '<pre>$page_parameters_with_sort::'.print_r($page_parameters_with_sort,true).'</pre>';
-//        echo '<pre>$page_parameters_without_sort::'.print_r($page_parameters_without_sort,true).'</pre>';
-//        die("-1 XXZ");
         $this->load->library('pagination');
         $pagination_config= $this->common_lib->getPaginationParams();
         $pagination_config['base_url'] = base_url() . 'sys-admin/services/services-view' . /*$page_parameters_with_sort .  */ '/page';
@@ -74,7 +71,6 @@ class Services extends CI_Controller
         if ($rows_in_table > 0) { // number of rows by given parameters > 0 - get rows by given parameters for given $page.
             $data['services']= $this->services_mdl->getServicesList(false, $page, array( 'show_vendor_type_name'=>1, 'sv_title'=> $filter_sv_title, 'service_type_id'=> $filter_vendor_type_id, 'active_status'=> $filter_active_status, 'created_at_from'=> $filter_created_at_from, 'created_at_till'=> $filter_created_at_till ), $sort, $sort_direction );
         } // IMPORTANT : all filter parameters must be similar as in calling of getServicesList above
-//        echo '<pre>$data[\'services\']::'.print_r($data['services'],true).'</pre>';
 //die("-1 XXZ");
         $data['page']		= 'services/services-view';
         $data['page_number']		= $page;
@@ -83,8 +79,6 @@ class Services extends CI_Controller
         $data['select_on_update']= $this->common_lib->getParameter($this, $UriArray, $post_array, 'select_on_update');
         $data['vendor_TypesSelectionList']= $this->vendors_mdl->getVendorTypesSelectionList();
         $data['service_ActiveStatusList']= $this->services_mdl->getServiceActiveStatusValueArray();
-//        echo '<pre>$data[\'service_ActiveStatusList\']::'.print_r($data['service_ActiveStatusList'],true).'</pre>';
-//        die("-1 XXZ");
 
         $data['filter_sv_title']= $filter_sv_title;
         $data['filter_vendor_type_id']= $filter_vendor_type_id;
@@ -108,11 +102,10 @@ class Services extends CI_Controller
         $data['filters_label'] = $filters_label;
         $data['plugins'] 	= array();
         $data['pagination_links'] 	= $pagination_links;
-        $data['javascript'] = array( 'assets/custom/admin/services.js', 'assets/global/plugins/picker/picker.js', 'assets/global/plugins/picker/picker.date.js', 'assets/global/plugins/picker/picker.time.js'); // add picker.date pluging for date selection in fileters form
+        $data['javascript'] = array( 'assets/custom/admin/services.js', 'assets/global/plugins/picker/picker.js', 'assets/global/plugins/picker/picker.date.js', 'assets/global/plugins/picker/picker.time.js');
         $views				= array('design/html_topbar','sidebar','design/page','design/html_footer');
         $this->layout->view($views, $data);
     }
-
 
 
     /**********************
@@ -189,11 +182,8 @@ class Services extends CI_Controller
         $data['page']		= 'services/services-edit'; //page view to load
         $data['plugins'] 	= array('validation'); //page plugins
         $data['javascript'] = array( 'assets/custom/admin/service-edit.js', 'assets/global/plugins/jquery-file-upload/js/vendor/jquery.ui.widget.js','assets/global/plugins/jquery-file-upload/js/jquery.fileupload.js', 'assets/global/plugins/jquery-file-upload/js/jquery.fileupload-process.js',  'assets/global/plugins/jquery-file-upload/js/jquery.iframe-transport.js', 'assets/global/plugins/fancybox/source/jquery.fancybox.pack.js' );//page javascript
-/*
-	<link rel="stylesheet" href="{{ base_url }}static/css/jquery.fancybox.css" type="text/css" media="all"/>
-	<link type="text/css" rel="stylesheet" href="{{ base_url }}static/css/jquery.fileupload.css" media="screen"/>
- */
-        $views				=  array('design/html_topbar','sidebar','design/page','design/html_footer');
+
+	    $views				=  array('design/html_topbar','sidebar','design/page','design/html_footer');
         $this->layout->view($views, $data);
     }
 
@@ -385,24 +375,15 @@ class Services extends CI_Controller
         $unique_session_id = session_id();
         $dst_tmp_directory = FCPATH . $this->config->item('image_tmp_directory') . $unique_session_id;
         $tmp_dest_dirname_url = base_url() . $this->config->item('image_tmp_directory') . $unique_session_id;
-//        $document_root= '';
-//        if ( !empty( $this->app_config['document_root'] ) ) {
-//            $document_root = $this->app_config['document_root'];
-//        }
         $tmpServiceImagesDirs = array( FCPATH . 'uploads', FCPATH . $this->config->item('tmp_directory'), $dst_tmp_directory);
 
         $this->common_lib->DebToFile( 'upload_image_to_tmp_service FCPATH::'.print_r(FCPATH,true));
-//        AppUtils::deb($_FILES, '$_FILES::');
-//        AppUtils::deb($_REQUEST, '$_REQUEST::');
-//        AppUtils::deb($tmpServiceImagesDirs, '$tmpServiceImagesDirs::');
-//        AppUtils::deb($tmp_dest_dirname_url, '$tmp_dest_dirname_url::');
         $src_filename = $_FILES['files']['tmp_name'][0];
         $img_basename = $_FILES['files']['name'][0];
         $tmp_dest_filename = $dst_tmp_directory . DIRECTORY_SEPARATOR . $img_basename;
 
         $this->common_lib->createDir($tmpServiceImagesDirs);
         $ret = move_uploaded_file($src_filename, $tmp_dest_filename);
-
         $filesize = filesize($tmp_dest_filename);
         $resArray = array("files" => array("short_name" => $img_basename,"name" => $tmp_dest_filename,
             "size" => $filesize,
@@ -417,7 +398,6 @@ class Services extends CI_Controller
     public function upload_image_to_service()
     {
         $UriArray = $this->uri->uri_to_assoc(4);
-//        echo '<pre>$UriArray::'.print_r($UriArray,true).'</pre>';
         $service_id = $UriArray['service_id'];
         $is_main_image = $UriArray['is_main_image'];
         $this->common_lib->DebToFile($UriArray, ' upload_image_to_service $UriArray::');
@@ -435,9 +415,7 @@ class Services extends CI_Controller
 
         $tmpServiceImagesDirs = array( FCPATH . 'uploads', $this->config->item('document_root') . 'uploads/services', FCPATH . $this->config->item('image_service_directory') . $service_id );
 
-
         $similarService_Image= $this->services_mdl->getSimilarService_ImageByImage( $img_basename, (int)$service_id, 0 );
-//        echo '<pre>$similarService_Image::'.print_r($similarService_Image,true).'</pre>';
         if ( $similarService_Image ) {
             $this->output->set_content_type('application/json')->set_output(json_encode(array('ErrorMessage' => "This service already has image '".$img_basename."' uploaded !", 'ErrorCode' => 1)));
             return;
@@ -446,10 +424,7 @@ class Services extends CI_Controller
         $this->common_lib->createDir($tmpServiceImagesDirs);
         $uploaded_file_return = copy($src_filename, $dest_filename);
         $this->common_lib->DebToFile($uploaded_file_return, '$uploaded_file_return::');
-//        echo '<pre>$uploaded_file_return::'.print_r($uploaded_file_return,true).'</pre>';
-//        die("-1 XXZ");
         if ($uploaded_file_return) {
-
             $service_image_id = $this->services_mdl->updateService_Images(0, array('si_service_id'=>$service_id, 'si_image'=>$img_basename, 'si_is_main'=>$is_main_image) );
 
             $this->output->set_content_type('application/json')->set_output(json_encode(array('ErrorMessage' => '', 'ErrorCode' => 0, 'dest_filename' => $dest_filename, 'src_filename' => $src_filename, 'service_image_id'=> $service_image_id)));

@@ -70,7 +70,7 @@
                                             <span class="required"> * </span>
                                         </label>
                                         <div class="col-md-7">
-                                            <input type="text" name="data[vn_name]" id="vn_name" value="<?= ( !empty($vendor->vn_name) ? $vendor->vn_name : '' ); ?>" data-required="1" class="form-control" />
+                                            <input type="text" name="data[vn_name]" id="vn_name" value="<?= ( !empty($vendor->vn_name) ? $vendor->vn_name : '' ); ?>" data-required="1" class="form-control" <?php echo !$is_insert ? " readonly " : "" ?> />
 
                                         </div><!-- ./col -->
                                     </div><!-- ./form-group -->
@@ -85,14 +85,14 @@
                                             <span class="required"> * </span>
                                         </label>
                                         <div class="col-md-7">
-                                            <input type="text" name="data[vn_email]" id="vn_email" value="<?= ( !empty($vendor->vn_email) ? $vendor->vn_email : '' ); ?>" data-required="1" class="form-control" />
+                                            <input type="text" name="data[vn_email]" id="vn_email" value="<?= ( !empty($vendor->vn_email) ? $vendor->vn_email : '' ); ?>" data-required="1" class="form-control" <?php echo !$is_insert ? " readonly " : "" ?> />
                                         </div><!-- ./col -->
                                     </div><!-- ./form-group -->
                                 </div><!-- ./col -->
                             </div>
 
                             <div class="row">
-                                <!-- vendor url -->
+                                <!-- vendor website -->
                                 <div class="col-md-12">
                                     <div class="form-group <?= $this->common_lib->set_field_error_tag("data[vn_website]", ' has-error ')?>">
                                         <label class="control-label col-md-4"><?php echo lang('vn_website') ?>
@@ -107,7 +107,7 @@
                             </div> <!-- ./row -->
 
                             <div class="row">
-                                <!-- vendor url -->
+                                <!-- vendor has types label -->
                                 <div class="col-md-12">
                                     <div class="form-group <?= $this->common_lib->set_field_error_tag("vendor_has_types_label", ' has-error ')?>">
                                         <label class="control-label col-md-4"><?php echo lang('vendor_has_types_label') ?>

@@ -10,12 +10,19 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
         <div class="portlet light bordered">
             <div class="portlet-body">
 
+                <div class="page-bar">
+                    <h3 class="page-title"><?=lang('clients-view')?></h3>
+                    <?= $this->common_lib->show_info($editor_message) ?>
+                </div>
+
                 <div class="table-toolbar table_info">
                     <? if ( count($clients) > 0 ) { ?>
                         <?= count($clients); ?>&nbsp;Row<? if ( count($clients) > 1 ) { ?>s<? } ?>&nbsp;of&nbsp;<?= $RowsInTable ?>&nbsp;(Page # <strong><?= $page_number ?> </strong>)
                     <? } ?>
 
                     <button type="button" class="btn btn-default btn-sm pull_right_only_on_xs padding_right_sm" onclick="javascript:clientsListFilterApplied();" data-toggle="tooltip" data-html="true" data-placement="top" title="" data-original-title="Open dialog window to set filter for Clients. <?= ( trim($filters_label) != "" ? "Current filter(s):".$filters_label : "") ?> "><i class="glyphicon glyphicon-filter"></i>&nbsp;Filter </button>
+	                <button type="button" class="btn sbold green  btn-sm pull-right" onclick="javascript:document.location='<?= base_url() ?>sys-admin/clients-edit/new<?=$page_parameters_with_sort ?>'" ><i class="glyphicon glyphicon-plus"></i></button>
+
                 </div>
 
                 <div class="table-responsive">
@@ -24,13 +31,13 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
                     <thead>
                         <tr>
 
-                            <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $PageParametersWithoutSort, lang('client_name'), "client_name", $sort_direction, $sort ) ?></th>
-                            <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $PageParametersWithoutSort, lang('client_owner'), "client_owner", $sort_direction, $sort ) ?></th>
-                            <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $PageParametersWithoutSort, lang('client_active_status'), "client_active_status", $sort_direction, $sort ) ?></th>
-                            <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $PageParametersWithoutSort, lang('phone'), "client_phone", $sort_direction, $sort ) ?></th>
-                            <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $PageParametersWithoutSort, lang('clients-type'), "type_description", $sort_direction, $sort ) ?></th>
-                            <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $PageParametersWithoutSort, lang('created_at'), "created_at", $sort_direction, $sort ) ?></th>
-                            <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $PageParametersWithoutSort, lang('updated_at'), "updated_at", $sort_direction, $sort ) ?></th>
+                            <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $page_parameters_without_sort, lang('client_name'), "client_name", $sort_direction, $sort ) ?></th>
+                            <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $page_parameters_without_sort, lang('client_owner'), "client_owner", $sort_direction, $sort ) ?></th>
+                            <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $page_parameters_without_sort, lang('client_active_status'), "client_active_status", $sort_direction, $sort ) ?></th>
+                            <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $page_parameters_without_sort, lang('phone'), "client_phone", $sort_direction, $sort ) ?></th>
+                            <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $page_parameters_without_sort, lang('clients-type'), "type_description", $sort_direction, $sort ) ?></th>
+                            <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $page_parameters_without_sort, lang('created_at'), "created_at", $sort_direction, $sort ) ?></th>
+                            <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $page_parameters_without_sort, lang('updated_at'), "updated_at", $sort_direction, $sort ) ?></th>
                             <th><i class="fa fa-pencil"></i></th>
                         </tr>
                     </thead>
@@ -48,7 +55,7 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
                             <td><?php echo $row->type_description;?></td>
                             <td><?php echo $ci->common_lib->format_datetime( $row->created_at) ?></td>
                             <td><?php echo $ci->common_lib->format_datetime( $row->updated_at ) ?></td>
-                            <td><a class="btn btn-sm blue" href="<?= base_url($this->uri->segment(1).'/clients-edit/'.$row->cid);?>/<?= $PageParametersWithSort ?>">
+                            <td><a class="btn btn-sm blue" href="<?= base_url($this->uri->segment(1).'/clients-edit/'.$row->cid);?>/<?= $page_parameters_with_sort ?>">
                                 <i class="fa fa-pencil"></i>
                             </a></td>
                         </tr>

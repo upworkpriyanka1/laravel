@@ -219,7 +219,6 @@ if ((!empty($_SERVER["HTTP_HOST"]) and !(strpos($_SERVER["HTTP_HOST"], "local-zn
     $config['log_path'] = '/_wwwroot/zntral/zntral/log/';   // file:///_wwwroot/zntral/zntral/application
     $config['document_root'] = '/_wwwroot/zntral/zntral/';
     $config['sql_queries_to_file'] = '/_wwwroot/zntral/zntral/log/sql_queries_to_file_';
-    $config['send_error_at_email'] = 'nbler.ru';
     $config['base_url'] = 'http://local-zntral.com';
     $config['is_developer_comp'] = 1;
     $config['log_threshold'] = 4;
@@ -229,7 +228,6 @@ if ((!empty($_SERVER["HTTP_HOST"]) and !(strpos($_SERVER["HTTP_HOST"], "local-zn
         $config['log_path'] = '/home/zntral/public_html/log/';   // file:///_wwwroot/zntral/zntral/application
         $config['sql_queries_to_file'] = '/home/zntral/public_html/logs/sql_queries_to_file_';
         $config['document_root'] = '/home/zntral/public_html/';
-        $config['send_error_at_email'] = 'nbler.ru';
         $config['base_url'] = 'https://zntral.net';
         $config['is_developer_comp'] = 1;
 //    die("-1 XXZ");
@@ -237,7 +235,6 @@ if ((!empty($_SERVER["HTTP_HOST"]) and !(strpos($_SERVER["HTTP_HOST"], "local-zn
         $config['log_path'] = '/home/zntral/dev4/log/'; // '/home/dev9soft/public_html/tb/'
         $config['sql_queries_to_file'] = '/home/zntral/dev4/logs/sql_queries_to_file_';
         $config['document_root'] = '/home/zntral/dev4/';
-        $config['send_error_at_email'] = 'nbler.ru';
         $config['base_url'] = 'https://dev4.zntral.net/';
         $config['is_developer_comp'] = 1;
         $config['log_threshold'] = 4;
@@ -245,7 +242,6 @@ if ((!empty($_SERVER["HTTP_HOST"]) and !(strpos($_SERVER["HTTP_HOST"], "local-zn
         $config['log_path'] = '/home/zntral/f3/log/'; // '/home/dev9soft/public_html/tb/'
         $config['sql_queries_to_file'] = '/home/zntral/f3/logs/sql_queries_to_file_';
         $config['document_root'] = '/home/zntral/f3/';
-        $config['send_error_at_email'] = 'nbler.ru';
         $config['base_url'] = 'https://f3.zntral.net/';
         $config['is_developer_comp'] = 1;
 
@@ -253,11 +249,11 @@ if ((!empty($_SERVER["HTTP_HOST"]) and !(strpos($_SERVER["HTTP_HOST"], "local-zn
         $config['log_path'] = '/home/zntral/front2/log/'; // '/home/dev9soft/public_html/tb/'
         $config['sql_queries_to_file'] = '/home/zntral/front2/logs/sql_queries_to_file_';
         $config['document_root'] = '/home/zntral/front2/';
-        $config['send_error_at_email'] = 'nbler.ru';
         $config['base_url'] = 'https://front2.zntral.net/';
         $config['is_developer_comp'] = 1;
     }
 }
+$config['noanswer_email'] = 'NoAnswer@zntral.net';
 
 /*
 |--------------------------------------------------------------------------
@@ -565,9 +561,11 @@ $config['use_page_numbers'] = TRUE;
 $config['page_query_string'] = false;
 
 $config['tmp_directory']= 'uploads/tmp';
-$config['image_tmp_directory']= 'uploads/tmp/-tmp-service-';
+$config['image_tmp_directory']= 'uploads/tmp/-tmp-image-';
 $config['image_service_directory']= 'uploads/services/-service-';
+$config['image_client_directory']= 'uploads/clients/-client-';
 $config['service_max_images']= 3;
+
 
 $config['full_tag_open'] = '<ul class="pagination" > ';
 $config['full_tag_close'] = '</ul>';

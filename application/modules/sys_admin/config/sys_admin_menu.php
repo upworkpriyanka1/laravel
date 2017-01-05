@@ -15,7 +15,7 @@ $config['menu_1'] = array(
     					'icon'	=>	'fa fa-folder-open'
     					),
     "sub_2" => array(
-    					'href'	=>	'/clients-add', //make sure to use dash
+    					'href'	=>	'/clients-edit/new/', //make sure to use dash
     					'title'	=>	'clients-add',//should be the same as the lang()
     					'icon'	=>	'fa fa-plus'
                     ),
@@ -31,12 +31,12 @@ $config['menu_2'] = array(
     "icon" => "fa fa-user",
     "title" =>'users', //should be the same as the lang()
     "sub_1" => array(
-    					'href'	=>	'/users-view',
+    					'href'	=>	'/users/users-view',
     					'title'	=>	'users-view', //make sure to use dash
     					'icon'	=>	'fa fa-user'
     					),
     "sub_2" => array(
-    					'href'	=>	'/users-add', //make sure to use dash
+    					'href'	=>	'/users/users-edit/new/', //make sure to use dash
     					'title'	=>	'users-add',//should be the same as the lang()
     					'icon'	=>	'fa fa-plus'
                     ),

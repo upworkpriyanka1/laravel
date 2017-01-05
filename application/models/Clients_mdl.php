@@ -13,8 +13,6 @@ class Clients_mdl extends CI_Model
     private $UsersClientsActiveStatusLabelValueArray = Array('E' => 'Employee', 'O' => 'Out Of Staff', 'N' => 'Not Related');
     private $UserActiveStatusLabelValueArray = Array('N' => 'New', 'A' => 'Active', 'I' => 'Inactive');
     private $ClientsVendorsActiveStatusLabelValueArray = Array('P' => 'Provides', 'N' => 'Does Not Provides');
-//    public $m_clients_have_types_table;
-//    public $m_client_contacts_table;
 
     function __construct()
     {
@@ -23,8 +21,6 @@ class Clients_mdl extends CI_Model
         $this->m_clients_table = 'clients';
         $this->m_clients_types_table= 'clients_types';
         $this->m_vendor_table = 'vendors';
-//        $this->m_clients_have_types_table = 'clients_have_types';
-//        $this->m_client_contacts_table = 'client_contacts';
     }
 
 
@@ -192,14 +188,11 @@ class Clients_mdl extends CI_Model
             $this->db->limit($limit);
         }
 
-
         $fields_for_select.= ' ' . $additive_fields_for_select;
         if (!empty($sort)) {
             $this->db->order_by($sort, ((strtolower($sort_direction) == 'desc' or strtolower($sort_direction) == 'asc') ? $sort_direction : ''));
         }
 
-
-//        echo '<pre>$fields_for_select::'.print_r($fields_for_select,true).'</pre>';
         if ($OutputFormatCount) {
             return $this->db->count_all_results($this->m_clients_table);
         } else {
@@ -225,30 +218,73 @@ class Clients_mdl extends CI_Model
         return $checkCount==0;
     }
 
-    public function checkIsEmailUnique($client_email, $client_id='')
-    {
-        $config_data = $this->config->config;
-        $this->db->like('client_email', $client_email);
-        if (!empty($client_id)) {
-            $this->db->where('cid != ' . $client_id);
-        }
-        $checkCount= $this->db->count_all_results($this->m_clients_table);
-//        AppUtils::DebToFile(' checkIsemailUnique $checkCount::' . print_r($checkCount, true), false);
-        return $checkCount==0;
-    }
+//    public function checkIsEmailUnique($client_email, $client_id='')
+//    {
+//        $config_data = $this->config->config;
+//        $this->db->like('client_email', $client_email);
+//        if (!empty($client_id)) {
+//            $this->db->where('cid != ' . $client_id);
+//        }
+//        $checkCount= $this->db->count_all_results($this->m_clients_table);
+//        return $checkCount==0;
+//    }
 
 
-    public function getRowById( $id )
+    public function getRowById( $id, $additive_params= array() )
     {
         $this->db->where( $this->m_clients_table . '.cid', $id);
         $query = $this->db->from($this->m_clients_table);
         $ci = & get_instance();
-        $resultRows = $query->get()->result();
-        if ( !empty($resultRows[0]) ) {
-            return $resultRows[0];
-        }
-        return false;
+
+	    $clientRow= $this->db->get()->row();
+	    $orig_width= !empty($additive_params['image_width']) ? $additive_params['image_width'] : 64;
+	    $orig_height= !empty($additive_params['image_height']) ? $additive_params['image_height'] : 64;
+	    if (!empty($additive_params['show_file_info']) and !empty($clientRow->client_img )) {
+		    $client_img = $this->getClientDir($id) . $clientRow->client_img;
+		    $clientRow->file_info = '';
+		    if ( file_exists($client_img) ) {
+			    $file_info= $clientRow->client_img;
+			    $file_info.= ', '.$this->common_lib->getFileSizeAsString( filesize($client_img) );
+			    $fileArray = @getimagesize($client_img);
+			    if (!empty($fileArray)) {
+				    $file_info.= ', '.$fileArray[0].'x'.$fileArray[1];
+			    }
+			    $clientRow->file_info = $file_info;
+			    $clientRow->image_url = $this->getClientImageUrl($id, $clientRow->client_img);
+			    $clientRow->image_path = $this->getClientImagePath($id, $clientRow->client_img);
+			    $filenameInfo = $this->common_lib->GetImageShowSize($clientRow->image_path, $orig_width, $orig_height);
+			    $clientRow->image_path_width= !empty($filenameInfo['Width']) ? $filenameInfo['Width'] : 0 ;
+			    $clientRow->image_path_height= !empty($filenameInfo['Height']) ? $filenameInfo['Height'] : 0 ;
+			    $clientRow->image_path_original_width= !empty($filenameInfo['OriginalWidth']) ? $filenameInfo['OriginalWidth'] : 0 ;
+			    $clientRow->image_path_original_height= !empty($filenameInfo['OriginalHeight']) ? $filenameInfo['OriginalHeight'] : 0 ;
+		    }
+	    }
+	    return $clientRow;
     }
+
+	public function getClientsDir()
+	{
+		$ci = & get_instance();
+		return $ci->config->config['document_root'] . 'uploads/clients/';
+	}
+
+	public function getClientDir($client_id= '')
+	{
+		$ci = & get_instance();
+		return $ci->config->config['document_root'] . $ci->config->config['image_client_directory'] . $client_id.DIRECTORY_SEPARATOR;
+	}
+
+	public function getClientImageUrl($client_id, $img)
+	{
+		$ci = & get_instance();
+		return $ci->config->config['base_url'] .'/'. $ci->config->config['image_client_directory'] . $client_id.'/' . $img;
+	}
+
+	public function getClientImagePath($client_id, $img)
+	{
+		$ci = & get_instance();
+		return $ci->config->config['document_root'] . $ci->config->config['image_client_directory']. $client_id.'/' . $img;
+	}
 
     ////////////// CLIENTS BLOCK END /////////////
 
@@ -476,19 +512,21 @@ class Clients_mdl extends CI_Model
             return $this->db->insert_id();
         }
     }
-/* CREATE TABLE `clients_vendors` (
-	`cv_id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-	`cv_client_id` MEDIUMINT(8) UNSIGNED NOT NULL,
-	`cv_vendor_id` MEDIUMINT(8) NULL DEFAULT NULL,
-	`cv_active_status` ENUM('P','N') NOT NULL DEFAULT 'N', -- P-Provides; N-Does Not Provides
-	`updated_at` DATETIME NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-	`created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	PRIMARY KEY (`cv_id`),
-	UNIQUE INDEX `cv_clients_vendors` ( `cv_client_id`, `cv_vendor_id` ),
-	KEY `ind_cv_clients_cv_active_status` ( `cv_client_id`, `cv_active_status` )
 
-)
- */
+
+	public function getSimilarClientByClient_Email($client_email, $cid='')
+	{
+		$config_data = $this->config->config;
+		$this->db->where('client_email', $client_email);
+		$this->db->from($this->m_clients_table);
+		if (!empty($cid)) {
+			$this->db->where('cid != ' . $cid);
+		}
+		$row= $this->db->get()->result();
+		if (empty($row[0])) return false;
+		return $row[0];
+	}
+
     ////////////// CLIENT-VENDORS BLOCK END /////////////
 
 

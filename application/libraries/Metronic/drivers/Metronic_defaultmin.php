@@ -16,7 +16,7 @@ class Metronic_defaultmin extends CI_Driver {
 		if ($type == 'css') {
 
 			$link = array(
-				'href'	=> 	'assets/layouts/default/css/themes/darkblue.css',
+				'href'	=> 	'assets/layouts/default/css/themes/light2.min.css',
 				'rel'	=>	'stylesheet',
 				'type'	=>	'text/css',
 				'id'	=>	'style_color'

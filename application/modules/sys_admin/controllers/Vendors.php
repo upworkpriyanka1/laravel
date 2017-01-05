@@ -436,16 +436,21 @@ class Vendors extends CI_Controller
                 $this->vendor_edit_makesave($is_insert, $vn_id, $data['select_on_update'], $redirect_url, $page_parameters_with_sort, $post_array, $app_config );
             } else {
                 $vendor = $this->vendor_edit_fill_current_data( $vendor, $is_insert, $vn_id, $vendor_TypesSelectionList );
-
                 foreach ($vendor_TypesSelectionList as $next_key => $next_vendor_types_selection) {
-                    foreach ($_POST as $next_post_key=> $next_post_value) {
+	                $is_found= false;
+
+	                foreach ($_POST as $next_post_key=> $next_post_value) {
                         $a= preg_split('/cbx_vendor_type_/',$next_post_key );
                         if (count($a)==2) {
                             if ($next_vendor_types_selection['key'] == $a[1]) {
                                 $vendor_TypesSelectionList[$next_key]['checked'] = true;
+	                            $is_found= true;
                             }
                         }
                     }
+	                if ( !$is_found ) {
+		                $vendor_TypesSelectionList[$next_key]['checked'] = false;
+	                }
                 }
                 $data['vendor_TypesSelectionList']  = $vendor_TypesSelectionList;
                 $data['validation_errors_text'] = validation_errors( /*$layout_config['backend_error_icon_start'], $layout_config['backend_error_icon_end']*/ );

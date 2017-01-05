@@ -41,20 +41,24 @@ $lang['created_at']             = "Created At";
 $lang['updated_at']             = "Updated At";
 
 //clients section
+$lang['client']                = "Client";
 $lang['clients']                = "Clients";
 $lang['clients-view']           = "Manage";
 $lang['clients-add']            = "New";
 $lang['clients-edit']           = "Edit Client";
-$lang['clients-type']           = "Client Types";
+$lang['clients-type']           = "Client Type";
 $lang['client_type_help']       = "select min 1 option (Ctrl+Click)";
 $lang['client_name']            = "Client Name";
+$lang['cid']                    = "ID";
 $lang['client_owner']           = "Client Owner";
 $lang['client_active_status']   = "Client Active Status";
 $lang['cv_active_status']       = "Provides Vendor";
+$lang['client_fax']             = "Fax";
 
 $lang['company']                = "Company";
 $lang['my-company']             = $lang['profile-company'] = "My Company";
 $lang['job']                    = "Job Title";
+$lang['user_group_description'] = "Job Description";
 $lang['group']                  = "Group";
 $lang['groups']                 = "Groups";
 $lang['profile']                = "Profile";
@@ -100,6 +104,8 @@ $lang['sv_title']               = "Title";
 $lang['sv_description']         = "Description";
 
 
+$lang['user']                   = "user";
+$lang['user_id']                = "ID";
 $lang['username']               = "Username";
 $lang['name']                   = "Name";
 $lang['owner']                  = "Company Owner";
@@ -108,11 +114,16 @@ $lang['last_name']              = "Last Name";
 $lang['mobile']                 = "Mobile";
 $lang['users-edit']             = "Edit User";
 $lang['user_active_status']     = "User's Status";
+$lang['user_has_jobs']          = "User's job titles";
+$lang['user_has_jobs_label']          = "User's job titles";
 $lang['uc_active_status']       = "Relation Status";
 $lang['min-5-chars']            = "Minimum 5 characters";
 $lang['password']               = "Password";
+$lang['password_confirm']       = "Confirm Password";
 $lang['blank-no-change']        = "Blank if not to be changed";
-$lang['address']                =   $lang['address1']   =   $lang['address2']   = "Address";
+$lang['address']                = "Address";
+$lang['address1']               = "Address";
+$lang['address2']               = "Additive Address";
 $lang['city']                   = "City";
 $lang['state']                  = "State";
 $lang['zip']                    = "Zip";

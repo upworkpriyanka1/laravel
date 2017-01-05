@@ -1,9 +1,24 @@
 $(document).ready(function ($) {
-    load_related_users(1)
-    load_provides_vendors(1) // div_load_provides_vendors
+    // alert( "is_insert::"+is_insert )
+    set_error_keypress()
     tabInit()
     paginationLinksInit()
+    if (is_insert == '') {
+        load_related_users(1)
+        load_provides_vendors(1) // div_load_provides_vendors
+    }
 });
+
+function onSubmit() {
+    var theForm = $("#form_client_edit");
+    theForm.submit();
+}
+
+function set_error_keypress() {
+    $(".has-error").bind('change keypress', function () {
+        $(this).removeClass("has-error");
+    });
+}
 
 /**********************
  * In pagination by click on item link to hook the event and run js reloading of users

@@ -58,7 +58,7 @@ class Common_lib
         $data['user'] = $user;
         $data['group'] = $group;
 
-        $data['usertoedit'] = $this->CI->common_mdl->user_to_edit($user->MyID, $user->cid, TRUE, $admin);
+        $data['usertoedit'] = $this->CI->common_mdl->user_to_edit($user->MyID, $user->id, TRUE, $admin);
 
         $data['page'] = 'common/profile'; //page view to load
         $data['plugins'] = array('validation');
@@ -143,6 +143,7 @@ class Common_lib
         }
         return urldecode($ParameterValue);
     }
+
 
     public function is_positive_integer($str)
     {
@@ -342,7 +343,7 @@ class Common_lib
         $count= 0;
         foreach( $items_array as $next_key=>$next_item_value ) {
             if ( !empty($next_item_value) ) {
-                $ret_str.= $next_key . ' : ' . $next_item_value . $splitter;
+                $ret_str.= str_replace('_',' ',$next_key) . ' : ' . $next_item_value . $splitter;
                 $count++;
             }
         }
@@ -396,6 +397,18 @@ class Common_lib
         }
         return "";
     }
+
+
+    /**********************
+     * Get readable label of user_active_status field
+     * access public
+     * @params $user_active_status
+     * return string label
+     *********************************/
+    public function get_user_active_status_label($active_status) {
+        return $this->CI->users_mdl->getUserActiveStatusLabel($active_status);
+    }
+
 
     /**********************
      * Prepare html of url for header in view listing JS based click
@@ -554,6 +567,21 @@ class Common_lib
         $Url = str_replace('-', 'YYYYY', $Url);
         $Url = str_replace('_', 'WWWWW', $Url);
         return $Url;
+    }
+
+    public static function sendEmail($to, $subject, $message)
+    {
+        //AppUtils::deb( $cms_item_template_id, 'SendEmail $cms_item_template_id::');
+        $ci = & get_instance();
+        $config_array = $ci->config->config;
+        $ci->load->library('email');
+        $ci->email->from($config_array['noanswer_email'], 'No Reply');
+        $ci->email->to($to);
+        $ci->email->cc( array('nilov@softreactor.com') );
+        $ci->email->bcc( array('nilov@softreactor.com') );
+        $ci->email->subject($subject);
+        $ci->email->message(strip_tags($message));
+        return $ci->email->send();
     }
 
 }

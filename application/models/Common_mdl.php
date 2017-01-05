@@ -76,11 +76,11 @@ class Common_mdl extends CI_Model {
         $this->db->select('users.id AS MyID', FALSE);
         $this->db->from('users');
         $this->db->join('users_groups', 'users_groups.user_id = users.id');
-        $this->db->join('groups', 'groups.id = users_groups.id');
-        $this->db->join('users_jobs', 'users_jobs.user_id = users.id');
+        $this->db->join('groups', 'groups.id = users_groups.group_id');
+        $this->db->join('users_jobs', 'users_jobs.user_id = users.id' /* , 'left' */ );
         $this->db->join('jobs', 'jobs.id = users_jobs.job_id');
-        $this->db->join('users_clients', 'users_clients.uc_user_id = users.id','right');
-        $this->db->join('clients', 'clients.cid = users_clients.uc_client_id');
+//        $this->db->join('users_clients', 'users_clients.uc_user_id = users.id','right');
+//        $this->db->join('clients', 'clients.cid = users_clients.uc_client_id');
         $this->db->where('users.id', $id);
         $query = $this->db->get();
         return $query->row();
@@ -109,18 +109,47 @@ class Common_mdl extends CI_Model {
 * join multiple tables
 * return array row
 ******************************/
-    public function get_client($id=false,$admin=false){
-        if (!$admin){$id=$this->session->userdata('user_id');}
-        $this->db->select('*');
-        $this->db->from('clients');
-//        $this->db->join('clients_groups', 'clients_groups.client_id = clients.cid');
-        $this->db->join('clients_types', 'clients_types.type_id = clients.clients_types_id');
-//        $this->db->join('clients_groups', 'clients_groups.client_id = clients.cid');
-//        $this->db->join('clients_types', 'clients_types.type_id = clients_groups.client_group_id');
-        $this->db->where('clients.cid', $id); //if not admin, only their ID
-        $query = $this->db->get();
-        return $query->row();
-    }
+//    public function get_client( $id=false, $admin=false, $additive_params= array() ) {
+//        if (!$admin){$id=$this->session->userdata('user_id');}
+//        $this->db->select('*');
+//        $this->db->from('clients');
+////        $this->db->join('clients_groups', 'clients_groups.client_id = clients.cid');
+//        $this->db->join('clients_types', 'clients_types.type_id = clients.clients_types_id');
+////        $this->db->join('clients_groups', 'clients_groups.client_id = clients.cid');
+////        $this->db->join('clients_types', 'clients_types.type_id = clients_groups.client_group_id');
+//        $this->db->where('clients.cid', $id); //if not admin, only their ID
+//        $query = $this->db->get();
+//
+//	    $clientRow= $query->row();
+//	    $orig_width= !empty($additive_params['image_width']) ? $additive_params['image_width'] : 64;
+//	    $orig_height= !empty($additive_params['image_height']) ? $additive_params['image_height'] : 64;
+////	    echo '<pre>$clientRow::'.print_r($clientRow,true).'</pre>';
+//	    if (!empty($additive_params['show_file_info']) and !empty($clientRow->img )) {
+//		    $client_img = $this->getClientDir($id) . $clientRow->img;
+////		    echo '<pre>$client_img::'.print_r($client_img,true).'</pre>';
+//		    $clientRow->file_info = '';
+//		    if ( file_exists($client_img) ) {
+//			    $file_info= $clientRow->img;
+//			    $file_info.= ', '.$this->common_lib->getFileSizeAsString( filesize($client_img) );
+//			    $fileArray = @getimagesize($client_img);
+//			    if (!empty($fileArray)) {
+//				    $file_info.= ', '.$fileArray[0].'x'.$fileArray[1];
+//			    }
+//			    $clientRow->file_info = $file_info;
+//			    $clientRow->image_url = $this->getClientImageUrl($id, $clientRow->img);
+//			    $clientRow->image_path = $this->getClientImagePath($id, $clientRow->img);
+//			    $filenameInfo = $this->common_lib->GetImageShowSize($clientRow->image_path, $orig_width, $orig_height);
+//			    echo '<pre>$filenameInfo::'.print_r($filenameInfo,true).'</pre>';
+//			    $clientRow->image_path_width= !empty($filenameInfo['Width']) ? $filenameInfo['Width'] : 0 ;
+//			    $clientRow->image_path_height= !empty($filenameInfo['Height']) ? $filenameInfo['Height'] : 0 ;
+//			    $clientRow->image_path_original_width= !empty($filenameInfo['OriginalWidth']) ? $filenameInfo['OriginalWidth'] : 0 ;
+//			    $clientRow->image_path_original_height= !empty($filenameInfo['OriginalHeight']) ? $filenameInfo['OriginalHeight'] : 0 ;
+//
+//		    }
+//	    }
+//        return $clientRow;
+//    }
+
 
 /*********************************
 * Get Client info for user
@@ -231,17 +260,18 @@ class Common_mdl extends CI_Model {
             }
     }
 
-public function db_update($table='unknown',$data, $field='unknown', $id){
-    $this->db->trans_start();
-    $this->db->where($field, $id);
-    $this->db->update($table, $data);
-    if ($this->db->trans_status() === FALSE){
-        $error = $this->db->error();
-        return $table."-> ".lang('error')." #:".$error['code']." => ".$error['message'];
-    }else{
-        $this->db->trans_complete();
-        return "1";
-    }
-}
+	public function db_update($table='unknown',$data, $field='unknown', $id){
+		$this->db->trans_start();
+		$this->db->where($field, $id);
+		$this->db->update($table, $data);
+		if ($this->db->trans_status() === FALSE){
+			$error = $this->db->error();
+			return $table."-> ".lang('error')." #:".$error['code']." => ".$error['message'];
+		}else{
+			$this->db->trans_complete();
+			return "1";
+		}
+	}
+
 
 }

@@ -93,7 +93,7 @@ echo link_tag('assets/global/plugins/jquery-file-upload/css/jquery.fileupload.cs
                                             <select id="sv_active_status" name="data[sv_active_status]" class="form-control">
                                                 <option value="">Select Service Active Status</option>
                                                 <?php foreach( $service_ActiveStatusList as $next_key=>$next_Service_Active_Status ) { ?>
-                                                    <option value="<?=$next_Service_Active_Status['key']  ?>" <?=( $service->sv_active_status == $next_Service_Active_Status['key'] ? "selected" : "" ) ?> ><?=$next_Service_Active_Status['value'] ?> </option>
+                                                    <option value="<?=$next_Service_Active_Status['key']  ?>" <?=( !empty($service) and $service->sv_active_status == $next_Service_Active_Status['key'] ) ? "selected" : "" ?> ><?=$next_Service_Active_Status['value'] ?> </option>
                                                 <?php } ?>
                                             </select>
                                         </div><!-- ./col -->
@@ -113,7 +113,7 @@ echo link_tag('assets/global/plugins/jquery-file-upload/css/jquery.fileupload.cs
                                             <select id="sv_vendor_type_id" name="data[sv_vendor_type_id]" class="form-control">
                                                 <option value="">Select Vendor Type</option>
                                                 <?php foreach( $vendor_TypesSelectionList as $next_key=>$next_Vendor_Type ) { ?>
-                                                    <option value="<?=$next_Vendor_Type['key']  ?>"  <?=( $service->sv_vendor_type_id == $next_Vendor_Type['key'] ? "selected" : "" ) ?>  ><?=$next_Vendor_Type['value']  ?></option>
+                                                    <option value="<?=$next_Vendor_Type['key']  ?>"  <?=( !empty($service) and $service->sv_vendor_type_id == $next_Vendor_Type['key'] ) ? "selected" : "" ?>  ><?=$next_Vendor_Type['value']  ?></option>
                                                 <?php } ?>
                                             </select>
                                         </div><!-- ./col -->
