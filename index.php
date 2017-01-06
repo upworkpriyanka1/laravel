@@ -29,6 +29,8 @@ else if (strpos ($domain,'f3') !==FALSE)
         define('ENVIRONMENT', 'f3');
 else if (strpos ($domain,'prince') !==FALSE)
         define('ENVIRONMENT', 'prince');
+else if (strpos ($domain,'sanjeev') !==FALSE)
+        define('ENVIRONMENT', 'sanjeev');
 else
         define('ENVIRONMENT', 'production');
 
@@ -81,6 +83,14 @@ switch (ENVIRONMENT)
 		error_reporting(E_ERROR | E_WARNING);
 		ini_set('display_errors', 1);
 	break;
+	case 'sanjeev':
+		//Report all errors
+		//error_reporting(-1);
+		//Report only errors and warning. Do not show uninitialized variables because it can break the normal functioning.
+		error_reporting(E_ERROR | E_WARNING);
+		ini_set('display_errors', 1);
+	break;
+
 
 	case 'testing':
 	case 'production':
