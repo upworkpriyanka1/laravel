@@ -262,7 +262,6 @@
 														</td>
 														<td width="5%" >
 															<div data-toggle="buttons" class=" ">
-																<!--																<label class="btn btn-primary btn-sm padding_sm" >-->
 																<input class="only_checkbox" value="1" autocomplete="off" id="cbx_clear_image" name="cbx_clear_image" type="checkbox">
 																<!-- <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>-->Clear
 																<!--																</label>-->
@@ -358,15 +357,15 @@
 
 
 		<ul class="nav nav-tabs">
-			<li><a data-toggle="tab" href="#tabpanel_client_provide_vendors">Related Users</a></li>
-			<li class="active"><a data-toggle="tab" href="#menu1">Provides Vendor</a></li>
+			<li class="active"><a data-toggle="tab" href="#tabpanel_client_related_users">Related Users</a></li>
+			<li ><a data-toggle="tab" href="#tabpanel_client_provide_vendors">Provides Vendor</a></li>
 		</ul>
 
 		<div class="tab-content">
 
 
 
-			<div id="tabpanel_client_provide_vendors" class="tab-pane fade">
+			<div id="tabpanel_client_related_users" class="tab-pane fade  in active">
 				<div class="col-lg-12" style="padding: 5px;">
 					<input type="hidden" name="status" id="status" value="A">
 					<input type="hidden" name="sort_field_name" id="sort_field_name" value="username">
@@ -393,7 +392,7 @@
 							<input type="text" id="input_related_users_filter" name="input_related_users_filter" value="" size="20" maxlength="50" class="form-control">
 						</div>
 						<div class="col-xs-4">
-							<button type="button" id="BtnFilter" data-action="edit" class="btn green" onclick="javascript:run_related_users_filter();" ><?php echo lang('Filter');?></button>
+							<button type="button" id="BtnFilter" data-action="edit" class="btn green waves-effect waves-light" onclick="javascript:run_related_users_filter();" ><?php echo lang('Filter');?></button>
 						</div>
 					</div>
 				</div>
@@ -407,7 +406,7 @@
 
 
 
-			<div id="menu1" class="tab-pane fade  in active">
+			<div id="tabpanel_client_provide_vendors" class="tab-pane fade">
 				<div class="col-lg-12" style="padding: 5px;">
 					<input type="hidden" name="provides_vendors_status" id="provides_vendors_status" value="A">
 					<input type="hidden" name="provides_vendors_sort_field_name" id="provides_vendors_sort_field_name" value="vn_name">
@@ -425,7 +424,7 @@
 							<input type="text" id="input_provides_vendors_filter" name="input_provides_vendors_filter" value="" size="20" maxlength="50" class="form-control">
 						</div>
 						<div class="col-xs-4">
-							<button type="button" id="BtnFilter" data-action="edit" class="btn green" onclick="javascript:run_provides_vendors_filter();" ><?php echo lang('Filter');?></button>
+							<button type="button" id="BtnFilter" data-action="edit" class="btn green waves-effect waves-light" onclick="javascript:run_provides_vendors_filter();" ><?php echo lang('Filter');?></button>
 						</div>
 					</div>
 				</div>

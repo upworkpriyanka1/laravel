@@ -16,14 +16,20 @@ ul.side-nav.fixed li.logo{
     /*background: #fff;*/
 }
 ul.side-nav.fixed li.logo:hover, ul.side-nav.fixed li.logo a:hover{background: #fff !important}
-.section{padding-top: 5rem !important;}
+.section{padding-top: 4rem !important;}
 ul.side-nav.fixed ul.collapsible-accordion{
 	 /*background-color: #c8c8c8 !important;*/
 	 padding-top: 0;
 }
 a.button-collapse.top-nav{color: #000 !important;}
-
+nav a.button-collapse{color: #000 !important;}
+nav a.button-collapse{margin-top: 2px;}
 /*ul.side-nav.fixed{background:#c8c8c8 !important;}
 .side-nav .collapsible-body, .side-nav.fixed .collapsible-body {
     background-color: #ddd;
 }*/
+@media only screen and (max-width: 991px) {
+	.section {
+	    padding-top: 1rem !important;
+	}
+}

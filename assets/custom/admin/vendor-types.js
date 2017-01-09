@@ -40,6 +40,13 @@ function clearAllData() {
     });
 }
 
+
+function vendor_typeRemove( id, vt_name ) {
+    if ( confirm( "Do you want to remove '"+vt_name+"' vendor type ? ") ) {
+        document.location = "/sys-admin/vendors/remove_vendor_types/id/" + id;
+    }
+}
+
 /**********************
  * clicking on "Filter" button in vendor_types View page filters popup dialog is opened and inputs are filled from "hidden_" hidden inputs of form and date initialization
  * access public

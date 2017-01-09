@@ -67,9 +67,11 @@ class Vendors extends CI_Controller
         $this->pagination->initialize($pagination_config);  // pagination system initialization by parameters in config file
         $data['vendor_types']= array();
         if ($rows_in_table > 0) { // number of rows by given parameters > 0 - get rows by given parameters for given $page_number.
-            $data['vendor_types']= $this->vendors_mdl->getVendor_TypesList(false, $page_number, array( 'show_client_type_description'=>1, 'vt_name'=> $filter_vt_name, 'created_at_from'=> $filter_created_at_from, 'created_at_till'=> $filter_created_at_till ), $sort, $sort_direction );
+            $data['vendor_types']= $this->vendors_mdl->getVendor_TypesList(false, $page_number, array( 'show_client_type_description'=>1, 'show_vendors_count'=> 1, 'vt_name'=> $filter_vt_name, 'created_at_from'=> $filter_created_at_from, 'created_at_till'=> $filter_created_at_till ), $sort, $sort_direction );
         } // IMPORTANT : all filter parameters must be similar as in calling of getVendor_TypesList above
 
+//	    echo '<pre>$data[\'vendor_types\']::'.print_r($data['vendor_types'],true).'</pre>';
+//	    die("-1 XXZ");
         $data['page']		= 'vendor-types/vendor-types-view';
         $data['page_number']		= $page_number;
         $data['RowsInTable']= $rows_in_table;
@@ -242,7 +244,48 @@ class Vendors extends CI_Controller
 
     }
 
-    /**********************
+	function remove_vendor_types($id = 0) {
+		$this->load->model('vendors_mdl', '', true);
+
+		$UriArray = $this->uri->uri_to_assoc(4);
+		$id= $UriArray['id'];
+		$PageParametersWithSort = $this->vendorTypesPreparePageParameters($UriArray, null, false, true);
+		$RedirectUrl = '/sys-admin/vendors/vendor_types_view' . $PageParametersWithSort;
+
+		$removed_vendor_types = $this->vendors_mdl->getVendor_TypeRowById($id);
+		if (empty($removed_vendor_types)) {
+			$this->session->set_flashdata('editor_message', "Vendor '" . $id . "' not found");
+			redirect($RedirectUrl);
+			return;
+		}
+		$removed_vendor_types_name = $removed_vendor_types->vt_name;
+
+		$vendors_count = $this->vendors_mdl->getVendorsList(true, '', array('vendor_type_id' => $id), '', '');
+		if ($vendors_count > 0) {
+			$this->session->set_flashdata('editor_message', "Vendor type '" . $removed_vendor_types_name . "' can not be deleted, as " . $vendors_count . ' vendor' . ($vendors_count > 1 ? 's' : '') . ' use this vendor type.');
+			redirect($RedirectUrl);
+			return;
+		}
+
+		$this->db->trans_start();
+
+		$ret = $this->vendors_mdl->deleteVendor_Type($id);
+
+		if ($this->db->trans_status() === FALSE) {
+			$this->db->trans_rollback();
+		} else {
+			$this->session->set_flashdata('editor_message', "Vendor Type '" . $removed_vendor_types_name . "' was deleted");
+			$this->db->trans_commit();
+		}
+		if ($ret) {
+			$this->session->set_flashdata('editor_message', "Vendor Type '" . $removed_vendor_types_name . "' was deleted");
+			redirect($RedirectUrl);
+			return;
+		}
+
+	}
+
+	/**********************
      * create string with all sorting parameters for using in sorting by column header or at editor submitting to keep current filters
      * access public
      * @params : $UriArray - $_GET array in assoc array, $_post_array - $_POST array,
@@ -333,6 +376,8 @@ class Vendors extends CI_Controller
             $data['vendors']= $this->vendors_mdl->getVendorsList(false, $page_number, array( 'show_client_type_description'=>1, 'vn_name'=> $filter_vn_name, 'vendor_type_id'=> $filter_vendor_type_id, 'created_at_from'=> $filter_created_at_from, 'created_at_till'=> $filter_created_at_till ), $sort, $sort_direction );
         } // IMPORTANT : all filter parameters must be similar as in calling of getVendorsList above
 
+//	    echo '<pre>$data[\'vendors\']::'.print_r($data['vendors'],true).'</pre>';
+//	    die("-1 XXZ");
         $data['page']		= 'vendors/vendors-view';
         $data['page_number']		= $page_number;
         $data['RowsInTable']= $rows_in_table;

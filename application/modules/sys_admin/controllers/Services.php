@@ -377,7 +377,7 @@ class Services extends CI_Controller
         $tmp_dest_dirname_url = base_url() . $this->config->item('image_tmp_directory') . $unique_session_id;
         $tmpServiceImagesDirs = array( FCPATH . 'uploads', FCPATH . $this->config->item('tmp_directory'), $dst_tmp_directory);
 
-        $this->common_lib->DebToFile( 'upload_image_to_tmp_service FCPATH::'.print_r(FCPATH,true));
+//        $this->common_lib->DebToFile( 'upload_image_to_tmp_service FCPATH::'.print_r(FCPATH,true));
         $src_filename = $_FILES['files']['tmp_name'][0];
         $img_basename = $_FILES['files']['name'][0];
         $tmp_dest_filename = $dst_tmp_directory . DIRECTORY_SEPARATOR . $img_basename;
@@ -391,7 +391,7 @@ class Services extends CI_Controller
             "sizeLabel" => $this->common_lib->getFileSizeAsString($filesize),
             "url" => $tmp_dest_dirname_url . '/' .  $img_basename . '?tm=' . time(),
         ));
-        $this->common_lib->DebToFile( 'upload_image_to_tmp_service $resArray::'.print_r($resArray,true));
+//        $this->common_lib->DebToFile( 'upload_image_to_tmp_service $resArray::'.print_r($resArray,true));
         echo json_encode($resArray);
     }
 

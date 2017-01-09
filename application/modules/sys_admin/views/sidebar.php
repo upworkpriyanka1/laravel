@@ -51,10 +51,22 @@
                 endif;//end if $value is array 
             endforeach;//end $menu foreach
             ?>
+            <?php if ( !empty($user->user_id) ) : ?>
             <li class="nav-item">
                 <a href="javascript:;" class="nav-link nav-toggle collapsible-header waves-effect waves-teal">
-                    <span><img alt="" class="img-circle" src="<?= base_url('assets/avatar/'.$user->avatar);?>" /></span>
-                    <span class="title"><?php echo $user->first_name." ". $user->last_name;?></span>
+                    <?php 		$this->load->model('users_mdl');
+                    $logged_user= $this->users_mdl->getUserRowById( $user->user_id, array('show_file_info'=> 1, 'image_width'=> 128, 'image_height'=> 128) );
+                     ?>
+
+	                <? if ( !empty($logged_user->image_url) and !empty($logged_user->image_path_width) and !empty($logged_user->image_path_height) ) { ?>
+                    <span><img alt="" class="img-circle" src="<?= $logged_user->image_url;?>" width="<?= $logged_user->image_path_width ?>" height="<?= $logged_user->image_path_height ?>" /></span> <!-- class="img-circle" -->
+		            <?php } ?>
+
+	                <? if ( empty($logged_user->image_url) or empty($logged_user->image_path_width) or empty($logged_user->image_path_height) ) { ?>
+		                <span><img alt="" class="img-circle" src="<?php echo base_url() ?>assets/avatar/avatar.png"></span>
+	                <?php } ?>
+
+	                <span class="title"><?php echo $user->first_name." ". $user->last_name;?></span>
                 </a>
                 <div class="collapsible-body">
                     <ul>
@@ -89,6 +101,7 @@
                     </ul>
                 </div>
             </li>
+            <?php endif; ?>
         </ul>
     </li>
 </ul>

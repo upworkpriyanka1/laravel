@@ -36,7 +36,7 @@
     background-image: none;
 }
 .page-header.navbar.navbar-fixed-top, .page-header.navbar.navbar-static-top {
-    z-index: 9995;
+    z-index: 99;
 }
 .page-header.navbar .page-logo {
     float: left;
@@ -579,12 +579,15 @@
 .page-boxed.page-sidebar-fixed .page-header.navbar .page-logo {
     width: 235px;
 }
-}@media (max-width:991px) {
-    .page-header.navbar {
+}
+@media (max-width:991px) {
+.page-header.navbar {
     padding: 0 20px;
     position: relative;
     clear: both;
 }
+nav a.button-collapse{ margin-left: -10px !important;}
+.page-container-bg-solid .theme-panel, .page-content-white .theme-panel{margin-right: 0px !important;}
 .page-header.navbar .page-logo {
     width: auto;
     padding: 0;
@@ -1398,11 +1401,15 @@
     display: inline-block;
 }
 @media only screen and (max-width: 992px) {
-    .page-content-white .page-title {padding-left: 120px;}
+    .page-content-white .page-title {padding-left: 0px;}
 }
 @media only screen and (max-width: 599px) {
-    .page-content-white .page-title {padding-left: 50px;}
+    .page-content-white .page-title {padding-left: 0px;}
     a.button-collapse.top-nav{margin: 0;}
+    header{height:48px;}
+    nav .button-collapse{height: auto;line-height: normal;}
+    .page-content-white .page-title{font-size: 18px;}
+    nav a.button-collapse{margin-top: -2px !important;}
 }
 .page-header-inner{float: right;}
 .page-bar {
@@ -1516,6 +1523,7 @@
 .page-full-width .page-content {
     margin-left: 0!important;
 }
+.page-content-wrapper .col-md-12{background: #fff;}
 @media (min-width:992px) {
     .page-content-wrapper {
     float: left;

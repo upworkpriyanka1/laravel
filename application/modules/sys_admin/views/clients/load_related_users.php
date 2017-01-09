@@ -74,7 +74,7 @@ if ( isset($related_users_list) && count($related_users_list) > 0 ) { ?>
             <td><?php echo $this->common_lib->format_datetime( $next_related_user->uc_updated_at ) ?></td>
 
             <td>
-                <a class="btn btn-sm blue" onclick="javascript:setRelatedUserEnabled( '<?= addslashes($next_related_user->username) ?>', '<?= $this->clients_mdl->getUserActiveStatusLabel($next_related_user->user_active_status) ?>', '<?= addslashes($next_related_user->email) ?>', '<?= addslashes($next_related_user->phone) ?>', '<?= $uc_active_status ?>', '<?= $this->clients_mdl->getUsersClientsActiveStatusLabel( $uc_active_status ) ?>', <?= $next_related_user->id ?>)">
+                <a class="btn waves-effect waves-light btn-sm blue" onclick="javascript:setRelatedUserEnabled( '<?= addslashes($next_related_user->username) ?>', '<?= $this->clients_mdl->getUserActiveStatusLabel($next_related_user->user_active_status) ?>', '<?= addslashes($next_related_user->email) ?>', '<?= addslashes($next_related_user->phone) ?>', '<?= $uc_active_status ?>', '<?= $this->clients_mdl->getUsersClientsActiveStatusLabel( $uc_active_status ) ?>', <?= $next_related_user->id ?>)">
                     <i class="fa fa-pencil"></i>
                 </a>
             </td>

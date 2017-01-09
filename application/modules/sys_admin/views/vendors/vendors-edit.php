@@ -15,11 +15,8 @@
             <!-- BEGIN VALIDATION STATES-->
             <div class="portlet light portlet-fit portlet-form bordered">
 
-
-                <div class="page-bar">
-                    <h3><center><?= ( $is_insert ? "Insert" : "Edit" ) ?> <?=lang('vendor') ?></center></h3>
-                    <?= $this->common_lib->show_info($editor_message) ?>
-                </div>
+	            <h3><center><?= ( $is_insert ? "Insert" : "Edit" ) ?> <?=lang('vendor') ?></center></h3>
+	            <?= $this->common_lib->show_info($editor_message) ?>
 
                 <div class="portlet-body">
                     <!-- BEGIN FORM-->
@@ -44,15 +41,14 @@
                                 <div class="row error" style="padding: 5px; margin: 5px;" >
                                     <?= $validation_errors_text ?>
                                 </div>
-                            <? endif; ?>
+                            <?php endif; ?>
 
                             <?php if ( !$is_insert ) : ?>
                                 <div class="row">
                                     <!-- Vendor Types vn_id -->
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="control-label col-md-4"><?php echo lang('vn_id');?>
-                                            </label>
+                                            <label class="control-label col-md-4"><?php echo lang('vn_id');?></label>
                                             <div class="col-md-7">
                                                 <input type="text" name="data[vn_id]" id="vn_id" value="<?= (!empty($vendor->vn_id) ? $vendor->vn_id:''); ?>" data-required="1" class="form-control" readonly />
 
@@ -117,7 +113,8 @@
                                             <?php foreach( $vendor_TypesSelectionList as $next_key=>$next_vendor_Type ) { ?>
                                             <div class="text-left" style="padding: 10px;">
                                                 <input type="checkbox" value="1" id="cbx_vendor_type_<?=$next_vendor_Type['key'] ?>" name="cbx_vendor_type_<?=$next_vendor_Type['key'] ?>" <?= ( !empty($next_vendor_Type['checked']) ? "checked" : "") ?> >
-                                                <?=$next_vendor_Type['value'] ?>&nbsp;
+<!--                                                --><?//=$next_vendor_Type['value'] ?><!--&nbsp;-->
+	                                            <label for="cbx_vendor_type_<?=$next_vendor_Type['key'] ?>"><?=$next_vendor_Type['value'] ?></label>
                                             </div>
                                             <?php }  ?>
 
@@ -183,10 +180,10 @@
                                         </select>
                                     </div>
                                     <div class="col-xs-6  col-sm-4 ">
-                                        <button type="button" class="btn btn-primary" onclick="javascript:onSubmit();" >Submit</button>
+                                        <button type="button" class="btn green waves-effect waves-light" onclick="javascript:onSubmit();" >Submit</button>
                                     </div>
                                     <div class="col-xs-12 col-sm-2 pull-left ">
-                                        <button type="reset" class="btn btn-cancel-action" onclick="javascript:document.location='<?=base_url()?>sys-admin/vendors/vendors-view<?=$page_parameters_with_sort?>'" >Cancel</button>
+                                        <button type="reset" class="btn btn-cancel-action waves-effect waves-light" onclick="javascript:document.location='<?=base_url()?>sys-admin/vendors/vendors-view<?=$page_parameters_with_sort?>'" >Cancel</button>
                                     </div>
                                     <div class="col-sm-2 ">
                                     </div>

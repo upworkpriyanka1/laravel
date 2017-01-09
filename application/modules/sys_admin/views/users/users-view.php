@@ -45,9 +45,9 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
 							<thead>
 							<tr>
 								<th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('username'), "username", $sort_direction, $sort ) ?></th>
-								<th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('email'), "email", $sort_direction, $sort ) ?></th>
+								<th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('client_name'), "client_name", $sort_direction, $sort ) ?></th>
 								<th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('phone'), "phone", $sort_direction, $sort ) ?></th>
-								<th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('job'), "job_title", $sort_direction, $sort ) ?></th>
+								<th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('job'), "job_name", $sort_direction, $sort ) ?></th>
 								<th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('zip'), "zip", $sort_direction, $sort ) ?></th>
 								<th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('user_active_status'), "user_active_status", $sort_direction, $sort ) ?></th>
 								<th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('user_group_description'), "user_group_description", $sort_direction, $sort ) ?></th>
@@ -63,10 +63,10 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
 
 										<td><?php echo $row->username;?></td>
 										<td>
-											<a href="mailto:<?php echo $row->email;?>"><?php echo $row->email;?></a>
+											<?php echo $this->common_lib->groupItems($row->client_name,',', 'client(s)');?></a>
 										</td>
 										<td><?php echo $row->phone;?></td>
-										<td><?php echo $row->job_title;?></td>
+										<td><?php echo $row->job_name;?></td>
 										<td><?php echo $row->zip;?></td>
 										<td><?php echo $this->common_lib->get_user_active_status_label( $row->user_active_status ) ?></td>
 										<td><?php echo $row->user_group_description;?></td>

@@ -17,7 +17,7 @@ ul.side-nav.fixed li.logo{
     background: #fff;
 }
 ul.side-nav.fixed li.logo:hover, ul.side-nav.fixed li.logo a:hover{background: #fff !important}
-.section{padding-top: 5rem !important;}
+.section{padding-top: 4rem !important;}
 ul.side-nav.fixed ul.collapsible-accordion{
 	 background-color: #1f1f1f !important;
 	 padding-top: 0;
@@ -29,3 +29,10 @@ ul.side-nav.fixed{background:#1f1f1f !important;}
     background-color: #888;
 }
 .top-nav h3.page-title, .page-breadcrumb, .page-breadcrumb a{color: #fff !important;}
+nav a.button-collapse{margin-top: 2px;}
+nav a.button-collapse{color: #fff !important;}
+@media only screen and (max-width: 991px) {
+	.section {
+	    padding-top: 1rem !important;
+	}
+}

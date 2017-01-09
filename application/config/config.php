@@ -553,7 +553,7 @@ $config['rewrite_short_tags'] = FALSE;
 $config['proxy_ips'] = '';
 
 ////////////// APP SETTINGS START ////////////////
-$config['items_per_page'] = 4; //20;
+$config['items_per_page'] = 4;//20;
 $config['uri_segment'] = 5; //working 5
 $config['num_links'] = 10;
 $config['use_page_numbers'] = TRUE;
@@ -564,6 +564,7 @@ $config['tmp_directory']= 'uploads/tmp';
 $config['image_tmp_directory']= 'uploads/tmp/-tmp-image-';
 $config['image_service_directory']= 'uploads/services/-service-';
 $config['image_client_directory']= 'uploads/clients/-client-';
+$config['image_user_directory']= 'uploads/users/-user-';
 $config['service_max_images']= 3;
 
 

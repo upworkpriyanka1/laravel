@@ -3881,7 +3881,7 @@ nav .nav-wrapper {
 
 @media only screen and (min-width: 993px) {
     nav a.button-collapse {
-        display: none
+        display: block;
     }
 }
 
@@ -3893,10 +3893,10 @@ nav .button-collapse {
     margin: 0 18px
 }
 
-nav .button-collapse i {
+/*nav .button-collapse i {
     height: 56px;
     line-height: 56px
-}
+}*/
 
 nav .brand-logo {
     position: absolute;
@@ -3934,7 +3934,7 @@ nav .brand-logo.center {
     }
     nav .button-collapse i {
         height: auto;
-        line-height: 52px;
+        line-height: normal;
     }
 }
 
@@ -4053,7 +4053,7 @@ nav .input-field label.active {
     nav a.button-collapse,
     nav a.button-collapse i {
         height: auto;
-        line-height: 50px;
+        line-height: normal;
     }
     .navbar-fixed {
         height: auto;
@@ -6151,8 +6151,8 @@ form p:last-child {
 
 [type="checkbox"]:not(:checked),
 [type="checkbox"]:checked {
-    position: absolute;
-    left: -9999px;
+    position: relative;
+    left: 0;
     opacity: 0
 }
 

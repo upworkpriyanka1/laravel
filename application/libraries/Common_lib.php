@@ -573,6 +573,9 @@ class Common_lib
     {
         //AppUtils::deb( $cms_item_template_id, 'SendEmail $cms_item_template_id::');
         $ci = & get_instance();
+	    $ci->common_lib->DebToFile( 'sendEmail $to::'.print_r($to,true));
+	    $ci->common_lib->DebToFile( 'sendEmail $subject::'.print_r($subject,true));
+	    $ci->common_lib->DebToFile( 'sendEmail $message::'.print_r($message,true));
         $config_array = $ci->config->config;
         $ci->load->library('email');
         $ci->email->from($config_array['noanswer_email'], 'No Reply');
@@ -582,6 +585,63 @@ class Common_lib
         $ci->email->subject($subject);
         $ci->email->message(strip_tags($message));
         return $ci->email->send();
+    }
+
+    public static function groupItems($s, $splitter= ',', $label= '')
+    {
+        $s= trim($s);
+        $a= preg_split('/'.$splitter.'/', $s);
+//        echo '<pre>$a::'.print_r($a,true).'</pre>';
+        $a= array_unique($a);
+//        echo '<pre>$a::'.print_r($a,true).'</pre>';
+        if ( count($a) == 1 ) return $a[0];
+        return count($a).' '.$label;
+//        $ret= '';
+//        $l= count($a);
+//        for($i= 0;$i<$l;$i++) {
+//            $ret.= $a.'';
+//        }
+//        return $ret;
+//        die("-1 XXZ");
+    }
+
+    public function generateActivationCode($Length = 40)
+    {
+        $I = 0;
+        while (true) {
+            $Password = $this->preparePassword($Length);
+            $User = get_instance()->users_mdl->getUserRowByActivationCode(md5($Password));
+            if (empty($User))
+                return $Password;
+        }
+        return '';
+    }
+
+    public function generatePassword($Length = 8)
+    {
+        $I = 0;
+        while (true) {
+            $Password = $this->PreparePassword($Length);
+            $User = get_instance()->users_mdl->getRowByPassword(md5($Password));
+            if (empty($User))
+                return $Password;
+        }
+        return '';
+    }
+
+    /**
+     * Prepare Password with given length($Length)
+     *
+     */
+    public function preparePassword($Length)
+    {
+        $alphabet = "0123456789abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        $Res = '';
+        for ($I = 0; $I < $Length; $I++) {
+            $Index = rand(0, strlen($alphabet) - 1);
+            $Res .= substr($alphabet, $Index, 1);
+        }
+        return $Res;
     }
 
 }

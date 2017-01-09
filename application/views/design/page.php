@@ -19,7 +19,7 @@
                     <div class="page-content-wrapper">
                         <!-- BEGIN CONTENT BODY -->
                         <div class="page-content">
-                            <!-- BEGIN PAGE BAR -->
+                            <?php /*<!-- BEGIN PAGE BAR -->
                             <div class="page-bar">
                                 <ul class="page-breadcrumb">
                                     <li>
@@ -33,7 +33,7 @@
                                     <?php } ?>
                                 </ul>
                             </div>
-                            <!-- END PAGE BAR -->
+                            <!-- END PAGE BAR -->*/ ?>
                             
                             <div class="clearfix"></div>
 

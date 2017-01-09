@@ -72,7 +72,7 @@ class Users extends CI_Controller
 		$this->pagination->initialize($pagination_config);  // pagination system initialization by parameters in config file
 		$data['users']= array();
 		if ($rows_in_table > 0) { // number of rows by given parameters > 0 - get rows by given parameters for given $page_number.
-			$data['users']= $this->users_mdl->getUsersList(false, $page_number, array( 'show_job_title'=>1, 'show_user_group'=>1, 'username'=> $filter_username, 'user_active_status'=> $filter_user_active_status, 'zip'=> $filter_zip, 'user_group_id'=> $filter_user_group_id, 'created_at_from'=> $filter_created_at_from, 'created_at_till'=> $filter_created_at_till ), $sort, $sort_direction );
+			$data['users']= $this->users_mdl->getUsersList(false, $page_number, array( 'show_job_title'=>1, 'show_user_group'=>1, 'show_clients_name'=>1, 'username'=> $filter_username, 'user_active_status'=> $filter_user_active_status, 'zip'=> $filter_zip, 'user_group_id'=> $filter_user_group_id, 'created_at_from'=> $filter_created_at_from, 'created_at_till'=> $filter_created_at_till ), $sort, $sort_direction );
 		} // IMPORTANT : all filter parameters must be similar as in calling of getUsersList above
 
 //		echo '<pre>$data[\'users\']::'.print_r($data['users'],true).'</pre>';
@@ -156,7 +156,6 @@ class Users extends CI_Controller
 		$data['filter_created_at_till']= $filter_created_at_till;
 		$data['filter_created_at_from_formatted']= $filter_created_at_from_formatted;
 		$data['filter_created_at_till_formatted']= $filter_created_at_till_formatted;
-		$data['filter_created_at_till_formatted']= $filter_created_at_till_formatted;
 
 		$page_parameters_with_sort = $this->usersPreparePageParameters($UriArray, $post_array, false, true);
 		$page_parameters_without_sort = $this->usersPreparePageParameters($UriArray, $post_array, false, false);
@@ -167,6 +166,17 @@ class Users extends CI_Controller
 		$data['select_on_update']= $this->common_lib->getParameter($this, $UriArray, $post_array, 'select_on_update');
 		$data['user_GroupsSelectionList']= $this->users_mdl->getGroupsSelectionList();
 		$data['userActiveStatusValueArray']= $this->users_mdl->getUserActiveStatusValueArray();
+//		echo '<pre>$is_insert::'.print_r($is_insert,true).'</pre>';
+//		echo '<pre>$data[\'userActiveStatusValueArray\']::'.print_r($data['userActiveStatusValueArray'],true).'</pre>';
+		if ( $is_insert ) { // in insert mode user can be new or waiting for confirmation
+			foreach ( $data['userActiveStatusValueArray'] as $next_key=>$next_userActiveStatus ) {
+				if ( !in_array($next_userActiveStatus['key'],array('N', 'W')) ) {
+					unset($data['userActiveStatusValueArray'][$next_key]);
+				}
+			}  // Array('N' => 'New', 'W' => 'Waiting for activation', 'A' => 'Active', 'I' => 'Inactive');
+		}
+//		echo '<pre>$data[\'userActiveStatusValueArray\']::'.print_r($data['userActiveStatusValueArray'],true).'</pre>';
+//		die("-1 XXZ");
 		$jobsSelectionList= $this->users_mdl->getJobsSelectionList();
 
 		$usersJobs = $this->users_mdl->getUsers_JobsList( false, 0, array('user_id'=> $user_id) );
@@ -226,7 +236,23 @@ class Users extends CI_Controller
 			}
 		}
 		else {
-			$editable_user= $this->users_mdl->getUserRowById( $user_id );
+			$editable_user= $this->users_mdl->getUserRowById( $user_id, array('show_file_info'=> 1, 'image_width'=> 128, 'image_height'=> 128) );
+
+			if ( !empty($editable_user) and in_array($editable_user->user_active_status, array('A','I') ) ) {
+				foreach ( $data['userActiveStatusValueArray'] as $next_key=>$next_userActiveStatus ) {
+					if ( !in_array($next_userActiveStatus['key'],array('A', 'I')) ) {
+						unset($data['userActiveStatusValueArray'][$next_key]);
+					}
+				}
+			}   // Array('N' => 'New', 'W' => 'Waiting for activation', 'A' => 'Active', 'I' => 'Inactive');
+
+			if ( !empty($editable_user) and in_array($editable_user->user_active_status, array('N','W') ) ) {
+				foreach ( $data['userActiveStatusValueArray'] as $next_key=>$next_userActiveStatus ) {
+					if ( !in_array($next_userActiveStatus['key'],array('N', 'W')) ) {
+						unset($data['userActiveStatusValueArray'][$next_key]);
+					}
+				}
+			}   // Array('N' => 'New', 'W' => 'Waiting for activation', 'A' => 'Active', 'I' => 'Inactive');
 			$users_groups_list= $this->users_mdl->getUsersGroupsList( false, 0, array('user_id'=> $user_id));
 //			echo '<pre>$users_groups_list::'.print_r($users_groups_list,true).'</pre>';
 			if ( !empty($editable_user) and !empty($users_groups_list[0]->group_id) ) {
@@ -303,8 +329,10 @@ class Users extends CI_Controller
 		$this->form_validation->set_rules( 'data[username]', lang('user'), 'callback_user_check_username_is_unique' );
 		$this->form_validation->set_rules( 'data[email]', lang('email'), 'trim|required|valid_email|callback_user_check_email_is_unique' );
 
-		$this->form_validation->set_rules( 'data[password]', lang('password'), 'trim|required|min_length[5]' );
-		$this->form_validation->set_rules( 'data[password_confirm]', lang('password_confirm'), 'trim|required|min_length[5]|matches[data[password]]' );
+		if ( $is_insert ) {
+			$this->form_validation->set_rules( 'data[password]', lang( 'password' ), 'trim|required|min_length[5]' );
+			$this->form_validation->set_rules( 'data[password_confirm]', lang( 'password_confirm' ), 'trim|required|min_length[5]|matches[data[password]]' );
+		}
 
 		$this->form_validation->set_rules( 'data[user_active_status]', lang('user_active_status'), 'required' );
 		$this->form_validation->set_rules( 'data[first_name]', lang('first_name'), 'required' );
@@ -333,31 +361,67 @@ class Users extends CI_Controller
 
 	private function user_edit_makesave($is_insert, $user_id, $select_on_update, $redirect_url, $page_parameters_with_sort, $post_array, $app_config ) {
 		$this->db->trans_start();
-//		echo '<pre>$_SERVER::'.print_r($_SERVER,true).'</pre>';
 		$ip_address= !empty($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
+
+		$original_user_avatar= !empty($post_array['data']['avatar']) ? $post_array['data']['avatar'] : '';
+//		echo '<pre>$original_user_avatar::'.print_r($original_user_avatar,true).'</pre>';
+
+//		echo '<pre>$post_array::'.print_r($post_array,true).'</pre>';
+		$activation_code= '';
+		$password= '';
 		if ( $is_insert ) {
 //			$this->db->insert($this->users_mdl->m_users_table, $update_data);
 //			$user_id= $this->db->insert_id();
 			$user_group_array= array( $post_array['data']['user_group_id'] );
-			$additional_data= array(  'ip_address'=> $ip_address, 'user_active_status' => $post_array['data']['user_active_status'], 'first_name' => $post_array['data']['first_name'], 'last_name' => $post_array['data']['last_name'], 'city' => $post_array['data']['city'], 'state' => $post_array['data']['state'], 'zip' => $post_array['data']['zip'],  'address1' => $post_array['data']['address1'], 'address2' => $post_array['data']['address2'], 'mobile' => $post_array['data']['mobile'], 'phone' => $post_array['data']['phone'], 'created_on'=> now() );
+			$additional_data= array(  'ip_address'=> $ip_address, 'user_active_status' => $post_array['data']['user_active_status'], 'first_name' => $post_array['data']['first_name'], 'last_name' => $post_array['data']['last_name'], 'city' => $post_array['data']['city'], 'state' => $post_array['data']['state'], 'zip' => $post_array['data']['zip'],  'address1' => $post_array['data']['address1'], 'address2' => $post_array['data']['address2'], 'mobile' => $post_array['data']['mobile'], 'phone' => $post_array['data']['phone'], 'created_on'=> now(), 'avatar' => $post_array['data']['avatar'] );
 
-//			echo '<pre>$post_array::'.print_r($post_array,true).'</pre>';
+			if  (  !empty( $post_array['cbx_clear_image'])  )  {
+				$additional_data['avatar']= '';
+			}
+			if ( !empty( $_FILES['data']['name']['avatar_file_upload'] ) ) {
+				$additional_data['avatar']= $_FILES['data']['name']['avatar_file_upload'];
+			}
+			$activation_code= $this->common_lib->GenerateActivationCode();
+			$additional_data['activation_code']= $activation_code;
+			$this->common_lib->DebToFile( 'sendEmail $additional_data::'.print_r($additional_data,true));
+
 //			echo '<pre>$additional_data::'.print_r($additional_data,true).'</pre>';
 //			echo '<pre>$user_group_array::'.print_r($user_group_array,true).'</pre>';
 			$user_id = $this->ion_auth->register( $post_array['data']['username'], $post_array['data']['password'], $post_array['data']['email'], $additional_data,   array(  $user_group_array  )  );
+			$password= $post_array['data']['password'];
 //			echo '<pre>NEW $user_id::'.print_r($user_id,true).'</pre>';
+
+		} else {
+//			$this->db->where( $this->users_mdl->m_users_table . '.id', $user_id);
+			$update_data= array( 'username' => $post_array['data']['username'], 'ip_address'=> $ip_address, 'email' => $post_array['data']['email'], 'user_active_status' => $post_array['data']['user_active_status'], 'first_name' => $post_array['data']['first_name'], 'last_name' => $post_array['data']['last_name'], 'city' => $post_array['data']['city'], 'state' => $post_array['data']['state'], 'zip' => $post_array['data']['zip'],  'address1' => $post_array['data']['address1'], 'address2' => $post_array['data']['address2'], 'mobile' => $post_array['data']['mobile'], 'phone' => $post_array['data']['phone'], 'avatar' => $post_array['data']['avatar'] );
+
+			if  (  !empty( $post_array['cbx_clear_image'])  )  {
+				$update_data['avatar']= '';
+			}
+			if ( !empty( $_FILES['data']['name']['avatar_file_upload'] ) ) {
+				$update_data['avatar']= $_FILES['data']['name']['avatar_file_upload'];
+			}
+
+			if ( $post_array['data']['user_active_status'] == "W" ) { // sent message with activation code
+				$activation_code= $this->common_lib->generateActivationCode();
+				$update_data['activation_code']= $activation_code;
+			} // if ( $post_array['data']['user_active_status'] == "W" ) { // sent message with activation code
+//			echo '<pre>$update_data::'.print_r($update_data,true).'</pre>';
+			$this->db->update($this->users_mdl->m_users_table, $update_data, array('id' => $user_id));
+			// 			$this->db->update($this->tables['users'], $data, array('id' => $id));
+
+		}
+
+		if ( $post_array['data']['user_active_status'] == "W" ) { // sent message with activation code
 			$title= 'You are registered at ' . $app_config['base_url'] . ' site';
-			$content= 'Dear '.$post_array['data']['username']. ', you are registered at <a href="'.$app_config['base_url'].'">' . $app_config['base_url'] . ' </a> site, with email '. $post_array['data']['email'] .' and password ' . $post_array['data']['password'];
+			$content= '  Dear '.$post_array['data']['username']. ', you are registered at <a href="'.$app_config['base_url'].'">' . $app_config['base_url'] . ' </a> site, with email '. $post_array['data']['email'] . ( !empty($password)? ( ' and password '.$password ) : ' and password sent to you before.' ) . '
+You need to activate your account at <a href="' . $app_config['base_url']."/activation/".$activation_code.'">Activation page</a>			';
 //			echo '<pre>$title::'.print_r($title,true).'</pre>';
 //			echo '<pre>$content::'.print_r($content,true).'</pre>';
 			$EmailOutput = $this->common_lib->SendEmail($post_array['data']['email'], $title, $content );
 //			echo '<pre>$EmailOutput::'.print_r($EmailOutput,true).'</pre>';
 
-		} else {
-			$this->db->where( $this->users_mdl->m_users_table . '.id', $user_id);
-			$update_data= array( 'username' => $post_array['data']['username'], 'ip_address'=> $ip_address, 'email' => $post_array['data']['email'], 'user_active_status' => $post_array['data']['user_active_status'], 'first_name' => $post_array['data']['first_name'], 'last_name' => $post_array['data']['last_name'], 'city' => $post_array['data']['city'], 'state' => $post_array['data']['state'], 'zip' => $post_array['data']['zip'],  'address1' => $post_array['data']['address1'], 'address2' => $post_array['data']['address2'], 'mobile' => $post_array['data']['mobile'], 'phone' => $post_array['data']['phone'] );
-			$this->db->update($this->users_mdl->m_users_table, $update_data);
-		}
+		} // if ( $post_array['data']['user_active_status'] == "W" ) { // sent message with activation code
 
 		$this->users_mdl->updateUsersGroups($user_id,array($post_array['data']['user_group_id']));
 
@@ -369,6 +433,26 @@ class Users extends CI_Controller
 			}
 		}
 		$this->users_mdl->updateUsersJobs( $user_id, $user_jobs_array );
+
+		$avatar_path= $this->users_mdl->getUserImagePath($user_id, $post_array['data']['avatar']);
+		$user_dir= $this->users_mdl->getUserDir($user_id);
+		if (  !empty( $post_array['cbx_clear_image']) or !empty($_FILES['data']['name']['avatar_file_upload'])  )   {
+			$original_img_path= $this->users_mdl->getUserImagePath($user_id, $original_user_avatar);
+			if ( !empty($original_img_path) and file_exists($original_img_path) and !is_dir($original_img_path)) {
+				unlink($original_img_path);
+			}
+		}
+
+
+		$userImagesDirs = array( FCPATH . 'uploads', $this->users_mdl->getUsersDir(), $this->users_mdl->getUserDir($user_id) );
+		$src_filename = $_FILES['data']['tmp_name']['avatar_file_upload'];
+		$img_basename = $_FILES['data']['name']['avatar_file_upload'];
+
+		$this->common_lib->createDir($userImagesDirs);
+		$ret = move_uploaded_file( $src_filename, $this->users_mdl->getUserDir($user_id) . $img_basename );
+//		echo '<pre>$ret::'.print_r($ret,true).'</pre>';
+
+
 
 		if ($select_on_update == 'reopen_editor') {
 			$redirect_url = base_url() . 'sys-admin/users/users-edit/' . $user_id . $page_parameters_with_sort;
@@ -398,32 +482,29 @@ class Users extends CI_Controller
 		$id= $UriArray['id'];
 		$PageParametersWithSort = $this->usersPreparePageParameters($UriArray, null, false, true);
 		$RedirectUrl = '/sys-admin/users/users-view' . $PageParametersWithSort;
+		if ( $this->user->id == $id  ) {
+			$this->session->set_flashdata('editor_message', "Can not delete user '" . $this->user->username . "' as you logged under it ! ");
+			redirect($RedirectUrl);
+		}
 
 		$removed_user = $this->users_mdl->getUserRowById($id);
 		if (empty($removed_user)) {
 			$this->session->set_flashdata('editor_message', "User '" . $id . "' not found");
 			redirect($RedirectUrl);
-			return;
 		}
 		$removed_user_name = $removed_user->username;
 
 		$this->db->trans_start();
 		$ret = $this->users_mdl->deleteUsers_ClientsByUserId($id);
-		echo '---<pre>$ret::'.print_r($ret,true).'</pre>';
 
 		$ret = $this->users_mdl->deleteUsers_GroupsByUserId($id);
-		echo '-1<pre>$ret::'.print_r($ret,true).'</pre>';
 
 		$ret = $this->users_mdl->deleteUsers_JobsByUserId($id);
-		echo '-1<pre>$ret::'.print_r($ret,true).'</pre>';
 
 		$ret = $this->activity_logs_mdl->deleteActivityLogsByUserId($id);
-		echo '-11<pre>$ret::'.print_r($ret,true).'</pre>';
 
 		$ret = $this->users_mdl->deleteUser($id);
-		echo '++<pre>$ret::'.print_r($ret,true).'</pre>';
 
-//		die("-1 XXZ");
 		if ($this->db->trans_status() === FALSE) {
 			$this->db->trans_rollback();
 		} else {
@@ -435,7 +516,6 @@ class Users extends CI_Controller
 			redirect($RedirectUrl);
 			return;
 		}
-//		}
 
 	}
 

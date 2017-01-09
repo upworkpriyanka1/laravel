@@ -910,7 +910,7 @@ class Ion_auth_model extends CI_Model
 		    'email'      => $email,
 		    'ip_address' => $ip_address,
 		    'created_on' => time(),
-		    'user_active_status'     => ($manual_activation === false ? 'A' : 'I')
+		    'user_active_status'     => ($manual_activation === false ? 'A' : 'W')
 		);
 
 		if ($this->store_salt)

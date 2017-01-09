@@ -295,7 +295,7 @@ class Ion_auth
 	 * @param $email
 	 * @param array $additional_data
 	 * @param array $group_ids
-	 * @author Mathew
+	 * @author  Mathew
 	 * @return bool
 	 */
 	public function register($identity, $password, $email, $additional_data = array(), $group_ids = array()) //need to test email activation

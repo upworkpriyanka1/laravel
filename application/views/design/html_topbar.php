@@ -14,13 +14,17 @@
             <nav class="top-nav">
                 <div class="container">
                     <div class="page-header navbar navbar-fixed-top">
-                        <a href="#" data-activates="nav-mobile" class="button-collapse top-nav full hide-on-large-only"><i class="material-icons">menu</i></a>
                         <!-- BEGIN PAGE TITLE-->
                         <?php
                         $page_title= lang('dashboard-title');
                             if (isset($this->uri->segments['2'])){$page_title= lang($this->uri->segment('2'));}
                         ?>
-                        <h3 class="page-title"> <?php echo $page_title;?></h3>
+                        <h3 class="page-title"> 
+                            <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+	                        <?php if($page_title != ''){ echo $page_title; }else{ ?>
+		                       <?=lang('vendor-types-view')?>
+		                    <?php } ?>
+                        </h3>
                         <!-- END PAGE TITLE-->
                         <!-- BEGIN HEADER INNER -->
                         <div class="page-header-inner ">
@@ -28,7 +32,7 @@
                             <div class="top-menu">
                                 <ul class="right">
                                     <li>
-                                        <div class="theme-panel hidden-xs hidden-sm">
+                                        <div class="theme-panel">
                                             <div class="toggler" style="display: block;"> </div>
                                             <div class="toggler-close" style="display: none;"> </div>
                                             <div class="theme-options" style="display: none;">

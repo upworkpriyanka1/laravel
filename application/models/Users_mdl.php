@@ -8,10 +8,11 @@ class Users_mdl extends CI_Model
 	public $m_users_table;
 	private $m_users_jobs_table;
 	private $m_users_clients_table;
+	private $m_clients_table;
 	public $m_jobs_table;
 	public $m_users_groups_table;
 	public $m_groups_table;
-	private $UserActiveStatusLabelValueArray = Array('N' => 'New', 'A' => 'Active', 'I' => 'Inactive'); // 	`user_active_status` ENUM('N','A','I') NOT NULL DEFAULT 'N',
+	private $UserActiveStatusLabelValueArray = Array('N' => 'New', 'W' => 'Waiting for activation', 'A' => 'Active', 'I' => 'Inactive');
 
 	function __construct()
 	{
@@ -19,6 +20,7 @@ class Users_mdl extends CI_Model
 		$this->m_users_table = 'users';
 		$this->m_users_jobs_table= 'users_jobs';
 		$this->m_users_clients_table= 'users_clients';
+		$this->m_clients_table= 'clients';
 		$this->m_jobs_table= 'jobs';
 		$this->m_users_groups_table= 'users_groups';
 		$this->m_groups_table= 'groups';
@@ -74,6 +76,7 @@ class Users_mdl extends CI_Model
 		$is_page_positive_integer= $ci->common_lib->is_positive_integer($page);
 		$is_user_job_title_joined = false;
 		$is_user_group_joined = false;
+		$is_user_client_joined = false;
 		if ( !empty($page) and $is_page_positive_integer ) {
 			$limit = '';
 			$offset = '';
@@ -109,6 +112,7 @@ class Users_mdl extends CI_Model
 		}
 
 		$additive_fields_for_select = "";
+		$additive_group_fields = "";
 		$fields_for_select = $this->m_users_table . ".*";
 		if ( !empty($filters['show_job_title']) ) {
 			$additive_fields_for_select .= ", GROUP_CONCAT(".$this->m_jobs_table.".job_title) as job_title, GROUP_CONCAT(".$this->m_jobs_table.".job_name) as job_name ";
@@ -119,15 +123,26 @@ class Users_mdl extends CI_Model
 			}
 		}
 
-//		                      echo '<pre>$is_user_group_joined::'.print_r($is_user_group_joined,true).'</pre>';
 		if ( !empty($filters['show_user_group']) ) {
 			$additive_fields_for_select .= ", ".$this->m_groups_table.".description as user_group_description ";
+			$additive_group_fields .= ", ".$this->m_groups_table.".description";
 //			echo '<pre>$additive_fields_for_select::'.print_r($additive_fields_for_select,true).'</pre>';
 			if ( !$is_user_group_joined ) {
 				$is_user_group_joined= true;
 				$this->db->join($this->m_users_groups_table, $this->m_users_groups_table . '.user_id = ' . $this->m_users_table . '.id', 'left');
 			}
 			$this->db->join($this->m_groups_table, $this->m_groups_table . '.id = ' . $this->m_users_groups_table . '.group_id', 'left');
+		}
+
+		if ( !empty($filters['show_clients_name']) ) {
+			$additive_fields_for_select .= ", GROUP_CONCAT(".$this->m_clients_table.".client_name ) as client_name";
+//			$additive_group_fields .= ", ".$this->m_clients_table.".client_name";
+//			echo '<pre>$additive_fields_for_select::'.print_r($additive_fields_for_select,true).'</pre>';
+			if ( !$is_user_client_joined ) {
+				$is_user_client_joined= true;
+				$this->db->join($this->m_users_clients_table, $this->m_users_clients_table . '.uc_user_id = ' . $this->m_users_table . '.id AND '.$this->m_users_clients_table.'.uc_active_status in (\'E\',\'O\') ' , 'left'); // -- E-Employee, O-Only Out Of Staff, N- Not Related
+			}
+			$this->db->join($this->m_clients_table, $this->m_clients_table . '.cid = ' . $this->m_users_clients_table . '.uc_client_id', 'left');
 		}
 
 		if ( ( !empty($limit) and $ci->common_lib->is_positive_integer($limit) ) and ( !empty($offset) and $ci->common_lib->is_positive_integer($offset) ) ) {
@@ -139,7 +154,8 @@ class Users_mdl extends CI_Model
 		}
 
 		if (!$OutputFormatCount) {
-			$this->db->group_by( $this->m_users_table . '.id, ' . $this->m_groups_table . '.id ' );
+			$this->db->group_by( $this->m_users_table . '.id ' . $additive_group_fields );
+//			$this->db->group_by( $this->m_users_table . '.id, ' . $this->m_groups_table . '.id ' . ( $is_user_client_joined ? ', '.$this->m_clients_table . '.cid '  : "" ) );
 		}
 		$fields_for_select.= ' ' . $additive_fields_for_select;
 		if (!empty($sort)) {
@@ -186,6 +202,16 @@ class Users_mdl extends CI_Model
 		return $row[0];
 	}
 
+	public function getUserRowByActivationCode($activation_code)
+	{
+		$query = $this->db->get_where($this->m_users_table, array('activation_code' => $activation_code), 1, 0);
+		//AppUtils::deb( $query, '$query::' );
+		$ResultRow = $query->result();
+		if (!empty($ResultRow[0])) {
+			return $ResultRow[0];
+		}
+		return false;
+	}
 
 	public function getUserRowById( $id, $additive_params= array()  )
 	{
@@ -198,35 +224,27 @@ class Users_mdl extends CI_Model
 		$orig_height= !empty($additive_params['image_height']) ? $additive_params['image_height'] : 64;
 //	    echo '<pre>$userRow::'.print_r($userRow,true).'</pre>';
 //	    echo '<pre>$additive_params::'.print_r($additive_params,true).'</pre>';
-		if (!empty($additive_params['show_file_info']) and !empty($userRow->img )) {
-			$user_img = $this->getUserDir($id) . $userRow->img;
-//		    echo '<pre>$user_img::'.print_r($user_img,true).'</pre>';
+		if (!empty($additive_params['show_file_info']) and !empty($userRow->avatar )) {
+			$user_avatar = $this->getUserDir($id) . $userRow->avatar;
 			$userRow->file_info = '';
-			if ( file_exists($user_img) ) {
-				$file_info= $userRow->img;
-				$file_info.= ', '.$this->common_lib->getFileSizeAsString( filesize($user_img) );
-				$fileArray = @getimagesize($user_img);
+			if ( file_exists($user_avatar) ) {
+				$file_info= $userRow->avatar;
+				$file_info.= ', '.$this->common_lib->getFileSizeAsString( filesize($user_avatar) );
+				$fileArray = @getimagesize($user_avatar);
 				if (!empty($fileArray)) {
 					$file_info.= ', '.$fileArray[0].'x'.$fileArray[1];
 				}
 				$userRow->file_info = $file_info;
-				$userRow->image_url = $this->getUserImageUrl($id, $userRow->img);
-				$userRow->image_path = $this->getUserImagePath($id, $userRow->img);
+				$userRow->image_url = $this->getUserImageUrl($id, $userRow->avatar);
+				$userRow->image_path = $this->getUserImagePath($id, $userRow->avatar);
 				$filenameInfo = $this->common_lib->GetImageShowSize($userRow->image_path, $orig_width, $orig_height);
-//			    echo '<pre>$filenameInfo::'.print_r($filenameInfo,true).'</pre>';
 				$userRow->image_path_width= !empty($filenameInfo['Width']) ? $filenameInfo['Width'] : 0 ;
 				$userRow->image_path_height= !empty($filenameInfo['Height']) ? $filenameInfo['Height'] : 0 ;
 				$userRow->image_path_original_width= !empty($filenameInfo['OriginalWidth']) ? $filenameInfo['OriginalWidth'] : 0 ;
 				$userRow->image_path_original_height= !empty($filenameInfo['OriginalHeight']) ? $filenameInfo['OriginalHeight'] : 0 ;
-
 			}
 		}
 		return $userRow;
-//        $resultRows = $query->get()->result();
-//        if ( !empty($resultRows[0]) ) {
-//            return $resultRows[0];
-//        }
-//        return false;
 	}
 
 	public function getUsersDir()
@@ -680,7 +698,6 @@ class Users_mdl extends CI_Model
 		}
 	}
 
-	// 		$this->users_mdl->updateUsersJobs( $user_id, $user_jobs_array );
 	public function updateUsersJobs($user_id, $DataArray)
 	{
 		if (empty($user_id)) return;

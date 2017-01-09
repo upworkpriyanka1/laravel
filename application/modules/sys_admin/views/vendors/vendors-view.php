@@ -10,27 +10,24 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
         <div class="portlet light bordered">
             <div class="portlet-body">
 
-                <div class="page-bar">
-                    <h3 class="page-title"><?=lang('vendors-view')?></h3>
-                    <?= $this->common_lib->show_info($editor_message) ?>
-                </div>
-
-                <? if ( count($vendors) == 0 ) : ?>
-                    <div class="row" style="margin: 5px 0 5px 0;">
+	            <?= $this->common_lib->show_info($editor_message) ?>
+	            <div class="clear">&nbsp;</div>
+	            <?php if ( count($vendors) == 0 ) : ?>
+                    <div class="row">
                         <button type="button" class="btn btn-error btn-lg btn-block"><?= lang('table_no_data') ?></button>
                     </div>
-                <? endif; ?>
+                <?php endif; ?>
 
                 <div class="table-toolbar table_info">
-                    <? if ( count($vendors) > 0 ) { ?>
-                        <?= count($vendors); ?>&nbsp;Row<? if ( count($vendors) > 1 ) { ?>s<? } ?>&nbsp;of&nbsp;<?= $RowsInTable ?>&nbsp;(Page # <strong><?= $page_number ?> </strong>)
-                    <? } ?>
-
-                    <button type="button" class="btn sbold green btn-sm pull_right_only_on_xs padding_right_sm" onclick="javascript:vendorsListFilterApplied();" data-toggle="tooltip" data-html="true" data-placement="top" title="" data-original-title="Open dialog window to set filter for Vendors. <?= ( trim($filters_label) != "" ? "Current filter(s):".$filters_label : "") ?> "><i class="glyphicon glyphicon-filter"></i>&nbsp;Filter </button>
-                    <button type="button" class="btn sbold green  btn-sm pull-right" onclick="javascript:document.location='<?= base_url() ?>sys-admin/vendors/vendors-edit/new<?=$page_parameters_with_sort ?>'" ><i class="glyphicon glyphicon-plus"></i></button>
+	                <?php if ( count($vendors) > 0 ) { ?>
+		                <?= count($vendors); ?>&nbsp;Row<?php if ( count($vendors) > 1 ) { ?>s<?php } ?>&nbsp;of&nbsp;<?= $RowsInTable ?>&nbsp;(Page # <strong><?= $page_number ?> </strong>)
+		            <?php } ?>
+	                <button type="button" class="btn sbold green waves-effect tooltipped waves-light btn-sm pull_right_only_on_xs padding_right_sm" onclick="javascript:vendorsListFilterApplied();" data-position="top" data-tooltip="Open dialog window to set filter for Vendors. <?= ( trim($filters_label) != "" ? "Current filter(s):".$filters_label : "") ?> "><i class="glyphicon glyphicon-filter"></i>&nbsp;Filter </button>
+                    <button type="button" class="btn sbold green waves-effect waves-light btn-sm pull-right" onclick="javascript:document.location='<?= base_url() ?>sys-admin/vendors/vendors-edit/new<?=$page_parameters_with_sort ?>'" ><i class="glyphicon glyphicon-plus"></i></button>
                 </div>
 
-                <? if ( count($vendors) > 0 ) : ?>
+	            <div class="clear">&nbsp;</div>
+                <?php if ( count($vendors) > 0 ) : ?>
                 <div class="table-responsive">
 
                     <table class="table table-striped table-bordered table-hover  order-column" id="vendors_listing">
@@ -71,7 +68,7 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
                 <div class="table_pagination">
                     <?= $pagination_links;?>
                 </div>
-                <? endif; ?>
+                <?php endif; ?>
 
             </div>
         </div>
