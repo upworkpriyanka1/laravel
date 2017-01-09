@@ -416,7 +416,7 @@ class Users extends CI_Controller
 		if ( $post_array['data']['user_active_status'] == "W" ) { // sent message with activation code
 			$title= 'You are registered at ' . $app_config['base_url'] . ' site';
 			$content= '  Dear '.$post_array['data']['username']. ', you are registered at <a href="'.$app_config['base_url'].'">' . $app_config['base_url'] . ' </a> site, with email '. $post_array['data']['email'] . ( !empty($password)? ( ' and password '.$password ) : ' and password sent to you before.' ) . '
-You need to activate your account at <a href="' . $app_config['base_url']."/activation/".$activation_code.'">Activation page</a>			';
+You need to activate your account at <a href="' . $app_config['base_url']."activation/".$activation_code.'">Activation page</a>			';
 //			echo '<pre>$title::'.print_r($title,true).'</pre>';
 //			echo '<pre>$content::'.print_r($content,true).'</pre>';
 			$EmailOutput = $this->common_lib->SendEmail($post_array['data']['email'], $title, $content );

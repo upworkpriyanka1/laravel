@@ -4,7 +4,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Main extends CI_Controller {
 
 	public function __construct() {
-		echo '<pre>Main __construct $_POST::'.print_r($_POST,true).'</pre>';
 		parent::__construct();
 		$this->load->library('Sys_admin_lib', NULL, 'admin_lib');
 		$this->load->model('sys_admin_mdl', 'admin_mdl');
