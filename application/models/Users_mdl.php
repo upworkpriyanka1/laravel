@@ -250,7 +250,7 @@ class Users_mdl extends CI_Model
 	public function getUsersDir()
 	{
 		$ci = & get_instance();
-		return $ci->config->config['document_root'] . $ci->config->config['image_user_directory'];
+		return $ci->config->config['document_root'] . $ci->config->config['image_users_directory'];
 	}
 
 	public function getUserDir($user_id= '')
