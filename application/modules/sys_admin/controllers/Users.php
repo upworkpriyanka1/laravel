@@ -365,14 +365,10 @@ class Users extends CI_Controller
 		$ip_address= !empty($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
 
 		$original_user_avatar= !empty($post_array['data']['avatar']) ? $post_array['data']['avatar'] : '';
-//		echo '<pre>$original_user_avatar::'.print_r($original_user_avatar,true).'</pre>';
-
 //		echo '<pre>$post_array::'.print_r($post_array,true).'</pre>';
 		$activation_code= '';
 		$password= '';
 		if ( $is_insert ) {
-//			$this->db->insert($this->users_mdl->m_users_table, $update_data);
-//			$user_id= $this->db->insert_id();
 			$user_group_array= array( $post_array['data']['user_group_id'] );
 			$additional_data= array(  'ip_address'=> $ip_address, 'user_active_status' => $post_array['data']['user_active_status'], 'first_name' => $post_array['data']['first_name'], 'last_name' => $post_array['data']['last_name'], 'city' => $post_array['data']['city'], 'state' => $post_array['data']['state'], 'zip' => $post_array['data']['zip'],  'address1' => $post_array['data']['address1'], 'address2' => $post_array['data']['address2'], 'mobile' => $post_array['data']['mobile'], 'phone' => $post_array['data']['phone'], 'created_on'=> now(), 'avatar' => $post_array['data']['avatar'] );
 
@@ -384,13 +380,12 @@ class Users extends CI_Controller
 			}
 			$activation_code= $this->common_lib->GenerateActivationCode();
 			$additional_data['activation_code']= $activation_code;
-			$this->common_lib->DebToFile( 'sendEmail $additional_data::'.print_r($additional_data,true));
 
 //			echo '<pre>$additional_data::'.print_r($additional_data,true).'</pre>';
 //			echo '<pre>$user_group_array::'.print_r($user_group_array,true).'</pre>';
 			$user_id = $this->ion_auth->register( $post_array['data']['username'], $post_array['data']['password'], $post_array['data']['email'], $additional_data,   array(  $user_group_array  )  );
 			$password= $post_array['data']['password'];
-//			echo '<pre>NEW $user_id::'.print_r($user_id,true).'</pre>';
+//			echo '<pre>INSERT $password::'.print_r($password,true).'</pre>';
 
 		} else {
 //			$this->db->where( $this->users_mdl->m_users_table . '.id', $user_id);
@@ -407,7 +402,7 @@ class Users extends CI_Controller
 				$activation_code= $this->common_lib->generateActivationCode();
 				$update_data['activation_code']= $activation_code;
 			} // if ( $post_array['data']['user_active_status'] == "W" ) { // sent message with activation code
-//			echo '<pre>$update_data::'.print_r($update_data,true).'</pre>';
+//			echo '<pre>++$update_data::'.print_r($update_data,true).'</pre>';
 			$this->db->update($this->users_mdl->m_users_table, $update_data, array('id' => $user_id));
 			// 			$this->db->update($this->tables['users'], $data, array('id' => $id));
 
@@ -415,11 +410,11 @@ class Users extends CI_Controller
 
 		if ( $post_array['data']['user_active_status'] == "W" ) { // sent message with activation code
 			$title= 'You are registered at ' . $app_config['base_url'] . ' site';
+//			echo '<pre>???? $password::'.print_r($password,true).'</pre>';
 			$content= '  Dear '.$post_array['data']['username']. ', you are registered at <a href="'.$app_config['base_url'].'">' . $app_config['base_url'] . ' </a> site, with email '. $post_array['data']['email'] . ( !empty($password)? ( ' and password '.$password ) : ' and password sent to you before.' ) . '
-You need to activate your account at <a href="' . $app_config['base_url']."activation/".$activation_code.'">Activation page</a>			';
-//			echo '<pre>$title::'.print_r($title,true).'</pre>';
-//			echo '<pre>$content::'.print_r($content,true).'</pre>';
+You need to activate your account at <a href="' . $app_config['base_url']."/activation/".$activation_code.'">Activation page</a>			';
 			$EmailOutput = $this->common_lib->SendEmail($post_array['data']['email'], $title, $content );
+			$this->common_lib->DebToFile( 'sendEmail $content::'.print_r($content,true));
 //			echo '<pre>$EmailOutput::'.print_r($EmailOutput,true).'</pre>';
 
 		} // if ( $post_array['data']['user_active_status'] == "W" ) { // sent message with activation code
@@ -449,12 +444,8 @@ You need to activate your account at <a href="' . $app_config['base_url']."activ
 		$src_filename = $_FILES['data']['tmp_name']['avatar_file_upload'];
 		$img_basename = $_FILES['data']['name']['avatar_file_upload'];
 
-		echo '<pre>$userImagesDirs::'.print_r($userImagesDirs,true).'</pre>';
 		$this->common_lib->createDir($userImagesDirs);
 		$ret = move_uploaded_file( $src_filename, $this->users_mdl->getUserDir($user_id) . $img_basename );
-//		echo '<pre>$ret::'.print_r($ret,true).'</pre>';
-
-
 
 		if ($select_on_update == 'reopen_editor') {
 			$redirect_url = base_url() . 'sys-admin/users/users-edit/' . $user_id . $page_parameters_with_sort;
