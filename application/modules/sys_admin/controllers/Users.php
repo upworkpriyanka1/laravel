@@ -24,8 +24,9 @@ class Users extends CI_Controller
 		$this->menu = $this->config->item('sys_admin_menu');
 
 		$this->user = $this->common_mdl->get_admin_user();
-//		echo '<pre>$this->user::'.print_r($this->user,true).'</pre>';
-//		die("-1 XXZ");
+		if ( $this->user->user_active_status != 'A' ) {
+			redirect( base_url() . "login/logout" );
+		}
 		$this->group = $this->ion_auth->get_users_groups()->row();
 		$this->job = $this->common_mdl->get_users_jobs()->row();
 	}
@@ -448,6 +449,7 @@ You need to activate your account at <a href="' . $app_config['base_url']."/acti
 		$src_filename = $_FILES['data']['tmp_name']['avatar_file_upload'];
 		$img_basename = $_FILES['data']['name']['avatar_file_upload'];
 
+		echo '<pre>$userImagesDirs::'.print_r($userImagesDirs,true).'</pre>';
 		$this->common_lib->createDir($userImagesDirs);
 		$ret = move_uploaded_file( $src_filename, $this->users_mdl->getUserDir($user_id) . $img_basename );
 //		echo '<pre>$ret::'.print_r($ret,true).'</pre>';

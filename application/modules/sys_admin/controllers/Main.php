@@ -17,11 +17,9 @@ class Main extends CI_Controller {
 	public function activation() {
 		$app_config = $this->config->config;
 		$UriArray = $this->uri->uri_to_assoc(1);
-//		echo '<pre>activation $UriArray::'.print_r($UriArray,true).'</pre>';
 		$activation_code= $this->common_lib->getParameter($this, $UriArray, array(), 'activation');
 
 		$activated_user= $this->users_mdl->getUserRowByActivationCode($activation_code);
-//		echo '<pre>$activated_user::'.print_r($activated_user,true).'</pre>';
 
 		$has_error= false;
 		$error_message= '';
@@ -49,7 +47,6 @@ class Main extends CI_Controller {
 
 		}
 
-//		$data['page_title']		= 'ZZZZZZZ';
 		$data['page']		= 'main/activation';
 		$data['menu']		= array();
 		$data['has_error']= $has_error;
