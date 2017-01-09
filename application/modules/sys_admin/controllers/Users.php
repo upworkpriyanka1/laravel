@@ -409,11 +409,12 @@ class Users extends CI_Controller
 		}
 
 		if ( $post_array['data']['user_active_status'] == "W" ) { // sent message with activation code
+			$activation_page_url= $app_config['base_url']."/activation/".$activation_code;
 			$title= 'You are registered at ' . $app_config['base_url'] . ' site';
 //			echo '<pre>???? $password::'.print_r($password,true).'</pre>';
 			$content= '  Dear '.$post_array['data']['username']. ', you are registered at <a href="'.$app_config['base_url'].'">' . $app_config['base_url'] . ' </a> site, with email '. $post_array['data']['email'] .
 			( !empty($password)? ( ' and password '.$password ) : ' and password sent to you before' )	.
-			'.  You need to activate your account at <a href="' . $app_config['base_url']."/activation/".$activation_code.'">Activation page</a>			';
+			'.  You need to activate your account at <a href="' . $activation_page_url .'">Activation page '.$activation_page_url.' </a>';
 			$EmailOutput = $this->common_lib->SendEmail($post_array['data']['email'], $title, $content );
 			$this->common_lib->DebToFile( 'sendEmail $content::'.print_r($content,true));
 //			echo '<pre>$EmailOutput::'.print_r($EmailOutput,true).'</pre>';
