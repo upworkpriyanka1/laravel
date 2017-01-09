@@ -265,7 +265,8 @@ class Clients_mdl extends CI_Model
 	public function getClientsDir()
 	{
 		$ci = & get_instance();
-		return $ci->config->config['document_root'] . 'uploads/clients/';
+		return $ci->config->config['document_root'] . $ci->config->config['image_clients_directory'];
+//		return $ci->config->config['document_root'] . 'uploads/clients/';
 	}
 
 	public function getClientDir($client_id= '')

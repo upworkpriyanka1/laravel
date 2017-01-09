@@ -413,7 +413,7 @@ class Services extends CI_Controller
         $dest_filename = FCPATH . $this->config->item('image_service_directory') . $service_id . DIRECTORY_SEPARATOR . urldecode($img_basename);
         $this->common_lib->DebToFile($dest_filename, '$dest_filename::');
 
-        $tmpServiceImagesDirs = array( FCPATH . 'uploads', $this->config->item('document_root') . 'uploads/services', FCPATH . $this->config->item('image_service_directory') . $service_id );
+        $tmpServiceImagesDirs = array( FCPATH . 'uploads', $this->config->item('document_root') . $this->config->item('image_services_directory'), FCPATH . $this->config->item('image_service_directory') . $service_id );
 
         $similarService_Image= $this->services_mdl->getSimilarService_ImageByImage( $img_basename, (int)$service_id, 0 );
         if ( $similarService_Image ) {

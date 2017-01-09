@@ -360,7 +360,7 @@ class Users extends CI_Controller
 	}
 
 	private function user_edit_makesave($is_insert, $user_id, $select_on_update, $redirect_url, $page_parameters_with_sort, $post_array, $app_config ) {
-		$this->db->trans_start();
+		$this->db->trans_start( );
 		$ip_address= !empty($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
 
 		$original_user_avatar= !empty($post_array['data']['avatar']) ? $post_array['data']['avatar'] : '';

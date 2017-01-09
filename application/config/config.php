@@ -562,8 +562,11 @@ $config['page_query_string'] = false;
 
 $config['tmp_directory']= 'uploads/tmp';
 $config['image_tmp_directory']= 'uploads/tmp/-tmp-image-';
+$config['image_services_directory']= 'uploads/services';
 $config['image_service_directory']= 'uploads/services/-service-';
+$config['image_clients_directory']= 'uploads/clients';
 $config['image_client_directory']= 'uploads/clients/-client-';
+$config['image_users_directory']= 'uploads/users';
 $config['image_user_directory']= 'uploads/users/-user-';
 $config['service_max_images']= 3;
 
