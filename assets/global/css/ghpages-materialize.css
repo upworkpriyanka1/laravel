@@ -2429,8 +2429,7 @@ nav,
     box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.3)
 }
 
-.z-depth-4,
-.modal {
+.z-depth-4 {
     box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.3)
 }
 
@@ -5244,7 +5243,7 @@ button.btn-floating {
 .waves-effect .waves-ripple {
     z-index: -1
 }
-
+/*
 .modal {
     display: none;
     position: fixed;
@@ -5337,7 +5336,7 @@ button.btn-floating {
     max-height: 45%;
     border-radius: 0;
     will-change: bottom, opacity
-}
+}*/
 
 .collapsible {
     border-top: 1px solid #ddd;
@@ -6412,9 +6411,9 @@ input[type=checkbox]:not(:disabled).tabbed:focus ~ .lever::after {
     background-color: #BDBDBD
 }
 
-select {
+/*select {
     display: none
-}
+}*/
 
 select.browser-default {
     display: block

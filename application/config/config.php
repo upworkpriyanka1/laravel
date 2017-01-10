@@ -569,7 +569,11 @@ $config['image_client_directory']= 'uploads/clients/-client-';
 $config['image_users_directory']= 'uploads/users';
 $config['image_user_directory']= 'uploads/users/-user-';
 $config['service_max_images']= 3;
-
+$config['client_color_schemes']= array( array( 'id'=>1,'title'=> 'Default White Color Scheme' ), array( 'id'=>2,'title'=> 'Black Color Scheme' ) );
+/* UPDATE `clients` SET `color_scheme` = '1';
+ALTER TABLE `clients`
+  change `color_scheme` `color_scheme` smallint(2) NULL;
+ */
 
 $config['full_tag_open'] = '<ul class="pagination" > ';
 $config['full_tag_close'] = '</ul>';

@@ -56,6 +56,7 @@ $config['ie9_scripts'] = array('respondmin', 'excanvasmin');
 */
 $config['core_plugins'] = 	array(
 								'jquerymin',
+								'materialize',
 								'bootstrapmin',
 								'cookiemin',
 								'bs_dropdown_hover',

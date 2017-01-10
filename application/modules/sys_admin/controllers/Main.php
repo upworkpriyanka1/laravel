@@ -38,7 +38,7 @@ class Main extends CI_Controller {
 		$data= array();
 
 		if ( !$has_error ) {
-			$ret = $this->db->update( $this->users_mdl->m_users_table, array( 'user_active_status' => 'A' ), array( 'id' => $activated_user->id ) );
+			$ret = $this->db->update( $this->users_mdl->m_users_table, array( 'user_active_status' => 'A', 'activation_code'=> '' ), array( 'id' => $activated_user->id ) );
 			$success_message= 'Your account was activated successfully. Now you can login into the system!';
 			$title= 'Your account was activated at ' . $app_config['base_url'] . ' site';
 			$content= '  Dear '.$activated_user->username. ', your account was activated at <a href="'.$app_config['base_url'].'">' . $app_config['base_url'] . ' </a> site. Now you can login into the system with email '. $activated_user->email .  ' and password sent to you before.';

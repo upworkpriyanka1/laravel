@@ -51,9 +51,16 @@ $lang['client_type_help']       = "select min 1 option (Ctrl+Click)";
 $lang['client_name']            = "Client Name";
 $lang['cid']                    = "ID";
 $lang['client_owner']           = "Client Owner";
+$lang['client_email']           = "Client Email";
 $lang['client_active_status']   = "Client Active Status";
 $lang['cv_active_status']       = "Provides Vendor";
 $lang['client_fax']             = "Fax";
+$lang['client_website']         = "Website";
+$lang['client_address1']        = "Address";
+$lang['client_address2']        = "Additive Address";
+$lang['client_city']            = "City";
+$lang['client_state']           = "State";
+$lang['client_zip']             = "Zip";
 
 $lang['company']                = "Company";
 $lang['my-company']             = $lang['profile-company'] = "My Company";

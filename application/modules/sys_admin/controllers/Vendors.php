@@ -9,11 +9,7 @@ class Vendors extends CI_Controller
         parent::__construct();
         $group = array('sys-admin');
         if (!$this->ion_auth->in_group($group)) {
-            redirect('./');
-        }
-        if (!$this->ion_auth->in_group($group)) {
-            echo "Not allowed";
-            die();
+	        redirect( base_url() . "login/logout" );
         }
         $this->load->library('Sys_admin_lib', NULL, 'admin_lib');
         $this->load->model('sys_admin_mdl', 'admin_mdl');
@@ -23,7 +19,7 @@ class Vendors extends CI_Controller
         $this->menu = $this->config->item('sys_admin_menu');
 
         $this->user = $this->common_mdl->get_admin_user();
-	    if ( $this->user->user_active_status != 'A' ) {
+	    if ( $this->user->user_active_status != 'A' ) { // Only active user can access admin pages
 		    redirect( base_url() . "login/logout" );
 	    }
         $this->group = $this->ion_auth->get_users_groups()->row();
@@ -101,8 +97,10 @@ class Vendors extends CI_Controller
         $data['filters_label'] = $filters_label;
         $data['plugins'] 	= array();
         $data['pagination_links'] 	= $pagination_links;
-        $data['javascript'] = array( 'assets/custom/admin/vendor-types.js', 'assets/global/plugins/picker/picker.js', 'assets/global/plugins/picker/picker.date.js', 'assets/global/plugins/picker/picker.time.js');
-        $views				= array('design/html_topbar','sidebar','design/page','design/html_footer');
+//        $data['javascript'] = array( 'assets/custom/admin/vendor-types.js', 'assets/global/plugins/picker/picker.js', 'assets/global/plugins/picker/picker.date.js', 'assets/global/plugins/picker/picker.time.js');
+	    $data['javascript'] = array( 'assets/custom/admin/vendor-types.js', 'assets/global/plugins/picker/classic.js', 'assets/global/plugins/picker/classic.date.js', 'assets/global/plugins/picker/picker.time.js');
+
+	    $views				= array('design/html_topbar','sidebar','design/page','design/html_footer');
         $this->layout->view($views, $data);
     }
 
@@ -408,8 +406,10 @@ class Vendors extends CI_Controller
         $data['filters_label'] = $filters_label;
         $data['plugins'] 	= array();
         $data['pagination_links'] 	= $pagination_links;
-        $data['javascript'] = array( 'assets/custom/admin/vendors.js', 'assets/global/plugins/picker/picker.js', 'assets/global/plugins/picker/picker.date.js', 'assets/global/plugins/picker/picker.time.js'); // add picker.date pluging for date selection in fileters form
-        $views				= array('design/html_topbar','sidebar','design/page','design/html_footer');
+//        $data['javascript'] = array( 'assets/custom/admin/vendors.js', 'assets/global/plugins/picker/picker.js', 'assets/global/plugins/picker/picker.date.js', 'assets/global/plugins/picker/picker.time.js'); // add picker.date pluging for date selection in fileters form
+	    $data['javascript'] = array( 'assets/custom/admin/vendor-types.js', 'assets/global/plugins/picker/classic.js', 'assets/global/plugins/picker/classic.date.js', 'assets/global/plugins/picker/picker.time.js');
+
+	    $views				= array('design/html_topbar','sidebar','design/page','design/html_footer');
         $this->layout->view($views, $data);
     }
 

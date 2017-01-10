@@ -84,7 +84,6 @@
 								<div class="col-md-6">
 									<div class="form-group <?= $this->common_lib->set_field_error_tag("data[client_owner]", ' has-error ')?>">
 										<label class="control-label col-md-4"><?php echo lang('client_owner') ?>
-											<span class="required"> * </span>
 										</label>
 										<div class="col-md-7">
 											<input type="text" name="data[client_owner]" value="<?= ( !empty($client->client_owner) ? $client->client_owner : '' ); ?>" class="form-control" maxlength="100" />
@@ -189,10 +188,9 @@
 								<div class="col-md-6">
 									<div class="form-group <?= $this->common_lib->set_field_error_tag("data[client_email]", ' has-error ')?>">
 										<label class="control-label col-md-4"><?php echo lang('email') ?>
-											<span class="required"> * </span>
 										</label>
 										<div class="col-md-7">
-											<input type="text" name="data[client_email]" id="client_email" value="<?= ( !empty($client->client_email) ? $client->client_email : '' ); ?>" class="form-control" maxlength="50" <?php echo !$is_insert ? " readonly " : "" ?> />
+											<input type="text" name="data[client_email]" id="client_email" value="<?= ( !empty($client->client_email) ? $client->client_email : '' ); ?>" class="form-control" maxlength="50"  />
 										</div><!-- ./col -->
 									</div><!-- ./form-group -->
 								</div><!-- ./col -->
@@ -200,7 +198,6 @@
 								<div class="col-md-6">
 									<div class="form-group <?= $this->common_lib->set_field_error_tag("data[client_website]", ' has-error ')?>">
 										<label class="control-label col-md-4"><?php echo lang('website') ?>
-											<span class="required"> * </span>
 										</label>
 										<div class="col-md-7">
 											<input type="text" name="data[client_website]" value="<?= ( !empty($client->client_website) ? $client->client_website : '' ); ?>" class="form-control" maxlength="100" />
@@ -213,6 +210,7 @@
 
 
 							<div class="row">
+
 								<div class="col-md-6">
 									<div class="form-group <?= $this->common_lib->set_field_error_tag("data[clients_types_id]", ' has-error ')?>">
 										<label class="control-label col-md-4"><?php echo lang('clients-type') ?>
@@ -223,17 +221,24 @@
 										</div>
 									</div>
 								</div>
-								<!-- notes -->
+								<!-- client color_scheme -->
 								<div class="col-md-6">
-									<div class="form-group <?= $this->common_lib->set_field_error_tag("data[clients-type]", ' has-error ')?>">
-										<label class="control-label col-md-4"><?php echo lang('notes') ?>
+									<div class="form-group <?= $this->common_lib->set_field_error_tag("data[color_scheme]", ' has-error ')?>">
+										<label class="control-label col-md-4"><?php echo lang('color_scheme') ?>
+											<span class="required"> * </span>
 										</label>
 										<div class="col-md-7">
+											<select name="data[color_scheme]" class="form-control" >
+												<option value="">Select Color Scheme</option>
+												<?php foreach( $client_color_schemes as $next_key=>$next_color_scheme ) { ?>
+													<option value="<?=$next_color_scheme['id']  ?>" <?= ( ( !empty($client->color_scheme) and (int)$client->color_scheme == (int)$next_color_scheme['id'] ) ? 'selected' : '' ); ?> ><?=$next_color_scheme['title']  ?></option>
+												<?php } ?>
+											</select>
 
-											<textarea name="data[client_notes]"  class="form-control" /><?= ( !empty($client->client_notes) ? $client->client_notes : '' ); ?></textarea>
 										</div><!-- ./col -->
 									</div><!-- ./form-group -->
 								</div><!-- ./col -->
+
 							</div> <!-- ./row -->
 
 
@@ -278,16 +283,6 @@
 									</div>
 								</div>
 
-								<!-- client color_scheme -->
-								<div class="col-md-6">
-									<div class="form-group <?= $this->common_lib->set_field_error_tag("data[color_scheme]", ' has-error ')?>">
-										<label class="control-label col-md-4"><?php echo lang('color_scheme') ?>
-										</label>
-										<div class="col-md-7">
-											<input type="text" name="data[color_scheme]" id="color_scheme" value="<?= ( !empty($client->color_scheme) ? $client->color_scheme : '' ); ?>" class="form-control" maxlength="20" />
-										</div><!-- ./col -->
-									</div><!-- ./form-group -->
-								</div><!-- ./col -->
 
 							</div>
 

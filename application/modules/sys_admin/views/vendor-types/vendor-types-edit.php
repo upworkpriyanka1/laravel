@@ -15,7 +15,7 @@
                 <div class="portlet light portlet-fit portlet-form bordered">
 
 
-                    <div class="page-bar">
+                    <div >
                         <h3><center><?= ( $is_insert ? "Insert" : "Edit" ) ?> <?=lang('vendor-types') ?></center></h3>
                         <?= $this->common_lib->show_info($editor_message) ?>
                     </div>
