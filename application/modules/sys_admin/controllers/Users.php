@@ -72,22 +72,14 @@ class Users extends CI_Controller
 			$data['users']= $this->users_mdl->getUsersList(false, $page_number, array( 'show_job_title'=>1, 'show_user_group'=>1, 'show_clients_name'=>1, 'username'=> $filter_username, 'user_active_status'=> $filter_user_active_status, 'zip'=> $filter_zip, 'user_group_id'=> $filter_user_group_id, 'created_at_from'=> $filter_created_at_from, 'created_at_till'=> $filter_created_at_till ), $sort, $sort_direction );
 		} // IMPORTANT : all filter parameters must be similar as in calling of getUsersList above
 
-//		echo '<pre>$data[\'users\']::'.print_r($data['users'],true).'</pre>';
-//		die("-1 XXZ");
-
-//		$data['page_title']		= 'ZZZZZZZ';
 		$data['page']		= 'users/users-view';
 		$data['page_number']		= $page_number;
 		$data['RowsInTable']= $rows_in_table;
 		$data['editor_message']= $this->session->flashdata('editor_message');
 		$data['select_on_update']= $this->common_lib->getParameter($this, $UriArray, $post_array, 'select_on_update');
-//		$data['user_TypesSelectionList']= $this->users_mdl->getUserTypesSelectionList();
 
 		$data['user_GroupsSelectionList']= $this->users_mdl->getGroupsSelectionList();
-//		echo '<pre>$data[\'user_GroupsSelectionList\']::'.print_r($data['user_GroupsSelectionList'],true).'</pre>';
 		$data['userActiveStatusValueArray']= $this->users_mdl->getUserActiveStatusValueArray();
-//		echo '<pre>$data[\'userActiveStatusValueArray\']::'.print_r($data['userActiveStatusValueArray'],true).'</pre>';
-//		die("-1 XXZ");
 		$data['filter_username']= $filter_username;
 		$data['filter_zip']= $filter_zip;
 		$data['filter_user_active_status']= $filter_user_active_status;
@@ -114,7 +106,6 @@ class Users extends CI_Controller
 		$views				= array('design/html_topbar','sidebar','design/page','design/html_footer');
 		$this->layout->view($views, $data);
 	}
-
 
 
 	/**********************
@@ -163,8 +154,6 @@ class Users extends CI_Controller
 		$data['select_on_update']= $this->common_lib->getParameter($this, $UriArray, $post_array, 'select_on_update');
 		$data['user_GroupsSelectionList']= $this->users_mdl->getGroupsSelectionList();
 		$data['userActiveStatusValueArray']= $this->users_mdl->getUserActiveStatusValueArray();
-//		echo '<pre>$is_insert::'.print_r($is_insert,true).'</pre>';
-//		echo '<pre>$data[\'userActiveStatusValueArray\']::'.print_r($data['userActiveStatusValueArray'],true).'</pre>';
 		if ( $is_insert ) { // in insert mode user can be new or waiting for confirmation
 			foreach ( $data['userActiveStatusValueArray'] as $next_key=>$next_userActiveStatus ) {
 				if ( !in_array($next_userActiveStatus['key'],array('N', 'W')) ) {
@@ -172,8 +161,6 @@ class Users extends CI_Controller
 				}
 			}  // Array('N' => 'New', 'W' => 'Waiting for activation', 'A' => 'Active', 'I' => 'Inactive');
 		}
-//		echo '<pre>$data[\'userActiveStatusValueArray\']::'.print_r($data['userActiveStatusValueArray'],true).'</pre>';
-//		die("-1 XXZ");
 		$jobsSelectionList= $this->users_mdl->getJobsSelectionList();
 
 		$usersJobs = $this->users_mdl->getUsers_JobsList( false, 0, array('user_id'=> $user_id) );
@@ -186,16 +173,11 @@ class Users extends CI_Controller
 				}
 			}
 		}
-//		echo '<pre>$usersJobs::'.print_r($usersJobs,true).'</pre>';
-//		echo '<pre>$jobsSelectionList::'.print_r($jobsSelectionList,true).'</pre>';
-//		die("-1 XXZ");
 		$data['jobsSelectionList']  = $jobsSelectionList;
 
 		$data['is_insert']  = $is_insert;
 		$data['user_id']      = $user_id;
 		$data['menu']		= $this->menu;
-//		echo '<pre>$this->user::'.print_r($this->user,true).'</pre>';
-//		die("-1 XXZ");
 		$data['user'] 		= $this->user;
 		$data['job'] 		= $this->job;
 		$data['group'] 		= $this->group->name;
@@ -224,11 +206,7 @@ class Users extends CI_Controller
 					}
 
 				}
-//				echo '<pre>$jobsSelectionList::'.print_r($jobsSelectionList,true).'</pre>';
 				$data['jobsSelectionList']  = $jobsSelectionList;
-
-//				echo '<pre>$editable_user::'.print_r($editable_user,true).'</pre>';
-//				die("-++==1 XXZ");
 				$data['validation_errors_text'] = validation_errors( /*$layout_config['backend_error_icon_start'], $layout_config['backend_error_icon_end']*/ );
 			}
 		}
@@ -251,7 +229,6 @@ class Users extends CI_Controller
 				}
 			}   // Array('N' => 'New', 'W' => 'Waiting for activation', 'A' => 'Active', 'I' => 'Inactive');
 			$users_groups_list= $this->users_mdl->getUsersGroupsList( false, 0, array('user_id'=> $user_id));
-//			echo '<pre>$users_groups_list::'.print_r($users_groups_list,true).'</pre>';
 			if ( !empty($editable_user) and !empty($users_groups_list[0]->group_id) ) {
 				$editable_user->user_group_id = $users_groups_list[0]->group_id;
 			}
@@ -326,11 +303,6 @@ class Users extends CI_Controller
 		$this->form_validation->set_rules( 'data[username]', lang('user'), 'callback_user_check_username_is_unique' );
 		$this->form_validation->set_rules( 'data[email]', lang('email'), 'trim|required|valid_email|callback_user_check_email_is_unique' );
 
-		if ( $is_insert ) {
-			$this->form_validation->set_rules( 'data[password]', lang( 'password' ), 'trim|required|min_length[5]' );
-			$this->form_validation->set_rules( 'data[password_confirm]', lang( 'password_confirm' ), 'trim|required|min_length[5]|matches[data[password]]' );
-		}
-
 		$this->form_validation->set_rules( 'data[user_active_status]', lang('user_active_status'), 'required' );
 		$this->form_validation->set_rules( 'data[first_name]', lang('first_name'), 'required' );
 		$this->form_validation->set_rules( 'data[last_name]', lang('last_name'), 'required' );
@@ -361,9 +333,7 @@ class Users extends CI_Controller
 		$ip_address= !empty($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
 
 		$original_user_avatar= !empty($post_array['data']['avatar']) ? $post_array['data']['avatar'] : '';
-//		echo '<pre>$post_array::'.print_r($post_array,true).'</pre>';
-		$activation_code= '';
-		$password= '';
+//		$activation_code= '';
 		if ( $is_insert ) {
 			$user_group_array= array( $post_array['data']['user_group_id'] );
 			$additional_data= array(  'ip_address'=> $ip_address, 'user_active_status' => $post_array['data']['user_active_status'], 'first_name' => $post_array['data']['first_name'], 'last_name' => $post_array['data']['last_name'], 'city' => $post_array['data']['city'], 'state' => $post_array['data']['state'], 'zip' => $post_array['data']['zip'],  'address1' => $post_array['data']['address1'], 'address2' => $post_array['data']['address2'], 'mobile' => $post_array['data']['mobile'], 'phone' => $post_array['data']['phone'], 'created_on'=> now(), 'avatar' => $post_array['data']['avatar'] );
@@ -377,14 +347,17 @@ class Users extends CI_Controller
 			$activation_code= $this->common_lib->GenerateActivationCode();
 			$additional_data['activation_code']= $activation_code;
 
-//			echo '<pre>$additional_data::'.print_r($additional_data,true).'</pre>';
-//			echo '<pre>$user_group_array::'.print_r($user_group_array,true).'</pre>';
-			$user_id = $this->ion_auth->register( $post_array['data']['username'], $post_array['data']['password'], $post_array['data']['email'], $additional_data,   array(  $user_group_array  )  );
-			$password= $post_array['data']['password'];
-//			echo '<pre>INSERT $password::'.print_r($password,true).'</pre>';
+			$user_id = $this->ion_auth->register( $post_array['data']['username'], '', $post_array['data']['email'], $additional_data,   array(  $user_group_array  )  );
+			if ( $post_array['data']['user_active_status'] == "W" ) { // sent message with activation code
+				$activation_page_url= $app_config['base_url']."/activation/".$activation_code;
+				$title= 'You are registered at ' . $app_config['base_url'] . ' site';
+				$content= '  Dear '.$post_array['data']['username']. ', you are registered at <a href="'.$app_config['base_url'].'">' . $app_config['base_url'] . ' </a> site, with email '. $post_array['data']['email'] .
+				          '.  You need to activate your account at <a href="' . $activation_page_url .'">Activation page '.$activation_page_url.' </a> and you will receive your password. ';
+				$EmailOutput = $this->common_lib->SendEmail($post_array['data']['email'], $title, $content );
+				$this->common_lib->DebToFile( 'sendEmail $content::'.print_r($content,true));
+			} // if ( $post_array['data']['user_active_status'] == "W" ) { // sent message with activation code
 
 		} else {
-//			$this->db->where( $this->users_mdl->m_users_table . '.id', $user_id);
 			$update_data= array( 'username' => $post_array['data']['username'], 'ip_address'=> $ip_address, 'email' => $post_array['data']['email'], 'user_active_status' => $post_array['data']['user_active_status'], 'first_name' => $post_array['data']['first_name'], 'last_name' => $post_array['data']['last_name'], 'city' => $post_array['data']['city'], 'state' => $post_array['data']['state'], 'zip' => $post_array['data']['zip'],  'address1' => $post_array['data']['address1'], 'address2' => $post_array['data']['address2'], 'mobile' => $post_array['data']['mobile'], 'phone' => $post_array['data']['phone'], 'avatar' => $post_array['data']['avatar'] );
 
 			if  (  !empty( $post_array['cbx_clear_image'])  )  {
@@ -398,24 +371,9 @@ class Users extends CI_Controller
 				$activation_code= $this->common_lib->generateActivationCode();
 				$update_data['activation_code']= $activation_code;
 			} // if ( $post_array['data']['user_active_status'] == "W" ) { // sent message with activation code
-//			echo '<pre>++$update_data::'.print_r($update_data,true).'</pre>';
 			$this->db->update($this->users_mdl->m_users_table, $update_data, array('id' => $user_id));
-			// 			$this->db->update($this->tables['users'], $data, array('id' => $id));
-
 		}
 
-		if ( $post_array['data']['user_active_status'] == "W" ) { // sent message with activation code
-			$activation_page_url= $app_config['base_url']."/activation/".$activation_code;
-			$title= 'You are registered at ' . $app_config['base_url'] . ' site';
-//			echo '<pre>???? $password::'.print_r($password,true).'</pre>';
-			$content= '  Dear '.$post_array['data']['username']. ', you are registered at <a href="'.$app_config['base_url'].'">' . $app_config['base_url'] . ' </a> site, with email '. $post_array['data']['email'] .
-			( !empty($password)? ( ' and password '.$password ) : ' and password sent to you before' )	.
-			'.  You need to activate your account at <a href="' . $activation_page_url .'">Activation page '.$activation_page_url.' </a>';
-			$EmailOutput = $this->common_lib->SendEmail($post_array['data']['email'], $title, $content );
-			$this->common_lib->DebToFile( 'sendEmail $content::'.print_r($content,true));
-//			echo '<pre>$EmailOutput::'.print_r($EmailOutput,true).'</pre>';
-
-		} // if ( $post_array['data']['user_active_status'] == "W" ) { // sent message with activation code
 
 		$this->users_mdl->updateUsersGroups($user_id,array($post_array['data']['user_group_id']));
 
@@ -459,7 +417,6 @@ class Users extends CI_Controller
 			} else {
 				$this->db->trans_commit();
 			}
-//			die("-++++1 XXZ");
 			redirect($redirect_url);
 			return;
 		}
@@ -569,6 +526,29 @@ class Users extends CI_Controller
 		return '/' . $ResStr;
 	}
 
+
+	public function generate_new_password()
+	{
+		$app_config = $this->config->config;
+		$UriArray = $this->uri->uri_to_assoc(4);
+
+		$user_id= $this->common_lib->getParameter($this, $UriArray, array(), 'user_id');
+		$modified_user= $this->users_mdl->getUserRowById($user_id);
+		if ( empty($modified_user) ) {
+			$this->output->set_content_type('application/json')->set_output(json_encode(array('ErrorMessage' => 'User not found !', 'ErrorCode' => 1, 'user_id' => $user_id )));
+			return;
+		}
+		
+		$password= $this->common_lib->generatePassword();
+		$ret = $this->db->update( $this->users_mdl->m_users_table, array( 'password'=> $this->ion_auth->hash_password($password, false ) ), array( 'id' => $modified_user->id ) );
+		
+		$title= 'Your password was changed at ' . $app_config['base_url'] . ' site';
+		$content= '  Dear '.$modified_user->username. ', your password was changed at <a href="'.$app_config['base_url'].'">' . $app_config['base_url'] . ' </a> site. Now you can login into the system with email '. $modified_user->email .  ' and password ' . $password;
+//		echo '<pre>$content::'.print_r($content,true).'</pre>';
+		$this->common_lib->DebToFile( 'generate_new_password $content::'.print_r($content,true));
+		$EmailOutput = $this->common_lib->SendEmail($modified_user->email, $title, $content );
+		$this->output->set_content_type('application/json')->set_output(json_encode(array('ErrorMessage' => '', 'ErrorCode' => 0, 'user_id' => $user_id )));
+	}
 
 	////////////// USERS BLOCK END /////////////
 

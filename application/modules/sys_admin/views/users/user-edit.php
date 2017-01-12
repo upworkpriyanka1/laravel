@@ -88,35 +88,21 @@
 								</div><!-- ./col -->
 							</div>
 
-							<?php if ( $is_insert ) : ?>
-								<div class="row">
-									<!-- client Name -->
-									<div class="col-md-6">
-										<div class="form-group <?= $this->common_lib->set_field_error_tag("data[password]", ' has-error ')?> ">
-											<label class="control-label col-md-4"><?php echo lang('password') ?>
-											</label>
-											<div class="col-md-7">
-												<input type="password" name="data[password]" data-required="1" id="password" class="form-control" />
-												<span class="help-block"> <?= lang('min-5-chars'); ?></span>
-											</div><!-- ./col -->
-										</div><!-- ./form-group -->
-									</div><!-- ./col -->
+							<?php if ( !$is_insert ) : ?>
+							<div class="row">
+								<!-- user_active_status -->
+								<div class="col-md-6">
+									<div class="form-group <?= $this->common_lib->set_field_error_tag("data[user_active_status]", ' has-error ')?>">
 
-									<div class="col-md-6">
-										<div class="form-group <?= $this->common_lib->set_field_error_tag("data[password_confirm]", ' has-error ')?>">
-											<label class="control-label col-md-4"><?php echo lang('password_confirm') ?>
-											</label>
-											<div class="col-md-7">
-												<input type="password" name="data[password_confirm]" data-required="1" id="password_confirm" class="form-control" />
-												<span class="help-block"> <?= lang('min-5-chars'); ?></span>
+										<label class="col-md-4 control-label" for="user_active_status">New Password</label>
+										<div class="col-md-7">
+											<button type="button" class="btn btn-primary" onclick="javascript:generateNewPassword(<?php echo $editable_user->id ?>);" >Generate</button>
+										</div>
 
-											</div><!-- ./col -->
-										</div><!-- ./form-group -->
-									</div><!-- ./col -->
-								</div>
-
+									</div><!-- ./form-group -->
+								</div><!-- ./col -->
+							</div>
 							<?php endif; ?>
-
 
 							<div class="row">
 								<!-- user_active_status -->

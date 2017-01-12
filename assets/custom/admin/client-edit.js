@@ -10,6 +10,13 @@ $(document).ready(function ($) {
 });
 
 function onSubmit() {
+    var client_phone_type= $("#client_phone_type").val()
+    var new_client_phone_type= jQuery.trim(  $("#new_client_phone_type").val()  )
+    if ( client_phone_type == "-add_new-" && new_client_phone_type != "" ) {
+        AddDDLBItem( "client_phone_type", new_client_phone_type, new_client_phone_type)
+        SetDDLBActiveItem( "client_phone_type", new_client_phone_type)
+    }
+
     var theForm = $("#form_client_edit");
     theForm.submit();
 }
@@ -359,4 +366,37 @@ function var_dump(oElem, from_line, till_line) {
         return sStr.substr( from_line );
     }
     return sStr;
+}
+
+function client_phone_typeOnChange() {
+    var client_phone_type= $("#client_phone_type").val()
+    // alert( "client_phone_typeOnChange::" + client_phone_type )
+    if ( client_phone_type == "-add_new-" ) {
+        $("#span_new_client_phone_type").css("display", "inline")
+    } else {
+        $("#span_new_client_phone_type").css("display", "none")
+    }
+    $("#new_client_phone_type").focus()
+}
+
+function AddDDLBItem( FieldName, id, text) {
+    var ddlbObj= document.getElementById(FieldName);
+    var OptObj = document.createElement("OPTION");
+    OptObj.value= id;
+    OptObj.text= text;
+    ddlbObj.options.add(OptObj);
+    return OptObj;
+}
+
+function SetDDLBActiveItem( FieldName, Value) {
+    var ddlbObj= document.getElementById(FieldName);
+    if ( !ddlbObj ) alert("Error::"+FieldName )
+    for(var I=0;I<ddlbObj.options.length;I++) {
+        //alert( ddlbObj.options[I].value+"::"+Value )
+        if ( ddlbObj.options[I].value == Value ) {
+            //alert("INSIDE: "+I)
+            ddlbObj.options[I].selected = true;
+            return;
+        }
+    }
 }

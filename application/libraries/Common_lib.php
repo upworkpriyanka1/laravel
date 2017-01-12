@@ -595,7 +595,8 @@ class Common_lib
         $a= array_unique($a);
 //        echo '<pre>$a::'.print_r($a,true).'</pre>';
         if ( count($a) == 1 ) return $a[0];
-        return count($a).' '.$label;
+//        return '<a href="#" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">'.count($a).' '.$label . '</a>';
+        return count($a).' '.$label;//. '<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">Tooltip on bottom</button>';
 //        $ret= '';
 //        $l= count($a);
 //        for($i= 0;$i<$l;$i++) {

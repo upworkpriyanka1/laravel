@@ -38,10 +38,11 @@ class Main extends CI_Controller {
 		$data= array();
 
 		if ( !$has_error ) {
-			$ret = $this->db->update( $this->users_mdl->m_users_table, array( 'user_active_status' => 'A', 'activation_code'=> '' ), array( 'id' => $activated_user->id ) );
-			$success_message= 'Your account was activated successfully. Now you can login into the system!';
+			$password= $this->common_lib->generatePassword();
+			$ret = $this->db->update( $this->users_mdl->m_users_table, array( 'user_active_status' => 'A', 'activation_code'=> '', 'password'=> $this->ion_auth->hash_password($password, false ) ), array( 'id' => $activated_user->id ) );
+			$success_message= 'Your account was activated successfully. Your password and new login was sent to you. Now you can login into the system!';
 			$title= 'Your account was activated at ' . $app_config['base_url'] . ' site';
-			$content= '  Dear '.$activated_user->username. ', your account was activated at <a href="'.$app_config['base_url'].'">' . $app_config['base_url'] . ' </a> site. Now you can login into the system with email '. $activated_user->email .  ' and password sent to you before.';
+			$content= '  Dear '.$activated_user->username. ', your account was activated at <a href="'.$app_config['base_url'].'">' . $app_config['base_url'] . ' </a> site. Now you can login into the system with email '. $activated_user->email .  ' and password ' . $password;
 			$EmailOutput = $this->common_lib->SendEmail($activated_user->email, $title, $content );
 
 		}

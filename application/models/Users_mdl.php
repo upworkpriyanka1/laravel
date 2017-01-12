@@ -202,10 +202,19 @@ class Users_mdl extends CI_Model
 		return $row[0];
 	}
 
+	public function getRowByPassword($password)
+	{
+		$query = $this->db->get_where($this->m_users_table, array('password' => $password), 1, 0);
+		$ResultRow = $query->result();
+		if (!empty($ResultRow[0])) {
+			return $ResultRow[0];
+		}
+		return false;
+	}
+
 	public function getUserRowByActivationCode($activation_code)
 	{
 		$query = $this->db->get_where($this->m_users_table, array('activation_code' => $activation_code), 1, 0);
-		//AppUtils::deb( $query, '$query::' );
 		$ResultRow = $query->result();
 		if (!empty($ResultRow[0])) {
 			return $ResultRow[0];

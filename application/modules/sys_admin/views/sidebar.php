@@ -55,7 +55,7 @@
             <li class="nav-item">
                 <a href="javascript:;" class="nav-link nav-toggle collapsible-header waves-effect waves-teal">
                     <?php 		$this->load->model('users_mdl');
-                    $logged_user= $this->users_mdl->getUserRowById( $user->user_id, array('show_file_info'=> 1, 'image_width'=> 128, 'image_height'=> 128) );
+                    $logged_user= $this->users_mdl->getUserRowById( $user->user_id, array('show_file_info'=> 1, 'image_width'=> 32, 'image_height'=> 32) );
                      ?>
 
 	                <? if ( !empty($logged_user->image_url) and !empty($logged_user->image_path_width) and !empty($logged_user->image_path_height) ) { ?>

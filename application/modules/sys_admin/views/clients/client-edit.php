@@ -161,13 +161,71 @@
 								<div class="col-md-6">
 									<div class="form-group <?= $this->common_lib->set_field_error_tag("data[client_phone]", ' has-error ')?>">
 										<label class="control-label col-md-4"><?php echo lang('phone') ?>
-											<span class="required"> * </span>
 										</label>
 										<div class="col-md-7">
 											<input type="text" name="data[client_phone]" value="<?= ( !empty($client->client_phone) ? $client->client_phone : '' ); ?>" class="form-control" maxlength="50" />
 										</div><!-- ./col -->
 									</div><!-- ./form-group -->
 								</div><!-- ./col -->
+
+								<!-- client phone_2 -->
+								<div class="col-md-6">
+									<div class="form-group <?= $this->common_lib->set_field_error_tag("data[client_phone_2]", ' has-error ')?>">
+										<label class="control-label col-md-4"><?php echo lang('phone_2') ?>
+										</label>
+										<div class="col-md-7">
+											<input type="text" name="data[client_phone_2]" value="<?= ( !empty($client->client_phone_2) ? $client->client_phone_2 : '' ); ?>" class="form-control" maxlength="50" />
+										</div><!-- ./col -->
+									</div><!-- ./form-group -->
+								</div><!-- ./col -->
+
+
+							</div> <!-- ./row -->
+
+
+
+							<div class="row">
+								<!-- client phone_3 -->
+								<div class="col-md-6">
+									<div class="form-group <?= $this->common_lib->set_field_error_tag("data[client_phone_3]", ' has-error ')?>">
+										<label class="control-label col-md-4"><?php echo lang('phone_3') ?>
+										</label>
+										<div class="col-md-7">
+											<input type="text" name="data[client_phone_3]" value="<?= ( !empty($client->client_phone_3) ? $client->client_phone_3 : '' ); ?>" class="form-control" maxlength="50" />
+										</div><!-- ./col -->
+									</div><!-- ./form-group -->
+								</div><!-- ./col -->
+
+								<!-- client phone_4 -->
+								<div class="col-md-6">
+									<div class="form-group <?= $this->common_lib->set_field_error_tag("data[client_phone_4]", ' has-error ')?>">
+										<label class="control-label col-md-4"><?php echo lang('phone_4') ?>
+										</label>
+										<div class="col-md-4">
+											<input type="text" name="data[client_phone_4]" value="<?= ( !empty($client->client_phone_4) ? $client->client_phone_4 : '' ); ?>" class="form-control" maxlength="50" />
+										</div><!--  ./col -->
+										<div class="col-md-3">
+											<select name="data[client_phone_type]" id="client_phone_type" class="form-control" onchange="javascript:client_phone_typeOnChange()">
+												<option value="">Select Type</option>
+												<?php foreach( $client_phone_type_array as $next_key=>$next_client_phone_type ) { ?>
+													<option value="<?=$next_client_phone_type  ?>" <?= ( ( !empty($client->client_phone_type) and $client->client_phone_type == $next_client_phone_type ) ? 'selected' : '' ); ?> ><?=$next_client_phone_type  ?></option>
+												<?php } ?>
+												<option value="-add_new-">  - Add New-  </option>
+											</select>
+											<span id="span_new_client_phone_type" style="display: none;">
+												<input type="text" name="new_client_phone_type" id="new_client_phone_type" value="" class="form-control" maxlength="20" />
+											</span>
+										</div><!--  ./col -->
+									</div><!-- ./form-group -->
+								</div><!-- ./col -->
+
+
+							</div> <!-- ./row -->
+
+
+
+
+							<div class="row">
 								<!-- client fax -->
 								<div class="col-md-6">
 									<div class="form-group <?= $this->common_lib->set_field_error_tag("data[client_fax]", ' has-error ')?>">

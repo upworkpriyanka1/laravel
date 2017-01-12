@@ -182,6 +182,7 @@ class Sys_admin extends CI_Controller {
 		$data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
         $data['client_active_status_array']= $this->clients_mdl->getClientActiveStatusValueArray(false);
         $data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
+        $data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
 		$data['client_color_schemes'] = $this->config->item('client_color_schemes');
 
 
@@ -220,7 +221,7 @@ class Sys_admin extends CI_Controller {
 
 	private function client_edit_makesave($is_insert, $cid, $select_on_update, $redirect_url, $page_parameters_with_sort, $post_array, $app_config ) {
 		$this->db->trans_start();
-		$update_data= array( 'client_name' => $post_array['data']['client_name'],  'client_img' => $post_array['data']['client_img'],  'clients_types_id' => $post_array['data']['clients_types_id'], 'client_owner' => $post_array['data']['client_owner'] , 'client_address1' => $post_array['data']['client_address1'] , 'client_address2' => $post_array['data']['client_address2'] , 'client_city' => $post_array['data']['client_city'] , 'client_state' => $post_array['data']['client_state'] , 'client_zip' => $post_array['data']['client_zip'] , 'client_phone' => $post_array['data']['client_phone'] , 'client_fax' => $post_array['data']['client_fax'] , 'client_email' => $post_array['data']['client_email'] , 'client_website' => $post_array['data']['client_website']  , 'color_scheme' => $post_array['data']['color_scheme'], 'client_active_status' => $post_array['data']['client_active_status'] );
+		$update_data= array( 'client_name' => $post_array['data']['client_name'],  'client_img' => $post_array['data']['client_img'],  'clients_types_id' => $post_array['data']['clients_types_id'], 'client_owner' => $post_array['data']['client_owner'] , 'client_address1' => $post_array['data']['client_address1'] , 'client_address2' => $post_array['data']['client_address2'] , 'client_city' => $post_array['data']['client_city'] , 'client_state' => $post_array['data']['client_state'] , 'client_zip' => $post_array['data']['client_zip'], 'client_phone' => $post_array['data']['client_phone'],  'client_phone_2' => $post_array['data']['client_phone_2'],  'client_phone_3' => $post_array['data']['client_phone_3'],  'client_phone_4' => $post_array['data']['client_phone_4'],  'client_phone_type' => $post_array['data']['client_phone_type'],   'client_fax' => $post_array['data']['client_fax'] , 'client_email' => $post_array['data']['client_email'] , 'client_website' => $post_array['data']['client_website']  , 'color_scheme' => $post_array['data']['color_scheme'], 'client_active_status' => $post_array['data']['client_active_status'] );
 
 		$original_client_img= !empty($post_array['data']['client_img']) ? $post_array['data']['client_img'] : '';
 
@@ -311,6 +312,10 @@ class Sys_admin extends CI_Controller {
 		$client->client_state = set_value('data[client_state]');
 		$client->client_zip = set_value('data[client_zip]');
 		$client->client_phone = set_value('data[client_phone]');
+		$client->client_phone_2 = set_value('data[client_phone_2]');
+		$client->client_phone_3 = set_value('data[client_phone_3]');
+		$client->client_phone_4 = set_value('data[client_phone_4]');
+		$client->client_phone_type = set_value('data[client_phone_type]');
 		$client->client_fax = set_value('data[client_fax]');
 		$client->client_active_status = set_value('data[client_active_status]');
 		$client->color_scheme = set_value('data[color_scheme]');
@@ -331,6 +336,10 @@ class Sys_admin extends CI_Controller {
 		$this->form_validation->set_rules( 'data[client_state]', lang('client_state'), 'required' );
 		$this->form_validation->set_rules( 'data[client_zip]', lang('client_zip'), 'required' );
 		$this->form_validation->set_rules( 'data[client_phone]', lang('phone'), 'required' );
+		$this->form_validation->set_rules( 'data[client_phone_2]', lang('phone_2'), '' );
+		$this->form_validation->set_rules( 'data[client_phone_3]', lang('phone_3'), '' );
+		$this->form_validation->set_rules( 'data[client_phone_4]', lang('phone_4'), '' );
+		$this->form_validation->set_rules( 'data[client_phone_type]', lang('phone_type'), '' );
 		$this->form_validation->set_rules( 'data[client_fax]', lang('client_fax'), 'required' );
 		$this->form_validation->set_rules( 'data[client_active_status]', lang('client_active_status'), 'required' );
 		$this->form_validation->set_rules( 'data[color_scheme]', lang('color_scheme'), 'required' );

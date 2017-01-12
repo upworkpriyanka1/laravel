@@ -377,6 +377,17 @@ class Clients_mdl extends CI_Model
         }
     }
 
+	public function getClientPhoneTypeArray()
+	{
+		$query = $this->db->query("SELECT distinct client_phone_type FROM ".$this->m_clients_table." WHERE client_phone_type is not null and TRIM(client_phone_type) != '' order by client_phone_type " );
+		$arr= $query->result();
+		$ret_array= array();
+		foreach( $arr as $next_key=>$next_value ) {
+			$ret_array[]= trim($next_value->client_phone_type);
+		}
+		return $ret_array;
+	}
+
     ////////////// CLIENTS TYPES BLOCK END /////////////
 
 
