@@ -11,8 +11,8 @@
                         <form class="" action="" method="post">
                 <h3 class="font-green">Forget Password ?</h3>
 
-              <?php if ( $this->session->flashdata( 'message' ) ) : ?>
-                <div class="alert alert-danger"><?php echo $this->session->flashdata( 'message' ); ?></div>
+              <?php if ( !empty($message) ) : ?>
+                <div class="alert alert-danger"><?php echo $message; ?></div>
         <?php endif; ?>
  
                 <p> Enter your e-mail address below to reset your password. </p>

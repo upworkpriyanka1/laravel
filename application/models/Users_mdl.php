@@ -222,6 +222,16 @@ class Users_mdl extends CI_Model
 		return false;
 	}
 
+	public function getUserRowByForgottenPasswordCode($forgotten_password_code)
+	{
+		$query = $this->db->get_where($this->m_users_table, array('forgotten_password_code' => $forgotten_password_code), 1, 0);
+		$ResultRow = $query->result();
+		if (!empty($ResultRow[0])) {
+			return $ResultRow[0];
+		}
+		return false;
+	}
+
 	public function getUserRowById( $id, $additive_params= array()  )
 	{
 		$this->db->where( $this->m_users_table . '.id', $id);

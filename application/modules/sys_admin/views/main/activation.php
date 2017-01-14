@@ -1,18 +1,3 @@
-<?php $ci = &get_instance();
-
-//echo '<pre>$has_error::'.print_r($has_error,true).'</pre>';
-//echo '<pre>$error_message::'.print_r($error_message,true).'</pre>';
-//echo '<pre>$success_message::'.print_r($success_message,true).'</pre>';
-
-?>
-
-<script type="text/javascript">
-	/*<![CDATA[*/
-//	var base_url= '<?//= base_url() ?>//'
-
-	/*]]>*/
-</script>
-
 <div class="row">
 	<div class="col-md-12">
 		<div class="portlet light portlet-fit portlet-form bordered">

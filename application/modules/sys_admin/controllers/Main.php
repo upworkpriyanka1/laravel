@@ -11,8 +11,8 @@ class Main extends CI_Controller {
 		$this->load->model('activity_logs_mdl');
 		$this->lang->load('sys_admin');
 		$this->config->load('sys_admin_menu', true);
-
 	}
+
 	public function activation() {
 		$app_config = $this->config->config;
 		$UriArray = $this->uri->uri_to_assoc(1);
@@ -27,7 +27,6 @@ class Main extends CI_Controller {
 			$error_message= 'Invalid activation code : user is not found !';
 			$has_error= true;
 		}
-
 
 		if ( !$has_error and !empty($activated_user) and ( empty($activated_user->user_active_status) or $activated_user->user_active_status != 'W' ) ) {
 			$error_message= 'Invalid activation code : user is not in waiting for activation status ! ';
@@ -54,11 +53,52 @@ class Main extends CI_Controller {
 		$data['success_message']= $success_message;
 
 		$data['plugins'] 	= array();
-		$data['javascript'] = array( /*'assets/custom/admin/users.js', 'assets/global/plugins/picker/picker.js', 'assets/global/plugins/picker/picker.date.js', 'assets/global/plugins/picker/picker.time.js' */); // add picker.date pluging for date selection in fileters form
+		$data['javascript'] = array();
 		$views				= array('design/html_topbar','sidebar','design/page','design/html_footer');
 		$this->layout->view($views, $data);
+	} // public function activation() {
 
+	public function forgotten_password() {
+		$app_config = $this->config->config;
+		$UriArray = $this->uri->uri_to_assoc(1);
+		$forgotten_password_code= $this->common_lib->getParameter($this, $UriArray, array(), 'forgotten_password');
 
-	}
+		$activated_user= $this->users_mdl->getUserRowByForgottenPasswordCode($forgotten_password_code);
+		$has_error= false;
+		$error_message= '';
+		$success_message= '';
+		if (empty($activated_user)) {
+			$error_message= 'Invalid forgotten password code : user is not found !';
+			$has_error= true;
+		}
+
+		if ( !$has_error and !empty($activated_user) and ( empty($activated_user->user_active_status) or $activated_user->user_active_status != 'A' ) ) {
+			$error_message= 'Invalid forgotten password code : user is not in waiting for forgotten password activation ! ';
+			$has_error= true;
+		}
+
+		$data= array();
+
+		if ( !$has_error ) {
+			$password= $this->common_lib->generatePassword();
+			$ret = $this->db->update( $this->users_mdl->m_users_table, array( 'forgotten_password_code'=> '', 'password'=> $this->ion_auth->hash_password($password, false ) ), array( 'id' => $activated_user->id ) );
+			$success_message= 'New password for your account was generated successfully. Your new password was sent to you. Now you can login into the system!';
+			$title= 'Your account was activated at ' . $app_config['base_url'] . ' site';
+			$content= '  Dear '.$activated_user->username. ', new password for your account was generated at <a href="'.$app_config['base_url'].'">' . $app_config['base_url'] . ' </a> site. Now you can login into the system with email '. $activated_user->email .  ' and password ' . $password;
+			$EmailOutput = $this->common_lib->SendEmail($activated_user->email, $title, $content );
+
+		}
+
+		$data['page']		= 'main/forgotten_password';
+		$data['menu']		= array();
+		$data['has_error']= $has_error;
+		$data['error_message']= $error_message;
+		$data['success_message']= $success_message;
+
+		$data['plugins'] 	= array();
+		$data['javascript'] = array( );
+		$views				= array('design/html_topbar','sidebar','design/page','design/html_footer');
+		$this->layout->view($views, $data);
+	} // public function forgotten_password() {
 
 }
