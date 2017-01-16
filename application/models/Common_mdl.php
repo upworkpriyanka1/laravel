@@ -23,8 +23,8 @@ class Common_mdl extends CI_Model {
         $this->db->from('users');
         $this->db->join('users_groups', 'users_groups.user_id = users.id');
         $this->db->join('groups', 'groups.id = users_groups.group_id');
-        $this->db->join('users_jobs', 'users_jobs.user_id = users.id');
-        $this->db->join('jobs', 'jobs.id = users_jobs.job_id');
+//        $this->db->join('users_jobs', 'users_jobs.user_id = users.id');
+//        $this->db->join('jobs', 'jobs.id = users_jobs.job_id');
         $this->db->join('users_clients', 'users_clients.uc_user_id = users.id','right');
         $this->db->join('clients', 'clients.cid = users_clients.uc_client_id');
         $this->db->where('users.id', $id);
@@ -48,8 +48,8 @@ class Common_mdl extends CI_Model {
         $this->db->from('users');
         $this->db->join('users_groups', 'users_groups.user_id = users.id');
         $this->db->join('groups', 'groups.id = users_groups.group_id');
-        $this->db->join('users_jobs', 'users_jobs.user_id = users.id');
-        $this->db->join('jobs', 'jobs.id = users_jobs.job_id');
+//        $this->db->join('users_jobs', 'users_jobs.user_id = users.id');
+//        $this->db->join('jobs', 'jobs.id = users_jobs.job_id');
         $this->db->join('users_clients', 'users_clients.uc_user_id = users.id','right');
         $this->db->join('clients', 'clients.cid = users_clients.uc_client_id');
         $this->db->where('users.id', $id);
@@ -77,8 +77,8 @@ class Common_mdl extends CI_Model {
         $this->db->from('users');
         $this->db->join('users_groups', 'users_groups.user_id = users.id');
         $this->db->join('groups', 'groups.id = users_groups.group_id');
-        $this->db->join('users_jobs', 'users_jobs.user_id = users.id' /* , 'left' */ );
-        $this->db->join('jobs', 'jobs.id = users_jobs.job_id');
+//        $this->db->join('users_jobs', 'users_jobs.user_id = users.id' /* , 'left' */ );
+//        $this->db->join('jobs', 'jobs.id = users_jobs.job_id');
 //        $this->db->join('users_clients', 'users_clients.uc_user_id = users.id','right');
 //        $this->db->join('clients', 'clients.cid = users_clients.uc_client_id');
         $this->db->where('users.id', $id);
@@ -188,26 +188,26 @@ class Common_mdl extends CI_Model {
 * @params $job
 * return array row
 ******************************/
-    public function in_job($check_job, $id=false, $check_all = false){
-        $id || $id = $this->session->userdata('user_id');
-        if (!is_array($check_job)){
-			$check_job = array($check_job);
-		}
-
-
-			$users_job = $this->get_users_jobs($id)->result();
-			$groups_array = array();
-			foreach ($users_job as $group)			{
-				$groups_array[$group->id] = $group->job_name;
-			}
-            foreach ($check_job as $key => $value)		{
-			$groups = (is_string($value)) ? $groups_array : array_keys($groups_array);
-			if (in_array($value, $groups) xor $check_all){
-				return !$check_all;
-			}
-		}
-		return $check_all;
-	}
+//    public function in_job($check_job, $id=false, $check_all = false){
+//        $id || $id = $this->session->userdata('user_id');
+//        if (!is_array($check_job)){
+//			$check_job = array($check_job);
+//		}
+//
+//
+//			$users_job = $this->get_users_jobs($id)->result();
+//			$groups_array = array();
+//			foreach ($users_job as $group)			{
+//				$groups_array[$group->id] = $group->job_name;
+//			}
+//            foreach ($check_job as $key => $value)		{
+//			$groups = (is_string($value)) ? $groups_array : array_keys($groups_array);
+//			if (in_array($value, $groups) xor $check_all){
+//				return !$check_all;
+//			}
+//		}
+//		return $check_all;
+//	}
 
 /*********************************
 * Gert user Job
@@ -215,14 +215,14 @@ class Common_mdl extends CI_Model {
 * @params $id
 * return array
 ******************************/
-	public function get_users_jobs($id=FALSE){
+/*	public function get_users_jobs($id=FALSE){
 		// if no id was passed use the current users id
 		$id || $id = $this->session->userdata('user_id');
         return $this->db->select('*')
 		                ->where('users_jobs.user_id', $id)
 		                ->join('jobs', 'users_jobs.job_id=jobs.id')
 		                ->get('users_jobs');
-	}
+	}*/
 
 
 

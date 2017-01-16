@@ -16,9 +16,9 @@ class Login extends CI_Controller {
  *********************************/
 	public function index(){
 		if ($this->ion_auth->logged_in()){
-			$module = @$this->common_mdl->get_users_jobs()->row()->job_name;
-			if (!$module)
-				$module = $this->ion_auth->get_users_groups()->row()->name;
+//			$module = @$this->common_mdl->get_users_jobs()->row()->job_name;
+//			if (!$module)
+			$module = $this->ion_auth->get_users_groups()->row()->name;
 			redirect('/'.$module, 'refresh');
 			return true;
 		}
@@ -27,6 +27,8 @@ class Login extends CI_Controller {
 	  	$data['javascript'] = array();
 		$this->form_validation->set_rules('username', 'username', 'trim|required');
 		$this->form_validation->set_rules('password', 'Password', 'required');
+//		echo '<pre>$this->form_validation->run()::'.print_r($this->form_validation->run(),true).'</pre>';
+//		die("-1 XXZ");
 		if ($this->form_validation->run() == true){
 			// check to see if the user is logging in
 			// check for "remember me"
@@ -38,11 +40,11 @@ class Login extends CI_Controller {
 				//$this->session->set_flashdata('message', $this->ion_auth->messages());
 				
 				$this->custome_session();
-				$module = @$this->common_mdl->get_users_jobs()->row()->job_name;
+//				$module = @$this->common_mdl->get_users_jobs()->row()->job_name;
 				 //echo $group;
 				 //die();
-				if (!$module)
-		 			$module = $this->ion_auth->get_users_groups()->row()->name;
+//				if (!$module)
+				$module = $this->ion_auth->get_users_groups()->row()->name;
 				redirect('/'.$module, 'refresh');
 			}else{
 				// if the login was un-successful

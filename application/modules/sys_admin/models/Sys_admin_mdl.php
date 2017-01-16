@@ -284,9 +284,10 @@ class Sys_admin_mdl extends CI_Model {
 * @ params
 * return query array
 *********************************/
-    public function get_groups(){
+    public function get_groups() {
         $this->db->from('groups');
         $this->db->where('id !=', '1');
+	    $this->db->order_by('id', 'asc' );
         $query = $this->db->get();
         return $query->result();
     }

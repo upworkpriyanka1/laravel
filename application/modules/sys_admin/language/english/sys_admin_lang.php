@@ -9,7 +9,8 @@ $lang['color_scheme']   = "Color Scheme";
 $lang['users']        = "Users";
 $lang['users-view']   = "Manage";
 $lang['users-add']    = "New";
-$lang['users-role']   = "Groups";
+//$lang['users-role']   = "Groups";
+$lang['users-role']   = "Titles";
 
 $lang['users-jobs']     = "Titles";
 $lang['job-add']        = "Add Job";

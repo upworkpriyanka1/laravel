@@ -24,7 +24,7 @@ class Users extends CI_Controller
 			redirect( base_url() . "login/logout" );
 		}
 		$this->group = $this->ion_auth->get_users_groups()->row();
-		$this->job = $this->common_mdl->get_users_jobs()->row();
+//		$this->job = $this->common_mdl->get_users_jobs()->row();
 	}
 
 
@@ -39,7 +39,7 @@ class Users extends CI_Controller
 		$data['meta_description']='';
 		$data['menu']		= $this->menu;
 		$data['user'] 		= $this->user;
-		$data['job'] 		= $this->job;
+//		$data['job'] 		= $this->job;
 		$data['group'] 		= $this->group->name;
 		$UriArray = $this->uri->uri_to_assoc(4);
 		$post_array = $this->input->post();
@@ -161,25 +161,27 @@ class Users extends CI_Controller
 				}
 			}  // Array('N' => 'New', 'W' => 'Waiting for activation', 'A' => 'Active', 'I' => 'Inactive');
 		}
-		$jobsSelectionList= $this->users_mdl->getJobsSelectionList();
+		$groupsSelectionList= $this->users_mdl->getGroupsSelectionList( array(), 'id',  'asc' );
 
-		$usersJobs = $this->users_mdl->getUsers_JobsList( false, 0, array('user_id'=> $user_id) );
+		$usersGroups = $this->users_mdl->getUsersGroupsList( false, 0, array('user_id'=> $user_id) );
 		if ( !$is_insert ) {
-			foreach ($jobsSelectionList as $next_key => $next_user_job_selection) {
-				foreach ($usersJobs as $next_users_ob) {
-					if ($next_user_job_selection['key'] == $next_users_ob->job_id) {
-						$jobsSelectionList[$next_key]['checked'] = true;
+			foreach ($groupsSelectionList as $next_key => $next_user_group_selection) {
+				foreach ($usersGroups as $next_users_ob) {
+					if ($next_user_group_selection['key'] == $next_users_ob->group_id) {
+						$groupsSelectionList[$next_key]['checked'] = true;
 					}
 				}
 			}
 		}
-		$data['jobsSelectionList']  = $jobsSelectionList;
+		$data['groupsSelectionList']  = $groupsSelectionList;
+//		echo '<pre>$data[\'groupsSelectionList\']::'.print_r($data['groupsSelectionList'],true).'</pre>';
+//		die("-1 XXZ");
 
 		$data['is_insert']  = $is_insert;
 		$data['user_id']      = $user_id;
 		$data['menu']		= $this->menu;
 		$data['user'] 		= $this->user;
-		$data['job'] 		= $this->job;
+//		$data['job'] 		= $this->job;
 		$data['group'] 		= $this->group->name;
 		$editable_user= '';
 		$data['validation_errors_text'] = '';
@@ -190,23 +192,23 @@ class Users extends CI_Controller
 				$this->user_edit_makesave ($is_insert, $user_id, $data['select_on_update'], $redirect_url, $page_parameters_with_sort, $post_array, $app_config );
 			} else {
 				$editable_user = $this->user_edit_fill_current_data( $editable_user, $is_insert, $user_id );
-				foreach ($jobsSelectionList as $next_key => $next_jobs_selection) {
+				foreach ($groupsSelectionList as $next_key => $next_groups_selection) {
 					$is_found= false;
 					foreach ($_POST as $next_post_key=> $next_post_value) {
-						$a= preg_split('/cbx_user_has_jobs_/',$next_post_key );
+						$a= preg_split('/cbx_user_has_groups_/',$next_post_key );
 						if (count($a)==2) {
-							if ($next_jobs_selection['key'] == $a[1]) {
-								$jobsSelectionList[$next_key]['checked'] = true;
+							if ($next_groups_selection['key'] == $a[1]) {
+								$groupsSelectionList[$next_key]['checked'] = true;
 								$is_found= true;
 							}
 						}
 					}
 					if ( !$is_found ) {
-						$jobsSelectionList[$next_key]['checked'] = false;
+						$groupsSelectionList[$next_key]['checked'] = false;
 					}
 
 				}
-				$data['jobsSelectionList']  = $jobsSelectionList;
+				$data['groupsSelectionList']  = $groupsSelectionList;
 				$data['validation_errors_text'] = validation_errors( /*$layout_config['backend_error_icon_start'], $layout_config['backend_error_icon_end']*/ );
 			}
 		}
@@ -313,18 +315,18 @@ class Users extends CI_Controller
 		$this->form_validation->set_rules( 'data[address2]', lang('address2'), '' );
 		$this->form_validation->set_rules( 'data[mobile]', lang('mobile'), 'required' );
 		$this->form_validation->set_rules( 'data[phone]', lang('phone'), 'required' );
-		$this->form_validation->set_rules( 'user_has_jobs_label', lang('user_has_jobs_label'), 'callback_user_has_jobs_label');
+		$this->form_validation->set_rules( 'user_has_groups_label', lang('user_has_groups_label'), 'callback_user_has_groups_label');
 	}
 
-	public function user_has_jobs_label($str)
+	public function user_has_groups_label($str)
 	{
 		foreach( $_POST as $next_key=>$next_value ) {
-			$a= preg_split('/cbx_user_has_jobs_/',$next_key );
+			$a= preg_split('/cbx_user_has_groups_/',$next_key );
 			if (count($a)==2) {
 				return TRUE;
 			}
 		}
-		$this->form_validation->set_message('user_has_jobs_label', 'Check at least 1 '.lang('user_has_jobs').'!');
+		$this->form_validation->set_message('user_has_groups_label', 'Check at least 1 '.lang('user_has_groups').'!');
 		return false;
 	}
 
@@ -375,16 +377,16 @@ class Users extends CI_Controller
 		}
 
 
-		$this->users_mdl->updateUsersGroups($user_id,array($post_array['data']['user_group_id']));
 
-		$user_jobs_array= array();
+		$user_groups_array= array();
 		foreach( $_POST as $next_key=>$next_value ) {
-			$a= preg_split('/cbx_user_has_jobs_/',$next_key );
+			$a= preg_split('/cbx_user_has_groups_/',$next_key );
 			if (count($a)==2) {
-				$user_jobs_array[]= $a[1];
+				$user_groups_array[]= $a[1];
 			}
 		}
-		$this->users_mdl->updateUsersJobs( $user_id, $user_jobs_array );
+		$this->users_mdl->updateUsersGroups($user_id,$user_groups_array);
+//		$this->users_mdl->updateUsersJobs( $user_id, $user_jobs_array );
 
 		$avatar_path= $this->users_mdl->getUserImagePath($user_id, $post_array['data']['avatar']);
 		$user_dir= $this->users_mdl->getUserDir($user_id);
@@ -447,7 +449,7 @@ class Users extends CI_Controller
 
 		$ret = $this->users_mdl->deleteUsers_GroupsByUserId($id);
 
-		$ret = $this->users_mdl->deleteUsers_JobsByUserId($id);
+//		$ret = $this->users_mdl->deleteUsers_JobsByUserId($id);
 
 		$ret = $this->activity_logs_mdl->deleteActivityLogsByUserId($id);
 

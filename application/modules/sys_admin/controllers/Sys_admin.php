@@ -21,7 +21,7 @@ class Sys_admin extends CI_Controller {
 			redirect( base_url() . "login/logout" );
 		}
 		$this->group 			= $this->ion_auth->get_users_groups()->row();
-		$this->job 				= $this->common_mdl->get_users_jobs()->row();
+//		$this->job 				= $this->common_mdl->get_users_jobs()->row();
 	 }
 
  /**********************
@@ -35,7 +35,7 @@ class Sys_admin extends CI_Controller {
 		$data['menu']		= $this->menu;
 
 		$data['user'] 		= $this->user;
-		$data['job'] 		= $this->job;
+//		$data['job'] 		= $this->job;
 		$data['group'] 		= $this->group->name;
 
 		$data['page']		='dashboard'; //page view to load
@@ -56,7 +56,7 @@ class Sys_admin extends CI_Controller {
 		$data['meta_description']='';
 		$data['menu']		= $this->menu;
 		$data['user'] 		= $this->user;
-		$data['job'] 		= $this->job;
+//		$data['job'] 		= $this->job;
 		$data['group'] 		= $this->group->name;
 
         $UriArray = $this->uri->uri_to_assoc(3);
@@ -190,7 +190,7 @@ class Sys_admin extends CI_Controller {
 		$data['cid']      = $cid;
 		$data['menu']		= $this->menu;
 		$data['user'] 		= $this->user;
-		$data['job'] 		= $this->job;
+//		$data['job'] 		= $this->job;
 		$data['group'] 		= $this->group->name;
 		$client= '';
 		$data['validation_errors_text'] = '';
@@ -664,7 +664,7 @@ class Sys_admin extends CI_Controller {
 		$data['meta_description']='';
 		$data['menu']		= $this->menu;
 		$data['user'] 		= $this->user;
-		$data['job'] 		= $this->job;
+//		$data['job'] 		= $this->job;
 		$data['group'] 		= $this->group->name;
 
 		$data['users']		= $this->admin_mdl->get_users();
@@ -693,7 +693,7 @@ class Sys_admin extends CI_Controller {
 		$data['meta_description']='';
 		$data['menu']		= $this->menu;
 		$data['user'] 		= $this->user;
-		$data['job'] 		= $this->job;
+//		$data['job'] 		= $this->job;
 		$data['group'] 		= $this->group->name;
 
 		$data['usertoedit'] = $this->common_mdl->user_to_edit($this->uri->segment(3),FALSE,FALSE, TRUE);
@@ -724,7 +724,7 @@ class Sys_admin extends CI_Controller {
 		$data['meta_description']='';
 		$data['menu']		= $this->menu;
 		$data['user'] 		= $this->user;
-		$data['job'] 		= $this->job;
+//		$data['job'] 		= $this->job;
 		$data['group'] 		= $this->group->name;
 
 		$data['clients']= $this->common_mdl->get_records('clients');
@@ -747,7 +747,7 @@ class Sys_admin extends CI_Controller {
 		$data['meta_description']='';
 		$data['menu']		= $this->menu;
 		$data['user'] 		= $this->user;
-		$data['job'] 		= $this->job;
+//		$data['job'] 		= $this->job;
 		$data['group'] 		= $this->group->name;
 
 		$data['jobs']= $this->admin_mdl->get_jobs();
@@ -771,7 +771,7 @@ class Sys_admin extends CI_Controller {
 		$data['meta_description']='';
 		$data['menu']		= $this->menu;
 		$data['user'] 		= $this->user;
-		$data['job'] 		= $this->job;
+//		$data['job'] 		= $this->job;
 		$data['group'] 		= $this->group->name;
 
 		$data['groups']		= $this->admin_mdl->get_groups();
@@ -797,7 +797,7 @@ class Sys_admin extends CI_Controller {
 		$data['meta_description']='';
 		$data['menu']		= $this->menu;
 		$data['user'] 		= $this->user;
-		$data['job'] 		= $this->job;
+//		$data['job'] 		= $this->job;
 		$data['group'] 		= $this->group->name;
 
 		$data['client_types']= $this->admin_mdl->get_client_types();
@@ -829,7 +829,7 @@ class Sys_admin extends CI_Controller {
 		$data['meta_description']='';
 		$data['menu']		= $this->menu;
 		$data['user'] 		= $this->user;
-		$data['job'] 		= $this->job;
+//		$data['job'] 		= $this->job;
 		$data['group'] 		= $this->group->name;
 		$data['contact_types']= $this->admin_mdl->get_contact_types();
 

@@ -45,11 +45,11 @@ $config['menu_2'] = array(
     					'title'	=>	'users-role',//should be the same as the lang()
     					'icon'	=>	'fa fa-plus'
                     ),
-    "sub_4" => array(
+/*    "sub_4" => array(
     					'href'	=>	'/users-jobs', //make sure to use dash
     					'title'	=>	'users-jobs',//should be the same as the lang()
     					'icon'	=>	'fa fa-plus'
-    					)
+    					)*/
     );
 
 $config['menu_3'] = array(
@@ -105,4 +105,22 @@ $config['menu_5'] = array(
         'title'	=>	'service-add',//should be the same as the lang()
         'icon'	=>	'fa fa-plus'
     ),
+
+
 );
+/*
+$config['menu_6'] = array(
+	"icon" => "fa fa-edit",
+	"title" =>'cms-items', //should be the same as the lang()
+	"sub_1" => array(
+		'href'	=>	'/cms-items/cms-items-view',
+		'title'	=>	'cms-items-view', //make sure to use dash
+		'icon'	=>	'fa fa-edit'
+	),
+	"sub_2" => array(
+		'href'	=>	'/cms-items/cms-items-edit/new/', //make sure to use dash
+		'title'	=>	'cms-items-add',//should be the same as the lang()
+		'icon'	=>	'fa fa-plus'
+	),
+);*/
+

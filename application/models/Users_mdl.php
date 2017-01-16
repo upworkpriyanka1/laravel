@@ -6,7 +6,7 @@
 class Users_mdl extends CI_Model
 {
 	public $m_users_table;
-	private $m_users_jobs_table;
+//	private $m_users_jobs_table;
 	private $m_users_clients_table;
 	private $m_clients_table;
 	public $m_jobs_table;
@@ -18,7 +18,7 @@ class Users_mdl extends CI_Model
 	{
 		parent::__construct();
 		$this->m_users_table = 'users';
-		$this->m_users_jobs_table= 'users_jobs';
+//		$this->m_users_jobs_table= 'users_jobs';
 		$this->m_users_clients_table= 'users_clients';
 		$this->m_clients_table= 'clients';
 		$this->m_jobs_table= 'jobs';
@@ -114,14 +114,14 @@ class Users_mdl extends CI_Model
 		$additive_fields_for_select = "";
 		$additive_group_fields = "";
 		$fields_for_select = $this->m_users_table . ".*";
-		if ( !empty($filters['show_job_title']) ) {
-			$additive_fields_for_select .= ", GROUP_CONCAT(".$this->m_jobs_table.".job_title) as job_title, GROUP_CONCAT(".$this->m_jobs_table.".job_name) as job_name ";
-			if ( !$is_user_job_title_joined ) {
-				$is_user_job_title_joined= true;
-				$this->db->join($this->m_users_jobs_table, $this->m_users_jobs_table . '.user_id = ' . $this->m_users_table . '.id', 'left');
-				$this->db->join($this->m_jobs_table, $this->m_jobs_table . '.id = ' . $this->m_users_jobs_table . '.job_id', 'left');
-			}
-		}
+//		if ( !empty($filters['show_job_title']) ) {
+//			$additive_fields_for_select .= ", GROUP_CONCAT(".$this->m_jobs_table.".job_title) as job_title, GROUP_CONCAT(".$this->m_jobs_table.".job_name) as job_name ";
+//			if ( !$is_user_job_title_joined ) {
+//				$is_user_job_title_joined= true;
+//				$this->db->join($this->m_users_jobs_table, $this->m_users_jobs_table . '.user_id = ' . $this->m_users_table . '.id', 'left');
+//				$this->db->join($this->m_jobs_table, $this->m_jobs_table . '.id = ' . $this->m_users_jobs_table . '.job_id', 'left');
+//			}
+//		}
 
 		if ( !empty($filters['show_user_group']) ) {
 			$additive_fields_for_select .= ", ".$this->m_groups_table.".description as user_group_description ";
@@ -497,6 +497,7 @@ class Users_mdl extends CI_Model
 	{
 		if (empty($user_id)) return;
 
+		echo '<pre>$DataArray::'.print_r($DataArray,true).'</pre>';
 		$this->db->where('user_id', $user_id);
 		$this->db->delete($this->m_users_groups_table);
 
@@ -525,7 +526,7 @@ class Users_mdl extends CI_Model
 
 
 	////////////// JOBS BLOCK START /////////////
-	public function getJobsSelectionList( $filters = array(), $sort = 'job_description',  $sort_direction = 'asc')
+/*	public function getJobsSelectionList( $filters = array(), $sort = 'job_description',  $sort_direction = 'asc')
 	{
 		$ci = & get_instance();
 		$JobsList = $ci->users_mdl->getJobsList(false, 0, $filters, $sort, $sort_direction);
@@ -534,7 +535,7 @@ class Users_mdl extends CI_Model
 			$ResArray[] = array('key' => $lJob->id, 'value' => $lJob->job_description);
 		}
 		return $ResArray;
-	}
+	}*/
 
 	/**********************
 	 * Get Jobs Types list/rows count depending of filters parameters
@@ -546,7 +547,7 @@ class Users_mdl extends CI_Model
 	 * $sort_direction - current sort direction(asc/desc) and $sort - current sort Both have sense if $OutputFormatCount= false
 	 * return query array
 	 *********************************/
-	public function getJobsList( $OutputFormatCount = false, $page = 0, $filters = array(), $sort = '', $sort_direction = '')
+/*	public function getJobsList( $OutputFormatCount = false, $page = 0, $filters = array(), $sort = '', $sort_direction = '')
 	{
 		if (empty( $sort ))
 			$sort = 'job_description';
@@ -607,9 +608,9 @@ class Users_mdl extends CI_Model
 			$ret_array= $query->get()->result();
 			return $ret_array;
 		}
-	}
+	}*/
 
-	public function getJobRowById( $id )
+/*	public function getJobRowById( $id )
 	{
 		$this->db->where( $this->m_jobs_table . '.id', $id);
 		$query = $this->db->from($this->m_jobs_table);
@@ -632,7 +633,7 @@ class Users_mdl extends CI_Model
 		$row= $this->db->get()->result();
 		if (empty($row[0])) return false;
 		return $row[0];
-	}
+	}*/
 
 
 	////////////// JOBS BLOCK END /////////////
@@ -652,7 +653,7 @@ class Users_mdl extends CI_Model
 
 	////////////// USERS CLIENTS BLOCK START /////////////
 
-	////////////// USERS JOBS BLOCK START /////////////
+	////////////// USERS BLOCKS BLOCK START /////////////
 	/**********************
 	 * Get users_jobs list/rows count depending of filters parameters
 	 * acces public
@@ -663,7 +664,7 @@ class Users_mdl extends CI_Model
 	 * $sort_direction - current sort direction(asc/desc) and $sort - current sort Both have sense if $OutputFormatCount= false
 	 * return query array
 	 *********************************/
-	public function getUsers_JobsList( $OutputFormatCount = false, $page = 0, $filters = array(), $sort = '', $sort_direction = '')
+/*	public function getUsers_GroupsList( $OutputFormatCount = false, $page = 0, $filters = array(), $sort = '', $sort_direction = '')
 	{
 		if (empty( $sort ))
 			$sort = 'user_id';
@@ -684,13 +685,13 @@ class Users_mdl extends CI_Model
 		}
 
 		if (!empty($filters['user_id'])) {
-			$this->db->where( $this->m_users_jobs_table.'.user_id', $filters['user_id'] );
+			$this->db->where( $this->m_users_groups_table.'.user_id', $filters['user_id'] );
 		}
-		if (!empty($filters['job_id'])) {
-			$this->db->where( $this->m_users_jobs_table.'.job_id', $filters['job_id'] );
+		if (!empty($filters['group_id'])) {
+			$this->db->where( $this->m_users_groups_table.'.group_id', $filters['group_id'] );
 		}
 
-		$fields_for_select= $this->m_users_jobs_table.".*";
+		$fields_for_select= $this->m_users_groups_table.".*";
 
 		if ( ( !empty($limit) and $ci->common_lib->is_positive_integer($limit) ) and ( !empty($offset) and $ci->common_lib->is_positive_integer($offset) ) ) {
 			$this->db->limit($limit, $offset);
@@ -705,9 +706,9 @@ class Users_mdl extends CI_Model
 		}
 
 		if ($OutputFormatCount) {
-			return $this->db->count_all_results($this->m_users_jobs_table);
+			return $this->db->count_all_results($this->m_users_groups_table);
 		} else {
-			$query = $this->db->from($this->m_users_jobs_table);
+			$query = $this->db->from($this->m_users_groups_table);
 			if (strlen(trim($fields_for_select)) > 0) {
 				$query->select($fields_for_select);
 			}
@@ -717,18 +718,18 @@ class Users_mdl extends CI_Model
 		}
 	}
 
-	public function updateUsersJobs($user_id, $DataArray)
+	public function updateUsersGroups($user_id, $DataArray)
 	{
 		if (empty($user_id)) return;
 
 		$this->db->where('user_id', $user_id);
-		$this->db->delete($this->m_users_jobs_table);
+		$this->db->delete($this->m_users_groups_table);
 
-		foreach( $DataArray as $next_key=>$next_job_id ) {
-			$Res = $this->db->insert($this->m_users_jobs_table, array( 'user_id'=> $user_id, 'job_id'=> $next_job_id ) );
+		foreach( $DataArray as $next_key=>$next_group_id ) {
+			$Res = $this->db->insert($this->m_users_groups_table, array( 'user_id'=> $user_id, 'group_id'=> $next_group_id ) );
 		}
 
-	}
+	}*/
 
 //	/**********************
 //	 * update/insert users_clients table with new_status
@@ -765,15 +766,15 @@ class Users_mdl extends CI_Model
 //		}
 //	}
 
-	public function deleteUsers_JobsByUserId($user_id) {
+/*	public function deleteUsers_GroupsByUserId($user_id) {
 		if (!empty($user_id)) {
 			$this->db->where('user_id', $user_id);
-			$Res = $this->db->delete($this->m_users_jobs_table);
+			$Res = $this->db->delete($this->m_users_groups_table);
 			return $Res;
 		}
-	}
+	}*/
 
-	////////////// USERS JOBS BLOCK END /////////////
+	////////////// USERS GROUPS BLOCK END /////////////
 
 
 }

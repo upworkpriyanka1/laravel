@@ -76,22 +76,6 @@
                                 <span><?= lang('my-profile'); ?></span>
                             </a>
                         </li>
-                        <?php if ($user->group_title !="g-user"){?>
-                            <li class="nav-item">
-                                <a href="<?php echo base_url($user->job_name)?>">
-                                    <span class="fa fa-user"></span> 
-                                    <span><?php echo lang($user->job_title); ?></span>
-                                </a>
-                            </li>
-                            <?php if ($user->job_name !=$group){?>
-                            <li class="nav-item">
-                                <a href="<?php echo base_url($group)?>">
-                                    <span class="fa fa-user"></span> 
-                                    <span><?= lang($user->group_title);?></span>
-                                </a>
-                            </li>
-                            <?php }
-                        } ?>
                         <li class="nav-item">
                             <a href="<?php echo base_url()?>login/logout" class="nav-link ">
                                 <span class="fa fa-sign-out" aria-hidden="true"></span>

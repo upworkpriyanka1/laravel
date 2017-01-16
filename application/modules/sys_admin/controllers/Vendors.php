@@ -23,7 +23,7 @@ class Vendors extends CI_Controller
 		    redirect( base_url() . "login/logout" );
 	    }
         $this->group = $this->ion_auth->get_users_groups()->row();
-        $this->job = $this->common_mdl->get_users_jobs()->row();
+//        $this->job = $this->common_mdl->get_users_jobs()->row();
     }
 
     ////////////// VENDORS-TYPES BLOCK START /////////////
@@ -38,7 +38,7 @@ class Vendors extends CI_Controller
         $data['meta_description']='';
         $data['menu']		= $this->menu;
         $data['user'] 		= $this->user;
-        $data['job'] 		= $this->job;
+//        $data['job'] 		= $this->job;
         $data['group'] 		= $this->group->name;
 
         $UriArray = $this->uri->uri_to_assoc(4);
@@ -152,7 +152,7 @@ class Vendors extends CI_Controller
         $data['vt_id']      = $vt_id;
         $data['menu']		= $this->menu;
         $data['user'] 		= $this->user;
-        $data['job'] 		= $this->job;
+//        $data['job'] 		= $this->job;
         $data['group'] 		= $this->group->name;
         $vendor_types= '';
         $data['validation_errors_text'] = '';
@@ -346,7 +346,7 @@ class Vendors extends CI_Controller
         $data['meta_description']='';
         $data['menu']		= $this->menu;
         $data['user'] 		= $this->user;
-        $data['job'] 		= $this->job;
+//        $data['job'] 		= $this->job;
         $data['group'] 		= $this->group->name;
         $UriArray = $this->uri->uri_to_assoc(4);
         $post_array = $this->input->post();
@@ -473,7 +473,7 @@ class Vendors extends CI_Controller
         $data['vn_id']      = $vn_id;
         $data['menu']		= $this->menu;
         $data['user'] 		= $this->user;
-        $data['job'] 		= $this->job;
+//        $data['job'] 		= $this->job;
         $data['group'] 		= $this->group->name;
         $vendor= '';
         $data['validation_errors_text'] = '';

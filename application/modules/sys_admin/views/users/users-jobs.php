@@ -15,8 +15,8 @@
                 		    foreach($jobs as $row){?>
                         <tr>
 
-                            <td><?php echo lang($row->job_title);?></td>
-                            <td><?php echo lang($row->job_title."-desc");?></td>
+<!--                            <td>--><?php //echo lang($row->job_title);?><!--</td>-->
+<!--                            <td>--><?php //echo lang($row->job_title."-desc");?><!--</td>-->
                             </td>
                         </tr>
                         <?php

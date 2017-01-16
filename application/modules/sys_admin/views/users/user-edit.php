@@ -243,17 +243,17 @@
 
 
 							<div class="row">
-								<!-- user has job titles -->
+								<!-- user has group titles -->
 								<div class="col-md-6">
-									<div class="form-group <?= $this->common_lib->set_field_error_tag("user_has_jobs_label", ' has-error ')?>">
-										<label class="control-label col-md-4"><?php echo lang('user_has_jobs_label') ?>
+									<div class="form-group <?= $this->common_lib->set_field_error_tag("user_has_groups_label", ' has-error ')?>">
+										<label class="control-label col-md-4"><?php echo lang('user_has_groups_label') ?>
 											<span class="required"> * </span>
 										</label>
 										<div class="col-md-7">
-											<?php foreach( $jobsSelectionList as $next_key=>$next_job ) { ?>
+											<?php foreach( $groupsSelectionList as $next_key=>$next_group ) { ?>
 												<div class="text-left" style="padding: 10px;">
-													<input type="checkbox" value="1" id="cbx_user_has_jobs_<?=$next_job['key'] ?>" name="cbx_user_has_jobs_<?=$next_job['key'] ?>" <?= ( !empty($next_job['checked']) ? "checked" : "") ?> >
-													<?=$next_job['value'] ?>&nbsp;
+													<input type="checkbox" value="1" id="cbx_user_has_groups_<?=$next_group['key'] ?>" name="cbx_user_has_groups_<?=$next_group['key'] ?>" <?= ( !empty($next_group['checked']) ? "checked" : "") ?> >
+													<?=$next_group['value'] ?>&nbsp;
 												</div>
 											<?php }  ?>
 

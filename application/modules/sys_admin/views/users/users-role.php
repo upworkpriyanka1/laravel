@@ -12,7 +12,7 @@
                     </thead>
                     <tbody>
                         <?php if (isset($groups) && count($groups)>0){
-                		    foreach($groups as $row){?>
+                		    foreach($groups as $row){ ?>
                         <tr>
 
                             <td><?php echo lang($row->group_title);?></td>
