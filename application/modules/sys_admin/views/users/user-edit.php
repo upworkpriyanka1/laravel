@@ -122,21 +122,6 @@
 									</div><!-- ./form-group -->
 								</div><!-- ./col -->
 
-								<!-- user user_group_id -->
-								<div class="col-md-6">
-									<div class="form-group <?= $this->common_lib->set_field_error_tag("data[user_group_id]", ' has-error ')?>">
-										<label class="col-md-4 control-label" for="user_group_id">User Group</label>
-										<div class="col-md-7">
-											<select id="user_group_id" name="data[user_group_id]"  class="form-control editable_field">
-												<option value="">  -Select User Group-  </option>
-												<?php foreach( $user_GroupsSelectionList as $next_key=>$next_User_Type ) { ?>
-													<option value="<?= $next_User_Type['key'] ?>" <?= ( !empty($editable_user->user_group_id) and $editable_user->user_group_id == $next_User_Type['key'] ) ? "selected" : "" ?> ><?= $next_User_Type['value'] ?></option>
-												<?php } ?>
-											</select>
-										</div>
-									</div><!-- ./form-group -->
-								</div><!-- ./col -->
-
 							</div>
 
 

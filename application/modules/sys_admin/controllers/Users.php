@@ -232,7 +232,7 @@ class Users extends CI_Controller
 			}   // Array('N' => 'New', 'W' => 'Waiting for activation', 'A' => 'Active', 'I' => 'Inactive');
 			$users_groups_list= $this->users_mdl->getUsersGroupsList( false, 0, array('user_id'=> $user_id));
 			if ( !empty($editable_user) and !empty($users_groups_list[0]->group_id) ) {
-				$editable_user->user_group_id = $users_groups_list[0]->group_id;
+//				$editable_user->user_group_id = $users_groups_list[0]->group_id;
 			}
 		}
 
@@ -287,7 +287,7 @@ class Users extends CI_Controller
 		$editable_user->username = set_value('data[username]');
 		$editable_user->email = set_value('data[email]');
 		$editable_user->user_active_status = set_value('data[user_active_status]');
-		$editable_user->user_group_id = set_value('data[user_group_id]');
+//		$editable_user->user_group_id = set_value('data[user_group_id]');
 		$editable_user->first_name = set_value('data[first_name]');
 		$editable_user->last_name = set_value('data[last_name]');
 		$editable_user->city = set_value('data[city]');
@@ -335,9 +335,15 @@ class Users extends CI_Controller
 		$ip_address= !empty($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
 
 		$original_user_avatar= !empty($post_array['data']['avatar']) ? $post_array['data']['avatar'] : '';
-//		$activation_code= '';
 		if ( $is_insert ) {
-			$user_group_array= array( $post_array['data']['user_group_id'] );
+			$user_group_array= array();
+			foreach( $post_array as $next_key=>$next_value ) {
+				$a= preg_split('/cbx_user_has_groups_/',$next_key );
+				if (count($a)==2) {
+					$user_group_array[]= $a[1];
+				}
+			}
+
 			$additional_data= array(  'ip_address'=> $ip_address, 'user_active_status' => $post_array['data']['user_active_status'], 'first_name' => $post_array['data']['first_name'], 'last_name' => $post_array['data']['last_name'], 'city' => $post_array['data']['city'], 'state' => $post_array['data']['state'], 'zip' => $post_array['data']['zip'],  'address1' => $post_array['data']['address1'], 'address2' => $post_array['data']['address2'], 'mobile' => $post_array['data']['mobile'], 'phone' => $post_array['data']['phone'], 'created_on'=> now(), 'avatar' => $post_array['data']['avatar'] );
 
 			if  (  !empty( $post_array['cbx_clear_image'])  )  {
@@ -374,19 +380,15 @@ class Users extends CI_Controller
 				$update_data['activation_code']= $activation_code;
 			} // if ( $post_array['data']['user_active_status'] == "W" ) { // sent message with activation code
 			$this->db->update($this->users_mdl->m_users_table, $update_data, array('id' => $user_id));
-		}
-
-
-
-		$user_groups_array= array();
-		foreach( $_POST as $next_key=>$next_value ) {
-			$a= preg_split('/cbx_user_has_groups_/',$next_key );
-			if (count($a)==2) {
-				$user_groups_array[]= $a[1];
+			$user_groups_array= array();
+			foreach( $_POST as $next_key=>$next_value ) {
+				$a= preg_split('/cbx_user_has_groups_/',$next_key );
+				if (count($a)==2) {
+					$user_groups_array[]= $a[1];
+				}
 			}
+			$this->users_mdl->updateUsersGroups($user_id,$user_groups_array);
 		}
-		$this->users_mdl->updateUsersGroups($user_id,$user_groups_array);
-//		$this->users_mdl->updateUsersJobs( $user_id, $user_jobs_array );
 
 		$avatar_path= $this->users_mdl->getUserImagePath($user_id, $post_array['data']['avatar']);
 		$user_dir= $this->users_mdl->getUserDir($user_id);
