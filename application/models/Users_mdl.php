@@ -497,7 +497,6 @@ class Users_mdl extends CI_Model
 	{
 		if (empty($user_id)) return;
 
-		echo '<pre>$DataArray::'.print_r($DataArray,true).'</pre>';
 		$this->db->where('user_id', $user_id);
 		$this->db->delete($this->m_users_groups_table);
 
