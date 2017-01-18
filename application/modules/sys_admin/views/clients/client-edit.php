@@ -230,6 +230,7 @@
 								<div class="col-md-6">
 									<div class="form-group <?= $this->common_lib->set_field_error_tag("data[client_fax]", ' has-error ')?>">
 										<label class="control-label col-md-4"><?php echo lang('fax') ?>
+											<span class="required"> * </span>
 										</label>
 										<div class="col-md-7">
 											<input type="text" name="data[client_fax]" value="<?= ( !empty($client->client_fax) ? $client->client_fax : '' ); ?>" class="form-control" maxlength="50" />
@@ -283,13 +284,23 @@
 								<div class="col-md-6">
 									<div class="form-group <?= $this->common_lib->set_field_error_tag("data[color_scheme]", ' has-error ')?>">
 										<label class="control-label col-md-4"><?php echo lang('color_scheme') ?>
+											<?php if ( !$is_insert ) : ?>
 											<span class="required"> * </span>
+											<?php endif; ?>
 										</label>
 										<div class="col-md-7">
-											<select name="data[color_scheme]" class="form-control" >
+											<select name="data[color_scheme]" class="form-control" <?php echo ( $is_insert ? " disabled " : "" ) ?> >
 												<option value="">Select Color Scheme</option>
 												<?php foreach( $client_color_schemes as $next_key=>$next_color_scheme ) { ?>
+
+
+													<?php if ( !$is_insert ) : ?>
 													<option value="<?=$next_color_scheme['id']  ?>" <?= ( ( !empty($client->color_scheme) and (int)$client->color_scheme == (int)$next_color_scheme['id'] ) ? 'selected' : '' ); ?> ><?=$next_color_scheme['title']  ?></option>
+													<?php else : ?>
+														<option value="<?=$next_color_scheme['id']  ?>" <?= ( ( $next_color_scheme['default'] ) ? 'selected' : '' ); ?> ><?=$next_color_scheme['title']  ?></option>
+													<?php endif; ?>
+
+
 												<?php } ?>
 											</select>
 

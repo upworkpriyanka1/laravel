@@ -8,6 +8,7 @@ class Main extends CI_Controller {
 		$this->load->library('Sys_admin_lib', NULL, 'admin_lib');
 		$this->load->model('sys_admin_mdl', 'admin_mdl');
 		$this->load->model('users_mdl');
+		$this->load->model('cms_items_mdl');
 		$this->load->model('activity_logs_mdl');
 		$this->lang->load('sys_admin');
 		$this->config->load('sys_admin_menu', true);
@@ -33,15 +34,25 @@ class Main extends CI_Controller {
 			$has_error= true;
 		}
 
-
 		$data= array();
 
 		if ( !$has_error ) {
 			$password= $this->common_lib->generatePassword();
 			$ret = $this->db->update( $this->users_mdl->m_users_table, array( 'user_active_status' => 'A', 'activation_code'=> '', 'password'=> $this->ion_auth->hash_password($password, false ) ), array( 'id' => $activated_user->id ) );
 			$success_message= 'Your account was activated successfully. Your password and new login was sent to you. Now you can login into the system!';
-			$title= 'Your account was activated at ' . $app_config['base_url'] . ' site';
-			$content= '  Dear '.$activated_user->username. ', your account was activated at <a href="'.$app_config['base_url'].'">' . $app_config['base_url'] . ' </a> site. Now you can login into the system with email '. $activated_user->email .  ' and password ' . $password;
+			$title= 'Your account was activated at ' . $app_config['site_name'] . ' site';
+
+			$content = $this->cms_items_mdl->getBodyContentByAlias('account_activated',
+				array('username' => $activated_user->username,
+				      'password' => $password,
+				      'first_name' => $activated_user->first_name,
+				      'last_name' => $activated_user->last_name,
+				      'site_name' => $app_config['site_name'],
+				      'support_signature' => $app_config['support_signature'],
+				      'site_url' => $app_config['base_url'],
+				      'email' => $activated_user->email
+				), true);
+//			$this->common_lib->DebToFile( 'sendEmail $content::'.print_r($content,true));
 			$EmailOutput = $this->common_lib->SendEmail($activated_user->email, $title, $content );
 
 		}

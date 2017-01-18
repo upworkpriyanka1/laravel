@@ -104,8 +104,17 @@ $lang['vc_person_email']        = "Person email";
 
 
 $lang['cms-items']              =  "CMS Items";
+$lang['cms_item']              =   "CMS Item";
 $lang['cms-items-view']         =  "CMS Items Listing";
 $lang['cms-items-add']          =  "Add CMS Item";
+$lang['ci_id']                  =  "Id";
+$lang['ci_title']               =  "Title";
+$lang['ci_alias']               =  "Alias";
+$lang['ci_short_descr']         =  "Short Descr";
+$lang['ci_content']             =  "Content";
+$lang['ci_page_type']           =  "Page Type";
+$lang['ci_published']           =  "Published";
+$lang['ci_created_at']          =  "Created At";
 
 
 $lang['services-view']          = "Services Listing";

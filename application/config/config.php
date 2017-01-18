@@ -215,6 +215,7 @@ $config['directory_trigger'] = 'd';
 */
 #if ((!empty($_SERVER["HTTP_HOST"]) and !(strpos($_SERVER["HTTP_HOST"], "zntral.net") === false))) {
 
+//echo '<pre>ENVIRONMENT::'.print_r(ENVIRONMENT,true).'</pre>';
 if ((!empty($_SERVER["HTTP_HOST"]) and !(strpos($_SERVER["HTTP_HOST"], "local-zntral.com") === false))) {
     $config['log_path'] = '/_wwwroot/zntral/zntral/log/';   // file:///_wwwroot/zntral/zntral/application
     $config['document_root'] = '/_wwwroot/zntral/zntral/';
@@ -601,7 +602,15 @@ $config['image_client_directory']= 'uploads/clients/-client-';
 $config['image_users_directory']= 'uploads/users';
 $config['image_user_directory']= 'uploads/users/-user-';
 $config['service_max_images']= 3;
-$config['client_color_schemes']= array( array( 'id'=>1,'title'=> 'Default White Color Scheme' ), array( 'id'=>2,'title'=> 'Black Color Scheme' ) );
+$config['client_color_schemes']= array( array( 'id'=>1,'title'=> 'Default White Color Scheme', 'default'=>true ), array( 'id'=>2,'title'=> 'Black Color Scheme', 'default'=>false ) );
+//$config['NoAnswer_Email'] = 'NoReply@ci3.com';
+//$config['Support_Name'] = 'Support of zntral.net site';
+$config['site_name'] = 'zntral.net';
+$config['support_signature'] = '
+  Best Regards,
+    The '.$config['site_name'].' Team.';
+
+
 /* UPDATE `clients` SET `color_scheme` = '1';
 ALTER TABLE `clients`
   change `color_scheme` `color_scheme` smallint(2) NULL;

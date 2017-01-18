@@ -411,6 +411,26 @@ class Common_lib
 
 
     /**********************
+     * Get readable label of cms_items_page_type field
+     * access public
+     * @params $cms_items_page_type
+     * return string label
+     *********************************/
+    public function get_cms_items_page_type_label($ci_page_type) {
+        return $this->CI->cms_items_mdl->getCms_ItemPage_TypeLabel($ci_page_type);
+    }
+
+    /**********************
+     * Get readable label of cms_items_ci_published field
+     * access public
+     * @params $cms_items_ci_published
+     * return string label
+     *********************************/
+    public function get_cms_items_ci_published_label($ci_published) {
+        return $this->CI->cms_items_mdl->getCms_Item_PublishedLabel($ci_published);
+    }
+
+    /**********************
      * Prepare html of url for header in view listing JS based click
      * access public
      * @params $url - url of page, $filters_str - string(key/value) with current filters, $field_title - title shown in TH tag, name of sorting field,

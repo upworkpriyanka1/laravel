@@ -108,7 +108,7 @@ $config['menu_5'] = array(
 
 
 );
-/*
+
 $config['menu_6'] = array(
 	"icon" => "fa fa-edit",
 	"title" =>'cms-items', //should be the same as the lang()
@@ -122,5 +122,5 @@ $config['menu_6'] = array(
 		'title'	=>	'cms-items-add',//should be the same as the lang()
 		'icon'	=>	'fa fa-plus'
 	),
-);*/
+);
 

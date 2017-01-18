@@ -570,7 +570,7 @@ class Vendors extends CI_Controller
         $this->form_validation->set_rules( 'data[vn_name]', lang('vendor'), 'callback_vendor_check_vn_name_is_unique' );
         $this->form_validation->set_rules( 'data[vn_email]', lang('vn_email'), 'required|valid_email|callback_vendor_check_vn_email_is_unique' );
         $this->form_validation->set_rules( 'data[vn_website]', lang('vn_website'), 'required' );
-        $this->form_validation->set_rules( 'data[vn_website]', lang('vn_description'), '' );
+        $this->form_validation->set_rules( 'data[vn_description]', lang('vn_description'), '' );
         $this->form_validation->set_rules( 'vendor_has_types_label', lang('vendor_has_types_label'), 'callback_vendors_have_types_label');
     }
 

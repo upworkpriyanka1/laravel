@@ -14,6 +14,7 @@ class Users extends CI_Controller
 		$this->load->library('Sys_admin_lib', NULL, 'admin_lib');
 		$this->load->model('sys_admin_mdl', 'admin_mdl');
 		$this->load->model('users_mdl');
+		$this->load->model('cms_items_mdl');
 		$this->load->model('activity_logs_mdl');
 		$this->lang->load('sys_admin');
 		$this->config->load('sys_admin_menu', true);
@@ -24,7 +25,6 @@ class Users extends CI_Controller
 			redirect( base_url() . "login/logout" );
 		}
 		$this->group = $this->ion_auth->get_users_groups()->row();
-//		$this->job = $this->common_mdl->get_users_jobs()->row();
 	}
 
 
@@ -39,7 +39,6 @@ class Users extends CI_Controller
 		$data['meta_description']='';
 		$data['menu']		= $this->menu;
 		$data['user'] 		= $this->user;
-//		$data['job'] 		= $this->job;
 		$data['group'] 		= $this->group->name;
 		$UriArray = $this->uri->uri_to_assoc(4);
 		$post_array = $this->input->post();
@@ -69,7 +68,7 @@ class Users extends CI_Controller
 		$this->pagination->initialize($pagination_config);  // pagination system initialization by parameters in config file
 		$data['users']= array();
 		if ($rows_in_table > 0) { // number of rows by given parameters > 0 - get rows by given parameters for given $page_number.
-			$data['users']= $this->users_mdl->getUsersList(false, $page_number, array( 'show_job_title'=>1, 'show_user_group'=>1, 'show_clients_name'=>1, 'username'=> $filter_username, 'user_active_status'=> $filter_user_active_status, 'zip'=> $filter_zip, 'user_group_id'=> $filter_user_group_id, 'created_at_from'=> $filter_created_at_from, 'created_at_till'=> $filter_created_at_till ), $sort, $sort_direction );
+			$data['users']= $this->users_mdl->getUsersList(false, $page_number, array( 'show_user_group'=>1, 'show_clients_name'=>1, 'username'=> $filter_username, 'user_active_status'=> $filter_user_active_status, 'zip'=> $filter_zip, 'user_group_id'=> $filter_user_group_id, 'created_at_from'=> $filter_created_at_from, 'created_at_till'=> $filter_created_at_till ), $sort, $sort_direction );
 		} // IMPORTANT : all filter parameters must be similar as in calling of getUsersList above
 
 		$data['page']		= 'users/users-view';
@@ -174,14 +173,11 @@ class Users extends CI_Controller
 			}
 		}
 		$data['groupsSelectionList']  = $groupsSelectionList;
-//		echo '<pre>$data[\'groupsSelectionList\']::'.print_r($data['groupsSelectionList'],true).'</pre>';
-//		die("-1 XXZ");
 
 		$data['is_insert']  = $is_insert;
 		$data['user_id']      = $user_id;
 		$data['menu']		= $this->menu;
 		$data['user'] 		= $this->user;
-//		$data['job'] 		= $this->job;
 		$data['group'] 		= $this->group->name;
 		$editable_user= '';
 		$data['validation_errors_text'] = '';
@@ -313,8 +309,8 @@ class Users extends CI_Controller
 		$this->form_validation->set_rules( 'data[zip]', lang('zip'), 'required' );
 		$this->form_validation->set_rules( 'data[address1]', lang('address1'), 'required' );
 		$this->form_validation->set_rules( 'data[address2]', lang('address2'), '' );
-		$this->form_validation->set_rules( 'data[mobile]', lang('mobile'), 'required' );
-		$this->form_validation->set_rules( 'data[phone]', lang('phone'), 'required' );
+		$this->form_validation->set_rules( 'data[mobile]', lang('mobile'), '' );
+		$this->form_validation->set_rules( 'data[phone]', lang('phone'), '' );
 		$this->form_validation->set_rules( 'user_has_groups_label', lang('user_has_groups_label'), 'callback_user_has_groups_label');
 	}
 
@@ -358,11 +354,19 @@ class Users extends CI_Controller
 			$user_id = $this->ion_auth->register( $post_array['data']['username'], '', $post_array['data']['email'], $additional_data,   array(  $user_group_array  )  );
 			if ( $post_array['data']['user_active_status'] == "W" ) { // sent message with activation code
 				$activation_page_url= $app_config['base_url']."/activation/".$activation_code;
-				$title= 'You are registered at ' . $app_config['base_url'] . ' site';
-				$content= '  Dear '.$post_array['data']['username']. ', you are registered at <a href="'.$app_config['base_url'].'">' . $app_config['base_url'] . ' </a> site, with email '. $post_array['data']['email'] .
-				          '.  You need to activate your account at <a href="' . $activation_page_url .'">Activation page '.$activation_page_url.' </a> and you will receive your password. ';
+				$title= 'You are registered at ' . $app_config['site_name'] . ' site';
+				$content = $this->cms_items_mdl->getBodyContentByAlias('user_register',
+					array('username' => $post_array['data']['username'],
+					      'first_name' => $post_array['data']['first_name'],
+					      'last_name' => $post_array['data']['last_name'],
+					      'site_name' => $app_config['site_name'],
+					      'support_signature' => $app_config['support_signature'],
+					      'activation_page_url' => $activation_page_url,
+					      'site_url' => $app_config['base_url'],
+					      'email' => $post_array['data']['email']
+					), true);
 				$EmailOutput = $this->common_lib->SendEmail($post_array['data']['email'], $title, $content );
-				$this->common_lib->DebToFile( 'sendEmail $content::'.print_r($content,true));
+//				$this->common_lib->DebToFile( 'sendEmail $content::'.print_r($content,true));
 			} // if ( $post_array['data']['user_active_status'] == "W" ) { // sent message with activation code
 
 		} else {
@@ -450,8 +454,6 @@ class Users extends CI_Controller
 		$ret = $this->users_mdl->deleteUsers_ClientsByUserId($id);
 
 		$ret = $this->users_mdl->deleteUsers_GroupsByUserId($id);
-
-//		$ret = $this->users_mdl->deleteUsers_JobsByUserId($id);
 
 		$ret = $this->activity_logs_mdl->deleteActivityLogsByUserId($id);
 
@@ -546,11 +548,20 @@ class Users extends CI_Controller
 		$password= $this->common_lib->generatePassword();
 		$ret = $this->db->update( $this->users_mdl->m_users_table, array( 'password'=> $this->ion_auth->hash_password($password, false ) ), array( 'id' => $modified_user->id ) );
 		
-		$title= 'Your password was changed at ' . $app_config['base_url'] . ' site';
-		$content= '  Dear '.$modified_user->username. ', your password was changed at <a href="'.$app_config['base_url'].'">' . $app_config['base_url'] . ' </a> site. Now you can login into the system with email '. $modified_user->email .  ' and password ' . $password;
-//		echo '<pre>$content::'.print_r($content,true).'</pre>';
-		$this->common_lib->DebToFile( 'generate_new_password $content::'.print_r($content,true));
+		$title= 'You are registered at ' . $app_config['site_name'] . ' site';
+		$content = $this->cms_items_mdl->getBodyContentByAlias('new_password_generated',
+			array('username' => $modified_user->username,
+			      'password' => $password,
+			      'first_name' => $modified_user->first_name,
+			      'last_name' => $modified_user->last_name,
+			      'site_name' => $app_config['site_name'],
+			      'support_signature' => $app_config['support_signature'],
+			      'site_url' => $app_config['base_url'],
+			      'email' => $modified_user->email
+			), true);
 		$EmailOutput = $this->common_lib->SendEmail($modified_user->email, $title, $content );
+		$this->common_lib->DebToFile( 'generate_new_password sendEmail $content::'.print_r($content,true));
+
 		$this->output->set_content_type('application/json')->set_output(json_encode(array('ErrorMessage' => '', 'ErrorCode' => 0, 'user_id' => $user_id )));
 	}
 
