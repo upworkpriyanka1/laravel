@@ -103,6 +103,9 @@ div.table_pagination a {
 /* Modal Dialogs BLOCK END */
 
 /* Errors/Messages BLOCK START */
+.required {
+    color: red;
+}
 .has-error {
     color: red;
 }

@@ -23,16 +23,9 @@ function generateNewPassword(user_id) {
         type: 'GET',
         dataType: 'json',
         success: function(result) {
-            alert( "  result::"+var_dump(result) )
+            //alert( "  result::"+var_dump(result) )
             if (result.ErrorCode != 0) {
                 alert( result.ErrorMessage )
-            }
-            if (result.ErrorCode == 0) {
-                if ( parseInt(result.total_items) == 0 ) {
-                    $("#span_cart_info").html("Empty")
-                } else {
-                    $("#span_cart_info").html(result.total + "/" + result.total_items)
-                }
             }
         }
     });

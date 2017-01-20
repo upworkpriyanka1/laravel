@@ -548,7 +548,7 @@ class Users extends CI_Controller
 		$password= $this->common_lib->generatePassword();
 		$ret = $this->db->update( $this->users_mdl->m_users_table, array( 'password'=> $this->ion_auth->hash_password($password, false ) ), array( 'id' => $modified_user->id ) );
 		
-		$title= 'You are registered at ' . $app_config['site_name'] . ' site';
+		$title= 'New password generated at ' . $app_config['site_name'] . ' site';
 		$content = $this->cms_items_mdl->getBodyContentByAlias('new_password_generated',
 			array('username' => $modified_user->username,
 			      'password' => $password,

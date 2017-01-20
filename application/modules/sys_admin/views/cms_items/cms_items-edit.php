@@ -107,6 +107,7 @@
 								<div class="col-md-12">
 									<div class="form-group <?= $this->common_lib->set_field_error_tag("data[ci_content]", ' has-error ')?> ">
 										<label class="control-label col-md-4"><?php echo lang('ci_content') ?>
+											<span class="required"> * </span>
 										</label>
 										<div class="col-md-7">
 											<textarea rows="8" cols="120" name="data[ci_content]" id="ci_content" data-required="1" class="form-control" /><?= ( !empty($cms_item->ci_content) ? $cms_item->ci_content : '' ) ?></textarea>
@@ -128,7 +129,9 @@
 								<div class="col-md-12">
 									<div class="form-group <?= $this->common_lib->set_field_error_tag("data[ci_page_type]", ' has-error ')?>">
 
-										<label class="col-md-4 control-label" for="ci_page_type">Page Type</label>
+										<label class="col-md-4 control-label" for="ci_page_type">Page Type
+											<span class="required"> * </span>
+										</label>
 										<div class="col-md-7">
 											<select id="ci_page_type" name="data[ci_page_type]"  class="form-control editable_field">
 												<option value="">  -Select Page Type-  </option>
@@ -149,7 +152,9 @@
 								<div class="col-md-12">
 									<div class="form-group <?= $this->common_lib->set_field_error_tag("data[ci_published]", ' has-error ')?>">
 
-										<label class="col-md-4 control-label" for="ci_published">Published</label>
+										<label class="col-md-4 control-label" for="ci_published">Published
+											<span class="required"> * </span>
+										</label>
 										<div class="col-md-7">
 											<select id="ci_published" name="data[ci_published]"  class="form-control editable_field">
 												<option value="">  -Select Published-  </option>

@@ -9,6 +9,60 @@ $(document).ready(function ($) {
     }
 });
 
+function AddPhone() {
+
+    var client_phone = jQuery.trim( $("#client_phone").val() )
+    var client_phone_2 = jQuery.trim( $("#client_phone_2").val() )
+    var client_phone_3 = jQuery.trim( $("#client_phone_3").val() )
+    var client_phone_4 = jQuery.trim( $("#client_phone_4").val() )
+
+    // alert( "AddPhone()  client_phone::"+client_phone + "  client_phone_2::" + client_phone_2  + "  client_phone_3::" + client_phone_3  + "  client_phone_4::" + client_phone_4 )
+
+    if (client_phone=="") {
+        $("#client_phone").focus()
+        return;
+    }
+
+    if (client_phone_2=="") {
+        $("#div_phone_2").css("display","block")
+        $("#client_phone_2").focus()
+        // checkPhonesVisibilty()
+        return;
+    }
+
+    if (client_phone_3=="") {
+        $("#div_phone_3").css("display","block")
+        $("#client_phone_3").focus()
+        // checkPhonesVisibilty()
+        return;
+    }
+
+    if (client_phone_4=="") {
+        $("#div_phone_4").css("display","block")
+        $("#client_phone_4").focus()
+        // checkPhonesVisibilty()
+        return;
+    }
+
+
+}
+
+function checkPhonesVisibilty() {
+    // alert( " heckPhonesVisibilty ::"+var_dump(1) )
+    var client_phone = jQuery.trim( $("#client_phone").val() )
+    var client_phone_2 = jQuery.trim( $("#client_phone_2").val() )
+    var client_phone_3 = jQuery.trim( $("#client_phone_3").val() )
+    var client_phone_4 = jQuery.trim( $("#client_phone_4").val() )
+
+    // alert( " checkPhonesVisibilty  client_phone::"+client_phone + "  client_phone_2::" + client_phone_2  + "  client_phone_3::" + client_phone_3  + "  client_phone_4::" + client_phone_4 )
+
+    if ( client_phone != "" && client_phone_2 != "" && client_phone_3 != "" &&  client_phone_4 != "") {
+        $("#btn_add_phone").css("display","none")
+    } else{
+        $("#btn_add_phone").css("display","block")
+    }
+}
+
 function onSubmit() {
     var client_phone_type= $("#client_phone_type").val()
     var new_client_phone_type= jQuery.trim(  $("#new_client_phone_type").val()  )
