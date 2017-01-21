@@ -20,7 +20,7 @@ echo link_tag('assets/global/plugins/jquery-file-upload/css/jquery.fileupload.cs
 
 
                 <div class="page-bar">
-                    <h3><center><?= ( $is_insert ? "Insert" : "Edit" ) ?> <?=lang('service') ?></center></h3>
+                    <!--<h3><center><?= ( $is_insert ? "Insert" : "Edit" ) ?> <?=lang('service') ?></center></h3>-->
                     <?= $this->common_lib->show_info($editor_message) ?>
                 </div>
 

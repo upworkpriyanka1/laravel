@@ -19,7 +19,7 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
 			<div class="portlet-body">
 
 				<div class="page-bar">
-					<h3 class="page-title"><?=lang('users-view')?></h3>
+					<!--<h3 class="page-title"><?=lang('users-view')?></h3>-->
 					<?= $this->common_lib->show_info($editor_message) ?>
 				</div>
 

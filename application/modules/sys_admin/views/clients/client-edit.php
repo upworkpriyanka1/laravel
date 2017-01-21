@@ -17,7 +17,7 @@
 
 
 				<div class="page-bar">
-					<h3><center><?= ( $is_insert ? "Insert" : "Edit" ) ?> <?=lang('client') ?></center></h3>
+					<!--<h3><center><?= ( $is_insert ? "Insert" : "Edit" ) ?> <?=lang('client') ?></center></h3>-->
 					<?= $this->common_lib->show_info($editor_message) ?>
 				</div>
 

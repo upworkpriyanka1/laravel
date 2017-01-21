@@ -17,7 +17,7 @@
 
 
 				<div class="page-bar padding_lg">
-					<h3><center><?= ( $is_insert ? "Insert" : "Edit" ) ?> <?=lang('users') ?></center></h3>
+					<!--<h3><center><?= ( $is_insert ? "Insert" : "Edit" ) ?> <?=lang('users') ?></center></h3>-->
 					<?= $this->common_lib->show_info($editor_message) ?>
 				</div>
 
