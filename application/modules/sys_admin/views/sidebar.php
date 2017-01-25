@@ -1,5 +1,5 @@
 <!-- BEGIN SIDEBAR -->
-<ul id="nav-mobile" class="page-sidebar-menu side-nav fixed">
+<ul id="nav-mobile" class="page-sidebar-menu side-nav ">
     <li class="logo">
         <a href="./"><img src="<?= base_url('assets/img/logo.png');?>" alt="logo" class="logo-default" /></a>
     </li>

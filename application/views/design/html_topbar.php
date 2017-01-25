@@ -9,6 +9,7 @@
 <?php }else{ ?>
 <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-md">
 <?php } ?>
+
         <!-- BEGIN HEADER -->
         <header>
             <nav class="top-nav">
@@ -20,7 +21,7 @@
                             if (isset($this->uri->segments['2'])){$page_title= lang($this->uri->segment('2'));}
                         ?>
                         <h3 class="page-title"> 
-                            <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+                            <a href="#" data-activates="nav-mobile" class="button-collapse" id="nav_mobile_button"><i class="material-icons">menu</i></a>
 	                        <?php if($page_title != ''){ echo $page_title; }else{ ?>
 		                       <?=lang('vendor-types-view')?>
 		                    <?php } ?>

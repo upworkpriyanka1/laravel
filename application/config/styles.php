@@ -65,7 +65,8 @@ $config['core_plugins'] = 	array(
 								'bs_switch',
 								'uniform',
 								'materialize',
-								'jsinit'
+								'jsinit',
+								'globaljs'
 							);
 
 /*

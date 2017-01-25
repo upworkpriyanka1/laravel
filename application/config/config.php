@@ -278,7 +278,14 @@ if ((!empty($_SERVER["HTTP_HOST"]) and !(strpos($_SERVER["HTTP_HOST"], "local-zn
         $config['base_url'] = 'https://dev5.zntral.net/';
         $config['is_developer_comp'] = 1;
 
-    } else {
+    } else if (ENVIRONMENT == 'devK') {
+        $config['log_path'] = '/home/zntral/devK/log/'; // '/home/dev9soft/public_html/tb/'
+        $config['sql_queries_to_file'] = 'D:\xampp\htdocs\zntral\application\config\devK\logs\sql_queries_to_file_';
+        $config['document_root'] = 'D:\xampp\htdocs\zntral';
+        $config['base_url'] = 'http://zntral.loc/';
+        $config['is_developer_comp'] = 1;
+
+    }    else {
         $config['log_path'] = '/home/zntral/front2/log/'; // '/home/dev9soft/public_html/tb/'
         $config['sql_queries_to_file'] = '/home/zntral/front2/logs/sql_queries_to_file_';
         $config['document_root'] = '/home/zntral/front2/';
@@ -587,7 +594,7 @@ $config['proxy_ips'] = '';
 
 ////////////// APP SETTINGS START ////////////////
 $config['items_per_page'] = 10;
-$config['uri_segment'] = 5; 
+$config['uri_segment'] = 5;
 $config['num_links'] = 10;
 $config['use_page_numbers'] = TRUE;
 //$config['page_query_string'] = TRUE;

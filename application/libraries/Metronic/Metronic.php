@@ -75,7 +75,8 @@ class Metronic extends CI_Driver_Library {
         	'gantt',
 			'login',
 			'materialize',
-			'jsinit'
+			'jsinit',
+			'globaljs'
         );
         
 	}

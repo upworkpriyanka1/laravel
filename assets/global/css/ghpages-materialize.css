@@ -6969,7 +6969,7 @@ input[type=range]:focus::-ms-fill-upper {
     right: 0;
     height: 120vh;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 997;
+    z-index: 999;
     will-change: opacity
 }
 
@@ -9174,6 +9174,24 @@ body.parallax-demo footer {
 
 #twitter-widget-0 {
     width: 190px !important
+}
+
+#nav-mobile{
+    background: #c8c8c8 !important;
+    overflow: hidden;
+    z-index: 99999;
+    left: 0;
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+    position: fixed;
+}
+
+#nav-mobile .logo{
+    padding-bottom: 20px;
+    padding-top: 20px;
+    text-align: center;
+    margin: 0 !important;
+    background: #fff;
 }
 
 #nav-mobile li.search {
