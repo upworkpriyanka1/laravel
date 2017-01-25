@@ -14,7 +14,9 @@
         <div class="portlet light portlet-fit portlet-form bordered">
             <!-- BEGIN VALIDATION STATES-->
             <div class="portlet light portlet-fit portlet-form bordered">
+
                 <!--<h3><center><?= ( $is_insert ? "Insert" : "Edit" ) ?> <?=lang('vendor') ?></center></h3>-->
+
 	            <?= $this->common_lib->show_info($editor_message) ?>
 
                 <div class="portlet-body">
