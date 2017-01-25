@@ -32,6 +32,15 @@ function generateNewPassword(user_id) {
 
 }
 
+function userRemove( id, username, logged_user_id ) {
+    if ( logged_user_id == id ) {
+        alert( "You can not remove user under which you are logged !" )
+        return;
+    }
+    if ( confirm( "Do you want to remove '"+username+"' user with all related data ? ") ) {
+        document.location = "/sys-admin/users/remove_user/id/" + id;
+    }
+}
 
 
 /**********************

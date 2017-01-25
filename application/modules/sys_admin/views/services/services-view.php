@@ -11,7 +11,7 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
             <div class="portlet-body">
 
                 <div class="page-bar">
-                    <h3 class="page-title"><?=lang('services-view')?></h3>
+                    <!--<h3 class="page-title"><?=lang('services-view')?></h3>-->
                     <?= $this->common_lib->show_info($editor_message) ?>
                 </div>
 
@@ -41,7 +41,6 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
                                 <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/services/services-view', $page_parameters_without_sort, lang('vt_name'), "vt_name", $sort_direction, $sort ) ?></th>
                                 <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/services/services-view', $page_parameters_without_sort, lang('sv_description'), "sv_description", $sort_direction, $sort ) ?></th>
                                 <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/services/services-view', $page_parameters_without_sort, lang('created_at'), "created_at", $sort_direction, $sort ) ?></th>
-                                <th><i class="fa fa-pencil"></i></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -49,16 +48,17 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
                                 foreach($services as $row){?>
                                     <tr>
 
-                                        <td><?php echo $row->sv_title;?></td>
+                                        <td>
+                                            <a class="a_link" href="<?= base_url($this->uri->segment(1).'/services/services-edit/'.$row->sv_id);?><?= $page_parameters_with_sort ?>">
+                                                <?php echo $row->sv_title;?>
+                                            </a>
+                                        </td>
                                         <td>
                                             <?php echo $this->common_lib->get_service_active_status_label($row->sv_active_status); ?>
                                         </td>
                                         <td><?php echo $row->vt_name ?></td>
                                         <td><?php echo $this->common_lib->concatStr($row->sv_description); ?></td>
                                         <td><?php echo $ci->common_lib->format_datetime( $row->created_at) ?></td>
-                                        <td><a class="btn btn-sm blue" href="<?= base_url($this->uri->segment(1).'/services/services-edit/'.$row->sv_id);?><?= $page_parameters_with_sort ?>">
-                                                <i class="fa fa-pencil"></i>
-                                            </a></td>
                                     </tr>
                                     <?php
                                 }//end foreach

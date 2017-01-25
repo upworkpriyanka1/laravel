@@ -15,3 +15,9 @@ function set_error_keypress() {
         $(this).removeClass("has-error");
     });
 }
+
+function vendor_typeRemove( id, vt_name ) {
+    if ( confirm( "Do you want to remove '"+vt_name+"' vendor type ? ") ) {
+        document.location = "/sys-admin/vendors/remove_vendor_types/id/" + id;
+    }
+}

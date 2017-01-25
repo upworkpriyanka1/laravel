@@ -33,8 +33,6 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
 							<tr>
 								<th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/vendors/vendor-types-view', $page_parameters_without_sort, lang('vt_name'), "vt_name", $sort_direction, $sort ) ?></th>
 								<th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/vendors/vendor-types-view', $page_parameters_without_sort, lang('created_at'), "created_at", $sort_direction, $sort ) ?></th>
-								<th><i class="fa fa-pencil"></i></th>
-								<th><i class="fa fa-remove"></i></th>
 							</tr>
 							</thead>
 							<tbody>
@@ -43,24 +41,15 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
 									<tr>
 
 										<td>
-											<?php echo $row->vt_name;?>
+											<a class="a_link" href="<?= base_url($this->uri->segment(1).'/vendors/vendor-types-edit/'.$row->vt_id);?><?= $page_parameters_with_sort ?>">
+												<?php echo $row->vt_name;?>
+											</a>
 											<?php if (!empty($row->vendors_count) ) :  ?>
 												<span class="details_info">, used by <?php echo $row->vendors_count ?> <a class="a_link" href=" <?= base_url() ?>/sys-admin/vendors/vendors-view/page_number/1/filter_vendor_type_id/<?php echo $row->vt_id?>">vendor(s)</a></span>
 											<?php endif ?>
 										</td>
 										<td><?php echo $ci->common_lib->format_datetime( $row->created_at) ?></td>
-										<td>
-											<a class="btn blue waves-effect waves-light" href="<?= base_url($this->uri->segment(1).'/vendors/vendor-types-edit/'.$row->vt_id);?><?= $page_parameters_with_sort ?>">
-												<i class="fa fa-pencil"></i>
-											</a>
-										</td>
-										<td>
-											<?php if (empty($row->vendors_count) ) :  ?>
-												<a class="btn btn-sm blue" class="a_link" onclick="javascript:vendor_typeRemove(<?php echo $row->vt_id?>, '<?php echo $row->vt_name ?>' )" ><i class="fa fa-remove"></i>
-												</a>
-											<?php endif ?>
-										</td>
-									</tr>
+										</tr>
 									<?php
 								}//end foreach
 							}//end isset

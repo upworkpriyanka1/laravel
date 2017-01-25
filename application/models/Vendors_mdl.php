@@ -108,11 +108,24 @@ class Vendors_mdl extends CI_Model
         }
     }
 
-    public function getVendor_TypeRowById( $id )
+    public function getVendor_TypeRowById( $id, $additive_params= array() )
     {
+	    $additive_fields_for_select= "";
+	    $fields_for_select= $this->m_vendor_types_table.".*";
+
         $this->db->where( $this->m_vendor_types_table . '.vt_id', $id);
-        $query = $this->db->from($this->m_vendor_types_table);
+
+	    if ( !empty($additive_params['show_vendors_count']) ) {
+		    $additive_fields_for_select .= ', ( select count(*) from ' . $this->m_vendors_have_types_table . ' where ' . $this->m_vendors_have_types_table . '.vh_vendor_type_id = ' . $this->m_vendor_types_table . '.vt_id ) as vendors_count ';
+	    }
+
+	    $fields_for_select.= ' ' . $additive_fields_for_select;
+
+	    $query = $this->db->from($this->m_vendor_types_table);
         $ci = & get_instance();
+	    if (strlen(trim($fields_for_select)) > 0) {
+		    $query->select($fields_for_select);
+	    }
         $resultRows = $query->get()->result();
         if ( !empty($resultRows[0]) ) {
             return $resultRows[0];

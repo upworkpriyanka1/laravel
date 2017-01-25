@@ -38,27 +38,21 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
 								<th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/cms_items/cms_items-view', $page_parameters_without_sort, lang('ci_page_type'), "ci_page_type", $sort_direction, $sort ) ?></th>
 								<th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/cms_items/cms_items-view', $page_parameters_without_sort, lang('ci_published'), "ci_published", $sort_direction, $sort ) ?></th>
 								<th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/cms_items/cms_items-view', $page_parameters_without_sort, lang('ci_created_at'), "ci_created_at", $sort_direction, $sort ) ?></th>
-								<th><i class="fa fa-pencil"></i></th>
-								<th><i class="fa fa-remove"></i></th>
 							</tr>
 							</thead>
 							<tbody>
 							<?php if (isset($cms_items) && count($cms_items)>0){
 								foreach($cms_items as $row){?>
 									<tr>
-										<td><?php echo $row->ci_title;?></td>
+										<td>
+											<a class="a_link" href="<?= base_url($this->uri->segment(1).'/cms_items/cms_items-edit/'.$row->ci_id);?><?= $page_parameters_with_sort ?>">
+												<?php echo $row->ci_title;?>
+											</a>
+										</td>
 										<td><?php echo $row->ci_alias;?></td>
 										<td><?php echo $ci->common_lib->get_cms_items_page_type_label($row->ci_page_type);?></td>
 										<td><?php echo $ci->common_lib->get_cms_items_ci_published_label($row->ci_published);?></td>
 										<td><?php echo $ci->common_lib->format_datetime( $row->ci_created_at) ?></td>
-										<td>
-											<a class="btn btn-sm blue" href="<?= base_url($this->uri->segment(1).'/cms_items/cms_items-edit/'.$row->ci_id);?><?= $page_parameters_with_sort ?>">				<i class="fa fa-pencil"></i>
-											</a>
-										</td>
-										<td>
-											<a class="btn btn-sm blue" class="a_link" onclick="javascript:cms_itemRemove(<?php echo $row->ci_id?>, '<?php echo $row->ci_title ?>' )" ><i class="fa fa-remove"></i>
-											</a>
-										</td>
 
 									</tr>
 									<?php

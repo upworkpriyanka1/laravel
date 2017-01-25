@@ -6,7 +6,7 @@ $lang['color_scheme']   = "Color Scheme";
 
 
 //users section
-$lang['users']        = "Users";
+$lang['users']        = "New User";
 $lang['users-view']   = "Manage";
 $lang['users-add']    = "New";
 //$lang['users-role']   = "Groups";

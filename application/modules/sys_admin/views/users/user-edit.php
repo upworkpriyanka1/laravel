@@ -17,7 +17,7 @@
 
 
 				<div class="page-bar padding_lg">
-					<h3><center><?= ( $is_insert ? "Insert" : "Edit" ) ?> <?=lang('users') ?></center></h3>
+					<!--<h3><center><?= ( $is_insert ? "Insert" : "Edit" ) ?> <?=lang('users') ?></center></h3>-->
 					<?= $this->common_lib->show_info($editor_message) ?>
 				</div>
 
@@ -319,7 +319,7 @@
 
 							<section class="row ">
 								<div class=" btn-group pull-right editor_btn_group " >
-									<div class="col-md-4  ">
+									<div class="col-sm-3 col-xs-12">
 										On Update&nbsp;
 										<select id="select_on_update" name="select_on_update">
 											<option value="reopen_editor" <?= ( $select_on_update == "reopen_editor" ? "selected" : "") ?> >Reopen editor</option>
@@ -327,14 +327,23 @@
 											<option value="reopen_listing" <?= ( $select_on_update == "reopen_listing" ? "selected" : "") ?> >Reopen listing</option>
 										</select>
 									</div>
-									<div class="col-md-4 ">
+									<div class="col-sm-3 col-xs-12 ">
 										<button type="button" class="btn btn-primary" onclick="javascript:onSubmit();" >Submit</button>
 									</div>
-									<div class="col-md-2 pull-left ">
+									<div class="col-sm-2 col-xs-12 pull-left ">
 										<button type="reset" class="btn btn-cancel-action" onclick="javascript:document.location='<?=base_url()?>sys-admin/users/users-view<?=$page_parameters_with_sort?>'" >Cancel</button>
 									</div>
+									<?php if ( !$is_insert ) : ?>
+									<div class="col-sm-4 col-xs-12 pull-right ">
+										<button type="reset" class="btn btn-delete-action" onclick="javascript:userRemove(<?php echo $editable_user->id?>, '<?php echo addslashes($editable_user->username) ?>') " >
+											<div class="fa fa-remove" style = "font-size: xx-large; padding-bottom: 5px;" ></div>&nbsp;
+										</button>
+									</div>
+									<?php endif; ?>
+									<?php if ( $is_insert ) : ?>
 									<div class="col-md-2 ">
 									</div>
+									<?php endif; ?>
 								</div>
 							</section>
 

@@ -16,7 +16,7 @@
 
 
                     <div >
-                        <h3><center><?= ( $is_insert ? "Insert" : "Edit" ) ?> <?=lang('vendor-types') ?></center></h3>
+                        <!--<h3><center><?= ( $is_insert ? "Insert" : "Edit" ) ?> <?=lang('vendor-types') ?></center></h3>-->
                         <?= $this->common_lib->show_info($editor_message) ?>
                     </div>
 
@@ -109,7 +109,7 @@
 
                                 <section class="row ">
                                     <div class=" btn-group pull-right editor_btn_group " >
-                                        <div class="col-xs-6  col-sm-4  ">
+                                        <div class="col-sm-3 col-xs-12">
                                             On Update&nbsp;
                                             <select id="select_on_update" name="select_on_update">
                                                 <option value="reopen_editor" <?= ( $select_on_update == "reopen_editor" ? "selected" : "") ?> >Reopen editor</option>
@@ -117,15 +117,30 @@
                                                 <option value="reopen_listing" <?= ( $select_on_update == "reopen_listing" ? "selected" : "") ?> >Reopen listing</option>
                                             </select>
                                         </div>
-                                        <div class="col-xs-6  col-sm-4 ">
+                                        <div class="col-sm-3 col-xs-12">
                                             <button type="button" class="btn btn-primary" onclick="javascript:onSubmit();" >Submit</button>
                                         </div>
-                                        <div class="col-xs-12 col-sm-2 pull-left ">
+                                        <div class="col-sm-2 col-xs-12 pull-left ">
                                             <button type="reset" class="btn btn-cancel-action" onclick="javascript:document.location='<?=base_url()?>sys-admin/vendors/vendor-types-view<?=$page_parameters_with_sort?>'" >Cancel</button>
 <!--                                            <img src="{{ base_url }}static/images/{{ current_skin_name }}/clear-data.png" alt="Clear All Data" title="Clear All Data" class="a_link  img_clear_data" onclick="javascript:clearAllData()">-->
                                         </div>
-                                        <div class="col-sm-2 ">
-                                        </div>
+                                        <?php if ( !$is_insert ) : ?>
+                                            <?php if ( !empty($vendor_types->vendors_count) and $vendor_types->vendors_count > 0 ) { ?>
+                                                <div class="details_info">Can not be deleted<br>used by <?php echo $vendor_types->vendors_count ?> <a class="a_link" href=" <?= base_url() ?>/sys-admin/vendors/vendors-view/page_number/1/filter_vendor_type_id/<?php echo $vendor_types->vt_id?>"> vendor(s)</a>.</div>
+                                            <?php } else { ?>
+                                            <div class="col-sm-4 col-xs-12 pull-right ">
+                                                <button type="reset" class="btn btn-delete-action" onclick="javascript:vendor_typeRemove(<?php echo $vendor_types->vt_id?>, '<?php echo addslashes($vendor_types->vt_name) ?>') " >
+                                                    <div class="fa fa-remove" style = "font-size: xx-large; padding-bottom: 5px;" ></div>&nbsp;
+                                                </button>
+                                            </div>
+                                            <?php } ?>
+                                        <?php endif; ?>
+                                        <?php if ( $is_insert ) : ?>
+                                            <div class="col-md-2 ">
+                                            </div>
+                                        <?php endif; ?>
+<!--                                        <div class="col-sm-2 ">-->
+<!--                                        </div>-->
                                     </div>
                                 </section>
 

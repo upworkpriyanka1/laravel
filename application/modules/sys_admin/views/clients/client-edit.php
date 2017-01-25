@@ -17,7 +17,7 @@
 
 
 				<div class="page-bar">
-					<h3><center><?= ( $is_insert ? "Insert" : "Edit" ) ?> <?=lang('client') ?></center></h3>
+					<!--<h3><center><?= ( $is_insert ? "Insert" : "Edit" ) ?> <?=lang('client') ?></center></h3>-->
 					<?= $this->common_lib->show_info($editor_message) ?>
 				</div>
 
@@ -68,7 +68,12 @@
 								<!-- Client  client_name -->
 								<div class="col-md-6">
 									<div class="form-group input-field <?= $this->common_lib->set_field_error_tag("data[client_name]", ' has-error ')?> ">
-										<div class="col-md-7">
+
+										<div class="col-md-7" style="display: <?php echo ( $is_insert ? "block" :"none") ; ?>" id="div_client_name_btn">
+											<button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:switchFieldName('client_name',true);" id="btn_add_client_name">Add a name<span class="required">&nbsp;*&nbsp;</span></button>
+										</div>
+
+										<div class="col-md-7" style="display: <?php echo ( $is_insert ? "none" :"block" ) ; ?>" id="div_client_name_input">
 											<i class="material-icons prefix">account_circle</i>
 											<input type="text" name="data[client_name]" id="client_name" value="<?= ( !empty($client->client_name) ? $client->client_name : '' ); ?>" class="form-control" maxlength="100" <?php echo !$is_insert ? " readonly " : "" ?> />
 											<label for="client_name" class="control-label col-md-4"><?php echo lang('client_name') ?><span class="required">&nbsp;*&nbsp;</span></label>
@@ -79,7 +84,12 @@
 								<!-- client owner -->
 								<div class="col-md-6">
 									<div class="form-group input-field <?= $this->common_lib->set_field_error_tag("data[client_owner]", ' has-error ')?>">
-										<div class="col-md-7">
+
+										<div class="col-md-7" style="display: <?php echo ( $is_insert ? "block" :"none") ; ?>" id="div_client_owner_btn">
+											<button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:switchFieldName('client_owner',true);" id="btn_add_client_owner">Add an owner</button>
+										</div>
+
+										<div class="col-md-7" style="display: <?php echo ( $is_insert ? "none" :"block" ) ; ?>" id="div_client_owner_input">
 											<i class="material-icons prefix">account_circle</i>
 											<input type="text" name="data[client_owner]" id="client_owner" value="<?= ( !empty($client->client_owner) ? $client->client_owner : '' ); ?>" class="form-control" maxlength="100" />
 											<label for="client_owner" class="control-label col-md-4"><?php echo lang('client_owner') ?></label>
@@ -92,7 +102,11 @@
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group input-field <?= $this->common_lib->set_field_error_tag("data[client_active_status]", ' has-error ')?>">
-										<div class="col-md-7">
+										<div class="col-md-7" style="display: <?php echo ( $is_insert ? "block" :"none") ; ?>" id="div_client_active_status_btn">
+											<button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:switchFieldName('client_active_status',true);" id="btn_add_client_active_status">Add an active status<span class="required">&nbsp;*&nbsp;</span></button>
+										</div>
+
+										<div class="col-md-7" style="display: <?php echo ( $is_insert ? "none" :"block" ) ; ?>" id="div_client_active_status_input">
 											<table>
 												<tr>
 													<td style="padding-bottom: 12px;">
@@ -116,7 +130,10 @@
 								<!-- client Addrtess 1 -->
 								<div class="col-md-6 ">
 									<div class="form-group input-field <?= $this->common_lib->set_field_error_tag("data[client_address1]", ' has-error ')?>">
-										<div class="col-md-7">
+										<div class="col-md-7" style="display: <?php echo ( $is_insert ? "block" :"none") ; ?>" id="div_client_address1_btn">
+											<button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:switchFieldName('client_address1',true);" id="btn_add_client_address1">Add an address<span class="required">&nbsp;*&nbsp;</span></button>
+										</div>
+										<div class="col-md-7" style="display: <?php echo ( $is_insert ? "none" :"block" ) ; ?>" id="div_client_address1_input">
 											<input type="text" name="data[client_address1]" id="client_address1" value="<?= ( !empty($client->client_address1) ? $client->client_address1 : '' ); ?>" class="form-control" maxlength="100" />
 											<label for="client_address1" class="control-label col-md-4"><?php echo lang('address1') ?><span class="required">&nbsp;*&nbsp;</span></label>
 										</div><!-- ./col -->
@@ -125,7 +142,10 @@
 								<!-- client Address 2 -->
 								<div class="col-md-6">
 									<div class="form-group input-field <?= $this->common_lib->set_field_error_tag("data[client_address2]", ' has-error ')?>">
-										<div class="col-md-7">
+										<div class="col-md-7" style="display: <?php echo ( $is_insert ? "block" :"none") ; ?>" id="div_client_address2_btn">
+											<button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:switchFieldName('client_address2',true);" id="btn_add_client_address2">Add an additive address</button>
+										</div>
+										<div class="col-md-7" style="display: <?php echo ( $is_insert ? "none" :"block" ) ; ?>" id="div_client_address2_input">
 											<input type="text" name="data[client_address2]" id="client_address2" value="<?= ( !empty($client->client_address2) ? $client->client_address2 : '' ); ?>"  class="form-control" maxlength="100" />
 											<label for="client_address2" class="control-label col-md-4"><?php echo lang('address2') ?></label>
 										</div><!-- ./col -->
@@ -177,6 +197,10 @@
 							<div class="row">
 								<!-- client phone -->
 								<div class="col-md-6">
+
+											<button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:AddPhone();" id="btn_add_phone">Add a phone</button>
+
+
 									<div class="form-group input-field <?= $this->common_lib->set_field_error_tag("data[client_phone]", ' has-error ')?>">
 										<div class="col-md-7">
 											<table>
@@ -185,9 +209,6 @@
 														<i class="material-icons prefix">phone</i>
 														<input type="text" name="data[client_phone]" id="client_phone" value="<?= ( !empty($client->client_phone) ? $client->client_phone : '' ); ?>" class="form-control" maxlength="50" onchange="javascript:checkPhonesVisibilty(); " />
 														<label for="client_phone" class="control-label col-md-4"><?php echo lang('phone') ?></label>
-													</td>
-													<td >
-														<button type="button" class="btn-xs" onclick="javascript:AddPhone();" id="btn_add_phone">Add a phone</button>
 													</td>
 												</tr>
 											</table>

@@ -93,6 +93,10 @@ div.table_pagination a {
     border: 0px solid maroon;  /* DEBUGGING */
     font-size: medium;
 }
+
+.btn-delete-action {
+    background-color: darkgrey;
+}
 /* BUTTONS BLOCK END */
 
 /* Modal Dialogs BLOCK Start */

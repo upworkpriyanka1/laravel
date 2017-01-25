@@ -167,7 +167,7 @@ class Vendors extends CI_Controller
             }
         }
         else {
-            $vendor_types= $this->vendors_mdl->getVendor_TypeRowById( $vt_id );
+            $vendor_types= $this->vendors_mdl->getVendor_TypeRowById( $vt_id, array('show_vendors_count'=> 1) );
         }
 
         $data['vendor_types']		= $vendor_types;

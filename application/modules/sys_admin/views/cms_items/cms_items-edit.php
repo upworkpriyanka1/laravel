@@ -112,7 +112,7 @@
 										<div class="col-md-7">
 											<textarea rows="8" cols="120" name="data[ci_content]" id="ci_content" data-required="1" class="form-control" /><?= ( !empty($cms_item->ci_content) ? $cms_item->ci_content : '' ) ?></textarea>
 
-											<?php if ( !$is_insert ) : ?>
+											<?php if ( !$is_insert and !empty($cms_item->ci_content_hints ) ) : ?>
 												<b>Tags</b>:</br>
 											<?php endif; ?>
 
@@ -198,7 +198,7 @@
 
 							<section class="row ">
 								<div class=" btn-group pull-right editor_btn_group " >
-									<div class="col-xs-6  col-sm-4  ">
+									<div class="col-sm-3 col-xs-12">
 										On Update&nbsp;
 										<select id="select_on_update" name="select_on_update">
 											<option value="reopen_editor" <?= ( $select_on_update == "reopen_editor" ? "selected" : "") ?> >Reopen editor</option>
@@ -206,14 +206,23 @@
 											<option value="reopen_listing" <?= ( $select_on_update == "reopen_listing" ? "selected" : "") ?> >Reopen listing</option>
 										</select>
 									</div>
-									<div class="col-xs-6  col-sm-4 ">
+									<div class="col-sm-3 col-xs-12 ">
 										<button type="button" class="btn green waves-effect waves-light" onclick="javascript:onSubmit();" >Submit</button>
 									</div>
-									<div class="col-xs-12 col-sm-2 pull-left ">
+									<div class="col-sm-2 col-xs-12 pull-left ">
 										<button type="reset" class="btn btn-cancel-action waves-effect waves-light" onclick="javascript:document.location='<?=base_url()?>sys-admin/cms_items/cms_items-view<?=$page_parameters_with_sort?>'" >Cancel</button>
 									</div>
+									<?php if ( !$is_insert ) : ?>
+										<div class="col-sm-4 col-xs-12 pull-right ">
+											<button type="reset" class="btn btn-delete-action" onclick="javascript:cms_itemRemove(<?php echo $cms_item->ci_id?>, '<?php echo addslashes($cms_item->ci_title) ?>') " >
+												<div class="fa fa-remove" style = "font-size: xx-large; padding-bottom: 5px;" ></div>&nbsp;
+											</button>
+										</div>
+									<?php endif; ?>
+									<?php if ( $is_insert ) : ?>
 									<div class="col-sm-2 ">
 									</div>
+									<?php endif; ?>
 								</div>
 							</section>
 

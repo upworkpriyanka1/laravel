@@ -45,15 +45,6 @@ function clearAllData() {
     });
 }
 
-function userRemove( id, username, logged_user_id ) {
-    if ( logged_user_id == id ) {
-        alert( "You can not remove user under which you are logged !" )
-        return;
-    }
-    if ( confirm( "Do you want to remove '"+username+"' user with all related data ? ") ) {
-        document.location = "/sys-admin/users/remove_user/id/" + id;
-    }
-}
 /**********************
  * clicking on "Filter" button in users View page filters popup dialog is opened and inputs are filled from "hidden_" hidden inputs of form and date initialization
  * access public

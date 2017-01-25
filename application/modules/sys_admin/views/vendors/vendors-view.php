@@ -37,7 +37,6 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
                             <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/vendors/vendors-view', $page_parameters_without_sort, lang('vn_email'), "vn_email", $sort_direction, $sort ) ?></th>
                             <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/vendors/vendors-view', $page_parameters_without_sort, lang('vn_description'), "vn_description", $sort_direction, $sort ) ?></th>
                             <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/vendors/vendors-view', $page_parameters_without_sort, lang('created_at'), "created_at", $sort_direction, $sort ) ?></th>
-                            <th><i class="fa fa-pencil"></i></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -45,15 +44,16 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
                             foreach($vendors as $row){?>
                                 <tr>
 
-                                    <td><?php echo $row->vn_name;?></td>
+                                    <td>
+                                        <a class="a_link" href="<?= base_url($this->uri->segment(1).'/vendors/vendors-edit/'.$row->vn_id);?><?= $page_parameters_with_sort ?>">
+                                            <?php echo $row->vn_name;?>
+                                        </a>
+                                    </td>
                                     <td>
                                         <a href="mailto:<?php echo $row->vn_email;?>"><?php echo $row->vn_email;?></a>
                                     </td>
                                     <td><?php echo $row->vn_description;?></td>
                                     <td><?php echo $ci->common_lib->format_datetime( $row->created_at) ?></td>
-                                    <td><a class="btn btn-sm blue" href="<?= base_url($this->uri->segment(1).'/vendors/vendors-edit/'.$row->vn_id);?><?= $page_parameters_with_sort ?>">
-                                            <i class="fa fa-pencil"></i>
-                                        </a></td>
                                 </tr>
                                 <?php
                             }//end foreach

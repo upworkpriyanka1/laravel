@@ -45,7 +45,7 @@ $lang['client']                = "Client";
 $lang['clients']                = "Clients";
 $lang['clients-view']           = "Manage";
 $lang['clients-add']            = "New";
-$lang['clients-edit']           = "Edit Client";
+$lang['clients-edit']           = "New Client";
 $lang['clients-type']           = "Client Type";
 $lang['client_type_help']       = "select min 1 option (Ctrl+Click)";
 $lang['client_name']            = "Client Name";
@@ -77,7 +77,7 @@ $lang['activity-logs']          = "Activity Logs";
 
 
 $lang['vendors-services']       = "Vendors/Services";
-$lang['vendor-types-view']      = "Vendor Types Listing";
+$lang['vendor-types-view']      = "New Vendor";
 $lang['vendor-types']           = "Vendor Type";
 $lang['vt_id']                  = "ID";
 $lang['vt_name']                = "Vendor Type";

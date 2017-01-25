@@ -9,6 +9,51 @@ $(document).ready(function ($) {
     }
 });
 
+function switchFieldName(field_name, switcher) {
+    if ( switcher ) {
+        $("#div_"+field_name+"_btn").css("display", "none")
+        $("#div_"+field_name+"_input").css("display", "block")
+        $("#"+field_name+"").focus()
+    // } else {
+    //     $("#div_client_name_btn").css("display", "block")
+    //     $("#div_client_name_input").css("display", "none")
+    }
+}
+/*
+function switchClientName(switcher) {
+    if ( switcher ) {
+        $("#div_client_name_btn").css("display", "none")
+        $("#div_client_name_input").css("display", "block")
+        $("#client_name").focus()
+    } else {
+        $("#div_client_name_btn").css("display", "block")
+        $("#div_client_name_input").css("display", "none")
+    }
+}
+
+function switchClientOwner(switcher) {
+    if ( switcher ) {
+        $("#div_client_owner_btn").css("display", "none")
+        $("#div_client_owner_input").css("display", "block")
+        $("#client_owner").focus()
+    } else {
+        $("#div_client_owner_btn").css("display", "block")
+        $("#div_client_owner_input").css("display", "none")
+    }
+}
+*/
+
+/*
+function onBlur(field_name) {
+    var field_value= jQuery.trim( $("#"+field_name).val() )
+    alert( "onBlur  field_name::"+field_name + "field_value::"+field_value)
+    if (field_value=="") {
+
+    }
+ onblur="onBlur('client_name')"
+}
+
+*/
 function AddPhone() {
 
     var client_phone = jQuery.trim( $("#client_phone").val() )

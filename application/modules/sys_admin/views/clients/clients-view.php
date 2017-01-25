@@ -11,7 +11,7 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
             <div class="portlet-body">
 
                 <div class="page-bar">
-                    <h3 class="page-title"><?=lang('clients-view')?></h3>
+                    <!--<h3 class="page-title"><?=lang('clients-view')?></h3>-->
                     <?= $this->common_lib->show_info($editor_message) ?>
                 </div>
 
@@ -38,7 +38,6 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
                             <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $page_parameters_without_sort, lang('clients-type'), "type_description", $sort_direction, $sort ) ?></th>
                             <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $page_parameters_without_sort, lang('created_at'), "created_at", $sort_direction, $sort ) ?></th>
                             <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $page_parameters_without_sort, lang('updated_at'), "updated_at", $sort_direction, $sort ) ?></th>
-                            <th><i class="fa fa-pencil"></i></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -46,7 +45,12 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
                 		    foreach($clients as $row){?>
                         <tr>
 
-                            <td><?php echo $row->client_name;?></td>
+
+                            <td>
+                                <a class="a_link" href="<?= base_url($this->uri->segment(1).'/clients-edit/'.$row->cid);?>/<?= $page_parameters_with_sort ?>">
+                                    <?php echo $row->client_name;?>
+                                </a>
+                            </td>
                             <td>
                                 <a href="mailto:<?php echo $row->client_email;?>"> <?php echo $row->client_owner;?> </a>
                             </td>
@@ -55,9 +59,6 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
                             <td><?php echo $row->type_description;?></td>
                             <td><?php echo $ci->common_lib->format_datetime( $row->created_at) ?></td>
                             <td><?php echo $ci->common_lib->format_datetime( $row->updated_at ) ?></td>
-                            <td><a class="btn btn-sm blue" href="<?= base_url($this->uri->segment(1).'/clients-edit/'.$row->cid);?>/<?= $page_parameters_with_sort ?>">
-                                <i class="fa fa-pencil"></i>
-                            </a></td>
                         </tr>
                         <?php
                             }//end foreach
