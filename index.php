@@ -28,7 +28,7 @@ else if (strpos ($domain,'dev4') !==FALSE)
 	define('ENVIRONMENT', 'dev4');
 else if (strpos ($domain,'dev5') !==FALSE)
 	define('ENVIRONMENT', 'dev5');
-else if (strpos ($domain,'zntral') !==FALSE)
+else if (strpos ($domain,'devk') !==FALSE)
 	define('ENVIRONMENT', 'devK');
 else
 	define('ENVIRONMENT', 'production');
