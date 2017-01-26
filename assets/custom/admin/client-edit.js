@@ -244,41 +244,45 @@ function load_related_users(page) {
  *********************************/
 function setRelatedUserEnabled( related_user_username, related_user_active_status_label, related_user_email, related_user_phone, uc_active_status, uc_active_status_label, related_user_id ) {
 
-    $('.tooltip-inner').css('display', 'none');
 
+    $('.tooltip-inner').css('display', 'none');
+    $( "#related_user_enabled_dialog" ).css({
+        'display':'block',
+        'opacity': '1'
+    });
     $( "#related_user_enabled_dialog" ).modal(  {
         "backdrop": "static",
         "keyboard": true,
         "show": true
     }  );
-    var current_client_name = $("#client_name").val()
-    $("#span_client_name").html( current_client_name )
-    $("#span_related_user_username").html( related_user_username )
-    $("#span_related_user_active_status_label").html( related_user_active_status_label )
-    $("#span_related_user_email").html( related_user_email )
-    $("#span_related_user_phone").html( related_user_phone )
-    $("#span_uc_active_status").html( uc_active_status )
+    var current_client_name = $("#client_name").val();
+    $("#span_client_name").html( current_client_name );
+    $("#span_related_user_username").html( related_user_username );
+    $("#span_related_user_active_status_label").html( related_user_active_status_label );
+    $("#span_related_user_email").html( related_user_email );
+    $("#span_related_user_phone").html( related_user_phone );
+    $("#span_uc_active_status").html( uc_active_status );
 
-    $("#span_uc_active_status_label").html( uc_active_status_label )
-    $("#hidden_related_user_id").val( related_user_id )
+    $("#span_uc_active_status_label").html( uc_active_status_label );
+    $("#hidden_related_user_id").val( related_user_id );
 
 
     if ( uc_active_status == "E" ) {
-        $("#div_set_status_employee").css("display","none")
-        $("#div_set_status_out_of_staff").css("display","block")
-        $("#div_set_status_not_related").css("display","block")
+        $("#div_set_status_employee").css("display","none");
+        $("#div_set_status_out_of_staff").css("display","block");
+        $("#div_set_status_not_related").css("display","block");
     } // current status is Employee
 
     if ( uc_active_status == "O" ) {
-        $("#div_set_status_employee").css("display","block")
-        $("#div_set_status_out_of_staff").css("display","none")
-        $("#div_set_status_not_related").css("display","block")
+        $("#div_set_status_employee").css("display","block");
+        $("#div_set_status_out_of_staff").css("display","none");
+        $("#div_set_status_not_related").css("display","block");
     } // current status is Out Of Staff
 
     if ( uc_active_status == "N" ) {
-        $("#div_set_status_employee").css("display","block")
-        $("#div_set_status_out_of_staff").css("display","block")
-        $("#div_set_status_not_related").css("display","none")
+        $("#div_set_status_employee").css("display","block");
+        $("#div_set_status_out_of_staff").css("display","block");
+        $("#div_set_status_not_related").css("display","none");
 
     } // current status is Not Related
 

@@ -434,6 +434,7 @@ class Sys_admin extends CI_Controller {
     function clients_set_related_user_status() {
         $UriArray = $this->uri->uri_to_assoc(3);
         $post_array = $this->input->post();
+
         $client_id = $this->common_lib->getParameter($this, $UriArray, $post_array, 'client_id');
         $related_user_id = $this->common_lib->getParameter($this, $UriArray, $post_array, 'related_user_id');
         $new_status = $this->common_lib->getParameter($this, $UriArray, $post_array, 'new_status');
@@ -442,6 +443,8 @@ class Sys_admin extends CI_Controller {
             $this->output->set_content_type('application/json')->set_output(json_encode(array('ErrorMessage' => 'Invalid parameters !', 'ErrorCode' => 1, 'ret' => 0 )));
             return;
         }
+
+
         $ret = $this->admin_mdl->update_users_clients( $client_id, $related_user_id, $new_status );
         $this->output->set_content_type('application/json')->set_output(json_encode(array('ErrorMessage' => '', 'ErrorCode' => 0, 'ret' => $ret )));
     }
