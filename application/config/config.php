@@ -280,9 +280,9 @@ if ((!empty($_SERVER["HTTP_HOST"]) and !(strpos($_SERVER["HTTP_HOST"], "local-zn
 
     } else if (ENVIRONMENT == 'devK') {
         $config['log_path'] = '/home/zntral/devK/log/'; // '/home/dev9soft/public_html/tb/'
-        $config['sql_queries_to_file'] = '/home/zntral/dev5/logs/sql_queries_to_file_';
+        $config['sql_queries_to_file'] = '/home/zntral/devK/logs/sql_queries_to_file_';
         $config['document_root'] = '/home/zntral/devK/';
-        $config['base_url'] = 'https://devK.zntral.net/';
+        $config['base_url'] = 'http://devK.zntral.net/';
         $config['is_developer_comp'] = 1;
 
     }    else {
