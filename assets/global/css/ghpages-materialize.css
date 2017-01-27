@@ -1,3 +1,30 @@
+@media all and (max-width: 1366px){
+    #nav-mobile{
+        transform: translateX(-100%);
+    }
+
+
+    #top_container{
+        max-width: 100%!important;
+        padding-left: 0!important;
+    }
+    /*main{*/
+        /*padding-left: 0!important;*/
+    /*}*/
+}
+@media all and (min-width: 1367px){
+    main{
+        padding-left: 240px;
+    }
+    #nav-mobile {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+    }
+}
+#nav-mobile:hover{
+    overflow-y: auto!important;
+}
+
 .materialize-red {
     background-color: #e51c23 !important
 }
@@ -8297,7 +8324,6 @@ nav a {
 }
 
 header,
-main,
 footer {
     padding-left: 240px
 }
@@ -9181,8 +9207,7 @@ body.parallax-demo footer {
     overflow: hidden;
     z-index: 99999;
     left: 0;
-    -webkit-transform: translateX(0);
-    transform: translateX(0);
+
     position: fixed;
 }
 
