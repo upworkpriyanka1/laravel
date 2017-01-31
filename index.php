@@ -21,10 +21,10 @@
 $domain = ! empty($_SERVER['HTTP_HOST']) ? strtolower($_SERVER['HTTP_HOST']) : 'cli';
 if (strpos( $domain,'.nix') !==FALSE || strpos( $domain,'naz.') !==FALSE || strpos( $domain,'.dev') !==FALSE || $domain === 'cli'){//if local or dev
         define('ENVIRONMENT', 'development');
-else if (strpos ($domain,'dev2') !==FALSE)
-        define('ENVIRONMENT', 'dev2');
 }else if (strpos ($domain,'dev4b') !==FALSE)
         define('ENVIRONMENT', 'dev4b');
+else if (strpos ($domain,'dev2') !==FALSE)
+        define('ENVIRONMENT', 'dev2');
 else if (strpos ($domain,'dev4') !==FALSE)
         define('ENVIRONMENT', 'dev4');
 else if (strpos ($domain,'dev5') !==FALSE)
