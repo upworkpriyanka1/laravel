@@ -21,6 +21,8 @@
 $domain = ! empty($_SERVER['HTTP_HOST']) ? strtolower($_SERVER['HTTP_HOST']) : 'cli';
 if (strpos( $domain,'.nix') !==FALSE || strpos( $domain,'naz.') !==FALSE || strpos( $domain,'.dev') !==FALSE || $domain === 'cli'){//if local or dev
         define('ENVIRONMENT', 'development');
+else if (strpos ($domain,'dev2') !==FALSE)
+        define('ENVIRONMENT', 'dev2');
 }else if (strpos ($domain,'dev4b') !==FALSE)
         define('ENVIRONMENT', 'dev4b');
 else if (strpos ($domain,'dev4') !==FALSE)
@@ -41,6 +43,14 @@ else
 switch (ENVIRONMENT)
 {
 	case 'development':
+		//Report all errors
+		//error_reporting(-1);
+		//Report only errors and warning. Do not show uninitialized variables because it can break the normal functioning.
+		error_reporting(E_ERROR | E_WARNING);
+		ini_set('display_errors', 1);
+	break;
+
+	case 'dev2':
 		//Report all errors
 		//error_reporting(-1);
 		//Report only errors and warning. Do not show uninitialized variables because it can break the normal functioning.
