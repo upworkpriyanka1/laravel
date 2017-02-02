@@ -139,3 +139,29 @@ img.error_img, span.error_img>img {
     vertical-align: top;
     margin-top: 1em;
 }/* Errors/Messages BLOCK END */
+
+.modal-body .btn-saveimage{
+    width: 100%;
+}
+.modal-body .border-top{
+    border-top: 1px solid #e5e5e5;
+    padding-top: 2vw;
+}
+
+.modal{
+    background-color: rgba(200, 200, 200, 0.5);
+}
+.modal-dialog{
+    margin: 15vh auto;
+}
+
+@media (max-width: 768px) {
+    .modal-dialog{
+        margin: 13vh auto;
+    }
+}
+@media (max-width: 552px) {
+    .modal-dialog{
+        margin: 10vh auto;
+    }
+}

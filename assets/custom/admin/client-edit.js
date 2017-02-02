@@ -1,4 +1,18 @@
 $(document).ready(function ($) {
+   /* $('body').on('click','.hreshatak',function(){
+       console.log(465);
+        //$("#squarespaceModal").modal() ;
+        $( "#related_user_enabled_dialog" ).css({
+            'display':'none',
+            'opacity': '0'
+        });
+        $( "#related_user_enabled_dialog" ).modal(  {
+            "backdrop": "static",
+            "keyboard": true,
+            "show": true
+        }  );
+    });*/
+
     // alert( "is_insert::"+is_insert )
     set_error_keypress()
     tabInit()
@@ -243,18 +257,19 @@ function load_related_users(page) {
  * return none
  *********************************/
 function setRelatedUserEnabled( related_user_username, related_user_active_status_label, related_user_email, related_user_phone, uc_active_status, uc_active_status_label, related_user_id ) {
-
+    console.log('mkniki click');
 
     $('.tooltip-inner').css('display', 'none');
-    $( "#related_user_enabled_dialog" ).css({
-        'display':'block',
-        'opacity': '1'
-    });
-    $( "#related_user_enabled_dialog" ).modal(  {
+
+    //$( "#related_user_enabled_dialog" ).css({
+    //    'display':'block',
+    //    'opacity': '1'
+    //});
+    /*$( "#related_user_enabled_dialog" ).modal(  {
         "backdrop": "static",
         "keyboard": true,
         "show": true
-    }  );
+    }  );*/
     var current_client_name = $("#client_name").val();
     $("#span_client_name").html( current_client_name );
     $("#span_related_user_username").html( related_user_username );
@@ -297,7 +312,7 @@ function setRelatedUserStatus(new_status) {
         dataType: 'json',
         success: function(result) {
             if (result.ErrorCode == 0) {
-                $('#related_user_enabled_dialog').modal('hide');
+                //$('#related_user_enabled_dialog').modal('hide');
                 load_related_users(1)
             }
         }
@@ -402,7 +417,7 @@ function setProvidesVendorStatus(new_status) {
         dataType: 'json',
         success: function(result) {
             if (result.ErrorCode == 0) {
-                $('#provides_vendor_enabled_dialog').modal('hide');
+                //$('#provides_vendor_enabled_dialog').modal('hide');
                 load_provides_vendors(1)
             }
         }

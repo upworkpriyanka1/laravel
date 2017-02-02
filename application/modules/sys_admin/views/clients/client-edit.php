@@ -576,6 +576,7 @@
 
 <?php endif; ?>
 
+
 <!-- Popup dialog for related_user enabled dialog -->
 <div class="modal fade" id="related_user_enabled_dialog" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
 	<div class="modal-dialog">
@@ -608,35 +609,36 @@
 						</div>
 					</div>
 
-					<hr>
 
-					<div class="row" id="div_set_status_employee">
+
+					<div class="row border-top" id="div_set_status_employee">
 						<div class="form-group" >
-							<label class="col-xs-12 col-sm-7 control-label" >Set Status "Employee" - client would be able to give tasks for the user as Employee.</label>
-							<div class="col-xs-12 col-sm-5">
-								<button type="button" id="saveImage" class="btn btn-primary" onclick="javascript:setRelatedUserStatus('E'); return false; " role="button">Set Status "Employee"</button>
+							<label class="col-xs-12 col-sm-6 control-label" >Set Status "Employee" - client would be able to give tasks for the user as Employee.</label>
+							<div class="col-xs-12 col-sm-6">
+								<button type="button" id="saveImage" class="btn btn-primary btn-saveimage" onclick="javascript:setRelatedUserStatus('E'); return false; " role="button">Set Status "Employee"</button>
 							</div>
 						</div>
 					</div>
 
-					<hr>
 
-					<div class="row" id="div_set_status_out_of_staff">
+
+					<div class="row border-top" id="div_set_status_out_of_staff">
 						<div class="form-group" >
-							<label class="col-xs-12 col-sm-7 control-label" >Set Status "Out Of Staff" - client would be able to give tasks for the user as Contractor.</label>
-							<div class="col-xs-12 col-sm-5">
-								<button type="button" id="saveImage" class="btn btn-primary" onclick="javascript:setRelatedUserStatus('O'); return false; " role="button">Set Status "Out Of Staff"</button>
+							<label class="col-xs-12 col-sm-6 control-label" >Set Status "Out Of Staff" - client would be able to give tasks for the user as Contractor.</label>
+							<div class="col-xs-12 col-sm-6">
+								<button type="button" id="saveImage" class="btn btn-primary btn-saveimage" onclick="javascript:setRelatedUserStatus('O'); return false; " role="button">Set Status "Out Of Staff"</button>
 							</div>
 						</div>
 					</div>
 
-					<div class="row" id="div_set_status_not_related">
+					<div class="row border-top" id="div_set_status_not_related">
 						<div class="form-group" >
-							<label class="col-xs-12 col-sm-7 control-label" >Set Status "Not Related" - client would not be able to give tasks for the user.</label>
-							<div class="col-xs-12 col-sm-5">
-								<button type="button" id="saveImage" class="btn btn-primary" onclick="javascript:setRelatedUserStatus('N'); return false; " role="button">Set Status "Not Related"</button>
+							<label class="col-xs-12 col-sm-6 control-label" >Set Status "Not Related" - client would not be able to give tasks for the user.</label>
+							<div class="col-xs-12 col-sm-6">
+								<button type="button" id="saveImage" class="btn btn-primary btn-saveimage" onclick="javascript:setRelatedUserStatus('N'); return false; " role="button">Set Status "Not Related"</button>
 							</div>
 						</div>
+
 					</div>
 
 				</form>
@@ -645,7 +647,7 @@
 
 			<div class="modal-footer ">
 				<div class="btn-group  pull-right editor_btn_group " role="group" aria-label="group button">
-					<button type="button" class="btn btn-cancel-action" data-dismiss="modal"  role="button">Cancel</button>
+					<button type="button" class="btn btn-cancel-action hreshatak" data-dismiss="modal"  role="button">Cancel</button>
 				</div>
 			</div>
 		</div> <!-- class="modal-body" -->
