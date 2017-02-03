@@ -777,7 +777,7 @@
 
 
 
-							<div class="row" >
+							<div class="row">
 								<div class="col-md-6 ">
 									<div class="form-group input-field padding_lg <?= $this->common_lib->set_field_error_tag("data[client_img]", ' has-error ')?>">
 
@@ -785,7 +785,7 @@
 
 
 										<div class="col-md-7" style="display: <?php echo ( $is_insert ? "block" :"none") ; ?>" id="div_client_img_btn">
-											<button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:switchFieldName('client_img',true);" id="btn_add_client_img">Add an image<span class="required">&nbsp;*&nbsp;</span></button>
+											<button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:switchFieldName('client_img',true);" id="btn_add_client_img">Add an image</button>
 										</div>
 
 										<div class="col-md-7" id="div_client_img_view">
