@@ -10,7 +10,6 @@ $(document).ready(function ($) {
 });
 
 function showEditMode(cid, is_insert) {
-    // alert( "showEditMode cid::"+cid + "  is_insert::"+is_insert )
     $("#div_editor_buttons").css("display","block")
     $("#div_view_buttons").css("display","none")
 
@@ -62,23 +61,8 @@ function showEditMode(cid, is_insert) {
     $("#div_color_scheme_input").css("display","block")
     $("#div_color_scheme_view").css("display","none")
 
-    $("#div_client_img_btn").css("display","none")  /// !
+    $("#div_client_img_btn").css("display","none")
     $("#div_client_img_input").css("display","block")
-
-
-/*    $("#div_color_scheme_btn").css("display","none")
-    $("#div_color_scheme_input").css("display","block")
-    $("#div_color_scheme_view").css("display","none")
-
-    $("#div_color_scheme_btn").css("display","none")
-    $("#div_color_scheme_input").css("display","block")
-    $("#div_color_scheme_view").css("display","none")
-
-    $("#div_color_scheme_btn").css("display","none")
-    $("#div_color_scheme_input").css("display","block")
-    $("#div_color_scheme_view").css("display","none")  */
-
-    // $("#div_client_img_view").css("display","none")
 
 }
 
