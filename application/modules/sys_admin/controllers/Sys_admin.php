@@ -202,6 +202,7 @@ class Sys_admin extends CI_Controller {
 			} else {
 				$client = $this->client_edit_fill_current_data( $client, $is_insert, $cid );
 				$data['validation_errors_text'] = validation_errors( /*$layout_config['backend_error_icon_start'], $layout_config['backend_error_icon_end']*/ );
+//				echo '<pre>$data[\'validation_errors_text\']::'.print_r($data['validation_errors_text'],true).'</pre>';
 			}
 		}
 		else {
