@@ -20,8 +20,8 @@
                         $page_title= lang('dashboard-title');
                             if (isset($this->uri->segments['2'])){$page_title= lang($this->uri->segment('2'));}
                         ?>
-                        <h3 class="page-title"> 
-                            <a href="#" data-activates="nav-mobile" class="button-collapse" id="nav_mobile_button"><i class="material-icons">menu</i></a>
+                        <h3 class="page-title">
+                           <!-- <a href="#" data-activates="nav-mobile" class="button-collapse" id="nav_mobile_button"><i class="material-icons">menu</i></a>-->
 	                        <?php if($page_title != ''){ echo $page_title; }else{ ?>
 		                       <?=lang('vendor-types-view')?>
 		                    <?php } ?>
@@ -61,7 +61,7 @@
                                                     <?php } ?>
                                                     <div id="selectImage">
                                                         <label>Select Your Image or File</label><br>
-                                                        <?php echo form_open_multipart('upload_controller/do_upload');?> 
+                                                        <?php echo form_open_multipart('upload_controller/do_upload');?>
                                                         <?php echo "<input type='file' name='userfile' id='file'/>"; ?><br>
                                                         <?php echo "<input type='submit' name='submit' value='Upload' class='btn btn-default'/> ";?>
                                                         <?php echo "</form>"?>
@@ -118,14 +118,14 @@
                                                         <i class="icon-user"></i><?= lang($user->group_title);?></a>
                                                 </li>
                                                 <?php }
-                                            } ?>                                
+                                            } ?>
                                             <li class="divider"> </li>
                                             <li>
                                                 <a href="<?php echo base_url()?>login/logout">
                                                     <i class="icon-key"></i> Log Out </a>
                                             </li>
                                         </ul>
-                                    </li> 
+                                    </li>
                                     <!-- END USER LOGIN DROPDOWN -->
                                     <!-- BEGIN QUICK SIDEBAR TOGGLER -->
                                     <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
@@ -143,5 +143,5 @@
                     </div>
                 </div>
             </nav>
-        
+
             <!-- END LOGO -->

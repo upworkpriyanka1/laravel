@@ -165,3 +165,37 @@ img.error_img, span.error_img>img {
         margin: 10vh auto;
     }
 }
+
+@media (max-width: 999px) {
+    .top-nav .page-header{
+        margin-left: 55px;
+    }
+}
+@media (max-width: 602px) {
+    .top-nav .page-header{
+        margin-left: 20px;
+    }
+}
+a.button-collapse.top-nav i{
+    margin-top: 5px;
+}
+
+.side-nav .collapsible-body>ul:not(.collapsible)>li.active, .side-nav.fixed .collapsible-body>ul:not(.collapsible)>li.active{
+     background-color: rgba(100,100,100, .5);
+ }
+ul.side-nav.fixed li.active {
+    background-color: rgba(0,0,0,0.05);
+}
+/*
+.side-nav .collapsible-body>ul:not(.collapsible)>li.active a, .side-nav.fixed .collapsible-body>ul:not(.collapsible)>li.active a{
+    color: #fff;
+}*/
+@media (max-width: 1368px) and (min-width: 992px){
+    .page-content-wrapper .page-content {
+        margin-left: 235px;
+    }
+}
+
+li[name='active'] {
+    color:blue !important;
+}

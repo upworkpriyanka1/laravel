@@ -1,13 +1,13 @@
 <!-- BEGIN SIDEBAR -->
 <div class="page-sidebar-wrapper">
-    <div class="page-sidebar navbar-collapse collapse">
+    <div class="page-sidebar nav-wrapper navbar-collapse collapse">
         <ul class="page-sidebar-menu  page-header-fixed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px">
            <li class="sidebar-toggler-wrapper hide">
                 <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
                 <div class="sidebar-toggler"> </div>
                 <!-- END SIDEBAR TOGGLER BUTTON -->
             </li>
-            <?php 
+            <?php
             //make sure $segment and $view is defined
                 $segment = (isset($this->uri->segments['2'])) ? $this->uri->segments['2'] : '';
                 $view = explode("-", $segment);
@@ -40,18 +40,18 @@
                             </li>
                     <!-- END SIDEBAR MENU LINK -->
                             <?php
-                                endif; //end if $link is array 
+                                endif; //end if $link is array
                             endforeach;//end $menu[$key] foreach
                             ?>
                     </ul>
                 </li>
                 <!-- END SIDEBAR MENU -->
                 <?php
-                        endif; //end if $link is array 
-                    endif;//end if $value is array 
+                        endif; //end if $link is array
+                    endif;//end if $value is array
                 endforeach;//end $menu foreach
                 ?>
-        
+
 
         </ul>
         <!-- END SIDEBAR MENU -->
