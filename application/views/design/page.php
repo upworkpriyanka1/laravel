@@ -10,7 +10,7 @@
 <?php endif; ?>
 </header>
 <main>
-    <div class="container" id="top_container">
+    <div class="page-content" id="top_container">
         <div class="row">
             <div class="col s12">
                 <div id="structure" class="section scrollspy">

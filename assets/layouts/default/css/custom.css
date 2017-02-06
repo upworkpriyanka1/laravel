@@ -199,3 +199,28 @@ ul.side-nav.fixed li.active {
 li[name='active'] {
     color:blue !important;
 }
+.portlet-body .table-toolbar{
+    margin-top: 15px;
+    margin-bottom: 10px;
+
+}
+.btn-filter, .btn-filter:focus, .btn-plus, .btn-plus:focus{
+
+    color: #333;
+    background-color: #fff;
+    border:1px solid #cccccc;
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+    font-size: 12px;
+    margin-left: 10px;
+}
+.btn-filter i, .btn-plus i{
+    font-size: 12px;
+}
+.btn-filter:hover , .btn-plus:hover{
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #adadad;
+}
