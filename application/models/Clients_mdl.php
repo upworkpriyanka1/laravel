@@ -377,6 +377,16 @@ class Clients_mdl extends CI_Model
         }
     }
 
+	public function getClient_TypesRowById( $id )
+	{
+		$this->db->where( $this->m_clients_types_table . '.type_id', $id);
+		$query = $this->db->from($this->m_clients_types_table);
+		$ci = & get_instance();
+		$clientTypesRow= $this->db->get()->row();
+		return $clientTypesRow;
+	}
+
+
 	public function getClientPhoneTypeArray()
 	{
 		$query = $this->db->query("SELECT distinct client_phone_type FROM ".$this->m_clients_table." WHERE client_phone_type is not null and TRIM(client_phone_type) != '' order by client_phone_type " );

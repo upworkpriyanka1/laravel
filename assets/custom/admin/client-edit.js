@@ -23,6 +23,63 @@ $(document).ready(function ($) {
     }
 });
 
+function showEditMode(cid, is_insert) {
+    $("#div_editor_buttons").css("display","block")
+    $("#div_view_buttons").css("display","none")
+
+    $("#div_client_address1_btn").css("display","none")
+    $("#div_client_address1_input").css("display","block")
+    $("#div_client_address1_view").css("display","none")
+
+    $("#div_client_address2_btn").css("display","none")
+    $("#div_client_address2_input").css("display","block")
+    $("#div_client_address2_view").css("display","none")
+
+    $("#div_client_active_status_btn").css("display","none")
+    $("#div_client_active_status_input").css("display","block")
+    $("#div_client_active_status_view").css("display","none")
+
+    $("#div_client_owner_btn").css("display","none")
+    $("#div_client_owner_input").css("display","block")
+    $("#div_client_owner_view").css("display","none")
+
+    $("#div_client_city_btn").css("display","none")
+    $("#div_client_city_input").css("display","block")
+    $("#div_client_city_view").css("display","none")
+
+    $("#div_client_state_btn").css("display","none")
+    $("#div_client_state_input").css("display","block")
+    $("#div_client_state_view").css("display","none")
+
+    $("#div_client_zip_btn").css("display","none")
+    $("#div_client_zip_input").css("display","block")
+    $("#div_client_zip_view").css("display","none")
+
+    $("#div_client_fax_btn").css("display","none")
+    $("#div_client_fax_input").css("display","block")
+    $("#div_client_fax_view").css("display","none")
+
+    $("#div_client_email_btn").css("display","none")
+    $("#div_client_email_input").css("display","block")
+    $("#div_client_email_view").css("display","none")
+
+    $("#div_client_website_btn").css("display","none")
+    $("#div_client_website_input").css("display","block")
+    $("#div_client_website_view").css("display","none")
+
+    $("#div_clients_types_id_btn").css("display","none")
+    $("#div_clients_types_id_input").css("display","block")
+    $("#div_clients_types_id_view").css("display","none")
+
+    $("#div_color_scheme_btn").css("display","none")
+    $("#div_color_scheme_input").css("display","block")
+    $("#div_color_scheme_view").css("display","none")
+
+    $("#div_client_img_btn").css("display","none")
+    $("#div_client_img_input").css("display","block")
+
+}
+
 function switchFieldName(field_name, switcher) {
     if ( switcher ) {
         $("#div_"+field_name+"_btn").css("display", "none")

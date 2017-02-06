@@ -257,6 +257,14 @@ if ((!empty($_SERVER["HTTP_HOST"]) and !(strpos($_SERVER["HTTP_HOST"], "local-zn
         $config['base_url'] = 'https://zntral.net';
         $config['is_developer_comp'] = 1;
 //    die("-1 XXZ");
+    } else if (ENVIRONMENT == 'dev2') {
+        $config['log_path'] = '/home/zntral/dev2/log/'; // '/home/dev9soft/public_html/tb/'
+        $config['sql_queries_to_file'] = '/home/zntral/dev2/logs/sql_queries_to_file_';
+        $config['document_root'] = '/home/zntral/dev2/';
+        $config['base_url'] = 'https://dev2.zntral.net/';
+        $config['is_developer_comp'] = 1;
+        $config['log_threshold'] = 4;
+
     } else if (ENVIRONMENT == 'dev4b') {
         $config['log_path'] = '/home/zntral/dev4b/log/'; // '/home/dev9soft/public_html/tb/'
         $config['sql_queries_to_file'] = '/home/zntral/dev4b/logs/sql_queries_to_file_';
