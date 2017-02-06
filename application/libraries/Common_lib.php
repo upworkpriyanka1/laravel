@@ -95,7 +95,7 @@ class Common_lib
         $this->CI->layout->view($views, $data);
     }
 
-    function  set_field_error_tag($fieldname, $attr) {
+    function set_field_error_tag($fieldname, $attr) {
         $is_debug= 0;
         if ($is_debug) echo '<pre>set_field_error_tag $fieldname::'.print_r($fieldname,true).'</pre>';
         if ($is_debug) echo '<pre>set_field_error_tag $fieldname::'.print_r($fieldname,true).'</pre>';
@@ -372,6 +372,33 @@ class Common_lib
      *********************************/
     public function get_client_active_status_label($active_status) {
         return $this->CI->clients_mdl->getClientActiveStatusLabel($active_status);
+    }
+
+    /**********************
+     * Get readable label of client_clients_types_id field
+     * access public
+     * @params $clients_types_id
+     * return string label
+     *********************************/
+    public function get_clients_types_id_label($clients_types_id) {
+        $row= $this->CI->clients_mdl->getClient_TypesRowById($clients_types_id);
+        return !empty($row->type_name) ? $row->type_name : "";
+    }
+    /**********************
+     * Get readable label of client color_scheme field
+     * access public
+     * @params $color_scheme
+     * return string label
+     *********************************/
+    public function get_color_scheme_label($color_scheme) {
+//        $row= $this->CI->clients_mdl->getClient_TypesRowById($clients_types_id);
+        $client_color_schemes = $this->CI->config->item('client_color_schemes');
+        foreach( $client_color_schemes as $next_key=>$next_color_scheme ) {
+            if ((int)$next_color_scheme['id'] == (int)$color_scheme) {
+                return $next_color_scheme['title'];
+            }
+        }
+        return "";
     }
 
     /**********************
