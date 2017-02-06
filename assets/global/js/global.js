@@ -65,3 +65,13 @@
 //}
 //
 //
+$(document).ready(function(){
+   $('.the_active').removeClass('the_active').addClass('active');
+
+    $('.active').find('.collapsible-body').css('display', 'block');
+
+    $('.nav-item').click(function(){
+        $('.waves-ripple').delay(300).fadeOut(200);
+    });
+
+});
