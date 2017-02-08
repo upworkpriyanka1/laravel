@@ -224,3 +224,48 @@ li[name='active'] {
     background-color: #e6e6e6;
     border-color: #adadad;
 }
+
+.table-toolbar h4{
+    display: inline-block;
+    font-weight: bold;
+}
+.newclient>.modal-dialog>.modal-content>.modal-header{
+    background-color: #c8c8c8!important;
+    margin: 0 -5px;
+    font-weight: bold;
+}
+.page-content-white .page-content .page-bar {
+    border-bottom: none;
+}
+.page-footer{
+    background-color: #A9A9A9;
+}
+.page-content{
+    min-height: 817px !important;
+}
+.page-footer .footer-list{
+    margin-bottom: 0;
+    display: inline-block;
+    margin-left: 10px;
+}
+.page-footer .footer-list>li{
+    display: inline-block;
+    list-style-type: none;
+}
+.page-footer .footer-list>li a{
+    color: #333;
+}
+
+
+.dropdown-content form.dropdown-form{
+    width:95%;
+}
+.dropdown1 .drop-title{
+    margin-left: 10px;
+    display: inline-block;
+    font-size: 14px;
+
+}
+.active_ul{
+    display: block!important;
+}

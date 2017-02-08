@@ -16,7 +16,7 @@ $(document).ready(function ($) {
     // alert( "is_insert::"+is_insert )
     set_error_keypress()
     tabInit()
-    paginationLinksInit()
+    //paginationLinksInit()
     if (is_insert == '') {
         load_related_users(1)
         load_provides_vendors(1) // div_load_provides_vendors
