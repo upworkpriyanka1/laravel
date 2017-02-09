@@ -49,7 +49,7 @@
                                     ?>
                                     <!-- SIDEBAR MENU LINK -->
                                     <li class="nav-item <?= $LinkActive ;?>">
-                                            <a href="<?php if($link['href'] != '/clients-edit/new/') echo base_url().$this->uri->segment('1').$link['href']; else echo '#' ?>" data-toggle="modal" data-target="#newclient" class="nav-link">
+                                            <a href="<?php if($link['href'] != '/clients-edit/new/') echo base_url().$this->uri->segment('1').$link['href']; else echo '#' ?>" <?php if($link['href'] == '/clients-edit/new/') echo 'data-toggle="modal" data-target="#newclient"' ?>  class="nav-link">
                                             <span class="<?php echo $link['icon'];?>"></span>
                                             <span class="title"><?php echo lang($link['title']);?></span>
                                         </a>
