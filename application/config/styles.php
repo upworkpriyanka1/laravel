@@ -64,7 +64,7 @@ $config['core_plugins'] = 	array(
 								'blockui',
 								'bs_switch',
 								'uniform',
-								'materialize',
+//								'materialize',
 								'jsinit',
 								'globaljs'
 							);

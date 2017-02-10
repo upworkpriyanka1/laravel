@@ -94,6 +94,12 @@ $(document).ready(function(){
         //$("#dropdown1").height( 40 );
 
     });
+    $('.create_contact').on('click',function(){
+        $('#create-contact').modal('show');
+        console.log(45);
+    });
+
+
 
 
 });

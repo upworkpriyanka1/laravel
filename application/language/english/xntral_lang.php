@@ -63,6 +63,7 @@ $lang['client_state']           = "State";
 $lang['client_zip']             = "Zip";
 
 $lang['company']                = "Company";
+$lang['company_name']           = "Company Name";
 $lang['my-company']             = $lang['profile-company'] = "My Company";
 $lang['job']                    = "Job Title";
 $lang['user_group_description'] = "Job Description";

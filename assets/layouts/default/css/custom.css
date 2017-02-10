@@ -269,3 +269,44 @@ li[name='active'] {
 .active_ul{
     display: block!important;
 }
+
+#create-contact .create-contact-save{
+    padding-left: 10px;
+}
+#create-contact .create-contact-more a{
+    color: #333;
+}
+#create-contact .input-field .prefix ~ input, #create-contact  .input-field .prefix ~ textarea, #create-contact .input-field .prefix ~ label, #create-contact .input-field .prefix ~ .validate ~ label, #create-contact  .input-field .prefix ~ .autocomplete-content{
+    margin-left: 5rem;
+    width: calc(100% - 5rem);
+}
+#create-contact .input-field .prefix.active{
+    font-size: 4rem;
+}
+
+#create-contact .email-add, #create-contact .name-rem{
+    position: relative;
+}
+#create-contact  .btn-add{
+    position: absolute;
+    right: -30px;
+    top:0;
+    display: inline-block;
+
+}
+#create-contact  .btn-rem{
+    position: absolute;
+    right: 0px;
+    top:0;
+    display: inline-block;
+}
+#create-contact .btn-add i, #create-contact .btn-rem i{
+    font-size: 20px;
+}
+#create-contact .name-rem .btn-rem-name{
+    display:none;
+    position: absolute;
+    right: 0px;
+    top:0;
+
+}

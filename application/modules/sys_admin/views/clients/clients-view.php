@@ -311,7 +311,6 @@ var is_insert= '<?= $is_insert ?>'
 </div>
 
 
-
 <div class="modal fade newclient" id="newclient" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -388,11 +387,11 @@ var is_insert= '<?= $is_insert ?>'
                                                             $client_name_input_visible = true;
                                                         }
                                                         ?>
-                                                        <div class="col-md-7" style="display: <?php echo ( $client_name_button_visible ? "block" :"none") ; ?>" id="div_client_name_btn">
+                                                        <div class="col-md-7" style="display: none" id="div_client_name_btn">
                                                             <button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:switchFieldName('client_name',true);" id="btn_add_client_name">Add a name<span class="required">&nbsp;*&nbsp;</span></button>
                                                         </div>
 
-                                                        <div class="col-md-7" style="display: <?php echo ( ( $client_name_input_visible ) ? "block" :"none" ) ; ?>" id="div_client_name_input">
+                                                        <div class="col-md-12" style="display: <?php echo ( ( $client_name_input_visible ) ? "block" :"block" ) ; ?>" id="div_client_name_input">
                                                             <i class="material-icons prefix">account_circle</i>
                                                             <input type="text" name="data[client_name]" id="client_name" value="<?= ( !empty($client->client_name) ? $client->client_name : '' ); ?>" class="form-control" maxlength="100" <?php echo !$is_insert ? " readonly " : "" ?> />
                                                             <label for="client_name" class="control-label col-md-4"><?php echo lang('client_name') ?><span class="required">&nbsp;*&nbsp;</span></label>
@@ -429,17 +428,17 @@ var is_insert= '<?= $is_insert ?>'
                                                             echo '<pre>$client_owner_view_visible::' . print_r( $client_owner_view_visible, true ) . '</pre>';
                                                         }
                                                         ?>
-                                                        <div class="col-md-7" style="display: <?php echo ( $client_owner_button_visible ? "block" :"none") ; ?>" id="div_client_owner_btn">
+                                                        <div class="col-md-7" style="display: <?php echo ( $client_owner_button_visible ? "none" :"none") ; ?>" id="div_client_owner_btn">
                                                             <button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:switchFieldName('client_owner',true);" id="btn_add_client_owner">Add an owner</button>
                                                         </div>
 
-                                                        <div class="col-md-7" style="display: <?php echo ( $client_owner_input_visible ? "block" :"none" ) ; ?>" id="div_client_owner_input">
-                                                            <i class="material-icons prefix">account_circle</i>
+                                                        <div class="col-md-12" style="display: <?php echo ( $client_owner_input_visible ? "block" :"block" ) ; ?>" id="div_client_owner_input">
+                                                            <i class="material-icons prefix">business</i>
                                                             <input type="text" name="data[client_owner]" id="client_owner" value="<?= ( !empty($client->client_owner) ? $client->client_owner : '' ); ?>" class="form-control" maxlength="100" />
-                                                            <label for="client_owner" class="control-label col-md-4"><?php echo lang('client_owner') ?></label>
+                                                            <label for="client_owner" class="control-label col-md-4"><?php echo lang('company_name') ?></label>
                                                         </div>
 
-                                                        <div class="col-md-7" style="display: <?php echo ( ( $client_owner_view_visible ) ? "block" :"none" ) ; ?>" id="div_client_owner_view">
+                                                        <div class="col-md-12" style="display: <?php echo ( ( $client_owner_view_visible ) ? "block" :"none" ) ; ?>" id="div_client_owner_view">
                                                             <i class="material-icons prefix">account_circle</i>
                                                             <input type="text" name="data[client_owner_view]" id="client_owner_view" value="<?= ( !empty($client->client_owner) ? $client->client_owner : '' ); ?>" class="form-control" maxlength="100" readonly />
                                                             <label for="client_owner_view" class="control-label col-md-4"><?php echo lang('client_owner') ?></label>
@@ -479,11 +478,11 @@ var is_insert= '<?= $is_insert ?>'
                                                             echo '<pre>view_visible::' . print_r( $client_active_status_view_visible, true ) . '</pre>';
                                                         }
                                                         ?>
-                                                        <div class="col-md-12" style="display: <?php echo ( $client_active_status_button_visible ? "block" :"none") ; ?>" id="div_client_active_status_btn">
+                                                        <div class="col-md-12" style="display: <?php echo ( $client_active_status_button_visible ? "none" :"none") ; ?>" id="div_client_active_status_btn">
                                                             <button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:switchFieldName('client_active_status',true);" id="btn_add_client_active_status">Add an active status<span class="required">&nbsp;*&nbsp;</span></button>
                                                         </div>
 
-                                                        <div class="col-md-12" style="display: <?php echo ( $client_active_status_input_visible ? "block" :"none" ) ; ?>" id="div_client_active_status_input">
+                                                        <div class="col-md-12" style="display: <?php echo ( $client_active_status_input_visible ? "block" :"block" ) ; ?>" id="div_client_active_status_input">
                                                             <table>
                                                                 <tr>
                                                                     <td style="padding-bottom: 12px;">
@@ -499,7 +498,7 @@ var is_insert= '<?= $is_insert ?>'
                                                             </table>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-7" style="display: <?php echo ( ( $client_active_status_view_visible ) ? "block" :"none" ) ; ?>" id="div_client_active_status_view">
+                                                    <div class="col-md-7" style="display: <?php echo ( ( $client_active_status_view_visible ) ? "none" :"none" ) ; ?>" id="div_client_active_status_view">
                                                         <label class="control-label col-md-4" for="client_active_status_view" >&nbsp;<?php echo lang('client_active_status') ?><span class="required">&nbsp;*&nbsp;</span></label>
                                                         <input type="text" name="data[client_active_status_view]" id="client_active_status_view" value="<?= ( !empty($client->client_active_status) ? $this->common_lib->get_client_active_status_label($client->client_active_status) : '' ); ?>" class="form-control" maxlength="100" readonly />
                                                     </div>
@@ -537,10 +536,10 @@ var is_insert= '<?= $is_insert ?>'
                                                             echo '<pre>view_visible::' . print_r( $address1_view_visible, true ) . '</pre>';
                                                         }
                                                         ?>
-                                                        <div class="col-md-7" style="display: <?php echo ( $address1_button_visible ? "block" :"none") ; ?>" id="div_client_address1_btn">
+                                                        <div class="col-md-7" style="display: <?php echo ( $address1_button_visible ? "none" :"none") ; ?>" id="div_client_address1_btn">
                                                             <button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:switchFieldName('client_address1',true);" id="btn_add_client_address1">Add an address<span class="required">&nbsp;*&nbsp;</span></button>
                                                         </div>
-                                                        <div class="col-md-7" style="display: <?php echo ( $address1_input_visible ? "block" :"none" ) ; ?>" id="div_client_address1_input">
+                                                        <div class="col-md-12" style="display: <?php echo ( $address1_input_visible ? "block" :"block" ) ; ?>" id="div_client_address1_input">
                                                             <input type="text" name="data[client_address1]" id="client_address1" value="<?= ( !empty($client->client_address1) ? $client->client_address1 : '' ); ?>" class="form-control" maxlength="100" />
                                                             <label for="client_address1" class="control-label col-md-4"><?php echo lang('address1') ?><span class="required">&nbsp;*&nbsp;</span></label>
                                                         </div>
@@ -580,10 +579,12 @@ var is_insert= '<?= $is_insert ?>'
                                                             echo '<pre>view_visible::' . print_r( $address2_view_visible, true ) . '</pre>';
                                                         }
                                                         ?>
-                                                        <div class="col-md-7" style="display: <?php echo ( $address2_button_visible ? "block" :"none") ; ?>" id="div_client_address2_btn">
+                                                        <div class="col-md-7" style="display: <?php echo ( $address2_button_visible ? "none" :"none") ; ?>" id="div_client_address2_btn">
                                                             <button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:switchFieldName('client_address2',true);" id="btn_add_client_address2">Add an additive address</button>
                                                         </div>
-                                                        <div class="col-md-7" style="display: <?php echo ( $address2_input_visible ? "block" :"none" ) ; ?>;" id="div_client_address2_input">
+                                                        <div class="col-md-12" style="display: <?php echo ( $address2_input_visible ? "block" :"block" ) ; ?>;" id="div_client_address2_input">
+
+
                                                             <input type="text" name="data[client_address2]" id="client_address2" value="<?= ( !empty($client->client_address2) ? $client->client_address2 : '' ); ?>"  class="form-control" maxlength="100" />
                                                             <label for="client_address2" class="control-label col-md-4"><?php echo lang('address2') ?></label>
                                                         </div>
@@ -642,14 +643,15 @@ var is_insert= '<?= $is_insert ?>'
                                                             echo '<pre>view_visible::' . print_r( $client_city_view_visible, true ) . '</pre>';
                                                         }
                                                         ?>
-                                                        <div class="col-md-4" style="display: <?php echo ( $client_city_button_visible ? "block" :"none") ; ?>" id="div_client_city_btn">
+                                                        <div class="col-md-6" style="display: <?php echo ( $client_city_button_visible ? "none" :"none") ; ?>" id="div_client_city_btn">
                                                             <button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:switchFieldName('client_city',true);" id="btn_add_client_city">Add a city<span class="required">&nbsp;*&nbsp;</span></button>
                                                         </div>
-                                                        <div class="col-md-4"  style="display: <?php echo ( $client_city_input_visible ? "block" :"none" ) ; ?>" id="div_client_city_input">
+                                                        <div class="col-md-6"  style="display: <?php echo ( $client_city_input_visible ? "block" :"block" ) ; ?>" id="div_client_city_input">
+                                                            <i class="material-icons prefix">location_on</i>
                                                             <input type="text" name="data[client_city]" id="client_city" value="<?= ( !empty($client->client_city) ? $client->client_city : '' ); ?>" class="form-control" maxlength="100" />
                                                             <label for="client_city" class="control-label col-md-2"><?php echo lang('city') ?><span class="required">&nbsp;*&nbsp;</span></label>
                                                         </div>
-                                                        <div class="col-md-4"  style="display: <?php echo ( ( $client_city_view_visible ) ? "block" :"none" ) ; ?>" id="div_client_city_view">
+                                                        <div class="col-md-6"  style="display: <?php echo ( ( $client_city_view_visible ) ? "block" :"none" ) ; ?>" id="div_client_city_view">
                                                             <input type="text" name="data[client_city_view]" id="client_city_view" value="<?= ( !empty($client->client_city) ? $client->client_city : '' ); ?>" class="form-control" maxlength="100" readonly />
                                                             <label for="client_city_view" class="control-label col-md-2"><?php echo lang('city') ?><span class="required">&nbsp;*&nbsp;</span></label>
                                                         </div><!-- ./col -->
@@ -680,14 +682,14 @@ var is_insert= '<?= $is_insert ?>'
                                                             echo '<pre>view_visible::' . print_r( $client_state_view_visible, true ) . '</pre>';
                                                         }
                                                         ?>
-                                                        <div class="col-md-4" style="display: <?php echo ( $client_state_button_visible ? "block" :"none") ; ?>" id="div_client_state_btn">
+                                                        <div class="col-md-6" style="display: <?php echo ( $client_state_button_visible ? "none" :"none") ; ?>" id="div_client_state_btn">
                                                             <button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:switchFieldName('client_state',true);" id="btn_add_client_state">Add a state<span class="required">&nbsp;*&nbsp;</span></button>
                                                         </div>
-                                                        <div class="col-md-4" style="display: <?php echo ( $client_state_input_visible ? "block" :"none" ) ; ?>" id="div_client_state_input">
+                                                        <div class="col-md-6" style="display: <?php echo ( $client_state_input_visible ? "block" :"block" ) ; ?>" id="div_client_state_input">
                                                             <input type="text" name="data[client_state]" id="client_state" value="<?= ( !empty($client->client_state) ? $client->client_state : '' ); ?>" class="form-control" maxlength="50" />
                                                             <label for="client_state" class="control-label col-md-2"><?php echo lang('state') ?><span class="required">&nbsp;*&nbsp;</span></label>
                                                         </div>
-                                                        <div class="col-md-4" style="display: <?php echo ( ( $client_state_view_visible ) ? "block" :"none" ) ; ?>" id="div_client_state_view">
+                                                        <div class="col-md-6" style="display: <?php echo ( ( $client_state_view_visible ) ? "block" :"none" ) ; ?>" id="div_client_state_view">
                                                             <input type="text" name="data[client_state_view]" id="client_state_view" value="<?= ( !empty($client->client_state) ? $client->client_state : '' ); ?>" class="form-control" maxlength="50" readonly/>
                                                             <label for="client_state_view" class="control-label col-md-2"><?php echo lang('state') ?><span class="required">&nbsp;*&nbsp;</span></label>
                                                         </div><!-- ./col -->
@@ -719,15 +721,15 @@ var is_insert= '<?= $is_insert ?>'
                                                             echo '<pre>view_visible::' . print_r( $client_zip_view_visible, true ) . '</pre>';
                                                         }
                                                         ?>
-                                                        <div class="col-md-4" style="display: <?php echo ( $client_zip_button_visible ? "block" :"none") ; ?>" id="div_client_zip_btn">
+                                                        <div class="col-md-6" style="display: <?php echo ( $client_zip_button_visible ? "none" :"none") ; ?>" id="div_client_zip_btn">
                                                             <button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:switchFieldName('client_zip',true);" id="btn_add_client_zip">Add a zip<span class="required">&nbsp;*&nbsp;</span></button>
                                                         </div>
-                                                        <div class="col-md-4"  style="display: <?php echo ( $client_zip_input_visible ? "block" :"none" ) ; ?>" id="div_client_zip_input">
+                                                        <div class="col-md-6"  style="display: <?php echo ( $client_zip_input_visible ? "block" :"block" ) ; ?>" id="div_client_zip_input">
                                                             <input type="text" name="data[client_zip]" id="client_zip" value="<?= ( !empty($client->client_zip) ? $client->client_zip : '' ); ?>" class="form-control" maxlength="50" />
                                                             <label for="client_zip" class="control-label col-md-2"><?php echo lang('zip') ?><span class="required">&nbsp;*&nbsp;</span></label>
                                                         </div>
-                                                        <div class="col-md-4" style="display: <?php echo ( ( $client_zip_view_visible ) ? "block" :"none" ) ; ?>" id="div_client_zip_view">
-                                                            <input type="text" name="data[client_zip_view]" id="client_zip_view" value="<?= ( !empty($client->client_zip) ? $client->client_zip : '' ); ?>" class="form-control" maxlength="50" readonly/>
+                                                        <div class="col-md-6" style="display: <?php echo ( ( $client_zip_view_visible ) ? "block" :"none" ) ; ?>" id="div_client_zip_view">
+                                                            <input type="text" name="data[client_zip_view]" id="client_zip_view" value="<?= ( !empty($client->client_zip) ? $client->client_zip : '' ); ?>" class="form-control" maxlength="5" readonly/>
                                                             <label for="client_zip_view" class="control-label col-md-2"><?php echo lang('zip') ?><span class="required">&nbsp;*&nbsp;</span></label>
                                                         </div><!-- ./col -->
 
@@ -743,11 +745,11 @@ var is_insert= '<?= $is_insert ?>'
                                                 <!-- client phone -->
                                                 <div class="col-md-12">
 
-                                                    <button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:AddPhone();" id="btn_add_phone">Add a phone</button>
+                                                   <!-- <button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:AddPhone();" id="btn_add_phone">Add a phone</button>-->
 
 
                                                     <div class="form-group input-field <?= $this->common_lib->set_field_error_tag("data[client_phone]", ' has-error ')?>">
-                                                        <div class="col-md-7">
+                                                        <div class="col-md-12">
                                                             <table>
                                                                 <tr>
                                                                     <td style="width: 98%">
@@ -763,9 +765,9 @@ var is_insert= '<?= $is_insert ?>'
                                                 </div><!-- ./col -->
 
                                                 <!-- client phone_2 -->
-                                                <div class="col-md-6" id="div_phone_2" style="display: <?= ( !empty($client->client_phone_2) ? 'block' : 'none' ); ?>">
+                                                <div class="col-md-12" id="div_phone_2" style="display: <?= ( !empty($client->client_phone_2) ? 'block' : 'none' ); ?>">
                                                     <div class="form-group input-field <?= $this->common_lib->set_field_error_tag("data[client_phone_2]", ' has-error ')?>">
-                                                        <div class="col-md-7">
+                                                        <div class="col-md-12">
                                                             <i class="material-icons prefix">phone</i>
                                                             <input type="text" name="data[client_phone_2]" id="client_phone_2" value="<?= ( !empty($client->client_phone_2) ? $client->client_phone_2 : '' ); ?>" class="form-control" maxlength="50" onchange="javascript:checkPhonesVisibilty(); " />
                                                             <label for="client_phone_2" class="control-label col-md-4"><?php echo lang('phone_2') ?></label>
@@ -847,10 +849,10 @@ var is_insert= '<?= $is_insert ?>'
                                                             echo '<pre>view_visible::' . print_r( $client_fax_view_visible, true ) . '</pre>';
                                                         }
                                                         ?>
-                                                        <div class="col-md-7" style="display: <?php echo ( $client_fax_button_visible ? "block" :"none") ; ?>" id="div_client_fax_btn">
+                                                        <div class="col-md-7" style="display: <?php echo ( $client_fax_button_visible ? "none" :"none") ; ?>" id="div_client_fax_btn">
                                                             <button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:switchFieldName('client_fax',true);" id="btn_add_client_fax">Add an fax<span class="required">&nbsp;*&nbsp;</span></button>
                                                         </div>
-                                                        <div class="col-md-7" style="display: <?php echo ( $client_fax_input_visible ? "block" :"none" ) ; ?>" id="div_client_fax_input">
+                                                        <div class="col-md-7" style="display: <?php echo ( $client_fax_input_visible ? "block" :"block" ) ; ?>" id="div_client_fax_input">
                                                             <input type="text" name="data[client_fax]" value="<?= ( !empty($client->client_fax) ? $client->client_fax : '' ); ?>" class="form-control" maxlength="50" />
                                                             <label for="client_fax" class="control-label col-md-4"><?php echo lang('fax') ?><span class="required">&nbsp;*&nbsp;</span></label>
                                                         </div>
@@ -895,11 +897,11 @@ var is_insert= '<?= $is_insert ?>'
                                                             echo '<pre>view_visible::' . print_r( $client_email_view_visible, true ) . '</pre>';
                                                         }
                                                         ?>
-                                                        <div class="col-md-12" style="display: <?php echo ( $client_email_button_visible ? "block" :"none") ; ?>" id="div_client_email_btn">
+                                                        <div class="col-md-12" style="display: <?php echo ( $client_email_button_visible ? "none" :"none") ; ?>" id="div_client_email_btn">
                                                             <button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:switchFieldName('client_email',true);" id="btn_add_client_email">Add an email</button>
                                                         </div>
 
-                                                        <div class="col-md-12" style="display: <?php echo ( $client_email_input_visible ? "block" :"none" ) ; ?>" id="div_client_email_input">
+                                                        <div class="col-md-12" style="display: <?php echo ( $client_email_input_visible ? "block" :"block" ) ; ?>" id="div_client_email_input">
                                                             <input type="text" name="data[client_email]" id="client_email" value="<?= ( !empty($client->client_email) ? $client->client_email : '' ); ?>" class="form-control" maxlength="50"  />
                                                             <label for="client_email" class="control-label col-md-4"><?php echo lang('email') ?></label>
                                                         </div>
@@ -939,10 +941,10 @@ var is_insert= '<?= $is_insert ?>'
                                                             echo '<pre>view_visible::' . print_r( $client_website_view_visible, true ) . '</pre>';
                                                         }
                                                         ?>
-                                                        <div class="col-md-12" style="display: <?php echo ( $client_website_button_visible ? "block" :"none") ; ?>" id="div_client_website_btn">
+                                                        <div class="col-md-12" style="display: <?php echo ( $client_website_button_visible ? "none" :"none") ; ?>" id="div_client_website_btn">
                                                             <button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:switchFieldName('client_website',true);" id="btn_add_client_website">Add an website</button>
                                                         </div>
-                                                        <div class="col-md-12" style="display: <?php echo ( $client_website_input_visible ? "block" :"none" ) ; ?>" id="div_client_website_input">
+                                                        <div class="col-md-12" style="display: <?php echo ( $client_website_input_visible ? "block" :"block" ) ; ?>" id="div_client_website_input">
                                                             <input type="text" name="data[client_website]" value="<?= ( !empty($client->client_website) ? $client->client_website : '' ); ?>" class="form-control" maxlength="100" />
                                                             <label for="client_website" class="control-label col-md-4"><?php echo lang('website') ?></label>
                                                         </div>
@@ -986,23 +988,42 @@ var is_insert= '<?= $is_insert ?>'
                                                             echo '<pre>view_visible::' . print_r( $clients_types_id_view_visible, true ) . '</pre>';
                                                         }
                                                         ?>
-                                                        <div class="col-md-12" style="display: <?php echo ( $clients_types_id_button_visible ? "block" :"none") ; ?>" id="div_clients_types_id_btn">
+                                                        <div class="col-md-12" style="display: <?php echo ( $clients_types_id_button_visible ? "none" :"none") ; ?>" id="div_clients_types_id_btn">
                                                             <button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:switchFieldName('clients_types_id',true);" id="btn_add_clients_types_id">Add a client type<span class="required">&nbsp;*&nbsp;</span></button>
                                                         </div>
-                                                        <div class="col-md-12" style="display: <?php echo ( $clients_types_id_input_visible ? "block" :"none" ) ; ?>" id="div_clients_types_id_input">
+                                                        <div class="col-md-12" style="display: <?php echo ( $clients_types_id_input_visible ? "block" :"block" ) ; ?>" id="div_clients_types_id_input">
                                                             <table>
                                                                 <tr>
                                                                     <td style="padding: 12px;">
-                                                                        <label for="clients_types_id" class="control-label col-md-4">&nbsp;<?php echo lang('clients-type') ?><span class="required">&nbsp;*&nbsp;</span></label>
+                                                                        <label for="clients_types_id" class="control-label col-md-4">&nbsp;<?php /*//echo lang('clients-type') */?><span class="required">&nbsp;*&nbsp;</span></label>
+                                                                    </td>
+                                                                </tr>
+
+
+                                                                <div class="col-md-12" style="display: block;" id="div_clients_types_id_input">
+                                                                    <table>
+                                                                        <tbody><tr>
+                                                                            <td style="padding: 12px;">
+                                                                                <label for="clients_types_id" class="control-label col-md-4">&nbsp;Client&nbsp;Type<span class="required">&nbsp;*&nbsp;</span></label>
+
+                                                                            </td>
+                                                                        </tr>
+
+                                                                        </tbody>
+                                                                    </table>
+
+                                                                </div>
+
+
+                                                                <tr>
+                                                                    <td>
+                                                                        <?php  echo MyCustom_menu($client_types,'data[clients_types_id]','form-control', ( !empty($client->clients_types_id) ? $client->clients_types_id : '' ), " -Client Type- ",'id ="clients_types_id"'); ?>
 
                                                                     </td>
                                                                 </tr>
-                                                                <tr>
-                                                                    <td>
-                                                                        <?php echo MyCustom_menu($client_types,'data[clients_types_id]','form-control', ( !empty($client->clients_types_id) ? $client->clients_types_id : '' ), " -Client Type- ",'id ="clients_types_id"'); ?>
-                                                                    </td>
-                                                                </tr>
                                                             </table>
+
+
 
                                                         </div>
 
@@ -1207,7 +1228,7 @@ var is_insert= '<?= $is_insert ?>'
                                         </section>
 
                                 </div>
-                                    </form>
+                                </form>
                                 <!-- END FORM-->
                             </div>
                         </div>
@@ -1467,3 +1488,13 @@ var is_insert= '<?= $is_insert ?>'
 
     </div>
 </div>
+
+
+
+
+
+
+
+
+
+
