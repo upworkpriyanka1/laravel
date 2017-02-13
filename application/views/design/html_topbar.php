@@ -18,7 +18,9 @@
                         <!-- BEGIN PAGE TITLE-->
                         <?php
                         $page_title= lang('dashboard-title');
-                            if (isset($this->uri->segments['2'])){$page_title= lang($this->uri->segment('2'));}
+                            if (isset($this->uri->segments['2'])){
+                                $page_title= lang($this->uri->segment('2'));
+                            }
                         ?>
                         <h3 class="page-title">
                            <!-- <a href="#" data-activates="nav-mobile" class="button-collapse" id="nav_mobile_button"><i class="material-icons">menu</i></a>-->

@@ -29,7 +29,32 @@ class Sys_admin extends CI_Controller {
  * access public
  * @params
  * return view
- *********************************/
+  *
+  **************************GRID Html**************
+
+
+
+
+
+
+  * ****************************************
+  *	 *********************************/
+	public function grid(){
+		$data['meta_description']='';
+		$data['menu']		= $this->menu;
+
+		$data['user'] 		= $this->user;
+//		$data['job'] 		= $this->job;
+		$data['group'] 		= $this->group->name;
+
+		$data['page']		= 'main/grid';
+		$data['pls'] 		= array(); //page level scripts optional
+		$data['plugins'] 	= array(); //page plugins
+		$data['javascript'] = array(); //page javascript
+		$views				= array('design/html_topbar','sidebar','design/page','design/html_footer');
+
+		$this->layout->view($views,$data);
+	}
 	public function index(){
 		$data['meta_description']='';
 		$data['menu']		= $this->menu;
@@ -209,9 +234,6 @@ class Sys_admin extends CI_Controller {
 
 		$this->layout->view($views, $data);
 	}
-
-
-
 
 	/**********************
 	 * Edit clients

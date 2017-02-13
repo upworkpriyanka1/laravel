@@ -61,6 +61,7 @@ $lang['client_address2']        = "Additive Address";
 $lang['client_city']            = "City";
 $lang['client_state']           = "State";
 $lang['client_zip']             = "Zip";
+$lang['grid']                   = "Grid";
 
 $lang['company']                = "Company";
 $lang['company_name']           = "Company Name";
