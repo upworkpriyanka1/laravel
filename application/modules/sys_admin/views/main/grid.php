@@ -67,6 +67,7 @@
             <p>Our standard grid has 12 columns. No matter the size of the browser, each of these columns will always have an equal width.</p>
             <div class="row">
                 <div class="col s1 grid-example"><span class="flow-text">1</span></div>
+
                 <div class="col s1 grid-example"><span class="flow-text">2</span></div>
                 <div class="col s1 grid-example"><span class="flow-text">3</span></div>
                 <div class="col s1 grid-example"><span class="flow-text">4</span></div>
@@ -458,7 +459,7 @@
 </div>
 
 <div class="col hide-on-small-only m3 l2">
-    <div class="toc-wrapper pin-top" style="top: 50px; position:fixed;">
+    <div class="toc-wrapper pin-top" style="top: 140px; position:fixed;">
         <div class="buysellads hide-on-small-only">
             <!-- CarbonAds Zone Code -->
             <script async="" type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=materializecss" id="_carbonads_js"></script>
@@ -520,7 +521,7 @@
         var grid_responsive = $('#grid-responsive').offset().top - 300;
         // Do something
 //        alert('wwwwww');
-        console.log(scroll+' - '+width+" - "+grid_responsive);
+//        console.log(scroll+' - '+width+" - "+grid_responsive);
         if(scroll >= grid_responsive){
             $('.table-of-contents li a').removeClass('active');
             $('.table-of-contents li a[href="#grid-responsive"]').addClass('active');

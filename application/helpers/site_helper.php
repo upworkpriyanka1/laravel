@@ -26,6 +26,12 @@ if (!function_exists('is_valid_email')){
  * $attributes = '', eg array of title, placeholder 'id="emailto", title="mail"''
  * 
 *****************************************************/
+
+
+
+
+
+
 if (!function_exists('MyCustom_menu')){
     function MyCustom_menu($array, $name = '', $class = 'form-control', $default = '', $select=FALSE, $attributes = '' ){
     $menu = '<select name="'.$name.'"';
@@ -41,7 +47,7 @@ if (!function_exists('MyCustom_menu')){
             $menu .= '<option value="'.$key.'"'.$selected.'>'.$val."</option>\n";
 	}
     return $menu.' </select>';
-    }  
+    }
 }
 
 

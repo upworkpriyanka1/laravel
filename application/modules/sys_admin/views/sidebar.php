@@ -332,7 +332,8 @@
 <script>
     $(document).ready(function(){
         $(".btn-add").click(function(){
-            $(".email-add").append('<div class="input-field col-xs-12"><input type="email" class="validate"> <label for="email">Email</label><div class="btn-rem"><i class="fa fa-times-circle" aria-hidden="true"></i></div></div>');
+            $(".email-add").append('<div class="input-field col-xs-12">' +
+                '<input type="email" class="validate"> <label for="email">Email</label><div class="btn-rem"><i class="fa fa-times-circle" aria-hidden="true"></i></div></div>');
         });
 
           $("body").on('click','.btn-rem',function(){
