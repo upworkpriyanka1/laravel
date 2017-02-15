@@ -1,6 +1,6 @@
 <!-- BEGIN SIDEBAR -->
 <div class="container">
-    <a href="#" data-activates="nav-mobile" class="button-collapse top-nav waves-effect waves-light hide-on-large-only">
+    <a href="#" id="artash" data-activates="nav-mobile" class="button-collapse top-nav waves-effect waves-light hide-on-large-only">
         <i class="material-icons">menu</i>
     </a>
 </div>
@@ -327,14 +327,15 @@
 
     </div>
 </div>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 <script>
     $(document).ready(function(){
-        $(".btn-add").click(function(){
-            $(".email-add").append('<div class="input-field col-xs-12">' +
-                '<input type="email" class="validate"> <label for="email">Email</label><div class="btn-rem"><i class="fa fa-times-circle" aria-hidden="true"></i></div></div>');
-        });
+//        $(".btn-add").click(function(){
+//            $(".email-add").append('<div class="input-field col-xs-12">' +
+//                '<input type="email" class="validate"> <label for="email">Email</label><div class="btn-rem"><i class="fa fa-times-circle" aria-hidden="true"></i></div></div>');
+//        });
 
           $("body").on('click','.btn-rem',function(){
 
@@ -349,10 +350,12 @@
             }
         });
 
-        $('.btn-rem-name').click(function(){
+       /* $('body').on('click','.btn-rem-name',function(){
+
+            console.log(68)
             $('input[name=name]').val('');
-            $('.btn-rem-name').css('display', 'none');
-        });
+//            $('.btn-rem-name').css('display', 'none');
+        });*/
 
 
 

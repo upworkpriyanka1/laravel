@@ -241,7 +241,7 @@ li[name='active'] {
     background-color: #A9A9A9;
 }
 .page-content{
-    min-height: 817px !important;
+    min-height: 830px !important;
 }
 .page-footer .footer-list{
     margin-bottom: 0;
@@ -453,7 +453,7 @@ header {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 999;
+    z-index: 900;
     background-color: #0683c9;
     -webkit-transition: height 0.3s;
     -moz-transition: height 0.3s;
@@ -502,7 +502,7 @@ header.smaller nav a {
 
 
 .page-content-wrapper .page-content{
-    padding-top: 80px;
+    padding-top: 105px !important;
 }
 header.smaller{
     height: 85px;;
@@ -515,3 +515,48 @@ header.smaller{
 .form-horizontal .radio{
     padding-top: 0;
 }
+.phone, .email{
+    position: relative;
+}
+.phone .btn-add, .email .btn-add  {
+    display: inline-block;
+    position: absolute;
+    right: -20px;
+    top: 20px;
+}
+
+.phone .btn-rem, .email .btn-rem{
+    display: inline-block;
+    position: absolute;
+    right: 0px;
+    top:20px;
+}
+
+
+.phone .form-group select, .email .form-group select{
+    border:none;
+    border-bottom: 1px solid #9e9e9e;
+}
+.phone .input-field, .email .input-field{
+    margin-top: 0;
+}
+.phone .rem-sel{
+    margin-top: 1rem;
+}
+
+.modal-footer ul li{
+    display: inline-block;
+    padding: 15px;
+}
+.modal-footer ul li a{
+    color: #000000;
+}
+select:focus{
+    outline: none;
+}
+/*#sidenav-overlay{*/
+    /*opacity: 0!important;*/
+    /*z-index: 1;*/
+/*}*/
+
+

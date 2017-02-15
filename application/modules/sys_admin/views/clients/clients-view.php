@@ -394,14 +394,12 @@ var is_insert= '<?= $is_insert ?>'
 
                                                         <div class="col-md-12" style="display: <?php echo ( ( $client_name_input_visible ) ? "block" :"block" ) ; ?>" id="div_client_name_input">
                                                             <i class="material-icons prefix">account_circle</i>
-                                                            <input type="text" name="data[client_name]" id="client_name" value="<?= ( !empty($client->client_name) ? $client->client_name : '' ); ?>" class="form-control" maxlength="100" <?php echo !$is_insert ? " readonly " : "" ?> />
+                                                            <input type="text" name="data[client_name]" id="client_name" value="<?= ( !empty($client->client_name) ? $client->client_name : '' ); ?>" class="form-control x-able" maxlength="100" <?php echo !$is_insert ? " readonly " : "" ?> />
                                                             <label for="client_name"> <?php echo lang('client_name') ?><span class="required">&nbsp;*&nbsp;</span></label>
                                                         </div><!-- ./col -->
 
                                                     </div><!-- ./form-group -->
-                                                    <div class="btn-rem-name">
-                                                        <i class="fa fa-times-circle" aria-hidden="true"></i>
-                                                    </div>
+
                                                 </div><!-- ./col -->
 
                                                 <!-- client owner -->
@@ -665,7 +663,7 @@ var is_insert= '<?= $is_insert ?>'
                                                             <button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:switchFieldName('client_zip',true);" id="btn_add_client_zip">Add a zip<span class="required">&nbsp;*&nbsp;</span></button>
                                                         </div>
                                                         <div class="col-md-4"  style="display: <?php echo ( $client_zip_input_visible ? "block" :"block" ) ; ?>" id="div_client_zip_input">
-                                                            <input type="text" name="data[client_zip]" id="client_zip" value="<?= ( !empty($client->client_zip) ? $client->client_zip : '' ); ?>" class="form-control x-able" maxlength="50" />
+                                                            <input type="text" name="data[client_zip]" id="client_zip" value="<?= ( !empty($client->client_zip) ? $client->client_zip : '' ); ?>" class="form-control x-able" maxlength="5" />
                                                             <label for="client_zip" class="control-label col-md-2"><?php echo lang('zip') ?><span class="required">&nbsp;*&nbsp;</span></label>
                                                         </div>
                                                         <div class="col-md-4" style="display: <?php echo ( ( $client_zip_view_visible ) ? "block" :"none" ) ; ?>" id="div_client_zip_view">
@@ -679,9 +677,10 @@ var is_insert= '<?= $is_insert ?>'
 
                                             </div> <!-- ./row -->
 
+                                            <!--Phone-->
                                             <div class="row">
                                                 <!-- client phone -->
-                                                <div class="col-md-12">
+                                                <div class="col-md-12 phone add-row-able" next-row-class="phone-second-row">
 
                                                    <!-- <button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:AddPhone();" id="btn_add_phone">Add a phone</button>-->
 
@@ -692,13 +691,13 @@ var is_insert= '<?= $is_insert ?>'
                                                                 <tr>
                                                                     <td style="width: 98%">
                                                                         <i class="material-icons prefix">phone</i>
-                                                                        <input type="text" name="data[client_phone]" id="client_phone" value="<?= ( !empty($client->client_phone) ? $client->client_phone : '' ); ?>" class="form-control x-able" maxlength="50" onchange="javascript:checkPhonesVisibilty(); " />
+                                                                        <input type="text" name="data[client_phone]" id="client_phone" value="<?= ( !empty($client->client_phone) ? $client->client_phone : '' ); ?>" class="form-control " maxlength="50" onchange="javascript:checkPhonesVisibilty(); " />
                                                                         <label for="client_phone" class=""><?php echo lang('phone') ?></label>
                                                                     </td>
                                                                 </tr>
                                                             </table>
                                                         </div><!-- ./col -->
-                                                        <div class="input-field col-md-6">
+                                                        <div class="input-field col-md-6 rem-sel">
                                                             <select>
                                                                 <option value="" disabled selected>Custom Lable</option>
                                                                 <option value="1">Home</option>
@@ -709,32 +708,95 @@ var is_insert= '<?= $is_insert ?>'
                                                         </div>
 
                                                     </div><!-- ./form-group -->
+                                                    <div class="btn-add add-row-button" next-row-class="phone-second-row">
+
+                                                        <a href="#" data-toggle="tooltip" title="Add"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+                                                    </div>
+                                                   <!-- <div class="btn-rem">
+                                                        <i class="fa fa-times-circle" aria-hidden="true"></i>
+                                                    </div>-->
+
                                                 </div><!-- ./col -->
 
                                                 <!-- client phone_2 -->
-                                                <div class="col-md-12" id="div_phone_2" style="display: <?= ( !empty($client->client_phone_2) ? 'block' : 'none' ); ?>">
+                                                <div class="col-md-12 phone  phone-second-row" id="div_phone_2" style="display: <?= ( !empty($client->client_phone_2) ? 'block' : 'none' ); ?>">
                                                     <div class="form-group input-field <?= $this->common_lib->set_field_error_tag("data[client_phone_2]", ' has-error ')?>">
-                                                        <div class="col-md-12">
+                                                        <div class="col-md-6">
                                                             <i class="material-icons prefix">phone</i>
-                                                            <input type="text" name="data[client_phone_2]" id="client_phone_2" value="<?= ( !empty($client->client_phone_2) ? $client->client_phone_2 : '' ); ?>" class="form-control x-able" maxlength="50" onchange="javascript:checkPhonesVisibilty(); " />
-                                                            <label for="client_phone_2" class="control-label col-md-4"><?php echo lang('phone_2') ?></label>
+                                                            <input type="text" name="data[client_phone_2]" id="client_phone_2" value="<?= ( !empty($client->client_phone_2) ? $client->client_phone_2 : '' ); ?>" class="form-control " maxlength="50" onchange="javascript:checkPhonesVisibilty(); " />
+                                                            <label for="client_phone_2" class=""><?php echo lang('phone_2') ?></label>
                                                         </div><!-- ./col -->
+                                                        <div class="input-field col-md-6">
+                                                            <select>
+                                                                <option value="" disabled selected>Custom Lable</option>
+                                                                <option value="1">Home</option>
+                                                                <option value="2">Work</option>
+                                                                <option value="3">Other</option>
+                                                            </select>
+
+                                                        </div>
                                                     </div><!-- ./form-group -->
+                                                    <div class="btn-add add-row-button" next-row-class="phone-third-row">
+                                                        <a href="#" data-toggle="tooltip" title="Add"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+                                                    </div>
+                                                    <div class="btn-rem">
+                                                        <i class="fa fa-times-circle" aria-hidden="true"></i>
+                                                    </div>
+                                                </div><!-- ./col -->
+
+                                                <!-- client phone_3 -->
+                                                <div class="col-md-12 phone  phone-third-row" id="div_phone_3" style="display: none;">
+                                                    <div class="form-group input-field <?= $this->common_lib->set_field_error_tag("data[client_phone_2]", ' has-error ')?>">
+                                                        <div class="col-md-6">
+                                                            <i class="material-icons prefix">phone</i>
+                                                            <input type="text" name="data[client_phone_3]" id="client_phone_3" value="<?= ( !empty($client->client_phone_3) ? $client->client_phone_3 : '' ); ?>" class="form-control " maxlength="50" onchange="javascript:checkPhonesVisibilty(); " />
+                                                            <label for="client_phone_3" class=""><?php echo lang('phone_3') ?></label>
+                                                        </div><!-- ./col -->
+                                                        <div class="input-field col-md-6">
+                                                            <select>
+                                                                <option value="" disabled selected>Custom Lable</option>
+                                                                <option value="1">Home</option>
+                                                                <option value="2">Work</option>
+                                                                <option value="3">Other</option>
+                                                            </select>
+
+                                                        </div>
+                                                    </div><!-- ./form-group -->
+
+                                                    <div class="btn-rem">
+                                                        <i class="fa fa-times-circle" aria-hidden="true"></i>
+                                                    </div>
                                                 </div><!-- ./col -->
 
 
                                             </div> <!-- ./row -->
+                                            <!--END Phone-->
 
-                                            <div class="row">
+                                            <div class="row" style="display: none;">
                                                 <!-- client phone_3 -->
-                                                <div class="col-md-6" id="div_phone_3" style="display: <?= ( !empty($client->client_phone_3) ? 'block' : 'none' ); ?>">
+                                                <div class="col-md-12 phone" id="div_phone_3" style="display: <?= ( !empty($client->client_phone_3) ? 'block' : 'none' ); ?>">
                                                     <div class="form-group input-field <?= $this->common_lib->set_field_error_tag("data[client_phone_3]", ' has-error ')?>">
-                                                        <div class="col-md-7">
+                                                        <div class="col-md-6">
                                                             <i class="material-icons prefix">phone</i>
                                                             <input type="text" name="data[client_phone_3]" id="client_phone_3" value="<?= ( !empty($client->client_phone_3) ? $client->client_phone_3 : '' ); ?>" class="form-control x-able" maxlength="50" onchange="javascript:checkPhonesVisibilty(); " />
-                                                            <label for="client_phone_3" class="control-label col-md-4"><?php echo lang('phone_3') ?></label>
+                                                            <label for="client_phone_3" class=""><?php echo lang('phone_3') ?></label>
                                                         </div><!-- ./col -->
+                                                        <div class="input-field col-md-6">
+                                                            <select>
+                                                                <option value="" disabled selected>Custom Lable</option>
+                                                                <option value="1">Home</option>
+                                                                <option value="2">Work</option>
+                                                                <option value="3">Other</option>
+                                                            </select>
+
+                                                        </div>
                                                     </div><!-- ./form-group -->
+                                                    <div class="btn-add">
+                                                        <a href="#" data-toggle="tooltip" title="Add"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+                                                    </div>
+                                                    <div class="btn-rem">
+                                                        <i class="fa fa-times-circle" aria-hidden="true"></i>
+                                                    </div>
                                                 </div><!-- ./col -->
 
                                                 <!-- client phone_4 -->
@@ -742,7 +804,7 @@ var is_insert= '<?= $is_insert ?>'
                                                     <div class="form-group input-field <?= $this->common_lib->set_field_error_tag("data[client_phone_4]", ' has-error ')?>">
                                                         <div class="col-md-4">
                                                             <i class="material-icons prefix">phone</i>
-                                                            <input type="text" name="data[client_phone_4]" id="client_phone_4" value="<?= ( !empty($client->client_phone_4) ? $client->client_phone_4 : '' ); ?>" class="form-control x-able" maxlength="50" onchange="javascript:checkPhonesVisibilty(); " />
+                                                            <input type="text" name="data[client_phone_4]" id="client_phone_4" value="<?= ( !empty($client->client_phone_4) ? $client->client_phone_4 : '' ); ?>" class="form-control" maxlength="50" onchange="javascript:checkPhonesVisibilty(); " />
                                                             <label for="client_phone_4" class="control-label col-md-4"><?php echo lang('phone_4') ?></label>
                                                         </div><!--  ./col -->
                                                         <div class="col-md-3">
@@ -763,56 +825,11 @@ var is_insert= '<?= $is_insert ?>'
 
                                             </div> <!-- ./row -->
 
-                                            <div class="row" >
-                                                <!-- client fax -->
-                                                <div class="col-md-6">
-
-                                                    <div class="form-group input-field <?= $this->common_lib->set_field_error_tag("data[client_fax]", ' has-error ')?>">
-
-                                                        <?php
-                                                        $is_debug= false;
-                                                        $client_fax_button_visible = $is_insert;
-                                                        $client_fax_input_visible = !$is_insert;
-                                                        $client_fax_view_visible = false;
-                                                        if ($is_debug) echo '<pre>$validation_errors_text::'.print_r($validation_errors_text,true).'</pre>';
-                                                        if ( $validation_errors_text!= "" and !empty($client->client_fax) ) {
-                                                            $client_fax_button_visible = false;
-                                                            $client_fax_input_visible = true;
-                                                            $client_fax_view_visible= false;
-                                                            if ($is_debug) echo '<pre>INSIDE1</pre>';
-                                                        }
-                                                        if ( $validation_errors_text == "" and !$is_insert ) {
-                                                            $client_fax_button_visible = false;
-                                                            $client_fax_input_visible = false;
-                                                            $client_fax_view_visible= true;
-                                                            if ($is_debug) echo '<pre>INSIDE2</pre>';
-                                                        }
-                                                        if ($is_debug) {
-                                                            echo '<pre>$is_insert::' . print_r( $is_insert, true ) . '</pre>';
-                                                            echo '<pre>button_visible::' . print_r( $client_fax_button_visible, true ) . '</pre>';
-                                                            echo '<pre>input_visible::' . print_r( $client_fax_input_visible, true ) . '</pre>';
-                                                            echo '<pre>view_visible::' . print_r( $client_fax_view_visible, true ) . '</pre>';
-                                                        }
-                                                        ?>
-                                                        <div class="col-md-7" style="display: <?php echo ( $client_fax_button_visible ? "none" :"none") ; ?>" id="div_client_fax_btn">
-                                                            <button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:switchFieldName('client_fax',true);" id="btn_add_client_fax">Add an fax<span class="required">&nbsp;*&nbsp;</span></button>
-                                                        </div>
-                                                        <div class="col-md-7" style="display: <?php echo ( $client_fax_input_visible ? "block" :"block" ) ; ?>" id="div_client_fax_input">
-                                                            <input type="text" name="data[client_fax]" value="<?= ( !empty($client->client_fax) ? $client->client_fax : '' ); ?>" class="form-control x-able" maxlength="50" />
-                                                            <label for="client_fax" class="control-label col-md-4"><?php echo lang('fax') ?><span class="required">&nbsp;*&nbsp;</span></label>
-                                                        </div>
-                                                        <div class="col-md-7" style="display: <?php echo ( ( $client_fax_view_visible ) ? "block" :"none" ) ; ?>" id="div_client_fax_view">
-                                                            <input type="text" name="data[client_fax_view]" id="client_fax_view" value="<?= ( !empty($client->client_fax) ? $client->client_fax : '' ); ?>" class="form-control" maxlength="50" readonly />
-                                                            <label for="client_fax_view" class="control-label col-md-4"><?php echo lang('fax') ?><span class="required">&nbsp;*&nbsp;</span></label>
-                                                        </div><!-- ./col -->
-
-                                                    </div> <!-- ./form-group -->
-                                                </div><!-- ./col -->
-                                            </div> <!-- ./row -->
-
+                                            <!--Email-->
                                             <div class="row">
+
                                                 <!-- client email -->
-                                                <div class="col-md-6">
+                                                <div class="col-md-12 email add-row-able">
                                                     <div class="form-group input-field <?= $this->common_lib->set_field_error_tag("data[client_email]", ' has-error ')?>">
                                                         <?php
                                                         $is_debug= false;
@@ -839,89 +856,175 @@ var is_insert= '<?= $is_insert ?>'
                                                             echo '<pre>view_visible::' . print_r( $client_email_view_visible, true ) . '</pre>';
                                                         }
                                                         ?>
-                                                        <div class="col-md-12" style="display: <?php echo ( $client_email_button_visible ? "none" :"none") ; ?>" id="div_client_email_btn">
+                                                        <div class="col-md-6" style="display: <?php echo ( $client_email_button_visible ? "none" :"none") ; ?>" id="div_client_email_btn">
                                                             <button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:switchFieldName('client_email',true);" id="btn_add_client_email">Add an email</button>
                                                         </div>
 
-                                                        <div class="col-md-12" style="display: <?php echo ( $client_email_input_visible ? "block" :"block" ) ; ?>" id="div_client_email_input">
-                                                            <input type="text" name="data[client_email]" id="client_email" value="<?= ( !empty($client->client_email) ? $client->client_email : '' ); ?>" class="form-control x-able" maxlength="50"  />
-                                                            <label for="client_email" class="control-label col-md-4"><?php echo lang('email') ?></label>
+                                                        <div class="col-md-6" style="display: <?php echo ( $client_email_input_visible ? "block" :"block" ) ; ?>" id="div_client_email_input">
+                                                            <i class="material-icons prefix">email</i>
+                                                            <input type="text" name="data[client_email]" id="client_email" value="<?= ( !empty($client->client_email) ? $client->client_email : '' ); ?>" class="form-control" maxlength="50"  />
+                                                            <label for="client_email" class=""><?php echo lang('email') ?></label>
                                                         </div>
 
-                                                        <div class="col-md-12" style="display: <?php echo ( ( $client_email_view_visible ) ? "block" :"none" ) ; ?>" id="div_client_email_view">
+                                                        <div class="col-md-6" style="display: <?php echo ( ( $client_email_view_visible ) ? "block" :"none" ) ; ?>" id="div_client_email_view">
                                                             <input type="text" name="data[client_email_view]" id="client_email_view" value="<?= ( !empty($client->client_email) ? $client->client_email : '' ); ?>" class="form-control" maxlength="50" readonly />
                                                             <label for="client_email_view" class="control-label col-md-4"><?php echo lang('email') ?></label>
-                                                        </div><!-- ./col -->
-
+                                                        </div>
+                                                        <!-- ./col -->
+                                                        <div class="input-field col-md-6">
+                                                            <select>
+                                                                <option value="" disabled selected>Custom Lable</option>
+                                                                <option value="1">Home</option>
+                                                                <option value="2">Work</option>
+                                                                <option value="3">Other</option>
+                                                            </select>
+                                                        </div>
                                                     </div><!-- ./form-group -->
+                                                        <div class="btn-add add-row-button" next-row-class="email-second-row">
+                                                            <a href="#" data-toggle="tooltip" title="Add"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+                                                        </div>
+                                                       <!-- <div class="btn-rem">
+                                                            <i class="fa fa-times-circle" aria-hidden="true"></i>
+                                                        </div>-->
                                                 </div><!-- ./col -->
 
-                                                <div class="input-field col-md-6">
-                                                    <select>
-                                                        <option value="" disabled selected>Custom Lable</option>
-                                                        <option value="1">Home</option>
-                                                        <option value="2">Work</option>
-                                                        <option value="3">Other</option>
-                                                    </select>
-
-                                                </div>
-                                                <!-- client url -->
-                                                <div class="col-md-6">
-                                                    <div class="form-group input-field <?= $this->common_lib->set_field_error_tag("data[client_website]", ' has-error ')?>">
+                                                <!-- client email -->
+                                                <div class="col-md-12 email email-second-row" style="display:none;">
+                                                    <div class="form-group input-field <?= $this->common_lib->set_field_error_tag("data[client_email]", ' has-error ')?>" >
                                                         <?php
                                                         $is_debug= false;
-                                                        $client_website_button_visible = $is_insert;
-                                                        $client_website_input_visible = !$is_insert;
-                                                        $client_website_view_visible = false;
+                                                        $client_email_button_visible = $is_insert;
+                                                        $client_email_input_visible = !$is_insert;
+                                                        $client_email_view_visible = false;
                                                         if ($is_debug) echo '<pre>$validation_errors_text::'.print_r($validation_errors_text,true).'</pre>';
-                                                        if ( $validation_errors_text!= "" and !empty($client->client_website) ) {
-                                                            $client_website_button_visible = false;
-                                                            $client_website_input_visible = true;
-                                                            $client_website_view_visible= false;
+                                                        if ( $validation_errors_text!= "" and !empty($client->client_email) ) {
+                                                            $client_email_button_visible = false;
+                                                            $client_email_input_visible = true;
+                                                            $client_email_view_visible= false;
                                                             if ($is_debug) echo '<pre>INSIDE1</pre>';
                                                         }
                                                         if ( $validation_errors_text == "" and !$is_insert ) {
-                                                            $client_website_button_visible = false;
-                                                            $client_website_input_visible = false;
-                                                            $client_website_view_visible= true;
+                                                            $client_email_button_visible = false;
+                                                            $client_email_input_visible = false;
+                                                            $client_email_view_visible= true;
                                                             if ($is_debug) echo '<pre>INSIDE2</pre>';
                                                         }
                                                         if ($is_debug) {
                                                             echo '<pre>$is_insert::' . print_r( $is_insert, true ) . '</pre>';
-                                                            echo '<pre>button_visible::' . print_r( $client_website_button_visible, true ) . '</pre>';
-                                                            echo '<pre>input_visible::' . print_r( $client_website_input_visible, true ) . '</pre>';
-                                                            echo '<pre>view_visible::' . print_r( $client_website_view_visible, true ) . '</pre>';
+                                                            echo '<pre>button_visible::' . print_r( $client_email_button_visible, true ) . '</pre>';
+                                                            echo '<pre>input_visible::' . print_r( $client_email_input_visible, true ) . '</pre>';
+                                                            echo '<pre>view_visible::' . print_r( $client_email_view_visible, true ) . '</pre>';
                                                         }
                                                         ?>
-                                                        <div class="col-md-12" style="display: <?php echo ( $client_website_button_visible ? "none" :"none") ; ?>" id="div_client_website_btn">
-                                                            <button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:switchFieldName('client_website',true);" id="btn_add_client_website">Add an website</button>
+                                                        <div class="col-md-6" style="display: <?php echo ( $client_email_button_visible ? "none" :"none") ; ?>" id="div_client_email_btn">
+                                                            <button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:switchFieldName('client_email',true);" id="btn_add_client_email">Add an email</button>
                                                         </div>
-                                                        <div class="col-md-12" style="display: <?php echo ( $client_website_input_visible ? "block" :"block" ) ; ?>" id="div_client_website_input">
-                                                            <input type="text" name="data[client_website]" value="<?= ( !empty($client->client_website) ? $client->client_website : '' ); ?>" class="form-control x-able" maxlength="100" />
-                                                            <label for="client_website" class="control-label col-md-4"><?php echo lang('website') ?></label>
-                                                        </div>
-                                                        <div class="col-md-12" style="display: <?php echo ( ( $client_website_view_visible ) ? "block" :"none" ) ; ?>" id="div_client_website_view">
-                                                            <input type="text" name="data[client_website_view]" id="client_website_view" value="<?= ( !empty($client->client_website) ? $client->client_website : '' ); ?>" class="form-control" maxlength="100" readonly />
-                                                            <label for="client_website_view" class="control-label col-md-4"><?php echo lang('website') ?></label>
-                                                        </div><!-- ./col -->
 
+                                                        <div class="col-md-6" style="display: <?php echo ( $client_email_input_visible ? "block" :"block" ) ; ?>" id="div_client_email_input">
+                                                            <i class="material-icons prefix">email</i>
+                                                            <input type="text" name="data[client_email]" id="client_email" value="<?= ( !empty($client->client_email) ? $client->client_email : '' ); ?>" class="form-control" maxlength="50"  />
+                                                            <label for="client_email" class=""><?php echo lang('email') ?></label>
+                                                        </div>
+
+                                                        <div class="col-md-6" style="display: <?php echo ( ( $client_email_view_visible ) ? "block" :"none" ) ; ?>" id="div_client_email_view">
+                                                            <input type="text" name="data[client_email_view]" id="client_email_view" value="<?= ( !empty($client->client_email) ? $client->client_email : '' ); ?>" class="form-control" maxlength="50" readonly />
+                                                            <label for="client_email_view" class="control-label col-md-4"><?php echo lang('email') ?></label>
+                                                        </div>
+                                                        <!-- ./col -->
+                                                        <div class="input-field col-md-6">
+                                                            <select>
+                                                                <option value="" disabled selected>Custom Lable</option>
+                                                                <option value="1">Home</option>
+                                                                <option value="2">Work</option>
+                                                                <option value="3">Other</option>
+                                                            </select>
+                                                        </div>
                                                     </div><!-- ./form-group -->
+                                                    <div class="btn-add add-row-button" next-row-class="email-third-row">
+                                                        <a href="#" data-toggle="tooltip" title="Add"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+                                                    </div>
+                                                    <div class="btn-rem">
+                                                        <i class="fa fa-times-circle" aria-hidden="true"></i>
+                                                    </div>
                                                 </div><!-- ./col -->
 
+                                                <!-- client email -->
+                                                <div class="col-md-12 email email-third-row" style="display:none;">
+                                                <div class="form-group  input-field <?= $this->common_lib->set_field_error_tag("data[client_email]", ' has-error ')?>" >
+                                                    <?php
+                                                    $is_debug= false;
+                                                    $client_email_button_visible = $is_insert;
+                                                    $client_email_input_visible = !$is_insert;
+                                                    $client_email_view_visible = false;
+                                                    if ($is_debug) echo '<pre>$validation_errors_text::'.print_r($validation_errors_text,true).'</pre>';
+                                                    if ( $validation_errors_text!= "" and !empty($client->client_email) ) {
+                                                        $client_email_button_visible = false;
+                                                        $client_email_input_visible = true;
+                                                        $client_email_view_visible= false;
+                                                        if ($is_debug) echo '<pre>INSIDE1</pre>';
+                                                    }
+                                                    if ( $validation_errors_text == "" and !$is_insert ) {
+                                                        $client_email_button_visible = false;
+                                                        $client_email_input_visible = false;
+                                                        $client_email_view_visible= true;
+                                                        if ($is_debug) echo '<pre>INSIDE2</pre>';
+                                                    }
+                                                    if ($is_debug) {
+                                                        echo '<pre>$is_insert::' . print_r( $is_insert, true ) . '</pre>';
+                                                        echo '<pre>button_visible::' . print_r( $client_email_button_visible, true ) . '</pre>';
+                                                        echo '<pre>input_visible::' . print_r( $client_email_input_visible, true ) . '</pre>';
+                                                        echo '<pre>view_visible::' . print_r( $client_email_view_visible, true ) . '</pre>';
+                                                    }
+                                                    ?>
+                                                    <div class="col-md-6" style="display: <?php echo ( $client_email_button_visible ? "none" :"none") ; ?>" id="div_client_email_btn">
+                                                        <button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:switchFieldName('client_email',true);" id="btn_add_client_email">Add an email</button>
+                                                    </div>
+
+                                                    <div class="col-md-6" style="display: <?php echo ( $client_email_input_visible ? "block" :"block" ) ; ?>" id="div_client_email_input">
+                                                        <i class="material-icons prefix">email</i>
+                                                        <input type="text" name="data[client_email]" id="client_email" value="<?= ( !empty($client->client_email) ? $client->client_email : '' ); ?>" class="form-control" maxlength="50"  />
+                                                        <label for="client_email" class=""><?php echo lang('email') ?></label>
+                                                    </div>
+
+                                                    <div class="col-md-6" style="display: <?php echo ( ( $client_email_view_visible ) ? "block" :"none" ) ; ?>" id="div_client_email_view">
+                                                        <input type="text" name="data[client_email_view]" id="client_email_view" value="<?= ( !empty($client->client_email) ? $client->client_email : '' ); ?>" class="form-control" maxlength="50" readonly />
+                                                        <label for="client_email_view" class="control-label col-md-4"><?php echo lang('email') ?></label>
+                                                    </div>
+                                                    <!-- ./col -->
+                                                    <div class="input-field col-md-6">
+                                                        <select>
+                                                            <option value="" disabled selected>Custom Lable</option>
+                                                            <option value="1">Home</option>
+                                                            <option value="2">Work</option>
+                                                            <option value="3">Other</option>
+                                                        </select>
+                                                    </div>
+                                                </div><!-- ./form-group -->
+
+                                                    <div class="btn-rem">
+                                                        <i class="fa fa-times-circle" aria-hidden="true"></i>
+                                                    </div>
+                                            </div><!-- ./col -->
+
                                             </div>
+                                            <!--End Email-->
 
                                             <div class="row">
                                                 <div class="col-md-12">
+                                                    <div class="input-field col-md-12">
+                                                        <input id="first_name" type="text" class="validate">
+                                                        <label for="first_name">Type of business</label>
+                                                    </div>
+
+
                                                     <form action="#">
 
-                                                        <input class="with-gap" name="group1" type="radio" id="test1"  />
-                                                        <label for="test1">Hospice</label>
-                                                        <input class="with-gap" name="group1" type="radio" id="test2"  />
-                                                        <label for="test2">Home Health</label>
-                                                        <input class="with-gap" name="group1" type="radio" id="test3"  />
-                                                        <label for="test3">Assisted Living</label>
-                                                        <input class="with-gap" name="group1" type="radio" id="test4"  />
-                                                        <label for="test4">Board & Care</label>
+                                                        <label><input class="with-gap" name="group1"  checked type="radio"/>Hospice</label>
+                                                        <label> <input class="with-gap" name="group1" type="radio" /> Home Health</label>
+                                                        <label><input class="with-gap" name="group1" type="radio" /> Assisted Living</label>
+                                                        <label><input class="with-gap" name="group1" type="radio" /> Board & Care</label>
+                                                        <label><input class="with-gap" name="group1" type="radio" id="test6"  />Board & Care</label>
+
 
                                                     </form>
                                                 </div>
@@ -983,9 +1086,75 @@ var is_insert= '<?= $is_insert ?>'
                                                     </div>
 
                                                 </div> <!-- ./row -->
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group input-field <?= $this->common_lib->set_field_error_tag("data[clients_types_id]", ' has-error ')?>">
+                                                        <?php
+                                                        $is_debug= false;
+                                                        $clients_types_id_button_visible = $is_insert;
+                                                        $clients_types_id_input_visible = !$is_insert;
+                                                        $clients_types_id_view_visible = false;
+                                                        if ($is_debug) echo '<pre>$validation_errors_text::'.print_r($validation_errors_text,true).'</pre>';
+                                                        if ( $validation_errors_text!= "" and !empty($client->clients_types_id) ) {
+                                                            $clients_types_id_button_visible = false;
+                                                            $clients_types_id_input_visible = true;
+                                                            $clients_types_id_view_visible= false;
+                                                            if ($is_debug) echo '<pre>INSIDE1</pre>';
+                                                        }
+                                                        if ( $validation_errors_text == "" and !$is_insert ) {
+                                                            $clients_types_id_button_visible = false;
+                                                            $clients_types_id_input_visible = false;
+                                                            $clients_types_id_view_visible= true;
+                                                            if ($is_debug) echo '<pre>INSIDE2</pre>';
+                                                        }
+                                                        if ($is_debug) {
+                                                            echo '<pre>$is_insert::' . print_r( $is_insert, true ) . '</pre>';
+                                                            echo '<pre>button_visible::' . print_r( $clients_types_id_button_visible, true ) . '</pre>';
+                                                            echo '<pre>input_visible::' . print_r( $clients_types_id_input_visible, true ) . '</pre>';
+                                                            echo '<pre>view_visible::' . print_r( $clients_types_id_view_visible, true ) . '</pre>';
+                                                        }
+                                                        ?>
+
+                                                        <div class="col-md-12" style="display: <?php echo ( $clients_types_id_button_visible ? "none" :"none") ; ?>" id="div_clients_types_id_btn">
+                                                            <button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:switchFieldName('clients_types_id',true);" id="btn_add_clients_types_id">Add a client type<span class="required">&nbsp;*&nbsp;</span></button>
+                                                        </div>
+                                                        <div class="col-md-12" style="display: <?php echo ( $clients_types_id_input_visible ? "block" :"block" ) ; ?>" id="div_clients_types_id_input">
+                                                            <table>
+                                                                <tr>
+                                                                    <td style="padding: 12px;">
+                                                                        <label for="clients_types_id" class="control-label col-md-4">&nbsp;<?php echo lang('clients-type') ?><span class="required">&nbsp;*&nbsp;</span></label>
+                                                                    </td>
+                                                                </tr>
+
+
+                                                                <tr>
+                                                                    <td>
+                                                                        <?php  echo MyCustom_menu($client_types,'data[clients_types_id]','form-control', ( !empty($client->clients_types_id) ? $client->clients_types_id : '' ), " -Client Type- ",'id ="clients_types_id"'); ?>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                       <!-- <div class="col-md-12" style="display: block;" id="div_clients_types_id_input">
+                                                            <table>
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td style="padding: 12px;">
+                                                                        <label for="clients_types_id" class="control-label col-md-4">&nbsp;Client&nbsp;Type<span class="required">&nbsp;*&nbsp;</span></label>
+                                                                    </td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <div class="col-md-12" style="display: <?php /*echo ( ( $clients_types_id_view_visible ) ? "block" :"none" ) ; */?>" id="div_clients_types_id_view">
+                                                            <label class="control-label col-md-4" for="clients_types_id_view" >&nbsp;<?php /*echo lang('clients-type') */?><span class="required">&nbsp;*&nbsp;</span></label>
+                                                            <input type="text" name="data[clients_types_id_view]" id="clients_types_id_view" value="<?/*= ( !empty($client->clients_types_id) ? $this->common_lib->get_clients_types_id_label($client->clients_types_id) : '' ); */?>" class="form-control" maxlength="200" readonly />
+                                                        </div>-->
+
+                                                    </div>
+                                                </div>
                                             </div>
 
-                                            <div class="row">
+                                            <div class="row" style="display: none">
 
                                                 <div class="col-md-6">
                                                     <div class="form-group input-field <?= $this->common_lib->set_field_error_tag("data[clients_types_id]", ' has-error ')?>">
@@ -1120,7 +1289,50 @@ var is_insert= '<?= $is_insert ?>'
 
                                             </div><!-- ./col -->
 
+                                            <section style="display: none" class="row ">
+                                                <?php $submit_buttons_visible = $is_insert;
+                                                $switch_to_edit_buttons_visible = !$is_insert;
+                                                //								echo '<pre>$validation_errors_text::'.print_r(htmlspecialchars($validation_errors_text),true).'</pre>';
+                                                if ( $validation_errors_text!= "" ) {
+                                                    $submit_buttons_visible = true;
+                                                    $switch_to_edit_buttons_visible = false;
+                                                }
+                                                //								echo '<pre>$submit_buttons_visible::'.print_r($submit_buttons_visible,true).'</pre>';
+                                                //								echo '<pre>$switch_to_edit_buttons_visible::'.print_r($switch_to_edit_buttons_visible,true).'</pre>';
+                                                ?>
+                                                <!--								<div class=" btn-group pull-right editor_btn_group " style="padding: 5px; display: none;" id="div_insert_buttons">-->
+                                                <!--								</div>-->
 
+                                                <div class=" btn-group pull-right editor_btn_group " style="padding: 5px; <?= !$switch_to_edit_buttons_visible ? "display: none;" : ""  ?> " id="div_view_buttons">
+                                                    <div class="col-xs-6 pull-left ">
+                                                        <button type="button" class="btn btn-default btn-sm pull_right_only_on_xs padding_right_sm tooltipped" onclick="javascript:showEditMode('<?= ( $is_insert ? "new" : $cid ) ?>', '<?=  ( $is_insert ? "1" : "" ) ?>')" data-position="top" data-delay="50" data-toggle="tooltip" data-html="true" data-placement="top" title="" data-original-title="Click to switch to edit mode">
+                                                            <i class="fa fa-pencil"></i>
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-xs-6 pull-right ">
+                                                        <button type="reset" class="btn btn-cancel-action" onclick="javascript:document.location='<?=base_url()?>sys-admin/clients-view<?=$page_parameters_with_sort?>'" >Cancel</button>
+                                                    </div>
+                                                </div>
+
+                                                <div class=" btn-group pull-right editor_btn_group "  style="padding: 5px; <?= !$submit_buttons_visible ? "display: none;" : ""  ?> " id="div_editor_buttons">
+                                                    <div class="col-xs-12  col-sm-4  ">
+                                                        On Update&nbsp;
+                                                        <select id="select_on_update" name="select_on_update">
+                                                            <option value="reopen_editor" <?= ( $select_on_update == "reopen_editor" ? "selected" : "") ?> >Reopen editor</option>
+                                                            <option value="open_editor_for_new" <?= ( $select_on_update == "open_editor_for_new" ? "selected" : "") ?> >Open editor for new</option>
+                                                            <option value="reopen_listing" <?= ( $select_on_update == "reopen_listing" ? "selected" : "") ?> >Reopen listing</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-xs-6  col-sm-4 ">
+                                                        <button style="display: none" type="button" class="btn btn-primary" onclick="javascript:onSubmit();" >Submit</button>
+                                                    </div>
+                                                    <div class="col-xs-6 col-sm-2 pull-left ">
+                                                        <button style="display: none" type="reset" class="btn btn-cancel-action" onclick="javascript:document.location='<?=base_url()?>sys-admin/clients-view<?=$page_parameters_with_sort?>'" >Cancel</button>
+                                                    </div>
+                                                    <div class="col-sm-2 ">
+                                                    </div>
+                                                </div>
+                                            </section>
 
                                         </div>
 
@@ -1134,12 +1346,12 @@ var is_insert= '<?= $is_insert ?>'
                 </div><!-- ./row -->
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
                 <div class="col-xs-12">
                     <div class="col-md-6">
                         <ul>
-                            <li><span class="create-contact-more"><a href="#">+CONTACT</a></span></li>
-                            <li><span class="create-contact-more"><a href="#">+SUPERUSER</a></span></li>
+                            <li class="create-contact-more"><a href="#">+CONTACT</a> </li>
+                            <li class="create-contact-more"><a href="#">+SUPERUSER</a></li>
                         </ul>
 
 
@@ -1147,8 +1359,8 @@ var is_insert= '<?= $is_insert ?>'
 
                     <div class="col-md-6 ">
                         <ul>
-                            <li data-dismiss="modal" role="button">CANCEL </li>
-                            <li class="create-contact-save" data-action="save" role="button"> SAVE </li>
+                            <li data-dismiss="modal" role="button"><a href="#" onclick="javascript:document.location='<?=base_url()?>sys-admin/clients-view<?=$page_parameters_with_sort?>'">CANCEL</a>  </li>
+                            <li class="create-contact-save" data-action="save" role="button"><a href="#"> SAVE</a> </li>
                         </ul>
 
 
@@ -1158,6 +1370,9 @@ var is_insert= '<?= $is_insert ?>'
         </div>
     </div>
 </div>
+
+
+
 
 
 

@@ -95,13 +95,19 @@ $(document).ready(function(){
 
     });
     $('.create_contact').on('click',function(){
-        $('#create-contact').modal('show');
-        console.log(45);
+        $('#newclient').modal('show');
+    });
+    $('#artash').on('click',function(){
+        $('header').css('position','static');
     });
 
 
 
+    $('[data-toggle="tooltip"]').tooltip();
 
+    $('.create-contact-save').on('click',function(){
+       $('#form_client_edit').submit();
+    });
 });
 
 
@@ -128,18 +134,45 @@ $(document).ready(function(){
 
     'use strict';
 
+    $('.add-row-button').click(function(){
+        var next_row_class = $(this).attr('next-row-class');
+
+            $('.'+next_row_class).css('display', 'block');
+
+    });
+
+    function xAbleClick(){
+        console.log('button clicked');
+        $(this).closest('.form-group').find('.x-able').val("");
+        $(this).closest('.form-group').find('.x-able-button').remove();
+    };
+
+    function www(){
+        console.log("!");
+    }
+
     $('.x-able').keyup(function(){
         var val = $(this).val();
-        console.log(val);
         var html = '<div class="btn-rem-name x-able-button" style="display: inline-block; position: absolute; right: 0; top: 20px; ">'+
         '<i class="fa fa-times-circle" aria-hidden="true"></i></div>';
 
-        if(val != ""){
+        if(val != "" && $(this).closest('.form-group').find('.x-able-button').length == 0){
             $(this).closest('.form-group').append(html);
-        }else{
+            var buttons = document.getElementsByClassName('x-able-button');
+            var i;
+            for(i = 0; i < buttons.length; i++){
+                buttons[i].addEventListener("click", function(){
+                    $(this).closest('.form-group').find('.x-able').val("");
+                    $(this).closest('.form-group').find('.x-able-button').remove();
+                }, false);
+            };
+
+        }else if(val == ""){
             $(this).closest('.form-group').find('.x-able-button').remove();
         }
     });
+
+
 
 
 // class helper functions from bonzo https://github.com/ded/bonzo
