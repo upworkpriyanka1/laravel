@@ -80,7 +80,7 @@
 								<div class="col-md-12">
 									<div class="form-actions">
 										<div class="row">
-											<div class="col-md-offset-5 col-md-9">
+											<div class="col-md-12 text-center">
 												<button type="submit" class="btn blue waves-effect waves-light"><?php echo lang('add-new');?></button>
 											</div>
 										</div>

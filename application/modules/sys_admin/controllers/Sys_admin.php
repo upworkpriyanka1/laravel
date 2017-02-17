@@ -55,6 +55,7 @@ class Sys_admin extends CI_Controller {
 
 		$this->layout->view($views,$data);
 	}
+
 	public function index(){
 		$data['meta_description']='';
 		$data['menu']		= $this->menu;
@@ -233,6 +234,149 @@ class Sys_admin extends CI_Controller {
 		$views				= array('design/html_topbar','sidebar','design/page','design/html_footer');
 
 		$this->layout->view($views, $data);
+	}
+
+	public function clients_view_new(){
+
+//		************************************************************* ____START____ **********************************************************************************
+
+		$UriArray = $this->uri->uri_to_assoc(2);
+		$is_insert= true;
+		$app_config = $this->config->config;
+		$cid= '';
+		if ( !empty($UriArray['clients-view']) and $this->common_lib->is_positive_integer($UriArray['clients-view'])  ) {
+			$is_insert= false;
+			$cid= $UriArray['clients-view'];
+		}
+		$post_array = $this->input->post();
+
+		$page_parameters_with_sort = $this->clientsPreparePageParameters($UriArray, $post_array, false, true);
+		$page_parameters_without_sort = $this->clientsPreparePageParameters($UriArray, $post_array, false, false);
+		$redirect_url = base_url() . 'sys-admin/clients-view' . $page_parameters_with_sort;
+
+		$data['meta_description']='';
+		$data['editor_message']= $this->session->flashdata('editor_message');
+		$data['select_on_update']= $this->common_lib->getParameter($this, $UriArray, $post_array, 'select_on_update');
+
+		$data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
+		$data['client_active_status_array']= $this->clients_mdl->getClientActiveStatusValueArray(false);
+		$data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
+		$data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
+		$data['client_color_schemes'] = $this->config->item('client_color_schemes');
+
+
+		$data['is_insert']  = $is_insert;
+		$data['cid']      = $cid;
+		$data['menu']		= $this->menu;
+		$data['user'] 		= $this->user;
+//		$data['job'] 		= $this->job;
+		$data['group'] 		= $this->group->name;
+		$client= '';
+		$data['validation_errors_text'] = '';
+		$this->client_edit_form_validation($is_insert, $cid);
+		if (!empty($_POST)) {
+			$validation_status = $this->form_validation->run();
+			if ($validation_status != FALSE) {
+				$this->client_edit_makesave($is_insert, $cid, $data['select_on_update'], $redirect_url, $page_parameters_with_sort, $post_array, $app_config, $data['client_color_schemes'] );
+			} else {
+				$client = $this->client_edit_fill_current_data( $client, $is_insert, $cid );
+				$data['validation_errors_text'] = validation_errors( /*$layout_config['backend_error_icon_start'], $layout_config['backend_error_icon_end']*/ );
+//				echo '<pre>$data[\'validation_errors_text\']::'.print_r($data['validation_errors_text'],true).'</pre>';
+			}
+		}
+		else {
+			$client		= $this->clients_mdl->getRowById( $this->uri->segment(3), array('show_file_info'=> 1, 'image_width'=> 128, 'image_height'=> 128) );
+
+		}
+
+		$data['client']		= $client;
+		$data['page_parameters_with_sort']= $page_parameters_with_sort;
+		$data['page_parameters_without_sort']= $page_parameters_without_sort;
+		$data['plugins'] 	= array('validation'); //page plugins
+
+//		************************************************************* ____END____ **********************************************************************************
+
+		$data['meta_description']='';
+		$data['menu']		= $this->menu;
+		$data['user'] 		= $this->user;
+//		$data['job'] 		= $this->job;
+		$data['group'] 		= $this->group->name;
+
+		$UriArray = $this->uri->uri_to_assoc(3);
+		$post_array = $this->input->post();
+
+		/* get and keep all filters/page for pagination and sorting parameters*/
+		$sort= $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort');
+		$sort_direction = $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort_direction');
+		$page = $this->common_lib->getParameter($this, $UriArray, $post_array, 'page', 1);
+		$filter_client_name = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_name');
+		$filter_client_active_status = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_active_status');
+		$filter_client_type = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_type');
+		$filter_client_zip = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_zip');
+		$filter_created_at_from = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_created_at_from');
+		$filter_created_at_till = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_created_at_till');
+		$filter_created_at_from_formatted= $this->common_lib->convertFromMySqlToCalendarFormat($filter_created_at_from);
+		$filter_created_at_till_formatted= $this->common_lib->convertFromMySqlToCalendarFormat($filter_created_at_till); //2016-09-05 -> 5 September, 2016
+
+		$page_parameters_with_sort = $this->clientsPreparePageParameters($UriArray, $post_array, false, true);     // keep all sorting parameters for using in sorting
+		$page_parameters_without_sort = $this->clientsPreparePageParameters($UriArray, $post_array, false, false); // by column header or at editor submitting to keep current filters
+
+		$this->load->library('pagination');
+		$pagination_config= $this->common_lib->getPaginationParams();
+		$pagination_config['base_url'] = base_url() . 'sys-admin/clients-view' . '/page';
+
+		$RowsInTable= $this->clients_mdl->getClientsList(true, '', array( 'show_client_type_description'=>'', 'client_name'=> $filter_client_name, 'client_active_status'=> $filter_client_active_status, 'client_type'=> $filter_client_type, 'client_zip'=> $filter_client_zip, 'created_at_from'=> $filter_created_at_from, 'created_at_till'=> $filter_created_at_till ), $sort, $sort_direction );  // get number of rows by given parameters
+		$pagination_config['total_rows'] = $RowsInTable;
+		$this->pagination->initialize($pagination_config);  // pagination system initialization by parameters in config file
+		$data['clients']= array();
+		if ($RowsInTable > 0) { // number of rows by given parameters > 0 - get rows by given parameters for given $page.
+			$data['clients']= $this->clients_mdl->getClientsList(false, $page, array( 'show_client_type_description'=>1, 'client_name'=> $filter_client_name, 'client_active_status'=> $filter_client_active_status, 'client_type'=> $filter_client_type, 'client_zip'=> $filter_client_zip, 'created_at_from'=> $filter_created_at_from, 'created_at_till'=> $filter_created_at_till ), $sort, $sort_direction );
+		} // IMPORTANT : all filter parameters must be similar as in calling of getClientsList above
+
+		$data['client_TypesSelectionList']= $this->clients_mdl->getClient_TypesSelectionList();
+		$data['client_ActiveStatusList']= $this->clients_mdl->getClientActiveStatusValueArray();
+		$data['page']		= 'clients/clients-view-modal';
+//		$data['page']		= 'main/grid';
+		$data['page_number']		= $page;
+		$data['RowsInTable']= $RowsInTable;
+		$data['editor_message']= $this->session->flashdata('editor_message');
+
+		$data['filter_client_name']= $filter_client_name;
+		$data['filter_client_active_status']= $filter_client_active_status;
+		$data['filter_client_type']= $filter_client_type;
+		$data['filter_client_zip']= $filter_client_zip;
+		$data['filter_created_at_from']= $filter_created_at_from;
+		$data['filter_created_at_till']= $filter_created_at_till;
+		$data['filter_created_at_from_formatted']= $filter_created_at_from_formatted;
+		$data['filter_created_at_till_formatted']= $filter_created_at_till_formatted;
+		$data['sort_direction']= $sort_direction;
+		$data['sort']= $sort;
+		$data['page_parameters_with_sort']= $page_parameters_with_sort;
+		$data['page_parameters_without_sort']= $page_parameters_without_sort;
+
+		$this->pagination->suffix = $this->clientsPreparePageParameters($UriArray, $post_array, false, true);
+		$this->pagination->cur_page= $page;
+		$pagination_links = $this->pagination->create_links();
+		$clients_count_in_db= $this->admin_mdl->clients_count_in_db();
+
+		// create label for current parameter so moving mouse over "Filter" button user can see current filters
+		$filters_label_array= array('name'=> $filter_client_name, 'is active'=> $this->common_lib->get_client_active_status_label($filter_client_active_status), 'client type'=>
+			$this->common_lib->get_client_type_label($filter_client_type), 'zip'=> $filter_client_zip, 'created at from'=> $filter_created_at_from, 'created at till'=>$filter_created_at_till);
+
+		$filters_label= $this->common_lib->get_filters_label( $filters_label_array, '<br>' );
+		$data['clients_count_in_db']= !empty($clients_count_in_db[0]->clients_count) ? $clients_count_in_db[0]->clients_count : 0;
+		$data['filters_label'] = $filters_label;
+		$data['plugins'] 	= array();
+		$data['pagination_links'] 	= $pagination_links;
+		$data['javascript'] = array( 'assets/custom/admin/clients-view.js',  'assets/custom/admin/client-edit.js', 'assets/global/plugins/picker/picker.js', 'assets/global/plugins/picker/picker.date.js', 'assets/global/plugins/picker/picker.time.js');
+
+		$views				= array('design/html_topbar','sidebar','design/page','design/html_footer');
+
+		$html = $this->load->view('clients/clients-view-modal', $data, true);
+//		echo $html;
+
+		echo json_encode(["html"=>$html]);
+		exit();
 	}
 
 	/**********************
@@ -786,6 +930,60 @@ class Sys_admin extends CI_Controller {
 * return view
 *********************************/
 	public function users_view(){
+		//		************************************************************* ____START____ **********************************************************************************
+
+		$UriArray = $this->uri->uri_to_assoc(2);
+		$is_insert= true;
+		$app_config = $this->config->config;
+		$cid= '';
+		if ( !empty($UriArray['clients-view']) and $this->common_lib->is_positive_integer($UriArray['clients-view'])  ) {
+			$is_insert= false;
+			$cid= $UriArray['clients-view'];
+		}
+		$post_array = $this->input->post();
+
+		$page_parameters_with_sort = $this->clientsPreparePageParameters($UriArray, $post_array, false, true);
+		$page_parameters_without_sort = $this->clientsPreparePageParameters($UriArray, $post_array, false, false);
+		$redirect_url = base_url() . 'sys-admin/clients-view' . $page_parameters_with_sort;
+
+		$data['meta_description']='';
+		$data['editor_message']= $this->session->flashdata('editor_message');
+		$data['select_on_update']= $this->common_lib->getParameter($this, $UriArray, $post_array, 'select_on_update');
+
+		$data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
+		$data['client_active_status_array']= $this->clients_mdl->getClientActiveStatusValueArray(false);
+		$data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
+		$data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
+		$data['client_color_schemes'] = $this->config->item('client_color_schemes');
+
+
+		$data['is_insert']  = $is_insert;
+		$data['cid']      = $cid;
+		$data['menu']		= $this->menu;
+		$data['user'] 		= $this->user;
+		$data['group'] 		= $this->group->name;
+		$client= '';
+		$data['validation_errors_text'] = '';
+		$this->client_edit_form_validation($is_insert, $cid);
+		if (!empty($_POST)) {
+			$validation_status = $this->form_validation->run();
+			if ($validation_status != FALSE) {
+				$this->client_edit_makesave($is_insert, $cid, $data['select_on_update'], $redirect_url, $page_parameters_with_sort, $post_array, $app_config, $data['client_color_schemes'] );
+			} else {
+				$client = $this->client_edit_fill_current_data( $client, $is_insert, $cid );
+				$data['validation_errors_text'] = validation_errors( /*$layout_config['backend_error_icon_start'], $layout_config['backend_error_icon_end']*/ );
+			}
+		}
+		else {
+			$client		= $this->clients_mdl->getRowById( $this->uri->segment(3), array('show_file_info'=> 1, 'image_width'=> 128, 'image_height'=> 128) );
+		}
+		$data['client']		= $client;
+		$data['page_parameters_with_sort']= $page_parameters_with_sort;
+		$data['page_parameters_without_sort']= $page_parameters_without_sort;
+		$data['plugins'] 	= array('validation'); //page plugins
+
+//		************************************************************* ____END____ *********************************************************************************
+
 		$data['meta_description']='';
 		$data['menu']		= $this->menu;
 		$data['user'] 		= $this->user;
@@ -809,6 +1007,59 @@ class Sys_admin extends CI_Controller {
 * return view
 *********************************/
 	public function users_edit(){
+		//		************************************************************* ____START____ **********************************************************************************
+
+		$UriArray = $this->uri->uri_to_assoc(2);
+		$is_insert= true;
+		$app_config = $this->config->config;
+		$cid= '';
+		if ( !empty($UriArray['clients-view']) and $this->common_lib->is_positive_integer($UriArray['clients-view'])  ) {
+			$is_insert= false;
+			$cid= $UriArray['clients-view'];
+		}
+		$post_array = $this->input->post();
+
+		$page_parameters_with_sort = $this->clientsPreparePageParameters($UriArray, $post_array, false, true);
+		$page_parameters_without_sort = $this->clientsPreparePageParameters($UriArray, $post_array, false, false);
+		$redirect_url = base_url() . 'sys-admin/clients-view' . $page_parameters_with_sort;
+
+		$data['meta_description']='';
+		$data['editor_message']= $this->session->flashdata('editor_message');
+		$data['select_on_update']= $this->common_lib->getParameter($this, $UriArray, $post_array, 'select_on_update');
+
+		$data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
+		$data['client_active_status_array']= $this->clients_mdl->getClientActiveStatusValueArray(false);
+		$data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
+		$data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
+		$data['client_color_schemes'] = $this->config->item('client_color_schemes');
+
+
+		$data['is_insert']  = $is_insert;
+		$data['cid']      = $cid;
+		$data['menu']		= $this->menu;
+		$data['user'] 		= $this->user;
+		$data['group'] 		= $this->group->name;
+		$client= '';
+		$data['validation_errors_text'] = '';
+		$this->client_edit_form_validation($is_insert, $cid);
+		if (!empty($_POST)) {
+			$validation_status = $this->form_validation->run();
+			if ($validation_status != FALSE) {
+				$this->client_edit_makesave($is_insert, $cid, $data['select_on_update'], $redirect_url, $page_parameters_with_sort, $post_array, $app_config, $data['client_color_schemes'] );
+			} else {
+				$client = $this->client_edit_fill_current_data( $client, $is_insert, $cid );
+				$data['validation_errors_text'] = validation_errors( /*$layout_config['backend_error_icon_start'], $layout_config['backend_error_icon_end']*/ );
+			}
+		}
+		else {
+			$client		= $this->clients_mdl->getRowById( $this->uri->segment(3), array('show_file_info'=> 1, 'image_width'=> 128, 'image_height'=> 128) );
+		}
+		$data['client']		= $client;
+		$data['page_parameters_with_sort']= $page_parameters_with_sort;
+		$data['page_parameters_without_sort']= $page_parameters_without_sort;
+		$data['plugins'] 	= array('validation'); //page plugins
+
+//		************************************************************* ____END____ *********************************************************************************
 		$this->lang->load('ion_auth');
 		$this->lang->load('auth');
 		if (isset($_POST['ajaxpost'])){
@@ -840,6 +1091,59 @@ class Sys_admin extends CI_Controller {
 * return view
 *********************************/
 	public function users_add(){
+		//		************************************************************* ____START____ **********************************************************************************
+
+		$UriArray = $this->uri->uri_to_assoc(2);
+		$is_insert= true;
+		$app_config = $this->config->config;
+		$cid= '';
+		if ( !empty($UriArray['clients-view']) and $this->common_lib->is_positive_integer($UriArray['clients-view'])  ) {
+			$is_insert= false;
+			$cid= $UriArray['clients-view'];
+		}
+		$post_array = $this->input->post();
+
+		$page_parameters_with_sort = $this->clientsPreparePageParameters($UriArray, $post_array, false, true);
+		$page_parameters_without_sort = $this->clientsPreparePageParameters($UriArray, $post_array, false, false);
+		$redirect_url = base_url() . 'sys-admin/clients-view' . $page_parameters_with_sort;
+
+		$data['meta_description']='';
+		$data['editor_message']= $this->session->flashdata('editor_message');
+		$data['select_on_update']= $this->common_lib->getParameter($this, $UriArray, $post_array, 'select_on_update');
+
+		$data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
+		$data['client_active_status_array']= $this->clients_mdl->getClientActiveStatusValueArray(false);
+		$data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
+		$data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
+		$data['client_color_schemes'] = $this->config->item('client_color_schemes');
+
+
+		$data['is_insert']  = $is_insert;
+		$data['cid']      = $cid;
+		$data['menu']		= $this->menu;
+		$data['user'] 		= $this->user;
+		$data['group'] 		= $this->group->name;
+		$client= '';
+		$data['validation_errors_text'] = '';
+		$this->client_edit_form_validation($is_insert, $cid);
+		if (!empty($_POST)) {
+			$validation_status = $this->form_validation->run();
+			if ($validation_status != FALSE) {
+				$this->client_edit_makesave($is_insert, $cid, $data['select_on_update'], $redirect_url, $page_parameters_with_sort, $post_array, $app_config, $data['client_color_schemes'] );
+			} else {
+				$client = $this->client_edit_fill_current_data( $client, $is_insert, $cid );
+				$data['validation_errors_text'] = validation_errors( /*$layout_config['backend_error_icon_start'], $layout_config['backend_error_icon_end']*/ );
+			}
+		}
+		else {
+			$client		= $this->clients_mdl->getRowById( $this->uri->segment(3), array('show_file_info'=> 1, 'image_width'=> 128, 'image_height'=> 128) );
+		}
+		$data['client']		= $client;
+		$data['page_parameters_with_sort']= $page_parameters_with_sort;
+		$data['page_parameters_without_sort']= $page_parameters_without_sort;
+		$data['plugins'] 	= array('validation'); //page plugins
+
+//		************************************************************* ____END____ *********************************************************************************
 		$this->lang->load('ion_auth');
 		$this->lang->load('auth');
 		if (isset($_POST['ajaxpost'])){
@@ -869,6 +1173,59 @@ class Sys_admin extends CI_Controller {
 * return view
 *********************************/
 	public function users_jobs(){
+		//		************************************************************* ____START____ **********************************************************************************
+
+		$UriArray = $this->uri->uri_to_assoc(2);
+		$is_insert= true;
+		$app_config = $this->config->config;
+		$cid= '';
+		if ( !empty($UriArray['clients-view']) and $this->common_lib->is_positive_integer($UriArray['clients-view'])  ) {
+			$is_insert= false;
+			$cid= $UriArray['clients-view'];
+		}
+		$post_array = $this->input->post();
+
+		$page_parameters_with_sort = $this->clientsPreparePageParameters($UriArray, $post_array, false, true);
+		$page_parameters_without_sort = $this->clientsPreparePageParameters($UriArray, $post_array, false, false);
+		$redirect_url = base_url() . 'sys-admin/clients-view' . $page_parameters_with_sort;
+
+		$data['meta_description']='';
+		$data['editor_message']= $this->session->flashdata('editor_message');
+		$data['select_on_update']= $this->common_lib->getParameter($this, $UriArray, $post_array, 'select_on_update');
+
+		$data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
+		$data['client_active_status_array']= $this->clients_mdl->getClientActiveStatusValueArray(false);
+		$data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
+		$data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
+		$data['client_color_schemes'] = $this->config->item('client_color_schemes');
+
+
+		$data['is_insert']  = $is_insert;
+		$data['cid']      = $cid;
+		$data['menu']		= $this->menu;
+		$data['user'] 		= $this->user;
+		$data['group'] 		= $this->group->name;
+		$client= '';
+		$data['validation_errors_text'] = '';
+		$this->client_edit_form_validation($is_insert, $cid);
+		if (!empty($_POST)) {
+			$validation_status = $this->form_validation->run();
+			if ($validation_status != FALSE) {
+				$this->client_edit_makesave($is_insert, $cid, $data['select_on_update'], $redirect_url, $page_parameters_with_sort, $post_array, $app_config, $data['client_color_schemes'] );
+			} else {
+				$client = $this->client_edit_fill_current_data( $client, $is_insert, $cid );
+				$data['validation_errors_text'] = validation_errors( /*$layout_config['backend_error_icon_start'], $layout_config['backend_error_icon_end']*/ );
+			}
+		}
+		else {
+			$client		= $this->clients_mdl->getRowById( $this->uri->segment(3), array('show_file_info'=> 1, 'image_width'=> 128, 'image_height'=> 128) );
+		}
+		$data['client']		= $client;
+		$data['page_parameters_with_sort']= $page_parameters_with_sort;
+		$data['page_parameters_without_sort']= $page_parameters_without_sort;
+		$data['plugins'] 	= array('validation'); //page plugins
+
+//		************************************************************* ____END____ *********************************************************************************
 		$data['meta_description']='';
 		$data['menu']		= $this->menu;
 		$data['user'] 		= $this->user;
@@ -893,6 +1250,59 @@ class Sys_admin extends CI_Controller {
 * return view
 *********************************/
 	public function users_role(){
+		//		************************************************************* ____START____ **********************************************************************************
+
+		$UriArray = $this->uri->uri_to_assoc(2);
+		$is_insert= true;
+		$app_config = $this->config->config;
+		$cid= '';
+		if ( !empty($UriArray['clients-view']) and $this->common_lib->is_positive_integer($UriArray['clients-view'])  ) {
+			$is_insert= false;
+			$cid= $UriArray['clients-view'];
+		}
+		$post_array = $this->input->post();
+
+		$page_parameters_with_sort = $this->clientsPreparePageParameters($UriArray, $post_array, false, true);
+		$page_parameters_without_sort = $this->clientsPreparePageParameters($UriArray, $post_array, false, false);
+		$redirect_url = base_url() . 'sys-admin/clients-view' . $page_parameters_with_sort;
+
+		$data['meta_description']='';
+		$data['editor_message']= $this->session->flashdata('editor_message');
+		$data['select_on_update']= $this->common_lib->getParameter($this, $UriArray, $post_array, 'select_on_update');
+
+		$data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
+		$data['client_active_status_array']= $this->clients_mdl->getClientActiveStatusValueArray(false);
+		$data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
+		$data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
+		$data['client_color_schemes'] = $this->config->item('client_color_schemes');
+
+
+		$data['is_insert']  = $is_insert;
+		$data['cid']      = $cid;
+		$data['menu']		= $this->menu;
+		$data['user'] 		= $this->user;
+		$data['group'] 		= $this->group->name;
+		$client= '';
+		$data['validation_errors_text'] = '';
+		$this->client_edit_form_validation($is_insert, $cid);
+		if (!empty($_POST)) {
+			$validation_status = $this->form_validation->run();
+			if ($validation_status != FALSE) {
+				$this->client_edit_makesave($is_insert, $cid, $data['select_on_update'], $redirect_url, $page_parameters_with_sort, $post_array, $app_config, $data['client_color_schemes'] );
+			} else {
+				$client = $this->client_edit_fill_current_data( $client, $is_insert, $cid );
+				$data['validation_errors_text'] = validation_errors( /*$layout_config['backend_error_icon_start'], $layout_config['backend_error_icon_end']*/ );
+			}
+		}
+		else {
+			$client		= $this->clients_mdl->getRowById( $this->uri->segment(3), array('show_file_info'=> 1, 'image_width'=> 128, 'image_height'=> 128) );
+		}
+		$data['client']		= $client;
+		$data['page_parameters_with_sort']= $page_parameters_with_sort;
+		$data['page_parameters_without_sort']= $page_parameters_without_sort;
+		$data['plugins'] 	= array('validation'); //page plugins
+
+//		************************************************************* ____END____ *********************************************************************************
 		$data['meta_description']='';
 		$data['menu']		= $this->menu;
 		$data['user'] 		= $this->user;
@@ -915,6 +1325,59 @@ class Sys_admin extends CI_Controller {
 * return view
 *********************************/
 		public function clients_type(){
+			//		************************************************************* ____START____ **********************************************************************************
+
+			$UriArray = $this->uri->uri_to_assoc(2);
+			$is_insert= true;
+			$app_config = $this->config->config;
+			$cid= '';
+			if ( !empty($UriArray['clients-view']) and $this->common_lib->is_positive_integer($UriArray['clients-view'])  ) {
+				$is_insert= false;
+				$cid= $UriArray['clients-view'];
+			}
+			$post_array = $this->input->post();
+
+			$page_parameters_with_sort = $this->clientsPreparePageParameters($UriArray, $post_array, false, true);
+			$page_parameters_without_sort = $this->clientsPreparePageParameters($UriArray, $post_array, false, false);
+			$redirect_url = base_url() . 'sys-admin/clients-view' . $page_parameters_with_sort;
+
+			$data['meta_description']='';
+			$data['editor_message']= $this->session->flashdata('editor_message');
+			$data['select_on_update']= $this->common_lib->getParameter($this, $UriArray, $post_array, 'select_on_update');
+
+			$data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
+			$data['client_active_status_array']= $this->clients_mdl->getClientActiveStatusValueArray(false);
+			$data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
+			$data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
+			$data['client_color_schemes'] = $this->config->item('client_color_schemes');
+
+
+			$data['is_insert']  = $is_insert;
+			$data['cid']      = $cid;
+			$data['menu']		= $this->menu;
+			$data['user'] 		= $this->user;
+			$data['group'] 		= $this->group->name;
+			$client= '';
+			$data['validation_errors_text'] = '';
+			$this->client_edit_form_validation($is_insert, $cid);
+			if (!empty($_POST)) {
+				$validation_status = $this->form_validation->run();
+				if ($validation_status != FALSE) {
+					$this->client_edit_makesave($is_insert, $cid, $data['select_on_update'], $redirect_url, $page_parameters_with_sort, $post_array, $app_config, $data['client_color_schemes'] );
+				} else {
+					$client = $this->client_edit_fill_current_data( $client, $is_insert, $cid );
+					$data['validation_errors_text'] = validation_errors( /*$layout_config['backend_error_icon_start'], $layout_config['backend_error_icon_end']*/ );
+				}
+			}
+			else {
+				$client		= $this->clients_mdl->getRowById( $this->uri->segment(3), array('show_file_info'=> 1, 'image_width'=> 128, 'image_height'=> 128) );
+			}
+			$data['client']		= $client;
+			$data['page_parameters_with_sort']= $page_parameters_with_sort;
+			$data['page_parameters_without_sort']= $page_parameters_without_sort;
+			$data['plugins'] 	= array('validation'); //page plugins
+
+//		************************************************************* ____END____ *********************************************************************************
 			if (isset($_POST['ajaxpost'])){
 				$this->admin_lib->client_type_add();
 				return true;
@@ -941,16 +1404,70 @@ class Sys_admin extends CI_Controller {
 * @params
 * return view
 *********************************/
-		public function contact_type(){
-			if (isset($_POST['ajaxpost'])){
-				$this->admin_lib->contact_type_add();
-				return true;
+	public function contact_type(){
+	//		************************************************************* ____START____ **********************************************************************************
+
+		$UriArray = $this->uri->uri_to_assoc(2);
+		$is_insert= true;
+		$app_config = $this->config->config;
+		$cid= '';
+		if ( !empty($UriArray['clients-view']) and $this->common_lib->is_positive_integer($UriArray['clients-view'])  ) {
+			$is_insert= false;
+			$cid= $UriArray['clients-view'];
+		}
+		$post_array = $this->input->post();
+
+		$page_parameters_with_sort = $this->clientsPreparePageParameters($UriArray, $post_array, false, true);
+		$page_parameters_without_sort = $this->clientsPreparePageParameters($UriArray, $post_array, false, false);
+		$redirect_url = base_url() . 'sys-admin/clients-view' . $page_parameters_with_sort;
+
+		$data['meta_description']='';
+		$data['editor_message']= $this->session->flashdata('editor_message');
+		$data['select_on_update']= $this->common_lib->getParameter($this, $UriArray, $post_array, 'select_on_update');
+
+		$data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
+		$data['client_active_status_array']= $this->clients_mdl->getClientActiveStatusValueArray(false);
+		$data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
+		$data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
+		$data['client_color_schemes'] = $this->config->item('client_color_schemes');
+
+
+		$data['is_insert']  = $is_insert;
+		$data['cid']      = $cid;
+		$data['menu']		= $this->menu;
+		$data['user'] 		= $this->user;
+		$data['group'] 		= $this->group->name;
+		$client= '';
+		$data['validation_errors_text'] = '';
+		$this->client_edit_form_validation($is_insert, $cid);
+		if (!empty($_POST)) {
+			$validation_status = $this->form_validation->run();
+			if ($validation_status != FALSE) {
+				$this->client_edit_makesave($is_insert, $cid, $data['select_on_update'], $redirect_url, $page_parameters_with_sort, $post_array, $app_config, $data['client_color_schemes'] );
+			} else {
+				$client = $this->client_edit_fill_current_data( $client, $is_insert, $cid );
+				$data['validation_errors_text'] = validation_errors( /*$layout_config['backend_error_icon_start'], $layout_config['backend_error_icon_end']*/ );
 			}
-			if (isset($_POST['pk'])){ //edit inline
-				$data['con_type_name'] = $_POST['value'];
-				$this->common_mdl->db_update('contact_types',$data, 'con_type_id', $_POST['pk']);
-				return true;
-			}
+		}
+		else {
+			$client		= $this->clients_mdl->getRowById( $this->uri->segment(3), array('show_file_info'=> 1, 'image_width'=> 128, 'image_height'=> 128) );
+		}
+		$data['client']		= $client;
+		$data['page_parameters_with_sort']= $page_parameters_with_sort;
+		$data['page_parameters_without_sort']= $page_parameters_without_sort;
+		$data['plugins'] 	= array('validation'); //page plugins
+
+//		************************************************************* ____END____ *********************************************************************************
+
+		if (isset($_POST['ajaxpost'])){
+			$this->admin_lib->contact_type_add();
+			return true;
+		}
+		if (isset($_POST['pk'])){ //edit inline
+			$data['con_type_name'] = $_POST['value'];
+			$this->common_mdl->db_update('contact_types',$data, 'con_type_id', $_POST['pk']);
+			return true;
+		}
 		$data['meta_description']='';
 		$data['menu']		= $this->menu;
 		$data['user'] 		= $this->user;
@@ -982,6 +1499,60 @@ class Sys_admin extends CI_Controller {
 * return view
 *********************************/
 	public function activity_logs(){
+		//		************************************************************* ____START____ **********************************************************************************
+
+		$UriArray = $this->uri->uri_to_assoc(2);
+		$is_insert= true;
+		$app_config = $this->config->config;
+		$cid= '';
+		if ( !empty($UriArray['clients-view']) and $this->common_lib->is_positive_integer($UriArray['clients-view'])  ) {
+			$is_insert= false;
+			$cid= $UriArray['clients-view'];
+		}
+		$post_array = $this->input->post();
+
+		$page_parameters_with_sort = $this->clientsPreparePageParameters($UriArray, $post_array, false, true);
+		$page_parameters_without_sort = $this->clientsPreparePageParameters($UriArray, $post_array, false, false);
+		$redirect_url = base_url() . 'sys-admin/clients-view' . $page_parameters_with_sort;
+
+		$data['meta_description']='';
+		$data['editor_message']= $this->session->flashdata('editor_message');
+		$data['select_on_update']= $this->common_lib->getParameter($this, $UriArray, $post_array, 'select_on_update');
+
+		$data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
+		$data['client_active_status_array']= $this->clients_mdl->getClientActiveStatusValueArray(false);
+		$data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
+		$data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
+		$data['client_color_schemes'] = $this->config->item('client_color_schemes');
+
+
+		$data['is_insert']  = $is_insert;
+		$data['cid']      = $cid;
+		$data['menu']		= $this->menu;
+		$data['user'] 		= $this->user;
+		$data['group'] 		= $this->group->name;
+		$client= '';
+		$data['validation_errors_text'] = '';
+		$this->client_edit_form_validation($is_insert, $cid);
+		if (!empty($_POST)) {
+			$validation_status = $this->form_validation->run();
+			if ($validation_status != FALSE) {
+				$this->client_edit_makesave($is_insert, $cid, $data['select_on_update'], $redirect_url, $page_parameters_with_sort, $post_array, $app_config, $data['client_color_schemes'] );
+			} else {
+				$client = $this->client_edit_fill_current_data( $client, $is_insert, $cid );
+				$data['validation_errors_text'] = validation_errors( /*$layout_config['backend_error_icon_start'], $layout_config['backend_error_icon_end']*/ );
+			}
+		}
+		else {
+			$client		= $this->clients_mdl->getRowById( $this->uri->segment(3), array('show_file_info'=> 1, 'image_width'=> 128, 'image_height'=> 128) );
+		}
+		$data['client']		= $client;
+		$data['page_parameters_with_sort']= $page_parameters_with_sort;
+		$data['page_parameters_without_sort']= $page_parameters_without_sort;
+		$data['plugins'] 	= array('validation'); //page plugins
+
+//		************************************************************* ____END____ *********************************************************************************
+
 		$this->common_lib->activity_log($this->menu,$this->user, $this->group->name,TRUE);
 	}
 }

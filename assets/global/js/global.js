@@ -95,7 +95,20 @@ $(document).ready(function(){
 
     });
     $('.create_contact').on('click',function(){
-        $('#newclient').modal('show');
+        $.ajax({
+            url: '/sys-admin/clients_view_new',
+            error: function() {
+
+            },
+            dataType: 'json',
+            success: function(data) {
+                console.log(data);
+                $('#newclient .modal-body').html(data.html);
+                $('#newclient').modal('show');
+            },
+            type: 'GET'
+        });
+        //$('#newclient').modal('show');
     });
     $('#artash').on('click',function(){
         $('header').css('position','static');
@@ -237,6 +250,8 @@ $(document).ready(function(){
         window.classie = classie;
     }
 
+
+
 })( window );
 
 
@@ -256,4 +271,5 @@ function init() {
     });
 }
 window.onload = init();
+
 

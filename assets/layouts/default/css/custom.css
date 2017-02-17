@@ -151,10 +151,11 @@ img.error_img, span.error_img>img {
 .modal{
     background-color: rgba(200, 200, 200, 0.5);
 }
-.modal-dialog{
+/*.modal-dialog{
     margin: 15vh auto;
-}
+}*/
 
+/*
 @media (max-width: 768px) {
     .modal-dialog{
         margin: 13vh auto;
@@ -165,6 +166,7 @@ img.error_img, span.error_img>img {
         margin: 10vh auto;
     }
 }
+*/
 
 @media (max-width: 999px) {
     .top-nav .page-header{
@@ -239,14 +241,20 @@ li[name='active'] {
 }
 .page-footer{
     background-color: #A9A9A9;
+    min-height: 60px;
+}
+
+.page-footer .page-footer-inner{
+    float: none;
 }
 .page-content{
     min-height: 830px !important;
 }
 .page-footer .footer-list{
-    margin-bottom: 0;
+
     display: inline-block;
-    margin-left: 10px;
+    margin-bottom: 10px;
+    margin-left: 20px;
 }
 .page-footer .footer-list>li{
     display: inline-block;
@@ -441,9 +449,7 @@ pre[class*="language-"] {
 }
 /*grid end*/
 
-.page-footer{
-    min-height: 45px;
-}
+
 
 /*-------------------------------------------------------------- */
 header {
@@ -559,4 +565,30 @@ select:focus{
     /*z-index: 1;*/
 /*}*/
 
+.newclient .modal-dialog{
+    width: 700px;
+}
+.newclient .modal-dialog .modal-body {
+    height: 560px;
+    overflow-y: scroll;
+    padding-right: 20px;
 
+
+}
+@media only screen and (min-width: 993px){
+    .page-footer .container{
+        width:70% !important;
+        margin-top: 12px;
+    }
+
+}
+@media only screen and (max-width: 1200px){
+    .page-footer .container{
+        margin-top: 0px;
+    }
+}
+
+
+.modal-open{
+    overflow-y: hidden !important;
+}
