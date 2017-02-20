@@ -102,7 +102,6 @@ $(document).ready(function(){
             },
             dataType: 'json',
             success: function(data) {
-                console.log(data);
                 $('#newclient .modal-body').html(data.html);
                 $('#newclient').modal('show');
             },
@@ -118,7 +117,7 @@ $(document).ready(function(){
 
     $('[data-toggle="tooltip"]').tooltip();
 
-    $('.create-contact-save').on('click',function(){
+    $('body').on('click','.create-contact-save',function(){
        $('#form_client_edit').submit();
     });
 });

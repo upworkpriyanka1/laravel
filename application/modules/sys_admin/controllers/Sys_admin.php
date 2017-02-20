@@ -240,6 +240,9 @@ class Sys_admin extends CI_Controller {
 
 //		************************************************************* ____START____ **********************************************************************************
 
+
+
+
 		$UriArray = $this->uri->uri_to_assoc(2);
 		$is_insert= true;
 		$app_config = $this->config->config;
@@ -249,6 +252,7 @@ class Sys_admin extends CI_Controller {
 			$cid= $UriArray['clients-view'];
 		}
 		$post_array = $this->input->post();
+
 
 		$page_parameters_with_sort = $this->clientsPreparePageParameters($UriArray, $post_array, false, true);
 		$page_parameters_without_sort = $this->clientsPreparePageParameters($UriArray, $post_array, false, false);
@@ -463,7 +467,8 @@ class Sys_admin extends CI_Controller {
 		$data['plugins'] 	= array('validation'); //page plugins
 		$data['javascript'] = array( 'assets/custom/admin/client-edit.js' );//page javascript
 		$views				=  array('design/html_topbar','sidebar','design/page','design/html_footer');
-		$this->layout->view($views, $data);
+//		$this->layout->view($views, $data);
+		redirect(base_url().'/sys-admin/clients-view');
 	}
 
 	private function client_edit_makesave($is_insert, $cid, $select_on_update, $redirect_url, $page_parameters_with_sort, $post_array, $app_config, $client_color_schemes_array ) {
@@ -567,7 +572,7 @@ class Sys_admin extends CI_Controller {
 	{
 		$client = new stdClass;
 		$client->cid = $cid;
-		$client->client_name = set_value('data[client_name]');
+//		$client->client_name = set_value('data[client_name]');
 		$client->clients_types_id = set_value('data[clients_types_id]');
 		$client->client_address1 = set_value('data[client_address1]');
 		$client->client_address2 = set_value('data[client_address2]');
@@ -582,8 +587,8 @@ class Sys_admin extends CI_Controller {
 		$client->client_phone_3 = set_value('data[client_phone_3]');
 		$client->client_phone_4 = set_value('data[client_phone_4]');
 		$client->client_phone_type = set_value('data[client_phone_type]');
-		$client->client_fax = set_value('data[client_fax]');
-		$client->client_active_status = set_value('data[client_active_status]');
+//		$client->client_fax = set_value('data[client_fax]');
+//		$client->client_active_status = set_value('data[client_active_status]');
 		$client->color_scheme = set_value('data[color_scheme]');
 		return $client;
 	}
@@ -591,8 +596,8 @@ class Sys_admin extends CI_Controller {
 
 	private function client_edit_form_validation($is_insert, $cid)
 	{
-		$this->form_validation->set_rules( 'data[client_name]', lang('client_name'), 'required' );
-		$this->form_validation->set_rules( 'data[clients_types_id]', lang('clients-type'), 'required' );
+//		$this->form_validation->set_rules( 'data[client_name]', lang('client_name'), 'required' );
+//		$this->form_validation->set_rules( 'data[clients_types_id]', lang('clients-type'), 'required' );
 		$this->form_validation->set_rules( 'data[client_address1]', lang('client_address1'), 'required' );
 		$this->form_validation->set_rules( 'data[client_address2]', lang('client_address2'), '' );
 		$this->form_validation->set_rules( 'data[client_owner]', lang('client_owner'), '' );
@@ -606,8 +611,8 @@ class Sys_admin extends CI_Controller {
 		$this->form_validation->set_rules( 'data[client_phone_3]', lang('phone_3'), '' );
 		$this->form_validation->set_rules( 'data[client_phone_4]', lang('phone_4'), '' );
 		$this->form_validation->set_rules( 'data[client_phone_type]', lang('phone_type'), '' );
-		$this->form_validation->set_rules( 'data[client_fax]', lang('client_fax'), 'required' );
-		$this->form_validation->set_rules( 'data[client_active_status]', lang('client_active_status'), 'required' );
+//		$this->form_validation->set_rules( 'data[client_fax]', lang('client_fax'), 'required' );
+//		$this->form_validation->set_rules( 'data[client_active_status]', lang('client_active_status'), 'required' );
 		$this->form_validation->set_rules( 'data[color_scheme]', lang('color_scheme'), ( $is_insert ? '' : 'required' ) );
 	}
 
