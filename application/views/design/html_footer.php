@@ -64,10 +64,10 @@
                                                 <input type="hidden" id="filter_created_at_from_formatted" name="filter_created_at_from_formatted" value="<?=$filter_created_at_from_formatted?>">
 
 
-                                                <input type="hidden" name="data[client_name]" id="client_name" value="qq" class="form-control" maxlength="100">
+                                                <input type="hidden" name="data[client_name]" id="client_name" value="" class="form-control" maxlength="100">
                                                 <input type="hidden" name="data[clients_types_id]" id="client_name" value="1" class="form-control" maxlength="100">
                                                 <input type="hidden" name="data[client_fax]" value="15" class="form-control" maxlength="50">
-                                                <input type="hidden" name="data[client_active_status]" value="A" class="form-control" maxlength="50">
+                                                <input type="hidden" name="data[client_active_status]" value="Active" class="form-control" maxlength="50">
                                                 <div class="form-body">
 
                                                     <div class="alert alert-danger display-hide">
