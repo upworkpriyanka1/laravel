@@ -29,7 +29,8 @@
                         <input type="hidden" name="data[client_name]" id="client_name" value="" class="form-control" maxlength="100">
                         <input type="hidden" name="data[clients_types_id]" id="client_name" value="1" class="form-control" maxlength="100">
                         <input type="hidden" name="data[client_fax]" value="15" class="form-control" maxlength="50">
-                        <input type="hidden" name="data[client_active_status]" value="Active" class="form-control" maxlength="50">
+                        <input type="hidden" name="data[client_active_status]" value="
+                        ." class="form-control" maxlength="50">
 
                         <div class="form-body">
 
@@ -783,15 +784,14 @@
                                 <div class="col-md-12">
                                     <p>Type</p>
 
-                                    <form action="#">
                                         <label><div class="radio"><span class="checked"><input class="with-gap" name="group1" checked type="radio"> </span></div>Assisted /Senior Living Facilities</label>
                                         <label><div class="radio"><span > <input class="with-gap" name="group1" type="radio"></span></div> Home Health</label>
                                         <label><div class="radio"><span ><input class="with-gap" name="group1" type="radio"></span></div> SYS Admin</label>
                                         <label><div class="radio"><span ><input class="with-gap" name="group1" type="radio"></span></div> testing description </label>
                                         <label><div class="radio"><span ><input class="with-gap" name="group1" type="radio" id="test6"></span></div> a home providing care for the sick, especially the terminally ill.</label>
 
-                                    </form>
                                 </div>
+
 
                                 <!--Client_types-->
 

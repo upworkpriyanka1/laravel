@@ -820,14 +820,21 @@
                                                         <div class="col-md-12">
                                                             <p>Type</p>
 
-                                                            <form action="#">
-                                                                <label><div class="radio"><span class="checked"><input class="with-gap" name="group1" checked type="radio"> </span></div>Assisted /Senior Living Facilities</label>
-                                                                <label><div class="radio"><span > <input class="with-gap" name="group1" type="radio"></span></div> Home Health</label>
-                                                                <label><div class="radio"><span ><input class="with-gap" name="group1" type="radio"></span></div> SYS Admin</label>
-                                                                <label><div class="radio"><span ><input class="with-gap" name="group1" type="radio"></span></div> testing description </label>
-                                                                <label><div class="radio"><span ><input class="with-gap" name="group1" type="radio" id="test6"></span></div> a home providing care for the sick, especially the terminally ill.</label>
-
-                                                            </form>
+<!--                                                            <form action="#">-->
+<!--                                                                <label><div class="radio"><span class="checked"><input class="with-gap" name="group1" checked type="radio"> </span></div>Assisted /Senior Living Facilities</label>-->
+<!--                                                                <label><div class="radio"><span > <input class="with-gap" name="group1" type="radio"></span></div> Home Health</label>-->
+<!--                                                                <label><div class="radio"><span ><input class="with-gap" name="group1" type="radio"></span></div> SYS Admin</label>-->
+<!--                                                                <label><div class="radio"><span ><input class="with-gap" name="group1" type="radio"></span></div> testing description </label>-->
+<!--                                                                <label><div class="radio"><span ><input class="with-gap" name="group1" type="radio" id="test6"></span></div> a home providing care for the sick, especially the terminally ill.</label>-->
+<!---->
+<!--                                                            </form>-->
+<!--                                                            <form action="#">-->
+                                                                <label><span class="checked"><input class="with-gap" name="group1" checked type="radio"> </span>Assisted /Senior Living Facilities</label>
+                                                                <label><span><input class="with-gap" name="group1" type="radio"></span> Home Health</label>
+                                                                <label><span><input class="with-gap" name="group1" type="radio"></span> SYS Admin</label>
+                                                                <label><span><input class="with-gap" name="group1" type="radio"></span> testing description </label>
+                                                                <label><span><input class="with-gap" name="group1" type="radio" id="test6"></span> a home providing care for the sick, especially the terminally ill.</label>
+<!--                                                            </form>-->
                                                         </div>
 
                                                         <!--Client_types-->

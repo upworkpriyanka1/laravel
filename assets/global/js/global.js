@@ -102,6 +102,7 @@ $(document).ready(function(){
             },
             dataType: 'json',
             success: function(data) {
+                console.log(data)
                 $('#newclient .modal-body').html(data.html);
                 $('#newclient').modal('show');
             },
@@ -146,7 +147,7 @@ $(document).ready(function(){
 
     'use strict';
 
-    $('.add-row-button').click(function(){
+    $('body').on('click','.add-row-button',function(){
         var next_row_class = $(this).attr('next-row-class');
 
             $('.'+next_row_class).css('display', 'block');
