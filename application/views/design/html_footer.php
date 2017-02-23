@@ -155,13 +155,14 @@
                                                                 </div>
 
                                                                 <div class="col-md-12" style="display: <?php echo ( $client_owner_input_visible ? "block" :"block" ) ; ?>" id="div_client_owner_input">
-                                                                    <i class="material-icons prefix">business</i>
+
+                                                                    <i class="material-icons prefix">assignment_ind</i>
                                                                     <input type="text" name="data[client_owner]" id="client_owner" value="<?= ( !empty($client->client_owner) ? $client->client_owner : '' ); ?>" class="x-able form-control" maxlength="100" />
                                                                     <label for="client_owner" class=""><?php echo lang('company_name') ?></label>
                                                                 </div>
 
                                                                 <div class="col-md-12" style="display: <?php echo ( ( $client_owner_view_visible ) ? "block" :"none" ) ; ?>" id="div_client_owner_view">
-                                                                    <i class="material-icons prefix">account_circle</i>
+                                                                    <i class="material-icons prefix">assignment_ind</i>
                                                                     <input type="text" name="data[client_owner_view]" id="client_owner_view" value="<?= ( !empty($client->client_owner) ? $client->client_owner : '' ); ?>" class="form-control" maxlength="100" readonly />
                                                                     <label for="client_owner_view" class="control-label col-md-4"><?php echo lang('client_owner') ?></label>
                                                                 </div><!-- ./col -->
@@ -202,8 +203,9 @@
                                                                     <button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:switchFieldName('client_address1',true);" id="btn_add_client_address1">Add an address<span class="required">&nbsp;*&nbsp;</span></button>
                                                                 </div>
                                                                 <div class="col-md-12" style="display: <?php echo ( $address1_input_visible ? "block" :"block" ) ; ?>" id="div_client_address1_input">
+                                                                    <i class="material-icons prefix">business</i>
                                                                     <input type="text" name="data[client_address1]" id="client_address1" value="<?= ( !empty($client->client_address1) ? $client->client_address1 : '' ); ?>" class="form-control x-able" maxlength="100" />
-                                                                    <label for="client_address1" class="control-label col-md-4"><?php echo lang('address1') ?><span class="required">&nbsp;*&nbsp;</span></label>
+                                                                    <label for="client_address1"><?php echo lang('address1') ?><span class="required">&nbsp;*&nbsp;</span></label>
                                                                 </div>
                                                                 <div class="col-md-7" style="display: <?php echo ( ( $address1_view_visible ) ? "block" :"none" ) ; ?>" id="div_client_address1_view">
                                                                     <input type="text" name="data[client_address1_view]" id="client_address1_view" value="<?= ( !empty($client->client_address1) ? $client->client_address1 : '' ); ?>" class="form-control" maxlength="100" readonly />
@@ -417,12 +419,18 @@
                                                                     </table>
                                                                 </div><!-- ./col -->
                                                                 <div class="input-field col-md-6 rem-sel">
-                                                                    <select>
+                                                                  <!--  <select>
                                                                         <option value="" disabled selected>Custom Lable</option>
                                                                         <option value="1">Home</option>
                                                                         <option value="2">Work</option>
                                                                         <option value="3">Other</option>
-                                                                    </select>
+                                                                    </select>-->
+                                                                    <input type="text" name="phone1" list="phonename1">
+                                                                    <datalist id="phonename1">
+                                                                        <option value="Home">
+                                                                        <option value="Work">
+                                                                        <option value="Other">
+                                                                    </datalist>
 
                                                                 </div>
 
@@ -446,12 +454,18 @@
                                                                     <label for="client_phone_2" class=""><?php echo lang('phone_2') ?></label>
                                                                 </div><!-- ./col -->
                                                                 <div class="input-field col-md-6">
-                                                                    <select>
+                                                                   <!-- <select>
                                                                         <option value="" disabled selected>Custom Lable</option>
                                                                         <option value="1">Home</option>
                                                                         <option value="2">Work</option>
                                                                         <option value="3">Other</option>
-                                                                    </select>
+                                                                    </select>-->
+                                                                    <input type="text" name="phone2" list="phonename2">
+                                                                    <datalist id="phonename2">
+                                                                        <option value="Home">
+                                                                        <option value="Work">
+                                                                        <option value="Other">
+                                                                    </datalist>
 
                                                                 </div>
                                                             </div><!-- ./form-group -->
@@ -472,12 +486,19 @@
                                                                     <label for="client_phone_3" class=""><?php echo lang('phone_3') ?></label>
                                                                 </div><!-- ./col -->
                                                                 <div class="input-field col-md-6">
-                                                                    <select>
+                                                                   <!-- <select>
                                                                         <option value="" disabled selected>Custom Lable</option>
                                                                         <option value="1">Home</option>
                                                                         <option value="2">Work</option>
                                                                         <option value="3">Other</option>
-                                                                    </select>
+                                                                    </select>-->
+
+                                                                    <input type="text" name="phone3" list="phonename3">
+                                                                    <datalist id="phonename3">
+                                                                        <option value="Home">
+                                                                        <option value="Work">
+                                                                        <option value="Other">
+                                                                    </datalist>
 
                                                                 </div>
                                                             </div><!-- ./form-group -->
@@ -591,12 +612,18 @@
                                                                 </div>
                                                                 <!-- ./col -->
                                                                 <div class="input-field col-md-6">
-                                                                    <select>
+                                                                    <input type="text" name="email1" list="emailname1">
+                                                                    <datalist id="emailname1">
+                                                                        <option value="Home">
+                                                                        <option value="Work">
+                                                                        <option value="Other">
+                                                                    </datalist>
+                                                                   <!-- <select>
                                                                         <option value="" disabled selected>Custom Lable</option>
                                                                         <option value="1">Home</option>
                                                                         <option value="2">Work</option>
                                                                         <option value="3">Other</option>
-                                                                    </select>
+                                                                    </select>-->
                                                                 </div>
                                                             </div><!-- ./form-group -->
                                                             <div class="btn-add add-row-button" next-row-class="email-second-row">
@@ -651,12 +678,18 @@
                                                                 </div>
                                                                 <!-- ./col -->
                                                                 <div class="input-field col-md-6">
-                                                                    <select>
+                                                                    <input type="text" name="email2" list="emailname2">
+                                                                    <datalist id="emailname2">
+                                                                        <option value="Home">
+                                                                        <option value="Work">
+                                                                        <option value="Other">
+                                                                    </datalist>
+                                                                  <!--  <select>
                                                                         <option value="" disabled selected>Custom Lable</option>
                                                                         <option value="1">Home</option>
                                                                         <option value="2">Work</option>
                                                                         <option value="3">Other</option>
-                                                                    </select>
+                                                                    </select>-->
                                                                 </div>
                                                             </div><!-- ./form-group -->
                                                             <div class="btn-add add-row-button" next-row-class="email-third-row">
@@ -711,12 +744,18 @@
                                                                 </div>
                                                                 <!-- ./col -->
                                                                 <div class="input-field col-md-6">
-                                                                    <select>
+                                                                    <!--<select>
                                                                         <option value="" disabled selected>Custom Lable</option>
                                                                         <option value="1">Home</option>
                                                                         <option value="2">Work</option>
                                                                         <option value="3">Other</option>
-                                                                    </select>
+                                                                    </select>-->
+                                                                    <input type="text" name="email3" list="emailname3">
+                                                                    <datalist id="emailname3">
+                                                                        <option value="Home">
+                                                                        <option value="Work">
+                                                                        <option value="Other">
+                                                                    </datalist>
                                                                 </div>
                                                             </div><!-- ./form-group -->
 
@@ -812,7 +851,7 @@
 
 
                                                         <div class="col-md-12">
-                                                            <p>Type</p>
+                                                            <h3>Type</h3>
 
 <!--                                                            <form action="#">-->
 <!--                                                                <label><div class="radio"><span class="checked"><input class="with-gap" name="group1" checked type="radio"> </span></div>Assisted /Senior Living Facilities</label>-->
@@ -823,12 +862,41 @@
 <!---->
 <!--                                                            </form>-->
 <!--                                                            <form action="#">-->
-                                                                <label><span class="checked"><input class="with-gap" name="group1" checked type="radio"> </span>Assisted /Senior Living Facilities</label>
-                                                                <label><span><input class="with-gap" name="group1" type="radio"></span> Home Health</label>
-                                                                <label><span><input class="with-gap" name="group1" type="radio"></span> SYS Admin</label>
-                                                                <label><span><input class="with-gap" name="group1" type="radio"></span> testing description </label>
-                                                                <label><span><input class="with-gap" name="group1" type="radio" id="test6"></span> a home providing care for the sick, especially the terminally ill.</label>
+<!--                                                                <label><span class="checked"><input class="with-gap" name="group1" checked type="radio"> </span>Assisted /Senior Living Facilities</label>-->
+<!--                                                                <label><span><input class="with-gap" name="group1" type="radio"></span> Home Health</label>-->
+<!--                                                                <label><span><input class="with-gap" name="group1" type="radio"></span> SYS Admin</label>-->
+<!--                                                                <label><span><input class="with-gap" name="group1" type="radio"></span> testing description </label>-->
+<!--                                                                <label><span><input class="with-gap" name="group1" type="radio" id="test6"></span> a home providing care for the sick, especially the terminally ill.</label>-->
 <!--                                                            </form>-->
+
+
+
+
+                                                            <form action="#">
+                                                                <p>
+                                                                    <input class="with-gap" name="group1" type="radio" id="assisted" />
+                                                                    <label for="assisted">Assisted /Senior Living Facilities</label>
+                                                                </p>
+                                                                <p>
+                                                                    <input class="with-gap" name="group1" type="radio" id="home" />
+                                                                    <label for="home">Home Health</label>
+                                                                </p>
+                                                                <p>
+                                                                    <input class="with-gap" name="group1" type="radio" id="SYS"  />
+                                                                    <label for="SYS">SYS Admin</label>
+                                                                </p>
+                                                                <p>
+                                                                    <input class="with-gap" name="group1" type="radio" id="testing"  />
+                                                                    <label for="testing">testing description</label>
+                                                                </p>
+                                                                <p>
+                                                                    <input class="with-gap" name="group1" type="radio" id="providing"  />
+                                                                    <label for="providing">a home providing care for the sick, especially the terminally ill.</label>
+                                                                </p>
+
+
+                                                            </form>
+
                                                         </div>
 
                                                         <!--Client_types-->
@@ -1094,23 +1162,18 @@
                     <div class="modal-footer">
 
                         <div class="col-xs-12">
-                            <div class="col-md-6">
-                                <ul>
+
+                                <ul class="md-foot-top">
                                     <li class="create-contact-more"><a href="#">+CONTACT</a> </li>
                                     <li class="create-contact-more"><a href="#">+SUPERUSER</a></li>
                                 </ul>
 
-
-                            </div>
-
-                            <div class="col-md-6 ">
-                                <ul>
+                                <ul class ="md-foot-bot">
                                     <li data-dismiss="modal" role="button"><a href="#" onclick="javascript:document.location='<?=base_url()?>sys-admin/clients-view<?=$page_parameters_with_sort?>'">CANCEL</a>  </li>
                                     <li class="create-contact-save" data-action="save" role="button"><a href="#"> SAVE</a> </li>
                                 </ul>
 
 
-                            </div>
                         </div>
                     </div>
                 </div>

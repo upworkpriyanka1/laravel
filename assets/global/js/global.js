@@ -259,11 +259,13 @@ $(document).ready(function(){
 function init() {
     window.addEventListener('scroll', function(e){
         var distanceY = window.pageYOffset || document.documentElement.scrollTop,
-            shrinkOn = 300,
+            shrinkOn = 0,
             header = document.querySelector("header");
         if (distanceY > shrinkOn) {
+            $('.page-content-wrapper .page-content').css('padding-top','90px');
             classie.add(header,"smaller");
         } else {
+            $('.page-content-wrapper .page-content').css('padding-top','105px');
             if (classie.has(header,"smaller")) {
                 classie.remove(header,"smaller");
             }

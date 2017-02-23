@@ -63,7 +63,7 @@ $config['core_plugins'] = 	array(
 								'slimscroll',
 								'blockui',
 								'bs_switch',
-								'uniform',
+//								'uniform',
 //								'materialize',
 								'jsinit',
 								'globaljs'

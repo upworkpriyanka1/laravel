@@ -570,7 +570,7 @@ select:focus{
 /*}*/
 
 .newclient .modal-dialog{
-    width: 700px;
+    max-width: 700px;
 }
 .newclient .modal-dialog .modal-body {
     height: 560px;
@@ -579,20 +579,91 @@ select:focus{
 
 
 }
+
+.modal-open{
+    overflow-y: hidden !important;
+}
+
+input[type=text]:focus:not([readonly]){
+    box-shadow: none;
+}
+
+#newclient .modal-footer .md-foot-top{
+    display: inline-block;
+    float: left;
+}
+#newclient .modal-footer .md-foot-bot{
+    display: inline-block;
+    float: right;
+}
+#newclient .modal-footer input[type=text]{
+    margin-bottom: 0;
+}
+
+[type="radio"]:not(:checked)+label, [type="radio"]:checked+label{
+    font-size: 12px;
+}
+
+ #newclient .row{
+    margin:0;
+}
+
+#newclient .portlet-form .form-body{
+    padding-bottom: 0;
+}
+
+
 @media only screen and (min-width: 993px){
     .page-footer .container{
         width:70% !important;
         margin-top: 12px;
     }
+    #newclient .modal-footer {
 
+        text-align: center;
+    }
 }
+
+
+
 @media only screen and (max-width: 1200px){
     .page-footer .container{
         margin-top: 0px;
     }
 }
+@media only screen and (max-width: 993px){
+    #newclient .modal-footer {
+        text-align: left; }
+    .page-content-wrapper {
+        margin-top: 40px;
 
-
-.modal-open{
-    overflow-y: hidden !important;
+    }
 }
+@media only screen and (max-height: 780px){
+    .newclient .modal-dialog .modal-body{
+        height: 70vh;
+    }
+    .newclient .modal-dialog .modal-body .row{
+             margin-bottom: 0;
+    }
+}
+
+@media  only screen and (max-width: 480px) {
+    .modal-footer ul li{
+        padding: 10px;
+        font-size: 12px;
+    }
+
+}
+@media  only screen and (max-width: 405px) {
+    #newclient .modal-footer .md-foot-top, #newclient .modal-footer .md-foot-bot{
+         float: none;
+        margin-bottom: 0;
+    }
+    #newclient .modal-footer{
+        text-align: center;
+    }
+
+}
+
+
