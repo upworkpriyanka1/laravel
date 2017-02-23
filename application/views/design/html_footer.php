@@ -19,13 +19,7 @@
                             <i class="icon-arrow-up"></i>
                         </div>
                     </div>
-
-
-
-
-
             </div>
-
 
         </div>
         <div class="modal fade newclient" id="newclient" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">

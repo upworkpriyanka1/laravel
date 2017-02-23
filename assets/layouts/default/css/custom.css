@@ -177,7 +177,11 @@ img.error_img, span.error_img>img {
     .top-nav .page-header{
         margin-left: 20px;
     }
+    .page-footer .footer-list{
+        margin-left: 0 !important;
+    }
 }
+
 a.button-collapse.top-nav i{
     margin-top: 5px;
 }
@@ -241,7 +245,7 @@ li[name='active'] {
 }
 .page-footer{
     background-color: #A9A9A9;
-    min-height: 60px;
+   /* min-height: 60px;*/
 }
 
 .page-footer .page-footer-inner{

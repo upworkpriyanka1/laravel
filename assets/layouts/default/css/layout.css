@@ -1600,7 +1600,7 @@ nav a.button-collapse{ margin-left: -10px !important;}
 }.page-footer {
     padding: 8px 20px 5px;
     font-size: 13px;
-    height: 33px;
+    /*height: 33px;*/
 }
 .page-footer:after, .page-footer:before {
     content: " ";
