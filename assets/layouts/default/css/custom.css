@@ -458,7 +458,8 @@ pre[class*="language-"] {
 /*-------------------------------------------------------------- */
 header {
     width: 100%;
-    height: 130px;
+    height: 100px;
+    /*height: 130px;*/
     overflow: hidden;
     position: fixed;
     top: 0;
@@ -472,10 +473,12 @@ header {
     transition: height 0.3s; }
 header h1#logo {
     display: inline-block;
-    height: 130px;
+    height: 100px;
+    /*height: 130px;*/
     /*line-height: 100px;*/
     float: left;
-    font-size: 60px;
+    font-size: 55px;
+    /*font-size: 60px;*/
     color: #666;
     font-weight: 300;
     -webkit-transition: all 0.3s;
@@ -504,7 +507,7 @@ header.smaller {
 header.smaller h1#logo {
     width: 130px;
     height: 75px;
-    line-height: 75px;
+    /*line-height: 75px;*/
     font-size: 30px; }
 header.smaller nav a {
     line-height: 75px; }
@@ -512,10 +515,10 @@ header.smaller nav a {
 
 
 .page-content-wrapper .page-content{
-    padding-top: 105px !important;
+    padding-top: 80px !important;
 }
 header.smaller{
-    height: 85px;;
+    height: 85px;
 }
 /*
 .modal-backdrop, .modal-backdrop.fade.in{
@@ -580,10 +583,10 @@ select:focus{
 
 }
 
-.modal-open{
+
+.modal-open {
     overflow-y: hidden !important;
 }
-
 input[type=text]:focus:not([readonly]){
     box-shadow: none;
 }
@@ -645,6 +648,21 @@ input[type=text]:focus:not([readonly]){
     }
     .newclient .modal-dialog .modal-body .row{
              margin-bottom: 0;
+    }
+    header h1#logo{
+        font-size: 50px;
+    }
+}
+@media only screen and (max-width: 780px){
+
+    header h1#logo{
+        font-size: 7vw;
+    }
+}
+@media only screen and (max-width: 680px){
+
+    header h1#logo{
+        font-size: 8vw;
     }
 }
 

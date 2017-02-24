@@ -262,10 +262,10 @@ function init() {
             shrinkOn = 0,
             header = document.querySelector("header");
         if (distanceY > shrinkOn) {
-            $('.page-content-wrapper .page-content').css('padding-top','90px');
+            $('.page-content-wrapper .page-content').css('padding-top','60px');
             classie.add(header,"smaller");
         } else {
-            $('.page-content-wrapper .page-content').css('padding-top','105px');
+            $('.page-content-wrapper .page-content').css('padding-top','80px');
             if (classie.has(header,"smaller")) {
                 classie.remove(header,"smaller");
             }
