@@ -245,16 +245,20 @@ li[name='active'] {
 }
 .page-footer{
     background-color: #A9A9A9;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    z-index: 99 !important;
    /* min-height: 60px;*/
 }
 
 .page-footer .page-footer-inner{
     float: none;
 }
-.page-content{
+/*.page-content{
     min-height: 855px !important;
-    /*min-height: 830px !important;*/
-}
+    !*min-height: 830px !important;*!
+}*/
 .page-footer .footer-list{
 
     display: inline-block;
@@ -661,12 +665,16 @@ input[type=text]:focus:not([readonly]){
     header h1#logo{
         font-size: 6vw;
     }
+    header.smaller h1#logo{
+        font-size: 4vw;
+    }
 }
 @media only screen and (max-width: 680px){
 
     header h1#logo{
         font-size: 7vw;
     }
+
 }
 
 @media  only screen and (max-width: 480px) {
@@ -685,6 +693,10 @@ input[type=text]:focus:not([readonly]){
         text-align: center;
     }
 
+}
+
+body{
+    position: relative;
 }
 
 
