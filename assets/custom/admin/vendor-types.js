@@ -47,7 +47,7 @@ function clearAllData() {
  * return none
  *********************************/
 function vendorTypesListFilterApplied( ) {
-    $('.tooltip-inner').css('display', 'none');
+    //$('.tooltip-inner').css('display', 'none');
 
     $( "#vendor_types_list_dialog_filter" ).modal(  {
         "backdrop": "static",

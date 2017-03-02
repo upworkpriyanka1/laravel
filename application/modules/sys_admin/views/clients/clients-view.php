@@ -22,9 +22,9 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
                         <? } ?>
                     </h4>
 
-<!--                    <button type="button" class="btn btn-filter btn-default btn-sm pull_right_only_on_xs padding_right_sm " onclick="javascript:clientsListFilterApplied();" data-target="#clients_list_dialog_filter"  data-delay="50" data-toggle="modal" title="" data-original-title="Open dialog window to set filter for Clients. --><?//= ( trim($filters_label) != "" ? "Current filter(s):".$filters_label : "") ?><!-- "><i class="glyphicon glyphicon-filter"></i>&nbsp;Filter </button>-->
-                    <button type="button" class=" dropdown-button btn filter_dropdown btn-filter " data-activates='dropdown1' onclick="javascript:clientsListFilterApplied();" title="" data-original-title="Open dialog window to set filter for Clients. <?= ( trim($filters_label) != "" ? "Current filter(s):".$filters_label : "") ?> "><i class="glyphicon glyphicon-filter"></i>&nbsp;Filter </button>
-
+                    <button type="button" class="dropdown-button btn filter_dropdown btn-filter " data-activates='dropdown1' onclick="javascript:clientsListFilterApplied();" data-toggle="tooltip" data-html="true" data-placement="top" title="" data-original-title="Open dialog window to set filter for Clients. <?= ( trim($filters_label) != "" ? "Current filter(s):".$filters_label : "") ?> "><i class="glyphicon glyphicon-filter"></i>&nbsp;Filter </button>
+                    <button type="button" class="btn btn-plus sbold btn-sm pull-right" data-toggle="modal" data-target="#newclient"  ><i class="glyphicon glyphicon-plus"></i></button>
+                </div>
                     <!-- Dropdown Structure -->
 
                     <ul id='dropdown1' class='dropdown-content'>
@@ -123,8 +123,6 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
                         </li>
 
                     </ul>
-
-                    <button type="button" class="btn btn-plus sbold btn-sm pull-right" data-toggle="modal" data-target="#newclient"  ><!--<i class="glyphicon glyphicon-plus"></i> -->ADD </button>
 
                 </div>
 
