@@ -62,6 +62,7 @@ $lang['client_city']            = "City";
 $lang['client_state']           = "State";
 $lang['client_zip']             = "Zip";
 $lang['grid']                   = "Grid";
+$lang['col3']                   = "Col 3";
 
 $lang['company']                = "Company";
 $lang['company_name']           = "Company Name";

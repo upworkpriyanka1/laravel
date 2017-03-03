@@ -11,7 +11,7 @@
                             <li><a href="#">Contact</a></li>
                         </ul>
                     </div>
-                    <div class="col-lg-6 col-md-12 text-center">
+                    <div class="col-lg-6 col-md-12 text-right pg-footer-center">
                         <div class="page-footer-inner" style="padding-left: 30px;">
                             Copyright &copy; Zentral <?php echo date('Y'); ?>
                         </div>

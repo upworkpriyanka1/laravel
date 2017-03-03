@@ -643,6 +643,9 @@ input[type=text]:focus:not([readonly]){
     .page-footer .container{
         margin-top: 0px;
     }
+    .page-footer .pg-footer-center{
+        text-align: center;
+    }
 }
 @media only screen and (max-width: 999px){
     .page-content-white .page-title {
@@ -727,4 +730,46 @@ body{
     .page-content-white .page-title {
         padding-left: 0px;
     }
+}
+
+/*col3*/
+
+.cards-container {
+    column-break-inside: avoid;
+}
+.cards-container .card {
+    display: inline-block;
+    overflow: visible;
+}
+
+@media only screen and (max-width: 600px) {
+    .cards-container {
+        -webkit-column-count: 1;
+        -moz-column-count: 1;
+        column-count: 1;
+    }
+}
+@media only screen and (min-width: 601px) {
+    .cards-container {
+        -webkit-column-count: 2;
+        -moz-column-count: 2;
+        column-count: 2;
+    }
+}
+@media only screen and (min-width: 993px) {
+    .cards-container {
+        -webkit-column-count: 3;
+        -moz-column-count: 3;
+        column-count: 3;
+    }
+}
+@media only screen and (min-width: 1960px) {
+    .cards-container {
+        -webkit-column-count: 4;
+        -moz-column-count: 4;
+        column-count: 4;
+    }
+}
+.scrollspy .caption{
+    margin: 0;
 }
