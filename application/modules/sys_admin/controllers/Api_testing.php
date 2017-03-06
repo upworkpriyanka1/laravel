@@ -76,42 +76,6 @@ class Api_testing extends CI_Controller {
     }
 
     /**********************
-     * action : MUST BE DELETED LATER
-     * add_dummy 1000 clients
-     * @params
-     * returned to clients view page
-     *********************************/
-    public function delete_dummy_clients()
-    {
-        $start_client_id= 16;
-//        echo '<pre>add_dummy_clients $start_client_id::'.print_r($start_client_id,true).'</pre>';
-        $this->db->trans_start();
-        $query = $this->db->query(" delete FROM clients_groups WHERE client_id >= " . $start_client_id);
-        $query = $this->db->query(" delete FROM clients WHERE cid >= " . $start_client_id);
-        $this->db->trans_complete();
-        redirect('./sys-admin/clients-view');
-    }
-
-    public function add_dummy_clients()
-    {
-        $rows_count= 1000;
-        $this->db->trans_start();
-        for( $i= 1; $i< $rows_count+1; $i++ ) {
-            $insert_data= array(   'client_name'=> 'client_name_'.$i, 'client_owner'=> 'client_owner_'.$i, 'client_address1'=>'client_address_'.$i,
-                'client_address2'=>'client_address2_'.$i, 'client_city'=>'client_city_'.$i,	'client_state'=> 'client_state_'.$i, 'client_zip'=> 'client_zip_'.$i,
-                'client_phone'=> 'client_phone_'.$i, 'client_fax'=> 'client_fax_'.$i, 'client_email'=> 'client_email_'.$i, 'client_website'=> 'client_website_'.$i,
-                'color_scheme'=> 'color_scheme_'.$i, 'client_notes'=> 'client_notes_'.$i, 'client_active_status'=> 'A'   );
-            if ( $this->db->insert('clients',$insert_data) ) {
-                $new_client_id= $this->db->insert_id();
-                $new_clients_groups_ret = $this->db->insert('clients_groups', array('client_group_id' => rand(1, 6), 'client_id' => $new_client_id));
-//                echo '<pre>$new_clients_groups_ret::' . print_r($new_clients_groups_ret, true) . '</pre>';
-            }
-        }
-        $this->db->trans_complete();
-        redirect('./sys-admin/clients-view');
-    }
-
-    /**********************
      * view clients
      * access public
      * @params
@@ -121,7 +85,7 @@ class Api_testing extends CI_Controller {
         $data['meta_description']='';
         $data['menu']		= $this->menu;
         $data['user'] 		= $this->user;
-        $data['job'] 		= $this->job;
+//        $data['job'] 		= $this->job;
         $data['group'] 		= $this->group->name;
 
         $UriArray = $this->uri->uri_to_assoc(3);
@@ -207,7 +171,7 @@ class Api_testing extends CI_Controller {
         $data['meta_description']='';
         $data['menu']		= $this->menu;
         $data['user'] 		= $this->user;
-        $data['job'] 		= $this->job;
+//        $data['job'] 		= $this->job;
         $data['group'] 		= $this->group->name;
 
         $data['client_types']=   object_to_array($this->common_mdl->get_records('clients_types'),'type_id', 'activity_time', 'DESC');
@@ -238,7 +202,7 @@ class Api_testing extends CI_Controller {
         $data['meta_description']='';
         $data['menu']		= $this->menu;
         $data['user'] 		= $this->user;
-        $data['job'] 		= $this->job;
+//        $data['job'] 		= $this->job;
         $data['group'] 		= $this->group->name;
 
         $data['client']		= $this->common_mdl->get_client($this->uri->segment(3), TRUE);
@@ -325,7 +289,7 @@ class Api_testing extends CI_Controller {
         $data['meta_description']='';
         $data['menu']		= $this->menu;
         $data['user'] 		= $this->user;
-        $data['job'] 		= $this->job;
+//        $data['job'] 		= $this->job;
         $data['group'] 		= $this->group->name;
 
         $data['users']		= $this->admin_mdl->get_users();
@@ -354,7 +318,7 @@ class Api_testing extends CI_Controller {
         $data['meta_description']='';
         $data['menu']		= $this->menu;
         $data['user'] 		= $this->user;
-        $data['job'] 		= $this->job;
+//        $data['job'] 		= $this->job;
         $data['group'] 		= $this->group->name;
 
         $data['usertoedit'] = $this->common_mdl->user_to_edit($this->uri->segment(3),FALSE,FALSE, TRUE);
@@ -385,7 +349,7 @@ class Api_testing extends CI_Controller {
         $data['meta_description']='';
         $data['menu']		= $this->menu;
         $data['user'] 		= $this->user;
-        $data['job'] 		= $this->job;
+//        $data['job'] 		= $this->job;
         $data['group'] 		= $this->group->name;
 
         $data['clients']= $this->common_mdl->get_records('clients');
@@ -408,7 +372,7 @@ class Api_testing extends CI_Controller {
         $data['meta_description']='';
         $data['menu']		= $this->menu;
         $data['user'] 		= $this->user;
-        $data['job'] 		= $this->job;
+//        $data['job'] 		= $this->job;
         $data['group'] 		= $this->group->name;
 
         $data['jobs']= $this->admin_mdl->get_jobs();
@@ -432,7 +396,7 @@ class Api_testing extends CI_Controller {
         $data['meta_description']='';
         $data['menu']		= $this->menu;
         $data['user'] 		= $this->user;
-        $data['job'] 		= $this->job;
+//        $data['job'] 		= $this->job;
         $data['group'] 		= $this->group->name;
 
         $data['groups']		= $this->admin_mdl->get_groups();
@@ -458,7 +422,7 @@ class Api_testing extends CI_Controller {
         $data['meta_description']='';
         $data['menu']		= $this->menu;
         $data['user'] 		= $this->user;
-        $data['job'] 		= $this->job;
+//        $data['job'] 		= $this->job;
         $data['group'] 		= $this->group->name;
 
         $data['client_types']= $this->admin_mdl->get_client_types();
@@ -492,7 +456,7 @@ class Api_testing extends CI_Controller {
         $data['meta_description']='';
         $data['menu']		= $this->menu;
         $data['user'] 		= $this->user;
-        $data['job'] 		= $this->job;
+//        $data['job'] 		= $this->job;
         $data['group'] 		= $this->group->name;
 
         $data['contact_types']= $this->admin_mdl->get_contact_types();

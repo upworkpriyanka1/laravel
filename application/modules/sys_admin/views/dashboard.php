@@ -3,9 +3,9 @@
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
         <div class="portlet light bordered">
         Name: <?= $user->first_name." ".$user->last_name;?><br />
-        Title: <?= lang($user->job_title);?><br />
+<!--        Title: --><?//= lang($user->job_title);?><!--<br />-->
         Group: <?= lang($user->group_title);?><br />
-        Client: <?= $user->client_name;?><br />
+        Client: <?= $user->username;?><br />
         <pre>
         <?php
             var_dump($_SESSION);

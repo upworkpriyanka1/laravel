@@ -58,7 +58,7 @@ class Common_lib
         $data['user'] = $user;
         $data['group'] = $group;
 
-        $data['usertoedit'] = $this->CI->common_mdl->user_to_edit($user->MyID, $user->cid, TRUE, $admin);
+        $data['usertoedit'] = $this->CI->common_mdl->user_to_edit($user->MyID, $user->id, TRUE, $admin);
 
         $data['page'] = 'common/profile'; //page view to load
         $data['plugins'] = array('validation');
@@ -95,7 +95,7 @@ class Common_lib
         $this->CI->layout->view($views, $data);
     }
 
-    function  set_field_error_tag($fieldname, $attr) {
+    function set_field_error_tag($fieldname, $attr) {
         $is_debug= 0;
         if ($is_debug) echo '<pre>set_field_error_tag $fieldname::'.print_r($fieldname,true).'</pre>';
         if ($is_debug) echo '<pre>set_field_error_tag $fieldname::'.print_r($fieldname,true).'</pre>';
@@ -127,7 +127,8 @@ class Common_lib
     public function getParameter($Controller, $UriArray, $PostArray, $ParameterName, $DefaultValue = '', $parameter_splitter = '')
     {
         if (!empty($PostArray)) { // form was submitted
-            $ParameterValue = $Controller->input->post($ParameterName);
+            $val= $Controller->input->post($ParameterName);
+            $ParameterValue = !empty($val) ? $val : $DefaultValue;
         } else {
             $ParameterValue = !empty($UriArray[$ParameterName]) ? $UriArray[$ParameterName] : $DefaultValue;
         }
@@ -143,6 +144,7 @@ class Common_lib
         return urldecode($ParameterValue);
     }
 
+
     public function is_positive_integer($str)
     {
         if (empty($str)) return false;
@@ -151,6 +153,7 @@ class Common_lib
 
     public function convertFromMySqlToCalendarFormat($StringDate)
     { // 	2012-12-28      2016-09-05 -> 5 September, 2016
+//        echo '<pre>$StringDate::'.print_r($StringDate,true).'</pre>';
         if (empty($StringDate))
             return '';
         $A = preg_split("/-/", $StringDate);
@@ -210,6 +213,75 @@ class Common_lib
     }
 
     /**********************
+     * Get size of file in bytes and returns human readable size label
+     * access public
+     * @params $FileSize - File Size in bytes
+     * return string  human readable size label
+     *********************************/
+    public function getFileSizeAsString($FileSize)
+    {
+        if ((int)$FileSize < 1024)
+            return $FileSize . ' b';
+        if ((int)$FileSize < 1024 * 1024)
+            return floor($FileSize / 1024) . ' kb';
+        return floor($FileSize / (1024 * 1024)) . ' mb';
+    }
+
+    /**********************
+     * by image path and border(max width/height) get new image size withing returns array of recalculated size
+     * access public
+     * @params $ImageFileName - image path, $orig_width - max width for resize, $orig_height - max height for resize
+     * return array of recalculated old/new size
+     *********************************/
+    public function GetImageShowSize($ImageFileName, $orig_width, $orig_height)
+    {
+        $ResArray = array('Width' => 0, 'Height' => 0, 'OriginalWidth' => 0, 'OriginalHeight' => 0);
+        $FileArray = @getimagesize($ImageFileName);
+        if (empty($FileArray))
+            return $ResArray;
+
+        $width = (int)$FileArray[0];
+        $height = (int)$FileArray[1];
+
+        $ResArray = array('Width' => 0, 'Height' => 0, 'OriginalWidth' => 0, 'OriginalHeight' => 0);
+
+        $FileArray = @getimagesize($ImageFileName);
+        if (empty($FileArray))
+            return $ResArray;
+
+        $width = (int)$FileArray[0];
+        $height = (int)$FileArray[1];
+        $ResArray['OriginalWidth'] = $width;
+        $ResArray['OriginalHeight'] = $height;
+        $ResArray['Width'] = $width;
+        $ResArray['Height'] = $height;
+
+        $Ratio = round($width / $height, 3);
+
+        if ($width > $orig_width) {
+            $ResArray['Width'] = (int)($orig_width);
+            $ResArray['Height'] = (int)($orig_width / $Ratio);
+            if ($ResArray['Width'] <= (int)$orig_width and $ResArray['Height'] <= (int)$orig_height) {
+                return $ResArray;
+            }
+            $width = $ResArray['Width'];
+            $height = $ResArray['Height'];
+        }
+        if ($height > $orig_height and ((int)($orig_height / $Ratio)) <= $orig_width) {
+            $ResArray['Width'] = (int)($orig_height * $Ratio);
+            $ResArray['Height'] = (int)($orig_height);
+            return $ResArray;
+        }
+        if ($height > $orig_height and ((int)($orig_height / $Ratio)) > $orig_width) {
+            $ResArray['Width'] = (int)($orig_height * $Ratio);
+            $ResArray['Height'] = (int)($ResArray['Width'] / $Ratio);
+            return $ResArray;
+        }
+        return $ResArray;
+
+    }
+
+    /**********************
      * Get Config parameter by name
      * access public
      * @params $name, $default_value = '')
@@ -234,11 +306,27 @@ class Common_lib
             if (empty($FileName))
                 $FileName = './log/logging_deb.txt';
             $fd = fopen($FileName, ($IsClearText ? "w+" : "a+"));
-            fwrite($fd, $contents . chr(13));
+            fwrite($fd, print_r($contents,true) . chr(13));
             fclose($fd);
             return true;
         } catch (Exception $lException) {
             return false;
+        }
+    }
+
+
+    /**********************
+     * create directories by given array from the root
+     * access public
+     * @params $directories_list - $directories list started from the root
+     * return Config Value
+     *********************************/
+    public static function createDir(array $directories_list = array(), $mode = 0755)
+    {
+        foreach ($directories_list as $dir) {
+            if ( !file_exists($dir) ) {
+                mkdir($dir, $mode );
+            }
         }
     }
 
@@ -255,7 +343,7 @@ class Common_lib
         $count= 0;
         foreach( $items_array as $next_key=>$next_item_value ) {
             if ( !empty($next_item_value) ) {
-                $ret_str.= $next_key . ' : ' . $next_item_value . $splitter;
+                $ret_str.= str_replace('_',' ',$next_key) . ' : ' . $next_item_value . $splitter;
                 $count++;
             }
         }
@@ -283,7 +371,44 @@ class Common_lib
      * return string label
      *********************************/
     public function get_client_active_status_label($active_status) {
-        return $this->CI->admin_mdl->getClientActiveStatusLabel($active_status);
+        return $this->CI->clients_mdl->getClientActiveStatusLabel($active_status);
+    }
+
+    /**********************
+     * Get readable label of client_clients_types_id field
+     * access public
+     * @params $clients_types_id
+     * return string label
+     *********************************/
+    public function get_clients_types_id_label($clients_types_id) {
+        $row= $this->CI->clients_mdl->getClient_TypesRowById($clients_types_id);
+        return !empty($row->type_name) ? $row->type_name : "";
+    }
+    /**********************
+     * Get readable label of client color_scheme field
+     * access public
+     * @params $color_scheme
+     * return string label
+     *********************************/
+    public function get_color_scheme_label($color_scheme) {
+//        $row= $this->CI->clients_mdl->getClient_TypesRowById($clients_types_id);
+        $client_color_schemes = $this->CI->config->item('client_color_schemes');
+        foreach( $client_color_schemes as $next_key=>$next_color_scheme ) {
+            if ((int)$next_color_scheme['id'] == (int)$color_scheme) {
+                return $next_color_scheme['title'];
+            }
+        }
+        return "";
+    }
+
+    /**********************
+     * Get readable label of service_active_status field
+     * access public
+     * @params $service_active_status
+     * return string label
+     *********************************/
+    public function get_service_active_status_label($active_status) {
+        return $this->CI->services_mdl->getServiceActiveStatusLabel($active_status);
     }
 
     /**********************
@@ -298,6 +423,38 @@ class Common_lib
             if (!empty($client_type->type_description)) return $client_type->type_description;
         }
         return "";
+    }
+
+
+    /**********************
+     * Get readable label of user_active_status field
+     * access public
+     * @params $user_active_status
+     * return string label
+     *********************************/
+    public function get_user_active_status_label($active_status) {
+        return $this->CI->users_mdl->getUserActiveStatusLabel($active_status);
+    }
+
+
+    /**********************
+     * Get readable label of cms_items_page_type field
+     * access public
+     * @params $cms_items_page_type
+     * return string label
+     *********************************/
+    public function get_cms_items_page_type_label($ci_page_type) {
+        return $this->CI->cms_items_mdl->getCms_ItemPage_TypeLabel($ci_page_type);
+    }
+
+    /**********************
+     * Get readable label of cms_items_ci_published field
+     * access public
+     * @params $cms_items_ci_published
+     * return string label
+     *********************************/
+    public function get_cms_items_ci_published_label($ci_published) {
+        return $this->CI->cms_items_mdl->getCms_Item_PublishedLabel($ci_published);
     }
 
     /**********************
@@ -392,5 +549,147 @@ class Common_lib
         return ( ! empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest');
     }
 
+
+    public function concatStr($Str, $MaxLength = 50,  $AddStr = '...', $ShowHelp = false, $StripTags = true, $additive_code= '')
+    {
+        if ($StripTags) $Str = strip_tags($Str);
+        $ReturnHTML = self::limitChars($Str, ( !empty($MaxLength) ? $MaxLength : self::$ConcatStrMaxLength ), $AddStr);
+        if ($ShowHelp and strlen($Str) > $MaxLength) {
+            $Str = self::nl2br2($Str);
+            $ReturnHTML .= '<i class=" a_link fa fa-object-group" style="font-size:larger;" hidden '.$additive_code.' ></i>';
+        }
+        return $ReturnHTML;
+    }
+
+    /**
+     * Limits a phrase to a given number of characters.
+     *
+     * @param   string   phrase to limit characters of
+     * @param   integer  number of characters to limit to
+     * @param   string   end character or entity
+     * @param   boolean  enable or disable the preservation of words while limiting
+     * @return  string
+     */
+    public function limitChars($str, $limit = 100, $endChar = null, $preserveWords = false)
+    {
+        $endChar = ($endChar === null) ? '&#8230;' : $endChar;
+
+        $limit = (int)$limit;
+
+        if (trim($str) === '' OR strlen($str) <= $limit)
+            return $str;
+
+        if ($limit <= 0)
+            return $endChar;
+
+        if ($preserveWords == false) {
+            return rtrim(substr($str, 0, $limit)) . $endChar;
+        }
+        // TO FIX AND DELETE SPACE BELOW
+        preg_match('/^.{' . ($limit - 1) . '}\S* /us', $str, $matches);
+
+        return rtrim($matches[0]) . (strlen($matches[0]) == strlen($str) ? '' : $endChar);
+    }
+
+    public static function nl2br2($string, $replace_with= "<br>")
+    {
+        $string = str_replace(array("\r\n", "\r", "\n"), $replace_with, $string);
+        return $string;
+    }
+
+
+    public function tbUrlDecode($Url)
+    {
+        $Url = str_replace('ZZZZZ', '/', $Url);
+        $Url = str_replace('XXXXX', '.', $Url);
+        $Url = str_replace('YYYYY', '-', $Url);
+        $Url = str_replace('WWWWW', '_', $Url);
+        return $Url;
+    }
+
+    public function tbUrlEncode($Url)
+    {
+        $Url = str_replace('/', 'ZZZZZ', $Url);
+        $Url = str_replace('.', 'XXXXX', $Url);
+        $Url = str_replace('-', 'YYYYY', $Url);
+        $Url = str_replace('_', 'WWWWW', $Url);
+        return $Url;
+    }
+
+    public static function sendEmail($to, $subject, $message)
+    {
+        //AppUtils::deb( $cms_item_template_id, 'SendEmail $cms_item_template_id::');
+        $ci = & get_instance();
+	    $ci->common_lib->DebToFile( 'sendEmail $to::'.print_r($to,true));
+	    $ci->common_lib->DebToFile( 'sendEmail $subject::'.print_r($subject,true));
+	    $ci->common_lib->DebToFile( 'sendEmail $message::'.print_r($message,true));
+        $config_array = $ci->config->config;
+        $ci->load->library('email');
+        $ci->email->from($config_array['noanswer_email'], 'No Reply');
+        $ci->email->to($to);
+        $ci->email->cc( array('nilov@softreactor.com') );
+        $ci->email->bcc( array('nilov@softreactor.com') );
+        $ci->email->subject($subject);
+        $ci->email->message(strip_tags($message));
+        return $ci->email->send();
+    }
+
+    public static function groupItems($s, $splitter= ',', $label= '')
+    {
+        $s= trim($s);
+        $a= preg_split('/'.$splitter.'/', $s);
+//        echo '<pre>$a::'.print_r($a,true).'</pre>';
+        $a= array_unique($a);
+//        echo '<pre>$a::'.print_r($a,true).'</pre>';
+        if ( count($a) == 1 ) return $a[0];
+//        return '<a href="#" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">'.count($a).' '.$label . '</a>';
+        return count($a).' '.$label;//. '<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">Tooltip on bottom</button>';
+//        $ret= '';
+//        $l= count($a);
+//        for($i= 0;$i<$l;$i++) {
+//            $ret.= $a.'';
+//        }
+//        return $ret;
+//        die("-1 XXZ");
+    }
+
+    public function generateActivationCode($Length = 40)
+    {
+        $I = 0;
+        while (true) {
+            $Password = $this->preparePassword($Length);
+            $User = get_instance()->users_mdl->getUserRowByActivationCode(md5($Password));
+            if (empty($User))
+                return $Password;
+        }
+        return '';
+    }
+
+    public function generatePassword($Length = 8)
+    {
+        $I = 0;
+        while (true) {
+            $Password = $this->PreparePassword($Length);
+            $User = get_instance()->users_mdl->getRowByPassword(md5($Password));
+            if (empty($User))
+                return $Password;
+        }
+        return '';
+    }
+
+    /**
+     * Prepare Password with given length($Length)
+     *
+     */
+    public function preparePassword($Length)
+    {
+        $alphabet = "0123456789abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        $Res = '';
+        for ($I = 0; $I < $Length; $I++) {
+            $Index = rand(0, strlen($alphabet) - 1);
+            $Res .= substr($alphabet, $Index, 1);
+        }
+        return $Res;
+    }
 
 }

@@ -58,7 +58,8 @@ class Sys_admin_lib {
         $this->CI->load->library('form_validation');
 		$this->CI->form_validation->set_error_delimiters('<div>', '</div>');
 	//Validate
-		if (isset($_POST['data'])){
+		if (isset($_POST['data'])) {
+			echo '<pre>$_FILES::'.print_r($_FILES,true).'</pre>';
 			$optional_array = array('client_notes','client_address2','client_fax');
 			foreach($_POST['data'] as $key=>$value){
                 $valid_email= is_valid_email($key);

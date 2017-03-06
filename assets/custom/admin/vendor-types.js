@@ -40,6 +40,7 @@ function clearAllData() {
     });
 }
 
+
 /**********************
  * clicking on "Filter" button in vendor_types View page filters popup dialog is opened and inputs are filled from "hidden_" hidden inputs of form and date initialization
  * access public

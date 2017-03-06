@@ -15,7 +15,7 @@ $config['menu_1'] = array(
     					'icon'	=>	'fa fa-folder-open'
     					),
     "sub_2" => array(
-    					'href'	=>	'/clients-add', //make sure to use dash
+    					'href'	=>	'/clients-edit/new/', //make sure to use dash
     					'title'	=>	'clients-add',//should be the same as the lang()
     					'icon'	=>	'fa fa-plus'
                     ),
@@ -31,12 +31,12 @@ $config['menu_2'] = array(
     "icon" => "fa fa-user",
     "title" =>'users', //should be the same as the lang()
     "sub_1" => array(
-    					'href'	=>	'/users-view',
+    					'href'	=>	'/users/users-view',
     					'title'	=>	'users-view', //make sure to use dash
     					'icon'	=>	'fa fa-user'
     					),
     "sub_2" => array(
-    					'href'	=>	'/users-add', //make sure to use dash
+    					'href'	=>	'/users/users-edit/new/', //make sure to use dash
     					'title'	=>	'users-add',//should be the same as the lang()
     					'icon'	=>	'fa fa-plus'
                     ),
@@ -45,11 +45,11 @@ $config['menu_2'] = array(
     					'title'	=>	'users-role',//should be the same as the lang()
     					'icon'	=>	'fa fa-plus'
                     ),
-    "sub_4" => array(
+/*    "sub_4" => array(
     					'href'	=>	'/users-jobs', //make sure to use dash
     					'title'	=>	'users-jobs',//should be the same as the lang()
     					'icon'	=>	'fa fa-plus'
-    					)
+    					)*/
     );
 
 $config['menu_3'] = array(
@@ -89,10 +89,38 @@ $config['menu_5'] = array(
         'href'	=>	'/vendors/vendors-view', //make sure to use dash
         'title'	=>	'vendors-view',//should be the same as the lang()
         'icon'	=>	'fa fa-wheelchair'
-    ),             // /sys-admin/vendors/vendors-edit/new/
+    ),
     "sub_4" => array(
         'href'	=>	'/vendors/vendors-edit/new/', //make sure to use dash
         'title'	=>	'vendor-add',//should be the same as the lang()
         'icon'	=>	'fa fa-plus'
     ),
+    "sub_5" => array(
+        'href'	=>	'/services/services-view', //make sure to use dash
+        'title'	=>	'services-view',//should be the same as the lang()
+        'icon'	=>	'fa fa-wifi'
+    ),
+    "sub_6" => array(
+        'href'	=>	'/services/services-edit/new/', //make sure to use dash
+        'title'	=>	'service-add',//should be the same as the lang()
+        'icon'	=>	'fa fa-plus'
+    ),
+
+
 );
+
+$config['menu_6'] = array(
+	"icon" => "fa fa-edit",
+	"title" =>'cms-items', //should be the same as the lang()
+	"sub_1" => array(
+		'href'	=>	'/cms-items/cms-items-view',
+		'title'	=>	'cms-items-view', //make sure to use dash
+		'icon'	=>	'fa fa-edit'
+	),
+	"sub_2" => array(
+		'href'	=>	'/cms-items/cms-items-edit/new/', //make sure to use dash
+		'title'	=>	'cms-items-add',//should be the same as the lang()
+		'icon'	=>	'fa fa-plus'
+	),
+);
+

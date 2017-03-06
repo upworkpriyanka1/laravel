@@ -214,45 +214,68 @@ $config['directory_trigger'] = 'd';
 |
 */
 #if ((!empty($_SERVER["HTTP_HOST"]) and !(strpos($_SERVER["HTTP_HOST"], "zntral.net") === false))) {
-if (ENVIRONMENT == 'production') {
-    $config['log_path'] = '/home/zntral/public_html/log/';   // file:///_wwwroot/zntral/zntral/application
-    $config['sql_queries_to_file'] = '/home/zntral/public_html/logs/sql_queries_to_file_';
-    $config['document_root'] = '/home/zntral/public_html/';
-    $config['send_error_at_email'] = 'nbler.ru';
-    $config['base_url'] = 'https://zntral.net';
+
+//echo '<pre>ENVIRONMENT::'.print_r(ENVIRONMENT,true).'</pre>';
+if ((!empty($_SERVER["HTTP_HOST"]) and !(strpos($_SERVER["HTTP_HOST"], "local-zntral.com") === false))) {
+    $config['log_path'] = '/_wwwroot/zntral/zntral/log/';   // file:///_wwwroot/zntral/zntral/application
+    $config['document_root'] = '/_wwwroot/zntral/zntral/';
+    $config['sql_queries_to_file'] = '/_wwwroot/zntral/zntral/log/sql_queries_to_file_';
+    $config['base_url'] = 'http://local-zntral.com';
     $config['is_developer_comp'] = 1;
+    $config['log_threshold'] = 4;
 //    die("-1 XXZ");
-} else if (ENVIRONMENT =='dev4') {
-    $config['log_path'] = '/home/zntral/dev4/log/'; // '/home/dev9soft/public_html/tb/'
-    $config['sql_queries_to_file'] = '/home/zntral/dev4/logs/sql_queries_to_file_';
-    $config['document_root'] = '/home/zntral/dev4/';
-    $config['send_error_at_email'] = 'nbler.ru';
-    $config['base_url'] = 'https://dev4.zntral.net/';
-    $config['is_developer_comp'] = 1;
-} else if (ENVIRONMENT =='prince') {
-    $config['log_path'] = '/home/zntral/prince/log/'; // '/home/dev9soft/public_html/tb/'
-    $config['sql_queries_to_file'] = '/home/zntral/prince/logs/sql_queries_to_file_';
-    $config['document_root'] = '/home/zntral/prince/';
-    $config['send_error_at_email'] = 'nbler.ru';
-    $config['base_url'] = 'https://prince.zntral.net/';
-    $config['is_developer_comp'] = 1;
-} else if (ENVIRONMENT =='f3') {
-    $config['log_path'] = '/home/zntral/f3/log/'; // '/home/dev9soft/public_html/tb/'
-    $config['sql_queries_to_file'] = '/home/zntral/f3/logs/sql_queries_to_file_';
-    $config['document_root'] = '/home/zntral/f3/';
-    $config['send_error_at_email'] = 'nbler.ru';
-    $config['base_url'] = 'https://f3.zntral.net/';
-    $config['is_developer_comp'] = 1;
-
 } else {
-    $config['log_path'] = '/home/zntral/front2/log/'; // '/home/dev9soft/public_html/tb/'
-    $config['sql_queries_to_file'] = '/home/zntral/front2/logs/sql_queries_to_file_';
-    $config['document_root'] = '/home/zntral/front2/';
-    $config['send_error_at_email'] = 'nbler.ru';
-    $config['base_url'] = 'https://front2.zntral.net/';
-    $config['is_developer_comp'] = 1;
-}
+    if (ENVIRONMENT == 'production') {
+        $config['log_path'] = '/home/zntral/public_html/log/';   // file:///_wwwroot/zntral/zntral/application
+        $config['sql_queries_to_file'] = '/home/zntral/public_html/logs/sql_queries_to_file_';
+        $config['document_root'] = '/home/zntral/public_html/';
+        $config['base_url'] = 'https://zntral.net';
+        $config['is_developer_comp'] = 1;
+    } else if (ENVIRONMENT == 'dev2') {
+        $config['log_path'] = '/home/zntral/dev2/log/'; // '/home/dev9soft/public_html/tb/'
+        $config['sql_queries_to_file'] = '/home/zntral/dev2/logs/sql_queries_to_file_';
+        $config['document_root'] = '/home/zntral/dev2/';
+        $config['base_url'] = 'https://dev2.zntral.net/';
+        $config['is_developer_comp'] = 1;
+        $config['log_threshold'] = 4;
 
+    } else if (ENVIRONMENT == 'dev4b') {
+        $config['log_path'] = '/home/zntral/dev4b/log/'; // '/home/dev9soft/public_html/tb/'
+        $config['sql_queries_to_file'] = '/home/zntral/dev4b/logs/sql_queries_to_file_';
+        $config['document_root'] = '/home/zntral/dev4b/';
+        $config['base_url'] = 'https://dev4b.zntral.net/';
+        $config['is_developer_comp'] = 1;
+        $config['log_threshold'] = 4;
+    } else if (ENVIRONMENT == 'dev4') {
+        $config['log_path'] = '/home/zntral/dev4/log/'; // '/home/dev9soft/public_html/tb/'
+        $config['sql_queries_to_file'] = '/home/zntral/dev4/logs/sql_queries_to_file_';
+        $config['document_root'] = '/home/zntral/dev4/';
+        $config['base_url'] = 'https://dev4.zntral.net/';
+        $config['is_developer_comp'] = 1;
+        $config['log_threshold'] = 4;
+    } else if (ENVIRONMENT == 'dev5') {
+        $config['log_path'] = '/home/zntral/dev5/log/'; // '/home/dev9soft/public_html/tb/'
+        $config['sql_queries_to_file'] = '/home/zntral/dev5/logs/sql_queries_to_file_';
+        $config['document_root'] = '/home/zntral/dev5/';
+        $config['base_url'] = 'https://dev5.zntral.net/';
+        $config['is_developer_comp'] = 1;
+
+    } else if (ENVIRONMENT == 'devK') {
+        $config['log_path'] = '/home/zntral/devk/log/'; // '/home/dev9soft/public_html/tb/'
+        $config['sql_queries_to_file'] = '/home/zntral/devk/logs/sql_queries_to_file_';
+        $config['document_root'] = '/home/zntral/devk/';
+        $config['base_url'] = 'https://devk.zntral.net/';
+        $config['is_developer_comp'] = 1;
+
+    }    else {
+        $config['log_path'] = '/home/zntral/front2/log/'; // '/home/dev9soft/public_html/tb/'
+        $config['sql_queries_to_file'] = '/home/zntral/front2/logs/sql_queries_to_file_';
+        $config['document_root'] = '/home/zntral/front2/';
+        $config['base_url'] = 'https://front2.zntral.net/';
+        $config['is_developer_comp'] = 1;
+    }
+}
+$config['noanswer_email'] = 'NoAnswer@zntral.net';
 
 /*
 |--------------------------------------------------------------------------
@@ -552,13 +575,35 @@ $config['rewrite_short_tags'] = FALSE;
 $config['proxy_ips'] = '';
 
 ////////////// APP SETTINGS START ////////////////
-$config['items_per_page'] = 4; //20;
-$config['uri_segment'] = 5; //working 5
+$config['items_per_page'] = 10;
+$config['uri_segment'] = 5;
 $config['num_links'] = 10;
 $config['use_page_numbers'] = TRUE;
 //$config['page_query_string'] = TRUE;
 $config['page_query_string'] = false;
 
+$config['tmp_directory']= 'uploads/tmp';
+$config['image_tmp_directory']= 'uploads/tmp/-tmp-image-';
+$config['image_services_directory']= 'uploads/services';
+$config['image_service_directory']= 'uploads/services/-service-';
+$config['image_clients_directory']= 'uploads/clients';
+$config['image_client_directory']= 'uploads/clients/-client-';
+$config['image_users_directory']= 'uploads/users';
+$config['image_user_directory']= 'uploads/users/-user-';
+$config['service_max_images']= 3;
+$config['client_color_schemes']= array( array( 'id'=>1,'title'=> 'Default White Color Scheme', 'default'=>true ), array( 'id'=>2,'title'=> 'Black Color Scheme', 'default'=>false ) );
+//$config['NoAnswer_Email'] = 'NoReply@ci3.com';
+//$config['Support_Name'] = 'Support of zntral.net site';
+$config['site_name'] = 'zntral.net';
+$config['support_signature'] = '
+  Best Regards,
+    The '.$config['site_name'].' Team.';
+
+
+/* UPDATE `clients` SET `color_scheme` = '1';
+ALTER TABLE `clients`
+  change `color_scheme` `color_scheme` smallint(2) NULL;
+ */
 
 $config['full_tag_open'] = '<ul class="pagination" > ';
 $config['full_tag_close'] = '</ul>';

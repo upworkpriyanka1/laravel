@@ -130,7 +130,7 @@ function clientsListFilterApplied( ) {
         "backdrop": "static",
         "keyboard": true,
         "show": true
-    }  );
+    } );
     $("#filter_client_name").val( jQuery.trim($("#hidden_filter_client_name").val()) )
     $("#filter_client_type").val( jQuery.trim($("#hidden_filter_client_type").val()) )
     $("#filter_client_active_status").val( jQuery.trim($("#hidden_filter_client_active_status").val()) )

@@ -15,11 +15,9 @@
             <!-- BEGIN VALIDATION STATES-->
             <div class="portlet light portlet-fit portlet-form bordered">
 
+                <!--<h3><center><?= ( $is_insert ? "Insert" : "Edit" ) ?> <?=lang('vendor') ?></center></h3>-->
 
-                <div class="page-bar">
-                    <h3><center><?= ( $is_insert ? "Insert" : "Edit" ) ?> <?=lang('vendor') ?></center></h3>
-                    <?= $this->common_lib->show_info($editor_message) ?>
-                </div>
+	            <?= $this->common_lib->show_info($editor_message) ?>
 
                 <div class="portlet-body">
                     <!-- BEGIN FORM-->
@@ -44,15 +42,14 @@
                                 <div class="row error" style="padding: 5px; margin: 5px;" >
                                     <?= $validation_errors_text ?>
                                 </div>
-                            <? endif; ?>
+                            <?php endif; ?>
 
                             <?php if ( !$is_insert ) : ?>
                                 <div class="row">
                                     <!-- Vendor Types vn_id -->
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="control-label col-md-4"><?php echo lang('vn_id');?>
-                                            </label>
+                                            <label class="control-label col-md-4"><?php echo lang('vn_id');?></label>
                                             <div class="col-md-7">
                                                 <input type="text" name="data[vn_id]" id="vn_id" value="<?= (!empty($vendor->vn_id) ? $vendor->vn_id:''); ?>" data-required="1" class="form-control" readonly />
 
@@ -70,7 +67,7 @@
                                             <span class="required"> * </span>
                                         </label>
                                         <div class="col-md-7">
-                                            <input type="text" name="data[vn_name]" id="vn_name" value="<?= ( !empty($vendor->vn_name) ? $vendor->vn_name : '' ); ?>" data-required="1" class="form-control" />
+                                            <input type="text" name="data[vn_name]" id="vn_name" value="<?= ( !empty($vendor->vn_name) ? $vendor->vn_name : '' ); ?>" data-required="1" class="form-control" <?php echo !$is_insert ? " readonly " : "" ?> />
 
                                         </div><!-- ./col -->
                                     </div><!-- ./form-group -->
@@ -85,14 +82,14 @@
                                             <span class="required"> * </span>
                                         </label>
                                         <div class="col-md-7">
-                                            <input type="text" name="data[vn_email]" id="vn_email" value="<?= ( !empty($vendor->vn_email) ? $vendor->vn_email : '' ); ?>" data-required="1" class="form-control" />
+                                            <input type="text" name="data[vn_email]" id="vn_email" value="<?= ( !empty($vendor->vn_email) ? $vendor->vn_email : '' ); ?>" data-required="1" class="form-control" <?php echo !$is_insert ? " readonly " : "" ?> />
                                         </div><!-- ./col -->
                                     </div><!-- ./form-group -->
                                 </div><!-- ./col -->
                             </div>
 
                             <div class="row">
-                                <!-- vendor url -->
+                                <!-- vendor website -->
                                 <div class="col-md-12">
                                     <div class="form-group <?= $this->common_lib->set_field_error_tag("data[vn_website]", ' has-error ')?>">
                                         <label class="control-label col-md-4"><?php echo lang('vn_website') ?>
@@ -107,7 +104,7 @@
                             </div> <!-- ./row -->
 
                             <div class="row">
-                                <!-- vendor url -->
+                                <!-- vendor has types label -->
                                 <div class="col-md-12">
                                     <div class="form-group <?= $this->common_lib->set_field_error_tag("vendor_has_types_label", ' has-error ')?>">
                                         <label class="control-label col-md-4"><?php echo lang('vendor_has_types_label') ?>
@@ -117,7 +114,8 @@
                                             <?php foreach( $vendor_TypesSelectionList as $next_key=>$next_vendor_Type ) { ?>
                                             <div class="text-left" style="padding: 10px;">
                                                 <input type="checkbox" value="1" id="cbx_vendor_type_<?=$next_vendor_Type['key'] ?>" name="cbx_vendor_type_<?=$next_vendor_Type['key'] ?>" <?= ( !empty($next_vendor_Type['checked']) ? "checked" : "") ?> >
-                                                <?=$next_vendor_Type['value'] ?>&nbsp;
+<!--                                                --><?//=$next_vendor_Type['value'] ?><!--&nbsp;-->
+	                                            <label for="cbx_vendor_type_<?=$next_vendor_Type['key'] ?>"><?=$next_vendor_Type['value'] ?></label>
                                             </div>
                                             <?php }  ?>
 
@@ -183,10 +181,10 @@
                                         </select>
                                     </div>
                                     <div class="col-xs-6  col-sm-4 ">
-                                        <button type="button" class="btn btn-primary" onclick="javascript:onSubmit();" >Submit</button>
+                                        <button type="button" class="btn green waves-effect waves-light" onclick="javascript:onSubmit();" >Submit</button>
                                     </div>
                                     <div class="col-xs-12 col-sm-2 pull-left ">
-                                        <button type="reset" class="btn btn-cancel-action" onclick="javascript:document.location='<?=base_url()?>sys-admin/vendors/vendors-view<?=$page_parameters_with_sort?>'" >Cancel</button>
+                                        <button type="reset" class="btn btn-cancel-action waves-effect waves-light" onclick="javascript:document.location='<?=base_url()?>sys-admin/vendors/vendors-view<?=$page_parameters_with_sort?>'" >Cancel</button>
                                     </div>
                                     <div class="col-sm-2 ">
                                     </div>

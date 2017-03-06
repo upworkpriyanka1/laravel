@@ -83,6 +83,11 @@ class Vendors_mdl extends CI_Model
             $this->db->limit($limit);
         }
 
+	    if ( !empty($filters['show_vendors_count']) ) {
+		    if ( empty($filters['product_status']) ) {
+			    $additive_fields_for_select .= ', ( select count(*) from ' . $this->m_vendors_have_types_table . ' where ' . $this->m_vendors_have_types_table . '.vh_vendor_type_id = ' . $this->m_vendor_types_table . '.vt_id ) as vendors_count ';
+		    }
+	    }
 
         $fields_for_select.= ' ' . $additive_fields_for_select;
 
@@ -103,11 +108,24 @@ class Vendors_mdl extends CI_Model
         }
     }
 
-    public function getVendor_TypeRowById( $id )
+    public function getVendor_TypeRowById( $id, $additive_params= array() )
     {
+	    $additive_fields_for_select= "";
+	    $fields_for_select= $this->m_vendor_types_table.".*";
+
         $this->db->where( $this->m_vendor_types_table . '.vt_id', $id);
-        $query = $this->db->from($this->m_vendor_types_table);
+
+	    if ( !empty($additive_params['show_vendors_count']) ) {
+		    $additive_fields_for_select .= ', ( select count(*) from ' . $this->m_vendors_have_types_table . ' where ' . $this->m_vendors_have_types_table . '.vh_vendor_type_id = ' . $this->m_vendor_types_table . '.vt_id ) as vendors_count ';
+	    }
+
+	    $fields_for_select.= ' ' . $additive_fields_for_select;
+
+	    $query = $this->db->from($this->m_vendor_types_table);
         $ci = & get_instance();
+	    if (strlen(trim($fields_for_select)) > 0) {
+		    $query->select($fields_for_select);
+	    }
         $resultRows = $query->get()->result();
         if ( !empty($resultRows[0]) ) {
             return $resultRows[0];
@@ -129,6 +147,15 @@ class Vendors_mdl extends CI_Model
     }
 
 
+	public function deleteVendor_Type($id)
+	{
+		if (!empty($id)) {
+			$this->db->where('vt_id', $id);
+			$Res = $this->db->delete( $this->m_vendor_types_table );
+			return $Res;
+		}
+	}
+
     ////////////// VENDORS-TYPES BLOCK END /////////////
 
 
@@ -149,6 +176,8 @@ class Vendors_mdl extends CI_Model
         if (empty( $sort ))
             $sort = 'vn_name';
 
+//	    echo '<pre>++::'.print_r($filters,true).'</pre>';
+//	    die("-1 XXZ");
         $config_data = $this->config->config;
         $ci = & get_instance();
         $items_per_page= $ci->common_lib->getSettings('items_per_page');
@@ -172,7 +201,7 @@ class Vendors_mdl extends CI_Model
         if (!empty($filters['vendor_type_id'])) {
             if ( !$is_vendors_have_types_joined ) {
                 $this->db->join($this->m_vendors_have_types_table, $this->m_vendors_have_types_table . '.vh_vendor_id = ' . $this->m_vendors_table . '.vn_id' . ' AND ' .
-                    $this->m_vendors_have_types_table.'.vh_vendor_type_id = ' . "'" . $filters['vendor_type_id'] . "'", 'right');
+                    $this->m_vendors_have_types_table.'.vh_vendor_type_id = ' . "'" . $filters['vendor_type_id'] . "'"/*, 'right'*/);
             }
             $is_vendors_have_types_joined= true;
         }

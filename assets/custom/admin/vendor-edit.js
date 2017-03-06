@@ -41,6 +41,8 @@ function set_error_keypress() {
     });
 }
 
+
+
 function editRelatedVendorContact( vc_person_name, vc_person_description, vc_phone, vc_phone_description, vc_person_email, vc_id ) {
     $("#popup_vc_person_name").val(vc_person_name)
     $("#popup_vc_person_description").val(vc_person_description)

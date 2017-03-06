@@ -15,10 +15,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * fileupload, flot, flowchart, fontawesome, fullcalendar, gmaps, icheck, 
  * idle-timeout, ip_address, jcrop, jquery_jstree, jquery_notific8, 
  * jquery_typeahead, jqvmap, markdown, mask, maxlength, minicolors, modal, 
- * multiselect, nestable, nouislider, opensans, pace, pulsate, select2, 
+ * multiselect, nestable, nouislider, opensans, pace, materializeIcons, pulsate, select2, 
  * selectsplitter, session-timeout, simplelineicons, slimscroll, socicon, 
  * sparklines, summer, switch, tabdrop, tagsinput, taostr, touchspin, 
- * uisortable, uniform, validation, wizard, wysiwyg5, xeditable
+ * uisortable, uniform, validation, wizard, wysiwyg5, xeditable, materialize, jsinit
  */
 class Metronic extends CI_Driver_Library {
 
@@ -33,6 +33,7 @@ class Metronic extends CI_Driver_Library {
         	'fancybox', 
         	'opensans', 
         	'fontawesome', 
+        	'materializeIcons',
         	'simplelineicons',
         	'bootstrapmin',
         	'uniform',
@@ -72,7 +73,10 @@ class Metronic extends CI_Driver_Library {
         	'bootstraptable',
         	'wizard',
         	'gantt',
-			'login'
+			'login',
+			'materialize',
+			'jsinit',
+			'globaljs'
         );
         
 	}
@@ -1309,18 +1313,6 @@ class Metronic extends CI_Driver_Library {
 		}
 	
 	}
-
-
-
-
-
-
-
-
-
-
-
-
 
 	
 }

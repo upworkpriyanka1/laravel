@@ -9,11 +9,7 @@ class Vendors extends CI_Controller
         parent::__construct();
         $group = array('sys-admin');
         if (!$this->ion_auth->in_group($group)) {
-            redirect('./');
-        }
-        if (!$this->ion_auth->in_group($group)) {
-            echo "Not allowed";
-            die();
+	        redirect( base_url() . "login/logout" );
         }
         $this->load->library('Sys_admin_lib', NULL, 'admin_lib');
         $this->load->model('sys_admin_mdl', 'admin_mdl');
@@ -23,8 +19,11 @@ class Vendors extends CI_Controller
         $this->menu = $this->config->item('sys_admin_menu');
 
         $this->user = $this->common_mdl->get_admin_user();
+	    if ( $this->user->user_active_status != 'A' ) { // Only active user can access admin pages
+		    redirect( base_url() . "login/logout" );
+	    }
         $this->group = $this->ion_auth->get_users_groups()->row();
-        $this->job = $this->common_mdl->get_users_jobs()->row();
+//        $this->job = $this->common_mdl->get_users_jobs()->row();
     }
 
     ////////////// VENDORS-TYPES BLOCK START /////////////
@@ -39,7 +38,7 @@ class Vendors extends CI_Controller
         $data['meta_description']='';
         $data['menu']		= $this->menu;
         $data['user'] 		= $this->user;
-        $data['job'] 		= $this->job;
+//        $data['job'] 		= $this->job;
         $data['group'] 		= $this->group->name;
 
         $UriArray = $this->uri->uri_to_assoc(4);
@@ -67,9 +66,11 @@ class Vendors extends CI_Controller
         $this->pagination->initialize($pagination_config);  // pagination system initialization by parameters in config file
         $data['vendor_types']= array();
         if ($rows_in_table > 0) { // number of rows by given parameters > 0 - get rows by given parameters for given $page_number.
-            $data['vendor_types']= $this->vendors_mdl->getVendor_TypesList(false, $page_number, array( 'show_client_type_description'=>1, 'vt_name'=> $filter_vt_name, 'created_at_from'=> $filter_created_at_from, 'created_at_till'=> $filter_created_at_till ), $sort, $sort_direction );
+            $data['vendor_types']= $this->vendors_mdl->getVendor_TypesList(false, $page_number, array( 'show_client_type_description'=>1, 'show_vendors_count'=> 1, 'vt_name'=> $filter_vt_name, 'created_at_from'=> $filter_created_at_from, 'created_at_till'=> $filter_created_at_till ), $sort, $sort_direction );
         } // IMPORTANT : all filter parameters must be similar as in calling of getVendor_TypesList above
 
+//	    echo '<pre>$data[\'vendor_types\']::'.print_r($data['vendor_types'],true).'</pre>';
+//	    die("-1 XXZ");
         $data['page']		= 'vendor-types/vendor-types-view';
         $data['page_number']		= $page_number;
         $data['RowsInTable']= $rows_in_table;
@@ -96,8 +97,10 @@ class Vendors extends CI_Controller
         $data['filters_label'] = $filters_label;
         $data['plugins'] 	= array();
         $data['pagination_links'] 	= $pagination_links;
-        $data['javascript'] = array( 'assets/custom/admin/vendor-types.js', 'assets/global/plugins/picker/picker.js', 'assets/global/plugins/picker/picker.date.js', 'assets/global/plugins/picker/picker.time.js');
-        $views				= array('design/html_topbar','sidebar','design/page','design/html_footer');
+//        $data['javascript'] = array( 'assets/custom/admin/vendor-types.js', 'assets/global/plugins/picker/picker.js', 'assets/global/plugins/picker/picker.date.js', 'assets/global/plugins/picker/picker.time.js');
+	    $data['javascript'] = array( 'assets/custom/admin/vendor-types.js', 'assets/global/plugins/picker/classic.js', 'assets/global/plugins/picker/classic.date.js', 'assets/global/plugins/picker/picker.time.js');
+
+	    $views				= array('design/html_topbar','sidebar','design/page','design/html_footer');
         $this->layout->view($views, $data);
     }
 
@@ -149,7 +152,7 @@ class Vendors extends CI_Controller
         $data['vt_id']      = $vt_id;
         $data['menu']		= $this->menu;
         $data['user'] 		= $this->user;
-        $data['job'] 		= $this->job;
+//        $data['job'] 		= $this->job;
         $data['group'] 		= $this->group->name;
         $vendor_types= '';
         $data['validation_errors_text'] = '';
@@ -164,7 +167,7 @@ class Vendors extends CI_Controller
             }
         }
         else {
-            $vendor_types= $this->vendors_mdl->getVendor_TypeRowById( $vt_id );
+            $vendor_types= $this->vendors_mdl->getVendor_TypeRowById( $vt_id, array('show_vendors_count'=> 1) );
         }
 
         $data['vendor_types']		= $vendor_types;
@@ -242,7 +245,48 @@ class Vendors extends CI_Controller
 
     }
 
-    /**********************
+	function remove_vendor_types($id = 0) {
+		$this->load->model('vendors_mdl', '', true);
+
+		$UriArray = $this->uri->uri_to_assoc(4);
+		$id= $UriArray['id'];
+		$PageParametersWithSort = $this->vendorTypesPreparePageParameters($UriArray, null, false, true);
+		$RedirectUrl = '/sys-admin/vendors/vendor_types_view' . $PageParametersWithSort;
+
+		$removed_vendor_types = $this->vendors_mdl->getVendor_TypeRowById($id);
+		if (empty($removed_vendor_types)) {
+			$this->session->set_flashdata('editor_message', "Vendor '" . $id . "' not found");
+			redirect($RedirectUrl);
+			return;
+		}
+		$removed_vendor_types_name = $removed_vendor_types->vt_name;
+
+		$vendors_count = $this->vendors_mdl->getVendorsList(true, '', array('vendor_type_id' => $id), '', '');
+		if ($vendors_count > 0) {
+			$this->session->set_flashdata('editor_message', "Vendor type '" . $removed_vendor_types_name . "' can not be deleted, as " . $vendors_count . ' vendor' . ($vendors_count > 1 ? 's' : '') . ' use this vendor type.');
+			redirect($RedirectUrl);
+			return;
+		}
+
+		$this->db->trans_start();
+
+		$ret = $this->vendors_mdl->deleteVendor_Type($id);
+
+		if ($this->db->trans_status() === FALSE) {
+			$this->db->trans_rollback();
+		} else {
+			$this->session->set_flashdata('editor_message', "Vendor Type '" . $removed_vendor_types_name . "' was deleted");
+			$this->db->trans_commit();
+		}
+		if ($ret) {
+			$this->session->set_flashdata('editor_message', "Vendor Type '" . $removed_vendor_types_name . "' was deleted");
+			redirect($RedirectUrl);
+			return;
+		}
+
+	}
+
+	/**********************
      * create string with all sorting parameters for using in sorting by column header or at editor submitting to keep current filters
      * access public
      * @params : $UriArray - $_GET array in assoc array, $_post_array - $_POST array,
@@ -302,7 +346,7 @@ class Vendors extends CI_Controller
         $data['meta_description']='';
         $data['menu']		= $this->menu;
         $data['user'] 		= $this->user;
-        $data['job'] 		= $this->job;
+//        $data['job'] 		= $this->job;
         $data['group'] 		= $this->group->name;
         $UriArray = $this->uri->uri_to_assoc(4);
         $post_array = $this->input->post();
@@ -333,6 +377,8 @@ class Vendors extends CI_Controller
             $data['vendors']= $this->vendors_mdl->getVendorsList(false, $page_number, array( 'show_client_type_description'=>1, 'vn_name'=> $filter_vn_name, 'vendor_type_id'=> $filter_vendor_type_id, 'created_at_from'=> $filter_created_at_from, 'created_at_till'=> $filter_created_at_till ), $sort, $sort_direction );
         } // IMPORTANT : all filter parameters must be similar as in calling of getVendorsList above
 
+//	    echo '<pre>$data[\'vendors\']::'.print_r($data['vendors'],true).'</pre>';
+//	    die("-1 XXZ");
         $data['page']		= 'vendors/vendors-view';
         $data['page_number']		= $page_number;
         $data['RowsInTable']= $rows_in_table;
@@ -360,8 +406,10 @@ class Vendors extends CI_Controller
         $data['filters_label'] = $filters_label;
         $data['plugins'] 	= array();
         $data['pagination_links'] 	= $pagination_links;
-        $data['javascript'] = array( 'assets/custom/admin/vendors.js', 'assets/global/plugins/picker/picker.js', 'assets/global/plugins/picker/picker.date.js', 'assets/global/plugins/picker/picker.time.js'); // add picker.date pluging for date selection in fileters form
-        $views				= array('design/html_topbar','sidebar','design/page','design/html_footer');
+//        $data['javascript'] = array( 'assets/custom/admin/vendors.js', 'assets/global/plugins/picker/picker.js', 'assets/global/plugins/picker/picker.date.js', 'assets/global/plugins/picker/picker.time.js'); // add picker.date pluging for date selection in fileters form
+	    $data['javascript'] = array( 'assets/custom/admin/vendor-types.js', 'assets/global/plugins/picker/classic.js', 'assets/global/plugins/picker/classic.date.js', 'assets/global/plugins/picker/picker.time.js');
+
+	    $views				= array('design/html_topbar','sidebar','design/page','design/html_footer');
         $this->layout->view($views, $data);
     }
 
@@ -425,7 +473,7 @@ class Vendors extends CI_Controller
         $data['vn_id']      = $vn_id;
         $data['menu']		= $this->menu;
         $data['user'] 		= $this->user;
-        $data['job'] 		= $this->job;
+//        $data['job'] 		= $this->job;
         $data['group'] 		= $this->group->name;
         $vendor= '';
         $data['validation_errors_text'] = '';
@@ -436,16 +484,21 @@ class Vendors extends CI_Controller
                 $this->vendor_edit_makesave($is_insert, $vn_id, $data['select_on_update'], $redirect_url, $page_parameters_with_sort, $post_array, $app_config );
             } else {
                 $vendor = $this->vendor_edit_fill_current_data( $vendor, $is_insert, $vn_id, $vendor_TypesSelectionList );
-
                 foreach ($vendor_TypesSelectionList as $next_key => $next_vendor_types_selection) {
-                    foreach ($_POST as $next_post_key=> $next_post_value) {
+	                $is_found= false;
+
+	                foreach ($_POST as $next_post_key=> $next_post_value) {
                         $a= preg_split('/cbx_vendor_type_/',$next_post_key );
                         if (count($a)==2) {
                             if ($next_vendor_types_selection['key'] == $a[1]) {
                                 $vendor_TypesSelectionList[$next_key]['checked'] = true;
+	                            $is_found= true;
                             }
                         }
                     }
+	                if ( !$is_found ) {
+		                $vendor_TypesSelectionList[$next_key]['checked'] = false;
+	                }
                 }
                 $data['vendor_TypesSelectionList']  = $vendor_TypesSelectionList;
                 $data['validation_errors_text'] = validation_errors( /*$layout_config['backend_error_icon_start'], $layout_config['backend_error_icon_end']*/ );
@@ -517,7 +570,7 @@ class Vendors extends CI_Controller
         $this->form_validation->set_rules( 'data[vn_name]', lang('vendor'), 'callback_vendor_check_vn_name_is_unique' );
         $this->form_validation->set_rules( 'data[vn_email]', lang('vn_email'), 'required|valid_email|callback_vendor_check_vn_email_is_unique' );
         $this->form_validation->set_rules( 'data[vn_website]', lang('vn_website'), 'required' );
-        $this->form_validation->set_rules( 'data[vn_website]', lang('vn_description'), '' );
+        $this->form_validation->set_rules( 'data[vn_description]', lang('vn_description'), '' );
         $this->form_validation->set_rules( 'vendor_has_types_label', lang('vendor_has_types_label'), 'callback_vendors_have_types_label');
     }
 

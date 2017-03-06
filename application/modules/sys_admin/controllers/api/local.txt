@@ -1,0 +1,123 @@
+As I do not have access to dev site, I wrote http://local-zntral.com/ host name.
+It must be replaced with real size.
+
+////////////////////////// Get List of clients ////////////////////////
+all clients
+http://local-zntral.com/sys-admin/api/clients/clients
+Additive parameters
+
+show_client_type_description = 1
+To get in resulting rows text of client type description
+As clients_types_id is integer field and is reference to clients_types table, this key adds client type description.
+
+
+
+filter_client_name = value
+Set filter on client name in like condition( substring would be found ).
+
+example:
+http://local-zntral.com/sys-admin/api/clients/clients/show_client_type_description/1/filter_client_name/prop
+
+
+
+filter_client_active_status = value, where value can be one of value 'N' - 'New', 'A' - 'Active', 'I' - 'Inactive'
+Set filter on active_status field. All clients could have one of next active_status
+'N' / New    : just created clients. They are NOT visible at frontend and needs be checked by Sys Admin,who can set it to Active status.
+'A' / Active : are visible at frontend
+'I' / Inactive : are NOT visible at frontend
+
+example:
+http://local-zntral.com/sys-admin/api/clients/clients/show_client_type_description/1/filter_client_active_status/A
+get list of all active users with client type description field.
+
+
+
+filter_client_type - numeric value of client type
+Set filter on client type
+
+example:
+http://local-zntral.com/sys-admin/api/clients/clients/filter_client_active_status/A/filter_client_type/4
+get list of all active users with client type "Home Health" ( type_id= 4 ).
+
+
+
+filter_client_zip = value, where value is searched zip
+Set filter on client zip
+
+example:
+http://local-zntral.com/sys-admin/api/clients/clients/show_client_type_description/1/filter_client_active_status/A/filter_client_zip/1234
+get list of all active users with zip "1234" and with client type description field.
+
+
+By default resulting rows are ordered by client_name field.
+You can set order by any fields in resulting rows using   "sort" and "sort_direction"
+
+example:
+http://local-zntral.com/sys-admin/api/clients/clients/filter_client_active_status/A/sort/client_owner/sort_direction/desc
+get list of all active users ordered by owner_name desc.
+
+In case of request returned rows code 200 is returned.
+
+
+In case of request returned no rows code 404 is returned.
+Example :
+http://local-zntral.com/sys-admin/api/clients/clients/show_client_type_description/1/filter_client_name/Zerda
+
+
+Please, write if you need some more fields for filtering etc...
+
+Also there is possibility to make paginations, with
+1) to get number of returned rows by given parameters
+2) return page by number, with system value for "rows_per_page"
+
+
+
+
+////////////////////////// Get client by its ID ////////////////////////
+Get client by it's id(cid field) add "id" parameter
+http://local-zntral.com/sys-admin/api/clients/clients/id/14
+In case of request returned row code 200 is returned.
+
+
+In case of request returned no rows code 404 is returned.
+Example :
+http://local-zntral.com/sys-admin/api/clients/clients/id/14765
+
+
+////////////////////////// Adding of client by POST ////////////////////////
+http://local-zntral.com/sys-admin/api_testing/client_post
+
+	client_name            - VARCHAR(100) required,
+	clients_types_id       - INTEGER      required,   REFERENCE to clients_types table, checks valid value
+	client_owner           - VARCHAR(100) required,   checks valid name value
+	client_address1        - VARCHAR(100) required,
+	client_address2        - VARCHAR(100) required,
+	client_city            - VARCHAR(100) required,
+	client_state           - VARCHAR(50) required,
+	client_zip             - VARCHAR(50) required,    checks valid integer value
+	client_phone           - VARCHAR(50) required,    checks valid phone value, in format 1-234-567-8901
+	client_fax             - VARCHAR(50) required,
+	client_email           - VARCHAR(50) required,    checks valid email value
+	client_website         - VARCHAR(100) required,   checks valid url value
+	color_scheme           - VARCHAR(20)              Can Be Empty, DEFAULT '',
+	client_notes           - TEXT required,
+	client_active_status   - ENUM('N','A','I')        checks valid enum value, Can Be Empty, DEFAULT 'N',
+
+1) If varchar is too big, concat it, raise error?
+
+In case of client added successfully code 200 is returned and id of added client as message text.
+
+
+In case of validation error(s) code 400 is returned.
+
+
+
+////////////////////////// Get List of clients types////////////////////////
+You need it to create form for new client
+all clients types
+http://local-zntral.com/sys-admin//api/clients/clients_types
+
+http://local-zntral.com/sys-admin/api/clients/clients_types/filter_type_name/a/sort_direction/desc/
+clients types filtered by type_description desc
+
+

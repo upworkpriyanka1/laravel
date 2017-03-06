@@ -1,10 +1,11 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 class Login extends CI_Controller {
 	 public function __construct() {
-        parent::__construct();
-		$this->lang->load('ion_auth');
-		$this->lang->load('auth');
-		$this->lang->load('login');
+         parent::__construct();
+		 $this->load->model('users_mdl');
+ 		 $this->lang->load('ion_auth');
+    	 $this->lang->load('auth');
+ 		 $this->lang->load('login');
 		
 	 }
  /**********************
@@ -15,9 +16,9 @@ class Login extends CI_Controller {
  *********************************/
 	public function index(){
 		if ($this->ion_auth->logged_in()){
-			$module = @$this->common_mdl->get_users_jobs()->row()->job_name;
-			if (!$module)
-				$module = $this->ion_auth->get_users_groups()->row()->name;
+//			$module = @$this->common_mdl->get_users_jobs()->row()->job_name;
+//			if (!$module)
+			$module = $this->ion_auth->get_users_groups()->row()->name;
 			redirect('/'.$module, 'refresh');
 			return true;
 		}
@@ -26,6 +27,8 @@ class Login extends CI_Controller {
 	  	$data['javascript'] = array();
 		$this->form_validation->set_rules('username', 'username', 'trim|required');
 		$this->form_validation->set_rules('password', 'Password', 'required');
+//		echo '<pre>$this->form_validation->run()::'.print_r($this->form_validation->run(),true).'</pre>';
+//		die("-1 XXZ");
 		if ($this->form_validation->run() == true){
 			// check to see if the user is logging in
 			// check for "remember me"
@@ -37,11 +40,11 @@ class Login extends CI_Controller {
 				//$this->session->set_flashdata('message', $this->ion_auth->messages());
 				
 				$this->custome_session();
-				$module = @$this->common_mdl->get_users_jobs()->row()->job_name;
+//				$module = @$this->common_mdl->get_users_jobs()->row()->job_name;
 				 //echo $group;
 				 //die();
-				if (!$module)
-		 			$module = $this->ion_auth->get_users_groups()->row()->name;
+//				if (!$module)
+				$module = $this->ion_auth->get_users_groups()->row()->name;
 				redirect('/'.$module, 'refresh');
 			}else{
 				// if the login was un-successful
@@ -82,117 +85,51 @@ class Login extends CI_Controller {
 		$data['pls'] = array('login');
 		$data['plugins'] = array();
 	  	$data['javascript'] = array();
-		// setting validation rules by checking wheather identity is username or email
-		$this->form_validation->set_rules('email', $this->lang->line('forgot_password_validation_email_label'), 'trim|required|valid_email');
-		if ($this->form_validation->run() == false){
-			$this->data['type'] = $this->config->item('identity','ion_auth');
-				// set any errors and display the form
-			$data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-			$this->layout->view('login/reset', $data, 'default');
-		}else{
-			$identity_column = $this->config->item('identity','ion_auth');
-			$identity = $this->ion_auth->where($identity_column, $this->input->post('email'))->users()->row();
- 			if (empty($identity)){
-            	$this->ion_auth->set_error('forgot_password_email_not_found');
-				$this->session->set_flashdata('message', $this->ion_auth->errors());
-				redirect("login/reset", 'refresh');
-            }
-			// run the forgotten password method to email an activation code to the user
-			$forgotten = $this->ion_auth->forgotten_password($identity->{$this->config->item('identity', 'ion_auth')});
-			if ($forgotten){
-			// if there were no errors
-				$this->session->set_flashdata('message', $this->ion_auth->messages());
-				redirect("login/reset", 'refresh'); //we should display a confirmation page here instead of the login page
-			}else{
-				$this->session->set_flashdata('message', $this->ion_auth->errors());
-				redirect("login/reset", 'refresh');
+		$app_config = $this->config->config;
+		$this->form_validation->set_rules( 'email', lang('email'), 'trim|required|valid_email|callback_user_check_email_is_valid' );
+		if ( !empty($_POST) ) {
+			if ( $this->form_validation->run() == false ) {
+				$this->data['type'] = $this->config->item( 'identity', 'ion_auth' );
+			} else {
+				$forgotten_password_code= $this->common_lib->generateActivationCode();
+
+				$similarUser= $this->users_mdl->getSimilarUserByEmail( $_POST['email'] );
+				$update_data['forgotten_password_code']= $forgotten_password_code;
+				$this->db->update( $this->users_mdl->m_users_table, $update_data, array('id' => $similarUser->id ) );
+
+				$forgotten_password_page_url= $app_config['base_url']."/forgotten_password/".$forgotten_password_code;
+				$title= 'You reset your password at ' . $app_config['base_url'] . ' site';
+				$content= '  Dear '.$similarUser->username. ', You reset your password at <a href="'.$app_config['base_url'].'">' . $app_config['base_url'] . ' </a> site, with email '. $similarUser->email . '.  To confirm resetting of your password open at <a href="' . $forgotten_password_page_url .'">Forgotten Password page '.$forgotten_password_page_url.' </a> and you will receive your new password. ';
+				$EmailOutput = $this->common_lib->SendEmail( $similarUser->email, $title, $content );
+				$this->session->set_flashdata( 'message', 'Forgotten password code was sent at entered emal !' );
+				redirect( "login/reset", 'refresh' );
 			}
 		}
+
+		$data['message'] = ( validation_errors() ) ? validation_errors() : $this->session->flashdata( 'message' );
+		$this->layout->view( 'login/reset', $data, 'default' );
 	}
 
-
-	public function reset_password($code = NULL)
+	public function user_check_email_is_valid()
 	{
-		if (!$code)
-		{
-			show_404();
+		$email = $this->input->post('email', '');
+		if (empty($email)) {
+			$this->form_validation->set_message('user_check_email_is_valid', " The ".lang('user')." field is required ! ");
+			return FALSE;
 		}
-		$data['pls'] = array('login');
-		$data['plugins'] = array();
-		$data['javascript'] = array();
-		$user = $this->ion_auth->forgotten_password_check($code);
-		if ($user)
-		{
-			// if the code is valid then display the password reset form
-			$this->form_validation->set_rules('new', $this->lang->line('reset_password_validation_new_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[new_confirm]');
-			$this->form_validation->set_rules('new_confirm', $this->lang->line('reset_password_validation_new_password_confirm_label'), 'required');
-			if ($this->form_validation->run() == false)
-			{
-				// display the form
-				// set the flash data error message if there is one
-				$data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-				$data['min_password_length'] = $this->config->item('min_password_length', 'ion_auth');
-				$data['new_password'] = array(
-					'name' => 'new',
-					'id'   => 'new',
-					'type' => 'password',
-                                        'class'   => 'form-control',
-					'pattern' => '^.{'.$data['min_password_length'].'}.*$',
-				);
-				$data['new_password_confirm'] = array(
-					'name'    => 'new_confirm',
-					'id'      => 'new_confirm',
-					'type'    => 'password',
-                                        'class'   => 'form-control',
-					'pattern' => '^.{'.$data['min_password_length'].'}.*$',
-				);
-				$data['user_id'] = array(
-					'name'  => 'user_id',
-					'id'    => 'user_id',
-					'type'  => 'hidden',
-					'value' => $user->id,
-				);
-				//$data['csrf'] = $this->_get_csrf_nonce();
-				$data['code'] = $code;
-				// render
-				$this->layout->view('login/reset_password', $data, 'default');
-				//$this->_render_page('login/reset_password', $this->data);
-			}
-			else
-			{
-				// do we have a valid request?
-				if ($user->id != $this->input->post('user_id'))
-				{
-					// something fishy might be up
-					$this->ion_auth->clear_forgotten_password_code($code);
-					show_error($this->lang->line('error_csrf'));
-				}
-				else
-				{
-					// finally change the password
-					$identity = $user->{$this->config->item('identity', 'ion_auth')};
-					$change = $this->ion_auth->reset_password($identity, $this->input->post('new'));
-					if ($change)
-					{
-						// if the password was successfully changed
-						$this->session->set_flashdata('message', $this->ion_auth->messages());
-						redirect("login", 'refresh');
-					}
-					else
-					{
-						$this->session->set_flashdata('message', $this->ion_auth->errors());
-						redirect('login/reset_password/' . $code, 'refresh');
-					}
-				}
-			}
+		$similarUser= $this->users_mdl->getSimilarUserByEmail( $email );
+		if (empty($similarUser)) {
+			$this->form_validation->set_message('user_check_email_is_valid', lang('user') . " with email '".$email."' not found ! ");
+			return FALSE;
 		}
-		else
-		{
-			// if the code is invalid then send them back to the forgot password page
-			$this->session->set_flashdata('message', $this->ion_auth->errors());
-			redirect("login/reset", 'refresh');
+		if ( $similarUser->user_active_status != 'A' ) {
+			$this->form_validation->set_message('user_check_email_is_valid', " Password can be reset only to active user ! ");
+			return FALSE;
+
 		}
+		return TRUE;
 	}
+
 
 /**********************
 * Logout

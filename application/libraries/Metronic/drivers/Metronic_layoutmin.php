@@ -24,10 +24,12 @@ class Metronic_layoutmin extends CI_Driver {
 		// JavaScript File(s)
 		if ($type == 'javascript') {
 			$this->CI->output->append_output(
-				script_tag('assets/layouts/default/scripts/layout.min.js')
+				script_tag('assets/layouts/default/scripts/layout.js')
+			);
+			$this->CI->output->append_output(
+				script_tag('assets/layouts/default/scripts/demo.js')
 			);
 		}
 	}
-
 
 }

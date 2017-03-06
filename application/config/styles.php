@@ -10,10 +10,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $config['global_mandatory_styles']	=	array(
 											'opensans',
 											'fontawesome',
+											'materializeIcons',
 											'simplelineicons',
 											'bootstrapmin',
 											'uniform',
-											'bs_switch'
+											'bs_switch',
+											'materialize'
 										);
 /*
 |--------------------------------------------------------------------------
@@ -54,12 +56,17 @@ $config['ie9_scripts'] = array('respondmin', 'excanvasmin');
 */
 $config['core_plugins'] = 	array(
 								'jquerymin',
+								'materialize',
 								'bootstrapmin',
 								'cookiemin',
 								'bs_dropdown_hover',
 								'slimscroll',
-								'uniform',
-								'bs_switch'
+								'blockui',
+								'bs_switch',
+//								'uniform',
+//								'materialize',
+								'jsinit',
+								'globaljs'
 							);
 
 /*

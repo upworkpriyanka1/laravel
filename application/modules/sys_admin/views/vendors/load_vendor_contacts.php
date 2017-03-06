@@ -1,6 +1,8 @@
 <div class="table-toolbar table_info">
     <?= count($related_vendor_contacts_list)?>&nbsp;<?=lang('vendor_contacts') ?>
-    <button type="button" class="btn sbold green  btn-sm pull-right" onclick="javascript:editRelatedVendorContact( '',  '', '',  '',   '', '')" ><i class="glyphicon glyphicon-plus"></i></button>
+    <button type="button" class="btn sbold green waves-effect waves-light btn-sm pull-right" onclick="javascript:editRelatedVendorContact( '',  '', '',  '',   '', '')" ><i class="glyphicon glyphicon-plus"></i></button>
+
+
 </div>
 
 <?php $ci = &get_instance();
@@ -33,8 +35,7 @@ if ( isset($related_vendor_contacts_list) && count($related_vendor_contacts_list
                 <th><i class="fa fa-pencil"></i></th>
             </tr>
             </thead>
-            <?
-            foreach ($related_vendor_contacts_list as $next_vendor_contact) { // echo '<pre>$next_vendor_contact::'.print_r($next_vendor_contact,true).'</pre>';
+            <?php foreach ($related_vendor_contacts_list as $next_vendor_contact) {
                 ?>
 
                 <tr>
