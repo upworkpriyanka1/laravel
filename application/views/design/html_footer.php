@@ -11,7 +11,7 @@
                             <li><a href="#">Contact</a></li>
                         </ul>
                     </div>
-                    <div class="col-lg-6 col-md-12 text-center">
+                    <div class="col-lg-6 col-md-12 text-right pg-footer-center">
                         <div class="page-footer-inner" style="padding-left: 30px;">
                             Copyright &copy; Zentral <?php echo date('Y'); ?>
                         </div>
@@ -93,8 +93,8 @@
 
                                                     <div class="row">
                                                         <!-- Client  client_name -->
-                                                        <!--                                                <div class="col-md-12" style="display: none">-->
-                                                        <!--                                                    <div class="form-group input-field --><?//= $this->common_lib->set_field_error_tag("data[client_name]", ' has-error ')?><!-- ">-->
+                                                        <div class="col-md-12" style="display: none">
+                                                            <div class="form-group input-field <?= $this->common_lib->set_field_error_tag("data[client_name]", ' has-error ')?> ">
 
                                                         <?php
                                                         $client_name_button_visible = $is_insert;
@@ -104,21 +104,21 @@
                                                             $client_name_input_visible = true;
                                                         }
                                                         ?>
-                                                        <!--                                                        <div class="col-md-7" style="display: none" id="div_client_name_btn">-->
-                                                        <!--                                                            <button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:switchFieldName('client_name',true);" id="btn_add_client_name">Add a name<span class="required">&nbsp;*&nbsp;</span></button>-->
-                                                        <!--                                                        </div>-->
+                                                            <div class="col-md-12" style="display: none" id="div_client_name_btn">
+                                                                <button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:switchFieldName('client_name',true);" id="btn_add_client_name">Add a name<span class="required">&nbsp;*&nbsp;</span></button>
+                                                            </div>
 
-                                                        <!--                                                        <div class="col-md-12" style="display: --><?php //echo ( ( $client_name_input_visible ) ? "block" :"block" ) ; ?><!--" id="div_client_name_input">-->
-                                                        <!--                                                            <i class="material-icons prefix">account_circle</i>-->
-                                                        <!--                                                            <input type="text" name="data[client_name]" id="client_name" value="--><?//= ( !empty($client->client_name) ? $client->client_name : '' ); ?><!--" class="form-control x-able" maxlength="100" --><?php //echo !$is_insert ? " readonly " : "" ?><!-- />-->
-                                                        <!--                                                            <label for="client_name"> --><?php //echo lang('client_name') ?><!--<span class="required">&nbsp;*&nbsp;</span></label>-->
-                                                        <!--                                                        </div>-->
+                                                            <div class="col-md-12" style="display: <?php echo ( ( $client_name_input_visible ) ? "block" :"block" ) ; ?>" id="div_client_name_input">
+                                                                <i class="material-icons prefix">assignment_ind</i>
+                                                                <input type="text" name="data[client_name]" id="client_name" value="<?= ( !empty($client->client_name) ? $client->client_name : '' ); ?>" class="form-control x-able" maxlength="100" <?php echo !$is_insert ? " readonly " : "" ?> />
+                                                                <label for="client_name"> <?php echo lang('company_name') ?><span class="required">&nbsp;*&nbsp;</span></label>
+                                                            </div>
                                                         <!-- ./col -->
 
-                                                        <!--                                                    </div>-->
+                                                                </div>
                                                         <!-- ./form-group -->
 
-                                                        <!--                                                </div>-->
+                                                                    </div>
                                                         <!-- ./col client
 
                                                         <!-- client owner -->
@@ -162,8 +162,8 @@
                                                                 </div>
 
                                                                 <div class="col-md-12" style="display: <?php echo ( ( $client_owner_view_visible ) ? "block" :"none" ) ; ?>" id="div_client_owner_view">
-                                                                    <i class="material-icons prefix">assignment_ind</i>
-                                                                    <input type="text" name="data[client_owner_view]" id="client_owner_view" value="<?= ( !empty($client->client_owner) ? $client->client_owner : '' ); ?>" class="form-control" maxlength="100" readonly />
+                                                                    <i class="material-icons prefix">account_circle</i>
+                                                                    <input type="text" name="data[client_name]" id="client_owner_view" value="<?= ( !empty($client->client_owner) ? $client->client_owner : '' ); ?>" class="form-control" maxlength="100" readonly />
                                                                     <label for="client_owner_view" class="control-label col-md-4"><?php echo lang('client_owner') ?></label>
                                                                 </div><!-- ./col -->
                                                             </div> <!-- ./form-group -->

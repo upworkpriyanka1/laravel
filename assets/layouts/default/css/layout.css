@@ -1397,8 +1397,7 @@ nav a.button-collapse{ margin-left: -10px !important;}
 .page-content-white .page-title {
     margin: 12px 0;
     font-size: 24px;
-    /*padding-left: 260px;*/
-    padding-left: 266px;
+    padding-left: 260px;
     display: inline-block;
 }
 @media only screen and (max-width: 992px) {

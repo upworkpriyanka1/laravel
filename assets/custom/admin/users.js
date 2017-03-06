@@ -52,7 +52,7 @@ function clearAllData() {
  *********************************/
 function usersListFilterApplied( ) {
     alert( "javascript:usersListFilterApplied();::"+var_dump(1) )
-    $('.tooltip-inner').css('display', 'none');
+    //$('.tooltip-inner').css('display', 'none');
 
     $( "#users_list_dialog_filter" ).modal(  {
         "backdrop": "static",

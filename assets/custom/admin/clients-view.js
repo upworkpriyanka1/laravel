@@ -124,7 +124,7 @@ function clearAllData() {
  * return none
  *********************************/
 function clientsListFilterApplied( ) {
-    $('.tooltip-inner').css('display', 'none');
+    //$('.tooltip-inner').css('display', 'none');
 
     $( "#clients_list_dialog_filter" ).modal(  {
         "backdrop": "static",

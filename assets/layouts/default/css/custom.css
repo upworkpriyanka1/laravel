@@ -196,7 +196,7 @@ ul.side-nav.fixed li.active {
 .side-nav .collapsible-body>ul:not(.collapsible)>li.active a, .side-nav.fixed .collapsible-body>ul:not(.collapsible)>li.active a{
     color: #fff;
 }*/
-@media (max-width: 1368px) and (min-width: 992px){
+@media (max-width: 1368px) and (min-width: 993px){
     .page-content-wrapper .page-content {
         margin-left: 235px;
     }
@@ -245,15 +245,20 @@ li[name='active'] {
 }
 .page-footer{
     background-color: #A9A9A9;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    z-index: 99 !important;
    /* min-height: 60px;*/
 }
 
 .page-footer .page-footer-inner{
     float: none;
 }
-.page-content{
-    min-height: 830px !important;
-}
+/*.page-content{
+    min-height: 855px !important;
+    !*min-height: 830px !important;*!
+}*/
 .page-footer .footer-list{
 
     display: inline-block;
@@ -460,12 +465,12 @@ header {
     width: 100%;
     height: 100px;
     /*height: 130px;*/
-    overflow: hidden;
+    /*overflow: hidden;*/
     position: fixed;
     top: 0;
     left: 0;
     z-index: 900;
-    background-color: #0683c9;
+    /*background-color: #0683c9;*/
     -webkit-transition: height 0.3s;
     -moz-transition: height 0.3s;
     -ms-transition: height 0.3s;
@@ -473,11 +478,11 @@ header {
     transition: height 0.3s; }
 header h1#logo {
     display: inline-block;
-    height: 100px;
+    height: 76px;
     /*height: 130px;*/
     /*line-height: 100px;*/
     float: left;
-    font-size: 55px;
+    font-size: 48px;
     /*font-size: 60px;*/
     color: #666;
     font-weight: 300;
@@ -506,7 +511,8 @@ header.smaller {
     height: 75px; }
 header.smaller h1#logo {
     width: 130px;
-    height: 75px;
+    height: 31px;
+   /* height: 75px;*/
     /*line-height: 75px;*/
     font-size: 30px; }
 header.smaller nav a {
@@ -515,10 +521,13 @@ header.smaller nav a {
 
 
 .page-content-wrapper .page-content{
+
+    padding: 25px 30px 10px;
     padding-top: 80px !important;
 }
 header.smaller{
-    height: 85px;
+    height: 54px;
+    /*height: 85px;*/
 }
 /*
 .modal-backdrop, .modal-backdrop.fade.in{
@@ -614,7 +623,9 @@ input[type=text]:focus:not([readonly]){
 #newclient .portlet-form .form-body{
     padding-bottom: 0;
 }
-
+.page-content-white .page-title {
+    padding-left: 276px;
+}
 
 @media only screen and (min-width: 993px){
     .page-footer .container{
@@ -628,10 +639,17 @@ input[type=text]:focus:not([readonly]){
 }
 
 
-
 @media only screen and (max-width: 1200px){
     .page-footer .container{
         margin-top: 0px;
+    }
+    .page-footer .pg-footer-center{
+        text-align: center;
+    }
+}
+@media only screen and (max-width: 999px){
+    .page-content-white .page-title {
+        padding-left: 215px;
     }
 }
 @media only screen and (max-width: 993px){
@@ -650,20 +668,24 @@ input[type=text]:focus:not([readonly]){
              margin-bottom: 0;
     }
     header h1#logo{
-        font-size: 50px;
+        font-size: 40px;
     }
 }
 @media only screen and (max-width: 780px){
 
     header h1#logo{
-        font-size: 7vw;
+        font-size: 6vw;
+    }
+    header.smaller h1#logo{
+        font-size: 4vw;
     }
 }
 @media only screen and (max-width: 680px){
 
     header h1#logo{
-        font-size: 8vw;
+        font-size: 7vw;
     }
+
 }
 
 @media  only screen and (max-width: 480px) {
@@ -684,4 +706,70 @@ input[type=text]:focus:not([readonly]){
 
 }
 
+body{
+    position: relative;
+}
 
+
+
+@media (max-width: 991px){
+
+    .page-content-wrapper .page-content {
+
+        padding-left: 25px!important;
+        padding-right: 25px!important;
+    }
+}
+@media (max-width: 767px){
+    .page-content-wrapper .page-content {
+        padding-left:20px!important;
+        padding-right:20px!important;
+    }
+}
+@media only screen and (max-width: 992px){
+    .page-content-white .page-title {
+        padding-left: 0px;
+    }
+}
+
+/*col3*/
+
+.cards-container {
+    column-break-inside: avoid;
+}
+.cards-container .card {
+    display: inline-block;
+    overflow: visible;
+}
+
+@media only screen and (max-width: 600px) {
+    .cards-container {
+        -webkit-column-count: 1;
+        -moz-column-count: 1;
+        column-count: 1;
+    }
+}
+@media only screen and (min-width: 601px) {
+    .cards-container {
+        -webkit-column-count: 2;
+        -moz-column-count: 2;
+        column-count: 2;
+    }
+}
+@media only screen and (min-width: 993px) {
+    .cards-container {
+        -webkit-column-count: 3;
+        -moz-column-count: 3;
+        column-count: 3;
+    }
+}
+@media only screen and (min-width: 1960px) {
+    .cards-container {
+        -webkit-column-count: 4;
+        -moz-column-count: 4;
+        column-count: 4;
+    }
+}
+.scrollspy .caption{
+    margin: 0;
+}
