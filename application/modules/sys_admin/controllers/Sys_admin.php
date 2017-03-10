@@ -72,6 +72,22 @@ class Sys_admin extends CI_Controller {
 
 		$this->layout->view($views,$data);
 	}
+	public function eh(){
+		$data['meta_description']='';
+		$data['menu']		= $this->menu;
+
+		$data['user'] 		= $this->user;
+//		$data['job'] 		= $this->job;
+		$data['group'] 		= $this->group->name;
+
+		$data['page']		= 'main/eh';
+		$data['pls'] 		= array(); //page level scripts optional
+		$data['plugins'] 	= array(); //page plugins
+		$data['javascript'] = array(); //page javascript
+		$views				= array('design/html_topbar','sidebar','design/page','design/html_footer');
+
+		$this->layout->view($views,$data);
+	}
 
 	public function index(){
 		$data['meta_description']='';

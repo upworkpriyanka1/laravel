@@ -183,7 +183,7 @@ img.error_img, span.error_img>img {
 }
 
 a.button-collapse.top-nav i{
-    margin-top: 5px;
+    margin-top: 8px;
 }
 
 .side-nav .collapsible-body>ul:not(.collapsible)>li.active, .side-nav.fixed .collapsible-body>ul:not(.collapsible)>li.active{
@@ -196,7 +196,7 @@ ul.side-nav.fixed li.active {
 .side-nav .collapsible-body>ul:not(.collapsible)>li.active a, .side-nav.fixed .collapsible-body>ul:not(.collapsible)>li.active a{
     color: #fff;
 }*/
-@media (max-width: 1368px) and (min-width: 993px){
+@media (max-width: 1366px) and (min-width: 993px){
     .page-content-wrapper .page-content {
         margin-left: 235px;
     }
@@ -463,7 +463,7 @@ pre[class*="language-"] {
 /*-------------------------------------------------------------- */
 header {
     width: 100%;
-    height: 100px;
+    /*height: 250px;*/
     /*height: 130px;*/
     /*overflow: hidden;*/
     position: fixed;
@@ -481,7 +481,7 @@ header h1#logo {
     height: 76px;
     /*height: 130px;*/
     /*line-height: 100px;*/
-    float: left;
+    /*float: left;*/
     font-size: 48px;
     /*font-size: 60px;*/
     color: #666;
@@ -506,24 +506,48 @@ header nav a {
     -o-transition: all 0.3s;
     transition: all 0.3s; }
 header nav a:hover {
-    color: white; }
+    color: white;
+}
 header.smaller {
-    height: 75px; }
+    height: 75px;
+}
 header.smaller h1#logo {
     width: 130px;
     height: 31px;
    /* height: 75px;*/
     /*line-height: 75px;*/
-    font-size: 30px; }
+    font-size: 30px;
+    margin:0;
+}
 header.smaller nav a {
     line-height: 75px; }
 
+.page-title .rand-place .place-holder{
+    padding-left: 250px;
+}
+.page-title .rand-place{
+    font-weight: bolder;
+    padding-bottom: 50px;
+}
+header .chevron{
+    position: absolute;
+    right: 105px;
 
+}
 
+header .chevron .chevron-down i, header .chevron .chevron-up i{
+     border: 1px solid #a1a1a1;
+     background-color: #a1a1a1;
+     border-radius: 50%;
+     padding: 5px;
+    color: #fff;
+    cursor: pointer;
+}
 .page-content-wrapper .page-content{
 
     padding: 25px 30px 10px;
-    padding-top: 80px !important;
+    /*padding-top: 80px !important;*/
+    padding-top: 220px;
 }
 header.smaller{
     height: 54px;
@@ -625,6 +649,7 @@ input[type=text]:focus:not([readonly]){
 }
 .page-content-white .page-title {
     padding-left: 276px;
+
 }
 
 @media only screen and (min-width: 993px){
@@ -659,6 +684,9 @@ input[type=text]:focus:not([readonly]){
         margin-top: 40px;
 
     }
+    /*.page-content-wrapper .page-content{*/
+        /*padding-top: 180px;*/
+    /*}*/
 }
 @media only screen and (max-height: 780px){
     .newclient .modal-dialog .modal-body{
@@ -681,7 +709,9 @@ input[type=text]:focus:not([readonly]){
     }
 }
 @media only screen and (max-width: 680px){
-
+    .page-title .rand-place .place-holder {
+        padding-left: 100px;
+    }
     header h1#logo{
         font-size: 7vw;
     }
@@ -715,6 +745,7 @@ body{
 @media (max-width: 991px){
 
     .page-content-wrapper .page-content {
+        /*padding-top: 215px !important;*/
 
         padding-left: 25px!important;
         padding-right: 25px!important;
@@ -722,6 +753,7 @@ body{
 }
 @media (max-width: 767px){
     .page-content-wrapper .page-content {
+        /*padding-top: 215px !important;*/
         padding-left:20px!important;
         padding-right:20px!important;
     }
@@ -772,4 +804,54 @@ body{
 }
 .scrollspy .caption{
     margin: 0;
+}
+.pad-card{
+    margin-right: -3px;
+}
+.pad-col3{
+    margin-left: -5px !important;
+    padding-left: 0 !important;
+}
+.pad-card .card {
+    margin: 0.5rem 0.5rem 1rem 0;
+}
+@media(max-width: 999px) and (min-width: 992px)  {
+    .page-content-white .theme-panel {
+        right: 60px;
+    }
+}
+
+@media (max-width: 992px) {
+    header h1#logo{
+        margin: 0;
+    }
+}
+@media (max-width: 381px) {
+    .page-title .rand-place .place-holder {
+        padding-left: 30px;
+    }
+}
+
+@media (max-width: 600px) {
+    .page-content-wrapper .page-content {
+        padding-top: 180px;
+    }
+}
+@media (min-width: 601px) {
+    .page-content-wrapper .page-content {
+        padding-top: 160px;
+    }
+}
+@media (min-width: 993px) {
+    .page-content-wrapper .page-content {
+        padding-top: 180px;
+    }
+}
+@media (min-width: 994px) {
+    .page-content-wrapper .page-content {
+        padding-top: 220px;
+    }
+}
+a.button-collapse.top-nav{
+    left: 0;
 }

@@ -22,12 +22,28 @@
                                 $page_title= lang($this->uri->segment('2'));
                             }
                         ?>
-                        <h1 class="page-title" id="logo">
-                           <!-- <a href="#" data-activates="nav-mobile" class="button-collapse" id="nav_mobile_button"><i class="material-icons">menu</i></a>-->
-	                        <?php if($page_title != ''){ echo $page_title; }else{ ?>
-		                       <?=lang('vendor-types-view')?>
-		                    <?php } ?>
-                        </h1>
+                        <div class="page-title">
+                            <h1  id="logo">
+                                <!-- <a href="#" data-activates="nav-mobile" class="button-collapse" id="nav_mobile_button"><i class="material-icons">menu</i></a>-->
+                                <?php if($page_title != ''){ echo $page_title; }else{ ?>
+                                    <?=lang('vendor-types-view')?>
+                                <?php } ?>
+                            </h1>
+                            <div class="rand-place">
+                                <span>random info</span>
+                                <span class="place-holder">place holder</span>
+                            </div>
+                            <div class="chevron">
+                                <span class="chevron-down" style="display:none;">
+                                        <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                                </span>
+                                <span class="chevron-up" style="display:none;">
+                                        <i class="fa fa-chevron-up" aria-hidden="true"></i>
+                                </span>
+                            </div>
+
+                        </div>
+
                         <!-- END PAGE TITLE-->
                         <!-- BEGIN HEADER INNER -->
                         <div class="page-header-inner ">
