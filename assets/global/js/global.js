@@ -270,6 +270,10 @@ function init() {
                 classie.remove(header,"smaller");
             }
         }
+
+    });
+    $('#artash').click(function(){
+        $('.page-content-wrapper .page-content').css('padding-top','0');
     });
 }
 window.onload = init();

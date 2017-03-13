@@ -185,9 +185,6 @@ img.error_img, span.error_img>img {
 a.button-collapse.top-nav i{
     margin-top: 8px;
 }
-a.button-collapse.top-nav{
-    left:0;
-}
 
 .side-nav .collapsible-body>ul:not(.collapsible)>li.active, .side-nav.fixed .collapsible-body>ul:not(.collapsible)>li.active{
      background-color: rgba(100,100,100, .5);
@@ -239,7 +236,7 @@ li[name='active'] {
     font-weight: bold;
 }
 .newclient>.modal-dialog>.modal-content>.modal-header{
-    /*background-color: #c8c8c8!important;*/
+    background-color: #c8c8c8!important;
     margin: 0 -5px;
     font-weight: bold;
 }
@@ -466,14 +463,10 @@ pre[class*="language-"] {
 /*-------------------------------------------------------------- */
 header {
     width: 100%;
-    height: 100px;
-    /*height: 130px;*/
-    /*overflow: hidden;*/
     position: fixed;
     top: 0;
     left: 0;
     z-index: 900;
-    /*background-color: #0683c9;*/
     -webkit-transition: height 0.3s;
     -moz-transition: height 0.3s;
     -ms-transition: height 0.3s;
@@ -482,11 +475,7 @@ header {
 header h1#logo {
     display: inline-block;
     height: 76px;
-    /*height: 130px;*/
-    /*line-height: 100px;*/
-    float: left;
     font-size: 48px;
-    /*font-size: 60px;*/
     color: #666;
     font-weight: 300;
     -webkit-transition: all 0.3s;
@@ -494,6 +483,14 @@ header h1#logo {
     -ms-transition: all 0.3s;
     -o-transition: all 0.3s;
     transition: all 0.3s; }
+
+header h1 .logo_first{
+    background-color: white;
+    border-radius: 50% !important;
+    padding: 0px 12px;
+    margin-right: 20px;
+    display: inline-block;
+}
 header nav {
     display: inline-block;
     float: right; }
@@ -509,28 +506,56 @@ header nav a {
     -o-transition: all 0.3s;
     transition: all 0.3s; }
 header nav a:hover {
-    color: white; }
+    color: white;
+}
 header.smaller {
-    height: 75px; }
+    height: 75px;
+}
 header.smaller h1#logo {
-    width: 130px;
+    /*width: 130px;*/
     height: 31px;
    /* height: 75px;*/
     /*line-height: 75px;*/
-    font-size: 30px; }
+    font-size: 30px;
+    margin:0;
+}
 header.smaller nav a {
     line-height: 75px; }
 
+.page-title .rand-place .place-holder{
+    padding-left: 250px;
+}
+.page-title .rand-place{
+    font-weight: bolder;
+    padding-bottom: 50px;
+    width:700px;
+}
+header .chevron{
+    position: absolute;
+    right: 105px;
 
+}
 
+header .chevron .chevron-down i, header .chevron .chevron-up i{
+     border: 1px solid #a1a1a1;
+     background-color: #a1a1a1;
+     border-radius: 50%;
+     padding: 5px;
+    color: #fff;
+    cursor: pointer;
+}
 .page-content-wrapper .page-content{
 
     padding: 25px 30px 10px;
-    padding-top: 80px !important;
+    /*padding-top: 80px !important;*/
+    padding-top: 220px;
 }
 header.smaller{
     height: 54px;
     /*height: 85px;*/
+}
+.theme-panel>.toggler{
+    right:-5px;
 }
 /*
 .modal-backdrop, .modal-backdrop.fade.in{
@@ -627,7 +652,8 @@ input[type=text]:focus:not([readonly]){
     padding-bottom: 0;
 }
 .page-content-white .page-title {
-    padding-left: 276px;
+    padding-left: 290px;
+
 }
 
 @media only screen and (min-width: 993px){
@@ -662,10 +688,13 @@ input[type=text]:focus:not([readonly]){
         margin-top: 40px;
 
     }
+    /*.page-content-wrapper .page-content{*/
+        /*padding-top: 180px;*/
+    /*}*/
 }
 @media only screen and (max-height: 780px){
     .newclient .modal-dialog .modal-body{
-        height: 68vh;
+        height: 70vh;
     }
     .newclient .modal-dialog .modal-body .row{
              margin-bottom: 0;
@@ -684,7 +713,9 @@ input[type=text]:focus:not([readonly]){
     }
 }
 @media only screen and (max-width: 680px){
-
+    .page-title .rand-place .place-holder {
+        padding-left: 100px;
+    }
     header h1#logo{
         font-size: 7vw;
     }
@@ -694,13 +725,7 @@ input[type=text]:focus:not([readonly]){
 @media  only screen and (max-width: 480px) {
     .modal-footer ul li{
         padding: 10px;
-        font-size: 10px;
-    }
-    header h1#logo{
-        font-size: 10vw;
-    }
-    header.smaller h1#logo{
-        font-size: 6vw;
+        font-size: 12px;
     }
 
 }
@@ -711,9 +736,6 @@ input[type=text]:focus:not([readonly]){
     }
     #newclient .modal-footer{
         text-align: center;
-    }
-    header.smaller h1#logo {
-        font-size: 7vw;
     }
 
 }
@@ -727,6 +749,7 @@ body{
 @media (max-width: 991px){
 
     .page-content-wrapper .page-content {
+        /*padding-top: 215px !important;*/
 
         padding-left: 25px!important;
         padding-right: 25px!important;
@@ -734,6 +757,7 @@ body{
 }
 @media (max-width: 767px){
     .page-content-wrapper .page-content {
+        /*padding-top: 215px !important;*/
         padding-left:20px!important;
         padding-right:20px!important;
     }
@@ -794,4 +818,47 @@ body{
 }
 .pad-card .card {
     margin: 0.5rem 0.5rem 1rem 0;
+}
+@media(max-width: 999px) and (min-width: 992px)  {
+    .page-content-white .theme-panel {
+        right: 60px;
+    }
+}
+
+@media (max-width: 992px) {
+    header h1#logo{
+        margin: 0;
+    }
+}
+@media (max-width: 381px) {
+    .page-title .rand-place .place-holder {
+        padding-left: 30px;
+    }
+}
+
+@media (max-width: 600px) {
+    .page-content-wrapper .page-content {
+        padding-top: 180px;
+    }
+}
+@media (min-width: 601px) {
+    .page-content-wrapper .page-content {
+        padding-top: 160px;
+    }
+}
+@media (min-width: 993px) {
+    .page-content-wrapper .page-content {
+        padding-top: 180px;
+    }
+}
+@media (min-width: 994px) {
+    .page-content-wrapper .page-content {
+        padding-top: 220px;
+    }
+}
+a.button-collapse.top-nav{
+    left: 0;
+}
+.page-content-white .theme-panel{
+    top: 5px;
 }

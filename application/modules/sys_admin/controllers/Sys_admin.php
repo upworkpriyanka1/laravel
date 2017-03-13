@@ -5,22 +5,29 @@ class Sys_admin extends CI_Controller {
 
 	 public function __construct() {
         parent::__construct();
-		$group = array('sys-admin');
-		if (!$this->ion_auth->in_group($group)){
-			redirect( base_url() . "login/logout" );
-		}
-		$this->load->library('Sys_admin_lib',NULL,'admin_lib');
-		$this->load->model('sys_admin_mdl','admin_mdl');
-		$this->load->model('clients_mdl','clients_mdl');
-		$this->lang->load('sys_admin');
-		$this->config->load('sys_admin_menu', true );
-        $this->menu    			= $this->config->item( 'sys_admin_menu' );
 
-		$this->user 			= $this->common_mdl->get_admin_user();
-		if ( $this->user->user_active_status != 'A' ) {    // Only active user can access admin pages
-			redirect( base_url() . "login/logout" );
+		 $this->load->library('Sys_admin_lib',NULL,'admin_lib');
+		 $this->load->model('sys_admin_mdl','admin_mdl');
+		 $this->load->model('clients_mdl','clients_mdl');
+		 $this->lang->load('sys_admin');
+		 $this->config->load('sys_admin_menu', true );
+		 $this->menu    			= $this->config->item( 'sys_admin_menu' );
+		 $eh_url = base_url() . 'sys-admin/eh';
+		if(current_url()!=$eh_url){
+			$group = array('sys-admin');
+			if (!$this->ion_auth->in_group($group)){
+				redirect( base_url() . "login/logout" );
+			}
+			$this->user 			= $this->common_mdl->get_admin_user();
+			if ( $this->user->user_active_status != 'A' ) {    // Only active user can access admin pages
+				redirect( base_url() . "login/logout" );
+			}
+			$this->group 			= $this->ion_auth->get_users_groups()->row();
 		}
-		$this->group 			= $this->ion_auth->get_users_groups()->row();
+
+
+
+
 //		$this->job 				= $this->common_mdl->get_users_jobs()->row();
 	 }
 
@@ -71,6 +78,10 @@ class Sys_admin extends CI_Controller {
 		$views				= array('design/html_topbar','sidebar','design/page','design/html_footer');
 
 		$this->layout->view($views,$data);
+	}
+	public function eh(){
+
+		$this->load->view('main/eh');
 	}
 
 	public function index(){

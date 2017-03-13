@@ -12,7 +12,7 @@
                         </ul>
                     </div>
                     <div class="col-lg-6 col-md-12 text-right pg-footer-center">
-                        <div class="page-footer-inner" style="padding-left: 30px;">
+                        <div class="page-footer-inner">
                             Copyright &copy; Zentral <?php echo date('Y'); ?>
                         </div>
                         <div class="scroll-to-top">
