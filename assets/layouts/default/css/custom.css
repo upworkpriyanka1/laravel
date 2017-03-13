@@ -185,6 +185,9 @@ img.error_img, span.error_img>img {
 a.button-collapse.top-nav i{
     margin-top: 8px;
 }
+a.button-collapse.top-nav{
+    left:0;
+}
 
 .side-nav .collapsible-body>ul:not(.collapsible)>li.active, .side-nav.fixed .collapsible-body>ul:not(.collapsible)>li.active{
      background-color: rgba(100,100,100, .5);
@@ -236,7 +239,7 @@ li[name='active'] {
     font-weight: bold;
 }
 .newclient>.modal-dialog>.modal-content>.modal-header{
-    background-color: #c8c8c8!important;
+    /*background-color: #c8c8c8!important;*/
     margin: 0 -5px;
     font-weight: bold;
 }
@@ -662,7 +665,7 @@ input[type=text]:focus:not([readonly]){
 }
 @media only screen and (max-height: 780px){
     .newclient .modal-dialog .modal-body{
-        height: 70vh;
+        height: 68vh;
     }
     .newclient .modal-dialog .modal-body .row{
              margin-bottom: 0;
@@ -691,7 +694,13 @@ input[type=text]:focus:not([readonly]){
 @media  only screen and (max-width: 480px) {
     .modal-footer ul li{
         padding: 10px;
-        font-size: 12px;
+        font-size: 10px;
+    }
+    header h1#logo{
+        font-size: 10vw;
+    }
+    header.smaller h1#logo{
+        font-size: 6vw;
     }
 
 }
@@ -702,6 +711,9 @@ input[type=text]:focus:not([readonly]){
     }
     #newclient .modal-footer{
         text-align: center;
+    }
+    header.smaller h1#logo {
+        font-size: 7vw;
     }
 
 }
