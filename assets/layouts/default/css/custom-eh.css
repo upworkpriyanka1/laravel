@@ -528,6 +528,7 @@ header.smaller nav a {
 .page-title .rand-place{
     font-weight: bolder;
     padding-bottom: 50px;
+    width:700px;
 }
 header .chevron{
     position: absolute;
@@ -857,4 +858,7 @@ body{
 }
 a.button-collapse.top-nav{
     left: 0;
+}
+.page-content-white .theme-panel{
+    top: 5px;
 }

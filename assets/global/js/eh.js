@@ -111,6 +111,7 @@ $(document).ready(function(){
 
     $('.chevron-up').click(function(){
         $('.rand-place').css("display", "none");
+        $('.rand-place span').stop().slideUp();
         $(this).css("display", "none");
         $('.chevron-down').css("display", "inline-block");
 
@@ -124,6 +125,7 @@ $(document).ready(function(){
 
     $('.chevron-down').click(function(){
         $('.rand-place').css("display", "block");
+        $('.rand-place span').stop().slideDown();
         $(this).css("display", "none");
         $('.chevron-up').css("display", "inline-block");
 
@@ -142,12 +144,18 @@ $(document).ready(function(){
 })( window );
 
 function init() {
+    var theScrollPosition = document.body.scrollTop;
     window.addEventListener('scroll', function(e){
         var distanceY = window.pageYOffset || document.documentElement.scrollTop,
             shrinkOn = 0,
             header = document.querySelector("header"),
             screenWidth = screen.width,
-            screenHeight = screen.height;
+            screenHeight = screen.height,
+            lastScrollPosition = document.body.scrollTop;
+        var scrollSpeed = (lastScrollPosition > theScrollPosition && lastScrollPosition - theScrollPosition <= 80 || theScrollPosition > lastScrollPosition && theScrollPosition - lastScrollPosition <= 80)? 2000 : false;
+        console.log(theScrollPosition, lastScrollPosition, scrollSpeed);
+        theScrollPosition = lastScrollPosition;
+
         if(screenWidth > 993){
             var pageContentsPadding = "220px"
         }else if(screenWidth > 992){
@@ -162,7 +170,17 @@ function init() {
                 $('.page-content-wrapper .page-content').css('padding-top','60px');
                 classie.add(header,"smaller");
 
-                $('.rand-place').css("display", "none");
+                    if(scrollSpeed == false){
+                        $('.rand-place').stop().css('display', 'none');
+                        $('.rand-place span').stop().slideUp();
+                    }else{
+                        $('.rand-place').stop().slideUp(scrollSpeed)
+                        $('.rand-place span').stop().slideUp();
+
+                    }
+
+
+                //}
                 $('.chevron-down').css("display", "inline-block");
                 $('.chevron-up').css("display", "none");
                 $('.logo_first').css("display", "none");
@@ -172,7 +190,18 @@ function init() {
                     classie.remove(header,"smaller");
                 }
 
-                $('.rand-place').css("display", "block");
+
+                if(scrollSpeed == false){
+                    $('.rand-place').stop().show();
+                    $('.rand-place span').stop().slideDown();
+                }else{
+                    $('.rand-place').stop().slideDown(scrollSpeed);
+                    $('.rand-place span').stop().slideDown();
+                }
+
+
+                    //alert('zahrmar');
+                //}
                 $('.chevron-down').css("display", "none");
                 $('.chevron-up').css("display", "none");
                 $('.logo_first').css("display", "inline-block");
