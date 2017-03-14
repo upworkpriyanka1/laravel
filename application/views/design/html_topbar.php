@@ -11,6 +11,7 @@
 <?php } ?>
 
         <!-- BEGIN HEADER -->
+
         <header>
             <nav class="top-nav">
                 <div class="container">
@@ -23,11 +24,15 @@
                             }
                         ?>
                         <h1 class="page-title" id="logo">
+                            <span class="page-title-text">
                            <!-- <a href="#" data-activates="nav-mobile" class="button-collapse" id="nav_mobile_button"><i class="material-icons">menu</i></a>-->
-	                        <?php if($page_title != ''){ echo $page_title; }else{ ?>
-		                       <?=lang('vendor-types-view')?>
-		                    <?php } ?>
+                                <?php if($page_title != ''){ echo $page_title; }else{ ?>
+                                   <?=lang('vendor-types-view')?>
+                                <?php } ?>
+                            </span>
                         </h1>
+                        <h1 class="page-title-dots">...</h1>
+
                         <!-- END PAGE TITLE-->
                         <!-- BEGIN HEADER INNER -->
                         <div class="page-header-inner ">
