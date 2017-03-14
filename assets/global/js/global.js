@@ -280,8 +280,13 @@ $(document).ready(function(){
 
         $('.page-title').removeAttr('style');
         $('.page-title-dots').css('display', 'none');
-        document.getElementById("logo").removeEventListener("scroll", setTitleDots());
-        
+
+        setTimeout(function(){
+
+            document.getElementById("logo").removeEventListener("scroll", setTitleDots());
+
+        }, 200);
+
     };
 
 })( window );
@@ -296,12 +301,44 @@ function init() {
         if (distanceY > shrinkOn) {
             $('.page-content-wrapper .page-content').css('padding-top','60px');
             classie.add(header,"smaller");
+            $('.page-title').removeAttr('style');
+            $('.page-title-dots').css('display', 'none');
         } else {
-            $('.page-content-wrapper .page-content').css('padding-top','80px');
-            if (classie.has(header,"smaller")) {
-                classie.remove(header,"smaller");
-            }
+                $('.page-content-wrapper .page-content').css('padding-top','80px');
+                if (classie.has(header,"smaller")) {
+                    classie.remove(header,"smaller");
+                }
+
+                $('.page-title').removeAttr('style');
+                $('.page-title-dots').css('display', 'none');
+
+            setTimeout(function(){
+
+                var page_title_width = $('.page-title').width(),
+                    page_title_text_width = $('.page-title .page-title-text').width();
+
+                if(page_title_width < page_title_text_width){
+
+                    var page_title_dots_width = $('.page-title-dots').width();
+                    $('.page-title').width(page_title_width - page_title_dots_width);
+                    $('.page-title-dots').css('display', 'inline-block');
+
+                    document.getElementById("logo").addEventListener('scroll', function(e){
+                        var horizontal = e.currentTarget.scrollLeft;
+                        if(page_title_text_width - horizontal <= page_title_width){
+                            $('.page-title').width(page_title_width);
+                            $('.page-title-dots').css('display', 'none');
+                        }else{
+                            $('.page-title').width(page_title_width - page_title_dots_width);
+                            $('.page-title-dots').css('display', 'inline-block');
+                        }
+                    });
+                }
+
+            }, 200);
+
         }
+
 
     });
     $('#artash').click(function(){
