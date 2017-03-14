@@ -514,7 +514,7 @@ header.smaller {
     height: 75px; }
 header.smaller h1#logo {
     width: 130px;
-    height: 31px;
+    height: 33px;
    /* height: 75px;*/
     /*line-height: 75px;*/
     font-size: 30px; }
@@ -698,17 +698,16 @@ input[type=text]:focus:not([readonly]){
     }
     header h1#logo{
         font-size: 10vw;
-        width: 90%;
-        overflow-x: scroll;
-        padding-right: 50px;
-        -webkit-overflow-scrolling: touch; /* lets it scroll lazy sa naxatesvatsa nra hamar vor heraxosneri vra aveli sirun lini touch-i jamanak isk ios-ov heraxosneri jamanak cucy chi ta */
-        scrollbar-base-color: #1767B3;
+        width: calc(100% - 45px);
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-base-color: #666;
         scrollbar-3dlight-color: #fff;
-        scrollbar-highlight-color: #1767B3;
+        scrollbar-highlight-color: #666;
         scrollbar-track-color: #E9E9E9;
-        scrollbar-arrow-color: #1767B3;
-        scrollbar-shadow-color: #1767B3;
-        scrollbar-dark-shadow-color: #1767B3;
+        scrollbar-arrow-color: #666;
+        scrollbar-shadow-color: #666;
+        scrollbar-dark-shadow-color: #666;
     }
     header h1#logo::-webkit-scrollbar-thumb,
     header h1#logo::-webkit-scrollbar-track,
@@ -718,16 +717,17 @@ input[type=text]:focus:not([readonly]){
         width: 6px;
     }
 
-    .block::-webkit-scrollbar-track {
-        background-color: #E9E9E9;
-    }
+    /*header h1#logo::-webkit-scrollbar-track {*/
+        /*background-color: #E9E9E9;*/
+    /*}*/
 
-    .block::-webkit-scrollbar-thumb {
-        background-color: #1767B3;
-    }
+    /*header h1#logo::-webkit-scrollbar-thumb {*/
+        /*background-color: #666;*/
+    /*}*/
     header.smaller h1#logo{
         font-size: 6vw;
         width:100%;
+        overflow-x: auto;
     }
 
 
