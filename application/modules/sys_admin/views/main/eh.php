@@ -45,8 +45,68 @@
                         <span class='logo_first'>S</span>Sacred&nbsp;City
                     </h1>
                     <div class="rand-place">
-                        <span>random info</span>
-                        <span class="place-holder">place holder</span>
+
+                        <div class="row">
+                            <div class="col s2 locat-call ">
+                                <div class="tb-adr">
+                                    <span class="icon-tb-cl"><i class="material-icons">location_on</i></span>
+                                    <ul class="text-tb-cl">
+                                        <li>622 Central Ave, Unit X </li>
+                                        <li>Central Valley, OE 99999</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="col s2 locat-call">
+                                <div class="tb-adr">
+                                    <p class="icon-tb-cl"><i class="material-icons">call</i></p>
+                                    <ul class="text-tb-cl">
+                                        <li>(246 463-2538)</li>
+                                        <li>(246 463-2500)</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="col s2 locat-call ">
+                                <div class="tb-adr">
+                                    <span class="icon-tb-cl"><i class="material-icons">location_on</i></span>
+                                    <ul class="text-tb-cl">
+                                        <li>622 Central Ave, Unit X </li>
+                                        <li>Central Valley, OE 99999</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col s2 locat-call ">
+                                <div class="tb-adr">
+                                    <span class="icon-tb-cl"><i class="material-icons">location_on</i></span>
+                                    <ul class="text-tb-cl">
+                                        <li>622 Central Ave, Unit X </li>
+                                        <li>Central Valley, OE 99999</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="col s2 locat-call">
+                                <div class="tb-adr">
+                                    <p class="icon-tb-cl"><i class="material-icons">call</i></p>
+                                    <ul class="text-tb-cl">
+                                        <li>(246 463-2538)</li>
+                                        <li>(246 463-2500)</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="col s2 locat-call ">
+                                <div class="tb-adr">
+                                    <span class="icon-tb-cl"><i class="material-icons">location_on</i></span>
+                                    <ul class="text-tb-cl">
+                                        <li>622 Central Ave, Unit X </li>
+                                        <li>Central Valley, OE 99999</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                     <div class="chevron">
                         <span class="chevron-down" style="display:none;">
@@ -56,6 +116,10 @@
                                 <i class="fa fa-chevron-up" aria-hidden="true"></i>
                         </span>
                     </div>
+
+                </div>
+                <div class="zang">
+
                 </div>
 
                 <!-- END PAGE TITLE-->
