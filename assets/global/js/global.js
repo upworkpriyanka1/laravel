@@ -344,6 +344,38 @@ function init() {
     $('#artash').click(function(){
         $('.page-content-wrapper .page-content').css('padding-top','0');
     });
+
+
+
+    $(".zang").click(function(){
+        $(this).css('background-color','#fff');
+        $( ".notific-area" ).toggle();
+        if( $(".notific-area").css("display") == "none")
+            $(".zang").css('background-color','transparent');
+    });
+
+    //$(document).mouseup(function (e)
+    //{
+    //    var container = $(".notific-area");
+    //
+    //    if (!container.is(e.target)){
+    //        alert("www");
+    //        console.log("www");
+    //    }
+    //});
+
+    window.addEventListener('click', function(e){
+        //console.log(e.target);
+        var el = e.target;
+        if(!$(el).hasClass('notific-area') && !$(el).hasClass('zang') && !$(el).parents('.notific-area').length){
+            if( $(".notific-area").css("display") != "none"){
+                $(".zang").css('background-color','transparent');
+                $(".zang").css('opacity','1');
+                $( ".notific-area" ).toggle();
+            }
+        }
+    });
+
 }
 window.onload = init();
 
