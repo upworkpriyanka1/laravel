@@ -83,6 +83,10 @@ class Sys_admin extends CI_Controller {
 
 		$this->load->view('main/eh');
 	}
+	public function client_overview(){
+
+		$this->load->view('main/client_overview');
+	}
 
 	public function index(){
 		$data['meta_description']='';
