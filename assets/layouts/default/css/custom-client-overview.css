@@ -587,7 +587,7 @@ body, .rand-place .locat-call{
     background-color: #fff;
 }
 #nav-mobile, .page-footer{
-    background-color: #26a69a !important;
+    background-color: #26a69a;
 }
 .side-nav .collapsible-body, .side-nav.fixed .collapsible-body{
     background-color: #33c0b3;
@@ -595,13 +595,16 @@ body, .rand-place .locat-call{
 ul.side-nav.fixed ul.collapsible-accordion a.collapsible-header, ul.side-nav.fixed ul.collapsible-accordion .collapsible-body li a, header h1#logo,.page-footer, .page-footer .footer-list>li a, .page-footer .page-footer-inner, a.button-collapse.top-nav i, header .chevron .chevron-down i, header .chevron .chevron-up i {
     color: #fff;
 }
+ul.side-nav.fixed li.logo a{
+    color: #333 !important;
+}
 .logo_first, .tb-adr .icon-tb-cl i, ul.side-nav.fixed li.logo a:hover{
     color: rgb(32, 141, 131) !important;
 }
 .page-header.navbar,header .chevron .chevron-down i, header .chevron .chevron-up i,  nav.top-nav{
     background-color: #35cec0;
 }
-ul.side-nav.fixed ul.collapsible-accordion{
+ul.side-nav.fixed ul.collapsible-accordion-green{
     background-color: transparent !important; ;
 }
 .top-notific-page .notifications .zang{

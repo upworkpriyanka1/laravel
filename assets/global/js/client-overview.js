@@ -1,4 +1,31 @@
 $(document).ready(function(){
+    $('.theme-colors-ul').on('click','.color-light2, .color-default, .color-darkblue,.color-blue',function(){
+        var color = $(this).attr('class').split(' ')[0];
+        console.log(color)
+        if(color=='color-light2'){
+            $(".page-header.navbar,header .chevron .chevron-down i, header .chevron .chevron-up i,  nav.top-nav").css("background-color", "#c8c8c8");
+            $(".side-nav .collapsible-body, .side-nav.fixed .collapsible-body").css("background-color", "#ddd");
+        }
+        if(color=='color-blue'){
+            $(".page-header.navbar,header .chevron .chevron-down i, header .chevron .chevron-up i,  nav.top-nav").css("background-color", "#2D5F8B");
+            $(".side-nav .collapsible-body, .side-nav.fixed .collapsible-body").css("background-color", "#267fa4");
+        }
+        if(color=='color-darkblue'){
+            $(".page-header.navbar,header .chevron .chevron-down i, header .chevron .chevron-up i,  nav.top-nav").css("background-color", "#2b3643");
+            $(".side-nav .collapsible-body, .side-nav.fixed .collapsible-body").css("background-color", "#267fa4");
+        }
+        if(color=='color-default'){
+            $(".page-header.navbar,header .chevron .chevron-down i, header .chevron .chevron-up i,  nav.top-nav").css("background-color", "#1f1f1f");
+            $(".side-nav .collapsible-body, .side-nav.fixed .collapsible-body").css("background-color", "#888");
+        }
+        $("ul.side-nav.fixed ul").removeClass("collapsible-accordion-green");
+    });
+    $('.theme-colors-ul').on('click','.color-light',function(){
+        $(".page-header.navbar,header .chevron .chevron-down i, header .chevron .chevron-up i,  nav.top-nav").css("background-color", "35cec0");
+        $(".side-nav .collapsible-body, .side-nav.fixed .collapsible-body").css("background-color", "#33c0b3");
+        $("ul.side-nav.fixed ul").addClass("collapsible-accordion-green");
+    });
+
     $('.the_active').removeClass('the_active').addClass('active');
 
     $('.active').find('.collapsible-body').css('display', 'block');

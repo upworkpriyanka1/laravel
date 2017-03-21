@@ -171,7 +171,7 @@
 
         <li class="no-padding">
 
-            <ul class="collapsible collapsible-accordion">
+            <ul class="collapsible collapsible-accordion collapsible-accordion-green">
                 <!-- SIDEBAR MENU -->
                 <li class="nav-item">
                     <a href="javascript:;" class="nav-link nav-toggle collapsible-header waves-effect waves-teal">

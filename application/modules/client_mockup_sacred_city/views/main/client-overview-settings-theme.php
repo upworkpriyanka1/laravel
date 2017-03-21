@@ -172,7 +172,7 @@
 
         <li class="no-padding">
 
-            <ul class="collapsible collapsible-accordion">
+            <ul class="collapsible collapsible-accordion collapsible-accordion-green">
                 <!-- SIDEBAR MENU -->
                 <li class="nav-item">
                     <a href="javascript:;" class="nav-link nav-toggle collapsible-header waves-effect waves-teal">
@@ -390,10 +390,10 @@
                                     <div class="theme-options" style="display: block; width:100%; position: static;">
                                         <div class="theme-option theme-colors clearfix">
                                             <span> THEME COLOR </span>
-                                            <ul>
-                                                <li class="color-light3 current" data-style="light3" data-container="body" data-html="true" data-original-title="Light 3"> </li>
-                                                <li class="color-light2" data-style="light2" data-container="body" data-html="true" data-original-title="Light 2"> </li>
-                                                <li class="color-light" data-style="light" data-container="body" data-original-title="Light"> </li>
+                                            <ul class="theme-colors-ul">
+<!--                                                <li class="color-light3 current" data-style="light3" data-container="body" data-html="true" data-original-title="Light 3"> </li>-->
+                                                <li class="color-light2 " data-style="light2" data-container="body" data-html="true" data-original-title="Light 2"> </li>
+                                                <li class="color-light current" data-style="light" data-container="body" data-original-title="Light"> </li>
                                                 <li class="color-default" data-style="default" data-container="body" data-original-title="Default"> </li>
                                                 <li class="color-darkblue" data-style="darkblue" data-container="body" data-original-title="Dark Blue"> </li>
                                                 <li class="color-blue" data-style="blue" data-container="body" data-original-title="Blue"> </li>

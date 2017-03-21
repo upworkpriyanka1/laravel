@@ -894,6 +894,9 @@ input[type=text]:focus:not([readonly]){
 body{
     position: relative;
 }
+.portlet.light{
+    margin-top: 25px;
+}
 .portlet.light.bordered{
     border:none !important;
 }
