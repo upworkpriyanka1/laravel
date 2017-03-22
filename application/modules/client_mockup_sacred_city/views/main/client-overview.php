@@ -155,7 +155,7 @@
 
                 <!-- BEGIN HEADER INNER -->
 <!--                <div class="page-header-inner ">-->
-<!--                    <!-- BEGIN TOP NAVIGATION MENU -->-->
+<!--                    <!-- BEGIN TOP NAVIGATION MENU -->
 <!--                    <div class="top-menu">-->
 <!--                        <ul class="right">-->
 <!--                            <li>-->
@@ -209,10 +209,10 @@
 <!--                                    </div>-->
 <!--                                </div>-->
 <!--                            </li>-->
-<!--                            <!-- END QUICK SIDEBAR TOGGLER -->-->
+<!--                            <!-- END QUICK SIDEBAR TOGGLER -->
 <!--                        </ul>-->
 <!--                    </div>-->
-<!--                    <!-- END TOP NAVIGATION MENU -->-->
+<!--                    <!-- END TOP NAVIGATION MENU -->
 <!--                </div>-->
                 <!-- END HEADER INNER -->
             </div>
@@ -227,7 +227,7 @@
     <ul id="nav-mobile" class="side-nav fixed" style="transform: translateX(-100%);">
         <li class="logo">
             <a href="client-overview" class="brand-logo">
-                <!--                    <img src="/assets/img/logo.png" alt="logo" class="logo-default" />-->
+                <!--                    <img src="/assets/img/logo.png" alt="logo" class="logo-default" /> -->
                 <span class="logo-default"> Sacred City</span>
             </a>
         </li>

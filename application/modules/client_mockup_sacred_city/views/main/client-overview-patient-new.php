@@ -643,7 +643,7 @@
                                                             <button type="button" class="btn btn-primary" onclick="javascript:onSubmit();">Submit</button>
                                                         </div>
                                                         <div class="col-sm-2 col-xs-12 pull-left ">
-                                                            <button type="reset" class="btn btn-cancel-action" onclick="javascript:document.location='https://devk.zntral.net/sys-admin/users/users-view/'">Cancel</button>
+                                                            <button type="reset" class="btn btn-cancel-action">Cancel</button>
                                                         </div>
                                                         <div class="col-md-2 ">
                                                         </div>

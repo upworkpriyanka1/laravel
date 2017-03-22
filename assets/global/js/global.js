@@ -110,8 +110,12 @@ $(document).ready(function(){
         });
         //$('#newclient').modal('show');
     });
+    //$('#artash').on('click',function(){
+    //    $('header').css('position','static');
+    //});
     $('#artash').on('click',function(){
-        $('header').css('position','static');
+        $('#sidenav-overlay').css('position','relative');
+
     });
 
 

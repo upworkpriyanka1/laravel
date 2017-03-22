@@ -56,8 +56,12 @@ $(document).ready(function(){
     });
 
     $('#artash').on('click',function(){
-        $('header').css('position','static');
+        $('#sidenav-overlay').css('position','relative');
+
     });
+    //$('#artash').on('click',function(){
+    //    $('header').css('position','static');
+    //});
 
 
 
@@ -176,20 +180,21 @@ function init() {
         var distanceY = window.pageYOffset || document.documentElement.scrollTop,
             shrinkOn = 0,
             header = document.querySelector("header"),
-            screenWidth = screen.width,
+            screenWidth = $(window).width(),
             screenHeight = screen.height,
             lastScrollPosition = document.body.scrollTop;
-        var scrollSpeed = (lastScrollPosition > theScrollPosition && lastScrollPosition - theScrollPosition <= 80 || theScrollPosition > lastScrollPosition && theScrollPosition - lastScrollPosition <= 80)? 2000 : false;
+        //var scrollSpeed = (lastScrollPosition > theScrollPosition && lastScrollPosition - theScrollPosition <= 80 || theScrollPosition > lastScrollPosition && theScrollPosition - lastScrollPosition <= 80)? 2000 : false;
+        var scrollSpeed = false;
         theScrollPosition = lastScrollPosition;
 
         if(screenWidth > 993){
-            var pageContentsPadding = "220px"
+            var pageContentsPadding = "220px";
         }else if(screenWidth > 992){
-            var pageContentsPadding = "180px"
+            var pageContentsPadding = "180px";
         }else if(screenWidth > 600){
-            var pageContentsPadding = "160px"
+            var pageContentsPadding = "160px";
         }else{
-            var pageContentsPadding = "180px"
+            var pageContentsPadding = "180px";
         }
         //if($('body').height() > screenHeight + 160){
             console.log('something');
@@ -201,7 +206,7 @@ function init() {
                         $('.rand-place').stop().css('display', 'none');
                         $('.rand-place span').stop().slideUp();
                     }else{
-                        $('.rand-place').stop().slideUp(scrollSpeed)
+                        $('.rand-place').stop().slideUp(scrollSpeed);
                         $('.rand-place span').stop().slideUp();
 
                     }
@@ -235,9 +240,9 @@ function init() {
             }
         //}
     });
-    $('#artash').click(function(){
-        $('.page-content-wrapper .page-content').css('padding-top','0');
-    });
+    //$('#artash').click(function(){
+    //    $('.page-content-wrapper .page-content').css('padding-top','0');
+    //});
     $(".zang").click(function(){
         $(this).css('background-color','#208d83');
         $( ".notific-area" ).toggle();
