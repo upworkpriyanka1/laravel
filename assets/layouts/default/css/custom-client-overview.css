@@ -295,7 +295,7 @@ header .chevron{
     /*right: 135px;*/
     /*top: 10px;*/
     right: 80px;
-    top: 17px;
+    top: 10px;
 
 }
 
@@ -375,6 +375,10 @@ header.smaller{
     header h1#logo{
         font-size: 7vw;
     }
+    header.smaller h1#logo {
+        font-size: 5vw;
+    }
+
 }
 
 
@@ -705,7 +709,7 @@ ul.side-nav.fixed ul.collapsible-accordion-green{
     border:none !important;
 }
 @media (max-height: 840px) {
-    main{
+    main {
         margin-bottom: -53px;
     }
 
