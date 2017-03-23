@@ -9203,7 +9203,8 @@ body.parallax-demo footer {
 }
 
 #nav-mobile{
-    background: #c8c8c8 !important;
+    /*background: #c8c8c8 !important;*/
+    background: #c8c8c8;
     overflow: hidden;
     z-index: 9999;
     left: 0;

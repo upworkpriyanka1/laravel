@@ -13,7 +13,10 @@ div.dataTables_paginate > ul > li.next > a, div.dataTables_paginate > ul > li.pr
 body{
     position: relative;
 }
-
+main{
+    min-height: 100%;
+    margin-bottom: -73px;
+}
 @media (max-width: 999px) and (min-width: 990px){
     .top-nav .page-header{
         margin-left: 55px;
@@ -215,6 +218,8 @@ pre[class*="language-"] {
 
 
 /*-------------------------------------------------------------- */
+
+
 header {
     width: 100%;
     position: fixed;
@@ -287,18 +292,26 @@ header.smaller nav a {
 
 header .chevron{
     position: absolute;
-    right: 135px;
+    /*right: 135px;*/
+    /*top: 10px;*/
+    right: 80px;
     top: 10px;
 
 }
 
 header .chevron .chevron-down i, header .chevron .chevron-up i{
-     border: 1px solid #a1a1a1;
-     background-color: #a1a1a1;
-     border-radius: 50%;
-     padding: 5px;
-    color: #fff;
+    font-size: 27px;
+    /*background-color: #a1a1a1;*/
+    /*border-radius: 50%;*/
+    /*color: #fff;*/
     cursor: pointer;
+    /*width: 30px;*/
+    /*height: 30px;*/
+    /*text-align: center;*/
+}
+
+.brand-logo .logo-default{
+    font-size: 33px;
 }
 .page-content-wrapper .page-content{
 
@@ -362,6 +375,10 @@ header.smaller{
     header h1#logo{
         font-size: 7vw;
     }
+    header.smaller h1#logo {
+        font-size: 5vw;
+    }
+
 }
 
 
@@ -527,16 +544,6 @@ background-color: #666;
 .rand-place .locat-call .text-tb-cl li{
     line-height: normal;
 }
-.page-header .zang{
-    background-image: url(../img/flat.png);
-    background-repeat:no-repeat;
-    position: absolute;
-    display: inline-block;
-    top: 10px;
-    width: 30px;
-    height: 35px;
-    right: 80px;
-}
 
 .rand-place {
     /*width: calc(100% - 45px);*/
@@ -576,4 +583,134 @@ background-color: #666;
     display: block;
     content: "";
     clear: both;
-    height: 0; }
+    height: 0;
+}
+/*---color---*/
+
+body, .rand-place .locat-call{
+    background-color: #fff;
+}
+#nav-mobile, .page-footer{
+    background-color: #26a69a;
+}
+.side-nav .collapsible-body, .side-nav.fixed .collapsible-body{
+    background-color: #33c0b3;
+}
+ul.side-nav.fixed ul.collapsible-accordion a.collapsible-header, ul.side-nav.fixed ul.collapsible-accordion .collapsible-body li a, header h1#logo,.page-footer, .page-footer .footer-list>li a, .page-footer .page-footer-inner, a.button-collapse.top-nav i, header .chevron .chevron-down i, header .chevron .chevron-up i {
+    color: #fff;
+}
+ul.side-nav.fixed li.logo a{
+    color: #333 !important;
+}
+.logo_first, .tb-adr .icon-tb-cl i, ul.side-nav.fixed li.logo a:hover{
+    color: rgb(32, 141, 131) !important;
+}
+.page-header.navbar,header .chevron .chevron-down i, header .chevron .chevron-up i,  nav.top-nav{
+    background-color: #35cec0;
+}
+ul.side-nav.fixed ul.collapsible-accordion-green{
+    background-color: transparent !important; ;
+}
+.top-notific-page .notifications .zang{
+    background-image: url(../img/flat-white.png);
+    background-repeat: no-repeat;
+    position: absolute;
+    display: inline-block;
+    top: 5px;
+    width: 40px;
+    height: 40px;
+    /*right: 80px;*/
+    right: 25px;
+    text-align: right;
+    cursor: pointer;
+    background-position: center center;
+    border-radius: 50% !important;
+}
+.top-notific-page .notifications .zang .round{
+
+    border-radius: 50% !important;
+    background-color: red;
+    color: #fff;
+    width: 12px;
+    height: 12px;
+    text-align: center;
+    font-size: 8px;
+    line-height: 1.428571429;
+    position: relative;
+    right: 3px;
+    top: 1px;
+    display: inline-block;
+}
+.top-notific-page .notifications .notific-area{
+    height: 400px;
+    width: 302px;
+    background-color: #eeeeee;
+    display: inline-block;
+    position: absolute;
+    /*right: 80px;*/
+    /*top: 70px;*/
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+    right: 30px;
+    top: 50px;
+
+}
+.top-notific-page .notifications .notific-area .notific-area-header{
+    height: 60px;
+    border-bottom: 1px solid rgba(128, 128, 128, .5);
+}
+.top-notific-page .notifications .notific-area .notific-area-header a{
+    line-height: normal;
+    margin: 5px;
+    padding:0;
+    color: rgba(128, 128, 128, .5);
+    font-weight: bold;
+}
+.top-notific-page .notifications .notific-area .notific-area-header a:hover{
+    color: rgb(128, 128, 128);
+    background-color: transparent;
+}
+
+
+.top-notific-page .notifications .notific-area .notific-area-header li{
+    position: relative;
+    padding: 15px;
+}
+
+.top-notific-page .notifications .notific-area .notific-area-header li img{
+    width: 25px;
+}
+.top-notific-page .notifications .notific-area .notific-area-header li:hover img{
+    opacity: 1;
+}
+.top-notific-page  .notifications .notific-area .notific-area-header .news img{
+    opacity: .5;
+}
+.top-notific-page  .notifications .notific-area .notific-area-header .news span{
+    display: none;
+}
+.top-notific-page  .notifications .notific-area .notific-area-header .round{
+    border-radius: 50% !important;
+    background-color: red;
+    color: #fff;
+    width: 15px;
+    height: 15px;
+    text-align: center;
+    font-size: 10px;
+    line-height: 1.428571429;
+    position: relative;
+    right: 11px;
+    top: -11px;
+    display: inline-block;
+}
+.patient-manage .portlet.light{
+     padding:0;
+ }
+.portlet.light.bordered{
+    border:none !important;
+}
+@media (max-height: 840px) {
+    main {
+        margin-bottom: -53px;
+    }
+
+}
