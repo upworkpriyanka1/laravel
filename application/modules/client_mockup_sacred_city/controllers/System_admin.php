@@ -11,5 +11,9 @@ class System_admin extends CI_Controller {
 
         $this->load->view('main_system_admin/client-overview');
     }
+    public function client_overview_view(){
+
+        $this->load->view('main_system_admin/client-overview-view');
+    }
 
 }

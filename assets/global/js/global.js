@@ -110,13 +110,14 @@ $(document).ready(function(){
         });
         //$('#newclient').modal('show');
     });
-    //$('#artash').on('click',function(){
-    //    $('header').css('position','static');
-    //});
     $('#artash').on('click',function(){
-        $('#sidenav-overlay').css('position','relative');
-
+        $('header').css('position','static');
+        //$('.page-content-wrapper .page-content').css('padding-top','0');
     });
+    //$('#artash').on('click',function(){
+    //    $('#sidenav-overlay').css('position','relative');
+    //
+    //});
 
 
 
@@ -303,11 +304,13 @@ function init() {
             shrinkOn = 0,
             header = document.querySelector("header");
         if (distanceY > shrinkOn) {
+            if($('header').css('position') == 'fixed')
             $('.page-content-wrapper .page-content').css('padding-top','60px');
             classie.add(header,"smaller");
             $('.page-title').removeAttr('style');
             $('.page-title-dots').css('display', 'none');
         } else {
+                if($('header').css('position') == 'fixed')
                 $('.page-content-wrapper .page-content').css('padding-top','80px');
                 if (classie.has(header,"smaller")) {
                     classie.remove(header,"smaller");
@@ -369,8 +372,26 @@ function init() {
     //});
 
     window.addEventListener('click', function(e){
-        //console.log(e.target);
+
         var el = e.target;
+
+        if(!$(el).hasClass('side-nav') && $(el).id != "artash" && !$(el).parents('.side-nav').length && $('header').css('position') == 'static'){
+
+            var distanceY = window.pageYOffset || document.documentElement.scrollTop,
+                shrinkOn = 0;
+
+            $('header').css('position','fixed');
+
+            if (distanceY > shrinkOn) {
+                $('.page-content-wrapper .page-content').css('padding-top', '60px');
+            }else{
+                $('.page-content-wrapper .page-content').css('padding-top', '80px');
+            }
+
+
+        }
+        //console.log(e.target);
+
         if(!$(el).hasClass('notific-area') && !$(el).hasClass('zang') && !$(el).parents('.notific-area').length){
             if( $(".notific-area").css("display") != "none"){
                 $(".zang").css('background-color','transparent');

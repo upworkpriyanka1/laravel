@@ -55,13 +55,13 @@ $(document).ready(function(){
 
     });
 
-    $('#artash').on('click',function(){
-        $('#sidenav-overlay').css('position','relative');
-
-    });
     //$('#artash').on('click',function(){
-    //    $('header').css('position','static');
+    //    $('#sidenav-overlay').css('position','relative');
+    //
     //});
+    $('#artash').on('click',function(){
+        $('header').css('position','static');
+    });
 
 
 
@@ -240,9 +240,9 @@ function init() {
             }
         //}
     });
-    //$('#artash').click(function(){
-    //    $('.page-content-wrapper .page-content').css('padding-top','0');
-    //});
+    $('#artash').click(function(){
+        $('.page-content-wrapper .page-content').css('padding-top','0');
+    });
     $(".zang").click(function(){
         $(this).css('background-color','#208d83');
         $( ".notific-area" ).toggle();
@@ -263,6 +263,28 @@ function init() {
     window.addEventListener('click', function(e){
         //console.log(e.target);
         var el = e.target;
+
+        if(!$(el).hasClass('side-nav') && $(el).id != "artash" && !$(el).parents('.side-nav').length && $('header').css('position') == 'static'){
+
+            var screenWidth = $(window).width();
+
+            if(screenWidth > 993){
+                var pageContentsPadding = "220px";
+            }else if(screenWidth > 992){
+                var pageContentsPadding = "180px";
+            }else if(screenWidth > 600){
+                var pageContentsPadding = "160px";
+            }else{
+                var pageContentsPadding = "250px";
+            }
+
+            $('header').css('position','fixed');
+
+            $('.page-content-wrapper .page-content').css('padding-top', pageContentsPadding);
+
+
+        }
+
         if(!$(el).hasClass('notific-area') && !$(el).hasClass('zang') && !$(el).parents('.notific-area').length){
             if( $(".notific-area").css("display") != "none"){
                 $(".zang").css('background-color','transparent');
@@ -270,6 +292,7 @@ function init() {
                 $( ".notific-area" ).toggle();
             }
         }
+
     });
 }
 window.onload = init();
