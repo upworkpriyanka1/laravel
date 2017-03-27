@@ -106,13 +106,9 @@
                                     </li>
                                 </ul>
                             </div>
-
-
                         </div>
-
-
                     </div>
-                <div class="zang"></div>
+                </div>
                 <!-- END PAGE TITLE-->
 
                 <!-- BEGIN HEADER INNER -->
@@ -188,7 +184,7 @@
     </div>
     <ul id="nav-mobile" class="side-nav fixed" style="transform: translateX(-100%);">
         <li class="logo">
-            <a href="client-overview" class="brand-logo">
+            <a href="./" class="brand-logo">
                 <!-- <img src="/assets/img/logo.png" alt="logo" class="logo-default" /> -->
                 <span class="logo-default"> SYSTEM </span>
             </a>
@@ -381,56 +377,8 @@
                             <div class="col s12 m9 l10">
                                 <div>
                                     <div id="grid-pinned" class="section scrollspy">
-                                        <p class="caption">We are using a standard 12 column fluid responsive grid system. The grid helps you layout your page in an ordered, easy fashion.</p>
                                         <h3 class="header">Pinned</h3>
-                                        <p>Try the button below to see what the page looks like without containers</p>
-                                        <a id="container-toggle-button" class="btn waves-effect waves-light">Turn off Containers</a>
-
-                                        <!-- Container Visual Demo -->
-                                        <div class="row">
-                                            <div class="col s12">
-                                                <div class="browser-window">
-                                                    <div class="top-bar">
-                                                        <div class="circles">
-                                                            <div id="close-circle" class="circle"></div>
-                                                            <div id="minimize-circle" class="circle"></div>
-                                                            <div id="maximize-circle" class="circle"></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="content">
-                                                        <div class="row">
-
-                                                            <div id="site-layout-example-top" class="col s12">
-                                                                <!-- <p class="flat-text-logo"></p> -->
-                                                            </div>
-                                                            <div id="site-layout-example-right" class="col s12">
-                                                                <div class="container">
-
-                                                                    <p class="flat-text small"></p>
-                                                                    <p class="flat-text full-width"></p>
-                                                                    <p class="flat-text full-width"></p>
-                                                                    <p class="flat-text full-width"></p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <p>To add a container just put your content inside a <code class=" language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span></code> tag with a <code class=" language-markup">container</code> class. Here's an example of how your page might be set up.</p>
-
-                                          <pre class=" language-markup">
-                                              <code class=" language-markup">
-                                                  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>
-                                                  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>container<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-                                                  <span class="token comment" spellcheck="true">&lt;!-- Page Content goes here --&gt;</span>
-                                                  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
-                                                  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
-                                              </code>
-                                          </pre>
-
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci dicta, eaque error fugit inventore magni minima perspiciatis quos reiciendis sit tempora tempore, voluptas? Delectus impedit nemo odit sunt vitae!</p>
                                     </div>
 
 
@@ -440,12 +388,46 @@
                                         <nav class="nav-extended">
                                             <div class="nav-content">
                                                 <ul class="tabs tabs-transparent">
-                                                    <li class="tab"><a href="#test1">Users</a></li>
-                                                    <li class="tab"><a class="active" href="#test2">Patients</a></li>
+                                                    <li class="tab"><a href="#test1" class="active">Users</a></li>
+                                                    <li class="tab"><a href="#test2">Patients</a></li>
                                                 </ul>
                                             </div>
                                         </nav>
-                                        <div id="test1" class="col s12">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+                                        <div id="test1" class="col s12">
+
+                                            <table>
+                                                <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Title</th>
+                                                    <th>Status</th>
+                                                    <th>Created</th>
+                                                </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                <tr>
+                                                    <td>Alvin</td>
+                                                    <td>Eclair</td>
+                                                    <td>Hi</td>
+                                                    <td>$0.87</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Alan</td>
+                                                    <td>Jellybean</td>
+                                                    <td>Hello</td>
+                                                    <td>$3.76</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Jonathan</td>
+                                                    <td>Lollipop</td>
+                                                    <td>Hi</td>
+                                                    <td>$7.00</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
                                         <div id="test2" class="col s12">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </div>
                                     </div>
 

@@ -67,7 +67,7 @@
                             </div>
 
                             <!-- BEGIN HEADER INNER -->
-                            <div class="page-header-inner ">
+                            <div class="page-header-inner" style="display: none">
                                 <!-- BEGIN TOP NAVIGATION MENU -->
                                 <div class="top-menu">
                                     <ul class="right">

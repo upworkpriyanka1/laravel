@@ -10,8 +10,13 @@ class Sys_admin extends CI_Controller {
 		 $this->load->model('sys_admin_mdl','admin_mdl');
 		 $this->load->model('clients_mdl','clients_mdl');
 		 $this->lang->load('sys_admin');
-		 $this->config->load('sys_admin_menu', true );
-		 $this->menu    			= $this->config->item( 'sys_admin_menu' );
+//		 $this->config->load('sys_admin_menu', true );
+//		 $this->menu    			= $this->config->item( 'sys_admin_menu' );
+
+		 $this->config->load('sys_admin_menu_new', true );
+		 $this->menu    			= $this->config->item( 'sys_admin_menu_new' );
+
+
 		 $eh_url = base_url() . 'sys-admin/eh';
 		if(current_url()!=$eh_url){
 			$group = array('sys-admin');
@@ -500,7 +505,9 @@ class Sys_admin extends CI_Controller {
 		$data['javascript'] = array( 'assets/custom/admin/client-edit.js' );//page javascript
 		$views				=  array('design/html_topbar','sidebar','design/page','design/html_footer');
 //		$this->layout->view($views, $data);
-		redirect(base_url().'/sys-admin/clients-view');
+//		redirect(base_url().'/sys-admin/clients-view');
+		redirect(base_url().'/client-mockup-sacred-city/system-admin/client_overview_view');
+
 	}
 
 	private function client_edit_makesave($is_insert, $cid, $select_on_update, $redirect_url, $page_parameters_with_sort, $post_array, $app_config, $client_color_schemes_array ) {

@@ -65,6 +65,14 @@ $lang['grid']                   = "Grid";
 $lang['col3']                   = "Col 3";
 $lang['eh']                     = "Sacred City";
 
+
+$lang['patients']               = "Patients";
+$lang['patients-view']          = "Manage";
+
+$lang ['locations']             = "Locations";
+$lang ['locations-add']         = "New";
+$lang ['locations-view']        = "Manage";
+
 $lang['company']                = "Company";
 $lang['company_name']           = "Company Name";
 $lang['my-company']             = $lang['profile-company'] = "My Company";
@@ -79,7 +87,9 @@ $lang['avatar']                 = "Avatar";
 $lang['activity']               = "Activities";
 $lang['activity-logs']          = "Activity Logs";
 
-
+$lang['vendors']                = "Vendors";
+$lang['vendors-add']            = "New";
+$lang['vendor-view']            = "Manage";
 $lang['vendors-services']       = "Vendors/Services";
 $lang['vendor-types-view']      = "New Vendor";
 $lang['vendor-types']           = "Vendor Type";
@@ -260,3 +270,6 @@ $lang['g-vocational-nurse']            = "Vocational Nurse";
 $lang['g-vocational-nurse-desc']       = "Vocational Nurse";
 $lang['g-volunteer']                   = "Volunteer";
 $lang['g-volunteer-desc']              = "Volunteer";
+
+
+
