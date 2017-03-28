@@ -1,4 +1,21 @@
 $(document).ready(function(){
+    $('.create_contact').on('click',function(){
+        $.ajax({
+            url: '/sys-admin/clients_view_new',
+            error: function() {
+
+            },
+            dataType: 'json',
+            success: function(data) {
+                console.log(data)
+                $('#newclient .modal-body').html(data.html);
+                $('#newclient').modal('show');
+            },
+            type: 'GET'
+        });
+        //$('#newclient').modal('show');
+    });
+
     $('.theme-colors-ul').on('click','.color-light2, .color-default, .color-darkblue,.color-blue',function(){
         var color = $(this).attr('class').split(' ')[0];
         console.log(color)
@@ -193,7 +210,7 @@ function init() {
         }else if(screenWidth > 992){
             var pageContentsPadding = "180px";
         }else if(screenWidth > 600){
-            var pageContentsPadding = "160px";
+            var pageContentsPadding = "180px";
         }else{
             var pageContentsPadding = "250px";
         }

@@ -14,8 +14,9 @@ body{
     position: relative;
 }
 main{
-    min-height: 100%;
-    margin-bottom: -73px;
+    min-height: 100vh;
+    /*margin-bottom: -73px;*/
+    /*margin-bottom: -65px;*/
 }
 @media (max-width: 999px) and (min-width: 990px){
     .top-nav .page-header{
@@ -232,6 +233,7 @@ header {
     -o-transition: height 0.3s;
     transition: height 0.3s; }
 header h1#logo {
+    margin-top: 15px;
     display: inline-block;
     height: 76px;
     font-size: 48px;
@@ -254,6 +256,8 @@ header h1 .logo_first{
     margin-right: 20px;
     display: inline-block;
     line-height: 45px;
+    font-size: 35px;
+    vertical-align: middle;
 }
 header nav {
     display: inline-block;
@@ -456,9 +460,10 @@ header.smaller{
         padding-top: 250px;
     }
 }
+
 @media (min-width: 601px) {
     .page-content-wrapper .page-content {
-        padding-top: 160px;
+        padding-top: 180px;
     }
 }
 @media (min-width: 993px) {
