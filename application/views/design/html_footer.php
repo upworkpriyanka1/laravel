@@ -412,7 +412,7 @@
                                                                         <tr>
                                                                             <td style="width: 98%">
                                                                                 <i class="material-icons prefix">phone</i>
-                                                                                <input type="text" name="data[client_phone]" id="client_phone" value="<?= ( !empty($client->client_phone) ? $client->client_phone : '' ); ?>" class="form-control " maxlength="50" onchange="javascript:checkPhonesVisibilty(); " />
+                                                                                <input type="text" name="data[client_phone]" id="client_phone" value="<?= ( !empty($client->client_phone) ? $client->client_phone : '' ); ?>" class="form-control required_form" maxlength="50" onchange="javascript:checkPhonesVisibilty(); validateFormEnableOrDisable('form_client_edit');" />
                                                                                 <label for="client_phone" class=""><?php echo lang('phone') ?></label>
                                                                             </td>
                                                                         </tr>
@@ -874,23 +874,23 @@
 
                                                             <form action="#">
                                                                 <p>
-                                                                    <input class="with-gap" name="group1" type="radio" id="assisted" />
+                                                                    <input required class="with-gap" name="group1" type="radio" id="assisted" />
                                                                     <label for="assisted">Assisted /Senior Living Facilities</label>
                                                                 </p>
                                                                 <p>
-                                                                    <input class="with-gap" name="group1" type="radio" id="home" />
+                                                                    <input required class="with-gap" name="group1" type="radio" id="home" />
                                                                     <label for="home">Home Health</label>
                                                                 </p>
                                                                 <p>
-                                                                    <input class="with-gap" name="group1" type="radio" id="SYS"  />
+                                                                    <input required class="with-gap" name="group1" type="radio" id="SYS"  />
                                                                     <label for="SYS">SYS Admin</label>
                                                                 </p>
                                                                 <p>
-                                                                    <input class="with-gap" name="group1" type="radio" id="testing"  />
+                                                                    <input required class="with-gap" name="group1" type="radio" id="testing"  />
                                                                     <label for="testing">testing description</label>
                                                                 </p>
                                                                 <p>
-                                                                    <input class="with-gap" name="group1" type="radio" id="providing"  />
+                                                                    <input required class="with-gap" name="group1" type="radio" id="providing"  />
                                                                     <label for="providing">a home providing care for the sick, especially the terminally ill.</label>
                                                                 </p>
 
@@ -1164,13 +1164,16 @@
                         <div class="col-xs-12">
 
                                 <ul class="md-foot-top">
-                                    <li class="create-contact-more"><a href="#">+CONTACT</a> </li>
-                                    <li class="create-contact-more"><a href="#">+SUPERUSER</a></li>
+                                    <li class="create-contact-more"><button class="btn-flat disable_form_id_form_client_edit" disabled>+CONTACT</button></li>
+                                    <li class="create-contact-more"><button class="btn-flat  disable_form_id_form_client_edit" disabled>+SUPERUSER</button></li>
                                 </ul>
 
                                 <ul class ="md-foot-bot">
-                                    <li data-dismiss="modal" role="button"><a href="#" onclick="javascript:document.location='<?=base_url()?>sys-admin/clients-view<?=$page_parameters_with_sort?>'">CANCEL</a>  </li>
-                                    <li class="create-contact-save" data-action="save" role="button"><a href="#"> SAVE</a> </li>
+
+                                    <li data-dismiss="modal"> <button class="btn" onclick="javascript:document.location='<?=base_url()?>sys-admin/clients-view<?=$page_parameters_with_sort?>'">CANCEL</button> </li>
+                                    <li class="create-contact-save " data-action="save"> <button class="btn-flat  disable_form_id_form_client_edit" disabled> SAVE</button> </li>
+
+
                                 </ul>
 
 

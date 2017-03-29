@@ -379,7 +379,7 @@
                                                 <tr>
                                                     <td style="width: 98%">
                                                         <i class="material-icons prefix">phone</i>
-                                                        <input type="text" name="data[client_phone]" id="client_phone" value="<?= ( !empty($client->client_phone) ? $client->client_phone : '' ); ?>" class="form-control " maxlength="50" onchange="javascript:checkPhonesVisibilty(); " />
+                                                        <input type="text" name="data[client_phone]" id="client_phone" value="<?= ( !empty($client->client_phone) ? $client->client_phone : '' ); ?>" class="form-control required_form " maxlength="50" onchange="javascript:checkPhonesVisibilty(); validateFormEnableOrDisable('form_client_edit');" " />
                                                         <label for="client_phone" class=""><?php echo lang('phone') ?></label>
                                                     </td>
                                                 </tr>
@@ -823,23 +823,23 @@
 
                                     <form action="#">
                                         <p>
-                                            <input class="with-gap" name="group1" type="radio" id="assisted" />
+                                            <input class="with-gap required_form_to_check" name="group1" type="radio" id="assisted" onchange="validateFormEnableOrDisable('form_client_edit');" />
                                             <label for="assisted">Assisted /Senior Living Facilities</label>
                                         </p>
                                         <p>
-                                            <input class="with-gap" name="group1" type="radio" id="home" />
+                                            <input class="with-gap required_form_to_check" name="group1" type="radio" id="home" onchange="validateFormEnableOrDisable('form_client_edit');" />
                                             <label for="home">Home Health</label>
                                         </p>
                                         <p>
-                                            <input class="with-gap" name="group1" type="radio" id="SYS"  />
+                                            <input class="with-gap required_form_to_check" name="group1" type="radio" id="SYS" onchange="validateFormEnableOrDisable('form_client_edit');" />
                                             <label for="SYS">SYS Admin</label>
                                         </p>
                                         <p>
-                                            <input class="with-gap" name="group1" type="radio" id="testing"  />
+                                            <input class="with-gap required_form_to_check" name="group1" type="radio" id="testing" onchange="validateFormEnableOrDisable('form_client_edit');" />
                                             <label for="testing">testing description</label>
                                         </p>
                                         <p>
-                                            <input class="with-gap" name="group1" type="radio" id="providing"  />
+                                            <input class="with-gap required_form_to_check" name="group1" type="radio" id="providing" onchange="validateFormEnableOrDisable('form_client_edit');" />
                                             <label for="providing">a home providing care for the sick, especially the terminally ill.</label>
                                         </p>
 

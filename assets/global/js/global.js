@@ -191,8 +191,6 @@ $(document).ready(function(){
     });
 
 
-
-
 // class helper functions from bonzo https://github.com/ded/bonzo
 
     function classReg( className ) {
@@ -303,7 +301,31 @@ $(document).ready(function(){
 
 })( window );
 
+function validateFormEnableOrDisable(form_id){
+    var disable = false;
+    $('#'+form_id+' .required_form').each(function(){
+        if($(this).val() == ""){
+            disable = true;
+        }
+        console.log($(this).val());
+    });
 
+    $('#'+form_id+' .required_form_to_check').each(function(){
+        var name = $(this).attr('name');
+
+        if($('input[name='+name+']:checked').val() == undefined){
+            disable = true;
+        }
+    });
+
+    if(disable){
+        $('.disable_form_id_'+form_id).attr('disabled', true);
+    }else{
+        $('.disable_form_id_'+form_id).removeAttr('disabled');
+    }
+
+    console.log(disable);
+}
 
 function init() {
     window.addEventListener('scroll', function(e){
