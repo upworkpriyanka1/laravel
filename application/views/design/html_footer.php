@@ -570,7 +570,7 @@
 
                                                         <!-- client email -->
                                                         <div class="col-md-12 email add-row-able">
-                                                            <div class="form-group input-field <?= $this->common_lib->set_field_error_tag("data[client_email]", ' has-error ')?>">
+                                                            <div class="form-group input-field <?= $this->common_lib->set_field_error_tag("data[client_email_first]", ' has-error ')?>">
                                                                 <?php
                                                                 $is_debug= false;
                                                                 $client_email_button_visible = $is_insert;
@@ -602,7 +602,7 @@
 
                                                                 <div class="col-md-6" style="display: <?php echo ( $client_email_input_visible ? "block" :"block" ) ; ?>" id="div_client_email_input">
                                                                     <i class="material-icons prefix">email</i>
-                                                                    <input type="text" name="data[client_email]" id="client_email" value="<?= ( !empty($client->client_email) ? $client->client_email : '' ); ?>" class="form-control" maxlength="50"  />
+                                                                    <input type="text" name="data[client_email_first]" id="client_email" value="<?= ( !empty($client->client_email) ? $client->client_email : '' ); ?>" class="form-control" maxlength="50"  />
                                                                     <label for="client_email" class=""><?php echo lang('email') ?></label>
                                                                 </div>
 

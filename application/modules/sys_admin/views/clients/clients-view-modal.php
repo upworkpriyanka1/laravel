@@ -29,7 +29,6 @@
                         <input type="hidden" name="data[client_name]" id="client_name" value="" class="form-control" maxlength="100">
                         <input type="hidden" name="data[clients_types_id]" id="client_name" value="1" class="form-control" maxlength="100">
                         <input type="hidden" name="data[client_fax]" value="15" class="form-control" maxlength="50">
-                        <input type="hidden" name="data[client_active_status]" value="Active" class="form-control" maxlength="50">
                         <div class="form-body">
 
                             <div class="alert alert-danger display-hide">
@@ -538,7 +537,7 @@
 
                                 <!-- client email -->
                                 <div class="col-md-12 email add-row-able">
-                                    <div class="form-group input-field <?= $this->common_lib->set_field_error_tag("data[client_email]", ' has-error ')?>">
+                                    <div class="form-group input-field <?= $this->common_lib->set_field_error_tag("data[client_email_first]", ' has-error ')?>">
                                         <?php
                                         $is_debug= false;
                                         $client_email_button_visible = $is_insert;
@@ -570,7 +569,7 @@
 
                                         <div class="col-md-6" style="display: <?php echo ( $client_email_input_visible ? "block" :"block" ) ; ?>" id="div_client_email_input">
                                             <i class="material-icons prefix">email</i>
-                                            <input type="text" name="data[client_email]" id="client_email" value="<?= ( !empty($client->client_email) ? $client->client_email : '' ); ?>" class="form-control" maxlength="50"  />
+                                            <input type="text" name="data[client_email_first]" id="client_email" value="<?= ( !empty($client->client_email) ? $client->client_email : '' ); ?>" class="form-control" maxlength="50"  />
                                             <label for="client_email" class=""><?php echo lang('email') ?></label>
                                         </div>
 
