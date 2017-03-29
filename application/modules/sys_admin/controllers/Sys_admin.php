@@ -679,10 +679,12 @@ class Sys_admin extends CI_Controller {
 		$ret = move_uploaded_file( $src_filename, $this->clients_mdl->getClientDir($cid) . $img_basename );
 
 		if ($select_on_update == 'reopen_editor') {
-			$redirect_url = base_url() . 'sys-admin/clients-edit/' . $cid . $page_parameters_with_sort;
+//			$redirect_url = base_url() . 'sys-admin/clients-edit/' . $cid . $page_parameters_with_sort;
+			$redirect_url = base_url() . 'sys-admin/clients-view/'. $cid . $page_parameters_with_sort;
 		}
 		if ($select_on_update == 'open_editor_for_new') {
-			$redirect_url = base_url() . 'sys-admin/clients-edit/new' . $page_parameters_with_sort;
+//			$redirect_url = base_url() . 'sys-admin/clients-edit/new' . $page_parameters_with_sort;
+			$redirect_url = base_url() . 'sys-admin/clients-view/' . $page_parameters_with_sort;
 		}
 
 		if ($cid) {
