@@ -110,13 +110,14 @@ $(document).ready(function(){
         });
         //$('#newclient').modal('show');
     });
-    //$('#artash').on('click',function(){
-    //    $('header').css('position','static');
-    //});
     $('#artash').on('click',function(){
-        $('#sidenav-overlay').css('position','relative');
-
+        $('header').css('position','static');
+        //$('.page-content-wrapper .page-content').css('padding-top','0');
     });
+    //$('#artash').on('click',function(){
+    //    $('#sidenav-overlay').css('position','relative');
+    //
+    //});
 
 
 
@@ -190,8 +191,6 @@ $(document).ready(function(){
     });
 
 
-
-
 // class helper functions from bonzo https://github.com/ded/bonzo
 
     function classReg( className ) {
@@ -258,9 +257,12 @@ $(document).ready(function(){
         var page_title_width = $('.page-title').width(),
             page_title_text_width = $('.page-title .page-title-text').width();
 
+        console.log('resize!!!');
 
-
-        if(page_title_width < page_title_text_width){
+        if($(window).width > 680){
+            $('.page-title').width(658);
+            $('.page-title-dots').css('display', 'none');
+        }else if(page_title_width < page_title_text_width){
             var page_title_dots_width = $('.page-title-dots').width();
             $('.page-title').width(page_title_width - page_title_dots_width);
             $('.page-title-dots').css('display', 'inline-block');
@@ -268,13 +270,17 @@ $(document).ready(function(){
             document.getElementById("logo").addEventListener('scroll', function(e){
                 var horizontal = e.currentTarget.scrollLeft;
                 if(page_title_text_width - horizontal <= page_title_width){
-                    $('.page-title').width(page_title_width);
+                    $('.page-title').width(658);
                     $('.page-title-dots').css('display', 'none');
                 }else{
                     $('.page-title').width(page_title_width - page_title_dots_width);
                     $('.page-title-dots').css('display', 'inline-block');
                 }
             });
+        }else{
+            console.log('full!');
+            $('.page-title').width(658);
+            $('.page-title-dots').css('display', 'none');
         }
     };
 
@@ -295,7 +301,31 @@ $(document).ready(function(){
 
 })( window );
 
+function validateFormEnableOrDisable(form_id){
+    var disable = false;
+    $('#'+form_id+' .required_form').each(function(){
+        if($(this).val() == ""){
+            disable = true;
+        }
+        console.log($(this).val());
+    });
 
+    $('#'+form_id+' .required_form_to_check').each(function(){
+        var name = $(this).attr('name');
+
+        if($('input[name='+name+']:checked').val() == undefined){
+            disable = true;
+        }
+    });
+
+    if(disable){
+        $('.disable_form_id_'+form_id).attr('disabled', true);
+    }else{
+        $('.disable_form_id_'+form_id).removeAttr('disabled');
+    }
+
+    console.log(disable);
+}
 
 function init() {
     window.addEventListener('scroll', function(e){
@@ -303,11 +333,13 @@ function init() {
             shrinkOn = 0,
             header = document.querySelector("header");
         if (distanceY > shrinkOn) {
+            if($('header').css('position') == 'fixed')
             $('.page-content-wrapper .page-content').css('padding-top','60px');
             classie.add(header,"smaller");
             $('.page-title').removeAttr('style');
             $('.page-title-dots').css('display', 'none');
         } else {
+                if($('header').css('position') == 'fixed')
                 $('.page-content-wrapper .page-content').css('padding-top','80px');
                 if (classie.has(header,"smaller")) {
                     classie.remove(header,"smaller");
@@ -369,8 +401,26 @@ function init() {
     //});
 
     window.addEventListener('click', function(e){
-        //console.log(e.target);
+
         var el = e.target;
+
+        if(!$(el).hasClass('side-nav') && $(el).id != "artash" && !$(el).parents('.side-nav').length && $('header').css('position') == 'static'){
+
+            var distanceY = window.pageYOffset || document.documentElement.scrollTop,
+                shrinkOn = 0;
+
+            $('header').css('position','fixed');
+
+            if (distanceY > shrinkOn) {
+                $('.page-content-wrapper .page-content').css('padding-top', '60px');
+            }else{
+                $('.page-content-wrapper .page-content').css('padding-top', '80px');
+            }
+
+
+        }
+        //console.log(e.target);
+
         if(!$(el).hasClass('notific-area') && !$(el).hasClass('zang') && !$(el).parents('.notific-area').length){
             if( $(".notific-area").css("display") != "none"){
                 $(".zang").css('background-color','transparent');

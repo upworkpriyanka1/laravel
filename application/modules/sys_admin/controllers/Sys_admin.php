@@ -10,8 +10,13 @@ class Sys_admin extends CI_Controller {
 		 $this->load->model('sys_admin_mdl','admin_mdl');
 		 $this->load->model('clients_mdl','clients_mdl');
 		 $this->lang->load('sys_admin');
-		 $this->config->load('sys_admin_menu', true );
-		 $this->menu    			= $this->config->item( 'sys_admin_menu' );
+//		 $this->config->load('sys_admin_menu', true );
+//		 $this->menu    			= $this->config->item( 'sys_admin_menu' );
+
+		 $this->config->load('sys_admin_menu_new', true );
+		 $this->menu    			= $this->config->item( 'sys_admin_menu_new' );
+
+
 		 $eh_url = base_url() . 'sys-admin/eh';
 		if(current_url()!=$eh_url){
 			$group = array('sys-admin');
@@ -79,6 +84,7 @@ class Sys_admin extends CI_Controller {
 
 		$this->layout->view($views,$data);
 	}
+
 	public function eh(){
 
 		$this->load->view('main/eh');
@@ -171,6 +177,9 @@ class Sys_admin extends CI_Controller {
 		if (!empty($_POST)) {
 			$validation_status = $this->form_validation->run();
 			if ($validation_status != FALSE) {
+//				echo "<pre>";
+//				print_r($post_array);
+//				die;
 				$this->client_edit_makesave($is_insert, $cid, $data['select_on_update'], $redirect_url, $page_parameters_with_sort, $post_array, $app_config, $data['client_color_schemes'] );
 			} else {
 				$client = $this->client_edit_fill_current_data( $client, $is_insert, $cid );
@@ -424,13 +433,16 @@ class Sys_admin extends CI_Controller {
 	public function clients_edit()
 	{
 		$UriArray = $this->uri->uri_to_assoc(2);
+
 		$is_insert= true;
 		$app_config = $this->config->config;
+
 		$cid= '';
 		if ( !empty($UriArray['clients-edit']) and $this->common_lib->is_positive_integer($UriArray['clients-edit'])  ) {
 			$is_insert= false;
 			$cid= $UriArray['clients-edit'];
 		}
+
 		$post_array = $this->input->post();
 		$sort= $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort');
 		$sort_direction = $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort_direction');
@@ -476,6 +488,7 @@ class Sys_admin extends CI_Controller {
 		$data['group'] 		= $this->group->name;
 		$client= '';
 		$data['validation_errors_text'] = '';
+
 		$this->client_edit_form_validation($is_insert, $cid);
 		if (!empty($_POST)) {
 			$validation_status = $this->form_validation->run();
@@ -492,15 +505,117 @@ class Sys_admin extends CI_Controller {
 
 		}
 
+
 		$data['client']		= $client;
 		$data['page_parameters_with_sort']= $page_parameters_with_sort;
 		$data['page_parameters_without_sort']= $page_parameters_without_sort;
-		$data['page']		= 'clients/client-edit'; //page view to load
+//		$data['page']		= 'clients/client-edit'; //page view to load
+		$data['page']		= 'clients/client-edit-new'; //page view to load
 		$data['plugins'] 	= array('validation'); //page plugins
 		$data['javascript'] = array( 'assets/custom/admin/client-edit.js' );//page javascript
 		$views				=  array('design/html_topbar','sidebar','design/page','design/html_footer');
 //		$this->layout->view($views, $data);
-		redirect(base_url().'/sys-admin/clients-view');
+//		echo "<pre>";
+//		print_r($data);
+//		die;
+		$this->load->view('clients/client-edit-new',$data);
+//		redirect(base_url().'/sys-admin/clients-view');
+//		redirect(base_url().'/client-mockup-sacred-city/system-admin/client_overview_view');
+
+	}
+
+	public function clients_edit_new()
+	{
+		$UriArray = $this->uri->uri_to_assoc(2);
+
+		$is_insert= true;
+		$app_config = $this->config->config;
+
+		$cid= '';
+		if ( !empty($UriArray['clients-edit']) and $this->common_lib->is_positive_integer($UriArray['clients-edit'])  ) {
+			$is_insert= false;
+			$cid= $UriArray['clients-edit'];
+		}
+
+		$post_array = $this->input->post();
+		$sort= $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort');
+		$sort_direction = $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort_direction');
+		$page_number = $this->common_lib->getParameter($this, $UriArray, $post_array, 'page_number', 1);
+		$filter_client_name = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_name');
+		$filter_client_active_status = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_active_status');
+		$filter_client_type = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_type');
+		$filter_client_zip = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_zip');
+		$filter_created_at_from = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_created_at_from');
+		$filter_created_at_till = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_created_at_till');
+		$filter_created_at_from_formatted= $this->common_lib->convertFromMySqlToCalendarFormat($filter_created_at_from);
+		$filter_created_at_till_formatted= $this->common_lib->convertFromMySqlToCalendarFormat($filter_created_at_till); //2016-09-05 -> 5 September, 2016
+		$data['filter_client_name']= $filter_client_name;
+		$data['filter_client_active_status']= $filter_client_active_status;
+		$data['filter_client_type']= $filter_client_type;
+		$data['filter_client_zip']= $filter_client_zip;
+		$data['filter_created_at_from']= $filter_created_at_from;
+		$data['filter_created_at_till']= $filter_created_at_till;
+		$data['filter_created_at_from_formatted']= $filter_created_at_from_formatted;
+		$data['filter_created_at_till_formatted']= $filter_created_at_till_formatted;
+		$data['filter_created_at_till_formatted']= $filter_created_at_till_formatted;
+
+		$page_parameters_with_sort = $this->clientsPreparePageParameters($UriArray, $post_array, false, true);
+		$page_parameters_without_sort = $this->clientsPreparePageParameters($UriArray, $post_array, false, false);
+		$redirect_url = base_url() . 'sys-admin/clients-view' . $page_parameters_with_sort;
+
+		$data['meta_description']='';
+		$data['editor_message']= $this->session->flashdata('editor_message');
+		$data['select_on_update']= $this->common_lib->getParameter($this, $UriArray, $post_array, 'select_on_update');
+
+		$data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
+		$data['client_active_status_array']= $this->clients_mdl->getClientActiveStatusValueArray(false);
+		$data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
+		$data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
+		$data['client_color_schemes'] = $this->config->item('client_color_schemes');
+
+
+		$data['is_insert']  = $is_insert;
+		$data['cid']      = $cid;
+		$data['menu']		= $this->menu;
+		$data['user'] 		= $this->user;
+//		$data['job'] 		= $this->job;
+		$data['group'] 		= $this->group->name;
+		$client= '';
+		$data['validation_errors_text'] = '';
+
+		$this->client_edit_form_validation($is_insert, $cid);
+		if (!empty($_POST)) {
+			$validation_status = $this->form_validation->run();
+			if ($validation_status != FALSE) {
+				$this->client_edit_makesave($is_insert, $cid, $data['select_on_update'], $redirect_url, $page_parameters_with_sort, $post_array, $app_config, $data['client_color_schemes'] );
+			} else {
+				$client = $this->client_edit_fill_current_data( $client, $is_insert, $cid );
+				$data['validation_errors_text'] = validation_errors( /*$layout_config['backend_error_icon_start'], $layout_config['backend_error_icon_end']*/ );
+//				echo '<pre>$data[\'validation_errors_text\']::'.print_r($data['validation_errors_text'],true).'</pre>';
+			}
+		}
+		else {
+			$client		= $this->clients_mdl->getRowById( $this->uri->segment(3), array('show_file_info'=> 1, 'image_width'=> 128, 'image_height'=> 128) );
+
+		}
+
+
+		$data['client']		= $client;
+		$data['page_parameters_with_sort']= $page_parameters_with_sort;
+		$data['page_parameters_without_sort']= $page_parameters_without_sort;
+//		$data['page']		= 'clients/client-edit'; //page view to load
+		$data['page']		= 'clients/client-edit-news'; //page view to load
+		$data['plugins'] 	= array('validation'); //page plugins
+		$data['javascript'] = array( '/assets/global/js/client-overview-view.js' );//page javascript
+		$views				=  array('design/html_topbar_client_overview','sidebar','design/page','design/html_footer');
+		$this->layout->view($views, $data);
+//		echo "<pre>";
+//		print_r($data);
+//		die;
+//		$this->load->view('clients/client-edit-new',$data);
+//		redirect(base_url().'/sys-admin/clients-view');
+//		redirect(base_url().'/client-mockup-sacred-city/system-admin/client_overview_view');
+
 	}
 
 	private function client_edit_makesave($is_insert, $cid, $select_on_update, $redirect_url, $page_parameters_with_sort, $post_array, $app_config, $client_color_schemes_array ) {
@@ -524,7 +639,8 @@ class Sys_admin extends CI_Controller {
 //
 //		}
 
-		$update_data= array( 'client_name' => $post_array['data']['client_name'],  'client_img' => $post_array['data']['client_img'],  'clients_types_id' => $post_array['data']['clients_types_id'], 'client_name' => $post_array['data']['client_owner'] , 'client_address1' => $post_array['data']['client_address1'] , 'client_address2' => $post_array['data']['client_address2'] , 'client_city' => $post_array['data']['client_city'] , 'client_state' => $post_array['data']['client_state'] , 'client_zip' => $post_array['data']['client_zip'], 'client_phone' => $post_array['data']['client_phone'],  'client_phone_2' => $post_array['data']['client_phone_2'],  'client_phone_3' => $post_array['data']['client_phone_3'],  'client_phone_4' => $post_array['data']['client_phone_4'],  'client_phone_type' => $post_array['data']['client_phone_type'],   'client_fax' => $post_array['data']['client_fax'] , 'client_email' => $post_array['data']['client_email'] , 'client_website' => $post_array['data']['client_website']  , 'color_scheme' => $color_scheme, 'client_active_status' => $post_array['data']['client_active_status'] );
+//		$update_data= array( 'client_name' => $post_array['data']['client_name'],  'client_img' => $post_array['data']['client_img'],  'clients_types_id' => $post_array['data']['clients_types_id'], 'client_name' => $post_array['data']['client_owner'] , 'client_address1' => $post_array['data']['client_address1'] , 'client_address2' => $post_array['data']['client_address2'] , 'client_city' => $post_array['data']['client_city'] , 'client_state' => $post_array['data']['client_state'] , 'client_zip' => $post_array['data']['client_zip'], 'client_phone' => $post_array['data']['client_phone'],  'client_phone_2' => $post_array['data']['client_phone_2'],  'client_phone_3' => $post_array['data']['client_phone_3'],  'client_phone_4' => $post_array['data']['client_phone_4'],  'client_phone_type' => $post_array['data']['client_phone_type'],   'client_fax' => $post_array['data']['client_fax'] , 'client_email' => $post_array['data']['client_email'] , 'client_website' => $post_array['data']['client_website']  , 'color_scheme' => $color_scheme, 'client_active_status' => $post_array['data']['client_active_status'] );
+		$update_data= array( 'client_name' => $post_array['data']['client_name'],  'client_img' => $post_array['data']['client_img'],  'clients_types_id' => $post_array['data']['clients_types_id'], 'client_name' => $post_array['data']['client_owner'] , 'client_address1' => $post_array['data']['client_address1'] , 'client_address2' => $post_array['data']['client_address2'] , 'client_city' => $post_array['data']['client_city'] , 'client_state' => $post_array['data']['client_state'] , 'client_zip' => $post_array['data']['client_zip'], 'client_phone' => $post_array['data']['client_phone'],  'client_phone_2' => $post_array['data']['client_phone_2'],  'client_phone_3' => $post_array['data']['client_phone_3'],  'client_phone_4' => $post_array['data']['client_phone_4'],  'client_phone_type' => $post_array['data']['client_phone_type'],   'client_fax' => $post_array['data']['client_fax'] , 'client_email' => $post_array['data']['client_email_first'] , 'client_website' => $post_array['data']['client_website']  , 'color_scheme' => $color_scheme);
 
 		$original_client_img= !empty($post_array['data']['client_img']) ? $post_array['data']['client_img'] : '';
 
@@ -563,10 +679,12 @@ class Sys_admin extends CI_Controller {
 		$ret = move_uploaded_file( $src_filename, $this->clients_mdl->getClientDir($cid) . $img_basename );
 
 		if ($select_on_update == 'reopen_editor') {
-			$redirect_url = base_url() . 'sys-admin/clients-edit/' . $cid . $page_parameters_with_sort;
+//			$redirect_url = base_url() . 'sys-admin/clients-edit/' . $cid . $page_parameters_with_sort;
+			$redirect_url = base_url() . 'sys-admin/clients-view/'. $cid . $page_parameters_with_sort;
 		}
 		if ($select_on_update == 'open_editor_for_new') {
-			$redirect_url = base_url() . 'sys-admin/clients-edit/new' . $page_parameters_with_sort;
+//			$redirect_url = base_url() . 'sys-admin/clients-edit/new' . $page_parameters_with_sort;
+			$redirect_url = base_url() . 'sys-admin/clients-view/' . $page_parameters_with_sort;
 		}
 
 		if ($cid) {

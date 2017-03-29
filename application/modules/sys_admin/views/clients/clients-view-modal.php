@@ -29,7 +29,6 @@
                         <input type="hidden" name="data[client_name]" id="client_name" value="" class="form-control" maxlength="100">
                         <input type="hidden" name="data[clients_types_id]" id="client_name" value="1" class="form-control" maxlength="100">
                         <input type="hidden" name="data[client_fax]" value="15" class="form-control" maxlength="50">
-                        <input type="hidden" name="data[client_active_status]" value="Active" class="form-control" maxlength="50">
                         <div class="form-body">
 
                             <div class="alert alert-danger display-hide">
@@ -380,7 +379,7 @@
                                                 <tr>
                                                     <td style="width: 98%">
                                                         <i class="material-icons prefix">phone</i>
-                                                        <input type="text" name="data[client_phone]" id="client_phone" value="<?= ( !empty($client->client_phone) ? $client->client_phone : '' ); ?>" class="form-control " maxlength="50" onchange="javascript:checkPhonesVisibilty(); " />
+                                                        <input type="text" name="data[client_phone]" id="client_phone" value="<?= ( !empty($client->client_phone) ? $client->client_phone : '' ); ?>" class="form-control required_form " maxlength="50" onchange="javascript:checkPhonesVisibilty(); validateFormEnableOrDisable('form_client_edit');" " />
                                                         <label for="client_phone" class=""><?php echo lang('phone') ?></label>
                                                     </td>
                                                 </tr>
@@ -538,7 +537,7 @@
 
                                 <!-- client email -->
                                 <div class="col-md-12 email add-row-able">
-                                    <div class="form-group input-field <?= $this->common_lib->set_field_error_tag("data[client_email]", ' has-error ')?>">
+                                    <div class="form-group input-field <?= $this->common_lib->set_field_error_tag("data[client_email_first]", ' has-error ')?>">
                                         <?php
                                         $is_debug= false;
                                         $client_email_button_visible = $is_insert;
@@ -570,7 +569,7 @@
 
                                         <div class="col-md-6" style="display: <?php echo ( $client_email_input_visible ? "block" :"block" ) ; ?>" id="div_client_email_input">
                                             <i class="material-icons prefix">email</i>
-                                            <input type="text" name="data[client_email]" id="client_email" value="<?= ( !empty($client->client_email) ? $client->client_email : '' ); ?>" class="form-control" maxlength="50"  />
+                                            <input type="text" name="data[client_email_first]" id="client_email" value="<?= ( !empty($client->client_email) ? $client->client_email : '' ); ?>" class="form-control" maxlength="50"  />
                                             <label for="client_email" class=""><?php echo lang('email') ?></label>
                                         </div>
 
@@ -824,23 +823,23 @@
 
                                     <form action="#">
                                         <p>
-                                            <input class="with-gap" name="group1" type="radio" id="assisted" />
+                                            <input class="with-gap required_form_to_check" name="group1" type="radio" id="assisted" onchange="validateFormEnableOrDisable('form_client_edit');" />
                                             <label for="assisted">Assisted /Senior Living Facilities</label>
                                         </p>
                                         <p>
-                                            <input class="with-gap" name="group1" type="radio" id="home" />
+                                            <input class="with-gap required_form_to_check" name="group1" type="radio" id="home" onchange="validateFormEnableOrDisable('form_client_edit');" />
                                             <label for="home">Home Health</label>
                                         </p>
                                         <p>
-                                            <input class="with-gap" name="group1" type="radio" id="SYS"  />
+                                            <input class="with-gap required_form_to_check" name="group1" type="radio" id="SYS" onchange="validateFormEnableOrDisable('form_client_edit');" />
                                             <label for="SYS">SYS Admin</label>
                                         </p>
                                         <p>
-                                            <input class="with-gap" name="group1" type="radio" id="testing"  />
+                                            <input class="with-gap required_form_to_check" name="group1" type="radio" id="testing" onchange="validateFormEnableOrDisable('form_client_edit');" />
                                             <label for="testing">testing description</label>
                                         </p>
                                         <p>
-                                            <input class="with-gap" name="group1" type="radio" id="providing"  />
+                                            <input class="with-gap required_form_to_check" name="group1" type="radio" id="providing" onchange="validateFormEnableOrDisable('form_client_edit');" />
                                             <label for="providing">a home providing care for the sick, especially the terminally ill.</label>
                                         </p>
 

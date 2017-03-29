@@ -307,6 +307,7 @@
                     <!-- END SIDEBAR MENU -->
                     <!-- SIDEBAR MENU -->
                     <li class="nav-item  eh   activity">
+
                         <a href="javascript:;" class="nav-link nav-toggle collapsible-header waves-effect waves-teal">
                             <span class="fa fa-book"></span>
                             <span class="title">Activities</span>
