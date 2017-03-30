@@ -572,21 +572,30 @@ header.smaller{
 
 .modal-footer ul li{
     display: inline-block;
-    margin: 15px;
+    margin: 5px;
 }
 .modal-footer ul li a{
     color: #000;
     padding:0;
 }
-.modal-footer ul li .btn-flat, .modal-footer ul li .btn{
-    color: #000000 !important;
+.modal-footer ul li .btn-flat{
+    color: #fff;
     font-weight: bold;
+    padding:0 15px;
+    background-color: #ef6c00;
+
+}
+.btn-flat[disabled]{
     background-color: transparent !important;
-    padding:0;
 }
 .modal-footer ul li .btn{
-    font-weight: normal;
+    color: #000;
+    background-color: transparent !important;
+    padding:0 15px;
+
+
 }
+
 select:focus{
     outline: none;
 }
@@ -846,12 +855,22 @@ input[type=text]:focus:not([readonly]){
     }
 
 }
+@media  only screen and (max-width: 465px) {
+    .modal-footer ul li, .modal-footer ul li .btn{
 
-@media  only screen and (max-width: 480px) {
-    .modal-footer ul li{
-        margin: 10px;
         font-size: 10px;
     }
+}
+
+@media  only screen and (max-width: 510px) {
+    .modal-footer ul li{
+        margin: 0px;
+
+    }
+}
+
+@media  only screen and (max-width: 480px) {
+
     header h1#logo{
         font-size: 10vw;
         width: calc(100% - 115px);
@@ -899,7 +918,6 @@ input[type=text]:focus:not([readonly]){
 @media  only screen and (max-width: 405px) {
     #newclient .modal-footer .md-foot-top, #newclient .modal-footer .md-foot-bot{
          float: none;
-        margin-bottom: 0;
     }
     #newclient .modal-footer{
         text-align: center;

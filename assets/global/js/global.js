@@ -306,8 +306,10 @@ function validateFormEnableOrDisable(form_id){
     $('#'+form_id+' .required_form').each(function(){
         if($(this).val() == ""){
             disable = true;
+            $(this).parent().find('.required').css('display', 'inline');
+        }else{
+            $(this).parent().find('span.required').css('display', 'none');
         }
-        console.log($(this).val());
     });
 
     $('#'+form_id+' .required_form_to_check').each(function(){
