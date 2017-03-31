@@ -35,6 +35,20 @@ class Users extends CI_Controller
 	 * @params
 	 * return view
 	 *********************************/
+
+	public function users_overview(){
+
+		$data['meta_description']='';
+		$data['menu']		= $this->menu;
+		$data['user'] 		= $this->user;
+		$data['group'] 		= $this->group->name;
+		$data['javascript'] = array( '/assets/global/js/client-overview-view.js'); // add picker.date pluging for date selection in fileters form
+		$data['page']		= 'users/user-overview-page';
+		$views				= array('design/html_topbar_user_overview','sidebar','design/page','design/html_footer');
+//		$this->load->view('users/user-overview-page');
+		$this->layout->view($views, $data);
+	}
+
 	public function users_view(){
 		$data['meta_description']='';
 		$data['menu']		= $this->menu;
