@@ -22,15 +22,17 @@ echo link_tag('/assets/layouts/default/css/custom-users-overview-view.css');
 
                 <div class="use-over">
                     <div class="col-xs-12">
-                        <form action="#" method="post">
+                        <form action="<?php echo base_url() ;?>sys-admin/users/users-edit/<?= ( $is_insert ? "new" : $user_id ) ?><?= $page_parameters_with_sort ?>" method="post" id="form_user_edit" name="form_user_edit" class="form-horizontal" enctype="multipart/form-data">
+                            <input type="hidden" name="user" value="<?=$user_id?>">
                             <!-- User First & Middle name -->
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label for="first_name" class="col-md-4 control-label">First Name</label>
+                                    <label for="first_name" class="col-md-4 control-label" ><?php echo lang('first_name') ?></label>
                                     <div class="col-md-8">
-                                        <input type="text" name="" id="first_name" value="" class="form-control">
+                                        <input type="text" name="data[first_name]" id="first_name" value="<?= ( !empty($editable_user->first_name) ? $editable_user->first_name : '' ); ?>" class="form-control" maxlength="50" />
                                     </div>
                                 </div>
+
                                 <div class="col-md-6">
                                     <label for="middle-name" class="col-md-4 control-label">Middle Name</label>
                                     <div class="col-md-8">
@@ -41,49 +43,20 @@ echo link_tag('/assets/layouts/default/css/custom-users-overview-view.css');
                             <!-- User Last name & Title -->
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label for="last_name" class="col-md-4 control-label">Last Name</label>
+                                    <label for="last_name" class="col-md-4 control-label"><?php echo lang('last_name') ?></label>
                                     <div class="col-md-8">
-                                        <input type="text" name="" id="last_name" value="" class="form-control">
+                                        <input type="text" name="data[last_name]" id="last_name" value="<?= ( !empty($editable_user->last_name) ? $editable_user->last_name : '' ); ?>" class="form-control" maxlength="50" />
+
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="title" class="col-md-4 control-label">Title</label>
+                                    <label for="title" class="col-md-4 control-label"><?php echo lang('title') ?></label>
                                     <div class="col-md-8">
                                         <input type="text" name="" id="title" value=""  class="form-control">
                                     </div>
                                 </div>
                             </div>
-                            <!-- User Picture 1 & Picture2 -->
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="file-field input-field">
-                                        <div class="col-md-4">
-                                            <div class="btn">
-                                                <span>Picture 1</span>
-                                                <input type="file">
-                                            </div>
-                                        </div>
 
-                                        <div class="file-path-wrapper col-md-8">
-                                            <input class="file-path validate" type="text">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="file-field input-field">
-                                        <div class="col-md-4">
-                                            <div class="btn">
-                                                <span>Picture 2</span>
-                                                <input type="file">
-                                            </div>
-                                        </div>
-
-                                        <div class="file-path-wrapper col-md-8">
-                                            <input class="file-path validate" type="text">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             <!-- User Client & status -->
                             <div class="row">
                                 <div class="col-md-6">
@@ -92,6 +65,20 @@ echo link_tag('/assets/layouts/default/css/custom-users-overview-view.css');
                                         <input type="text" name="" id="client" value="" class="form-control">
                                     </div>
                                 </div>
+<!--                                <div class="col-md-6">-->
+<!---->
+<!--                                    <label class="col-md-4 control-label" for="user_active_status">--><?php //echo lang('status')?><!--</label>-->
+<!--                                    <div class="col-md-8">-->
+<!--                                        <select id="user_active_status" name="data[user_active_status]"  class="form-control editable_field">-->
+<!--                                            <option value="">  -Select User Status-  </option>-->
+<!--                                            --><?php //foreach( $userActiveStatusValueArray as $next_key=>$next_User_Status ) { ?>
+<!--                                                <option value="--><?//= $next_User_Status['key'] ?><!--" --><?//= ( !empty($editable_user->user_active_status) and $editable_user->user_active_status == $next_User_Status['key'] ) ? "selected" : "" ?><!-- >--><?//= $next_User_Status['value'] ?><!--</option>-->
+<!--                                            --><?php //} ?>
+<!--                                        </select>-->
+<!--                                    </div>-->
+<!--                                </div><!-- ./col -->
+
+
                                 <div class="col-md-6">
                                     <label class="col-md-4 control-label">Status</label>
                                     <div class="input-field col-md-8">
@@ -106,28 +93,122 @@ echo link_tag('/assets/layouts/default/css/custom-users-overview-view.css');
                                 </div>
                             </div>
 
-                            <!--Phone-->
+                            <!--User Phone-->
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label for="phone" class="col-md-4 control-label">Phone</label>
+                                    <label for="phone" class="col-md-4 control-label"><?php echo lang('phone')?></label>
                                     <div class="col-md-8">
-                                        <input type="text" name="" id="phone" value="" class="form-control">
+                                        <input type="text" name="data[phone]" id="phone" value="<?= ( !empty($editable_user->phone) ? $editable_user->phone : '' ); ?>" class="form-control" maxlength="20" />
+
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="phone-type" class="col-md-4 control-label">Phone Type</label>
                                     <div class="col-md-8">
-                                        <input type="text" name="" id="phone-type" value="" class="form-control">
+                                        <input type="text" name="phone-type" list="phonenametype">
+
+                                        <datalist id="phonenametype">
+                                            <option value="Home">
+                                            </option><option value="Work">
+                                            </option><option value="Other">
+                                            </option></datalist>
                                     </div>
                                 </div>
+                            </div>
 
-                            </div> <!-- ./row -->
-                            <!--END Phone-->
 
+                            <!-- Userintalled status -->
+<!--                            <div class="row">-->
+<!--                                <div class="col-md-12">-->
+<!--                                    <label class="col-md-2 control-label">App installed status</label>-->
+<!--                                    <div class="input-field col-md-10">-->
+<!--                                        <select class="form-control">-->
+<!--                                            <option>phone make / model</option>-->
+<!--                                            <option>OS (version)</option>-->
+<!--                                            <option>Time/date app was installed log</option>-->
+<!--                                            <option value="">Time/date app was uninstalled log</option>-->
+<!--                                        </select>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+
+                            <!-- User address1 & address2 -->
                             <div class="row">
-                                <div class="col-md-12">
-                                    <label class="col-md-2 control-label">App installed status</label>
-                                    <div class="input-field col-md-10">
+                                <div class="col-md-6">
+                                    <label for="address1" class="col-md-4 control-label"><?php echo lang('user_address1')?></label>
+                                    <div class="col-md-8">
+                                        <input type="text" name="data[address1]" id="address1" value="<?= ( !empty($editable_user->address1) ? $editable_user->address1 : '' ); ?>" class="form-control" maxlength="100" />
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="address2" class="col-md-4 control-label"><?php echo lang('user_address2')?></label>
+                                    <div class="col-md-8">
+                                        <input type="text" name="data[address2]" id="address2" value="<?= ( !empty($editable_user->address2) ? $editable_user->address2 : '' ); ?>"  class="form-control" maxlength="100" />
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- User City -->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="city" class="col-md-4 control-label"><?php echo lang('city')?></label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="city" name="data[city]" value="<?= ( !empty($editable_user->city) ? $editable_user->city : '' );?>" class="form-control" maxlength="100" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="zip" class="col-md-4 control-label"><?php echo lang('zip')?></label>
+                                    <div class="col-md-8">
+                                        <input type="text" name="data[zip]" value="<?= ( !empty($editable_user->zip) ? $editable_user->zip : '' ) ;?>" class="form-control" maxlength="50" />
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- User State -->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="state" class="col-md-4 control-label"><?php echo lang('state')?></label>
+                                    <div class="col-md-8">
+                                        <input type="text" name="data[state]" value="<?= ( !empty($editable_user->state) ? $editable_user->state : '' )?>" class="form-control" maxlength="50" />
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="pat-assig" class="col-md-4 control-label">Patient Assignments</label>
+                                    <div class="col-md-8">
+                                        <input type="text" name="" id="pat-assig" value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- User Picture 1installes status -->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="file-field input-field">
+                                        <div class="col-md-4">
+                                            <div class="btn">
+                                                <span>Picture 1</span>
+                                                <input type="file" id="avatar" name="avatar">
+                                            </div>
+                                        </div>
+
+                                        <div class="file-path-wrapper col-md-8">
+                                            <input class="file-path validate" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-3 col-sm-4 col-xs-6"><img class="img-responsive" src="http://2.bp.blogspot.com/-H6MAoWN-UIE/TuRwLbHRSWI/AAAAAAAABBk/89iiEulVsyg/s400/Free%2BNature%2BPhoto.jpg" /></div>
+                                            <div class="col-md-3 col-sm-4 col-xs-6"><img class="img-responsive" src="http://blog.arborday.org/wp-content/uploads/2013/02/NEC1-300x200.jpg" /></div>
+                                            <div class="col-md-3 col-sm-4 col-xs-6"><img class="img-responsive" src="http://th03.deviantart.net/fs70/200H/f/2010/256/0/9/painting_of_nature_by_dhikagraph-d2ynalq.jpg" /></div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="col-md-4 control-label">App installed status</label>
+                                    <div class="input-field col-md-8">
                                         <select class="form-control">
                                             <option>phone make / model</option>
                                             <option>OS (version)</option>
@@ -138,48 +219,13 @@ echo link_tag('/assets/layouts/default/css/custom-users-overview-view.css');
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="address-1" class="col-md-4 control-label">Address 1</label>
-                                    <div class="col-md-8">
-                                        <input type="text" name="" id="address-1" value="" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="address-2" class="col-md-4 control-label">Address 2</label>
-                                    <div class="col-md-8">
-                                        <input type="text" name="" id="address-2" value="" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
+                            <div class="row ">
+                                <div class=" btn-group  editor_btn_group " >
 
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="city" class="col-md-4 control-label">City</label>
-                                    <div class="col-md-8">
-                                        <input type="text" name="" id="city" value="" class="form-control">
+                                    <div class="col-sm-3 col-xs-12 ">
+                                        <button type="submit" class="btn btn-primary">Submit</button>
                                     </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="zip" class="col-md-4 control-label">Zip</label>
-                                    <div class="col-md-8">
-                                        <input type="text" name="" id="zip" value="" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="state" class="col-md-4 control-label">State</label>
-                                    <div class="col-md-8">
-                                        <input type="text" name="" id="state" value="" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="pat-assig" class="col-md-4 control-label">Patient Assignments</label>
-                                    <div class="col-md-8">
-                                        <input type="text" name="" id="pat-assig" value="" class="form-control">
-                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -336,4 +382,3 @@ echo link_tag('/assets/layouts/default/css/custom-users-overview-view.css');
         </div>
     </div>
 </div>
-<script src="/assets/global/js/users-overview-view.js"></script>

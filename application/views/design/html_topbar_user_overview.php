@@ -20,7 +20,7 @@ $img_url = base_url()."/assets/avatar/".$res->filename;
                 <div class="page-title">
                     <h1  id="logo">
                         <!-- <a href="#" data-activates="nav-mobile" class="button-collapse" id="nav_mobile_button"><i class="material-icons">menu</i></a>-->
-                        <span class='logo_first'>C</span>Client
+                        <span class='logo_first'><?php echo $editable_user->last_name[0] ?></span><?php echo $editable_user->last_name?> <?php echo $editable_user->first_name ?>
 
                     </h1>
 
@@ -31,8 +31,8 @@ $img_url = base_url()."/assets/avatar/".$res->filename;
                                 <div class="tb-adr">
                                     <span class="icon-tb-cl"><i class="material-icons">location_on</i></span>
                                     <ul class="text-tb-cl">
-                                        <li>622 Central Ave, Unit X </li>
-                                        <li>Central Valley, OE 99999</li>
+                                        <li><?php echo $editable_user->address1 ?> </li>
+                                        <li><?php echo $editable_user->address2 ?></li>
                                     </ul>
                                 </div>
                             </div>
@@ -41,8 +41,7 @@ $img_url = base_url()."/assets/avatar/".$res->filename;
                                 <div class="tb-adr">
                                     <p class="icon-tb-cl"><i class="material-icons">call</i></p>
                                     <ul class="text-tb-cl">
-                                        <li>(246 463-2538)</li>
-                                        <li>(246 463-2500)</li>
+                                        <li><?php echo $editable_user->phone ?></li>
                                     </ul>
                                 </div>
                             </div>

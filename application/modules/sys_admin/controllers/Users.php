@@ -249,13 +249,37 @@ class Users extends CI_Controller
 		$data['editable_user']		= $editable_user;
 		$data['page_parameters_with_sort']= $page_parameters_with_sort;
 		$data['page_parameters_without_sort']= $page_parameters_without_sort;
-		$data['page']		= 'users/user-edit'; //page view to load
+//		$data['page']		= 'users/user-edit'; //page view to load
+		$data['page']		= 'users/user-overview-page'; //page view to load
 		$data['plugins'] 	= array('validation'); //page plugins
-		$data['javascript'] = array( 'assets/custom/admin/user-edit.js' );//page javascript
-		$views				=  array('design/html_topbar','sidebar','design/page','design/html_footer');
+//		$data['javascript'] = array( 'assets/custom/admin/user-edit.js' );//page javascript
+		$data['javascript'] = array( 'assets/global/js/users-overview-view.js' );//page javascript
+//		$views				=  array('design/html_topbar','sidebar','design/page','design/html_footer');
+		$views				=  array('design/html_topbar_user_overview','sidebar','design/page','design/html_footer');
+//		echo "<pre>";
+//		print_r($data);
+//		die;
 		$this->layout->view($views, $data);
 	}
 
+	public function users_uploadimage(){
+
+		if ( 0 < $_FILES['file']['error'] ) {
+			echo 'Error: ' . $_FILES['file']['error'] . '<br>';
+		}
+		else {
+//			echo "<pre>";
+//			print_r($_POST['user']);
+//			die();
+			$upload_path='assets/avatar/'.$_POST['user'].'/';
+			if (!file_exists($upload_path)) {
+				mkdir($upload_path, 0777, true);
+			}
+			move_uploaded_file($_FILES['file']['tmp_name'], $upload_path . $_FILES['file']['name']);
+		}
+
+
+	}
 	public function user_check_username_is_unique()
 	{
 		$username = $this->input->post('data[username]', '');
