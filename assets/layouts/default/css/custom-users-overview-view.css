@@ -829,3 +829,49 @@ select.form-control{
     border:none;
     border-bottom: 1px solid #9e9e9e;
 }
+
+
+.user-img-box {
+    position: relative;
+}
+
+.user-img-box .image {
+    opacity: 1;
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: .5s ease;
+    backface-visibility: hidden;
+}
+
+.user-img-box .img-middle {
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%)
+}
+
+.user-img-box .img-text a:first-child{
+    background-color: green;
+}
+
+.user-img-box .img-text a{
+    color: white;
+    display: inline-block;
+    padding: 2px 0;
+    background-color: red;
+    width: 20px;
+    text-align: center;
+    text-decoration: none !important;
+    vertical-align: middle;
+}
+.user-img-box:hover .image {
+    opacity: 0.3;
+}
+
+.user-img-box:hover .img-middle {
+    opacity: 1;
+}

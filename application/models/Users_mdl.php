@@ -12,7 +12,8 @@ class Users_mdl extends CI_Model
 	public $m_jobs_table;
 	public $m_users_groups_table;
 	public $m_groups_table;
-	private $UserActiveStatusLabelValueArray = Array('N' => 'New', 'W' => 'Waiting for activation', 'A' => 'Active', 'I' => 'Inactive');
+	private $UserActiveStatusLabelValueArray = Array('N' => 'New', 'W' => 'Waiting for activation', 'A' => 'Active', 'I' => 'Inactive', 'On' => 'Online','Of' => 'Offline', 'L' => 'Last Login');
+	private $PhoneTypeArray = Array('H' => 'Home', 'W' => 'Work', 'O' => 'Other');
 
 	function __construct()
 	{
@@ -31,6 +32,19 @@ class Users_mdl extends CI_Model
 	{
 		$ResArray = array();
 		foreach ($this->UserActiveStatusLabelValueArray as $Key => $Value) {
+			if ( $ret_with_subarray ) {
+				$ResArray[] = array('key' => $Key, 'value' => $Value);
+			}else {
+				$ResArray[$Key]= $Value;
+
+			}
+		}
+		return $ResArray;
+	}
+	public function getUserPhoneTypeArray($ret_with_subarray= true)
+	{
+		$ResArray = array();
+		foreach ($this->PhoneTypeArray as $Key => $Value) {
 			if ( $ret_with_subarray ) {
 				$ResArray[] = array('key' => $Key, 'value' => $Value);
 			}else {
