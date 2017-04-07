@@ -276,10 +276,14 @@ if ((!empty($_SERVER["HTTP_HOST"]) and !(strpos($_SERVER["HTTP_HOST"], "local-zn
 
     } 
 	else if (ENVIRONMENT == 'devB') {
-        $config['log_path'] = FCPATH . 'devB\log'; 
-        $config['sql_queries_to_file'] = FCPATH . 'devB\logs\sql_queries_to_file_';
-        $config['document_root'] = FCPATH;
-        $config['base_url'] = 'https://localhost/zntral_site_new/';
+        //$config['log_path'] = FCPATH . 'devB\log'; 
+		$config['log_path'] = '/home/zntral/dev5/log/';
+        //$config['sql_queries_to_file'] = FCPATH . 'devB\logs\sql_queries_to_file_';
+		$config['sql_queries_to_file'] = '/home/zntral/dev5/logs/sql_queries_to_file_';
+        //$config['document_root'] = FCPATH;
+		$config['document_root'] = '/home/zntral/dev5/';
+        $config['base_url'] = 'https://dev5.zntral.net/';
+        //$config['base_url'] = 'https://localhost/zntral_site_new/';
         $config['is_developer_comp'] = 1;
 
     } 
