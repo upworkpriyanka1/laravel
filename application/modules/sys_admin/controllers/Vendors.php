@@ -569,10 +569,22 @@ class Vendors extends CI_Controller
     {
         $this->form_validation->set_rules( 'data[vn_name]', lang('vendor'), 'callback_vendor_check_vn_name_is_unique' );
         $this->form_validation->set_rules( 'data[vn_email]', lang('vn_email'), 'required|valid_email|callback_vendor_check_vn_email_is_unique' );
-        $this->form_validation->set_rules( 'data[vn_website]', lang('vn_website'), 'required' );
+        $this->form_validation->set_rules( 'data[vn_website]', lang('vn_website'), 'required|callback_valid_url_format' );
         $this->form_validation->set_rules( 'data[vn_description]', lang('vn_description'), '' );
         $this->form_validation->set_rules( 'vendor_has_types_label', lang('vendor_has_types_label'), 'callback_vendors_have_types_label');
     }
+	
+	// Added by BBITS Dev to validate URL
+	public function valid_url_format($str)
+	{
+		$pattern = "|^http(s)?://[a-z0-9-]+(.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i";
+		if(!preg_match($pattern, $str))
+		{
+			$this->form_validation->set_message('valid_url_format','Enter correct URL');
+			return false;
+		}
+		return true;
+	}
 
     public function vendors_have_types_label($str)
     {

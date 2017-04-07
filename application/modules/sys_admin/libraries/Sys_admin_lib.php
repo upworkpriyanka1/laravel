@@ -113,7 +113,16 @@ class Sys_admin_lib {
         }else{
             $data['type_name']= preg_replace("/[^A-Za-z-]/", '-', $_POST['data']['name']);
             $data['type_description']=$_POST['data']['description'];
-            echo $this->CI->common_mdl->db_insert('clients_types',$data,TRUE); //isert job
+			// Check if client type already exists or not.
+			$client_type_check = $this->CI->common_mdl->get_records('clients_types','type_name',$data['type_name']);		
+			if(sizeof($client_type_check) <= 0)
+			{
+            	echo $this->CI->common_mdl->db_insert('clients_types',$data,TRUE); //isert job
+			}
+			else
+			{
+				echo "Client type already exists.";
+			}
         }
     }
 

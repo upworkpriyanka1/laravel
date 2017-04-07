@@ -124,6 +124,8 @@ class Users extends CI_Controller
 			$user_id= $UriArray['users-edit'];
 		}
 		$post_array = $this->input->post();
+		/*echo "post array is ";
+		print_r($post_array);*/
 		$sort= $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort');
 		$sort_direction = $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort_direction');
 		$page_number = $this->common_lib->getParameter($this, $UriArray, $post_array, 'page_number', 1);
@@ -327,6 +329,13 @@ class Users extends CI_Controller
 	}
 
 	private function user_edit_makesave($is_insert, $user_id, $select_on_update, $redirect_url, $page_parameters_with_sort, $post_array, $app_config ) {
+	
+		/*echo "<pre>";
+		echo "here in user edit makesave...";
+		echo "post array is : ";
+		print_r($post_array);
+		exit();*/
+	
 		$this->db->trans_start( );
 		$ip_address= !empty($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
 
@@ -352,6 +361,7 @@ class Users extends CI_Controller
 			$additional_data['activation_code']= $activation_code;
 
 			$user_id = $this->ion_auth->register( $post_array['data']['username'], '', $post_array['data']['email'], $additional_data,   array(  $user_group_array  )  );
+			
 			if ( $post_array['data']['user_active_status'] == "W" ) { // sent message with activation code
 				$activation_page_url= $app_config['base_url']."/activation/".$activation_code;
 				$title= 'You are registered at ' . $app_config['site_name'] . ' site';

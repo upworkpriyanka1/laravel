@@ -115,7 +115,7 @@ class Common_lib
                 <div class="glyphicon glyphicon-info-sign middle_icon pull-left " style = "font-size: xx-large; padding-bottom: 5px;" ></div>&nbsp;
                 <button class="close" data-close="alert"></button> <?= $editor_message ?>
             </div>
-        <?}
+        <? }    
     }
     /**********************
      * Get Parameter by name from POST/GET request
@@ -492,6 +492,8 @@ class Common_lib
         $filters_str .= '/sort/' . urlencode($fieldname);
         $filters_str .= '/fieldname/' . urlencode($fieldname);
         $imgHtlm = $this->tplListSortingImage($fieldname, $sort, $sort_direction);
+		$url = rtrim(base_url(),'/') . $url;
+		//echo "url is " . $url;
         $res_url = '<a href="' . $url . $filters_str . '"><span>' . $field_title . $imgHtlm . '</span></a>';
         return $res_url; //CHtml::link($field_title . "&nbsp;" . $imgHtlm, $url);
     }

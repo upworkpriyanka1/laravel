@@ -274,7 +274,16 @@ if ((!empty($_SERVER["HTTP_HOST"]) and !(strpos($_SERVER["HTTP_HOST"], "local-zn
         $config['base_url'] = 'https://devk.zntral.net/';
         $config['is_developer_comp'] = 1;
 
-    }    else {
+    } 
+	else if (ENVIRONMENT == 'devB') {
+        $config['log_path'] = FCPATH . 'devB\log'; 
+        $config['sql_queries_to_file'] = FCPATH . 'devB\logs\sql_queries_to_file_';
+        $config['document_root'] = FCPATH;
+        $config['base_url'] = 'https://localhost/zntral_site_new/';
+        $config['is_developer_comp'] = 1;
+
+    } 
+	 else {
         $config['log_path'] = '/home/zntral/front2/log/'; // '/home/dev9soft/public_html/tb/'
         $config['sql_queries_to_file'] = '/home/zntral/front2/logs/sql_queries_to_file_';
         $config['document_root'] = '/home/zntral/front2/';

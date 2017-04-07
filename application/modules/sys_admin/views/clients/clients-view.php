@@ -1,7 +1,6 @@
 <?php $ci = &get_instance();
 echo link_tag('assets/global/plugins/picker/classic.css');
 echo link_tag('assets/global/plugins/picker/classic.date.css');
-
 ?>
 
 <div class="row">

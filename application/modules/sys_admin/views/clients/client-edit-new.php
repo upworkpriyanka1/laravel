@@ -9,27 +9,27 @@
     <meta content="" name="keywords" />
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
-    <link href="/assets/global/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/global/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
     <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css" />
-    <link href="/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/global/css/materialize.min.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/global/css/ghpages-materialize.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/global/css/materialize.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/global/css/ghpages-materialize.css" rel="stylesheet" type="text/css" />
     <!-- END GLOBAL MANDATORY STYLES -->
 
     <!-- BEGIN THEME GLOBAL STYLES -->
-    <link href="/assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
-    <link href="/assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
     <!-- END THEME GLOBAL STYLES -->
 
     <!-- BEGIN THEME LAYOUT STYLES -->
-    <link href="/assets/layouts/default/css/layout.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/layouts/default/css/themes/light2.min.css" rel="stylesheet" type="text/css" id="style_color" />
-    <link href="/assets/layouts/default/css/custom-client-overview-view.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/layouts/default/css/layout.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url(); ?>assets/layouts/default/css/themes/light2.min.css" rel="stylesheet" type="text/css" id="style_color" />
+    <link href="<?php echo base_url(); ?>assets/layouts/default/css/custom-client-overview-view.css" rel="stylesheet" type="text/css" />
     <!-- END THEME LAYOUT STYLES -->
-    <link rel="shortcut icon" href="/assets/favicon.ico" />
+    <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/favicon.ico" />
 
 </head>
 <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-md">
@@ -187,7 +187,7 @@
     <ul id="nav-mobile" class="side-nav fixed" style="transform: translateX(-100%);">
         <li class="logo">
             <a href="./" class="brand-logo">
-                 <img src="/assets/img/logo.png" alt="logo" class="logo-default" />
+                 <img src="<?php echo base_url(); ?>assets/img/logo.png" alt="logo" class="logo-default" />
 <!--                <span class="logo-default"> SYSTEM </span>-->
             </a>
         </li>
@@ -482,10 +482,10 @@
                                     <div class="portlet-body">
                                         <!-- BEGIN FORM-->
                                         <form action="<?php echo base_url() ;?>sys-admin/clients-view/<?= ( $is_insert ? "new" : $cid ) ?><?= $page_parameters_with_sort ?>" method="post" id="form_client_edit" name="form_client_edit" class="form-horizontal"  enctype="multipart/form-data">
-                                            <!--                                        <input type="hidden" name="--><?//= $ci->security->get_csrf_token_name() ?><!--" value="--><?//= $this->security->get_csrf_hash() ?><!--" />-->
+                                            <!--                                        <input type="hidden" name="--><? //= $ci->security->get_csrf_token_name() ?><!--" value="--><? //= $this->security->get_csrf_hash() ?><!--" />-->
 
                                             <input type="hidden" id="filter_client_name" name="filter_client_name" value="<?=$filter_client_name?>">
-                                            <!--						<input type="hidden" id="filter_client_active_status" name="filter_client_active_status" value="--><?//=$filter_client_active_status?><!--">-->
+                                            <!--						<input type="hidden" id="filter_client_active_status" name="filter_client_active_status" value="--><? //=$filter_client_active_status?><!--">-->
                                             <input type="hidden" id="filter_client_type" name="filter_client_type" value="<?=$filter_client_type?>">
                                             <input type="hidden" id="filter_client_zip" name="filter_client_zip" value="<?=$filter_client_zip?>">
                                             <input type="hidden" id="filter_created_at_from" name="filter_created_at_from" value="<?=$filter_created_at_from?>">
@@ -541,7 +541,7 @@
                                                             }
                                                             ?>
                                                             <div class="col-md-12" style="display: none" id="div_client_name_btn">
-                                                                <button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:switchFieldName('client_name',true);" id="btn_add_client_name">Add a name<span class="required">&nbsp;*&nbsp;</span></button>
+                                                                <button type="button" class="waves-effect waves-light btn btn-xs" onClick="javascript:switchFieldName('client_name',true);" id="btn_add_client_name">Add a name<span class="required">&nbsp;*&nbsp;</span></button>
                                                             </div>
 
                                                             <div class="col-md-12" style="display: <?php echo ( ( $client_name_input_visible ) ? "block" :"block" ) ; ?>" id="div_client_name_input">
@@ -587,7 +587,7 @@
                                                             }
                                                             ?>
                                                             <div class="col-md-7" style="display: <?php echo ( $client_owner_button_visible ? "none" :"none") ; ?>" id="div_client_owner_btn">
-                                                                <button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:switchFieldName('client_owner',true);" id="btn_add_client_owner">Add an owner</button>
+                                                                <button type="button" class="waves-effect waves-light btn btn-xs" onClick="javascript:switchFieldName('client_owner',true);" id="btn_add_client_owner">Add an owner</button>
                                                             </div>
 
                                                             <div class="col-md-12" style="display: <?php echo ( $client_owner_input_visible ? "block" :"block" ) ; ?>" id="div_client_owner_input">
@@ -636,7 +636,7 @@
                                                             }
                                                             ?>
                                                             <div class="col-md-7" style="display: <?php echo ( $address1_button_visible ? "none" :"none") ; ?>" id="div_client_address1_btn">
-                                                                <button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:switchFieldName('client_address1',true);" id="btn_add_client_address1">Add an address<span class="required">&nbsp;*&nbsp;</span></button>
+                                                                <button type="button" class="waves-effect waves-light btn btn-xs" onClick="javascript:switchFieldName('client_address1',true);" id="btn_add_client_address1">Add an address<span class="required">&nbsp;*&nbsp;</span></button>
                                                             </div>
                                                             <div class="col-md-12" style="display: <?php echo ( $address1_input_visible ? "block" :"block" ) ; ?>" id="div_client_address1_input">
                                                                 <i class="material-icons prefix">business</i>
@@ -679,7 +679,7 @@
                                                             }
                                                             ?>
                                                             <div class="col-md-7" style="display: <?php echo ( $address2_button_visible ? "none" :"none") ; ?>" id="div_client_address2_btn">
-                                                                <button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:switchFieldName('client_address2',true);" id="btn_add_client_address2">Add an additive address</button>
+                                                                <button type="button" class="waves-effect waves-light btn btn-xs" onClick="javascript:switchFieldName('client_address2',true);" id="btn_add_client_address2">Add an additive address</button>
                                                             </div>
                                                             <div class="col-md-12" style="display: <?php echo ( $address2_input_visible ? "block" :"block" ) ; ?>;" id="div_client_address2_input">
 
@@ -739,7 +739,7 @@
                                                             }
                                                             ?>
                                                             <div class="col-md-4" style="display: <?php echo ( $client_city_button_visible ? "none" :"none") ; ?>" id="div_client_city_btn">
-                                                                <button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:switchFieldName('client_city',true);" id="btn_add_client_city">Add a city<span class="required">&nbsp;*&nbsp;</span></button>
+                                                                <button type="button" class="waves-effect waves-light btn btn-xs" onClick="javascript:switchFieldName('client_city',true);" id="btn_add_client_city">Add a city<span class="required">&nbsp;*&nbsp;</span></button>
                                                             </div>
                                                             <div class="col-md-4"  style="display: <?php echo ( $client_city_input_visible ? "block" :"block" ) ; ?>" id="div_client_city_input">
                                                                 <i class="material-icons prefix">location_on</i>
@@ -778,7 +778,7 @@
                                                             }
                                                             ?>
                                                             <div class="col-md-4" style="display: <?php echo ( $client_state_button_visible ? "none" :"none") ; ?>" id="div_client_state_btn">
-                                                                <button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:switchFieldName('client_state',true);" id="btn_add_client_state">Add a state<span class="required">&nbsp;*&nbsp;</span></button>
+                                                                <button type="button" class="waves-effect waves-light btn btn-xs" onClick="javascript:switchFieldName('client_state',true);" id="btn_add_client_state">Add a state<span class="required">&nbsp;*&nbsp;</span></button>
                                                             </div>
                                                             <div class="col-md-4" style="display: <?php echo ( $client_state_input_visible ? "block" :"block" ) ; ?>" id="div_client_state_input">
                                                                 <input type="text" name="data[client_state]" id="client_state" value="<?= ( !empty($client->client_state) ? $client->client_state : '' ); ?>" class="form-control x-able" maxlength="50" />
@@ -817,7 +817,7 @@
                                                             }
                                                             ?>
                                                             <div class="col-md-4" style="display: <?php echo ( $client_zip_button_visible ? "none" :"none") ; ?>" id="div_client_zip_btn">
-                                                                <button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:switchFieldName('client_zip',true);" id="btn_add_client_zip">Add a zip<span class="required">&nbsp;*&nbsp;</span></button>
+                                                                <button type="button" class="waves-effect waves-light btn btn-xs" onClick="javascript:switchFieldName('client_zip',true);" id="btn_add_client_zip">Add a zip<span class="required">&nbsp;*&nbsp;</span></button>
                                                             </div>
                                                             <div class="col-md-4"  style="display: <?php echo ( $client_zip_input_visible ? "block" :"block" ) ; ?>" id="div_client_zip_input">
                                                                 <input type="text" name="data[client_zip]" id="client_zip" value="<?= ( !empty($client->client_zip) ? $client->client_zip : '' ); ?>" class="form-control x-able" maxlength="5" />
@@ -848,7 +848,7 @@
                                                                     <tr>
                                                                         <td style="width: 98%">
                                                                             <i class="material-icons prefix">phone</i>
-                                                                            <input type="text" name="data[client_phone]" id="client_phone" value="<?= ( !empty($client->client_phone) ? $client->client_phone : '' ); ?>" class="form-control " maxlength="50" onchange="javascript:checkPhonesVisibilty(); " />
+                                                                            <input type="text" name="data[client_phone]" id="client_phone" value="<?= ( !empty($client->client_phone) ? $client->client_phone : '' ); ?>" class="form-control " maxlength="50" onChange="javascript:checkPhonesVisibilty(); " />
                                                                             <label for="client_phone" class=""><?php echo lang('phone') ?></label>
                                                                         </td>
                                                                     </tr>
@@ -886,7 +886,7 @@
                                                         <div class="form-group input-field <?= $this->common_lib->set_field_error_tag("data[client_phone_2]", ' has-error ')?>">
                                                             <div class="col-md-6">
                                                                 <i class="material-icons prefix">phone</i>
-                                                                <input type="text" name="data[client_phone_2]" id="client_phone_2" value="<?= ( !empty($client->client_phone_2) ? $client->client_phone_2 : '' ); ?>" class="form-control " maxlength="50" onchange="javascript:checkPhonesVisibilty(); " />
+                                                                <input type="text" name="data[client_phone_2]" id="client_phone_2" value="<?= ( !empty($client->client_phone_2) ? $client->client_phone_2 : '' ); ?>" class="form-control " maxlength="50" onChange="javascript:checkPhonesVisibilty(); " />
                                                                 <label for="client_phone_2" class=""><?php echo lang('phone_2') ?></label>
                                                             </div><!-- ./col -->
                                                             <div class="input-field col-md-6">
@@ -918,7 +918,7 @@
                                                         <div class="form-group input-field <?= $this->common_lib->set_field_error_tag("data[client_phone_2]", ' has-error ')?>">
                                                             <div class="col-md-6">
                                                                 <i class="material-icons prefix">phone</i>
-                                                                <input type="text" name="data[client_phone_3]" id="client_phone_3" value="<?= ( !empty($client->client_phone_3) ? $client->client_phone_3 : '' ); ?>" class="form-control " maxlength="50" onchange="javascript:checkPhonesVisibilty(); " />
+                                                                <input type="text" name="data[client_phone_3]" id="client_phone_3" value="<?= ( !empty($client->client_phone_3) ? $client->client_phone_3 : '' ); ?>" class="form-control " maxlength="50" onChange="javascript:checkPhonesVisibilty(); " />
                                                                 <label for="client_phone_3" class=""><?php echo lang('phone_3') ?></label>
                                                             </div><!-- ./col -->
                                                             <div class="input-field col-md-6">
@@ -954,7 +954,7 @@
                                                         <div class="form-group input-field <?= $this->common_lib->set_field_error_tag("data[client_phone_3]", ' has-error ')?>">
                                                             <div class="col-md-6">
                                                                 <i class="material-icons prefix">phone</i>
-                                                                <input type="text" name="data[client_phone_3]" id="client_phone_3" value="<?= ( !empty($client->client_phone_3) ? $client->client_phone_3 : '' ); ?>" class="form-control x-able" maxlength="50" onchange="javascript:checkPhonesVisibilty(); " />
+                                                                <input type="text" name="data[client_phone_3]" id="client_phone_3" value="<?= ( !empty($client->client_phone_3) ? $client->client_phone_3 : '' ); ?>" class="form-control x-able" maxlength="50" onChange="javascript:checkPhonesVisibilty(); " />
                                                                 <label for="client_phone_3" class=""><?php echo lang('phone_3') ?></label>
                                                             </div><!-- ./col -->
                                                             <div class="input-field col-md-6">
@@ -980,11 +980,11 @@
                                                         <div class="form-group input-field <?= $this->common_lib->set_field_error_tag("data[client_phone_4]", ' has-error ')?>">
                                                             <div class="col-md-4">
                                                                 <i class="material-icons prefix">phone</i>
-                                                                <input type="text" name="data[client_phone_4]" id="client_phone_4" value="<?= ( !empty($client->client_phone_4) ? $client->client_phone_4 : '' ); ?>" class="form-control" maxlength="50" onchange="javascript:checkPhonesVisibilty(); " />
+                                                                <input type="text" name="data[client_phone_4]" id="client_phone_4" value="<?= ( !empty($client->client_phone_4) ? $client->client_phone_4 : '' ); ?>" class="form-control" maxlength="50" onChange="javascript:checkPhonesVisibilty(); " />
                                                                 <label for="client_phone_4" class="control-label col-md-4"><?php echo lang('phone_4') ?></label>
                                                             </div><!--  ./col -->
                                                             <div class="col-md-3">
-                                                                <select name="data[client_phone_type]" id="client_phone_type" class="form-control" onchange="javascript:client_phone_typeOnChange()">
+                                                                <select name="data[client_phone_type]" id="client_phone_type" class="form-control" onChange="javascript:client_phone_typeOnChange()">
                                                                     <option value="">Select Type</option>
                                                                     <?php foreach( $client_phone_type_array as $next_key=>$next_client_phone_type ) { ?>
                                                                         <option value="<?=$next_client_phone_type  ?>" <?= ( ( !empty($client->client_phone_type) and $client->client_phone_type == $next_client_phone_type ) ? 'selected' : '' ); ?> ><?=$next_client_phone_type  ?></option>
@@ -1033,7 +1033,7 @@
                                                             }
                                                             ?>
                                                             <div class="col-md-6" style="display: <?php echo ( $client_email_button_visible ? "none" :"none") ; ?>" id="div_client_email_btn">
-                                                                <button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:switchFieldName('client_email',true);" id="btn_add_client_email">Add an email</button>
+                                                                <button type="button" class="waves-effect waves-light btn btn-xs" onClick="javascript:switchFieldName('client_email',true);" id="btn_add_client_email">Add an email</button>
                                                             </div>
 
                                                             <div class="col-md-6" style="display: <?php echo ( $client_email_input_visible ? "block" :"block" ) ; ?>" id="div_client_email_input">
@@ -1099,7 +1099,7 @@
                                                             }
                                                             ?>
                                                             <div class="col-md-6" style="display: <?php echo ( $client_email_button_visible ? "none" :"none") ; ?>" id="div_client_email_btn">
-                                                                <button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:switchFieldName('client_email',true);" id="btn_add_client_email">Add an email</button>
+                                                                <button type="button" class="waves-effect waves-light btn btn-xs" onClick="javascript:switchFieldName('client_email',true);" id="btn_add_client_email">Add an email</button>
                                                             </div>
 
                                                             <div class="col-md-6" style="display: <?php echo ( $client_email_input_visible ? "block" :"block" ) ; ?>" id="div_client_email_input">
@@ -1165,7 +1165,7 @@
                                                             }
                                                             ?>
                                                             <div class="col-md-6" style="display: <?php echo ( $client_email_button_visible ? "none" :"none") ; ?>" id="div_client_email_btn">
-                                                                <button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:switchFieldName('client_email',true);" id="btn_add_client_email">Add an email</button>
+                                                                <button type="button" class="waves-effect waves-light btn btn-xs" onClick="javascript:switchFieldName('client_email',true);" id="btn_add_client_email">Add an email</button>
                                                             </div>
 
                                                             <div class="col-md-6" style="display: <?php echo ( $client_email_input_visible ? "block" :"block" ) ; ?>" id="div_client_email_input">
@@ -1366,7 +1366,7 @@
                                                             ?>
 
                                                             <div class="col-md-12" style="display: <?php echo ( $clients_types_id_button_visible ? "none" :"none") ; ?>" id="div_clients_types_id_btn">
-                                                                <button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:switchFieldName('clients_types_id',true);" id="btn_add_clients_types_id">Add a client type<span class="required">&nbsp;*&nbsp;</span></button>
+                                                                <button type="button" class="waves-effect waves-light btn btn-xs" onClick="javascript:switchFieldName('clients_types_id',true);" id="btn_add_clients_types_id">Add a client type<span class="required">&nbsp;*&nbsp;</span></button>
                                                             </div>
                                                             <!--                                                        <div class="col-md-12" style="display: --><?php //echo ( $clients_types_id_input_visible ? "block" :"block" ) ; ?><!--" id="div_clients_types_id_input">-->
                                                             <!--                                                            <table>-->
@@ -1407,7 +1407,7 @@
                                                 <div class="row" style="display: none">
 
                                                     <!--                                                <div class="col-md-6">-->
-                                                    <!--                                                    <div class="form-group input-field --><?//= $this->common_lib->set_field_error_tag("data[clients_types_id]", ' has-error ')?><!--">-->
+                                                    <!--                                                    <div class="form-group input-field --><? //= $this->common_lib->set_field_error_tag("data[clients_types_id]", ' has-error ')?><!--">-->
                                                     <!--                                                        --><?php
                                                     //                                                        $is_debug= false;
                                                     //                                                        $clients_types_id_button_visible = $is_insert;
@@ -1466,7 +1466,7 @@
                                                     <!--                                                        </div>-->
                                                     <!--                                                        <div class="col-md-12" style="display: --><?php //echo ( ( $clients_types_id_view_visible ) ? "block" :"none" ) ; ?><!--" id="div_clients_types_id_view">-->
                                                     <!--                                                            <label class="control-label col-md-4" for="clients_types_id_view" >&nbsp;--><?php //echo lang('clients-type') ?><!--<span class="required">&nbsp;*&nbsp;</span></label>-->
-                                                    <!--                                                            <input type="text" name="data[clients_types_id_view]" id="clients_types_id_view" value="--><?//= ( !empty($client->clients_types_id) ? $this->common_lib->get_clients_types_id_label($client->clients_types_id) : '' ); ?><!--" class="form-control" maxlength="200" readonly />-->
+                                                    <!--                                                            <input type="text" name="data[clients_types_id_view]" id="clients_types_id_view" value="--><? //= ( !empty($client->clients_types_id) ? $this->common_lib->get_clients_types_id_label($client->clients_types_id) : '' ); ?><!--" class="form-control" maxlength="200" readonly />-->
                                                     <!--                                                        </div>-->
                                                     <!---->
                                                     <!--                                                    </div>-->
@@ -1502,7 +1502,7 @@
                                                             ?>
 
                                                             <div class="col-md-12" style="display: <?php echo ( $color_scheme_button_visible ? "block" :"none") ; ?>" id="div_color_scheme_btn">
-                                                                <button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:switchFieldName('color_scheme',true);" id="btn_add_color_scheme">Add a client color scheme<span class="required">&nbsp;*&nbsp;</span></button>
+                                                                <button type="button" class="waves-effect waves-light btn btn-xs" onClick="javascript:switchFieldName('color_scheme',true);" id="btn_add_color_scheme">Add a client color scheme<span class="required">&nbsp;*&nbsp;</span></button>
                                                             </div>
                                                             <div class="col-md-12"  style="display: <?php echo ( $color_scheme_input_visible ? "block" :"none" ) ; ?>" id="div_color_scheme_input">
                                                                 <table>
@@ -1555,12 +1555,12 @@
 
                                                     <div class=" btn-group pull-right editor_btn_group " style="padding: 5px; <?= !$switch_to_edit_buttons_visible ? "display: none;" : ""  ?> " id="div_view_buttons">
                                                         <div class="col-xs-6 pull-left ">
-                                                            <button type="button" class="btn btn-default btn-sm pull_right_only_on_xs padding_right_sm tooltipped" onclick="javascript:showEditMode('<?= ( $is_insert ? "new" : $cid ) ?>', '<?=  ( $is_insert ? "1" : "" ) ?>')" data-position="top" data-delay="50" data-toggle="tooltip" data-html="true" data-placement="top" title="" data-original-title="Click to switch to edit mode">
+                                                            <button type="button" class="btn btn-default btn-sm pull_right_only_on_xs padding_right_sm tooltipped" onClick="javascript:showEditMode('<?= ( $is_insert ? "new" : $cid ) ?>', '<?=  ( $is_insert ? "1" : "" ) ?>')" data-position="top" data-delay="50" data-toggle="tooltip" data-html="true" data-placement="top" title="" data-original-title="Click to switch to edit mode">
                                                                 <i class="fa fa-pencil"></i>
                                                             </button>
                                                         </div>
                                                         <div class="col-xs-6 pull-right ">
-                                                            <button type="reset" class="btn btn-cancel-action" onclick="javascript:document.location='<?=base_url()?>sys-admin/clients-view<?=$page_parameters_with_sort?>'" >Cancel</button>
+                                                            <button type="reset" class="btn btn-cancel-action" onClick="javascript:document.location='<?=base_url()?>sys-admin/clients-view<?=$page_parameters_with_sort?>'" >Cancel</button>
                                                         </div>
                                                     </div>
 
@@ -1574,10 +1574,10 @@
                                                             </select>
                                                         </div>
                                                         <div class="col-xs-6  col-sm-4 ">
-                                                            <button style="display: none" type="button" class="btn btn-primary" onclick="javascript:onSubmit();" >Submit</button>
+                                                            <button style="display: none" type="button" class="btn btn-primary" onClick="javascript:onSubmit();" >Submit</button>
                                                         </div>
                                                         <div class="col-xs-6 col-sm-2 pull-left ">
-                                                            <button style="display: none" type="reset" class="btn btn-cancel-action" onclick="javascript:document.location='<?=base_url()?>sys-admin/clients-view<?=$page_parameters_with_sort?>'" >Cancel</button>
+                                                            <button style="display: none" type="reset" class="btn btn-cancel-action" onClick="javascript:document.location='<?=base_url()?>sys-admin/clients-view<?=$page_parameters_with_sort?>'" >Cancel</button>
                                                         </div>
                                                         <div class="col-sm-2 ">
                                                         </div>
@@ -1605,7 +1605,7 @@
                         </ul>
 
                         <ul class ="md-foot-bot">
-                            <li data-dismiss="modal" role="button"><a href="#" onclick="javascript:document.location='<?=base_url()?>sys-admin/clients-view<?=$page_parameters_with_sort?>'">CANCEL</a>  </li>
+                            <li data-dismiss="modal" role="button"><a href="#" onClick="javascript:document.location='<?=base_url()?>sys-admin/clients-view<?=$page_parameters_with_sort?>'">CANCEL</a>  </li>
                             <li class="create-contact-save" data-action="save" role="button"><a href="#"> SAVE</a> </li>
                         </ul>
 
@@ -1625,28 +1625,28 @@
 <script src="/assets/global/plugins/excanvas.min.js" type="text/javascript" ></script>
 <![endif]-->
 <!-- BEGIN CORE PLUGINS -->
-<script src="/assets/global/plugins/jquery.min.js" type="text/javascript" ></script>
-<script src="/assets/global/js/materialize.min.js" type="text/javascript" ></script>
-<script src="/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript" ></script>
-<script src="/assets/global/plugins/js.cookie.min.js" type="text/javascript" ></script>
-<script src="/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript" ></script>
-<script src="/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript" ></script>
-<script src="/assets/global/plugins/jquery.blockui.min.js" type="text/javascript" ></script>
-<script src="/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript" ></script>
-<script src="/assets/global/js/init.js" type="text/javascript" ></script>
-<script src="/assets/global/js/client-overview-view.js" type="text/javascript" ></script>
+<script src="<?php echo base_url(); ?>assets/global/plugins/jquery.min.js" type="text/javascript" ></script>
+<script src="<?php echo base_url(); ?>assets/global/js/materialize.min.js" type="text/javascript" ></script>
+<script src="<?php echo base_url(); ?>assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript" ></script>
+<script src="<?php echo base_url(); ?>assets/global/plugins/js.cookie.min.js" type="text/javascript" ></script>
+<script src="<?php echo base_url(); ?>assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript" ></script>
+<script src="<?php echo base_url(); ?>assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript" ></script>
+<script src="<?php echo base_url(); ?>assets/global/plugins/jquery.blockui.min.js" type="text/javascript" ></script>
+<script src="<?php echo base_url(); ?>assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript" ></script>
+<script src="<?php echo base_url(); ?>assets/global/js/init.js" type="text/javascript" ></script>
+<script src="<?php echo base_url(); ?>assets/global/js/client-overview-view.js" type="text/javascript" ></script>
 
 <!-- END CORE PLUGINS -->
 <!-- BEGIN PAGE LEVEL PLUGINS -->
 <!-- END PAGE LEVEL PLUGINS -->
 <!-- BEGIN THEME GLOBAL SCRIPTS -->
-<script src="/assets/global/scripts/app.min.js" type="text/javascript" ></script>
+<script src="<?php echo base_url(); ?>assets/global/scripts/app.min.js" type="text/javascript" ></script>
 <!-- END THEME GLOBAL SCRIPTS -->
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 <!-- END PAGE LEVEL SCRIPTS -->
 <!-- BEGIN THEME LAYOUT SCRIPTS -->
-<script src="/assets/layouts/default/scripts/layout.js" type="text/javascript" ></script>
-<script src="/assets/layouts/default/scripts/demo.js" type="text/javascript" ></script>
+<script src="<?php echo base_url(); ?>assets/layouts/default/scripts/layout.js" type="text/javascript" ></script>
+<script src="<?php echo base_url(); ?>assets/layouts/default/scripts/demo.js" type="text/javascript" ></script>
 <!-- END THEME LAYOUT SCRIPTS -->
 
 

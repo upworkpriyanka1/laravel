@@ -979,4 +979,11 @@ body{
         column-count: 4;
     }
 }
-
+/* BBITS Dev CSS Start */
+.page-sidebar-wrapper {
+    float: left;
+    position: absolute;
+    left: 0;
+    top: 100px;
+}
+/* BBITS Dev CSS end */

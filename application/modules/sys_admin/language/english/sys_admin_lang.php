@@ -17,3 +17,6 @@ $lang['job-add']        = "Add Job";
 
 $lang['name']            = "Name";
 $lang['description']     = "Description";
+
+$lang['client_type_name'] = "type_name";
+$lang['client_type_name'] = "type_description";

@@ -234,6 +234,8 @@ echo link_tag('assets/global/plugins/jquery-file-upload/css/jquery.fileupload.cs
                                 <label for="is_main_image">Is Main Image&nbsp;</label><input type="checkbox" id="is_main_image" value="1">
                             </div>
                             <input type="hidden" id="hidden_selected_image">
+                            <input type="hidden" id="hidden_selected_image_sess_id">
+                            <input type="hidden" id="hidden_selected_image_name">
                         </div>
 
                         <div class="row" >

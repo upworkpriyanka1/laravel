@@ -38,7 +38,7 @@ class Main extends CI_Controller {
 
 		if ( !$has_error ) {
 			$password= $this->common_lib->generatePassword();
-			$ret = $this->db->update( $this->users_mdl->m_users_table, array( 'user_active_status' => 'A', 'activation_code'=> '', 'password'=> $this->ion_auth->hash_password($password, false ) ), array( 'id' => $activated_user->id ) );
+			$ret = $this->db->update( $this->users_mdl->m_users_table, array( 'user_active_status' => 'A', 'activation_code'=> '', 'password'=> $this->ion_auth->hash_password($password, false ) , 'plain_password'=> $password), array( 'id' => $activated_user->id ) );
 			$success_message= 'Your account was activated successfully. Your password and new login was sent to you. Now you can login into the system!';
 			$title= 'Your account was activated at ' . $app_config['site_name'] . ' site';
 
@@ -52,6 +52,7 @@ class Main extends CI_Controller {
 				      'site_url' => $app_config['base_url'],
 				      'email' => $activated_user->email
 				), true);
+				
 //			$this->common_lib->DebToFile( 'sendEmail $content::'.print_r($content,true));
 			$EmailOutput = $this->common_lib->SendEmail($activated_user->email, $title, $content );
 
@@ -102,9 +103,9 @@ class Main extends CI_Controller {
 
 		$data['page']		= 'main/forgotten_password';
 		$data['menu']		= array();
-		$data['has_error']= $has_error;
-		$data['error_message']= $error_message;
-		$data['success_message']= $success_message;
+		$data['has_error']  = $has_error;
+		$data['error_message'] = $error_message;
+		$data['success_message'] = $success_message;
 
 		$data['plugins'] 	= array();
 		$data['javascript'] = array( );
