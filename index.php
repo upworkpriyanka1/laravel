@@ -22,8 +22,6 @@
 $domain = ! empty($_SERVER['HTTP_HOST']) ? strtolower($_SERVER['HTTP_HOST']) : 'cli';
 if (strpos( $domain,'.nix') !==FALSE || strpos( $domain,'naz.') !==FALSE || strpos( $domain,'.dev') !==FALSE || $domain === 'cli')//if local or dev
 	define('ENVIRONMENT', 'development');
-else if (strpos ($domain,'dev') !==FALSE)
-        define('ENVIRONMENT', 'dev');
 else if (strpos ($domain,'dev2') !==FALSE)
         define('ENVIRONMENT', 'dev2');
 else if (strpos ($domain,'dev4') !==FALSE)
@@ -36,6 +34,8 @@ else if (strpos ($domain,'devk') !==FALSE)
 	define('ENVIRONMENT', 'devK');
 else if (strpos ($domain,'localhost') !==FALSE)
 	define('ENVIRONMENT', 'devB');	
+else if (strpos ($domain,'dev') !==FALSE)
+        define('ENVIRONMENT', 'dev');
 else
 	define('ENVIRONMENT', 'production');
 
