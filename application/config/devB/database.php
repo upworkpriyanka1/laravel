@@ -79,6 +79,7 @@ $db['default'] = array(
 	'username' => 'zntral_dev4',
 	'password' => '@kOTf1rD8Ug5',
 	'database' => 'zntral_dev',
+	// local db config //
 	/*'hostname' => 'localhost',
 	'username' => 'root',
 	'password' => '',
