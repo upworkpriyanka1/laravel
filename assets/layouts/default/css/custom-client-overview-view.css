@@ -687,7 +687,14 @@ ul.side-nav.fixed ul.collapsible-accordion-green{
     margin-top: 9px;
 
 }
+.clients-overview #grid-history .collapsible .transp-coll{
 
+    box-shadow: none;
+}
+.clients-overview #grid-history .collapsible .transp-coll .collapsible-header{
+    background-color: transparent;
+    border: none;
+}
 .clients-overview #grid-associations #test1, .clients-overview #grid-associations #test2{
     padding: 20px 10px;
     background-color: #fff;
