@@ -203,7 +203,8 @@ echo link_tag('/assets/layouts/default/css/custom-users-overview-view.css');
                                     </div>
                                     <div class="container">
                                         <div class="row image_row">
-                                            <?php foreach( $user_image as $key=>$value ) { ?>
+                                            <?php if($user_image){
+                                             foreach( $user_image as $key=>$value ) { ?>
                                                 <input type="hidden" name="data[user_image_name]" value="<?=$user_image_name[$key+2]?>">
                                                 <div class="col-md-3 col-sm-4 col-xs-6">
                                                     <div class="user-img-box">
@@ -216,7 +217,7 @@ echo link_tag('/assets/layouts/default/css/custom-users-overview-view.css');
                                                         </div>
                                                     </div>
                                                 </div>
-                                            <?php } ?>
+                                            <?php }} ?>
                                         </div>
                                     </div>
                                 </div>
