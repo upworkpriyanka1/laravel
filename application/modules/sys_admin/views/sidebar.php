@@ -49,7 +49,10 @@
                                     ?>
                                     <!-- SIDEBAR MENU LINK -->
                                     <li class="nav-item <?= $LinkActive ;?>">
-                                            <a href="<?php if($link['href'] != '/clients-edit/new/') echo base_url().$this->uri->segment('1').$link['href']; else echo '#' ?>" <?php if($link['href'] == '/clients-edit/new/') echo 'class="create_contact"' ?>  class="nav-link ">
+                                            <a href="<?php
+                                                        if($link['href'] != '/clients-edit/new/' && $link['href'] != '/users/users-edit/new/') echo base_url().$this->uri->segment('1').$link['href'];
+                                                        else echo '#' ?>"
+                                                <?php if($link['href'] == '/clients-edit/new/') echo 'class="create_contact"' ?>  class="nav-link <?php if($link['href'] == '/users/users-edit/new/') echo 'new_user_btn'?> ">
 <!--                                        <a href="--><?php //echo base_url().$this->uri->segment('1').$link['href'];?><!--" class="nav-link ">-->
                                             <span class="<?php echo $link['icon'];?>"></span>
                                             <span class="title"><?php echo lang($link['title']);?></span>
@@ -69,6 +72,7 @@
                     endif;//end if $value is array
                 endforeach;//end $menu foreach
                 ?>
+
                 <?php if ( !empty($user->user_id) ) : ?>
                     <li class="nav-item">
                         <a href="javascript:;" class="nav-link nav-toggle collapsible-header waves-effect waves-teal">
@@ -104,6 +108,7 @@
                         </div>
                     </li>
                 <?php endif; ?>
+
             </ul>
 
     </li>
@@ -327,6 +332,7 @@
 
     </div>
 </div>
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 

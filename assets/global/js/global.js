@@ -66,6 +66,23 @@
 //
 //
 $(document).ready(function(){
+
+    $('.reset_form_btn').on('click',function(){
+        $("#new_user_form")[0].reset();
+    });
+    $('#us-pass-conf').on('keyup',function(){
+       var us_pass=$('#us-pass').val();
+       var us_pass_conf=$(this).val();
+       if (us_pass_conf != us_pass) {
+           $(this).addClass('invalid');
+       } else{
+            $(this).removeClass('invalid');
+            $(this).addClass('valid');
+       }
+    });
+    $('.new_user_btn').on('click',function(){
+        $('#new_user_modal').modal('show');
+    });
    $('.the_active').removeClass('the_active').addClass('active');
 
     $('.active').find('.collapsible-body').css('display', 'block');

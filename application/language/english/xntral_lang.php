@@ -64,6 +64,7 @@ $lang['client_zip']             = "Zip";
 $lang['grid']                   = "Grid";
 $lang['col3']                   = "Col 3";
 $lang['eh']                     = "Sacred City";
+$lang['license']                 ="License";
 
 
 $lang['patients']               = "Patients";
@@ -139,12 +140,18 @@ $lang['sv_title']               = "Title";
 $lang['sv_description']         = "Description";
 
 
+$lang['full_time']              = "Full time";
+$lang['part_time']              = "Part time";
+$lang['contractor']             = "Contractor";
+
 $lang['user']                   = "user";
 $lang['user_id']                = "ID";
 $lang['username']               = "Username";
+$lang['user_name']              = "User Name";
 $lang['name']                   = "Name";
 $lang['owner']                  = "Company Owner";
 $lang['first_name']             = "First Name";
+$lang['middle_name']            = "Middle  Name";
 $lang['last_name']              = "Last Name";
 $lang['mobile']                 = "Mobile";
 $lang['users-edit']             = "Edit User";

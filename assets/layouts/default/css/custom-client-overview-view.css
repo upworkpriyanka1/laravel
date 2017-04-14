@@ -788,16 +788,13 @@ select:focus{
 /*opacity: 0!important;*/
 /*z-index: 1;*/
 /*}*/
-
-.newclient .modal-dialog{
+.newclient .modal-dialog, .newuser .modal-dialog{
     max-width: 700px;
 }
-.newclient .modal-dialog .modal-body {
+.newclient .modal-dialog .modal-body, .newuser .modal-dialog .modal-body {
     height: 560px;
     overflow-y: scroll;
     padding-right: 20px;
-
-
 }
 
 
@@ -808,15 +805,15 @@ input[type=text]:focus:not([readonly]){
     box-shadow: none;
 }
 
-#newclient .modal-footer .md-foot-top{
+#newclient .modal-footer .md-foot-top, #new_user_modal .modal-footer .md-foot-top{
     display: inline-block;
     float: left;
 }
-#newclient .modal-footer .md-foot-bot{
+#newclient .modal-footer .md-foot-bot, #new_user_modal .modal-footer .md-foot-bot{
     display: inline-block;
     float: right;
 }
-#newclient .modal-footer input[type=text]{
+#newclient .modal-footer input[type=text], #new_user_modal .modal-footer input[type=text]{
     margin-bottom: 0;
 }
 
@@ -824,10 +821,10 @@ input[type=text]:focus:not([readonly]){
     font-size: 12px;
 }
 
-#newclient .row{
+#newclient .row, #new_user_modal .row{
     margin:0;
 }
 
-#newclient .portlet-form .form-body{
+#newclient .portlet-form .form-body, #new_user_modal .portlet-form .form-body{
     padding-bottom: 0;
 }

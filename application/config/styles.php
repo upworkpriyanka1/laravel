@@ -36,7 +36,7 @@ $config['page_level_styles'] = NULL;
 | Default THEME LAYOUT STYLES
 |--------------------------------------------------------------------------
 */
-if(strpos(current_url(), '/users/users-edit')) {
+if(strpos(current_url(), '/users/users-edit') || strpos(current_url(), '/users/users-overview') ) {
 	$config['theme_layout_styles'] = array(
 		'layoutmin',
 		'defaultmin',

@@ -38,13 +38,20 @@ class Users extends CI_Controller
 
 	public function users_overview(){
 
+		$UriArray = $this->uri->uri_to_assoc(3);
+		if ( !empty($UriArray['users-overview']) and $this->common_lib->is_positive_integer($UriArray['users-overview'])  ) {
+			$user_id= $UriArray['users-overview'];
+		}
+		$editable_user= $this->users_mdl->getUserRowById( $user_id, array('show_file_info'=> 1, 'image_width'=> 128, 'image_height'=> 128) );
+
+		$data['editable_user']		= $editable_user;
 		$data['meta_description']='';
 		$data['menu']		= $this->menu;
 		$data['user'] 		= $this->user;
 		$data['group'] 		= $this->group->name;
-		$data['javascript'] = array( '/assets/global/js/client-overview-view.js'); // add picker.date pluging for date selection in fileters form
 		$data['page']		= 'users/user-overview-page';
-		$views				= array('design/html_topbar_user_overview','sidebar','design/page','design/html_footer');
+		$data['javascript'] = array( 'assets/global/js/users-overview-view.js','assets/global/js/validate.js' );//page javascript
+		$views				=  array('design/html_topbar_user_overview','sidebar','design/page','design/html_footer');
 //		$this->load->view('users/user-overview-page');
 		$this->layout->view($views, $data);
 	}
@@ -52,6 +59,7 @@ class Users extends CI_Controller
 	public function users_view(){
 		$data['meta_description']='';
 		$data['menu']		= $this->menu;
+
 		$data['user'] 		= $this->user;
 		$data['group'] 		= $this->group->name;
 		$UriArray = $this->uri->uri_to_assoc(4);
@@ -118,6 +126,9 @@ class Users extends CI_Controller
 		$data['pagination_links'] 	= $pagination_links;
 		$data['javascript'] = array( 'assets/custom/admin/users.js', 'assets/global/plugins/picker/picker.js', 'assets/global/plugins/picker/picker.date.js', 'assets/global/plugins/picker/picker.time.js'); // add picker.date pluging for date selection in fileters form
 		$views				= array('design/html_topbar','sidebar','design/page','design/html_footer');
+//		echo "<pre>";
+//		print_r($data['menu']);
+//		die;
 		$this->layout->view($views, $data);
 	}
 
@@ -242,7 +253,7 @@ class Users extends CI_Controller
 //				foreach ( $data['userActiveStatusValueArray'] as $next_key=>$next_userActiveStatus ) {
 //					if ( !in_array($next_userActiveStatus['key'],array('N', 'W')) ) {
 //						unset($data['userActiveStatusValueArray'][$next_key]);
-//					}
+//			/.lrtfg		}
 //				}
 //			}   // Array('N' => 'New', 'W' => 'Waiting for activation', 'A' => 'Active', 'I' => 'Inactive');
 			$users_groups_list= $this->users_mdl->getUsersGroupsList( false, 0, array('user_id'=> $user_id));

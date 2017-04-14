@@ -123,7 +123,7 @@
     </div>
     <ul id="nav-mobile" class="side-nav fixed" style="transform: translateX(-100%);">
         <li class="logo">
-            <a href="./" class="brand-logo">
+            <a href="/" class="brand-logo">
                  <img src="/assets/img/logo.png" alt="logo" class="logo-default" />
 <!--                <span class="logo-default"> SYSTEM </span>-->
             </a>

@@ -1,6 +1,7 @@
 $(document).ready(function(){
 
 
+
     $('#avatar').on('change',function(){
         var user_id=$('input[name="user"]').val();
         var file_data = $('#avatar').prop('files')[0];
@@ -342,7 +343,7 @@ function init() {
         var scroll = $(window).scrollTop();
         var width = $(window).width();
         var grid_pinned = $('#grid-pinned').offset().top - 300;
-        var grid_associations = $('#grid-associations').offset().top - 300;
+        //var grid_associations = $('#grid-associations').offset().top - 300;
         var grid_history = $('#grid-history').offset().top - 300;
 
         // Do something
@@ -351,10 +352,12 @@ function init() {
         if(scroll >= grid_history) {
             $('.table-of-contents li a').removeClass('active');
             $('.table-of-contents li a[href="#grid-history"]').addClass('active');
-        }else if(scroll >= grid_associations) {
-            $('.table-of-contents li a').removeClass('active');
-            $('.table-of-contents li a[href="#grid-associations"]').addClass('active');
-        }else {
+        }
+        //else if(scroll >= grid_associations) {
+        //    $('.table-of-contents li a').removeClass('active');
+        //    $('.table-of-contents li a[href="#grid-associations"]').addClass('active');
+        //}
+        else {
             $('.table-of-contents li a').removeClass('active');
             $('.table-of-contents li a[href="#grid-pinned"]').addClass('active');
         }
