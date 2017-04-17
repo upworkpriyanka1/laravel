@@ -18,8 +18,8 @@
  * NOTE: If you change these, also change the error_reporting() code below
  */
 //define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
+// Just some testing of the branch.
 $domain = ! empty($_SERVER['HTTP_HOST']) ? strtolower($_SERVER['HTTP_HOST']) : 'cli';
-
 if (strpos( $domain,'.nix') !==FALSE || strpos( $domain,'naz.') !==FALSE || strpos( $domain,'.dev') !==FALSE || $domain === 'cli')//if local or dev
 	define('ENVIRONMENT', 'development');
 else if (strpos ($domain,'dev2') !==FALSE)
@@ -87,6 +87,22 @@ switch (ENVIRONMENT)
 		error_reporting(E_ERROR | E_WARNING);
 		ini_set('display_errors', 1);
 		break;
+
+	case 'prince':
+		//Report all errors
+		//error_reporting(-1);
+		//Report only errors and warning. Do not show uninitialized variables because it can break the normal functioning.
+		error_reporting(E_ERROR | E_WARNING);
+		ini_set('display_errors', 1);
+	break;
+	case 'sanjeev':
+		//Report all errors
+		//error_reporting(-1);
+		//Report only errors and warning. Do not show uninitialized variables because it can break the normal functioning.
+		error_reporting(E_ERROR | E_WARNING);
+		ini_set('display_errors', 1);
+	break;
+
 
 	case 'testing':
 	case 'production':

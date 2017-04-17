@@ -224,31 +224,6 @@ if ((!empty($_SERVER["HTTP_HOST"]) and !(strpos($_SERVER["HTTP_HOST"], "local-zn
     $config['is_developer_comp'] = 1;
     $config['log_threshold'] = 4;
 //    die("-1 XXZ");
-//<<<<<<< HEAD
-//} else if (ENVIRONMENT =='dev4') {
-//    $config['log_path'] = '/home/zntral/dev4/log/'; // '/home/dev9soft/public_html/tb/'
-//    $config['sql_queries_to_file'] = '/home/zntral/dev4/logs/sql_queries_to_file_';
-//    $config['document_root'] = '/home/zntral/dev4/';
-//    $config['send_error_at_email'] = 'nbler.ru';
-//    $config['base_url'] = 'https://dev4.zntral.net/';
-//    $config['is_developer_comp'] = 1;
-//} else if (ENVIRONMENT =='prince') {
-//    $config['log_path'] = '/home/zntral/prince/log/'; // '/home/dev9soft/public_html/tb/'
-//    $config['sql_queries_to_file'] = '/home/zntral/prince/logs/sql_queries_to_file_';
-//    $config['document_root'] = '/home/zntral/prince/';
-//    $config['send_error_at_email'] = 'nbler.ru';
-//    $config['base_url'] = 'https://prince.zntral.net/';
-//    $config['is_developer_comp'] = 1;
-//} else if (ENVIRONMENT =='f3') {
-//    $config['log_path'] = '/home/zntral/f3/log/'; // '/home/dev9soft/public_html/tb/'
-//    $config['sql_queries_to_file'] = '/home/zntral/f3/logs/sql_queries_to_file_';
-//    $config['document_root'] = '/home/zntral/f3/';
-//    $config['send_error_at_email'] = 'nbler.ru';
-//    $config['base_url'] = 'https://f3.zntral.net/';
-//    $config['is_developer_comp'] = 1;
-//
-//=======
-//>>>>>>> 27840e739684f072f27183d33563b12fb663e130
 } else {
     if (ENVIRONMENT == 'production') {
         $config['log_path'] = '/home/zntral/public_html/log/';   // file:///_wwwroot/zntral/zntral/application
@@ -256,7 +231,6 @@ if ((!empty($_SERVER["HTTP_HOST"]) and !(strpos($_SERVER["HTTP_HOST"], "local-zn
         $config['document_root'] = '/home/zntral/public_html/';
         $config['base_url'] = 'https://zntral.net';
         $config['is_developer_comp'] = 1;
-//    die("-1 XXZ");
     } else if (ENVIRONMENT == 'dev2') {
         $config['log_path'] = '/home/zntral/dev2/log/'; // '/home/dev9soft/public_html/tb/'
         $config['sql_queries_to_file'] = '/home/zntral/dev2/logs/sql_queries_to_file_';
