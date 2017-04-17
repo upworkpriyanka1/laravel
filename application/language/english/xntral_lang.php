@@ -40,6 +40,9 @@ $lang['edit']                   = "Edit";
 $lang['created_at']             = "Created At";
 $lang['updated_at']             = "Updated At";
 
+
+$lang['newuserform']            = 'User form';
+
 //clients section
 $lang['client']                = "Client";
 $lang['clients']                = "Clients";
