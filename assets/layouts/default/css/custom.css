@@ -1003,4 +1003,26 @@ body{
         column-count: 4;
     }
 }
+@media only screen and (min-width: 993px){
+    #newuserform{
+        margin-left: -235px;
+
+    }
+    #newuserform .row{
+        margin: 0;
+    }
+}
+#newuserform .phone .btn-add, #newuserform.email .btn-add{
+
+    display: inline-block;
+    position: absolute;
+    right: -10px;
+    top: 20px;
+}
+#newuserform .phone .btn-rem, #newuserform .email .btn-rem {
+    display: inline-block;
+    position: absolute;
+    right: 10px;
+    top: 20px;
+}
 

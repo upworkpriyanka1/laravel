@@ -84,7 +84,21 @@ class Sys_admin extends CI_Controller {
 
 		$this->layout->view($views,$data);
 	}
+    public function newuserform(){
+        $data['meta_description']='';
+        $data['menu']		= $this->menu;
 
+        $data['user'] 		= $this->user;
+        $data['group'] 		= $this->group->name;
+
+        $data['page']		= 'clients/client-verification-email';
+        $data['pls'] 		= array(); //page level scripts optional
+        $data['plugins'] 	= array(); //page plugins
+        $data['javascript'] = array(); //page javascript
+        $views				= array('design/html_topbar','design/page','design/html_footer');
+
+        $this->layout->view($views,$data);
+    }
 	public function eh(){
 
 		$this->load->view('main/eh');

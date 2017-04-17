@@ -343,12 +343,13 @@ function validateFormEnableOrDisable(form_id){
         $('.disable_form_id_'+form_id).removeAttr('disabled');
     }
 
-    console.log(disable);
+    //
+    // $('.supuser').click(function(){
+    //     $('.modal-content1').css('display', 'block');
+    //     $('.modal-top').css('display','none');
+    // });
 
-    $('.supuser').click(function(){
-        $('.modal-content1').css('display', 'block');
-        $('.modal-top').css('display','none');
-    });
+
 }
 
 function init() {

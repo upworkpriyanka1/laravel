@@ -714,3 +714,45 @@ ul.side-nav.fixed ul.collapsible-accordion-green{
     }
 
 }
+.newuser1 .modal-dialog{
+    max-width: 700px;
+}
+.newuser1 .modal-dialog .modal-body {
+    height: 560px;
+    overflow-y: scroll;
+    padding-right: 20px;
+}
+
+
+.modal-open {
+    overflow-y: hidden !important;
+}
+input[type=text]:focus:not([readonly]){
+    box-shadow: none;
+}
+
+#new_user_modal1 .modal-footer .md-foot-top{
+    display: inline-block;
+    float: left;
+}
+#new_user_modal1 .modal-footer .md-foot-top li{
+    display: inline-block;
+}
+#new_user_modal1 .modal-footer .md-foot-bot{
+    display: inline-block;
+    float: right;
+}
+#new_user_modal1 .modal-footer input[type=text]{
+    margin-bottom: 0;
+}
+
+[type="radio"]:not(:checked)+label, [type="radio"]:checked+label{
+    font-size: 12px;
+}
+
+#new_user_modal1 .row{
+    margin:0;
+}
+#new_user_modal1 .portlet-form .form-body {
+    padding-bottom: 0;
+}

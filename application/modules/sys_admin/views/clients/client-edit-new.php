@@ -239,11 +239,15 @@
                             <div class="row clients-overview">
                                 <div class="col s12 m9 l10">
                                     <div class="row" style="margin-bottom: 0;">
+                                        <button data-toggle="modal" data-target="#newclient-over" class="newclient-over waves-effect waves-light btn-large" style="background-color: #fff; color: #000;font-size: 16px;">
+                                            <i class="fa fa-plus" style="font-size: 16px"></i>
+                                            USER
+                                        </button>
+                                        
                                         <div id="grid-pinned" class="scrollspy">
                                             <h3 class="header">Pinned</h3>
-                                            <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci dicta, eaque error fugit inventore magni minima perspiciatis quos reiciendis sit tempora tempore, voluptas? Delectus impedit nemo odit sunt vitae!</p>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci assumenda at distinctio, dolorem exercitationem iure libero nesciunt nihil nisi odio odit pariatur placeat porro, repellendus, sapiente sunt totam unde! Accusamus.</p>
                                         </div>
-
 
 
                                         <!-- Grid associations -->
@@ -381,7 +385,7 @@
             </div>
         </div>
     </div>
-</main>﻿
+</main>
 <!-- END MAIN PAGE -->
 
 <!-- BEGIN FOOTER -->
@@ -1557,6 +1561,65 @@
                             <li class="create-contact-save" data-action="save" role="button"><a href="#"> SAVE</a> </li>
                         </ul>
 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade newclient" id="newclient-over" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class=" modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <h3 class="modal-title" id="lineModalLabel">Company Name</h3>
+                </div>
+
+                <div class="row">
+                    <form class="col s12">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">account_circle</i>
+                                <input id="icon_prefix" type="text" class="validate"/>
+                                <label for="icon_prefix">First Name</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">supervisor_account</i>
+                                <input id="last_name" type="text" class="validate"/>
+                                <label for="last_name">Last Name</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">phone</i>
+                                <input id="icon_telephone" type="tel" class="validate"/>
+                                <label for="icon_telephone">Telephone</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">email</i>
+                                <input id="email" type="email" class="validate required_form"  onchange="validateFormEnableOrDisable('form_client_edit2');"/>
+                                <label for="email">Email address</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">email</i>
+                                <input id="email" type="email" class="validate required_form" onchange="validateFormEnableOrDisable('form_client_edit2');"/>
+                                <label for="email">Verify email address</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <div class="col-xs-12">
+                        <ul class ="md-foot-bot">
+                            <li data-dismiss="modal"> <button class="btn" onclick="javascript:document.location='<?=base_url()?>sys-admin/clients-view<?=$page_parameters_with_sort?>'">CANCEL</button> </li>
+                            <li class="create-contact-save " data-action="save"> <button class="btn-flat  disable_form_id_form_client_edit2" disabled> VERIFY </button> </li>
+                        </ul>
                     </div>
                 </div>
             </div>
