@@ -238,7 +238,7 @@
 
                             <div class="row clients-overview">
                                 <div class="col s12 m9 l10">
-                                    <div class="row fasdfa" style="margin-bottom: 0;">
+                                    <div class="row" style="margin-bottom: 0;">
                                         <button data-toggle="modal" data-target="#newclient-over" class="newclient-over waves-effect waves-light btn-large" style="background-color: #fff; color: #000;font-size: 16px;">
                                             <i class="fa fa-plus" style="font-size: 16px"></i>
                                             USER

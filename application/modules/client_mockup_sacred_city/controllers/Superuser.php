@@ -25,4 +25,8 @@ class Superuser extends CI_Controller {
 
         $this->load->view('main_superuser/client-overview-settings-theme');
     }
+    public function client_overview_profile_form(){
+
+        $this->load->view('main_superuser/client-overview-profile-form');
+    }
 }
