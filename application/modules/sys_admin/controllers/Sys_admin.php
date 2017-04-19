@@ -191,9 +191,6 @@ class Sys_admin extends CI_Controller {
 		if (!empty($_POST)) {
 			$validation_status = $this->form_validation->run();
 			if ($validation_status != FALSE) {
-//				echo "<pre>";
-//				print_r($post_array);
-//				die;
 				$this->client_edit_makesave($is_insert, $cid, $data['select_on_update'], $redirect_url, $page_parameters_with_sort, $post_array, $app_config, $data['client_color_schemes'] );
 			} else {
 				$client = $this->client_edit_fill_current_data( $client, $is_insert, $cid );
@@ -700,7 +697,7 @@ class Sys_admin extends CI_Controller {
 //			$redirect_url = base_url() . 'sys-admin/clients-edit/new' . $page_parameters_with_sort;
 			$redirect_url = base_url() . 'sys-admin/clients-view/' . $page_parameters_with_sort;
 		}
-
+        $redirect_url = base_url() . 'sys-admin/clients-edit/' . $cid;
 		if ($cid) {
 			$this->session->set_flashdata('editor_message', lang('client') . " '" . $post_array['data']['client_name'] . "' was " . ($is_insert ? "inserted" : "updated") );
 			if ($this->db->trans_status() === FALSE) {

@@ -1572,7 +1572,7 @@
             <div class=" modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                    <h3 class="modal-title" id="lineModalLabel">Company Name</h3>
+                    <h3 class="modal-title" id="lineModalLabel">New user for <?php echo $client->client_name ?> </h3>
                 </div>
 
                 <div class="row">

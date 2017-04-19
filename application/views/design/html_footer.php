@@ -1143,7 +1143,7 @@
 
                                 <ul class="md-foot-top">
                                     <li class="create-contact-more"><button class="btn-flat disable_form_id_form_client_edit" disabled>+CONTACT</button></li>
-                                    <li class="create-contact-more"><button class="btn-flat  disable_form_id_form_client_edit supuser newclient-over" disabled data-toggle="modal" data-target="#newclient-over">+SUPERUSER</button></li>
+                                    <li class="create-contact-more"><button class="btn-flat  disable_form_id_form_client_edit supuser" disabled>+SUPERUSER</button></li>
                                 </ul>
 
                                 <ul class ="md-foot-bot">
@@ -1155,16 +1155,12 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="modal fade newclient" id="newclient-over" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class=" modal-content">
+                <div class=" modal-content modal-content1" style="display:none">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
                         <h3 class="modal-title" id="lineModalLabel">Company Name</h3>
                     </div>
+
 
                     <div class="row">
                         <form class="col s12">
@@ -1206,14 +1202,24 @@
                         </form>
                     </div>
 
+
                     <div class="modal-footer">
+
                         <div class="col-xs-12">
+
+
                             <ul class ="md-foot-bot">
+
                                 <li data-dismiss="modal"> <button class="btn" onclick="javascript:document.location='<?=base_url()?>sys-admin/clients-view<?=$page_parameters_with_sort?>'">CANCEL</button> </li>
                                 <li class="create-contact-save " data-action="save"> <button class="btn-flat  disable_form_id_form_client_edit2" disabled> VERIFY </button> </li>
+
+
                             </ul>
+
+
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>

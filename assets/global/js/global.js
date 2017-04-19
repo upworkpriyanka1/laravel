@@ -141,6 +141,7 @@ $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
 
     $('body').on('click','.create-contact-save',function(){
+
        $('#form_client_edit').submit();
     });
 });
@@ -343,11 +344,11 @@ function validateFormEnableOrDisable(form_id){
         $('.disable_form_id_'+form_id).removeAttr('disabled');
     }
 
-    //
-    // $('.supuser').click(function(){
-    //     $('.modal-content1').css('display', 'block');
-    //     $('.modal-top').css('display','none');
-    // });
+
+    $('.supuser').click(function(){
+        $('.modal-content1').css('display', 'block');
+        $('.modal-top').css('display','none');
+    });
 
 
 }

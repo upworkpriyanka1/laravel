@@ -645,9 +645,9 @@ input[type=text]:focus:not([readonly]){
     font-size: 12px;
 }
 
-#newclient .row, #new_user_modal .row{
-    margin:0;
-}
+/*#newclient .row, #new_user_modal .row{*/
+    /*margin:0;*/
+/*}*/
 
 #newclient .portlet-form .form-body, #new_user_modal .portlet-form .form-body{
     padding-bottom: 0;
@@ -1011,6 +1011,10 @@ body{
     #newuserform .row{
         margin: 0;
     }
+}
+#newuserform select{
+    border:none;
+    border-bottom: 1px solid #9e9e9e;
 }
 #newuserform .phone .btn-add, #newuserform.email .btn-add{
 

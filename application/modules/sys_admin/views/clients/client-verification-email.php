@@ -271,13 +271,22 @@
 
                     <!--title-->
                     <div class="row">
-                        <div class="col-md-12">
-                            <div class="input-field">
-                                <input id="us-title" type="text">
-                                <label for="us-title"><?php echo lang('title')?></label>
+                        <div class="col-md-6">
+                            <div class="input-field ">
+                                <select>
+                                    <option value="" disabled selected>Title</option>
+                                    <option value="1">Superuser</option>
+                                    <option value="2">Administrative</option>
+                                    <option value="3">Registered Nurse</option>
+                                    <option value="4">Licensed Vocational Nurse</option>
+                                    <option value="5">Aid</option>
+                                    <option value="6">Quality Assurance</option>
+                                    <option value="7">Social Worker</option>
+                                    <option value="8">Spiritual Councellor</option>
+                                </select>
                             </div>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="input-field">
                                 <input id="us-lic" type="text">
                                 <label for="us-lic"><?php echo lang('license')?></label>

@@ -31,7 +31,7 @@
     <!-- END THEME LAYOUT STYLES -->
     <link rel="shortcut icon" href="/assets/favicon.ico" />
 </head>
-<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-md">
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-md" id="profile-form-mock">
 
 <!-- BEGIN HEADER -->
 <header>
@@ -42,80 +42,11 @@
                 <div class="page-title">
                     <h1  id="logo">
                         <!-- <a href="#" data-activates="nav-mobile" class="button-collapse" id="nav_mobile_button"><i class="material-icons">menu</i></a>-->
-                        <span class='logo_first'>S</span>Sacred City
+<!--                        <span class='logo_first'>S</span>Sacred City-->
+                       [first name] [last name]
+
                     </h1>
-                    <div class="rand-place">
 
-                        <div class="row">
-                            <div class="col s2 locat-call ">
-                                <div class="tb-adr">
-                                    <span class="icon-tb-cl"><i class="material-icons">location_on</i></span>
-                                    <ul class="text-tb-cl">
-                                        <li>622 Central Ave, Unit X </li>
-                                        <li>Central Valley, OE 99999</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="col s2 locat-call">
-                                <div class="tb-adr">
-                                    <p class="icon-tb-cl"><i class="material-icons">call</i></p>
-                                    <ul class="text-tb-cl">
-                                        <li>(246 463-2538)</li>
-                                        <li>(246 463-2500)</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="col s2 locat-call ">
-                                <div class="tb-adr">
-                                    <span class="icon-tb-cl"><i class="material-icons">location_on</i></span>
-                                    <ul class="text-tb-cl">
-                                        <li>622 Central Ave, Unit X </li>
-                                        <li>Central Valley, OE 99999</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col s2 locat-call ">
-                                <div class="tb-adr">
-                                    <span class="icon-tb-cl"><i class="material-icons">location_on</i></span>
-                                    <ul class="text-tb-cl">
-                                        <li>622 Central Ave, Unit X </li>
-                                        <li>Central Valley, OE 99999</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="col s2 locat-call">
-                                <div class="tb-adr">
-                                    <p class="icon-tb-cl"><i class="material-icons">call</i></p>
-                                    <ul class="text-tb-cl">
-                                        <li>(246 463-2538)</li>
-                                        <li>(246 463-2500)</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="col s2 locat-call ">
-                                <div class="tb-adr">
-                                    <span class="icon-tb-cl"><i class="material-icons">location_on</i></span>
-                                    <ul class="text-tb-cl">
-                                        <li>622 Central Ave, Unit X </li>
-                                        <li>Central Valley, OE 99999</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="chevron">
-                            <span class="chevron-down" style="display:none;">
-                                <i class="fa fa-chevron-circle-down" aria-hidden="true"></i>
-                            </span>
-                            <span class="chevron-up" style="display:none;">
-                                <i class="fa fa-chevron-circle-up" aria-hidden="true"></i>
-                            </span>
-                    </div>
                 </div>
                 <div class="top-notific-page">
                     <div class="notifications">
@@ -385,450 +316,475 @@
                             <div class="clearfix"></div>
                             <div class="col-xs-12">
                                 <div id="profile-form">
+
                                     <div class="row">
                                         <!-- BEGIN FORM-->
                                         <form action="#" id="new_user_form">
 
                                             <div class="form-body">
                                                 <!-- start Account-->
-
-                                                <!-- User name -->
                                                 <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <div class="input-field">
-                                                                <input id="us-name" type="text" class="validate">
+                                                    <div class="pad-card">
+                                                        <div class="cards-container">
+                                                            <div class="card blue-grey darken-1">
+                                                                <div class="card-content white-text">
+                                                                    <span class="card-title">Account</span>
+                                                                    <!-- User name -->
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group">
+                                                                                <div class="input-field">
+                                                                                    <input id="us-name" type="text" class="validate">
 
-                                                                <label for="us-name" class="control-label"><?php echo lang('user_name') ?>
-                                                                    <span class="required"> * </span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                                                    <label for="us-name" class="control-label"><?php echo lang('user_name') ?>
+                                                                                        <span class="required"> * </span>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group">
+                                                                                <div class="input-field">
+                                                                                    <input id="us-pass" type="password" class="validate">
 
-                                                <!-- User password -->
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <div class="input-field">
-                                                                <input id="us-pass" type="password" class="validate">
+                                                                                    <label for="us-pass" class="control-label"><?php echo lang('password') ?>
+                                                                                        <span class="required"> * </span>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group">
+                                                                                <div class="input-field">
+                                                                                    <input id="us-pass-conf" type="password" class="">
 
-                                                                <label for="us-pass" class="control-label"><?php echo lang('password') ?>
-                                                                    <span class="required"> * </span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <div class="input-field">
-                                                                <input id="us-pass-conf" type="password" class="">
-
-                                                                <label data-error="wrong" data-success="right" for="us-pass-conf" class="control-label"><?php echo lang('password_confirm') ?>
-                                                                    <span class="required"> * </span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <!-- end Account-->
-
-
-                                                <!-- start General-->
-
-                                                <!-- User names -->
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <div class="input-field">
-                                                                <input id="us-fr-nm" type="text" class="validate">
-                                                                <label for="us-fr-nm" class="control-label"><?php echo lang('first_name') ?>
-                                                                    <span class="required"> * </span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <div class="input-field">
-                                                                <input id="us-md-nm" type="text" class="validate">
-                                                                <label for="us-md-nm" class="control-label"><?php echo lang('middle_name') ?></label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <div class="input-field">
-                                                                <input id="us-fr-nm" type="text" class="validate">
-                                                                <label for="us-fr-nm" class="control-label"><?php echo lang('last_name') ?>
-                                                                    <span class="required"> * </span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                            <div class="form-group">
-                                                                <label>Date of Birth</label>
-                                                                <input type="date" class="form-control" id="exampleInputDOB1" placeholder="Date of Birth">
-                                                            </div>
-                                                    </div>
-                                                    <!-- User Picture 1installes status -->
-
-                                                    <div class="col-md-6">
-                                                            <div class="file-field input-field">
-                                                                <div class="col-md-4">
-                                                                    <div class="btn">
-                                                                        <span>Picture 1</span>
-                                                                        <input type="file" id="avatar" name="avatar">
+                                                                                    <label data-error="wrong" data-success="right" for="us-pass-conf" class="control-label"><?php echo lang('password_confirm') ?>
+                                                                                        <span class="required"> * </span>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-
-                                                                <div class="file-path-wrapper col-md-8">
-                                                                    <input class="file-path validate" type="text">
+                                                                    <!-- end Account-->
                                                                 </div>
                                                             </div>
-                                                            <div class="container">
-                                                                <div class="row image_row">
-                                                                    <?php if($user_image){
-                                                                        foreach( $user_image as $key=>$value ) { ?>
-                                                                            <input type="hidden" name="data[user_image_name]" value="<?=$user_image_name[$key+2]?>">
-                                                                            <div class="col-md-3 col-sm-4 col-xs-6">
-                                                                                <div class="user-img-box">
-                                                                                    <img src="<?=base_url($value)?>" alt="Avatar" class="image" style="width:100%">
-                                                                                    <div class="img-middle">
-                                                                                        <div class="img-text">
-                                                                                            <a href="#" data-toggle="tooltip" data-placement="top" title="set as default" class="image_set_as_default"><i class="fa fa-check" aria-hidden="true"></i></a>
-                                                                                            <a href="#" class="delete_image"><i class="fa fa-times" aria-hidden="true"></i></a>
-                                                                                        </div>
+                                                            <div class="card blue-grey darken-1">
+                                                                <div class="card-content white-text">
+                                                                    <span class="card-title">General</span>
+                                                                    <!-- User names -->
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group">
+                                                                                <div class="input-field">
+                                                                                    <input id="us-fr-nm" type="text" class="validate">
+                                                                                    <label for="us-fr-nm" class="control-label"><?php echo lang('first_name') ?>
+                                                                                        <span class="required"> * </span>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group">
+                                                                                <div class="input-field">
+                                                                                    <input id="us-md-nm" type="text" class="validate">
+                                                                                    <label for="us-md-nm" class="control-label"><?php echo lang('middle_name') ?></label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group">
+                                                                                <div class="input-field">
+                                                                                    <input id="us-fr-nm" type="text" class="validate">
+                                                                                    <label for="us-fr-nm" class="control-label"><?php echo lang('last_name') ?>
+                                                                                        <span class="required"> * </span>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group">
+                                                                                <label>Date of Birth</label>
+                                                                                <input type="date" class="form-control" id="exampleInputDOB1" placeholder="Date of Birth">
+                                                                            </div>
+                                                                        </div>
+                                                                        <!-- User Picture 1installes status -->
+
+                                                                        <div class="col-md-12">
+                                                                            <div class="file-field input-field">
+                                                                                <div class="col-md-4">
+                                                                                    <div class="btn">
+                                                                                        <span>Picture 1</span>
+                                                                                        <input type="file" id="avatar" name="avatar">
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="file-path-wrapper col-md-8">
+                                                                                    <input class="file-path validate" type="text">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="container">
+                                                                                <div class="row image_row">
+                                                                                    <?php if($user_image){
+                                                                                        foreach( $user_image as $key=>$value ) { ?>
+                                                                                            <input type="hidden" name="data[user_image_name]" value="<?=$user_image_name[$key+2]?>">
+                                                                                            <div class="col-md-3 col-sm-4 col-xs-6">
+                                                                                                <div class="user-img-box">
+                                                                                                    <img src="<?=base_url($value)?>" alt="Avatar" class="image" style="width:100%">
+                                                                                                    <div class="img-middle">
+                                                                                                        <div class="img-text">
+                                                                                                            <a href="#" data-toggle="tooltip" data-placement="top" title="set as default" class="image_set_as_default"><i class="fa fa-check" aria-hidden="true"></i></a>
+                                                                                                            <a href="#" class="delete_image"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        <?php }} ?>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group">
+                                                                                <div class="input-field">
+                                                                                    <input id="ethnicity" type="text" class="validate">
+                                                                                    <label for="ethnicity" class="control-label"> Ethnicity </label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+
+                                                                    </div>
+                                                                    <!-- end General-->
+                                                                </div>
+                                                            </div>
+                                                            <div class="card blue-grey darken-1">
+                                                                <div class="card-content white-text">
+                                                                    <span class="card-title">Contact</span>
+                                                                    <!-- start Contact-->
+                                                                    <!-- user address -->
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group">
+                                                                                <div class="input-field">
+                                                                                    <input id="us-adr"  type="text"  class="validate">
+                                                                                    <label for="us-adr" class="control-label"><?php echo lang('address') ?></label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group">
+                                                                                <div class="input-field">
+                                                                                    <input id="us-adr2"  type="text"  class="validate">
+                                                                                    <label for="us-adr2" class="control-label"><?php echo lang('address2') ?></label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    <!-- City-state-zip-->
+
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group">
+                                                                                <div class="input-field">
+                                                                                    <input id="us-city"  type="text"  class="validate">
+                                                                                    <label for="us-city" class="control-label"><?php echo lang('city') ?></label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group">
+                                                                                <div class="input-field">
+                                                                                    <input id="us-state"  type="text"  class="validate">
+                                                                                    <label for="us-state" class="control-label"><?php echo lang('state') ?></label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group">
+                                                                                <div class="input-field">
+                                                                                    <input id="us-zip"  type="number"  class="validate">
+                                                                                    <label for="us-zip" class="control-label"><?php echo lang('zip') ?></label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    <!--Phone-->
+
+                                                                        <!-- client phone -->
+                                                                        <div class="col-md-12 phone add-row-able" next-row-class="phone-second-row">
+                                                                            <div class="form-group input-field">
+                                                                                <div class="col-md-6" style="padding-left: 0">
+                                                                                    <table>
+                                                                                        <tr>
+                                                                                            <td style="width: 98%">
+                                                                                                <input type="text" id="us_phone"  class="form-control required_form " maxlength="50" onchange="javascript:checkPhonesVisibilty(); validateFormEnableOrDisable('form_client_edit');" " />
+                                                                                                <label for="us_phone" class=""><?php echo lang('phone') ?><span class="required">&nbsp;*&nbsp;</span></label>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </table>
+                                                                                </div><!-- ./col -->
+                                                                                <div class="input-field col-md-6 rem-sel">
+                                                                                    <input type="text" name="phone1" list="phonename8">
+                                                                                    <datalist id="phonename8">
+                                                                                        <option value="Home">
+                                                                                        <option value="Work">
+                                                                                        <option value="Other">
+                                                                                    </datalist>
+
+                                                                                </div>
+                                                                            </div>
+                                                                            <!-- ./form-group -->
+                                                                            <div class="btn-add add-row-button" next-row-class="phone-second-row">
+                                                                                <a href="javascript:void(0)"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+                                                                            </div>
+
+                                                                        </div><!-- ./col -->
+
+                                                                        <!-- client phone_2 -->
+                                                                        <div class="col-md-12 phone  phone-second-row" id="div_phone_2" style="display: <?= ( !empty($client->client_phone_2) ? 'block' : 'none' ); ?>">
+                                                                            <div class="form-group input-field">
+                                                                                <div class="col-md-6" style="padding-left: 0">
+                                                                                    <input type="text"  id="us_phone-2" class="form-control " maxlength="50" onchange="javascript:checkPhonesVisibilty(); " />
+                                                                                    <label for="us_phone-2" class=""><?php echo lang('phone_2') ?></label>
+                                                                                </div><!-- ./col -->
+                                                                                <div class="input-field col-md-6">
+                                                                                    <input type="text" name="phone2" list="phonename2">
+                                                                                    <datalist id="phonename2">
+                                                                                        <option value="Home">
+                                                                                        <option value="Work">
+                                                                                        <option value="Other">
+                                                                                    </datalist>
+
+                                                                                </div>
+                                                                            </div><!-- ./form-group -->
+                                                                            <div class="btn-add add-row-button" next-row-class="phone-third-row">
+                                                                                <a href="javascript:void(0)"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+                                                                            </div>
+                                                                            <div class="btn-rem">
+                                                                                <i class="fa fa-times-circle" aria-hidden="true"></i>
+                                                                            </div>
+                                                                        </div><!-- ./col -->
+
+                                                                        <!-- client phone_3 -->
+                                                                        <div class="col-md-12 phone  phone-third-row" id="div_phone_3" style="display: none;">
+                                                                            <div class="form-group input-field">
+                                                                                <div class="col-md-6" style="padding-left: 0">
+                                                                                    <input type="text" id="us_phone_3"  class="form-control " maxlength="50" onchange="javascript:checkPhonesVisibilty(); " />
+                                                                                    <label for="us_phone_3" class=""><?php echo lang('phone_3') ?></label>
+                                                                                </div><!-- ./col -->
+                                                                                <div class="input-field col-md-6">
+                                                                                    <input type="text" name="phone3" list="phonename3">
+                                                                                    <datalist id="phonename3">
+                                                                                        <option value="Home">
+                                                                                        <option value="Work">
+                                                                                        <option value="Other">
+                                                                                    </datalist>
+
+                                                                                </div>
+                                                                            </div><!-- ./form-group -->
+
+                                                                            <div class="btn-rem">
+                                                                                <i class="fa fa-times-circle" aria-hidden="true"></i>
+                                                                            </div>
+                                                                        </div><!-- ./col -->
+
+
+                                                                    </div> <!-- ./row -->
+                                                                    <!--END Phone-->
+                                                                    <!-- email-->
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <div class="input-field">
+                                                                                <input id="us-email" type="email" class="validate">
+                                                                                <label for="us-email" data-error="wrong" data-success="right">Email</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <!-- end Contact-->
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="card blue-grey darken-1">
+                                                                <div class="card-content white-text">
+                                                                    <span class="card-title">Title / License</span>
+                                                                    <!--start title-->
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <div class="input-field">
+                                                                                    <select class="title-drop">
+                                                                                        <option value="" disabled selected>Title</option>
+                                                                                        <option value="1">Superuser</option>
+                                                                                        <option value="2">Administrative</option>
+                                                                                        <option value="3">Registered Nurse</option>
+                                                                                        <option value="4">Licensed Vocational Nurse</option>
+                                                                                        <option value="5">Aid</option>
+                                                                                        <option value="6">Quality Assurance</option>
+                                                                                        <option value="7">Social Worker</option>
+                                                                                        <option value="8">Spiritual Councellor</option>
+                                                                                    </select>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-12">
+                                                                            <div class="input-field">
+                                                                                <input id="us-lic" type="text">
+                                                                                <label for="us-lic"><?php echo lang('license')?></label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-md-6">
+                                                                            <div class="row">
+                                                                                <label>from</label>
+                                                                                <input type="date" class="datepicker">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <div class="row">
+                                                                                <label>to</label>
+                                                                                <input type="date" class="datepicker">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!--end title-->
+                                                                </div>
+                                                            </div>
+                                                            <div class="card blue-grey darken-1">
+                                                                <div class="card-content white-text">
+                                                                    <span class="card-title">Langauge</span>
+                                                                    <!--start langauge-->
+                                                                    <div class="row">
+                                                                        <div class="col-md-12 add-row-able" next-row-class="lang-second-row">
+                                                                            <div class="input-field col-md-12">
+                                                                                <select class="leng">
+                                                                                    <option value="" disabled selected>Choose your langauge</option>
+                                                                                    <option value="1">Option 1</option>
+                                                                                    <option value="2">Option 2</option>
+                                                                                    <option value="3">Option 3</option>
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="input-field col-md-12 rem-sel">
+                                                                                <input type="text" name="langauge1" list="langauge1">
+                                                                                <datalist id="langauge1">
+                                                                                    <option value=" Read"></option>
+                                                                                    <option value="Write"></option>
+                                                                                    <option value="Spoken"></option>
+                                                                                </datalist>
+
+                                                                            </div>
+                                                                            <div class="col-md-12">
+                                                                                <div class="form-group">
+                                                                                    <div class="input-field">
+                                                                                        <input id="us-profic"  type="text"  class="validate">
+                                                                                        <label for="us-profic" class="control-label">Proficiency</label>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                        <?php }} ?>
+                                                                            <div class="btn-add add-row-button" next-row-class="lang-second-row">
+                                                                                <a href="javascript:void(0)"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-12 phone  lang-second-row"  style="display:none">
+                                                                            <div class="input-field col-md-12">
+                                                                                <select class="leng">
+                                                                                    <option value="" disabled selected>Choose your langauge</option>
+                                                                                    <option value="1">Option 1</option>
+                                                                                    <option value="2">Option 2</option>
+                                                                                    <option value="3">Option 3</option>
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="input-field col-md-12 rem-sel">
+                                                                                <input type="text" name="langauge2" list="langauge2">
+                                                                                <datalist id="langauge2">
+                                                                                    <option value=" Read"></option>
+                                                                                    <option value="Write"></option>
+                                                                                    <option value="Spoken"></option>
+                                                                                </datalist>
+
+                                                                            </div>
+                                                                            <div class="col-md-12">
+                                                                                <div class="form-group">
+                                                                                    <div class="input-field">
+                                                                                        <input id="us-profic2"  type="text"  class="validate">
+                                                                                        <label for="us-profic2" class="control-label">Proficiency</label>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="btn-add add-row-button" next-row-class="lang-third-row">
+                                                                                <a href="javascript:void(0)"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+                                                                            </div>
+                                                                            <div class="btn-rem">
+                                                                                <i class="fa fa-times-circle" aria-hidden="true"></i>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-12 phone  lang-third-row"  style="display: none;">
+                                                                            <div class="input-field col-md-12">
+                                                                                <select class="leng">
+                                                                                    <option value="" disabled selected>Choose your langauge</option>
+                                                                                    <option value="1">Option 1</option>
+                                                                                    <option value="2">Option 2</option>
+                                                                                    <option value="3">Option 3</option>
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="input-field col-md-12 rem-sel">
+                                                                                <input type="text" name="langauge3" list="langauge3">
+                                                                                <datalist id="langauge3">
+                                                                                    <option value=" Read"></option>
+                                                                                    <option value="Write"></option>
+                                                                                    <option value="Spoken"></option>
+                                                                                </datalist>
+                                                                            </div>
+                                                                            <div class="col-md-12">
+                                                                                <div class="form-group">
+                                                                                    <div class="input-field">
+                                                                                        <input id="us-profic3"  type="text"  class="validate">
+                                                                                        <label for="us-profic3" class="control-label">Proficiency</label>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="btn-rem">
+                                                                                <i class="fa fa-times-circle" aria-hidden="true"></i>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!--end Langauge-->
                                                                 </div>
+
                                                             </div>
-                                                        </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <div class="input-field">
-                                                                <input id="ethnicity" type="text" class="validate">
-                                                                <label for="ethnicity" class="control-label"> Ethnicity </label>
+                                                            <div class="card blue-grey darken-1">
+                                                                <div class="card-content white-text">
+                                                                    <span class="card-title">Electronic Signature</span>
+                                                                    <!--start Electronic Signature-->
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group">
+                                                                                <div class="input-field">
+                                                                                    <input id="us-text" type="text" class="validate">
+                                                                                    <label for="us-text" class="control-label">Placeholder </label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group">
+                                                                                <div class="input-field">
+                                                                                    <input id="us-code" type="text" class="validate">
+                                                                                    <label for="us-code" class="control-label">Code</label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-12">
+                                                                            <div class="form-group">
+                                                                                <div class="input-field">
+                                                                                    <input id="us-code-conf" type="text" class="validate">
+                                                                                    <label for="us-code-conf" class="control-label">Confirm Code</label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!--end Electronic Signature-->
+                                                                </div>
+
                                                             </div>
+
                                                         </div>
                                                     </div>
-
-
-                                                </div>
-                                                <!-- end General-->
-                                                <!-- start Contact-->
-                                                    <!-- user address -->
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <div class="input-field">
-                                                                    <input id="us-adr"  type="text"  class="validate">
-                                                                    <label for="us-adr" class="control-label"><?php echo lang('address') ?></label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <div class="input-field">
-                                                                    <input id="us-adr2"  type="text"  class="validate">
-                                                                    <label for="us-adr2" class="control-label"><?php echo lang('address2') ?></label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- City-state-zip-->
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="form-group">
-                                                                <div class="input-field">
-                                                                    <input id="us-city"  type="text"  class="validate">
-                                                                    <label for="us-city" class="control-label"><?php echo lang('city') ?></label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <div class="input-field">
-                                                                    <input id="us-state"  type="text"  class="validate">
-                                                                    <label for="us-state" class="control-label"><?php echo lang('state') ?></label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <div class="input-field">
-                                                                    <input id="us-zip"  type="number"  class="validate">
-                                                                    <label for="us-zip" class="control-label"><?php echo lang('zip') ?></label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!--Phone-->
-                                                    <div class="row">
-                                                        <!-- client phone -->
-                                                        <div class="col-md-12 phone add-row-able" next-row-class="phone-second-row">
-                                                            <div class="form-group input-field">
-                                                                <div class="col-md-6" style="padding-left: 0">
-                                                                    <table>
-                                                                        <tr>
-                                                                            <td style="width: 98%">
-                                                                                <input type="text" id="us_phone"  class="form-control required_form " maxlength="50" onchange="javascript:checkPhonesVisibilty(); validateFormEnableOrDisable('form_client_edit');" " />
-                                                                                <label for="us_phone" class=""><?php echo lang('phone') ?><span class="required">&nbsp;*&nbsp;</span></label>
-                                                                            </td>
-                                                                        </tr>
-                                                                    </table>
-                                                                </div><!-- ./col -->
-                                                                <div class="input-field col-md-6 rem-sel">
-                                                                    <input type="text" name="phone1" list="phonename8">
-                                                                    <datalist id="phonename8">
-                                                                        <option value="Home">
-                                                                        <option value="Work">
-                                                                        <option value="Other">
-                                                                    </datalist>
-
-                                                                </div>
-                                                            </div>
-                                                            <!-- ./form-group -->
-                                                            <div class="btn-add add-row-button" next-row-class="phone-second-row">
-                                                                <a href="javascript:void(0)"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
-                                                            </div>
-
-                                                        </div><!-- ./col -->
-
-                                                        <!-- client phone_2 -->
-                                                        <div class="col-md-12 phone  phone-second-row" id="div_phone_2" style="display: <?= ( !empty($client->client_phone_2) ? 'block' : 'none' ); ?>">
-                                                            <div class="form-group input-field">
-                                                                <div class="col-md-6" style="padding-left: 0">
-                                                                    <input type="text"  id="us_phone-2" class="form-control " maxlength="50" onchange="javascript:checkPhonesVisibilty(); " />
-                                                                    <label for="us_phone-2" class=""><?php echo lang('phone_2') ?></label>
-                                                                </div><!-- ./col -->
-                                                                <div class="input-field col-md-6">
-                                                                    <input type="text" name="phone2" list="phonename2">
-                                                                    <datalist id="phonename2">
-                                                                        <option value="Home">
-                                                                        <option value="Work">
-                                                                        <option value="Other">
-                                                                    </datalist>
-
-                                                                </div>
-                                                            </div><!-- ./form-group -->
-                                                            <div class="btn-add add-row-button" next-row-class="phone-third-row">
-                                                                <a href="javascript:void(0)"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
-                                                            </div>
-                                                            <div class="btn-rem">
-                                                                <i class="fa fa-times-circle" aria-hidden="true"></i>
-                                                            </div>
-                                                        </div><!-- ./col -->
-
-                                                        <!-- client phone_3 -->
-                                                        <div class="col-md-12 phone  phone-third-row" id="div_phone_3" style="display: none;">
-                                                            <div class="form-group input-field">
-                                                                <div class="col-md-6" style="padding-left: 0">
-                                                                    <input type="text" id="us_phone_3"  class="form-control " maxlength="50" onchange="javascript:checkPhonesVisibilty(); " />
-                                                                    <label for="us_phone_3" class=""><?php echo lang('phone_3') ?></label>
-                                                                </div><!-- ./col -->
-                                                                <div class="input-field col-md-6">
-                                                                    <input type="text" name="phone3" list="phonename3">
-                                                                    <datalist id="phonename3">
-                                                                        <option value="Home">
-                                                                        <option value="Work">
-                                                                        <option value="Other">
-                                                                    </datalist>
-
-                                                                </div>
-                                                            </div><!-- ./form-group -->
-
-                                                            <div class="btn-rem">
-                                                                <i class="fa fa-times-circle" aria-hidden="true"></i>
-                                                            </div>
-                                                        </div><!-- ./col -->
-
-
-                                                    </div> <!-- ./row -->
-                                                    <!--END Phone-->
-                                                    <!-- email-->
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="input-field">
-                                                                <input id="us-email" type="email" class="validate">
-                                                                <label for="us-email" data-error="wrong" data-success="right">Email</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                <!-- end Contact-->
-
-                                                <!--start title-->
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="input-field">
-                                                            <input id="us-title" type="text">
-                                                            <label for="us-title"><?php echo lang('title')?></label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <div class="input-field">
-                                                            <input id="us-lic" type="text">
-                                                            <label for="us-lic"><?php echo lang('license')?></label>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="row">
-                                                            <label>from</label>
-                                                            <input type="date" class="datepicker">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="row">
-                                                            <label>to</label>
-                                                            <input type="date" class="datepicker">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!--end title-->
-
-                                                <!--start langauge-->
-                                                <div class="row">
-
-                                                    <div class="input-field col-md-6">
-
-                                                        <select class="leng">
-                                                            <option value="" disabled selected>Choose your langauge</option>
-                                                            <option value="1">Option 1</option>
-                                                            <option value="2">Option 2</option>
-                                                            <option value="3">Option 3</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="input-field col-md-6 rem-sel">
-                                                        <input type="text" name="langauge1" list="langauge1">
-                                                        <datalist id="langauge1">
-                                                            <option value=" Read"></option>
-                                                            <option value="Write"></option>
-                                                            <option value="Spoken"></option>
-                                                        </datalist>
-
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <div class="input-field">
-                                                                <input id="us-profic"  type="text"  class="validate">
-                                                                <label for="us-profic" class="control-label">Proficiency</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                   
-                                                </div>
-                                                <!--end Langauge-->
-                                                <!--start Electronic Signature-->
-                                                <div class="row">
-                                                    <div class="col-md-12 add-row-able" next-row-class="place-second-row">
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <div class="input-field">
-                                                                    <input id="us-text" type="text" class="validate">
-                                                                    <label for="us-text" class="control-label">Placeholder </label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <div class="input-field">
-                                                                    <input id="us-code" type="text" class="validate">
-                                                                    <label for="us-code" class="control-label">Code</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <div class="input-field">
-                                                                    <input id="us-code-conf" type="text" class="validate">
-                                                                    <label for="us-code-conf" class="control-label">Confirm Code</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="btn-add add-row-button" next-row-class="place-second-row">
-                                                            <a href="javascript:void(0)"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
-                                                        </div>
-
-                                                    </div>
-                                                    <div class="col-md-12 phone  place-second-row"  style="display:none">
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <div class="input-field">
-                                                                    <input id="us-text1" type="text" class="validate">
-                                                                    <label for="us-text1" class="control-label">Placeholder </label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <div class="input-field">
-                                                                    <input id="us-code1" type="text" class="validate">
-                                                                    <label for="us-code1" class="control-label">Code</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <div class="input-field">
-                                                                    <input id="us-code-conf1" type="text" class="validate">
-                                                                    <label for="us-code-conf1" class="control-label">Confirm Code</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="btn-add add-row-button" next-row-class="place-third-row">
-                                                            <a href="javascript:void(0)"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
-                                                        </div>
-                                                        <div class="btn-rem">
-                                                            <i class="fa fa-times-circle" aria-hidden="true"></i>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12 phone  place-third-row"  style="display: none;">
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <div class="input-field">
-                                                                    <input id="us-text2" type="text" class="validate">
-                                                                    <label for="us-text2" class="control-label">Placeholder </label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <div class="input-field">
-                                                                    <input id="us-code2" type="text" class="validate">
-                                                                    <label for="us-code2" class="control-label">Code</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <div class="input-field">
-                                                                    <input id="us-code-conf2" type="text" class="validate">
-                                                                    <label for="us-code-conf2" class="control-label">Confirm Code</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="btn-rem">
-                                                            <i class="fa fa-times-circle" aria-hidden="true"></i>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-
-                                                <!--end Electronic Signature-->
-                                                <div class="row">
-                                                    <ul class="md-foot-top">
-                                                        <li class="create-contact-more"><button class="btn-flat btn-flat1 reset_form_btn">Reset</button></li>
-                                                        <li class="create-contact-more"><button class="btn-flat btn-flat1">SUBMIT</button></li>
-                                                    </ul>
                                                 </div>
                                             </div>
                                         </form>
@@ -850,302 +806,49 @@
                             <h3 class="modal-title" id="lineModalLabel">New User</h3>
                         </div>
                         <div class="modal-body">
-                            <div class="row">
-                                <!-- BEGIN FORM-->
-                                <form action="#" id="new_user_form">
-
-                                    <div class="form-body">
-                                        <!-- start Account-->
-
-                                        <!-- User name -->
+                            <form action="">
+                                <div class="row">
+                                    <form class="col s12">
                                         <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <div class="input-field">
-                                                        <input id="us-name" type="text" class="validate">
-
-                                                        <label for="us-name" class="control-label"><?php echo lang('user_name') ?>
-                                                            <span class="required"> * </span>
-                                                        </label>
-                                                    </div>
-                                                </div>
+                                            <div class="input-field col s12">
+                                                <i class="material-icons prefix">account_circle</i>
+                                                <input id="icon_prefix" type="text" class="validate"/>
+                                                <label for="icon_prefix">First Name</label>
                                             </div>
                                         </div>
-
-                                        <!-- User password -->
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <div class="input-field">
-                                                        <input id="us-pass" type="password" class="validate">
-
-                                                        <label for="us-pass" class="control-label"><?php echo lang('password') ?>
-                                                            <span class="required"> * </span>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <div class="input-field">
-                                                        <input id="us-pass-conf" type="password" class="">
-
-                                                        <label data-error="wrong" data-success="right" for="us-pass-conf" class="control-label"><?php echo lang('password_confirm') ?>
-                                                            <span class="required"> * </span>
-                                                        </label>
-                                                    </div>
-                                                </div>
+                                            <div class="input-field col s12">
+                                                <i class="material-icons prefix">supervisor_account</i>
+                                                <input id="last_name" type="text" class="validate"/>
+                                                <label for="last_name">Last Name</label>
                                             </div>
                                         </div>
-
-                                        <!-- end Account-->
-
-
-                                        <!-- start General-->
-
-                                        <!-- User names -->
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <div class="input-field">
-                                                        <input id="us-fr-nm" type="text" class="validate">
-                                                        <label for="us-fr-nm" class="control-label"><?php echo lang('first_name') ?>
-                                                            <span class="required"> * </span>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <div class="input-field">
-                                                        <input id="us-md-nm" type="text" class="validate">
-                                                        <label for="us-md-nm" class="control-label"><?php echo lang('middle_name') ?></label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <div class="input-field">
-                                                        <input id="us-fr-nm" type="text" class="validate">
-                                                        <label for="us-fr-nm" class="control-label"><?php echo lang('last_name') ?>
-                                                            <span class="required"> * </span>
-                                                        </label>
-                                                    </div>
-                                                </div>
+                                            <div class="input-field col s12">
+                                                <i class="material-icons prefix">phone</i>
+                                                <input id="icon_telephone" type="tel" class="validate"/>
+                                                <label for="icon_telephone">Telephone</label>
                                             </div>
                                         </div>
-                                        <!-- end General-->
-
-                                        <!-- start Contact-->
-
-                                        <!-- user address -->
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <div class="input-field">
-                                                        <input id="us-adr"  type="text"  class="validate">
-                                                        <label for="us-adr" class="control-label"><?php echo lang('address') ?></label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <div class="input-field">
-                                                        <input id="us-adr2"  type="text"  class="validate">
-                                                        <label for="us-adr2" class="control-label"><?php echo lang('address2') ?></label>
-                                                    </div>
-                                                </div>
+                                            <div class="input-field col s12">
+                                                <i class="material-icons prefix">email</i>
+                                                <input id="email" type="email" class="validate required_form"  onchange="validateFormEnableOrDisable('form_client_edit2');"/>
+                                                <label for="email">Email address</label>
                                             </div>
                                         </div>
-                                        <!-- City-state-zip-->
                                         <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <div class="input-field">
-                                                        <input id="us-city"  type="text"  class="validate">
-                                                        <label for="us-city" class="control-label"><?php echo lang('city') ?></label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <div class="input-field">
-                                                        <input id="us-state"  type="text"  class="validate">
-                                                        <label for="us-state" class="control-label"><?php echo lang('state') ?></label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <div class="input-field">
-                                                        <input id="us-zip"  type="number"  class="validate">
-                                                        <label for="us-zip" class="control-label"><?php echo lang('zip') ?></label>
-                                                    </div>
-                                                </div>
+                                            <div class="input-field col s12">
+                                                <i class="material-icons prefix">email</i>
+                                                <input id="email" type="email" class="validate required_form" onchange="validateFormEnableOrDisable('form_client_edit2');"/>
+                                                <label for="email">Verify email address</label>
                                             </div>
                                         </div>
+                                    </form>
+                                </div>
+                            </form>
+                        </div>
 
-
-
-                                        <!--Phone-->
-                                        <div class="row">
-                                            <!-- client phone -->
-                                            <div class="col-md-12 phone add-row-able" next-row-class="phone-second-row">
-                                                <div class="form-group input-field">
-                                                    <div class="col-md-6" style="padding-left: 0">
-                                                        <table>
-                                                            <tr>
-                                                                <td style="width: 98%">
-                                                                    <input type="text" id="us_phone"  class="form-control required_form " maxlength="50" onchange="javascript:checkPhonesVisibilty(); validateFormEnableOrDisable('form_client_edit');" " />
-                                                                    <label for="us_phone" class=""><?php echo lang('phone') ?><span class="required">&nbsp;*&nbsp;</span></label>
-                                                                </td>
-                                                            </tr>
-                                                        </table>
-                                                    </div><!-- ./col -->
-                                                    <div class="input-field col-md-6 rem-sel">
-                                                        <input type="text" name="phone1" list="phonename8">
-                                                        <datalist id="phonename8">
-                                                            <option value="Home">
-                                                            <option value="Work">
-                                                            <option value="Other">
-                                                        </datalist>
-
-                                                    </div>
-                                                </div>
-                                                <!-- ./form-group -->
-                                                <div class="btn-add add-row-button" next-row-class="phone-second-row">
-                                                    <a href="javascript:void(0)"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
-                                                </div>
-
-
-                                            </div><!-- ./col -->
-
-                                            <!-- client phone_2 -->
-                                            <div class="col-md-12 phone  phone-second-row" id="div_phone_2" style="display: <?= ( !empty($client->client_phone_2) ? 'block' : 'none' ); ?>">
-                                                <div class="form-group input-field">
-                                                    <div class="col-md-6" style="padding-left: 0">
-                                                        <input type="text"  id="us_phone-2" class="form-control " maxlength="50" onchange="javascript:checkPhonesVisibilty(); " />
-                                                        <label for="us_phone-2" class=""><?php echo lang('phone_2') ?></label>
-                                                    </div><!-- ./col -->
-                                                    <div class="input-field col-md-6">
-                                                        <input type="text" name="phone2" list="phonename2">
-                                                        <datalist id="phonename2">
-                                                            <option value="Home">
-                                                            <option value="Work">
-                                                            <option value="Other">
-                                                        </datalist>
-
-                                                    </div>
-                                                </div><!-- ./form-group -->
-                                                <div class="btn-add add-row-button" next-row-class="phone-third-row">
-                                                    <a href="javascript:void(0)"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
-                                                </div>
-                                                <div class="btn-rem">
-                                                    <i class="fa fa-times-circle" aria-hidden="true"></i>
-                                                </div>
-                                            </div><!-- ./col -->
-
-                                            <!-- client phone_3 -->
-                                            <div class="col-md-12 phone  phone-third-row" id="div_phone_3" style="display: none;">
-                                                <div class="form-group input-field">
-                                                    <div class="col-md-6" style="padding-left: 0">
-                                                        <input type="text" id="us_phone_3"  class="form-control " maxlength="50" onchange="javascript:checkPhonesVisibilty(); " />
-                                                        <label for="us_phone_3" class=""><?php echo lang('phone_3') ?></label>
-                                                    </div><!-- ./col -->
-                                                    <div class="input-field col-md-6">
-                                                        <input type="text" name="phone3" list="phonename3">
-                                                        <datalist id="phonename3">
-                                                            <option value="Home">
-                                                            <option value="Work">
-                                                            <option value="Other">
-                                                        </datalist>
-
-                                                    </div>
-                                                </div><!-- ./form-group -->
-
-                                                <div class="btn-rem">
-                                                    <i class="fa fa-times-circle" aria-hidden="true"></i>
-                                                </div>
-                                            </div><!-- ./col -->
-
-
-                                        </div> <!-- ./row -->
-                                        <!--END Phone-->
-
-
-                                        <!-- email-->
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="input-field">
-                                                    <input id="us-email" type="email" class="validate">
-                                                    <label for="us-email" data-error="wrong" data-success="right">Email</label>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- end Contact-->
-
-
-                                        <!--start Employment-->
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="input-field">
-                                                    <div class="col-sm-4">
-                                                        <input class="with-gap" name="group1" type="radio" id="full_time"  />
-                                                        <label for="full_time"><?php echo lang('full_time')?></label>
-                                                    </div>
-                                                    <div class="col-sm-4">
-                                                        <input class="with-gap" name="group1" type="radio" id="part_time"  />
-                                                        <label for="part_time"><?php echo lang('part_time')?></label>
-                                                    </div>
-                                                    <div class="col-sm-4">
-                                                        <input class="with-gap" name="group1" type="radio" id="contractor"  />
-                                                        <label for="contractor"><?php echo lang('contractor')?></label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!--end Employment-->
-
-                                        <!--title-->
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="input-field">
-                                                    <input id="us-title" type="text">
-                                                    <label for="us-title"><?php echo lang('title')?></label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="input-field">
-                                                    <input id="us-lic" type="text">
-                                                    <label for="us-lic"><?php echo lang('license')?></label>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="row">
-                                                    <label>from</label>
-                                                    <input type="date" class="datepicker">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="row">
-                                                    <label>to</label>
-                                                    <input type="date" class="datepicker">
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-                                </form>
-                                <!-- END FORM-->
-                            </div>
-
-                        </div><!-- ./row -->
                         <div class="modal-footer">
 
                             <div class="col-xs-12">
