@@ -798,8 +798,8 @@ input[type=text]:focus:not([readonly]){
 #profile-form-mock #profile-form select.leng, #profile-form-mock #profile-form select.title-drop{
     border: none;
     border-bottom: 1px solid #9e9e9e;
-    /*color: #9e9e9e;*/
-    color: #000;
+    color: #9e9e9e;
+    /*color: #000;*/
 }
 #profile-form-mock #profile-form input[type=text]{
     color: #000;
@@ -813,7 +813,14 @@ input[type=text]:focus:not([readonly]){
 }
 #profile-form-mock #profile-form #new_user_form .row{
     margin-bottom: 0;
-    background-color: #fff;
+
+}
+#profile-form-mock #profile-form .pad-card .card {
+    
+    background-color: #fff !important;
+}
+#profile-form-mock #profile-form .card .card-content .card-title{
+    color: #000;
 }
 #profile-form-mock .page-content-wrapper .col-md-12 {
     background-color: transparent !important;
