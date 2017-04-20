@@ -545,7 +545,7 @@
                                                                                     <input type="text"  id="us_phone-2" class="form-control " maxlength="50" onchange="javascript:checkPhonesVisibilty(); " />
                                                                                     <label for="us_phone-2" class=""><?php echo lang('phone_2') ?></label>
                                                                                 </div><!-- ./col -->
-                                                                                <div class="input-field col-md-6">
+                                                                                <div class="input-field col-md-6" style="margin-top: 0">
                                                                                     <input type="text" name="phone2" list="phonename2">
                                                                                     <datalist id="phonename2">
                                                                                         <option value="Home">
@@ -570,7 +570,7 @@
                                                                                     <input type="text" id="us_phone_3"  class="form-control " maxlength="50" onchange="javascript:checkPhonesVisibilty(); " />
                                                                                     <label for="us_phone_3" class=""><?php echo lang('phone_3') ?></label>
                                                                                 </div><!-- ./col -->
-                                                                                <div class="input-field col-md-6">
+                                                                                <div class="input-field col-md-6" style="margin-top: 0">
                                                                                     <input type="text" name="phone3" list="phonename3">
                                                                                     <datalist id="phonename3">
                                                                                         <option value="Home">
@@ -782,10 +782,15 @@
                                                                 </div>
 
                                                             </div>
-
                                                         </div>
                                                     </div>
+
+                                                    <div class="col-xs-12 text-center sev-canc-mock">
+                                                        <button class="btn">CANCEL</button>
+                                                        <button class="btn">SAVE</button>
+                                                    </div>
                                                 </div>
+
                                             </div>
                                         </form>
                                         <!-- END FORM-->

@@ -852,28 +852,12 @@
 
 
                                                             <form action="#">
-                                                                <p>
-                                                                    <input class="with-gap required_form_to_check" name="group1" type="radio" id="assisted" onchange="validateFormEnableOrDisable('form_client_edit');" />
-                                                                    <label for="assisted">Assisted /Senior Living Facilities</label>
-                                                                </p>
-                                                                <p>
-                                                                    <input class="with-gap" name="group1" type="radio" id="home" onchange="validateFormEnableOrDisable('form_client_edit');" />
-                                                                    <label for="home">Home Health</label>
-                                                                </p>
-                                                                <p>
-                                                                    <input class="with-gap" name="group1" type="radio" id="SYS" onchange="validateFormEnableOrDisable('form_client_edit');" />
-                                                                    <label for="SYS">SYS Admin</label>
-                                                                </p>
-                                                                <p>
-                                                                    <input class="with-gap" name="group1" type="radio" id="testing" onchange="validateFormEnableOrDisable('form_client_edit');" />
-                                                                    <label for="testing">testing description</label>
-                                                                </p>
-                                                                <p>
-                                                                    <input class="with-gap" name="group1" type="radio" id="providing" onchange="validateFormEnableOrDisable('form_client_edit');" />
-                                                                    <label for="providing">a home providing care for the sick, especially the terminally ill.</label>
-                                                                </p>
-
-
+                                                                <?php foreach ($cl_type as $key => $value): ?>
+                                                                    <p>
+                                                                        <input class="with-gap required_form_to_check" name="group1" type="radio" id="<?php echo $key?>" onchange="validateFormEnableOrDisable('form_client_edit');" />
+                                                                        <label for="<?php echo $key?>"><?php echo $value->type_name ?></label>
+                                                                    </p>
+                                                                <?php endforeach;?>
                                                             </form>
                                                         </div>
 

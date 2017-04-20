@@ -832,3 +832,7 @@ input[type=text]:focus:not([readonly]){
 #profile-form-mock h1.logo{
     margin:0;
 }
+#profile-form-mock #profile-form .sev-canc-mock button{
+    margin-bottom: 20px;
+    margin-left: 15px;
+}

@@ -23,7 +23,7 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
                     </h4>
 
                     <button type="button" class="dropdown-button btn filter_dropdown btn-filter " data-activates='dropdown1' onclick="javascript:clientsListFilterApplied();" data-toggle="tooltip" data-html="true" data-placement="top" title="" data-original-title="Open dialog window to set filter for Clients. <?= ( trim($filters_label) != "" ? "Current filter(s):".$filters_label : "") ?> "><i class="glyphicon glyphicon-filter"></i>&nbsp;Filter </button>
-                    <button type="button" class="btn btn-plus sbold btn-sm pull-right" data-toggle="modal" data-target="#newclient"  ><i class="glyphicon glyphicon-plus"></i></button>
+                    <button type="button" class="btn btn-plus sbold btn-sm pull-right create_contact" ><i class="glyphicon glyphicon-plus"></i></button>
                 </div>
                     <!-- Dropdown Structure -->
 

@@ -33,7 +33,7 @@ class Sys_admin extends CI_Controller {
 
 
 
-//		$this->job 				= $this->common_mdl->get_users_jobs()->row();
+//		$this->job = $this->common_mdl->get_users_jobs()->row();
 	 }
 
  /**********************
@@ -409,7 +409,7 @@ class Sys_admin extends CI_Controller {
 		$data['sort']= $sort;
 		$data['page_parameters_with_sort']= $page_parameters_with_sort;
 		$data['page_parameters_without_sort']= $page_parameters_without_sort;
-
+        $data['cl_type'] = $this->clients_mdl->get_clients_type();
 		$this->pagination->suffix = $this->clientsPreparePageParameters($UriArray, $post_array, false, true);
 		$this->pagination->cur_page= $page;
 		$pagination_links = $this->pagination->create_links();
@@ -1721,4 +1721,12 @@ class Sys_admin extends CI_Controller {
 
 		$this->common_lib->activity_log($this->menu,$this->user, $this->group->name,TRUE);
 	}
+
+
+
+	public function test()
+    {
+        $data['cl_type'] = $this->clients_mdl->get_clients_type();
+        $this->load->view('test', $data);
+    }
 }
