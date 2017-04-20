@@ -17,8 +17,8 @@ class Users extends CI_Controller
 		$this->load->model('cms_items_mdl');
 		$this->load->model('activity_logs_mdl');
 		$this->lang->load('sys_admin');
-		$this->config->load('sys_admin_menu', true);
-		$this->menu = $this->config->item('sys_admin_menu');
+		$this->config->load('sys_admin_menu_new', true);
+		$this->menu = $this->config->item('sys_admin_menu_new');
 
 		$this->user = $this->common_mdl->get_admin_user();
 		if ( $this->user->user_active_status != 'A' ) {  // Only active user can access admin pages
