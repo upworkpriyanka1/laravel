@@ -6,7 +6,7 @@
 </div>
 <ul id="nav-mobile" class="side-nav fixed" style="transform: translateX(-100%);">
     <li class="logo">
-        <a href="./" class="brand-logo">
+        <a href="/sys-admin/" class="brand-logo">
             <img src="<?= base_url('assets/img/logo.png');?>" alt="logo" class="logo-default" />
         </a>
     </li>
