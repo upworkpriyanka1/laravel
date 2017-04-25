@@ -29,7 +29,6 @@
                         <input type="hidden" name="data[client_name]" id="client_name" value="" class="form-control" maxlength="100">
                         <input type="hidden" name="data[clients_types_id]" id="client_name" value="1" class="form-control" maxlength="100">
                         <input type="hidden" name="data[client_fax]" value="15" class="form-control" maxlength="50">
-                        <input type="hidden" name="data[client_active_status]" value="Active" class="form-control" maxlength="50">
                         <div class="form-body">
 
                             <div class="alert alert-danger display-hide">
@@ -125,8 +124,8 @@
                                         <div class="col-md-12" style="display: <?php echo ( $client_owner_input_visible ? "block" :"block" ) ; ?>" id="div_client_owner_input">
 
                                             <i class="material-icons prefix">assignment_ind</i>
-                                            <input type="text" name="data[client_owner]" id="client_owner" value="<?= ( !empty($client->client_owner) ? $client->client_owner : '' ); ?>" class="x-able form-control" maxlength="100" />
-                                            <label for="client_owner" class=""><?php echo lang('company_name') ?></label>
+                                            <input type="text" name="data[client_owner]" id="client_owner" value="<?= ( !empty($client->client_owner) ? $client->client_owner : '' ); ?>" class="x-able form-control required_form" maxlength="100" onchange="validateFormEnableOrDisable('form_client_edit');"/>
+                                            <label for="client_owner" class=""><?php echo lang('company_name') ?><span class="required">&nbsp;*&nbsp;</span></label>
                                         </div>
 
                                         <div class="col-md-12" style="display: <?php echo ( ( $client_owner_view_visible ) ? "block" :"none" ) ; ?>" id="div_client_owner_view">
@@ -172,7 +171,7 @@
                                         </div>
                                         <div class="col-md-12" style="display: <?php echo ( $address1_input_visible ? "block" :"block" ) ; ?>" id="div_client_address1_input">
                                             <i class="material-icons prefix">business</i>
-                                            <input type="text" name="data[client_address1]" id="client_address1" value="<?= ( !empty($client->client_address1) ? $client->client_address1 : '' ); ?>" class="form-control x-able" maxlength="100" />
+                                            <input type="text" name="data[client_address1]" id="client_address1" value="<?= ( !empty($client->client_address1) ? $client->client_address1 : '' ); ?>" class="form-control x-able required_form" maxlength="100" onchange="validateFormEnableOrDisable('form_client_edit');"/>
                                             <label for="client_address1" class="col-md-4"><?php echo lang('address1') ?><span class="required">&nbsp;*&nbsp;</span></label>
                                         </div>
                                         <div class="col-md-7" style="display: <?php echo ( ( $address1_view_visible ) ? "block" :"none" ) ; ?>" id="div_client_address1_view">
@@ -275,7 +274,7 @@
                                         </div>
                                         <div class="col-md-4"  style="display: <?php echo ( $client_city_input_visible ? "block" :"block" ) ; ?>" id="div_client_city_input">
                                             <i class="material-icons prefix">location_on</i>
-                                            <input type="text" name="data[client_city]" id="client_city" value="<?= ( !empty($client->client_city) ? $client->client_city : '' ); ?>" class="form-control x-able" maxlength="100" />
+                                            <input type="text" name="data[client_city]" id="client_city" value="<?= ( !empty($client->client_city) ? $client->client_city : '' ); ?>" class="form-control x-able required_form" maxlength="100" onchange="validateFormEnableOrDisable('form_client_edit');"/>
                                             <label for="client_city" class=""><?php echo lang('city') ?><span class="required">&nbsp;*&nbsp;</span></label>
                                         </div>
                                         <div class="col-md-4"  style="display: <?php echo ( ( $client_city_view_visible ) ? "block" :"none" ) ; ?>" id="div_client_city_view">
@@ -313,7 +312,7 @@
                                             <button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:switchFieldName('client_state',true);" id="btn_add_client_state">Add a state<span class="required">&nbsp;*&nbsp;</span></button>
                                         </div>
                                         <div class="col-md-4" style="display: <?php echo ( $client_state_input_visible ? "block" :"block" ) ; ?>" id="div_client_state_input">
-                                            <input type="text" name="data[client_state]" id="client_state" value="<?= ( !empty($client->client_state) ? $client->client_state : '' ); ?>" class="form-control x-able" maxlength="50" />
+                                            <input type="text" name="data[client_state]" id="client_state" value="<?= ( !empty($client->client_state) ? $client->client_state : '' ); ?>" class="form-control x-able required_form" maxlength="100" onchange="validateFormEnableOrDisable('form_client_edit');"/>
                                             <label for="client_state" class="control-label col-md-2"><?php echo lang('state') ?><span class="required">&nbsp;*&nbsp;</span></label>
                                         </div>
                                         <div class="col-md-4" style="display: <?php echo ( ( $client_state_view_visible ) ? "block" :"none" ) ; ?>" id="div_client_state_view">
@@ -352,7 +351,7 @@
                                             <button type="button" class="waves-effect waves-light btn btn-xs" onclick="javascript:switchFieldName('client_zip',true);" id="btn_add_client_zip">Add a zip<span class="required">&nbsp;*&nbsp;</span></button>
                                         </div>
                                         <div class="col-md-4"  style="display: <?php echo ( $client_zip_input_visible ? "block" :"block" ) ; ?>" id="div_client_zip_input">
-                                            <input type="text" name="data[client_zip]" id="client_zip" value="<?= ( !empty($client->client_zip) ? $client->client_zip : '' ); ?>" class="form-control x-able" maxlength="5" />
+                                            <input type="text" name="data[client_zip]" id="client_zip" value="<?= ( !empty($client->client_zip) ? $client->client_zip : '' ); ?>" class="form-control x-able required_form" maxlength="100" onchange="validateFormEnableOrDisable('form_client_edit');"/>
                                             <label for="client_zip" class="control-label col-md-2"><?php echo lang('zip') ?><span class="required">&nbsp;*&nbsp;</span></label>
                                         </div>
                                         <div class="col-md-4" style="display: <?php echo ( ( $client_zip_view_visible ) ? "block" :"none" ) ; ?>" id="div_client_zip_view">
@@ -380,8 +379,8 @@
                                                 <tr>
                                                     <td style="width: 98%">
                                                         <i class="material-icons prefix">phone</i>
-                                                        <input type="text" name="data[client_phone]" id="client_phone" value="<?= ( !empty($client->client_phone) ? $client->client_phone : '' ); ?>" class="form-control " maxlength="50" onchange="javascript:checkPhonesVisibilty(); " />
-                                                        <label for="client_phone" class=""><?php echo lang('phone') ?></label>
+                                                        <input type="text" name="data[client_phone]" id="client_phone" value="<?= ( !empty($client->client_phone) ? $client->client_phone : '' ); ?>" class="form-control required_form " maxlength="50" onchange="javascript:checkPhonesVisibilty(); validateFormEnableOrDisable('form_client_edit');" " />
+                                                        <label for="client_phone" class=""><?php echo lang('phone') ?><span class="required">&nbsp;*&nbsp;</span></label>
                                                     </td>
                                                 </tr>
                                             </table>
@@ -538,7 +537,7 @@
 
                                 <!-- client email -->
                                 <div class="col-md-12 email add-row-able">
-                                    <div class="form-group input-field <?= $this->common_lib->set_field_error_tag("data[client_email]", ' has-error ')?>">
+                                    <div class="form-group input-field <?= $this->common_lib->set_field_error_tag("data[client_email_first]", ' has-error ')?>">
                                         <?php
                                         $is_debug= false;
                                         $client_email_button_visible = $is_insert;
@@ -570,7 +569,7 @@
 
                                         <div class="col-md-6" style="display: <?php echo ( $client_email_input_visible ? "block" :"block" ) ; ?>" id="div_client_email_input">
                                             <i class="material-icons prefix">email</i>
-                                            <input type="text" name="data[client_email]" id="client_email" value="<?= ( !empty($client->client_email) ? $client->client_email : '' ); ?>" class="form-control" maxlength="50"  />
+                                            <input type="text" name="data[client_email_first]" id="client_email" value="<?= ( !empty($client->client_email) ? $client->client_email : '' ); ?>" class="form-control" maxlength="50"  />
                                             <label for="client_email" class=""><?php echo lang('email') ?></label>
                                         </div>
 
@@ -823,28 +822,12 @@
 
 
                                     <form action="#">
-                                        <p>
-                                            <input class="with-gap" name="group1" type="radio" id="assisted" />
-                                            <label for="assisted">Assisted /Senior Living Facilities</label>
-                                        </p>
-                                        <p>
-                                            <input class="with-gap" name="group1" type="radio" id="home" />
-                                            <label for="home">Home Health</label>
-                                        </p>
-                                        <p>
-                                            <input class="with-gap" name="group1" type="radio" id="SYS"  />
-                                            <label for="SYS">SYS Admin</label>
-                                        </p>
-                                        <p>
-                                            <input class="with-gap" name="group1" type="radio" id="testing"  />
-                                            <label for="testing">testing description</label>
-                                        </p>
-                                        <p>
-                                            <input class="with-gap" name="group1" type="radio" id="providing"  />
-                                            <label for="providing">a home providing care for the sick, especially the terminally ill.</label>
-                                        </p>
-
-
+                                        <?php foreach ($cl_type as $key => $value): ?>
+                                            <p>
+                                                <input class="with-gap required_form_to_check" name="group1" type="radio" id="<?php echo $key?>" onchange="validateFormEnableOrDisable('form_client_edit');" />
+                                                <label for="<?php echo $key?>"><?php echo $value->type_name ?></label>
+                                            </p>
+                                        <?php endforeach;?>
                                     </form>
                                 </div>
 

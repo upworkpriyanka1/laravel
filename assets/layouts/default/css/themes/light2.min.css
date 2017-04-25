@@ -22,7 +22,8 @@ ul.side-nav.fixed ul.collapsible-accordion{
 	 padding-top: 0;
 }
 .page-container-bg-solid .page-bar, .page-content-white .page-bar{background-color: #c8c8c8 !important;}
-ul.side-nav.fixed{background:#c8c8c8 !important;}
+ul.side-nav.fixed{background:#c8c8c8;}
+/*ul.side-nav.fixed{background:#c8c8c8 !important;}*/
 .side-nav .collapsible-body, .side-nav.fixed .collapsible-body {
     background-color: #ddd;
 }
