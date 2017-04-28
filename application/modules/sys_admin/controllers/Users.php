@@ -36,6 +36,8 @@ class Users extends CI_Controller
 	 * return view
 	 *********************************/
 	public function users_view(){
+	
+		
 		$data['meta_description']='';
 		$data['menu']		= $this->menu;
 		$data['user'] 		= $this->user;
@@ -125,7 +127,9 @@ class Users extends CI_Controller
 		}
 		$post_array = $this->input->post();
 		/*echo "post array is ";
-		print_r($post_array);*/
+		print_r($post_array);
+		exit(0);*/
+		
 		$sort= $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort');
 		$sort_direction = $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort_direction');
 		$page_number = $this->common_lib->getParameter($this, $UriArray, $post_array, 'page_number', 1);
@@ -187,6 +191,7 @@ class Users extends CI_Controller
 		if (!empty($_POST)) {
 			$validation_status = $this->form_validation->run();
 			if ($validation_status != FALSE) {
+				//exit(0);
 				$this->user_edit_makesave ($is_insert, $user_id, $data['select_on_update'], $redirect_url, $page_parameters_with_sort, $post_array, $app_config );
 			} else {
 				$editable_user = $this->user_edit_fill_current_data( $editable_user, $is_insert, $user_id );
@@ -348,8 +353,16 @@ class Users extends CI_Controller
 					$user_group_array[]= $a[1];
 				}
 			}
+			
+			$auth = isset($post_array['cbx_auth'])?1:0;
 
-			$additional_data= array(  'ip_address'=> $ip_address, 'user_active_status' => $post_array['data']['user_active_status'], 'first_name' => $post_array['data']['first_name'], 'last_name' => $post_array['data']['last_name'], 'city' => $post_array['data']['city'], 'state' => $post_array['data']['state'], 'zip' => $post_array['data']['zip'],  'address1' => $post_array['data']['address1'], 'address2' => $post_array['data']['address2'], 'mobile' => $post_array['data']['mobile'], 'phone' => $post_array['data']['phone'], 'created_on'=> now(), 'avatar' => $post_array['data']['avatar'] );
+			$additional_data= array(  'ip_address'=> $ip_address, 'user_active_status' => $post_array['data']['user_active_status'], 'first_name' => $post_array['data']['first_name'], 'last_name' => $post_array['data']['last_name'], 'city' => $post_array['data']['city'], 'state' => $post_array['data']['state'], 'zip' => $post_array['data']['zip'],  'address1' => $post_array['data']['address1'], 'address2' => $post_array['data']['address2'], 'mobile' => $post_array['data']['mobile'], 'phone' => $post_array['data']['phone'], 'created_on'=> now(), 'avatar' => $post_array['data']['avatar'], 'is_multi_auth' => $auth, 'created_at' => date('Y-m-d H:i:s') );
+
+			/*echo "<pre>";
+			echo "here in user edit makesave...";
+			echo "aditional data is : ";
+			print_r($additional_data);
+			exit();*/
 
 			if  (  !empty( $post_array['cbx_clear_image'])  )  {
 				$additional_data['avatar']= '';
@@ -363,7 +376,7 @@ class Users extends CI_Controller
 			$user_id = $this->ion_auth->register( $post_array['data']['username'], '', $post_array['data']['email'], $additional_data,   array(  $user_group_array  )  );
 			
 			if ( $post_array['data']['user_active_status'] == "W" ) { // sent message with activation code
-				$activation_page_url= $app_config['base_url']."/activation/".$activation_code;
+				$activation_page_url= $app_config['base_url']."activation/".$activation_code;
 				$title= 'You are registered at ' . $app_config['site_name'] . ' site';
 				$content = $this->cms_items_mdl->getBodyContentByAlias('user_register',
 					array('username' => $post_array['data']['username'],
@@ -377,7 +390,7 @@ class Users extends CI_Controller
 					), true);
 				$EmailOutput = $this->common_lib->SendEmail($post_array['data']['email'], $title, $content );
 //				$this->common_lib->DebToFile( 'sendEmail $content::'.print_r($content,true));
-			} // if ( $post_array['data']['user_active_status'] == "W" ) { // sent message with activation code
+			} 
 
 		} else {
 			$update_data= array( 'username' => $post_array['data']['username'], 'ip_address'=> $ip_address, 'email' => $post_array['data']['email'], 'user_active_status' => $post_array['data']['user_active_status'], 'first_name' => $post_array['data']['first_name'], 'last_name' => $post_array['data']['last_name'], 'city' => $post_array['data']['city'], 'state' => $post_array['data']['state'], 'zip' => $post_array['data']['zip'],  'address1' => $post_array['data']['address1'], 'address2' => $post_array['data']['address2'], 'mobile' => $post_array['data']['mobile'], 'phone' => $post_array['data']['phone'], 'avatar' => $post_array['data']['avatar'] );
