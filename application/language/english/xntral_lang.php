@@ -151,6 +151,7 @@ $lang['users-edit']             = "Edit User";
 $lang['user_active_status']     = "User's Status";
 $lang['user_has_groups']        = "Title(s)";
 $lang['user_has_groups_label']  = "Title(s)";
+$lang['authenticity']  			= "Authenticity"; // BBITS
 $lang['uc_active_status']       = "Relation Status";
 $lang['min-5-chars']            = "Minimum 5 characters";
 $lang['password']               = "Password";
