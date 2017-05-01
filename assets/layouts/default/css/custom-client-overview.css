@@ -824,6 +824,7 @@ input[type=text]:focus:not([readonly]){
 }
 #profile-form-mock .page-content-wrapper .col-md-12 {
     background-color: transparent !important;
+    color: #000;
 }
 #profile-form-mock, #profile-form-mock .pad-card{
     background-color: #e4e4e4;
@@ -835,4 +836,21 @@ input[type=text]:focus:not([readonly]){
 #profile-form-mock #profile-form .sev-canc-mock button{
     margin-bottom: 20px;
     margin-left: 15px;
+}
+/*----form-edit-us----*/
+
+.form-edit-us #nav-mobile{
+    background-color: #c8c8c8;
+}
+.form-edit-us .page-footer{
+    background-color: #A9A9A9;
+}
+.form-edit-us .side-nav .collapsible-body, .form-edit-us .side-nav.fixed .collapsible-body{
+    background-color: #ddd;
+}
+.form-edit-us ul.side-nav.fixed ul.collapsible-accordion a.collapsible-header, .form-edit-us  ul.side-nav.fixed ul.collapsible-accordion .collapsible-body li a,.form-edit-us header h1#logo,.form-edit-us .page-footer, .form-edit-us .page-footer .footer-list>li a, .form-edit-us .page-footer .page-footer-inner,.form-edit-us a.button-collapse.top-nav i, .form-edit-us header .chevron .chevron-down i, .form-edit-us header .chevron .chevron-up i {
+    color: #000;
+}
+.form-edit-us .page-header.navbar, .form-edit-us header .chevron .chevron-down i, .form-edit-us header .chevron .chevron-up i, .form-edit-us  nav.top-nav{
+    background-color: #c8c8c8;
 }

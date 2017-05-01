@@ -16,6 +16,11 @@ echo link_tag('/assets/layouts/default/css/custom-users-overview-view.css');
     <div class="col s12 m9 l10">
         <div>
             <div id="grid-pinned" class="scrollspy">
+                <div class="edit">
+                    <a  href="/client-mockup-sacred-city/superuser/client-overview-profile-form/<?php echo $editable_user->id ?>/" class="btn-floating btn-large waves-effect waves-light " style="border-radius: 50% !important;"><i class="large material-icons">edit</i></a>
+
+                </div>
+
                 <h3 class="header">Clients</h3>
 
                 <div class="table-responsive">
