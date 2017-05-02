@@ -43,7 +43,7 @@
                     <h1  id="logo">
                         <!-- <a href="#" data-activates="nav-mobile" class="button-collapse" id="nav_mobile_button"><i class="material-icons">menu</i></a>-->
 <!--                        <span class='logo_first'>S</span>Sacred City-->
-                       [first name] [last name]
+                        <?=$user->first_name?> <?=$user->last_name?>
                     </h1>
 
                 </div>

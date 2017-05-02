@@ -441,7 +441,7 @@ class Sys_admin extends CI_Controller {
 	 * @params usr_segment->3 (clients id)
 	 * return view
 	 *********************************/
-	public function clients_edit()
+	public function client()
 	{
 		$UriArray = $this->uri->uri_to_assoc(2);
 
@@ -449,9 +449,9 @@ class Sys_admin extends CI_Controller {
 		$app_config = $this->config->config;
 
 		$cid= '';
-		if ( !empty($UriArray['clients-edit']) and $this->common_lib->is_positive_integer($UriArray['clients-edit'])  ) {
+		if ( !empty($UriArray['client']) and $this->common_lib->is_positive_integer($UriArray['client'])  ) {
 			$is_insert= false;
-			$cid= $UriArray['clients-edit'];
+			$cid= $UriArray['client'];
 		}
 
 		$post_array = $this->input->post();
@@ -535,6 +535,23 @@ class Sys_admin extends CI_Controller {
 
 	}
 
+	public function client_edit(){
+        $data['meta_description']='';
+        $data['menu']		= $this->menu;
+
+        $data['user'] 		= $this->user;
+        $data['group'] 		= $this->group->name;
+
+
+        $UriArray = $this->uri->uri_to_assoc(2);
+        $client_id=$UriArray['client-edit'];
+        $client		= $this->clients_mdl->getRowById($client_id);
+        $data['client']		= $client;
+        $data['page']		='clients/client-edit';
+        $views=  array('design/html_topbar_client_edit','sidebar','design/page','design/html_footer');
+        $this->layout->view($views, $data);
+    }
+
 	public function clients_edit_new()
 	{
 		$UriArray = $this->uri->uri_to_assoc(2);
@@ -543,9 +560,9 @@ class Sys_admin extends CI_Controller {
 		$app_config = $this->config->config;
 
 		$cid= '';
-		if ( !empty($UriArray['clients-edit']) and $this->common_lib->is_positive_integer($UriArray['clients-edit'])  ) {
+		if ( !empty($UriArray['client']) and $this->common_lib->is_positive_integer($UriArray['client'])  ) {
 			$is_insert= false;
-			$cid= $UriArray['clients-edit'];
+			$cid= $UriArray['client'];
 		}
 
 		$post_array = $this->input->post();
@@ -690,14 +707,14 @@ class Sys_admin extends CI_Controller {
 		$ret = move_uploaded_file( $src_filename, $this->clients_mdl->getClientDir($cid) . $img_basename );
 
 		if ($select_on_update == 'reopen_editor') {
-//			$redirect_url = base_url() . 'sys-admin/clients-edit/' . $cid . $page_parameters_with_sort;
+//			$redirect_url = base_url() . 'sys-admin/client/' . $cid . $page_parameters_with_sort;
 			$redirect_url = base_url() . 'sys-admin/clients-view/'. $cid . $page_parameters_with_sort;
 		}
 		if ($select_on_update == 'open_editor_for_new') {
-//			$redirect_url = base_url() . 'sys-admin/clients-edit/new' . $page_parameters_with_sort;
+//			$redirect_url = base_url() . 'sys-admin/client/new' . $page_parameters_with_sort;
 			$redirect_url = base_url() . 'sys-admin/clients-view/' . $page_parameters_with_sort;
 		}
-        $redirect_url = base_url() . 'sys-admin/clients-edit/' . $cid;
+        $redirect_url = base_url() . 'sys-admin/client/' . $cid;
 		if ($cid) {
 			$this->session->set_flashdata('editor_message', lang('client') . " '" . $post_array['data']['client_name'] . "' was " . ($is_insert ? "inserted" : "updated") );
 			if ($this->db->trans_status() === FALSE) {

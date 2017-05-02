@@ -15,6 +15,11 @@ echo link_tag('/assets/layouts/default/css/custom-users-overview-view.css');
     <div class="row">
     <div class="col s12 m9 l10">
         <div>
+            <?php
+            $message = $this->session->flashdata('massege');
+            if($message && $message != ''){ ?>
+            <div class="massege" style="background-color: #fff;padding: 10px;margin-bottom: 10px"><?=$this->session->flashdata('massege');?></div>
+            <?php } ?>
             <div id="grid-pinned" class="scrollspy">
                 <div class="edit">
                     <a  href="/client-mockup-sacred-city/superuser/client-overview-profile-form/<?php echo $editable_user->id ?>/" class="btn-floating btn-large waves-effect waves-light " style="border-radius: 50% !important;"><i class="large material-icons">edit</i></a>

@@ -156,11 +156,11 @@
                         if (is_array($menu[$key])): //if $menu[$key] is arry, it means it is menu link
                             foreach ($menu[$key] as $key => $link):
                                 if (is_array($link)): //if $link, ie  $key value is array
-                                    $LinkActive = ($link['href'] == "/".$segment || $link['href'] == "/".$segment.'/'.$segment_2 || $link['href'] == "/clients-edit/new/" && "/".$segment == "/clients-edit" || $link['href'] == "/users/users-edit/new/" && "/".$segment.'/'.$segment_2 == "/users/users-edit" || $link['href'] == "/users/users-view" && "/".$segment.'/'.$segment_2 == "/users/users-view" || $link['href'] == "/vendors/vendor-types-edit/new" && "/".$segment.'/'.$segment_2 == "/vendors/vendor-types-edit" || $link['href'] == "/vendors/vendors-edit/new/" && "/".$segment.'/'.$segment_2 == "/vendors/vendors-edit" || $link['href'] == "/services/services-edit/new/" && "/".$segment.'/'.$segment_2 == "/services/services-edit" ) ? 'the_active' : $link['href'].'   '."/".$segment.'/'.$segment_2;
+                                    $LinkActive = ($link['href'] == "/".$segment || $link['href'] == "/".$segment.'/'.$segment_2 || $link['href'] == "/client/new/" && "/".$segment == "/client" || $link['href'] == "/users/users-edit/new/" && "/".$segment.'/'.$segment_2 == "/users/users-edit" || $link['href'] == "/users/users-view" && "/".$segment.'/'.$segment_2 == "/users/users-view" || $link['href'] == "/vendors/vendor-types-edit/new" && "/".$segment.'/'.$segment_2 == "/vendors/vendor-types-edit" || $link['href'] == "/vendors/vendors-edit/new/" && "/".$segment.'/'.$segment_2 == "/vendors/vendors-edit" || $link['href'] == "/services/services-edit/new/" && "/".$segment.'/'.$segment_2 == "/services/services-edit" ) ? 'the_active' : $link['href'].'   '."/".$segment.'/'.$segment_2;
                                     ?>
                                     <!-- SIDEBAR MENU LINK -->
                                     <li class="nav-item <?= $LinkActive ;?>">
-                                        <a href="<?php if($link['href'] != '/clients-edit/new/') echo base_url().$this->uri->segment('1').$link['href']; else echo '#' ?>" <?php if($link['href'] == '/clients-edit/new/') echo 'class="create_contact"' ?>  class="nav-link ">
+                                        <a href="<?php if($link['href'] != '/client/new/') echo base_url().$this->uri->segment('1').$link['href']; else echo '#' ?>" <?php if($link['href'] == '/client/new/') echo 'class="create_contact"' ?>  class="nav-link ">
                                             <!--                                        <a href="--><?php //echo base_url().$this->uri->segment('1').$link['href'];?><!--" class="nav-link ">-->
                                             <span class="<?php echo $link['icon'];?>"></span>
                                             <span class="title"><?php echo lang($link['title']);?></span>
@@ -239,12 +239,20 @@
                             <div class="row clients-overview">
                                 <div class="col s12 m9 l10">
                                     <div class="row" style="margin-bottom: 0;">
+
+                                        <div class="edit" style="display: inline-block;margin-right: 30px;">
+                                            <a  href="/sys-admin/client-edit/<?=$client->cid?>/" class="btn-floating btn-large waves-effect waves-light " style="border-radius: 50% !important;"><i class="large material-icons">edit</i></a>
+
+                                        </div>
+
                                         <button data-toggle="modal" data-target="#newclient-over" class="newclient-over waves-effect waves-light btn-large" style="background-color: #fff; color: #000;font-size: 16px;">
                                             <i class="fa fa-plus" style="font-size: 16px"></i>
                                             USER
                                         </button>
 
-                                        
+
+
+
                                         <div id="grid-pinned" class="scrollspy">
                                             <h3 class="header">Pinned</h3>
                                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci assumenda at distinctio, dolorem exercitationem iure libero nesciunt nihil nisi odio odit pariatur placeat porro, repellendus, sapiente sunt totam unde! Accusamus.</p>

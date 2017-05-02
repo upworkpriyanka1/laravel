@@ -86,8 +86,8 @@ class Superuser extends CI_Controller {
                 {
                     $this->db->where('id', $id);
                     $this->db->update('users', $data);
-
-                    redirect('sys-admin/users/users-view');
+                    $this->session->set_flashdata('massege', 'Updated successfully');
+                    redirect('sys-admin/users/users-overview/'.$id.'/');
                 }
 
             }

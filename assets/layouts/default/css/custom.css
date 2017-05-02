@@ -1030,3 +1030,66 @@ body{
     top: 20px;
 }
 
+
+/*client-edit*/
+
+
+#client-edit #profile-form-client .phone .btn-add, #client-edit #profile-form-client .email .btn-add {
+    display: inline-block;
+    position: absolute;
+    right: 20px;
+    top: 5px;
+}
+#client-edit #profile-form-client .phone .btn-rem, #client-edit #profile-form-client .email .btn-rem{
+    display: inline-block;
+    position: absolute;
+    right: 40px;
+    top: 5px;
+    color: #000;
+}
+
+#client-edit #profile-form-client select.leng, #client-edit #profile-form-client select.tag-drop{
+    border: none;
+    border-bottom: 1px solid #9e9e9e;
+    color: #9e9e9e;
+    /*color: #000;*/
+}
+#client-edit #profile-form-client input[type=text]{
+    color: #000;
+}
+#client-edit #profile-form-client select.leng:focus,  #client-edit #profile-form-client select.tag-drop:focus {
+    outline: none;
+}
+#client-edit #profile-form-client .md-foot-top li{
+    display: inline-block;
+    margin-bottom: 10px;
+}
+#client-edit #profile-form-client #client_edit_form .row{
+    margin-bottom: 0;
+
+}
+#client-edit #profile-form-client .pad-card .card {
+
+    background-color: #fff !important;
+}
+#client-edit #profile-form-client .card .card-content .card-title{
+    color: #000;
+}
+#client-edit .page-content-wrapper .col-md-12 {
+    background-color: transparent !important;
+    color: #000;
+}
+#client-edit, #client-edit .pad-card{
+    background-color: #e4e4e4;
+}
+
+#client-edit h1.logo{
+    margin:0;
+}
+#client-edit #profile-form-client .sev-canc-mock button{
+    margin-bottom: 20px;
+    margin-left: 15px;
+}
+#client-edit .page-content{
+    padding: 0 !important;
+}
