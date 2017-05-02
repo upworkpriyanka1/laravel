@@ -76,7 +76,6 @@
                                                             <!-- end Company-->
                                                         </div>
                                                     </div>
-
                                                     <div class="card blue-grey darken-1">
                                                         <div class="card-content white-text">
                                                             <!-- start Location-->
@@ -368,9 +367,9 @@
                                                                     </div>
                                                                 </div>
                                                                 <!-- end Theme-->
+                                                            </div>
                                                         </div>
                                                     </div>
-
                                                 </div>
                                             </div>
 
