@@ -510,13 +510,44 @@ class Main extends CI_Controller {
 
 	public function send_mail()
 	{
+	
+		$data['page']		= 'main/send_mail';
+
+		$data['menu']		= array();
+
+		$data['has_error']  = $has_error;
+
+		$data['error_message'] = $error_message;
+
+		$data['success_message'] = $success_message;
+
+
+
+		$data['plugins'] 	= array();
+
+		$data['javascript'] = array( );
+
+		$views				= array('design/html_topbar','sidebar','design/page','design/html_footer');
+
+		$this->layout->view($views, $data);
+	
+	}
+	
+	public function send_user_mail()
+	{
+		$email = $this->input->post('data[email]');
+		
 		$ci = & get_instance();
         $ci->load->library('email');
         $ci->email->from('himisha.patel@bbitsol.com', 'No Reply');
-        $ci->email->to('ankita.vasanani@bbitsol.com');
+        //$ci->email->to('ankita.vasanani@bbitsol.com');
+		//$ci->email->to('himisha.patel@bbitsol.com');
+		$ci->email->to($email);
         $ci->email->subject('Test mail');
         $ci->email->message('This a test mail from zntral.');
-        return $ci->email->send();
+        $ci->email->send();
+		redirect('/sys-admin/main/send_mail', 'refresh');
+		
 	}
 
 }
