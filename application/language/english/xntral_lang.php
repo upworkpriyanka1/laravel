@@ -64,10 +64,13 @@ $lang['client_address2']        = "Additive Address";
 $lang['client_city']            = "City";
 $lang['client_state']           = "State";
 $lang['client_zip']             = "Zip";
+$lang['client_img']             = "Image";
+
 $lang['grid']                   = "Grid";
 $lang['col3']                   = "Col 3";
 $lang['eh']                     = "Sacred City";
 $lang['license']                 ="License";
+
 
 
 $lang['patients']               = "Patients";
@@ -194,6 +197,7 @@ $lang['submit']                 = "Submit";
 $lang['Filter']                 = "Filter";
 $lang['primary-color']          = "Primary color";
 $lang['accent-color']           = "Accent  color";
+$lang['tag-drop']               = "Tag line";
 
 /*TITLES*/
 $lang['t-sys-admin']            = "SYS Admin";

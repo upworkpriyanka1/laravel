@@ -890,6 +890,7 @@ input[type=text]:focus:not([readonly]){
         scrollbar-shadow-color: #666;
         scrollbar-dark-shadow-color: #666;
     }
+
     header h1#logo::-webkit-scrollbar-thumb,
     header h1#logo::-webkit-scrollbar-track,
     header h1#logo::-webkit-scrollbar {
@@ -917,6 +918,14 @@ input[type=text]:focus:not([readonly]){
         width:100%;
         overflow-x: auto;
     }
+    .client-ed h1#logo{
+        width:100%;
+    }
+     header.smaller .client-ed h1#logo{
+         margin: 0;
+     }
+
+
 
 
 
@@ -988,14 +997,21 @@ body{
         -moz-column-count: 2;
         column-count: 2;
     }
-}
+    #client-edit .card_db{
+        display: inline-block;
+    }
+  }
 @media only screen and (min-width: 993px) {
     .cards-container {
         -webkit-column-count: 3;
         -moz-column-count: 3;
         column-count: 3;
     }
-}
+    #client-edit .card_db{
+        display: block;
+    }
+ }
+
 @media only screen and (min-width: 1960px) {
     .cards-container {
         -webkit-column-count: 4;
@@ -1071,6 +1087,7 @@ body{
 #client-edit #profile-form-client .pad-card .card {
 
     background-color: #fff !important;
+    width:100%;
 }
 #client-edit #profile-form-client .card .card-content .card-title{
     color: #000;

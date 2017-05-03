@@ -17,7 +17,7 @@ $img_url = base_url()."/assets/avatar/".$res->filename;
         <div class="container">
             <div class="page-header navbar navbar-fixed-top">
                 <!-- BEGIN PAGE TITLE-->
-                <div class="page-title">
+                <div class="page-title client-ed">
                     <h1  id="logo">
                         <!-- <a href="#" data-activates="nav-mobile" class="button-collapse" id="nav_mobile_button"><i class="material-icons">menu</i></a>-->
                         <?php echo $client->client_name ?>

@@ -422,25 +422,7 @@
                                                                                     <input class="file-path validate" type="text">
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="container">
-                                                                                <div class="row image_row">
-                                                                                    <?php if($user_image){
-                                                                                        foreach( $user_image as $key=>$value ) { ?>
-                                                                                            <input type="hidden" name="data[user_image_name]" value="<?=$user_image_name[$key+2]?>">
-                                                                                            <div class="col-md-3 col-sm-4 col-xs-6">
-                                                                                                <div class="user-img-box">
-                                                                                                    <img src="<?=base_url($value)?>" alt="Avatar" class="image" style="width:100%">
-                                                                                                    <div class="img-middle">
-                                                                                                        <div class="img-text">
-                                                                                                            <a href="#" data-toggle="tooltip" data-placement="top" title="set as default" class="image_set_as_default"><i class="fa fa-check" aria-hidden="true"></i></a>
-                                                                                                            <a href="#" class="delete_image"><i class="fa fa-times" aria-hidden="true"></i></a>
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        <?php }} ?>
-                                                                                </div>
-                                                                            </div>
+
                                                                         </div>
                                                                         <div class="col-md-12">
                                                                             <div class="form-group">
