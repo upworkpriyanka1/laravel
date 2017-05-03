@@ -508,6 +508,15 @@ class Main extends CI_Controller {
 
 	} // public function forgotten_password() {
 
-
+	public function send_mail()
+	{
+		$ci = & get_instance();
+        $ci->load->library('email');
+        $ci->email->from('himisha.patel@bbitsol.com', 'No Reply');
+        $ci->email->to('ankita.vasanani@bbitsol.com');
+        $ci->email->subject('Test mail');
+        $ci->email->message('This a test mail from zntral.');
+        return $ci->email->send();
+	}
 
 }
