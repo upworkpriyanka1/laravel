@@ -148,7 +148,7 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
 
 
                             <td>
-                                <a class="a_link" href="<?= base_url($this->uri->segment(1).'/clients-edit/'.$row->cid);?><?= $page_parameters_with_sort ?>">
+                                <a class="a_link" href="<?= base_url($this->uri->segment(1).'/client/'.$row->cid);?><?= $page_parameters_with_sort ?>">
                                     <?php echo $row->client_name;?>
                                 </a>
                             </td>
