@@ -371,7 +371,7 @@ class Main extends CI_Controller {
 			$password= $this->common_lib->generatePassword();
 			
 			$u_data['password'] = $this->ion_auth->hash_password($password, false );
-			$u_data['plain_password'] = $password;
+			//$u_data['plain_password'] = $password;
 			$u_data['activation_code'] = '';
 			$u_data['user_active_status'] = 'A';
 
