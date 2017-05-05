@@ -372,6 +372,7 @@ class Main extends CI_Controller {
 			
 			$u_data['password'] = $this->ion_auth->hash_password($password, false );
 			//$u_data['plain_password'] = $password;
+			$p_password = $password;
 			$u_data['activation_code'] = '';
 			$u_data['user_active_status'] = 'A';
 
@@ -394,7 +395,7 @@ class Main extends CI_Controller {
 	
 					array('username' => $u_data->username,
 	
-						  'password' => $u_data->plain_password,
+						  'password' => $p_password,
 	
 						  'first_name' => $u_data->first_name,
 	
