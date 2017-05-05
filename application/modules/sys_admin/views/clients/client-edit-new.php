@@ -112,69 +112,6 @@
                     </div>
                 </div>
                 <!-- END PAGE TITLE-->
-
-                <!-- BEGIN HEADER INNER -->
-                <div class="page-header-inner ">
-                    <!-- BEGIN TOP NAVIGATION MENU -->
-                    <div class="top-menu">
-                        <ul class="right">
-                            <li>
-                                <div class="theme-panel">
-                                    <div class="toggler" style="display: block;"> </div>
-                                    <div class="toggler-close" style="display: none;"> </div>
-                                    <div class="theme-options" style="display: none;">
-                                        <div class="theme-option theme-colors clearfix">
-                                            <span> THEME COLOR </span>
-                                            <ul>
-                                                <li class="color-light3 current" data-style="light3" data-container="body" data-html="true" data-original-title="Light 3"> </li>
-                                                <li class="color-light2" data-style="light2" data-container="body" data-html="true" data-original-title="Light 2"> </li>
-                                                <li class="color-light" data-style="light" data-container="body" data-original-title="Light"> </li>
-                                                <li class="color-default" data-style="default" data-container="body" data-original-title="Default"> </li>
-                                                <li class="color-darkblue" data-style="darkblue" data-container="body" data-original-title="Dark Blue"> </li>
-                                                <li class="color-blue" data-style="blue" data-container="body" data-original-title="Blue"> </li>
-                                            </ul>
-                                        </div>
-                                        <div class="theme-option">
-                                            <span> Theme Background </span>
-                                            <div id="selectImage">
-                                                <label>Select Your Image or File</label><br>
-                                                <form action="http://devk.loc/upload_controller/do_upload" enctype="multipart/form-data" method="post" accept-charset="utf-8">
-                                                    <input type='file' name='userfile' id='file'/><br>
-                                                    <input type='submit' name='submit' value='Upload' class='btn btn-default'/>
-                                                </form>
-                                                <span>(NOTE: Only JPG, JPEG, PNG are allowed. Max Size: 2MB)</span>
-                                            </div>
-                                        </div>
-                                        <div class="theme-option">
-                                            <span> Theme Style </span>
-                                            <select class="layout-style-option form-control input-sm">
-                                                <option value="square" selected="selected">Square corners</option>
-                                                <option value="rounded">Rounded corners</option>
-                                            </select>
-                                        </div>
-                                        <div class="theme-option">
-                                            <span> Header </span>
-                                            <select class="page-header-option form-control input-sm">
-                                                <option value="fixed" selected="selected">Fixed</option>
-                                                <option value="default">Default</option>
-                                            </select>
-                                        </div>
-                                        <div class="theme-option">
-                                            <span> Footer </span>
-                                            <select class="page-footer-option form-control input-sm">
-                                                <option value="fixed">Fixed</option>
-                                                <option value="default" selected="selected">Default</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <!-- END QUICK SIDEBAR TOGGLER -->
-                        </ul>
-                    </div>
-                    <!-- END TOP NAVIGATION MENU -->
-                </div>
-                <!-- END HEADER INNER -->
             </div>
         </div>
     </nav>
@@ -188,6 +125,7 @@
         <li class="logo">
             <a href="./" class="brand-logo">
                  <img src="<?php echo base_url(); ?>assets/img/logo.png" alt="logo" class="logo-default" />
+
 <!--                <span class="logo-default"> SYSTEM </span>-->
             </a>
         </li>
@@ -219,11 +157,11 @@
                         if (is_array($menu[$key])): //if $menu[$key] is arry, it means it is menu link
                             foreach ($menu[$key] as $key => $link):
                                 if (is_array($link)): //if $link, ie  $key value is array
-                                    $LinkActive = ($link['href'] == "/".$segment || $link['href'] == "/".$segment.'/'.$segment_2 || $link['href'] == "/clients-edit/new/" && "/".$segment == "/clients-edit" || $link['href'] == "/users/users-edit/new/" && "/".$segment.'/'.$segment_2 == "/users/users-edit" || $link['href'] == "/users/users-view" && "/".$segment.'/'.$segment_2 == "/users/users-view" || $link['href'] == "/vendors/vendor-types-edit/new" && "/".$segment.'/'.$segment_2 == "/vendors/vendor-types-edit" || $link['href'] == "/vendors/vendors-edit/new/" && "/".$segment.'/'.$segment_2 == "/vendors/vendors-edit" || $link['href'] == "/services/services-edit/new/" && "/".$segment.'/'.$segment_2 == "/services/services-edit" ) ? 'the_active' : $link['href'].'   '."/".$segment.'/'.$segment_2;
+                                    $LinkActive = ($link['href'] == "/".$segment || $link['href'] == "/".$segment.'/'.$segment_2 || $link['href'] == "/client/new/" && "/".$segment == "/client" || $link['href'] == "/users/users-edit/new/" && "/".$segment.'/'.$segment_2 == "/users/users-edit" || $link['href'] == "/users/users-view" && "/".$segment.'/'.$segment_2 == "/users/users-view" || $link['href'] == "/vendors/vendor-types-edit/new" && "/".$segment.'/'.$segment_2 == "/vendors/vendor-types-edit" || $link['href'] == "/vendors/vendors-edit/new/" && "/".$segment.'/'.$segment_2 == "/vendors/vendors-edit" || $link['href'] == "/services/services-edit/new/" && "/".$segment.'/'.$segment_2 == "/services/services-edit" ) ? 'the_active' : $link['href'].'   '."/".$segment.'/'.$segment_2;
                                     ?>
                                     <!-- SIDEBAR MENU LINK -->
                                     <li class="nav-item <?= $LinkActive ;?>">
-                                        <a href="<?php if($link['href'] != '/clients-edit/new/') echo base_url().$this->uri->segment('1').$link['href']; else echo '#' ?>" <?php if($link['href'] == '/clients-edit/new/') echo 'class="create_contact"' ?>  class="nav-link ">
+                                        <a href="<?php if($link['href'] != '/client/new/') echo base_url().$this->uri->segment('1').$link['href']; else echo '#' ?>" <?php if($link['href'] == '/client/new/') echo 'class="create_contact"' ?>  class="nav-link ">
                                             <!--                                        <a href="--><?php //echo base_url().$this->uri->segment('1').$link['href'];?><!--" class="nav-link ">-->
                                             <span class="<?php echo $link['icon'];?>"></span>
                                             <span class="title"><?php echo lang($link['title']);?></span>
@@ -299,87 +237,105 @@
                         <!-- BEGIN CONTENT BODY -->
                         <div class="page-content">
 
-                            <div class="row clients-overview" style="background-color: #fff">
+                            <div class="row clients-overview">
                                 <div class="col s12 m9 l10">
-                                    <div>
+                                    <div class="row" style="margin-bottom: 0;">
+                                        <?php
+                                        $message = $this->session->flashdata('massege');
+                                        if($message && $message != ''){ ?>
+                                            <div class="massege" style="background-color: #fff;padding: 10px;margin-bottom: 10px"><?=$this->session->flashdata('massege');?></div>
+                                        <?php } ?>
+
+                                        <div class="edit" style="display: inline-block;margin-right: 30px;">
+                                            <a  href="/sys-admin/client-edit/<?=$client->cid?>/" class="btn-floating btn-large waves-effect waves-light " style="border-radius: 50% !important;"><i class="large material-icons">edit</i></a>
+
+                                        </div>
+
+                                        <button data-toggle="modal" data-target="#newclient-over" class="newclient-over waves-effect waves-light btn-large" style="background-color: #fff; color: #000;font-size: 16px;">
+                                            <i class="fa fa-plus" style="font-size: 16px"></i>
+                                            USER
+                                        </button>
+
+
+
+
                                         <div id="grid-pinned" class="scrollspy">
                                             <h3 class="header">Pinned</h3>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad adipisci dicta, eaque error fugit inventore magni minima perspiciatis quos reiciendis sit tempora tempore, voluptas? Delectus impedit nemo odit sunt vitae!</p>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci assumenda at distinctio, dolorem exercitationem iure libero nesciunt nihil nisi odio odit pariatur placeat porro, repellendus, sapiente sunt totam unde! Accusamus.</p>
                                         </div>
 
 
                                         <!-- Grid associations -->
-                                        <div id="grid-associations" class="scrollspy">
-                                            <h3 class="header">Associations</h3>
-                                            <nav class="nav-extended">
-                                                <div class="nav-content">
-                                                    <ul class="tabs tabs-transparent">
-                                                        <li class="tab"><a href="#test1" class="active">Users</a></li>
-                                                        <li class="tab"><a href="#test2">Patients</a></li>
-                                                    </ul>
+                                        <div class="row">
+                                            <div id="grid-associations" class="scrollspy">
+                                                <h3 class="header">Associations</h3>
+                                                <nav class="nav-extended">
+                                                    <div class="nav-content">
+                                                        <ul class="tabs tabs-transparent">
+                                                            <li class="tab"><a href="#test1" class="active">Users</a></li>
+                                                            <li class="tab"><a href="#test2">Patients</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </nav>
+                                                <div id="test1" class="col s12">
+                                                    <div class="table-responsive">
+                                                        <table>
+                                                            <thead>
+                                                            <tr>
+                                                                <th>Name</th>
+                                                                <th>Title</th>
+                                                                <th>Status</th>
+                                                                <th>Created</th>
+                                                            </tr>
+                                                            </thead>
+
+                                                            <tbody>
+                                                            <tr>
+                                                                <td>Alvin</td>
+                                                                <td>Eclair</td>
+                                                                <td>Hi</td>
+                                                                <td>$0.87</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Alan</td>
+                                                                <td>Jellybean</td>
+                                                                <td>Hello</td>
+                                                                <td>$3.76</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Jonathan</td>
+                                                                <td>Lollipop</td>
+                                                                <td>Hi</td>
+                                                                <td>$7.00</td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
-                                            </nav>
-                                            <div id="test1" class="col s12">
-
-                                                <table>
-                                                    <thead>
-                                                    <tr>
-                                                        <th>Name</th>
-                                                        <th>Title</th>
-                                                        <th>Status</th>
-                                                        <th>Created</th>
-                                                    </tr>
-                                                    </thead>
-
-                                                    <tbody>
-                                                    <tr>
-                                                        <td>Alvin</td>
-                                                        <td>Eclair</td>
-                                                        <td>Hi</td>
-                                                        <td>$0.87</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Alan</td>
-                                                        <td>Jellybean</td>
-                                                        <td>Hello</td>
-                                                        <td>$3.76</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Jonathan</td>
-                                                        <td>Lollipop</td>
-                                                        <td>Hi</td>
-                                                        <td>$7.00</td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-
+                                                <div id="test2" class="col s12">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </div>
                                             </div>
-                                            <div id="test2" class="col s12">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </div>
                                         </div>
-
 
                                         <!-- Grid History -->
 
                                         <div id="grid-history" class="scrollspy">
-                                            <h3 class="header">History</h3>
+                                            <h3 class="header">Activity</h3>
 
-                                            <button type="button" class="btn btn-default" aria-label="Center Align">View History</button>
-
-                                            <h3><i class="fa fa-comment" aria-hidden="true"></i>Add Comment</h3>
 
                                             <div class="row">
-
-
                                                 <div class="widget-area no-padding blank">
                                                     <div class="status-upload">
-                                                        <form>
-                                                            <textarea placeholder="What are you doing right now?" ></textarea>
-                                                            <ul>
-                                                                <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Audio"><i class="fa fa-music"></i></a></li>
-                                                                <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Video"><i class="fa fa-video-camera"></i></a></li>
-                                                                <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Sound Record"><i class="fa fa-microphone"></i></a></li>
-                                                                <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Picture"><i class="fa fa-picture-o"></i></a></li>
-                                                            </ul>
+                                                        <form action="#">
+                                                            <div class="area-icon">
+                                                                <textarea placeholder="Add Comment"></textarea>
+                                                                <ul>
+                                                                    <li><a title="" data-toggle="tooltip" data-placement="top" data-original-title="Audio"><i class="fa fa-music"></i></a></li>
+                                                                    <li><a title="" data-toggle="tooltip" data-placement="top" data-original-title="Video"><i class="fa fa-video-camera"></i></a></li>
+                                                                    <li><a title="" data-toggle="tooltip" data-placement="top" data-original-title="Sound Record"><i class="fa fa-microphone"></i></a></li>
+                                                                    <li><a title="" data-toggle="tooltip" data-placement="top" data-original-title="Picture"><i class="fa fa-picture-o"></i></a></li>
+                                                                </ul>
+                                                            </div>
+                                                            <button type="button" class="btn btn-default" aria-label="Center Align">View History</button>
                                                             <button type="submit" class="btn btn-success">Send</button>
                                                         </form>
                                                     </div><!-- Status Upload  -->
@@ -396,15 +352,26 @@
                                                         <div class="collapsible-header"><i class="material-icons">place</i>Second Comment</div>
                                                         <div class="collapsible-body"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></div>
                                                     </li>
-                                                    <li>
+                                                    <li class="transp-coll">
                                                         <div class="collapsible-header"><i class="material-icons">whatshot</i>Third Comment</div>
+                                                        <div class="collapsible-body"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="collapsible-header"><i class="material-icons">filter_drama</i>Fourth Comment</div>
+                                                        <div class="collapsible-body"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></div>
+                                                    </li>
+                                                    <li class="transp-coll">
+                                                        <div class="collapsible-header"><i class="material-icons">place</i>Fifth Comment</div>
+                                                        <div class="collapsible-body"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="collapsible-header"><i class="material-icons">whatshot</i>Sixth Comment</div>
                                                         <div class="collapsible-body"><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></div>
                                                     </li>
                                                 </ul>
                                             </div>
 
                                         </div>
-
                                     </div>
                                 </div>
 
@@ -419,7 +386,7 @@
                                             <ul class="section table-of-contents">
                                                 <li><a href="#grid-pinned" class="active">Pinned</a></li>
                                                 <li><a href="#grid-associations" class="">Associations</a></li>
-                                                <li><a href="#grid-history" class="">History</a></li>
+                                                <li><a href="#grid-history" class="">Activity</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -433,7 +400,7 @@
             </div>
         </div>
     </div>
-</main>﻿
+</main>
 <!-- END MAIN PAGE -->
 
 <!-- BEGIN FOOTER -->
@@ -1609,7 +1576,65 @@
                             <li class="create-contact-save" data-action="save" role="button"><a href="#"> SAVE</a> </li>
                         </ul>
 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade newclient" id="newclient-over" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class=" modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <h3 class="modal-title" id="lineModalLabel">New user for <?php echo $client->client_name ?> </h3>
+                </div>
 
+                <div class="row">
+                    <form class="col s12">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">account_circle</i>
+                                <input id="icon_prefix" type="text" class="validate"/>
+                                <label for="icon_prefix">First Name</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">supervisor_account</i>
+                                <input id="last_name" type="text" class="validate"/>
+                                <label for="last_name">Last Name</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">phone</i>
+                                <input id="icon_telephone" type="tel" class="validate"/>
+                                <label for="icon_telephone">Telephone</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">email</i>
+                                <input id="email" type="email" class="validate required_form"  onchange="validateFormEnableOrDisable('form_client_edit2');"/>
+                                <label for="email">Email address</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">email</i>
+                                <input id="email" type="email" class="validate required_form" onChange="validateFormEnableOrDisable('form_client_edit2');"/>
+                                <label for="email">Verify email address</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <div class="col-xs-12">
+                        <ul class ="md-foot-bot">
+                            <li data-dismiss="modal"> <button class="btn" onClick="javascript:document.location='<?=base_url()?>sys-admin/clients-view<?=$page_parameters_with_sort?>'">CANCEL</button> </li>
+                            <li class="create-contact-save " data-action="save"> <button class="btn-flat  disable_form_id_form_client_edit2" disabled> VERIFY </button> </li>
+                        </ul>
                     </div>
                 </div>
             </div>

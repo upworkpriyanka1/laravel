@@ -151,70 +151,7 @@
 
                     </div>
                 <div class="zang"></div>
-                <!-- END PAGE TITLE-->
 
-                <!-- BEGIN HEADER INNER -->
-<!--                <div class="page-header-inner ">-->
-<!--                    <!-- BEGIN TOP NAVIGATION MENU -->
-<!--                    <div class="top-menu">-->
-<!--                        <ul class="right">-->
-<!--                            <li>-->
-<!--                                <div class="theme-panel">-->
-<!--                                    <div class="toggler" style="display: block;"> </div>-->
-<!--                                    <div class="toggler-close" style="display: none;"> </div>-->
-<!--                                    <div class="theme-options" style="display: none;">-->
-<!--                                        <div class="theme-option theme-colors clearfix">-->
-<!--                                            <span> THEME COLOR </span>-->
-<!--                                            <ul>-->
-<!--                                                <li class="color-light3 current" data-style="light3" data-container="body" data-html="true" data-original-title="Light 3"> </li>-->
-<!--                                                <li class="color-light2" data-style="light2" data-container="body" data-html="true" data-original-title="Light 2"> </li>-->
-<!--                                                <li class="color-light" data-style="light" data-container="body" data-original-title="Light"> </li>-->
-<!--                                                <li class="color-default" data-style="default" data-container="body" data-original-title="Default"> </li>-->
-<!--                                                <li class="color-darkblue" data-style="darkblue" data-container="body" data-original-title="Dark Blue"> </li>-->
-<!--                                                <li class="color-blue" data-style="blue" data-container="body" data-original-title="Blue"> </li>-->
-<!--                                            </ul>-->
-<!--                                        </div>-->
-<!--                                        <div class="theme-option">-->
-<!--                                            <span> Theme Background </span>-->
-<!--                                            <div id="selectImage">-->
-<!--                                                <label>Select Your Image or File</label><br>-->
-<!--                                                <form action="http://devk.loc/upload_controller/do_upload" enctype="multipart/form-data" method="post" accept-charset="utf-8">-->
-<!--                                                    <input type='file' name='userfile' id='file'/><br>-->
-<!--                                                    <input type='submit' name='submit' value='Upload' class='btn btn-default'/>-->
-<!--                                                </form>-->
-<!--                                                <span>(NOTE: Only JPG, JPEG, PNG are allowed. Max Size: 2MB)</span>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                        <div class="theme-option">-->
-<!--                                            <span> Theme Style </span>-->
-<!--                                            <select class="layout-style-option form-control input-sm">-->
-<!--                                                <option value="square" selected="selected">Square corners</option>-->
-<!--                                                <option value="rounded">Rounded corners</option>-->
-<!--                                            </select>-->
-<!--                                        </div>-->
-<!--                                        <div class="theme-option">-->
-<!--                                            <span> Header </span>-->
-<!--                                            <select class="page-header-option form-control input-sm">-->
-<!--                                                <option value="fixed" selected="selected">Fixed</option>-->
-<!--                                                <option value="default">Default</option>-->
-<!--                                            </select>-->
-<!--                                        </div>-->
-<!--                                        <div class="theme-option">-->
-<!--                                            <span> Footer </span>-->
-<!--                                            <select class="page-footer-option form-control input-sm">-->
-<!--                                                <option value="fixed">Fixed</option>-->
-<!--                                                <option value="default" selected="selected">Default</option>-->
-<!--                                            </select>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </li>-->
-<!--                            <!-- END QUICK SIDEBAR TOGGLER -->
-<!--                        </ul>-->
-<!--                    </div>-->
-<!--                    <!-- END TOP NAVIGATION MENU -->
-<!--                </div>-->
-                <!-- END HEADER INNER -->
             </div>
         </div>
     </nav>
@@ -280,7 +217,7 @@
                         <ul>
                             <!-- SIDEBAR MENU LINK -->
                             <li class="nav-item">
-                                <a href="#" class="nav-link ">
+                                <a href="#" class="nav-link"  data-toggle="modal" data-target="#new_user_modal1">
                                     <!--<a href="--><!--" class="nav-link ">-->
                                     <span class="fa fa-plus"></span>
                                     <span class="title">New</span>
@@ -687,6 +624,76 @@
                         </div><!-- ./page-conten -->
                     </div>
                     <!-- END CONTAINER ./page-content-wrapper -->
+                </div>
+            </div>
+            <div class="modal fade newuser1" id="new_user_modal1" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content modal-top">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                            <h3 class="modal-title" id="lineModalLabel">New User</h3>
+                        </div>
+                        <div class="modal-body">
+
+                                <div class="row">
+                                    <form class="col s12">
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <i class="material-icons prefix">account_circle</i>
+                                                <input id="icon_prefix" type="text" class="validate"/>
+                                                <label for="icon_prefix">First Name</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <i class="material-icons prefix">supervisor_account</i>
+                                                <input id="last_name" type="text" class="validate"/>
+                                                <label for="last_name">Last Name</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <i class="material-icons prefix">phone</i>
+                                                <input id="icon_telephone" type="tel" class="validate"/>
+                                                <label for="icon_telephone">Telephone</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <i class="material-icons prefix">email</i>
+                                                <input id="email" type="email" class="validate required_form"  onchange="validateFormEnableOrDisable('form_client_edit2');"/>
+                                                <label for="email">Email address</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <i class="material-icons prefix">email</i>
+                                                <input id="email" type="email" class="validate required_form" onchange="validateFormEnableOrDisable('form_client_edit2');"/>
+                                                <label for="email">Verify email address</label>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+
+                        </div><!-- ./row -->
+                        <div class="modal-footer">
+
+                            <div class="col-xs-12">
+
+                                <ul class="md-foot-top">
+                                    <li class="create-contact-more"><button class="btn-flat btn-flat1 reset_form_btn">Reset</button></li>
+                                    <li class="create-contact-more"><button class="btn-flat btn-flat1">SUBMIT</button></li>
+                                </ul>
+
+                                <ul class ="md-foot-bot">
+                                    <li data-dismiss="modal"> <button class="btn">CANCEL</button> </li>
+                                </ul>
+
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

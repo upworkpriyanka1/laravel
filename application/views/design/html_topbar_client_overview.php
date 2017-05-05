@@ -30,8 +30,8 @@ $img_url = base_url()."/assets/avatar/".$res->filename;
                                 <div class="tb-adr">
                                     <span class="icon-tb-cl"><i class="material-icons">location_on</i></span>
                                     <ul class="text-tb-cl">
-                                        <li><?php echo $client-> client_address1 ?></li>
-                                        <li><?php echo $client-> client_address2 ?></li>
+                                        <li><?php echo $client->client_address1 ?></li>
+                                        <li><?php echo $client->client_address2 ?></li>
                                     </ul>
                                 </div>
                             </div>
@@ -40,7 +40,7 @@ $img_url = base_url()."/assets/avatar/".$res->filename;
                                 <div class="tb-adr">
                                     <p class="icon-tb-cl"><i class="material-icons">call</i></p>
                                     <ul class="text-tb-cl">
-                                        <li><?php echo $client-> client_phone?></li>
+                                        <li><?php echo $client->client_phone?></li>
                                         <li><?php echo $client->client_phone_2?></li>
                                         <li><?php echo $client->client_phone_3?></li>
                                     </ul>

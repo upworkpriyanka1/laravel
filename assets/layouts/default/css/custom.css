@@ -572,21 +572,38 @@ header.smaller{
 
 .modal-footer ul li{
     display: inline-block;
-    margin: 15px;
+    margin: 5px;
 }
 .modal-footer ul li a{
     color: #000;
     padding:0;
 }
-.modal-footer ul li .btn-flat, .modal-footer ul li .btn{
-    color: #000000 !important;
+.modal-footer ul li .btn-flat{
+    color: #fff;
     font-weight: bold;
+    padding:0 15px;
+    background-color: #ef6c00;
+
+}
+.modal-footer ul li .btn-flat1{
+    background-color: transparent;
+    color: #000;
+}
+.selnobord{
+    border:none;
+    border-bottom:1px solid #f2f2f2;
+}
+.btn-flat[disabled]{
     background-color: transparent !important;
-    padding:0;
 }
 .modal-footer ul li .btn{
-    font-weight: normal;
+    color: #000;
+    background-color: transparent !important;
+    padding:0 15px;
+
+
 }
+
 select:focus{
     outline: none;
 }
@@ -595,15 +612,13 @@ select:focus{
     /*z-index: 1;*/
 /*}*/
 
-.newclient .modal-dialog{
+.newclient .modal-dialog, .newuser .modal-dialog{
     max-width: 700px;
 }
-.newclient .modal-dialog .modal-body {
+.newclient .modal-dialog .modal-body, .newuser .modal-dialog .modal-body {
     height: 560px;
     overflow-y: scroll;
     padding-right: 20px;
-
-
 }
 
 
@@ -614,15 +629,15 @@ input[type=text]:focus:not([readonly]){
     box-shadow: none;
 }
 
-#newclient .modal-footer .md-foot-top{
+#newclient .modal-footer .md-foot-top, #new_user_modal .modal-footer .md-foot-top{
     display: inline-block;
     float: left;
 }
-#newclient .modal-footer .md-foot-bot{
+#newclient .modal-footer .md-foot-bot, #new_user_modal .modal-footer .md-foot-bot{
     display: inline-block;
     float: right;
 }
-#newclient .modal-footer input[type=text]{
+#newclient .modal-footer input[type=text], #new_user_modal .modal-footer input[type=text]{
     margin-bottom: 0;
 }
 
@@ -630,11 +645,11 @@ input[type=text]:focus:not([readonly]){
     font-size: 12px;
 }
 
- #newclient .row{
-    margin:0;
-}
+/*#newclient .row, #new_user_modal .row{*/
+    /*margin:0;*/
+/*}*/
 
-#newclient .portlet-form .form-body{
+#newclient .portlet-form .form-body, #new_user_modal .portlet-form .form-body{
     padding-bottom: 0;
 }
 .page-content-white .page-title {
@@ -846,12 +861,22 @@ input[type=text]:focus:not([readonly]){
     }
 
 }
+@media  only screen and (max-width: 465px) {
+    .modal-footer ul li, .modal-footer ul li .btn{
 
-@media  only screen and (max-width: 480px) {
-    .modal-footer ul li{
-        margin: 10px;
         font-size: 10px;
     }
+}
+
+@media  only screen and (max-width: 510px) {
+    .modal-footer ul li{
+        margin: 0px;
+
+    }
+}
+
+@media  only screen and (max-width: 480px) {
+
     header h1#logo{
         font-size: 10vw;
         width: calc(100% - 115px);
@@ -865,6 +890,7 @@ input[type=text]:focus:not([readonly]){
         scrollbar-shadow-color: #666;
         scrollbar-dark-shadow-color: #666;
     }
+
     header h1#logo::-webkit-scrollbar-thumb,
     header h1#logo::-webkit-scrollbar-track,
     header h1#logo::-webkit-scrollbar {
@@ -892,6 +918,14 @@ input[type=text]:focus:not([readonly]){
         width:100%;
         overflow-x: auto;
     }
+    .client-ed h1#logo{
+        width:100%;
+    }
+     header.smaller .client-ed h1#logo{
+         margin: 0;
+     }
+
+
 
 
 
@@ -899,7 +933,6 @@ input[type=text]:focus:not([readonly]){
 @media  only screen and (max-width: 405px) {
     #newclient .modal-footer .md-foot-top, #newclient .modal-footer .md-foot-bot{
          float: none;
-        margin-bottom: 0;
     }
     #newclient .modal-footer{
         text-align: center;
@@ -964,14 +997,21 @@ body{
         -moz-column-count: 2;
         column-count: 2;
     }
-}
+    #client-edit .card_db{
+        display: inline-block;
+    }
+  }
 @media only screen and (min-width: 993px) {
     .cards-container {
         -webkit-column-count: 3;
         -moz-column-count: 3;
         column-count: 3;
     }
-}
+    #client-edit .card_db{
+        display: block;
+    }
+ }
+
 @media only screen and (min-width: 1960px) {
     .cards-container {
         -webkit-column-count: 4;
@@ -979,6 +1019,7 @@ body{
         column-count: 4;
     }
 }
+<<<<<<< HEAD
 /* BBITS Dev CSS Start */
 .page-sidebar-wrapper {
     float: left;
@@ -987,3 +1028,96 @@ body{
     top: 100px;
 }
 /* BBITS Dev CSS end */
+=======
+@media only screen and (min-width: 993px){
+    #newuserform{
+        margin-left: -235px;
+
+    }
+    #newuserform .row{
+        margin: 0;
+    }
+}
+#newuserform select{
+    border:none;
+    border-bottom: 1px solid #9e9e9e;
+}
+#newuserform .phone .btn-add, #newuserform.email .btn-add{
+
+    display: inline-block;
+    position: absolute;
+    right: -10px;
+    top: 20px;
+}
+#newuserform .phone .btn-rem, #newuserform .email .btn-rem {
+    display: inline-block;
+    position: absolute;
+    right: 10px;
+    top: 20px;
+}
+
+
+/*client-edit*/
+
+
+#client-edit #profile-form-client .phone .btn-add, #client-edit #profile-form-client .email .btn-add {
+    display: inline-block;
+    position: absolute;
+    right: 20px;
+    top: 5px;
+}
+#client-edit #profile-form-client .phone .btn-rem, #client-edit #profile-form-client .email .btn-rem{
+    display: inline-block;
+    position: absolute;
+    right: 40px;
+    top: 5px;
+    color: #000;
+}
+
+#client-edit #profile-form-client select.leng, #client-edit #profile-form-client select.tag-drop{
+    border: none;
+    border-bottom: 1px solid #9e9e9e;
+    color: #9e9e9e;
+    /*color: #000;*/
+}
+#client-edit #profile-form-client input[type=text]{
+    color: #000;
+}
+#client-edit #profile-form-client select.leng:focus,  #client-edit #profile-form-client select.tag-drop:focus {
+    outline: none;
+}
+#client-edit #profile-form-client .md-foot-top li{
+    display: inline-block;
+    margin-bottom: 10px;
+}
+#client-edit #profile-form-client #client_edit_form .row{
+    margin-bottom: 0;
+
+}
+#client-edit #profile-form-client .pad-card .card {
+
+    background-color: #fff !important;
+    width:100%;
+}
+#client-edit #profile-form-client .card .card-content .card-title{
+    color: #000;
+}
+#client-edit .page-content-wrapper .col-md-12 {
+    background-color: transparent !important;
+    color: #000;
+}
+#client-edit, #client-edit .pad-card{
+    background-color: #e4e4e4;
+}
+
+#client-edit h1.logo{
+    margin:0;
+}
+#client-edit #profile-form-client .sev-canc-mock button{
+    margin-bottom: 20px;
+    margin-left: 15px;
+}
+#client-edit .page-content{
+    padding: 0 !important;
+}
+>>>>>>> 0bd26d59917a355f81b92e86c99970fb9800b6b9

@@ -63,7 +63,11 @@ $(document).ready(function(){
         $('header').css('position','static');
     });
 
+    $("body").on('click','.btn-rem',function(){
 
+        console.log($(this));
+        $(this).parent().remove();
+    });
 
     $('[data-toggle="tooltip"]').tooltip();
 
@@ -76,7 +80,41 @@ $(document).ready(function(){
 ( function( window ) {
 
     'use strict';
+    $('body').on('click','.add-row-button',function(){
+        var next_row_class = $(this).attr('next-row-class');
 
+        $('.'+next_row_class).css('display', 'block');
+
+    });
+
+    function xAbleClick(){
+        console.log('button clicked');
+        $(this).closest('.form-group').find('.x-able').val("");
+        $(this).closest('.form-group').find('.x-able-button').remove();
+    };
+
+
+
+    $('.x-able').keyup(function(){
+        var val = $(this).val();
+        var html = '<div class="btn-rem-name x-able-button" style="display: inline-block; position: absolute; right: 0; top: 20px; ">'+
+            '<i class="fa fa-times-circle" aria-hidden="true"></i></div>';
+
+        if(val != "" && $(this).closest('.form-group').find('.x-able-button').length == 0){
+            $(this).closest('.form-group').append(html);
+            var buttons = document.getElementsByClassName('x-able-button');
+            var i;
+            for(i = 0; i < buttons.length; i++){
+                buttons[i].addEventListener("click", function(){
+                    $(this).closest('.form-group').find('.x-able').val("");
+                    $(this).closest('.form-group').find('.x-able-button').remove();
+                }, false);
+            };
+
+        }else if(val == ""){
+            $(this).closest('.form-group').find('.x-able-button').remove();
+        }
+    });
 
     // class helper functions from bonzo https://github.com/ded/bonzo
 

@@ -36,12 +36,18 @@ $config['page_level_styles'] = NULL;
 | Default THEME LAYOUT STYLES
 |--------------------------------------------------------------------------
 */
-$config['theme_layout_styles'] =	array(
-										'layoutmin',
-										'defaultmin',
-										'custommin'
-									);
-
+if(strpos(current_url(), '/users/users-edit') || strpos(current_url(), '/users/users-overview') ) {
+	$config['theme_layout_styles'] = array(
+		'layoutmin',
+		'defaultmin',
+	);
+}else{
+	$config['theme_layout_styles'] = array(
+		'layoutmin',
+		'defaultmin',
+		'custommin'
+	);
+}
 /*
 |--------------------------------------------------------------------------
 | Default IE SCRIPTS

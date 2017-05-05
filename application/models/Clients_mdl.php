@@ -552,4 +552,14 @@ class Clients_mdl extends CI_Model
     ////////////// CLIENT-VENDORS BLOCK END /////////////
 
 
+
+    public function get_clients_type ()
+    {
+
+        $this->db->from('clients_types');
+        $query = $this->db->get();
+        return $query->result();
+//        $result = $query->result_array();
+    }
+
 }

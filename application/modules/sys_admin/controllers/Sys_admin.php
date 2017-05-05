@@ -33,7 +33,7 @@ class Sys_admin extends CI_Controller {
 
 
 
-//		$this->job 				= $this->common_mdl->get_users_jobs()->row();
+//		$this->job = $this->common_mdl->get_users_jobs()->row();
 	 }
 
  /**********************
@@ -84,7 +84,21 @@ class Sys_admin extends CI_Controller {
 
 		$this->layout->view($views,$data);
 	}
+    public function newuserform(){
+        $data['meta_description']='';
+        $data['menu']		= $this->menu;
 
+        $data['user'] 		= $this->user;
+        $data['group'] 		= $this->group->name;
+
+        $data['page']		= 'clients/client-verification-email';
+        $data['pls'] 		= array(); //page level scripts optional
+        $data['plugins'] 	= array(); //page plugins
+        $data['javascript'] = array(); //page javascript
+        $views				= array('design/html_topbar','design/page','design/html_footer');
+
+        $this->layout->view($views,$data);
+    }
 	public function eh(){
 
 		$this->load->view('main/eh');
@@ -178,9 +192,6 @@ class Sys_admin extends CI_Controller {
 		if (!empty($_POST)) {
 			$validation_status = $this->form_validation->run();
 			if ($validation_status != FALSE) {
-//				echo "<pre>";
-//				print_r($post_array);
-//				die;
 				$this->client_edit_makesave($is_insert, $cid, $data['select_on_update'], $redirect_url, $page_parameters_with_sort, $post_array, $app_config, $data['client_color_schemes'] );
 			} else {
 				$client = $this->client_edit_fill_current_data( $client, $is_insert, $cid );
@@ -399,7 +410,7 @@ class Sys_admin extends CI_Controller {
 		$data['sort']= $sort;
 		$data['page_parameters_with_sort']= $page_parameters_with_sort;
 		$data['page_parameters_without_sort']= $page_parameters_without_sort;
-
+        $data['cl_type'] = $this->clients_mdl->get_clients_type();
 		$this->pagination->suffix = $this->clientsPreparePageParameters($UriArray, $post_array, false, true);
 		$this->pagination->cur_page= $page;
 		$pagination_links = $this->pagination->create_links();
@@ -431,7 +442,7 @@ class Sys_admin extends CI_Controller {
 	 * @params usr_segment->3 (clients id)
 	 * return view
 	 *********************************/
-	public function clients_edit()
+	public function client()
 	{
 		$UriArray = $this->uri->uri_to_assoc(2);
 
@@ -439,9 +450,9 @@ class Sys_admin extends CI_Controller {
 		$app_config = $this->config->config;
 
 		$cid= '';
-		if ( !empty($UriArray['clients-edit']) and $this->common_lib->is_positive_integer($UriArray['clients-edit'])  ) {
+		if ( !empty($UriArray['client']) and $this->common_lib->is_positive_integer($UriArray['client'])  ) {
 			$is_insert= false;
-			$cid= $UriArray['clients-edit'];
+			$cid= $UriArray['client'];
 		}
 
 		$post_array = $this->input->post();
@@ -531,6 +542,81 @@ class Sys_admin extends CI_Controller {
 
 	}
 
+	public function client_edit(){
+        if ($this->input->server('REQUEST_METHOD') == 'GET'){
+            $data['meta_description']='';
+            $data['menu']		= $this->menu;
+
+            $data['user'] 		= $this->user;
+            $data['group'] 		= $this->group->name;
+
+
+            $UriArray = $this->uri->uri_to_assoc(2);
+            $client_id=$UriArray['client-edit'];
+            $client		= $this->clients_mdl->getRowById($client_id);
+            $data['client']		= $client;
+            $data['page']		='clients/client-edit';
+            $views=  array('design/html_topbar_client_edit','sidebar','design/page','design/html_footer');
+            $this->layout->view($views, $data);
+        }else if ($this->input->server('REQUEST_METHOD') == 'POST'){
+            $client_id = $this->input->post('data[client_id]');
+            $this->client_edit_form_validation();
+            $validation_status = $this->form_validation->run();
+            if ($validation_status == FALSE) {
+                $this->session->set_flashdata('errors', validation_errors());
+                redirect('sys-admin/client-edit/'.$client_id.'/');
+            } else {
+                $data = array(
+                    'client_name' => $this->input->post('data[client_name]'),
+                    'client_address1' => $this->input->post('data[client_address1]'),
+                    'client_address2' => $this->input->post('data[client_address2]'),
+                    'client_city' => $this->input->post('data[client_city]'),
+                    'client_state' => $this->input->post('data[client_state]'),
+                    'client_zip' => $this->input->post('data[client_zip]'),
+                    'client_phone' => $this->input->post('data[client_phone]'),
+                    'client_phone_2' => $this->input->post('data[client_phone2]'),
+                    'client_phone_3' => $this->input->post('data[client_phone3]'),
+                    'client_phone_4' => $this->input->post('data[client_phone4]'),
+                    'client_phone_type' => $this->input->post('data[client_phone_type]'),
+                    'client_email' => $this->input->post('data[client_email]'),
+                    'client_website' => $this->input->post('data[client_website]'),
+                );
+                $this->db->where( $this->clients_mdl->m_clients_table . '.cid', $client_id);
+                $this->db->update($this->clients_mdl->m_clients_table, $data);
+                $this->session->set_flashdata('massege', 'Updated successfully');
+                redirect('sys-admin/client/'.$client_id.'/');
+            }
+        }
+
+    }
+    public function client_edit_post(){
+
+        $this->client_edit_form_validation();
+        $validation_status = $this->form_validation->run();
+        if ($validation_status == FALSE) {
+            $this->client_edit();
+        } else {
+            $client_id = $this->input->post('data[client_id]');
+
+            $data = array(
+                'client_name' => $this->input->post('data[client_name]'),
+                'client_address1' => $this->input->post('data[client_address1]'),
+                'client_address2' => $this->input->post('data[client_address2]'),
+                'client_city' => $this->input->post('data[client_city]'),
+                'client_state' => $this->input->post('data[client_state]'),
+                'client_zip' => $this->input->post('data[client_zip]'),
+                'client_phone' => $this->input->post('data[client_phone]'),
+                'client_phone2' => $this->input->post('data[client_phone2]'),
+                'client_phone3' => $this->input->post('data[client_phone3]'),
+                'client_phone4' => $this->input->post('data[client_phone4]'),
+                'client_phone_type' => $this->input->post('data[client_phone_type]'),
+                'client_email' => $this->input->post('data[client_email]'),
+                'client_website' => $this->input->post('data[client_website]'),
+            );
+
+        }
+    }
+
 	public function clients_edit_new()
 	{
 		$UriArray = $this->uri->uri_to_assoc(2);
@@ -539,9 +625,9 @@ class Sys_admin extends CI_Controller {
 		$app_config = $this->config->config;
 
 		$cid= '';
-		if ( !empty($UriArray['clients-edit']) and $this->common_lib->is_positive_integer($UriArray['clients-edit'])  ) {
+		if ( !empty($UriArray['client']) and $this->common_lib->is_positive_integer($UriArray['client'])  ) {
 			$is_insert= false;
-			$cid= $UriArray['clients-edit'];
+			$cid= $UriArray['client'];
 		}
 
 		$post_array = $this->input->post();
@@ -709,14 +795,14 @@ class Sys_admin extends CI_Controller {
 		$ret = move_uploaded_file( $src_filename, $this->clients_mdl->getClientDir($cid) . $img_basename );
 
 		if ($select_on_update == 'reopen_editor') {
-//			$redirect_url = base_url() . 'sys-admin/clients-edit/' . $cid . $page_parameters_with_sort;
+//			$redirect_url = base_url() . 'sys-admin/client/' . $cid . $page_parameters_with_sort;
 			$redirect_url = base_url() . 'sys-admin/clients-view/'. $cid . $page_parameters_with_sort;
 		}
 		if ($select_on_update == 'open_editor_for_new') {
-//			$redirect_url = base_url() . 'sys-admin/clients-edit/new' . $page_parameters_with_sort;
+//			$redirect_url = base_url() . 'sys-admin/client/new' . $page_parameters_with_sort;
 			$redirect_url = base_url() . 'sys-admin/clients-view/' . $page_parameters_with_sort;
 		}
-
+        $redirect_url = base_url() . 'sys-admin/client/' . $cid;
 		if ($cid) {
 			$this->session->set_flashdata('editor_message', lang('client') . " '" . $post_array['data']['client_name'] . "' was " . ($is_insert ? "inserted" : "updated") );
 			if ($this->db->trans_status() === FALSE) {
@@ -774,14 +860,15 @@ class Sys_admin extends CI_Controller {
 	}
 
 
-	private function client_edit_form_validation($is_insert, $cid)
+	private function client_edit_form_validation()
 	{
-//		$this->form_validation->set_rules( 'data[client_name]', lang('client_name'), 'required' );
+		$this->form_validation->set_rules( 'data[client_name]', lang('client_name'), 'required' );
 //		$this->form_validation->set_rules( 'data[clients_types_id]', lang('clients-type'), 'required' );
 		$this->form_validation->set_rules( 'data[client_address1]', lang('client_address1'), 'required' );
 		$this->form_validation->set_rules( 'data[client_address2]', lang('client_address2'), '' );
-		$this->form_validation->set_rules( 'data[client_owner]', lang('client_owner'), '' );
-		$this->form_validation->set_rules( 'data[client_email]', lang('client_email'), 'valid_email|callback_client_check_client_email_is_unique' );
+//		$this->form_validation->set_rules( 'data[client_owner]', lang('client_owner'), '' );
+//		$this->form_validation->set_rules( 'data[client_email]', lang('client_email'), 'valid_email|callback_client_check_client_email_is_unique' );
+		$this->form_validation->set_rules( 'data[client_email]', lang('client_email'), 'valid_email' );
 		$this->form_validation->set_rules( 'data[client_website]', lang('client_website'), '' );
 		$this->form_validation->set_rules( 'data[client_city]', lang('client_city'), 'required' );
 		$this->form_validation->set_rules( 'data[client_state]', lang('client_state'), 'required' );
@@ -789,11 +876,18 @@ class Sys_admin extends CI_Controller {
 		$this->form_validation->set_rules( 'data[client_phone]', lang('phone'), 'required' );
 		$this->form_validation->set_rules( 'data[client_phone_2]', lang('phone_2'), '' );
 		$this->form_validation->set_rules( 'data[client_phone_3]', lang('phone_3'), '' );
-		$this->form_validation->set_rules( 'data[client_phone_4]', lang('phone_4'), '' );
+		$this->form_validation->set_rules( 'data[client_phone_4]', lang('phone-4'), '' );
+//        $this->form_validation->set_rules( 'data[client_phone_5]', lang('phone_5'), '' );
 		$this->form_validation->set_rules( 'data[client_phone_type]', lang('phone_type'), '' );
+//        $this->form_validation->set_rules( 'data[client_lic_tag]', lang('tag-drop'),'' );
+        $this->form_validation->set_rules( 'data[client_img]', lang('client_img'),'' );
+//        $this->form_validation->set_rules( 'data[client_primary_color]', lang('primary-color'),'' );
+//        $this->form_validation->set_rules( 'data[client_accent_color]', lang('accent-color'),'' );
+
+
 //		$this->form_validation->set_rules( 'data[client_fax]', lang('client_fax'), 'required' );
 //		$this->form_validation->set_rules( 'data[client_active_status]', lang('client_active_status'), 'required' );
-		$this->form_validation->set_rules( 'data[color_scheme]', lang('color_scheme'), ( $is_insert ? '' : 'required' ) );
+//		$this->form_validation->set_rules( 'data[color_scheme]', lang('color_scheme'), ( $is_insert ? '' : 'required' ) );
 	}
 	
 	//H// Added by BBITS Dev to add form validation of add client type.
@@ -1768,4 +1862,12 @@ class Sys_admin extends CI_Controller {
 
 		$this->common_lib->activity_log($this->menu,$this->user, $this->group->name,TRUE);
 	}
+
+
+
+	public function test()
+    {
+        $data['cl_type'] = $this->clients_mdl->get_clients_type();
+        $this->load->view('test', $data);
+    }
 }

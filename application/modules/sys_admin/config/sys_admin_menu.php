@@ -15,7 +15,7 @@ $config['menu_1'] = array(
     					'icon'	=>	'fa fa-folder-open'
     					),
     "sub_2" => array(
-    					'href'	=>	'/clients-edit/new/', //make sure to use dash
+    					'href'	=>	'/client/new/', //make sure to use dash
     					'title'	=>	'clients-add',//should be the same as the lang()
     					'icon'	=>	'fa fa-plus'
                     ),

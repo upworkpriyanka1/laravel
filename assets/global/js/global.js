@@ -66,6 +66,23 @@
 //
 //
 $(document).ready(function(){
+
+    $('.reset_form_btn').on('click',function(){
+        $("#new_user_form")[0].reset();
+    });
+    $('#us-pass-conf').on('keyup',function(){
+       var us_pass=$('#us-pass').val();
+       var us_pass_conf=$(this).val();
+       if (us_pass_conf != us_pass) {
+           $(this).addClass('invalid');
+       } else{
+            $(this).removeClass('invalid');
+            $(this).addClass('valid');
+       }
+    });
+    $('.new_user_btn').on('click',function(){
+        $('#new_user_modal').modal('show');
+    });
    $('.the_active').removeClass('the_active').addClass('active');
 
     $('.active').find('.collapsible-body').css('display', 'block');
@@ -124,6 +141,7 @@ $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
 
     $('body').on('click','.create-contact-save',function(){
+
        $('#form_client_edit').submit();
     });
 });
@@ -306,8 +324,10 @@ function validateFormEnableOrDisable(form_id){
     $('#'+form_id+' .required_form').each(function(){
         if($(this).val() == ""){
             disable = true;
+            $(this).parent().find('.required').css('display', 'inline');
+        }else{
+            $(this).parent().find('span.required').css('display', 'none');
         }
-        console.log($(this).val());
     });
 
     $('#'+form_id+' .required_form_to_check').each(function(){
@@ -324,7 +344,13 @@ function validateFormEnableOrDisable(form_id){
         $('.disable_form_id_'+form_id).removeAttr('disabled');
     }
 
-    console.log(disable);
+
+    $('.supuser').click(function(){
+        $('.modal-content1').css('display', 'block');
+        $('.modal-top').css('display','none');
+    });
+
+
 }
 
 function init() {

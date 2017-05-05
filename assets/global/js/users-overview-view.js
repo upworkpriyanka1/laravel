@@ -1,4 +1,30 @@
 $(document).ready(function(){
+
+
+
+    $('#avatar').on('change',function(){
+        var user_id=$('input[name="user"]').val();
+        var file_data = $('#avatar').prop('files')[0];
+        var form_data = new FormData();
+        form_data.append('file', file_data);
+        form_data.append('user', user_id);
+        //alert(form_data);
+        $.ajax({
+            url: '/sys-admin/users/users-uploadimage/', // point to server-side PHP script
+            dataType: 'text',  // what to expect back from the PHP script, if anything
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            type: 'post',
+            success: function(data){
+                //alert(data); // display response from the PHP script, if any
+            }
+        });
+
+
+       console.log(777);
+    });
     $('.create_contact').on('click',function(){
         $.ajax({
             url: '/sys-admin/clients_view_new',
@@ -7,6 +33,7 @@ $(document).ready(function(){
             },
             dataType: 'json',
             success: function(data) {
+                console.log(data)
                 $('#newclient .modal-body').html(data.html);
                 $('#newclient').modal('show');
             },
@@ -17,6 +44,7 @@ $(document).ready(function(){
 
     $('.theme-colors-ul').on('click','.color-light2, .color-default, .color-darkblue,.color-blue',function(){
         var color = $(this).attr('class').split(' ')[0];
+        console.log(color)
         if(color=='color-light2'){
             $(".page-header.navbar,header .chevron .chevron-down i, header .chevron .chevron-up i,  nav.top-nav").css("background-color", "#c8c8c8");
             $(".side-nav .collapsible-body, .side-nav.fixed .collapsible-body").css("background-color", "#ddd");
@@ -93,38 +121,6 @@ $(document).ready(function(){
 
     'use strict';
 
-    $('body').on('click','.add-row-button',function(){
-        var next_row_class = $(this).attr('next-row-class');
-
-        $('.'+next_row_class).css('display', 'block');
-
-    });
-    function xAbleClick(){
-        $(this).closest('.form-group').find('.x-able').val("");
-        $(this).closest('.form-group').find('.x-able-button').remove();
-    };
-
-
-    $('.x-able').keyup(function(){
-        var val = $(this).val();
-        var html = '<div class="btn-rem-name x-able-button" style="display: inline-block; position: absolute; right: 0; top: 20px; ">'+
-            '<i class="fa fa-times-circle" aria-hidden="true"></i></div>';
-
-        if(val != "" && $(this).closest('.form-group').find('.x-able-button').length == 0){
-            $(this).closest('.form-group').append(html);
-            var buttons = document.getElementsByClassName('x-able-button');
-            var i;
-            for(i = 0; i < buttons.length; i++){
-                buttons[i].addEventListener("click", function(){
-                    $(this).closest('.form-group').find('.x-able').val("");
-                    $(this).closest('.form-group').find('.x-able-button').remove();
-                }, false);
-            };
-
-        }else if(val == ""){
-            $(this).closest('.form-group').find('.x-able-button').remove();
-        }
-    });
 
     // class helper functions from bonzo https://github.com/ded/bonzo
 
@@ -245,6 +241,7 @@ function init() {
             var pageContentsPadding = "250px";
         }
         //if($('body').height() > screenHeight + 160){
+            console.log('something');
             if (distanceY > shrinkOn) {
                 $('.page-content-wrapper .page-content').css('padding-top','60px');
                 classie.add(header,"smaller");
@@ -339,6 +336,38 @@ function init() {
             }
         }
     });
+
+
+
+    $(window).scroll(function (event) {
+        var scroll = $(window).scrollTop();
+        var width = $(window).width();
+        var grid_pinned = $('#grid-pinned').offset().top - 300;
+        //var grid_associations = $('#grid-associations').offset().top - 300;
+        var grid_history = $('#grid-history').offset().top - 300;
+
+        // Do something
+//        alert('wwwwww');
+//        console.log(scroll+' - '+width+" - "+grid_responsive);
+        if(scroll >= grid_history) {
+            $('.table-of-contents li a').removeClass('active');
+            $('.table-of-contents li a[href="#grid-history"]').addClass('active');
+        }
+        //else if(scroll >= grid_associations) {
+        //    $('.table-of-contents li a').removeClass('active');
+        //    $('.table-of-contents li a[href="#grid-associations"]').addClass('active');
+        //}
+        else {
+            $('.table-of-contents li a').removeClass('active');
+            $('.table-of-contents li a[href="#grid-pinned"]').addClass('active');
+        }
+
+
+    });
+
+
+
+
 }
 window.onload = init();
 

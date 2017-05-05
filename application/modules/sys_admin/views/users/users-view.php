@@ -60,7 +60,7 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
 									<tr>
 
 										<td>
-											<a class="a_link" href="<?= base_url($this->uri->segment(1).'/users/users-edit/'.$row->id);?><?= $page_parameters_with_sort ?>">
+											<a class="a_link" href="<?= base_url($this->uri->segment(1).'/users/users-overview/'.$row->id);?><?= $page_parameters_with_sort ?>">
 												<?php echo $row->username;?>
 											</a>
 										</td>

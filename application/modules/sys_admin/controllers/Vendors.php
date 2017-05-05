@@ -15,8 +15,10 @@ class Vendors extends CI_Controller
         $this->load->model('sys_admin_mdl', 'admin_mdl');
         $this->load->model('vendors_mdl');
         $this->lang->load('sys_admin');
-        $this->config->load('sys_admin_menu', true);
-        $this->menu = $this->config->item('sys_admin_menu');
+//        $this->config->load('sys_admin_menu', true);
+//        $this->menu = $this->config->item('sys_admin_menu');
+        $this->config->load('sys_admin_menu_new', true);
+        $this->menu = $this->config->item('sys_admin_menu_new');
 
         $this->user = $this->common_mdl->get_admin_user();
 	    if ( $this->user->user_active_status != 'A' ) { // Only active user can access admin pages

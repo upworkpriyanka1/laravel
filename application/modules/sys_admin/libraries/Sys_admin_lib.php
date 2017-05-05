@@ -42,8 +42,8 @@ class Sys_admin_lib {
             echo $id;
             $this->CI->db->trans_complete();
             return true;
-//            redirect('./sys-admin/clients-edit/'.$id);
-            // http://local-zntral.com/sys-admin/clients-edit/9
+//            redirect('./sys-admin/client/'.$id);
+            // http://local-zntral.com/sys-admin/client/9
         }
     }
 
