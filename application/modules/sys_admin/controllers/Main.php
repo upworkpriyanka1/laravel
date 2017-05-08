@@ -346,87 +346,123 @@ class Main extends CI_Controller {
 			 
 			 
 			 $this->new_user_form_validation($id);
+			 $validation_status = $this->form_validation->run();
+			//echo "validation status is : " . $validation_status ;
+			if ($validation_status != FALSE) {
 			 
-			 
-			 $u_data = array(
-							"first_name" => $this->input->post('data[first_name]'),
-							"middle_name" => $this->input->post('data[middle_name]'),
-							"last_name" => $this->input->post('data[last_name]'),
-							"email" => $this->input->post('data[email]'),
-							"address1" => $this->input->post('data[address1]'),
-							"address2" => $this->input->post('data[address2]'),
-							"city" => $this->input->post('data[city]'),
-							"state" => $this->input->post('data[state]'),
-							"zip" => $this->input->post('data[zip]'),
-							"mobile" => $this->input->post('data[mobile]'),
-							"phone" => $this->input->post('data[phone]'),
-							"user_title" => $this->input->post('data[user_title]'),
-							"licence_number" => $this->input->post('data[licence_number]'),
-							"licence_from" => $this->input->post('data[licence_from]'),
-							"licence_to" => $this->input->post('data[licence_to]'),
-							"user_employment" => $this->input->post('user_employment'),
-							"updated_at" => date('Y-m-d H:i:s'),
-						);
-			 
-			 
+				 $u_data = array(
+								"first_name" => $this->input->post('data[first_name]'),
+								"middle_name" => $this->input->post('data[middle_name]'),
+								"last_name" => $this->input->post('data[last_name]'),
+								"email" => $this->input->post('data[email]'),
+								"address1" => $this->input->post('data[address1]'),
+								"address2" => $this->input->post('data[address2]'),
+								"city" => $this->input->post('data[city]'),
+								"state" => $this->input->post('data[state]'),
+								"zip" => $this->input->post('data[zip]'),
+								"mobile" => $this->input->post('data[mobile]'),
+								"phone" => $this->input->post('data[phone]'),
+								"user_title" => $this->input->post('data[user_title]'),
+								"licence_number" => $this->input->post('data[licence_number]'),
+								"licence_from" => $this->input->post('data[licence_from]'),
+								"licence_to" => $this->input->post('data[licence_to]'),
+								"user_employment" => $this->input->post('user_employment'),
+								"updated_at" => date('Y-m-d H:i:s'),
+							);
+				 
+				 
+				
+				// Change pass word and send activation mail to user
+	
+				$password= $this->common_lib->generatePassword();
+				
+				$u_data['password'] = $this->ion_auth->hash_password($password, false );
+				//$u_data['plain_password'] = $password;
+				$p_password = $password;
+				$u_data['activation_code'] = '';
+				$u_data['user_active_status'] = 'A';
+	
+				$ret = $this->db->update( $this->users_mdl->m_users_table, $u_data, array( 'id' => $id ) );
+	
+				if($ret)
+				{
+				
+					// Get user's all data
+					$u_data = $this->users_mdl->getUserRowById($id);
+					
+					$success_message= 'Your information is stored into the system. Now you can login into the system!';
+		
+					$title= 'Your account was activated at ' . $app_config['site_name'] . ' site';
+		
+		/*echo "u data is : ";
+		print_r($u_data);*/
+		//exit(0);
+					$content = $this->cms_items_mdl->getBodyContentByAlias('account_activated',
+		
+						array('username' => $u_data->username,
+		
+							  'password' => $p_password,
+		
+							  'first_name' => $u_data->first_name,
+		
+							  'last_name' => $u_data->last_name,
+		
+							  'site_name' => $app_config['site_name'],
+		
+							  'support_signature' => $app_config['support_signature'],
+		
+							  'site_url' => $app_config['base_url'],
+		
+							  'email' => $u_data->email
+		
+						), true);
+		
+						
+		
+		//			$this->common_lib->DebToFile( 'sendEmail $content::'.print_r($content,true));
+		
+					$EmailOutput = $this->common_lib->SendEmail($u_data->email, $title, $content );
+	
+				}
+				
+				
+				$module = $this->ion_auth->get_users_groups($id)->row()->name;
+				// Redirect to dashboard
+				redirect('/', 'refresh');
+		}
+		else
+		{
+			$user_data= $this->users_mdl->getUserRowById($id);
+			/*$db_last_name = $user_data->last_name;
+			$db_email = $user_data->email;
+			$activation_code = $user_data->activation_code;*/
 			
-			// Change pass word and send activation mail to user
-
-			$password= $this->common_lib->generatePassword();
+			/*echo "user data is : ";
+			print_r($user_data);*/
+			$data = (array)$user_data;
 			
-			$u_data['password'] = $this->ion_auth->hash_password($password, false );
-			//$u_data['plain_password'] = $password;
-			$p_password = $password;
-			$u_data['activation_code'] = '';
-			$u_data['user_active_status'] = 'A';
-
-			$ret = $this->db->update( $this->users_mdl->m_users_table, $u_data, array( 'id' => $id ) );
-
-			if($ret)
+			if($user_data->activation_code != '')
 			{
 			
-				// Get user's all data
-				$u_data = $this->users_mdl->getUserRowById($id);
+			
+				$data['page']		= 'main/new_user_form';
+				$data['error_message']= '';
+				$data['success_message']= '';
 				
-				$success_message= 'Your information is stored into the system. Now you can login into the system!';
-	
-				$title= 'Your account was activated at ' . $app_config['site_name'] . ' site';
-	
-	/*echo "u data is : ";
-	print_r($u_data);*/
-	//exit(0);
-				$content = $this->cms_items_mdl->getBodyContentByAlias('account_activated',
-	
-					array('username' => $u_data->username,
-	
-						  'password' => $p_password,
-	
-						  'first_name' => $u_data->first_name,
-	
-						  'last_name' => $u_data->last_name,
-	
-						  'site_name' => $app_config['site_name'],
-	
-						  'support_signature' => $app_config['support_signature'],
-	
-						  'site_url' => $app_config['base_url'],
-	
-						  'email' => $u_data->email
-	
-					), true);
-	
-					
-	
-	//			$this->common_lib->DebToFile( 'sendEmail $content::'.print_r($content,true));
-	
-				$EmailOutput = $this->common_lib->SendEmail($u_data->email, $title, $content );
-
-			}
-			
-			
-			$module = $this->ion_auth->get_users_groups($id)->row()->name;
-			// Redirect to dashboard
-			redirect('/', 'refresh');
+				$data['menu']		= array();
+				
+				$data['has_error']= $has_error;
+				
+				$data['plugins'] 	= array();
+				
+				$data['css'] = array('https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css');
+				
+				$data['javascript'] = array('assets/custom/admin/user-edit.js','https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js');
+				
+				$views	= array('design/html_topbar','sidebar','design/page','design/html_footer');
+				
+				$this->layout->view($views, $data);
+		}
 	}
 	
 	public function user_check_username_is_unique()
