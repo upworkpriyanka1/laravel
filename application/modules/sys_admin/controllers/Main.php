@@ -344,6 +344,10 @@ class Main extends CI_Controller {
 			
 			 /*[username] => himisha [first_name] => Himisha [middle_name] => mahendrabhai [last_name] => Patel [email] => himisha.patel@bbitsol.com [address1] => AMD [address2] => 208 [city] => AMD [state] => GUJ [zip] => 380015 [mobile] => 9876543210 [phone] => 1234567890 [user_title] => superuser [licence_number] => 12345 [licence_from] => 2017-01-02 [licence_to] => 2017-04-03 ) [user_employment] => full_time*/
 			 
+			 
+			 $this->new_user_form_validation($id);
+			 
+			 
 			 $u_data = array(
 							"first_name" => $this->input->post('data[first_name]'),
 							"middle_name" => $this->input->post('data[middle_name]'),
@@ -423,6 +427,42 @@ class Main extends CI_Controller {
 			$module = $this->ion_auth->get_users_groups($id)->row()->name;
 			// Redirect to dashboard
 			redirect('/', 'refresh');
+	}
+	
+	public function user_check_username_is_unique()
+	{
+		$username = $this->input->post('data[username]', '');
+		if (empty($username)) {
+			$this->form_validation->set_message('user_check_username_is_unique', " The ".lang('username')." field is required ! ");
+			return FALSE;
+		}
+		$user_id = $this->input->post('data[user_id]', 0);
+		if ( $user_id == 'new' ) $user_id= 0;
+		$similarUser= $this->users_mdl->getSimilarUserByUsername( $username, $user_id );
+		if (!empty($similarUser)) {
+			$this->form_validation->set_message('user_check_username_is_unique', lang('username') . " '".$username."' must be unique ! ");
+			return FALSE;
+		}
+		return TRUE;
+	}
+	
+	private function new_user_form_validation($id)
+	{
+//		$this->form_validation->set_rules( 'data[username]', lang('user'), 'callback_user_check_username_is_unique' );
+		$this->form_validation->set_rules( 'data[username]', lang('username'), 'trim|required|callback_user_check_username_is_unique' );
+
+//		$this->form_validation->set_rules( 'data[user_active_status]', lang('user_active_status'), 'required' );
+		$this->form_validation->set_rules( 'data[first_name]', lang('first_name'), 'required' );
+		$this->form_validation->set_rules( 'data[last_name]', lang('last_name'), 'required' );
+		//$this->form_validation->set_rules( 'data[middle_name]', lang('middle_name'), 'required' );
+		//$this->form_validation->set_rules( 'data[city]', lang('city'), 'required' );
+		//$this->form_validation->set_rules( 'data[state]', lang('state'), 'required' );
+		//$this->form_validation->set_rules( 'data[zip]', lang('zip'), 'required' );
+		//$this->form_validation->set_rules( 'data[address1]', lang('address1'), 'required' );
+		//$this->form_validation->set_rules( 'data[address2]', lang('address2'), '' );
+//		$this->form_validation->set_rules( 'data[mobile]', lang('mobile'), '' );
+		$this->form_validation->set_rules( 'data[phone]', lang('phone'), '' );
+//		$this->form_validation->set_rules( 'user_has_groups_label', lang('user_has_groups_label'), 'callback_user_has_groups_label');
 	}
 
 	public function forgotten_password() {

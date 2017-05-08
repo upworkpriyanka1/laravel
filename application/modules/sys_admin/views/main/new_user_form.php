@@ -44,7 +44,7 @@
 											<span class="required"> * </span>
 										</label>
 										<div class="col-md-7">
-											<input type="text" name="data[username]" id="username" value="<?= ( !empty($username) ? $username : '' ); ?>" class="form-control" maxlength="100" readonly />
+											<input type="text" name="data[username]" id="username" value="<?= ( !empty($username) ? $username : '' ); ?>" class="form-control" maxlength="100" />
 
 										</div><!-- ./col -->
 									</div><!-- ./form-group -->
