@@ -9,6 +9,7 @@ class Sys_admin extends CI_Controller {
 		 $this->load->library('Sys_admin_lib',NULL,'admin_lib');
 		 $this->load->model('sys_admin_mdl','admin_mdl');
 		 $this->load->model('clients_mdl','clients_mdl');
+		 $this->load->model('users_mdl');
 		 $this->lang->load('sys_admin');
 //		 $this->config->load('sys_admin_menu', true );
 //		 $this->menu    			= $this->config->item( 'sys_admin_menu' );
@@ -524,19 +525,48 @@ class Sys_admin extends CI_Controller {
 		}
 
 
+		// For add new user by BBITS DEV
+		// Start BBITS DEV
+		$groupsSelectionList= $this->users_mdl->getGroupsSelectionList( array(), 'id',  'asc' );
+
+		$usersGroups = $this->users_mdl->getUsersGroupsList( false, 0, array('user_id'=> $user_id) );
+		if ( !$is_insert ) {
+			foreach ($groupsSelectionList as $next_key => $next_user_group_selection) {
+				foreach ($usersGroups as $next_users_ob) {
+					if ($next_user_group_selection['key'] == $next_users_ob->group_id) {
+						$groupsSelectionList[$next_key]['checked'] = true;
+					}
+				}
+			}
+		}
+		$data['groupsSelectionList']  = $groupsSelectionList;
+		
+		$data['userActiveStatusValueArray']= $this->users_mdl->getUserActiveStatusValueArray();
+		foreach ( $data['userActiveStatusValueArray'] as $next_key=>$next_userActiveStatus ) {
+			if ( !in_array($next_userActiveStatus['key'],array('N', 'W')) ) {
+				unset($data['userActiveStatusValueArray'][$next_key]);
+			}
+		} 
+		$data['client_id'] = $client->cid;
+		// END BBITS DEV
+
+		
+		
+
 		$data['client']		= $client;
 		$data['page_parameters_with_sort']= $page_parameters_with_sort;
 		$data['page_parameters_without_sort']= $page_parameters_without_sort;
 //		$data['page']		= 'clients/client-edit'; //page view to load
 		$data['page']		= 'clients/client-edit-new'; //page view to load
 		$data['plugins'] 	= array('validation'); //page plugins
-		$data['javascript'] = array( 'assets/custom/admin/client-edit.js' );//page javascript
+		$data['javascript'] = array('assets/custom/admin/custom.js');//page javascript
+		/*'assets/custom/admin/user-edit.js', 'assets/custom/admin/client-edit.js'*/
 		$views				=  array('design/html_topbar','sidebar','design/page','design/html_footer');
-//		$this->layout->view($views, $data);
+		$this->layout->view($views, $data);
 //		echo "<pre>";
 //		print_r($data);
 //		die;
-		$this->load->view('clients/client-edit-new',$data);
+		//$this->load->view('clients/client-edit-new',$data);
 //		redirect(base_url().'/sys-admin/clients-view');
 //		redirect(base_url().'/client-mockup-sacred-city/system-admin/client_overview_view');
 
@@ -1379,6 +1409,8 @@ class Sys_admin extends CI_Controller {
 		$views=  array('design/html_topbar','sidebar','design/page','design/html_footer');
 		$this->layout->view($views, $data);
 	}
+	
+	
 
 /**********************
 * Add User

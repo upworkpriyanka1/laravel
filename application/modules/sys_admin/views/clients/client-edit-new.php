@@ -1590,50 +1590,57 @@
                 </div>
 
                 <div class="row">
-                    <form class="col s12">
+                    <form class="col s12 form-horizontal" action="<?php echo base_url() ;?>sys-admin/users/users-edit/new" method="post" id="form_user_edit" name="form_user_edit" enctype="multipart/form-data">
+                    	<input type="hidden" name="hdn_client_id" value="<?php echo $client_id;?>" id="hdn_client_id" />
                         <div class="row">
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">account_circle</i>
-                                <input id="icon_prefix" type="text" class="validate"/>
-                                <label for="icon_prefix">First Name</label>
+                                <input type="text" name="data[first_name]" id="first_name" value="" class="validate"/>
+                                <label for="first_name">First Name</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">supervisor_account</i>
-                                <input id="last_name" type="text" class="validate"/>
+                                <input type="text" name="data[last_name]" id="last_name" value="" class="validate"/>
                                 <label for="last_name">Last Name</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">phone</i>
-                                <input id="icon_telephone" type="tel" class="validate"/>
-                                <label for="icon_telephone">Telephone</label>
+                                <input type="tel" name="data[phone]" id="phone" value="" class="validate"/>
+                                <label for="phone">Telephone</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">email</i>
-                                <input id="email" type="email" class="validate required_form"  onchange="validateFormEnableOrDisable('form_client_edit2');"/>
+                                <input type="email" name="data[email]" id="email" value=""  class="validate required_form"  onchange="validateFormEnableOrDisable('form_client_edit2');"/>
                                 <label for="email">Email address</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">email</i>
-                                <input id="email" type="email" class="validate required_form" onChange="validateFormEnableOrDisable('form_client_edit2');"/>
-                                <label for="email">Verify email address</label>
+                                <input type="email" name="data[email1]" id="email1" value="" class="validate required_form" onChange="validateFormEnableOrDisable('form_client_edit2');"/>
+                                <label for="email1">Verify email address</label>
                             </div>
                         </div>
                     </form>
+                    
                 </div>
 
                 <div class="modal-footer">
                     <div class="col-xs-12">
                         <ul class ="md-foot-bot">
-                            <li data-dismiss="modal"> <button class="btn" onClick="javascript:document.location='<?=base_url()?>sys-admin/clients-view<?=$page_parameters_with_sort?>'">CANCEL</button> </li>
-                            <li class="create-contact-save " data-action="save"> <button class="btn-flat  disable_form_id_form_client_edit2" disabled> VERIFY </button> </li>
+                            <li data-dismiss="modal"> 
+                            	<button class="btn" onClick="javascript:document.location='<?=base_url()?>sys-admin/clients-view<?=$page_parameters_with_sort?>'">CANCEL</button> 
+                            </li>
+                            <li> <!-- class="create-contact-save " data-action="save"-->
+                            	<!--<button class="btn-flat  disable_form_id_form_client_edit2" disabled> VERIFY </button> -->
+                                <button type="button" class="btn" onclick="javascript:onuserSubmit();" >VERIFY</button>
+                            </li>
                         </ul>
                     </div>
                 </div>
