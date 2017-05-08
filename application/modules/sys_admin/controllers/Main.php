@@ -443,7 +443,7 @@ class Main extends CI_Controller {
 			
 			if($user_data->activation_code != '')
 			{
-			
+				$this->session->set_flashdata('validation_errors_text','Please correct details');
 			
 				$data['page']		= 'main/new_user_form';
 				$data['error_message']= '';
