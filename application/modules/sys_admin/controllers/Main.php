@@ -351,6 +351,7 @@ class Main extends CI_Controller {
 			if ($validation_status != FALSE) {
 			 
 				 $u_data = array(
+				 				"username" => $this->input->post('data[username]'),
 								"first_name" => $this->input->post('data[first_name]'),
 								"middle_name" => $this->input->post('data[middle_name]'),
 								"last_name" => $this->input->post('data[last_name]'),
@@ -462,7 +463,6 @@ class Main extends CI_Controller {
 				$views	= array('design/html_topbar','sidebar','design/page','design/html_footer');
 				
 				$this->layout->view($views, $data);
-			}
 		}
 	}
 	
