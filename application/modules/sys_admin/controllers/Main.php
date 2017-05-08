@@ -463,6 +463,7 @@ class Main extends CI_Controller {
 				$views	= array('design/html_topbar','sidebar','design/page','design/html_footer');
 				
 				$this->layout->view($views, $data);
+			}
 		}
 	}
 	
