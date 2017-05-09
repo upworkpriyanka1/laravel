@@ -46,7 +46,7 @@ echo link_tag('/assets/layouts/default/css/custom-users-overview-view.css');
                                     <h4> Change <?= $editable_user->username; ?> status to <span  class="user-change-status-title"></span> ? </h4>
                                     <div class="btn-group">
                                         <button class="btn btn-danger" data-dismiss="modal" style="margin-right: 10px">No</button>
-                                        <input type="submit" class="btn btn-primary" value="yes">
+                                        <input type="button" class="btn btn-primary" value="yes">
                                     </div>
                                 </form>
 
