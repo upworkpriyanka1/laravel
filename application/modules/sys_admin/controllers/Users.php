@@ -132,7 +132,9 @@ class Users extends CI_Controller
 		$this->layout->view($views, $data);
 	}
 
+    public function user_change_status(){
 
+    }
 	/**********************
 	 * Edit users
 	 * access public

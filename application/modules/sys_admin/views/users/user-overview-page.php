@@ -21,10 +21,40 @@ echo link_tag('/assets/layouts/default/css/custom-users-overview-view.css');
             <div class="massege" style="background-color: #fff;padding: 10px;margin-bottom: 10px"><?=$this->session->flashdata('massege');?></div>
             <?php } ?>
             <div id="grid-pinned" class="scrollspy">
-                <div class="edit">
+                <div class="edit" style="display: inline-block">
                     <a  href="/client-mockup-sacred-city/superuser/client-overview-profile-form/<?php echo $editable_user->id ?>/" class="btn-floating btn-large waves-effect waves-light " style="border-radius: 50% !important;"><i class="large material-icons">edit</i></a>
+                </div>
+                <div class="user-status" style="display: inline-block; margin-left: 50px;">
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Status
+                            <span class="caret"></span></button>
+                        <ul class="dropdown-menu ">
+                            <li><a href="#" class="user-status">Pending</a></li>
+                            <li><a href="#" class="user-status">Active</a></li>
+                            <li><a href="#" class="user-status">Inactive</a></li>
+                        </ul>
+                    </div>
 
                 </div>
+
+                <div id="user-status-change-confirm-modal" class="modal fade in">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body text-center">
+                                <form action="/sys-admin/users/user-change-status" method="post">
+                                    <input type="hidden" name="id" value="<?= $editable_user->id; ?>">
+                                    <h4> Change <?= $editable_user->username; ?> status to <span  class="user-change-status-title"></span> ? </h4>
+                                    <div class="btn-group">
+                                        <button class="btn btn-danger" data-dismiss="modal" style="margin-right: 10px">No</button>
+                                        <input type="submit" class="btn btn-primary" value="yes">
+                                    </div>
+                                </form>
+
+                            </div>
+
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dalog -->
+                </div><!-- /.modal -->
 
                 <h3 class="header">Clients</h3>
 

@@ -67,6 +67,12 @@
 //
 $(document).ready(function(){
 
+
+    $('a.user-status').on('click',function () {
+        var status= $(this).text();
+        $('#user-status-change-confirm-modal').modal('show');
+        $('.user-change-status-title').text();
+    });
     $('.reset_form_btn').on('click',function(){
         $("#new_user_form")[0].reset();
     });
