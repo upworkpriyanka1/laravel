@@ -21,37 +21,34 @@ echo link_tag('/assets/layouts/default/css/custom-users-overview-view.css');
             <div class="massege" style="background-color: #fff;padding: 10px;margin-bottom: 10px"><?=$this->session->flashdata('massege');?></div>
             <?php } ?>
             <div id="grid-pinned" class="scrollspy">
-                <div class="edit" style="display: inline-block">
+                <div class="edit">
                     <a  href="/client-mockup-sacred-city/superuser/client-overview-profile-form/<?php echo $editable_user->id ?>/" class="btn-floating btn-large waves-effect waves-light " style="border-radius: 50% !important;"><i class="large material-icons">edit</i></a>
                 </div>
-                <div class="user-status" style="display: inline-block; margin-left: 50px;">
+
+                <div class="user-st">
+                    <h4>Status</h4>
+
                     <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Status
-                            <span class="caret"></span></button>
-                        <ul class="dropdown-menu ">
-                            <li><a href="#" class="user-status">Pending</a></li>
-                            <li><a href="#" class="user-status">Active</a></li>
-                            <li><a href="#" class="user-status">Inactive</a></li>
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><span class="status_but_name"><?=$user_status;?></span><span class="caret"></span></button>
+                        <ul class="dropdown-menu user-status-parent">
+                            <li class="user-status <?=($editable_user->user_active_status == "N" || $editable_user->user_active_status == "W") ? "disabled":''?>"><a href="javascript:void(0)">Pending</a></li>
+                            <li class="user-status <?=($editable_user->user_active_status == "A") ? "disabled":''?>"><a href="javascript:void(0)">Active</a></li>
+                            <li class="user-status <?=($editable_user->user_active_status == "I") ? "disabled":''?>"><a href="javascript:void(0)">Inactive</a></li>
                         </ul>
                     </div>
-
                 </div>
 
                 <div id="user-status-change-confirm-modal" class="modal fade in">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-body text-center">
-                                <form action="/sys-admin/users/user-change-status" method="post">
-                                    <input type="hidden" name="id" value="<?= $editable_user->id; ?>">
-                                    <h4> Change <?= $editable_user->username; ?> status to <span  class="user-change-status-title"></span> ? </h4>
-                                    <div class="btn-group">
-                                        <button class="btn btn-danger" data-dismiss="modal" style="margin-right: 10px">No</button>
-                                        <input type="button" class="btn btn-primary" value="yes">
-                                    </div>
-                                </form>
-
+                                <input type="hidden" name="id" value="<?= $editable_user->id; ?>">
+                                <h4> Change <?= $editable_user->username; ?> status to <span class="user-change-status-title"></span> ? </h4>
+                                <div class="btn-group">
+                                    <button class="btn btn-danger" data-dismiss="modal" style="margin-right: 10px">No</button>
+                                    <input type="button" class="btn btn-primary user_status_confirm" value="yes">
+                                </div>
                             </div>
-
                         </div><!-- /.modal-content -->
                     </div><!-- /.modal-dalog -->
                 </div><!-- /.modal -->
@@ -161,3 +158,4 @@ echo link_tag('/assets/layouts/default/css/custom-users-overview-view.css');
         </div>
     </div>
 </div>
+

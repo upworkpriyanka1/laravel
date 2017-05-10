@@ -975,14 +975,14 @@ input[type=text]:focus:not([readonly]){
     padding: 10px 15px;
     margin-bottom: 0;
 }
-.user-status .dropdown-menu{
+#users-overview .user-st .dropdown-menu{
     top: -10px !important;
     box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2)
 }
-.user-status .dropdown-menu:after{
+#users-overview .user-st .dropdown-menu:after{
     border: none;
 }
-.user-status .dropdown-menu li a{
+#users-overview .user-st .dropdown-menu li a{
     font-size: 16px;
     line-height: normal;
     padding: 10px 15px;
@@ -990,7 +990,7 @@ input[type=text]:focus:not([readonly]){
     background-color: transparent;
 
 }
-.user-status .dropdown-menu li{
+#users-overview .user-st .dropdown-menu li{
     clear: both;
     color: rgba(0, 0, 0, 0.87);
     cursor: pointer;
@@ -1000,6 +1000,23 @@ input[type=text]:focus:not([readonly]){
     text-align: left;
     text-transform: none;
 }
-.user-status .dropdown-menu li:hover, .user-status .dropdown-menu li.active{
+#users-overview .user-st .dropdown-menu li:hover, .user-st .dropdown-menu li.active{
     background-color: #eee;
+}
+#users-overview .user-st .dropdown-menu li.disabled{
+    background-color: #ccc;
+}
+#users-overview .edit , #users-overview .user-st{
+    display: inline-block;
+    margin-left: 10px;
+}
+#users-overview .user-st h4, #users-overview .user-st .dropdown, #users-overview .user-st .dropdown .caret {
+    display: inline-block;
+    margin-left: 10px;
+}
+#users-overview #user-status-change-confirm-modal .modal-dialog .btn-group{
+    margin-top: 15px;
+}
+#users-overview #user-status-change-confirm-modal .modal-dialog{
+    margin: 40vh auto;
 }

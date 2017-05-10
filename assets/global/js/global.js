@@ -68,14 +68,40 @@
 $(document).ready(function(){
 
 
-    $('a.user-status').on('click',function () {
-        var status= $(this).text();
+    $('li.user-status').on('click',function () {
+        if ($(this).hasClass('disabled'))
+            return;
+        var status= $(this ).find('a').text();
+        $('.user-change-status-title').text(status);
         $('#user-status-change-confirm-modal').modal('show');
-        $('.user-change-status-title').text();
     });
     $('.reset_form_btn').on('click',function(){
         $("#new_user_form")[0].reset();
     });
+
+    $('.user_status_confirm').on('click', function(){
+        $('.user-status-parent .disabled').removeClass('disabled');
+        var text = $('.user-change-status-title').text();
+        $( ".user-status-parent li" ).each(function( index ) {
+            if($(this).find('a').text() == text){
+                $(this).addClass('disabled');
+                $('.status_but_name').text(text);
+                return;
+            }
+        });
+        var user_id=$("input[name=id]").val();
+        $.ajax({
+            url:'/sys-admin/users/user-change-status/',
+            type: 'POST',
+            data: {'status':text,'id':user_id},
+            dataType: 'json',
+            success: function(data){
+
+            }
+        });
+        $('#user-status-change-confirm-modal').modal('hide');
+    });
+
     $('#us-pass-conf').on('keyup',function(){
        var us_pass=$('#us-pass').val();
        var us_pass_conf=$(this).val();
