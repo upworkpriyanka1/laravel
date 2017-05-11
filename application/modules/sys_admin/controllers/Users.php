@@ -245,6 +245,8 @@ class Users extends CI_Controller
 				}
 				$data['groupsSelectionList']  = $groupsSelectionList;
 				$data['validation_errors_text'] = validation_errors( /*$layout_config['backend_error_icon_start'], $layout_config['backend_error_icon_end']*/ );
+				$this->session->set_flashdata('validation_errors_text',$data['validation_errors_text']);
+				$this->session->set_flashdata('user_edit_new_post_data',implode('^',$post_array['data']));
 			}
 			//echo "validation error is : " . validation_errors();
 			//exit(0);

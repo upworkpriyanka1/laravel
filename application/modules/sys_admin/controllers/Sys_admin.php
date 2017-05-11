@@ -455,6 +455,17 @@ class Sys_admin extends CI_Controller {
 			$is_insert= false;
 			$cid= $UriArray['client'];
 		}
+		
+		if($this->session->flashdata( 'validation_errors_text' ) != '')
+		{
+			$validation_text = trim(preg_replace('/\s+/', ' ', addslashes($this->session->flashdata( 'validation_errors_text'))));;
+			$this->session->set_flashdata('validation_errors_text1',$validation_text);
+			$this->session->set_flashdata('user_edit_new_post_data1',$this->session->flashdata( 'user_edit_new_post_data'));
+			//echo "explode data is : " . explode('^',$this->session->flashdata( 'user_edit_new_post_data'));
+			//exit(0);
+			header('Location: '.base_url().'sys-admin/client/' . $cid);
+			exit(0);
+		}
 
 		$post_array = $this->input->post();
 		$sort= $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort');
