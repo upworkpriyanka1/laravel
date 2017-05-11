@@ -957,7 +957,7 @@ class Ion_auth_model extends CI_Model
 	public function login($identity, $password, $remember=FALSE)
 	{
 		echo "in login model...";
-		$this->trigger_events('pre_login');
+		//$this->trigger_events('pre_login');
 
 		if (empty($identity) || empty($password))
 		{
