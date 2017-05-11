@@ -958,6 +958,8 @@ class Ion_auth_model extends CI_Model
 	{
 		echo "in login model...";
 		//$this->trigger_events('pre_login');
+		
+		echo "username is : " . $identity . " password is : " . $password;
 
 		if (empty($identity) || empty($password))
 		{
