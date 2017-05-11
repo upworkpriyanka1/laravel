@@ -425,9 +425,10 @@ class Main extends CI_Controller {
 					$EmailOutput = $this->common_lib->SendEmail($u_data->email, $title, $content );
 	
 				}
+				echo "here we are...";
+				exit(0);
 				
-				
-				$module = $this->ion_auth->get_users_groups($id)->row()->name;
+				//$module = $this->ion_auth->get_users_groups($id)->row()->name;
 				// Redirect to dashboard
 				redirect('/', 'refresh');
 		}
