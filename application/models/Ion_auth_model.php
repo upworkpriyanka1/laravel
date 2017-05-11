@@ -973,6 +973,7 @@ class Ion_auth_model extends CI_Model
 		                  ->limit(1)
 		    			  ->order_by('id', 'desc')
 		                  ->get($this->tables['users']);
+		echo "last query is " . $this->db->last_query();
 
 		if($this->is_time_locked_out($identity))
 		{
