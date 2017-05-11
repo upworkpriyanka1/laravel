@@ -57,7 +57,7 @@ class Login extends CI_Controller {
 				// if the login was un-successful
 				// redirect them back to the login page
 				$this->session->set_flashdata('message', $this->ion_auth->errors());
-				//redirect('login', 'refresh'); // use redirects instead of loading views for compatibility with MY_Controller libraries
+				redirect('/login'); // use redirects instead of loading views for compatibility with MY_Controller libraries
 			}
 		}else{
 			$views=array('login','design/html_footer');
