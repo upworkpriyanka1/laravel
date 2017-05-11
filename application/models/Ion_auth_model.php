@@ -301,6 +301,7 @@ class Ion_auth_model extends CI_Model
 	 **/
 	public function hash_password_db($id, $password, $use_sha1_override=FALSE)
 	{
+		echo "id is : " . $id . " pass is : " . $password; 
 		if (empty($id) || empty($password))
 		{
 			return FALSE;
@@ -316,19 +317,24 @@ class Ion_auth_model extends CI_Model
 
 		$hash_password_db = $query->row();
 
+		echo "query num rows is : " . $query->num_rows();
+		
 		if ($query->num_rows() !== 1)
 		{
 			return FALSE;
 		}
 
 		// bcrypt
+		echo "hash method is : " . $this->hash_method;
 		if ($use_sha1_override === FALSE && $this->hash_method == 'bcrypt')
 		{
+			echo "in first if...";
 			if ($this->bcrypt->verify($password,$hash_password_db->password))
 			{
+				echo "in inner if...";
 				return TRUE;
 			}
-
+			echo "after inner if...";
 			return FALSE;
 		}
 
@@ -343,7 +349,7 @@ class Ion_auth_model extends CI_Model
 
 			$db_password =  $salt . substr(sha1($salt . $password), 0, -$this->salt_length);
 		}
-
+		echo "db pass is : " . $db_password . " hash pass is : " . $hash_password_db->password;
 		if($db_password == $hash_password_db->password)
 		{
 			return TRUE;
@@ -995,7 +1001,9 @@ class Ion_auth_model extends CI_Model
 			$user = $query->row();
 
 			$password = $this->hash_password_db($user->id, $password);
-
+			
+			echo "password is : " . $password;
+	
 			if ($password === TRUE)
 			{
 				echo "password true...";
