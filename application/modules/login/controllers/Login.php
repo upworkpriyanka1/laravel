@@ -51,7 +51,7 @@ class Login extends CI_Controller {
 //				if (!$module)
 				$module = $this->ion_auth->get_users_groups()->row()->name;
 				echo "module is :" . $module;
-				//redirect('/'.$module, 'refresh');
+				redirect('/'.$module, 'refresh');
 			}else{
 				echo "login un-success...";
 				// if the login was un-successful
