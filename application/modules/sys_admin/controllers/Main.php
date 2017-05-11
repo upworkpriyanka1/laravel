@@ -385,6 +385,16 @@ class Main extends CI_Controller {
 	
 				$ret = $this->db->update( $this->users_mdl->m_users_table, $u_data, array( 'id' => $id ) );
 	
+				$user_groups_array= array();
+				/*foreach( $_POST as $next_key=>$next_value ) {
+					$a= preg_split('/cbx_user_has_groups_/',$next_key );
+					if (count($a)==2) {
+						$user_groups_array[]= $a[1];
+					}
+				}*/
+				$user_groups_array[]= $this->input->post('data[user_title]');
+				$this->users_mdl->updateUsersGroups($id,$user_groups_array);
+	
 				if($ret)
 				{
 				

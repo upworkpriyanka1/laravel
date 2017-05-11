@@ -208,14 +208,14 @@
 										<div class="col-md-7">
                                             <select id="user_title" name="data[user_title]"  class="form-control editable_field">
                                                 <option value="">  -Select User Title-  </option>
-                                                <option value="superuser" >Superuser</option>
-                                                <option value="administrative" >Administrative</option>
-                                                <option value="registered_nurse" >Registered Nurse</option>
-                                                <option value="licensed_vocational_nurse" >Licensed Vocational Nurse</option>
-                                                <option value="aid" >Aid</option>
-                                                <option value="quality_assurance" >Quality Assurance</option>
-                                                <option value="social_worker" >Social Worker</option>
-                                                <option value="spiritual_councellor" >Spiritual Councellor</option>
+                                                <option value="2" >Superuser</option>
+                                                <option value="3" >Administrative</option>
+                                                <option value="7" >Registered Nurse</option>
+                                                <option value="10" >Licensed Vocational Nurse</option>
+                                                <option value="4" >Aid</option>
+                                                <option value="6" >Quality Assurance</option>
+                                                <option value="8" >Social Worker</option>
+                                                <option value="9" >Spiritual Councellor</option>
                                             </select>
                                         </div>
 									</div>
