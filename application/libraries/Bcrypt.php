@@ -37,9 +37,7 @@ class Bcrypt {
    * @return bool
      */
   public function verify($input, $existingHash) {
-	echo "plain data : input : " . $input ." existing hash : " . $existingHash;
     $hash = crypt($input, $existingHash);
-	echo "hash is : " . $hash;
     return $hash === $existingHash;
   }
 

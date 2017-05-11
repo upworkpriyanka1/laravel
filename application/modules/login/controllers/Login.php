@@ -16,14 +16,14 @@ class Login extends CI_Controller {
  *********************************/
 	public function index(){
 		if ($this->ion_auth->logged_in()){
-			echo "in if...";
+			//echo "in if...";
 //			$module = @$this->common_mdl->get_users_jobs()->row()->job_name;
 //			if (!$module)
 			$module = $this->ion_auth->get_users_groups()->row()->name;
 			redirect('/'.$module, 'refresh');
 			return true;
 		}
-		echo "after if";
+		//echo "after if";
 		$data['pls'] = array('login');
 		$data['plugins'] = array();
 	  	$data['javascript'] = array();
@@ -31,15 +31,15 @@ class Login extends CI_Controller {
 		$this->form_validation->set_rules('password', 'Password', 'required');
 //		echo '<pre>$this->form_validation->run()::'.print_r($this->form_validation->run(),true).'</pre>';
 //		die("-1 XXZ");
-		echo "before form validation...";
+		//echo "before form validation...";
 		if ($this->form_validation->run() == true){
-			echo "form validation true...";
+			//echo "form validation true...";
 			// check to see if the user is logging in
 			// check for "remember me"
 			$remember = (bool) $this->input->post('remember');
 
 			if ($this->ion_auth->login($this->input->post('username'), $this->input->post('password'), $remember)){
-				echo "in login success...";
+				//echo "in login success...";
 				//if the login is successful
 				//redirect them back to the home page
 				//$this->session->set_flashdata('message', $this->ion_auth->messages());
@@ -50,10 +50,10 @@ class Login extends CI_Controller {
 				 //die();
 //				if (!$module)
 				$module = $this->ion_auth->get_users_groups()->row()->name;
-				echo "module is :" . $module;
+				//echo "module is :" . $module;
 				redirect('/'.$module, 'refresh');
 			}else{
-				echo "login un-success...";
+				//echo "login un-success...";
 				// if the login was un-successful
 				// redirect them back to the login page
 				$this->session->set_flashdata('message', $this->ion_auth->errors());
