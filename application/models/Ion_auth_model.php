@@ -960,6 +960,7 @@ class Ion_auth_model extends CI_Model
 
 		if (empty($identity) || empty($password))
 		{
+			echo "user pass empty";
 			$this->set_error('login_unsuccessful');
 			return FALSE;
 		}
@@ -974,6 +975,7 @@ class Ion_auth_model extends CI_Model
 
 		if($this->is_time_locked_out($identity))
 		{
+			echo "time locked out...";
 			// Hash something anyway, just to take up time
 			$this->hash_password($password);
 
@@ -985,14 +987,17 @@ class Ion_auth_model extends CI_Model
 
 		if ($query->num_rows() === 1)
 		{
+			echo "get data from DB...";
 			$user = $query->row();
 
 			$password = $this->hash_password_db($user->id, $password);
 
 			if ($password === TRUE)
 			{
+				echo "password true...";
 				if ($user->user_active_status == 'I')
 				{
+					echo "status inactive...";
 					$this->trigger_events('post_login_unsuccessful');
 					$this->set_error('login_unsuccessful_not_active');
 
