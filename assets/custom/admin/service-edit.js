@@ -21,6 +21,10 @@ function load_service_images() {
         // 'csrf_test_name': $.cookie('csrf_cookie_name'), // TODO : UNCOMMENT ON LIVE
         dataType: 'json',
         done: function (e, data) {
+			console.log("=========================");
+			console.log("data is : ");
+			console.log(data);
+			console.log("=========================");
             $("#div_upload_image").css("display", "none");
             $("#div_save_upload_image").css("display", "block");
             $("#img_preview_image").attr("src", data.result.files.url);
@@ -32,6 +36,8 @@ function load_service_images() {
             $("#is_main_image").prop('checked', false);
             $("#is_main_image").removeAttr("checked");
             $("#hidden_selected_image").val(data.result.files.name);
+			$("#hidden_selected_image_sess_id").val(data.result.files.sess_id);
+			$("#hidden_selected_image_name").val(data.result.files.img_name);
         },
         progressall: function (e, data) {
             var progress = parseInt(data.loaded / data.total * 100, 10);
@@ -68,7 +74,16 @@ function load_service_images() {
 function UploadImage() {
     var hidden_selected_image= $("#hidden_selected_image").val();
     var is_main_image= $("#is_main_image").is(':checked')
-    var HRef=  base_url+"sys-admin/services/upload_image_to_service/service_id/"+sv_id+"/service_image/"+tbUrlEncode(hidden_selected_image)+"/is_main_image/"+(is_main_image==1?"Y":"N")
+	var img_path = tbUrlEncode(hidden_selected_image);
+	//img_path = img_path.replace(/\//g,".sl.");
+	img_path = encodeURI(img_path);
+	console.log("===========================");
+	console.log("img path is : " + img_path);
+	console.log("===========================");
+    //var HRef=  base_url+"sys-admin/services/upload_image_to_service/service_id/"+sv_id+"/service_image/"+tbUrlEncode(hidden_selected_image)+"/is_main_image/"+(is_main_image==1?"Y":"N")
+	var sess_id = $("#hidden_selected_image_sess_id").val();
+	var img_name = $("#hidden_selected_image_name").val();
+	var HRef=  base_url+"sys-admin/services/upload_image_to_service/service_id/"+sv_id+"/service_sess_id/"+sess_id+"/service_image_name/"+img_name+"/is_main_image/"+(is_main_image==1?"Y":"N")
     jQuery.ajax({
         url: HRef,
         type: 'POST',

@@ -69,7 +69,7 @@ class Super_lib {
             }else{
                 $insert['user_id']= $UserID;
                 $insert['job_id']= $this->CI->input->post('job_id');
-                $insert_id=$this->CI->common_mdl->db_insert('users_jobs',$insert, TRUE);
+                //$insert_id=$this->CI->common_mdl->db_insert('users_jobs',$insert, TRUE);
 
                 $insertClient['uc_user_id']= $UserID;
                 $insertClient['uc_client_id']= $this->CI->user->cid;

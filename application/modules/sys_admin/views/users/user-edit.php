@@ -289,6 +289,19 @@
 									</div>
 								</div>
 							</div>
+                            
+                            <div class="row">
+								<!-- Authenticity check -->
+								<div class="col-md-6">
+									<div class="form-group <?= $this->common_lib->set_field_error_tag("user_has_groups_label", ' has-error ')?>">
+										<label class="control-label col-md-4"><?php echo lang('authenticity'); ?>
+										</label>
+										<div class="col-md-7">
+                                            <input type="checkbox" value="0" id="cbx_auth" name="cbx_auth" <?php echo ($editable_user->is_multi_auth == 1)?"checked":""; ?> />&nbsp;
+										</div><!-- ./col -->
+									</div><!-- ./form-group -->
+								</div><!-- ./col -->
+							</div>
 
 
 							<?php if ( !$is_insert ) : ?>

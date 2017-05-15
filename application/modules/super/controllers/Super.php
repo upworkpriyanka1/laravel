@@ -1,4 +1,4 @@
-<?php
+<?php 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Super extends CI_Controller {
@@ -36,6 +36,7 @@ class Super extends CI_Controller {
  * return view
  *********************************/
 	public function index(){
+
 		$data['meta_description']='';
 		$data['menu']		= $this->menu;
 
@@ -64,8 +65,11 @@ class Super extends CI_Controller {
 		$data['user'] 		= $this->user;
 		//$data['job'] 		= $this->job;
 		$data['group'] 		= $this->group->name;
-
+		echo "cid is : " . $this->user->cid;
+		echo "user id is : " . $this->session->userdata('user_id');
+		////$user_id = $this->ion_auth->user()->row()->id;
 		$data['users']		= $this->super_mdl->get_users($this->user->cid);
+		////$data['users']		= $this->super_mdl->get_users($user_id);
 
 	    $data['page']		= 'common/users-view';
 	    $data['menu']		= $this->menu;
@@ -96,7 +100,7 @@ class Super extends CI_Controller {
 		$data['usertoedit'] = $this->common_mdl->user_to_edit($this->uri->segment(3),$this->user->cid,FALSE, FALSE);
 		$data['clients']	= $this->common_mdl->get_records('clients', 'cid !=', '1');
 		$data['groups']		= $this->common_mdl->get_records('groups', 'id !=', '1');
-		$data['jobs']		= $this->common_mdl->get_records('jobs', 'id !=', '1');
+		//$data['jobs']		= $this->common_mdl->get_records('jobs', 'id !=', '1');
 
 		$data['page']		= 'users/users-edit'; //page view to load
 		$data['plugins'] 	= array('validation');
@@ -126,7 +130,7 @@ class Super extends CI_Controller {
 
 		//$data['clients']	= $this->common_mdl->get_records('clients', 'cid !=', '1');
 		$data['groups']		= $this->common_mdl->get_records('groups', 'id !=', '1');
-		$data['jobs']		=  $this->common_mdl->get_records('jobs', 'id !=', '1');
+		//$data['jobs']		=  $this->common_mdl->get_records('jobs', 'id !=', '1');
 		$data['page']		= 'users/users-add';
 		$data['plugins'] 	= array('validation');
 		$data['javascript'] = array( 'assets/custom/admin/user-add-validation.js');

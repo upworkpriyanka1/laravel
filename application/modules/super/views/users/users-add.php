@@ -158,7 +158,8 @@
     
     
     <div class="row">
-        <div class="col-md-6">        
+    	<!-- Commented by BBITS Dev -->
+        <?php /*?><div class="col-md-6">        
             <div class="form-group">
                 <label class="control-label col-md-4"><?php echo lang('job') ?>
                     <span class="required"> * </span>
@@ -173,7 +174,7 @@
                 echo MyCustom_menu($array,'job_id','form-control requiredField',FALSE,TRUE,'id ="jobs"'); ?>  
                 </div>
             </div>    
-        </div>
+        </div><?php */?>
     <!-- notes -->
         <div class="col-md-6">        
             <div class="form-group">

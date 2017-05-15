@@ -9,6 +9,7 @@ class Sys_admin extends CI_Controller {
 		 $this->load->library('Sys_admin_lib',NULL,'admin_lib');
 		 $this->load->model('sys_admin_mdl','admin_mdl');
 		 $this->load->model('clients_mdl','clients_mdl');
+		 $this->load->model('users_mdl');
 		 $this->lang->load('sys_admin');
 //		 $this->config->load('sys_admin_menu', true );
 //		 $this->menu    			= $this->config->item( 'sys_admin_menu' );
@@ -109,6 +110,7 @@ class Sys_admin extends CI_Controller {
 	}
 
 	public function index(){
+		
 		$data['meta_description']='';
 		$data['menu']		= $this->menu;
 
@@ -453,6 +455,17 @@ class Sys_admin extends CI_Controller {
 			$is_insert= false;
 			$cid= $UriArray['client'];
 		}
+		
+		if($this->session->flashdata( 'validation_errors_text' ) != '')
+		{
+			$validation_text = trim(preg_replace('/\s+/', ' ', addslashes($this->session->flashdata( 'validation_errors_text'))));;
+			$this->session->set_flashdata('validation_errors_text1',$validation_text);
+			$this->session->set_flashdata('user_edit_new_post_data1',$this->session->flashdata( 'user_edit_new_post_data'));
+			//echo "explode data is : " . explode('^',$this->session->flashdata( 'user_edit_new_post_data'));
+			//exit(0);
+			header('Location: '.base_url().'sys-admin/client/' . $cid);
+			exit(0);
+		}
 
 		$post_array = $this->input->post();
 		$sort= $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort');
@@ -484,10 +497,15 @@ class Sys_admin extends CI_Controller {
 		$data['editor_message']= $this->session->flashdata('editor_message');
 		$data['select_on_update']= $this->common_lib->getParameter($this, $UriArray, $post_array, 'select_on_update');
 
+		// Get list of client types
 		$data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
+		// Get client status array
         $data['client_active_status_array']= $this->clients_mdl->getClientActiveStatusValueArray(false);
+		// Get user status array
         $data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
+		// Get client phone type like home,work
         $data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
+		// Get list of color scheme options
 		$data['client_color_schemes'] = $this->config->item('client_color_schemes');
 
 
@@ -512,10 +530,39 @@ class Sys_admin extends CI_Controller {
 			}
 		}
 		else {
+			// Get client informations
 			$client		= $this->clients_mdl->getRowById( $this->uri->segment(3), array('show_file_info'=> 1, 'image_width'=> 128, 'image_height'=> 128) );
 
 		}
 
+
+		// For add new user by BBITS DEV
+		// Start BBITS DEV
+		$groupsSelectionList= $this->users_mdl->getGroupsSelectionList( array(), 'id',  'asc' );
+
+		$usersGroups = $this->users_mdl->getUsersGroupsList( false, 0, array('user_id'=> $user_id) );
+		if ( !$is_insert ) {
+			foreach ($groupsSelectionList as $next_key => $next_user_group_selection) {
+				foreach ($usersGroups as $next_users_ob) {
+					if ($next_user_group_selection['key'] == $next_users_ob->group_id) {
+						$groupsSelectionList[$next_key]['checked'] = true;
+					}
+				}
+			}
+		}
+		$data['groupsSelectionList']  = $groupsSelectionList;
+		
+		$data['userActiveStatusValueArray']= $this->users_mdl->getUserActiveStatusValueArray();
+		foreach ( $data['userActiveStatusValueArray'] as $next_key=>$next_userActiveStatus ) {
+			if ( !in_array($next_userActiveStatus['key'],array('N', 'W')) ) {
+				unset($data['userActiveStatusValueArray'][$next_key]);
+			}
+		} 
+		$data['client_id'] = $client->cid;
+		// END BBITS DEV
+
+		
+		
 
 		$data['client']		= $client;
 		$data['page_parameters_with_sort']= $page_parameters_with_sort;
@@ -523,13 +570,14 @@ class Sys_admin extends CI_Controller {
 //		$data['page']		= 'clients/client-edit'; //page view to load
 		$data['page']		= 'clients/client-edit-new'; //page view to load
 		$data['plugins'] 	= array('validation'); //page plugins
-		$data['javascript'] = array( 'assets/custom/admin/client-edit.js' );//page javascript
+		$data['javascript'] = array('assets/custom/admin/custom.js');//page javascript
+		/*'assets/custom/admin/user-edit.js', 'assets/custom/admin/client-edit.js'*/
 		$views				=  array('design/html_topbar','sidebar','design/page','design/html_footer');
-//		$this->layout->view($views, $data);
+		$this->layout->view($views, $data);
 //		echo "<pre>";
 //		print_r($data);
 //		die;
-		$this->load->view('clients/client-edit-new',$data);
+		//$this->load->view('clients/client-edit-new',$data);
 //		redirect(base_url().'/sys-admin/clients-view');
 //		redirect(base_url().'/client-mockup-sacred-city/system-admin/client_overview_view');
 
@@ -705,6 +753,9 @@ class Sys_admin extends CI_Controller {
 	}
 
 	private function client_edit_makesave($is_insert, $cid, $select_on_update, $redirect_url, $page_parameters_with_sort, $post_array, $app_config, $client_color_schemes_array ) {
+		/*echo "in insert... post data is : ";
+		print_r($post_array);
+		exit(0);*/
 		$this->db->trans_start();
 		if ( !$is_insert ) {
 			$color_scheme = $post_array['data']['color_scheme'];
@@ -726,7 +777,27 @@ class Sys_admin extends CI_Controller {
 //		}
 
 //		$update_data= array( 'client_name' => $post_array['data']['client_name'],  'client_img' => $post_array['data']['client_img'],  'clients_types_id' => $post_array['data']['clients_types_id'], 'client_name' => $post_array['data']['client_owner'] , 'client_address1' => $post_array['data']['client_address1'] , 'client_address2' => $post_array['data']['client_address2'] , 'client_city' => $post_array['data']['client_city'] , 'client_state' => $post_array['data']['client_state'] , 'client_zip' => $post_array['data']['client_zip'], 'client_phone' => $post_array['data']['client_phone'],  'client_phone_2' => $post_array['data']['client_phone_2'],  'client_phone_3' => $post_array['data']['client_phone_3'],  'client_phone_4' => $post_array['data']['client_phone_4'],  'client_phone_type' => $post_array['data']['client_phone_type'],   'client_fax' => $post_array['data']['client_fax'] , 'client_email' => $post_array['data']['client_email'] , 'client_website' => $post_array['data']['client_website']  , 'color_scheme' => $color_scheme, 'client_active_status' => $post_array['data']['client_active_status'] );
-		$update_data= array( 'client_name' => $post_array['data']['client_name'],  'client_img' => $post_array['data']['client_img'],  'clients_types_id' => $post_array['data']['clients_types_id'], 'client_name' => $post_array['data']['client_owner'] , 'client_address1' => $post_array['data']['client_address1'] , 'client_address2' => $post_array['data']['client_address2'] , 'client_city' => $post_array['data']['client_city'] , 'client_state' => $post_array['data']['client_state'] , 'client_zip' => $post_array['data']['client_zip'], 'client_phone' => $post_array['data']['client_phone'],  'client_phone_2' => $post_array['data']['client_phone_2'],  'client_phone_3' => $post_array['data']['client_phone_3'],  'client_phone_4' => $post_array['data']['client_phone_4'],  'client_phone_type' => $post_array['data']['client_phone_type'],   'client_fax' => $post_array['data']['client_fax'] , 'client_email' => $post_array['data']['client_email_first'] , 'client_website' => $post_array['data']['client_website']  , 'color_scheme' => $color_scheme);
+		$update_data= array( 
+						'client_name' => $post_array['data']['client_name'],  
+						'client_img' => $post_array['data']['client_img'],  
+						//'clients_types_id' => $post_array['data']['clients_types_id'], 
+						'clients_types_id' => $post_array['group1'],
+						'client_name' => $post_array['data']['client_owner'] , 
+						'client_address1' => $post_array['data']['client_address1'] , 
+						'client_address2' => $post_array['data']['client_address2'] , 
+						'client_city' => $post_array['data']['client_city'] , 
+						'client_state' => $post_array['data']['client_state'] , 
+						'client_zip' => $post_array['data']['client_zip'], 
+						'client_phone' => $post_array['data']['client_phone'],  
+						'client_phone_2' => $post_array['data']['client_phone_2'],  
+						'client_phone_3' => $post_array['data']['client_phone_3'],  
+						'client_phone_4' => $post_array['data']['client_phone_4'],  
+						'client_phone_type' => $post_array['data']['client_phone_type'],   
+						'client_fax' => $post_array['data']['client_fax'] , 
+						'client_email' => $post_array['data']['client_email_first'] , 
+						'client_website' => $post_array['data']['client_website']  , 
+						'color_scheme' => $color_scheme
+						);
 
 		$original_client_img= !empty($post_array['data']['client_img']) ? $post_array['data']['client_img'] : '';
 
@@ -858,6 +929,23 @@ class Sys_admin extends CI_Controller {
 //		$this->form_validation->set_rules( 'data[client_fax]', lang('client_fax'), 'required' );
 //		$this->form_validation->set_rules( 'data[client_active_status]', lang('client_active_status'), 'required' );
 //		$this->form_validation->set_rules( 'data[color_scheme]', lang('color_scheme'), ( $is_insert ? '' : 'required' ) );
+	}
+	
+	//H// Added by BBITS Dev to add form validation of add client type.
+	private function client_type_add_form_validation($is_insert, $cid)
+	{
+		$this->form_validation->set_rules( 'data[name]', 'Name', 'required|callback_client_type_name_validation' );
+		$this->form_validation->set_rules( 'data[description]', 'Description', 'required' );
+	}
+	
+	
+	//H// Added by BBITS Dev to add callback function to set rule for client name which allows space and alphabets only
+	public function client_type_name_validation($str)
+	{
+		if(!preg_match('/^[a-zA-Z\s]+$/',$str))
+		{
+			return false;
+		}
 	}
 
 
@@ -1332,6 +1420,8 @@ class Sys_admin extends CI_Controller {
 		$views=  array('design/html_topbar','sidebar','design/page','design/html_footer');
 		$this->layout->view($views, $data);
 	}
+	
+	
 
 /**********************
 * Add User
@@ -1608,14 +1698,28 @@ class Sys_admin extends CI_Controller {
 			$data['group'] 		= $this->group->name;
 			$client= '';
 			$data['validation_errors_text'] = '';
-			$this->client_edit_form_validation($is_insert, $cid);
+			// Commented by BBITS Dev to add client type. It is setting validation rule for another fields.
+			//H//$this->client_edit_form_validation($is_insert, $cid);
+			$this->client_type_add_form_validation($is_insert, $cid);
 			if (!empty($_POST)) {
 				$validation_status = $this->form_validation->run();
 				if ($validation_status != FALSE) {
-					$this->client_edit_makesave($is_insert, $cid, $data['select_on_update'], $redirect_url, $page_parameters_with_sort, $post_array, $app_config, $data['client_color_schemes'] );
+					//echo "here we are... in validation if";
+					//$this->client_edit_makesave($is_insert, $cid, $data['select_on_update'], $redirect_url, $page_parameters_with_sort, $post_array, $app_config, $data['client_color_schemes'] );
+					if (isset($_POST['ajaxpost'])){
+						$this->admin_lib->client_type_add();
+						return true;
+					}
 				} else {
+					//echo "here we are... in validation else";
+					if (isset($_POST['data'])): //SHOW ERRORS ON POST
+						foreach($_POST['data'] as $key=>$value){
+							echo  form_error('data['.$key.']');
+							//$data['validation_errors_text'] = form_error('data['.$key.']');
+						}
+					endif;
 					$client = $this->client_edit_fill_current_data( $client, $is_insert, $cid );
-					$data['validation_errors_text'] = validation_errors( /*$layout_config['backend_error_icon_start'], $layout_config['backend_error_icon_end']*/ );
+					//$data['validation_errors_text'] = validation_errors( /*$layout_config['backend_error_icon_start'], $layout_config['backend_error_icon_end']*/ );
 				}
 			}
 			else {
@@ -1627,10 +1731,7 @@ class Sys_admin extends CI_Controller {
 			$data['plugins'] 	= array('validation'); //page plugins
 
 //		************************************************************* ____END____ *********************************************************************************
-			if (isset($_POST['ajaxpost'])){
-				$this->admin_lib->client_type_add();
-				return true;
-			}
+			
 		$data['meta_description']='';
 		$data['menu']		= $this->menu;
 		$data['user'] 		= $this->user;

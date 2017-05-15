@@ -1019,6 +1019,16 @@ body{
         column-count: 4;
     }
 }
+<<<<<<< HEAD
+/* BBITS Dev CSS Start */
+.page-sidebar-wrapper {
+    float: left;
+    position: absolute;
+    left: 0;
+    top: 100px;
+}
+/* BBITS Dev CSS end */
+=======
 @media only screen and (min-width: 993px){
     #newuserform{
         margin-left: -235px;
@@ -1110,3 +1120,4 @@ body{
 #client-edit .page-content{
     padding: 0 !important;
 }
+>>>>>>> 0bd26d59917a355f81b92e86c99970fb9800b6b9

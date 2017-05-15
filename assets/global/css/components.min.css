@@ -9,3 +9,8 @@ li.nav-item a.nav-link span.title
 {
 	margin: 10px 0 10px 0;
 }
+/* devB CSS Start */
+[type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+	opacity: 1 !important;
+}
+/* devB CSS End */
