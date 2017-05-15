@@ -1,2 +1,4 @@
 # Updated clients table column client_active_status to client_status
 ALTER TABLE clients CHANGE client_active_status client_status ENUM('P','A','I') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'P';
+# Allow avatar field to accept null values.
+ALTER TABLE `users` CHANGE `avatar` `avatar` VARCHAR(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT 'avatar.png';
