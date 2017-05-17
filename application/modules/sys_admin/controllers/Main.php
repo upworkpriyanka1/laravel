@@ -345,7 +345,7 @@ class Main extends CI_Controller {
 			 /*[username] => himisha [first_name] => Himisha [middle_name] => mahendrabhai [last_name] => Patel [email] => himisha.patel@bbitsol.com [address1] => AMD [address2] => 208 [city] => AMD [state] => GUJ [zip] => 380015 [mobile] => 9876543210 [phone] => 1234567890 [user_title] => superuser [licence_number] => 12345 [licence_from] => 2017-01-02 [licence_to] => 2017-04-03 ) [user_employment] => full_time*/
 			 
 			 
-			 $this->new_user_form_validation($id);
+			 $this->new_user_form_validation();
 			 $validation_status = $this->form_validation->run();
 			//echo "validation status is : " . $validation_status ;
 			if ($validation_status != FALSE) {
@@ -455,7 +455,7 @@ class Main extends CI_Controller {
 			
 			if($user_data->activation_code != '')
 			{
-				$this->session->set_flashdata('validation_errors_text','Please correct details');
+				$this->session->set_flashdata('validation_errors_text',validation_errors());
 			
 				$data['page']		= 'main/new_user_form';
 				$data['error_message']= '';
@@ -495,23 +495,16 @@ class Main extends CI_Controller {
 		return TRUE;
 	}
 	
-	private function new_user_form_validation($id)
+	private function new_user_form_validation()
 	{
 //		$this->form_validation->set_rules( 'data[username]', lang('user'), 'callback_user_check_username_is_unique' );
 		$this->form_validation->set_rules( 'data[username]', lang('username'), 'trim|required|callback_user_check_username_is_unique' );
 
-//		$this->form_validation->set_rules( 'data[user_active_status]', lang('user_active_status'), 'required' );
 		$this->form_validation->set_rules( 'data[first_name]', lang('first_name'), 'required' );
 		$this->form_validation->set_rules( 'data[last_name]', lang('last_name'), 'required' );
-		//$this->form_validation->set_rules( 'data[middle_name]', lang('middle_name'), 'required' );
-		//$this->form_validation->set_rules( 'data[city]', lang('city'), 'required' );
-		//$this->form_validation->set_rules( 'data[state]', lang('state'), 'required' );
-		//$this->form_validation->set_rules( 'data[zip]', lang('zip'), 'required' );
-		//$this->form_validation->set_rules( 'data[address1]', lang('address1'), 'required' );
-		//$this->form_validation->set_rules( 'data[address2]', lang('address2'), '' );
-//		$this->form_validation->set_rules( 'data[mobile]', lang('mobile'), '' );
-		$this->form_validation->set_rules( 'data[phone]', lang('phone'), '' );
-//		$this->form_validation->set_rules( 'user_has_groups_label', lang('user_has_groups_label'), 'callback_user_has_groups_label');
+		$this->form_validation->set_rules( 'data[user_title]', 'User title', 'required' );
+		$this->form_validation->set_rules( 'data[phone]', lang('phone'), 'required' );
+		$this->form_validation->set_rules( 'user_employment', lang('user_employment'), 'required' );
 	}
 
 	public function forgotten_password() {
