@@ -70,9 +70,9 @@
                             <div class="row">
 								<!-- user mid name -->
 								<div class="col-md-6">
-									<div class="form-group <?= $this->common_lib->set_field_error_tag("data[last_name]", ' has-error ')?>">
+									<div class="form-group ">
 										<label class="control-label col-md-4"><?php echo lang('mid_name') ?>
-											<span class="required"> * </span>
+											<!--<span class="required"> * </span>-->
 										</label>
 										<div class="col-md-7">
 											<input type="text" name="data[middle_name]" id="middle_name" value="<?= ( !empty($middle_name) ? $middle_name : '' ); ?>" class="form-control" maxlength="50" />
@@ -112,7 +112,7 @@
 							<div class="row">
 								<!-- user address1 -->
 								<div class="col-md-6">
-									<div class="form-group <?= $this->common_lib->set_field_error_tag("data[address1]", ' has-error ')?>">
+									<div class="form-group ">
 										<label class="control-label col-md-4"><?php echo lang('address1') ?>
 										</label>
 										<div class="col-md-7">
@@ -122,7 +122,7 @@
 								</div><!-- ./col -->
 								<!-- user address2 -->
 								<div class="col-md-6">
-									<div class="form-group <?= $this->common_lib->set_field_error_tag("data[address2]", ' has-error ')?>">
+									<div class="form-group ">
 										<label class="control-label col-md-4"><?php echo lang('address2') ?>
 										</label>
 										<div class="col-md-7">
@@ -135,7 +135,7 @@
 							<div class="row">
 								<!-- user city/state/zip -->
 								<div class="col-md-12">
-									<div class="form-group <?= $this->common_lib->set_field_error_tag("data[state]", ' has-error ')?> <?= $this->common_lib->set_field_error_tag("data[city]", ' has-error ')?> <?= $this->common_lib->set_field_error_tag("data[zip]", ' has-error ')?> ">
+									<div class="form-group">
 										<label class="control-label col-md-2"><?php echo lang('city') ?>/<?php echo lang('state') ?>/<?php echo lang('zip') ?>
 											<span class="required"> * </span>
 										</label>
@@ -157,7 +157,7 @@
 							<div class="row">
 								<!-- user mobile -->
 								<div class="col-md-6">
-									<div class="form-group <?= $this->common_lib->set_field_error_tag("data[mobile]", ' has-error ')?>">
+									<div class="form-group ">
 										<label class="control-label col-md-4"><?php echo lang('mobile') ?>
 										</label>
 										<div class="col-md-7">
@@ -169,6 +169,7 @@
 								<div class="col-md-6">
 									<div class="form-group <?= $this->common_lib->set_field_error_tag("data[phone]", ' has-error ')?>">
 										<label class="control-label col-md-4"><?php echo lang('phone') ?>
+                                        <span class="required"> * </span>
 										</label>
 										<div class="col-md-7">
 											<input type="text" name="data[phone]" id="phone" value="<?= ( !empty($phone) ? $phone : '' ); ?>"  class="form-control" maxlength="20" />
@@ -180,7 +181,7 @@
 							<div class="row">
 								<!-- user employment -->
 								<div class="col-md-6">
-									<div class="form-group <?= $this->common_lib->set_field_error_tag("user_has_groups_label", ' has-error ')?>">
+									<div class="form-group <?= $this->common_lib->set_field_error_tag("user_employment", ' has-error ')?>">
 										<label class="control-label col-md-4"><?php echo lang('user_employment') ?>
 											<span class="required"> * </span>
 										</label>
@@ -202,12 +203,14 @@
 
 							<div class="row" >
 								<div class="col-md-6 ">
-									<div class="form-group <?= $this->common_lib->set_field_error_tag("data[avatar]", ' has-error ')?>">
+									<div class="form-group <?= $this->common_lib->set_field_error_tag("data[user_title]", ' has-error ')?>">
 
-										<label class="control-label col-md-4">User Title</label>
+										<label class="control-label col-md-4">User Title
+                                        <span class="required"> * </span>
+                                        </label>
 										<div class="col-md-7">
                                             <select id="user_title" name="data[user_title]"  class="form-control editable_field">
-                                                <option value="">  -Select User Title-  </option>
+                                                <!--<option value="">  -Select User Title-  </option>-->
                                                 <option value="2" >Superuser</option>
                                                 <option value="3" >Administrative</option>
                                                 <option value="7" >Registered Nurse</option>
