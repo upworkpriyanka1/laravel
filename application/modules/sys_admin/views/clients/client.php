@@ -28,50 +28,80 @@ echo link_tag('/assets/layouts/default/css/custom-client-overview-view.css');
                         </div>
 
                         <div class="row">
-                            <form class="col s12">
+                            <form class="col s12 form-horizontal" action="<?php echo base_url() ;?>sys-admin/users/users-edit/new" method="post" id="form_user_edit" name="form_user_edit" enctype="multipart/form-data">
+                                <?php if ( $validation_errors_text != "" ) : ?>
+
+                                    <div class="row error" style="padding: 5px; margin: 5px;" >
+
+                                        <?= $validation_errors_text ?>
+
+                                    </div>
+
+                                <? endif; ?>
+
+                                <?php if ( $this->session->flashdata( 'validation_errors_text1' ) ) { ?>
+                                    <div class="alert alert-danger"><?php echo stripslashes($this->session->flashdata( 'validation_errors_text1' )); ?></div>
+                                    <?php
+                                    $edit = 1;
+                                    $form_data = explode('^',$this->session->flashdata( 'user_edit_new_post_data1' ));
+                                    ?>
+                                <?php }
+                                else
+                                {
+                                    $edit = 0;
+                                }
+                                ?>
+
+                                <input type="hidden" name="hdn_client_id" value="<?php echo $client_id;?>" id="hdn_client_id" />
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <i class="material-icons prefix">account_circle</i>
-                                        <input id="icon_prefix" type="text" class="validate"/>
-                                        <label for="icon_prefix">First Name</label>
+                                        <input type="text" name="data[first_name]" id="first_name" value="<?php echo ($edit == 1)?$form_data[0]:'';?>" class="validate"/>
+                                        <label for="first_name">First Name</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <i class="material-icons prefix">supervisor_account</i>
-                                        <input id="last_name" type="text" class="validate"/>
+                                        <input type="text" name="data[last_name]" id="last_name" value="<?php echo ($edit == 1)?$form_data[1]:'';?>" class="validate"/>
                                         <label for="last_name">Last Name</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <i class="material-icons prefix">phone</i>
-                                        <input id="icon_telephone" type="tel" class="validate"/>
-                                        <label for="icon_telephone">Telephone</label>
+                                        <input type="tel" name="data[phone]" id="phone" value="<?php echo ($edit == 1)?$form_data[2]:'';?>" class="validate"/>
+                                        <label for="phone">Telephone</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <i class="material-icons prefix">email</i>
-                                        <input id="email" type="email" class="validate required_form"  onchange="validateFormEnableOrDisable('form_client_edit2');"/>
+                                        <input type="email" name="data[email]" id="email" value="<?php echo ($edit == 1)?$form_data[3]:'';?>"  class="validate required_form"  onchange="validateFormEnableOrDisable('form_client_edit2');"/>
                                         <label for="email">Email address</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <i class="material-icons prefix">email</i>
-                                        <input id="email" type="email" class="validate required_form" onchange="validateFormEnableOrDisable('form_client_edit2');"/>
-                                        <label for="email">Verify email address</label>
+                                        <input type="email" name="data[email1]" id="email1" value="<?php echo ($edit == 1)?$form_data[4]:'';?>" class="validate required_form" onChange="validateFormEnableOrDisable('form_client_edit2');"/>
+                                        <label for="email1">Verify email address</label>
                                     </div>
                                 </div>
                             </form>
+
                         </div>
 
                         <div class="modal-footer">
                             <div class="col-xs-12">
                                 <ul class ="md-foot-bot">
-                                    <li data-dismiss="modal"> <button class="btn" onclick="javascript:document.location='<?=base_url()?>sys-admin/clients-view<?=$page_parameters_with_sort?>'">CANCEL</button> </li>
-                                    <li class="create-contact-save " data-action="save"> <button class="btn-flat  disable_form_id_form_client_edit2" disabled> VERIFY </button> </li>
+                                    <li data-dismiss="modal">
+                                        <button class="btn" onClick="javascript:document.location='<?=base_url()?>sys-admin/clients-view<?=$page_parameters_with_sort?>'">CANCEL</button>
+                                    </li>
+                                    <li> <!-- class="create-contact-save " data-action="save"-->
+                                        <!--<button class="btn-flat  disable_form_id_form_client_edit2" disabled> VERIFY </button> -->
+                                        <button type="button" class="btn" onClick="javascript:onuserSubmit();" >VERIFY</button>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -213,3 +243,15 @@ echo link_tag('/assets/layouts/default/css/custom-client-overview-view.css');
     </div>
 </div>
 
+<script>
+    var validation_text = '<?php echo $this->session->flashdata( 'validation_errors_text1' );?>';
+    //validation_text = stripslashes(validation_text);
+    //validation_text.replace(/\\/g, '')
+    //console.log('valiadtion text is : ' + validation_text);
+    //alert('123');
+    //validation_text = '12345';
+    if(validation_text != '')
+    {
+        $('#newclient-over').modal('show');
+    }
+</script>
