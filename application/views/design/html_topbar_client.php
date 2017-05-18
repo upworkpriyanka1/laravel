@@ -17,18 +17,43 @@ $img_url = base_url()."/assets/avatar/".$res->filename;
         <div class="container">
             <div class="page-header navbar navbar-fixed-top">
                 <!-- BEGIN PAGE TITLE-->
-                <div class="page-title">
+                <div class="page-title client-ed">
                     <h1  id="logo">
                         <!-- <a href="#" data-activates="nav-mobile" class="button-collapse" id="nav_mobile_button"><i class="material-icons">menu</i></a>-->
-                        <?php echo $client->client_name ?>
+                        <span class='logo_first'><?php echo $client->client_name[0] ?></span><?php echo $client->client_name ?>
 
                     </h1>
+                    <div class="rand-place">
 
+                        <div class="row">
+                            <div class="col s2 locat-call ">
+                                <div class="tb-adr">
+                                    <span class="icon-tb-cl"><i class="material-icons">location_on</i></span>
+                                    <ul class="text-tb-cl">
+                                        <li><?php echo $client-> client_address1 ?></li>
+                                        <li><?php echo $client-> client_address2 ?></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="col s2 locat-call">
+                                <div class="tb-adr">
+                                    <p class="icon-tb-cl"><i class="material-icons">call</i></p>
+                                    <ul class="text-tb-cl">
+                                        <li><?php echo $client-> client_phone?></li>
+                                        <li><?php echo $client->client_phone_2?></li>
+                                        <li><?php echo $client->client_phone_3?></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
                     <div class="chevron">
                             <span class="chevron-down" style="display:none;">
                                 <i class="fa fa-chevron-circle-down" aria-hidden="true"></i>
                             </span>
-                            <span class="chevron-up" style="display:none;">
+                        <span class="chevron-up" style="display:none;">
                                 <i class="fa fa-chevron-circle-up" aria-hidden="true"></i>
                             </span>
                     </div>
@@ -64,9 +89,9 @@ $img_url = base_url()."/assets/avatar/".$res->filename;
                     </div>
                 </div>
                 <!-- END PAGE TITLE-->
-
             </div>
         </div>
     </nav>
+
 
     <!-- END LOGO -->

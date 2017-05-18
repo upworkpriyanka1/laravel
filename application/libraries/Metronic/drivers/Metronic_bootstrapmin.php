@@ -28,7 +28,7 @@ class Metronic_bootstrapmin extends CI_Driver {
 		}
 		
 		// JavaScript File(s)
-		if ($type == 'javascript') {			
+		if ($type == 'javascript') {
 			$this->CI->output->append_output(
 				script_tag('assets/global/plugins/bootstrap/js/bootstrap.min.js')
 			);

@@ -7,7 +7,16 @@ class Superuser extends CI_Controller {
         parent::__construct();
         $this->load->model('users_mdl');
     }
+    public function index(){
+        $data['page']		= 'main_superuser/dasboard';
+        $data['pls'] 		= array(); //page level scripts optional
+        $data['plugins'] 	= array(); //page plugins
+        $data['javascript'] = array('/assets/global/js/client-overview.js'); //page javascript
+        $views				= array('layout/topbar_superuser','layout/sidebar_superuser','layout/page_superuser','layout/footer_superuser');
 
+        $this->layout->view($views,$data);
+//        $this->load->view('main_superuser/dasboard');
+    }
     public function client_overview(){
 
         $this->load->view('main_superuser/client-overview');
@@ -26,6 +35,7 @@ class Superuser extends CI_Controller {
 
         $this->load->view('main_superuser/client-overview-settings-theme');
     }
+
     public function client_overview_profile_form(){
         $UriArray = $this->uri->uri_to_assoc(3);
         $user_id=$UriArray['client-overview-profile-form'];
@@ -97,7 +107,7 @@ class Superuser extends CI_Controller {
 //		die;
 
     }
-    public function client_overview_profile_edit(){
+    public function superuser(){
 
 
 

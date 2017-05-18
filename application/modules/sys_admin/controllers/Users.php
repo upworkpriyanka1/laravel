@@ -38,12 +38,19 @@ class Users extends CI_Controller
 	 *********************************/
 
 	public function users_overview(){
-
 		$UriArray = $this->uri->uri_to_assoc(3);
 		if ( !empty($UriArray['users-overview']) and $this->common_lib->is_positive_integer($UriArray['users-overview'])  ) {
 			$user_id= $UriArray['users-overview'];
 		}
 		$editable_user= $this->users_mdl->getUserRowById( $user_id, array('show_file_info'=> 1, 'image_width'=> 128, 'image_height'=> 128) );
+		if ($editable_user->user_active_status == 'N' || $editable_user->user_active_status == 'W' )
+            $data['user_status'] = 'Pending';
+		elseif ($editable_user->user_active_status == 'A')
+            $data['user_status'] = 'Active';
+        elseif ($editable_user->user_active_status == 'I')
+            $data['user_status'] = 'Inactive';
+        else
+            $data['user_status'] = $editable_user->user_active_status;
 
 		$data['editable_user']		= $editable_user;
 		$data['meta_description']='';
@@ -135,7 +142,19 @@ class Users extends CI_Controller
 		$this->layout->view($views, $data);
 	}
 
+    public function user_change_status(){
+	    $user_id=$_POST["id"];
+	    $status =$_POST["status"];
+	    $arr_status=[
+	        'Pending'=>'W',
+	        'Active'=>'A',
+	        'Inactive'=>'I'
+        ];
+        $this->db->update($this->users_mdl->m_users_table, array('user_active_status'=>$arr_status[$status]), array('id' => $user_id));
+	    exit;
 
+
+    }
 	/**********************
 	 * Edit users
 	 * access public

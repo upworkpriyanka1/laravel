@@ -1,4 +1,4 @@
-﻿        <!-- BEGIN FOOTER -->
+﻿       <!-- BEGIN FOOTER -->
         <div class="clearfix"></div>
         <div class="page-footer">
             <div class="container">
@@ -43,10 +43,10 @@
                                         <div class="portlet-body">
                                             <!-- BEGIN FORM-->
                                             <form action="<?php echo base_url() ;?>sys-admin/clients-view/<?= ( $is_insert ? "new" : $cid ) ?><?= $page_parameters_with_sort ?>" method="post" id="form_client_edit" name="form_client_edit" class="form-horizontal"  enctype="multipart/form-data">
-                                                <!--                                        <input type="hidden" name="--><? //= $ci->security->get_csrf_token_name() ?><!--" value="--><? //= $this->security->get_csrf_hash() ?><!--" />-->
+                                                <!--                                        <input type="hidden" name="--><?//= $ci->security->get_csrf_token_name() ?><!--" value="--><?//= $this->security->get_csrf_hash() ?><!--" />-->
 
                                                 <input type="hidden" id="filter_client_name" name="filter_client_name" value="<?=$filter_client_name?>">
-                                                <!--						<input type="hidden" id="filter_client_active_status" name="filter_client_active_status" value="--><? //=$filter_client_active_status?><!--">-->
+                                                <!--						<input type="hidden" id="filter_client_active_status" name="filter_client_active_status" value="--><?//=$filter_client_active_status?><!--">-->
                                                 <input type="hidden" id="filter_client_type" name="filter_client_type" value="<?=$filter_client_type?>">
                                                 <input type="hidden" id="filter_client_zip" name="filter_client_zip" value="<?=$filter_client_zip?>">
                                                 <input type="hidden" id="filter_created_at_from" name="filter_created_at_from" value="<?=$filter_created_at_from?>">
@@ -852,51 +852,12 @@
 
 
                                                             <form action="#">
-<<<<<<< HEAD
-                                                            <!-- Commented by BBITS Dev to make it dynamic -->
-                                                                <!--<p>
-                                                                    <input required class="with-gap" name="group1" type="radio" id="assisted" />
-                                                                    <label for="assisted">Assisted /Senior Living Facilities</label>
-                                                                </p>
-                                                                <p>
-                                                                    <input required class="with-gap" name="group1" type="radio" id="home" />
-                                                                    <label for="home">Home Health</label>
-                                                                </p>
-                                                                <p>
-                                                                    <input required class="with-gap" name="group1" type="radio" id="SYS"  />
-                                                                    <label for="SYS">SYS Admin</label>
-                                                                </p>
-                                                                <p>
-                                                                    <input required class="with-gap" name="group1" type="radio" id="testing"  />
-                                                                    <label for="testing">testing description</label>
-                                                                </p>
-                                                                <p>
-                                                                    <input required class="with-gap" name="group1" type="radio" id="providing"  />
-                                                                    <label for="providing">a home providing care for the sick, especially the terminally ill.</label>
-                                                                </p>-->
-
-																<?php 
-																	$client_types = $this->common_mdl->get_records('clients_types');	
-																	//echo "<pre>client type is : ";
-																	//print_r($client_types);	
-																	foreach($client_types as $ct)
-																	{	
-																	?>
-                                                                    	<p>
-                                                                            <input required class="with-gap" name="group1" type="radio" id="<?php echo $ct->type_id; ?>" value="<?php echo $ct->type_id; ?>"  />
-                                                                            <label for="<?php echo $ct->type_id; ?>"><?php echo $ct->type_description; ?></label>
-                                                                        </p>
-                                                                    <?php 
-																	}
-																?>
-=======
                                                                 <?php foreach ($cl_type as $key => $value): ?>
                                                                     <p>
                                                                         <input class="with-gap required_form_to_check" name="group1" type="radio" id="<?php echo $key?>" onchange="validateFormEnableOrDisable('form_client_edit');" />
                                                                         <label for="<?php echo $key?>"><?php echo $value->type_name ?></label>
                                                                     </p>
                                                                 <?php endforeach;?>
->>>>>>> 0bd26d59917a355f81b92e86c99970fb9800b6b9
                                                             </form>
                                                         </div>
 

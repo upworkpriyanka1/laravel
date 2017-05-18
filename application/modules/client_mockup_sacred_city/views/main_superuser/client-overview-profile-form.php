@@ -93,7 +93,7 @@
     </div>
     <ul id="nav-mobile" class="side-nav fixed" style="transform: translateX(-100%);">
         <li class="logo">
-            <a href="client-overview" class="brand-logo">
+            <a href="/client-mockup-sacred-city/superuser" class="brand-logo">
                 <!--                    <img src="/assets/img/logo.png" alt="logo" class="logo-default" /> -->
                 <span class="logo-default"> Sacred City</span>
             </a>
@@ -857,7 +857,7 @@
             </div>
         </div>
     </div>
-</main>﻿
+</main>
 <!-- END MAIN PAGE -->
 
 <!-- BEGIN FOOTER -->

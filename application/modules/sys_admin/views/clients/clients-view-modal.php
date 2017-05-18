@@ -378,13 +378,8 @@
                                                 <tr>
                                                     <td style="width: 98%">
                                                         <i class="material-icons prefix">phone</i>
-<<<<<<< HEAD
-                                                        <input type="text" name="data[client_phone]" id="client_phone" value="<?= ( !empty($client->client_phone) ? $client->client_phone : '' ); ?>" class="form-control required_form " maxlength="50" onchange="javascript:checkPhonesVisibilty(); validateFormEnableOrDisable('form_client_edit');" />
-                                                        <label for="client_phone" class=""><?php echo lang('phone') ?></label>
-=======
                                                         <input type="text" name="data[client_phone]" id="client_phone" value="<?= ( !empty($client->client_phone) ? $client->client_phone : '' ); ?>" class="form-control required_form " maxlength="50" onchange="javascript:checkPhonesVisibilty(); validateFormEnableOrDisable('form_client_edit');" " />
                                                         <label for="client_phone" class=""><?php echo lang('phone') ?><span class="required">&nbsp;*&nbsp;</span></label>
->>>>>>> 0bd26d59917a355f81b92e86c99970fb9800b6b9
                                                     </td>
                                                 </tr>
                                             </table>

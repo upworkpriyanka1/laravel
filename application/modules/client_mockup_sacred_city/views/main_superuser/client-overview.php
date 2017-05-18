@@ -698,7 +698,7 @@
             </div>
         </div>
     </div>
-</main>﻿
+</main>
 <!-- END MAIN PAGE -->
 
 <!-- BEGIN FOOTER -->

@@ -427,6 +427,7 @@ header.smaller{
         -moz-column-count: 2;
         column-count: 2;
     }
+
 }
 @media only screen and (min-width: 993px) {
     .cards-container {
@@ -441,6 +442,7 @@ header.smaller{
         -moz-column-count: 4;
         column-count: 4;
     }
+
 }
 .scrollspy .caption{
     margin: 0;
@@ -477,6 +479,9 @@ header.smaller{
     }
     #profile-form-mock .page-content-wrapper .page-content {
         padding-top: 95px !important;
+    }
+    #dashboard .page-content-wrapper .page-content{
+        padding-top: 85px;
     }
 }
 @media (min-width: 601px) {
@@ -837,6 +842,8 @@ input[type=text]:focus:not([readonly]){
     margin-bottom: 20px;
     margin-left: 15px;
 }
+
+
 /*----form-edit-us----*/
 
 .form-edit-us #nav-mobile{
@@ -853,4 +860,29 @@ input[type=text]:focus:not([readonly]){
 }
 .form-edit-us .page-header.navbar, .form-edit-us header .chevron .chevron-down i, .form-edit-us header .chevron .chevron-up i, .form-edit-us  nav.top-nav{
     background-color: #c8c8c8;
+}
+
+/*--------Dashboard---------*/
+#dashboard{
+    background-color: #e4e4e4;
+}
+
+#dashboard .cards-container .card{
+    width: 100%;
+    min-height: 25%;
+}
+#dashboard .pad-card{
+    margin-bottom: 30px;
+}
+
+#dashboard .page-content-wrapper .page-content{
+    margin-top: -30px;
+}
+
+.brand-logo .logo-default{
+    color: #79fff3;
+}
+
+ul.side-nav.fixed li.logo, ul.side-nav.fixed li.logo:hover, ul.side-nav.fixed li.logo a:hover{
+    background-color: transparent !important;
 }

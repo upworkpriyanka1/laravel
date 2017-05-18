@@ -1,17 +1,7 @@
 </head>
-<?php
-$query = $this->db->get("upload_bg");
-if($query->num_rows() > 0){
-$res = $query->row();
-$img_url = base_url()."/assets/avatar/".$res->filename;
-?>
-<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-md" style="background:url(<?php echo $img_url; ?>) no-repeat center center / cover;">
-<?php }else{ ?>
 <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-md">
-<?php } ?>
 
 <!-- BEGIN HEADER -->
-
 <header>
     <nav class="top-nav">
         <div class="container">
@@ -20,15 +10,17 @@ $img_url = base_url()."/assets/avatar/".$res->filename;
                 <div class="page-title">
                     <h1  id="logo">
                         <!-- <a href="#" data-activates="nav-mobile" class="button-collapse" id="nav_mobile_button"><i class="material-icons">menu</i></a>-->
-                        <?php echo $client->client_name ?>
-
+                        <!--                        <span class='logo_first'>S</span>Sacred City-->
+                        <?php if($page_title != ''){ echo $page_title; }else{ ?>
+                            <?=lang('dashboard')?>
+                        <?php } ?>
                     </h1>
 
                     <div class="chevron">
                             <span class="chevron-down" style="display:none;">
                                 <i class="fa fa-chevron-circle-down" aria-hidden="true"></i>
                             </span>
-                            <span class="chevron-up" style="display:none;">
+                        <span class="chevron-up" style="display:none;">
                                 <i class="fa fa-chevron-circle-up" aria-hidden="true"></i>
                             </span>
                     </div>
@@ -60,13 +52,15 @@ $img_url = base_url()."/assets/avatar/".$res->filename;
                                     </li>
                                 </ul>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- END PAGE TITLE-->
 
+
+                        </div>
+
+
+                    </div>
+                    <div class="zang"></div>
+
+                </div>
             </div>
         </div>
     </nav>
-
-    <!-- END LOGO -->

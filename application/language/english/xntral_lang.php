@@ -69,7 +69,8 @@ $lang['client_img']             = "Image";
 $lang['grid']                   = "Grid";
 $lang['col3']                   = "Col 3";
 $lang['eh']                     = "Sacred City";
-$lang['license']                 ="License";
+$lang['sacred-city']            = "Sacred City";
+$lang['license']                = "License";
 
 
 
