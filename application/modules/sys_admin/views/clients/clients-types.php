@@ -58,7 +58,7 @@
 											<span class="required"> * </span>
 										</label>
 										<div class="col-md-7">
-											<input type="text" id="name" name="data[name]" data-required="1" class="form-control" />
+											<input type="text" id="name" name="data[name]" data-required="1" class="form-control"  />
 										</div><!-- ./col -->
 									</div><!-- ./form-group -->
 								</div><!-- ./col -->

@@ -19,6 +19,11 @@ $config['menu_1'] = array(
         'title'	=>	'clients-view', //make sure to use dash
         'icon'	=>	'fa fa-folder-open'
     ),
+	"sub_3" => array(
+        'href'	=>	'/clients-type',
+        'title'	=>	'clients-type', //make sure to use dash
+        'icon'	=>	'fa fa-plus'
+    ),
 );
 
 

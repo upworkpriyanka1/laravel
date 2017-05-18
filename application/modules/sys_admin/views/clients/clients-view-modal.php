@@ -1,5 +1,4 @@
 <?php $ci = &get_instance();?>
-
 <div class="row">
     <div class="col-md-12">
         <div class="portlet light portlet-fit portlet-form bordered">
@@ -61,7 +60,7 @@
                             <div class="row">
                                 <!-- Client  client_name -->
                                 <!--                                                <div class="col-md-12" style="display: none">-->
-                                <!--                                                    <div class="form-group input-field --><?//= $this->common_lib->set_field_error_tag("data[client_name]", ' has-error ')?><!-- ">-->
+                                <!--                                                    <div class="form-group input-field --><? //= $this->common_lib->set_field_error_tag("data[client_name]", ' has-error ')?><!-- ">-->
 
                                 <?php
                                 $client_name_button_visible = $is_insert;
@@ -77,7 +76,7 @@
 
                                 <!--                                                        <div class="col-md-12" style="display: --><?php //echo ( ( $client_name_input_visible ) ? "block" :"block" ) ; ?><!--" id="div_client_name_input">-->
                                 <!--                                                            <i class="material-icons prefix">account_circle</i>-->
-                                <!--                                                            <input type="text" name="data[client_name]" id="client_name" value="--><?//= ( !empty($client->client_name) ? $client->client_name : '' ); ?><!--" class="form-control x-able" maxlength="100" --><?php //echo !$is_insert ? " readonly " : "" ?><!-- />-->
+                                <!--                                                            <input type="text" name="data[client_name]" id="client_name" value="--><? //= ( !empty($client->client_name) ? $client->client_name : '' ); ?><!--" class="form-control x-able" maxlength="100" --><?php //echo !$is_insert ? " readonly " : "" ?><!-- />-->
                                 <!--                                                            <label for="client_name"> --><?php //echo lang('client_name') ?><!--<span class="required">&nbsp;*&nbsp;</span></label>-->
                                 <!--                                                        </div>-->
                                 <!-- ./col -->
@@ -903,7 +902,7 @@
                             <div class="row" style="display: none">
 
                                 <!--                                                <div class="col-md-6">-->
-                                <!--                                                    <div class="form-group input-field --><?//= $this->common_lib->set_field_error_tag("data[clients_types_id]", ' has-error ')?><!--">-->
+                                <!--                                                    <div class="form-group input-field --><? //= $this->common_lib->set_field_error_tag("data[clients_types_id]", ' has-error ')?><!--">-->
                                 <!--                                                        --><?php
                                 //                                                        $is_debug= false;
                                 //                                                        $clients_types_id_button_visible = $is_insert;
@@ -962,7 +961,7 @@
                                 <!--                                                        </div>-->
                                 <!--                                                        <div class="col-md-12" style="display: --><?php //echo ( ( $clients_types_id_view_visible ) ? "block" :"none" ) ; ?><!--" id="div_clients_types_id_view">-->
                                 <!--                                                            <label class="control-label col-md-4" for="clients_types_id_view" >&nbsp;--><?php //echo lang('clients-type') ?><!--<span class="required">&nbsp;*&nbsp;</span></label>-->
-                                <!--                                                            <input type="text" name="data[clients_types_id_view]" id="clients_types_id_view" value="--><?//= ( !empty($client->clients_types_id) ? $this->common_lib->get_clients_types_id_label($client->clients_types_id) : '' ); ?><!--" class="form-control" maxlength="200" readonly />-->
+                                <!--                                                            <input type="text" name="data[clients_types_id_view]" id="clients_types_id_view" value="--><? //= ( !empty($client->clients_types_id) ? $this->common_lib->get_clients_types_id_label($client->clients_types_id) : '' ); ?><!--" class="form-control" maxlength="200" readonly />-->
                                 <!--                                                        </div>-->
                                 <!---->
                                 <!--                                                    </div>-->

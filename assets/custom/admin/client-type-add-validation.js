@@ -16,14 +16,16 @@ var FormValidation = function () {
                     rules: {
                     'data[name]': {
                         minlength: 2,
-                        required: true
+                        required: true,
+						pattern : /^[a-zA-Z\s]+$/
+						//lettersonly: true
                     },
                     'data[description]': {
                         minlength: 2,
                         required: true
                     }
+					
                 },
-
                 invalidHandler: function (event, validator) { //display error alert on form submit
                     success1.hide();
                     error1.show();
@@ -99,7 +101,7 @@ function post_form(){
             data: values
         })
        .done(function( msg ) {
-            //console.log(msg);
+			console.log(msg);
             if (msg) {//get server msg
                 var res =  msg.substr(0, msg.indexOf('-'));
                 if ($.isNumeric(msg)){ //if msg starts numeric, ie last db insert id

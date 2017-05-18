@@ -1,0 +1,2637 @@
+Now : 2017-03-31 08:41:02.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 08:41:33.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 08:41:49.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 08:42:10.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 08:42:10.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 08:42:10.  Time  :
+SELECT *, users.id AS MyID
+FROM `users`
+JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 08:42:10.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 08:42:11.  Time  :
+SELECT *
+FROM `upload_bg`
+
+
+Now : 2017-03-31 08:42:11.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 08:42:11.  Time  :
+INSERT INTO `activity_logs` (`username`, `super_id`, `user_id`, `section`, `action`, `activity_time`, `uri`) VALUES ('administrator', '0', '1', 'sys_admin', 'index', 1490942531, 'sys-admin')
+
+
+Now : 2017-03-31 08:44:05.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 08:44:05.  Time  :
+SELECT *, users.id AS MyID
+FROM `users`
+JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 08:44:05.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 08:44:05.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `group_title` ASC
+
+
+Now : 2017-03-31 08:44:05.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `id` ASC
+
+
+Now : 2017-03-31 08:44:05.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 08:44:05.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = ''
+
+
+Now : 2017-03-31 08:44:05.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 08:44:05.  Time  :
+SELECT *
+FROM `upload_bg`
+
+
+Now : 2017-03-31 08:44:05.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 08:44:05.  Time  :
+INSERT INTO `activity_logs` (`username`, `super_id`, `user_id`, `section`, `action`, `activity_time`, `uri`) VALUES ('administrator', '0', '1', 'users', 'users_edit', 1490942645, 'sys-admin/users/users-edit/new')
+
+
+Now : 2017-03-31 08:44:07.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 08:44:07.  Time  :
+SELECT *, users.id AS MyID
+FROM `users`
+JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 08:44:07.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 08:44:08.  Time  :
+SELECT COUNT(*) AS `numrows`
+FROM `users`
+
+
+Now : 2017-03-31 08:44:08.  Time  :
+SELECT `users`.*, `groups`.`description` as `user_group_description`, GROUP_CONCAT(clients.client_name ) as client_name
+FROM `users`
+LEFT JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+LEFT JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+LEFT JOIN `users_clients` ON `users_clients`.`uc_user_id` = `users`.`id` AND `users_clients`.`uc_active_status` in ('E','O')
+LEFT JOIN `clients` ON `clients`.`cid` = `users_clients`.`uc_client_id`
+GROUP BY `users`.`id`, `groups`.`description`
+ORDER BY `username`
+ LIMIT 10
+
+
+Now : 2017-03-31 08:44:08.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `group_title` ASC
+
+
+Now : 2017-03-31 08:44:08.  Time  :
+SELECT *
+FROM `upload_bg`
+
+
+Now : 2017-03-31 08:44:08.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 08:44:08.  Time  :
+INSERT INTO `activity_logs` (`username`, `super_id`, `user_id`, `section`, `action`, `activity_time`, `uri`) VALUES ('administrator', '0', '1', 'users', 'users_view', 1490942648, 'sys-admin/users/users-view')
+
+
+Now : 2017-03-31 08:54:21.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 08:54:21.  Time  :
+SELECT *, users.id AS MyID
+FROM `users`
+JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 08:54:21.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 08:54:21.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `group_title` ASC
+
+
+Now : 2017-03-31 08:54:21.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `id` ASC
+
+
+Now : 2017-03-31 08:54:21.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+WHERE `users_groups`.`user_id` LIKE '%28%' ESCAPE '!'
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 08:54:21.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = '28'
+
+
+Now : 2017-03-31 08:54:21.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+WHERE `users_groups`.`user_id` LIKE '%28%' ESCAPE '!'
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 08:54:21.  Time  :
+SELECT *
+FROM `upload_bg`
+
+
+Now : 2017-03-31 08:54:22.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 08:54:22.  Time  :
+INSERT INTO `activity_logs` (`username`, `super_id`, `user_id`, `section`, `action`, `activity_time`, `uri`) VALUES ('administrator', '0', '1', 'users', 'users_edit', 1490943262, 'sys-admin/users/users-edit/28')
+
+
+Now : 2017-03-31 08:54:26.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 08:54:26.  Time  :
+SELECT *, users.id AS MyID
+FROM `users`
+JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 08:54:26.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 08:54:26.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = '28'
+
+
+Now : 2017-03-31 08:54:26.  Time  :
+SELECT *
+FROM `users`
+WHERE `password` = '28434b8747d11de109b989dd515db20c'
+ LIMIT 1
+
+
+Now : 2017-03-31 08:54:26.  Time  :
+UPDATE `users` SET `password` = '$2y$08$6WLU4UwP8.sW92lRA7gSXeavGfLom28Zc110r4OVWqrRZxzNiwFRq'
+WHERE `id` = '28'
+
+
+Now : 2017-03-31 08:54:26.  Time  :
+SELECT *
+FROM `cms_items`
+WHERE `ci_alias` = 'new_password_generated'
+ LIMIT 1
+
+
+Now : 2017-03-31 08:54:28.  Time  :
+INSERT INTO `activity_logs` (`username`, `super_id`, `user_id`, `section`, `action`, `activity_time`, `uri`) VALUES ('administrator', '0', '1', 'users', 'generate_new_password', 1490943268, 'sys-admin/users/generate_new_password/user_id/28')
+
+
+Now : 2017-03-31 08:54:47.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 08:54:47.  Time  :
+SELECT *, users.id AS MyID
+FROM `users`
+JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 08:54:47.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 08:54:47.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `group_title` ASC
+
+
+Now : 2017-03-31 08:54:47.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `id` ASC
+
+
+Now : 2017-03-31 08:54:47.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+WHERE `users_groups`.`user_id` LIKE '%28%' ESCAPE '!'
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 08:54:47.  Time  :
+SELECT *
+FROM `users`
+WHERE `username` = 'himisha'
+AND `id` != 28
+
+
+Now : 2017-03-31 08:54:47.  Time  :
+SELECT *
+FROM `users`
+WHERE `email` = 'himisha.patel@bbitsol.com'
+AND `id` != 28
+
+
+Now : 2017-03-31 08:54:47.  Time  :
+TRANS BEGIN
+
+
+Now : 2017-03-31 08:54:47.  Time  :
+SELECT *
+FROM `users`
+WHERE `activation_code` = '6d7da7e92226347264c65fb4aaa72fa6'
+ LIMIT 1
+
+
+Now : 2017-03-31 08:54:47.  Time  :
+UPDATE `users` SET `username` = 'himisha', `ip_address` = '::1', `email` = 'himisha.patel@bbitsol.com', `user_active_status` = 'W', `first_name` = 'Himisha', `last_name` = 'Patel', `city` = 'AMD', `state` = 'GUJ', `zip` = '380061', `address1` = 'Ahmedabad', `address2` = '123', `mobile` = '9876543210', `phone` = '9876543210', `avatar` = '58832_300x300.jpg', `activation_code` = 'fa18iN73vO61bkhi0Yg0SIlYaka24N9BeJD6qfca'
+WHERE `id` = '28'
+
+
+Now : 2017-03-31 08:54:47.  Time  :
+DELETE FROM `users_groups`
+WHERE `user_id` = '28'
+
+
+Now : 2017-03-31 08:54:47.  Time  :
+INSERT INTO `users_groups` (`user_id`, `group_id`) VALUES ('28', '1')
+
+
+Now : 2017-03-31 08:54:47.  Time  :
+INSERT INTO `users_groups` (`user_id`, `group_id`) VALUES ('28', '2')
+
+
+Now : 2017-03-31 08:54:47.  Time  :
+COMMIT
+
+
+Now : 2017-03-31 08:54:47.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 08:54:47.  Time  :
+SELECT *, users.id AS MyID
+FROM `users`
+JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 08:54:47.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 08:54:47.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `group_title` ASC
+
+
+Now : 2017-03-31 08:54:47.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `id` ASC
+
+
+Now : 2017-03-31 08:54:47.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+WHERE `users_groups`.`user_id` LIKE '%28%' ESCAPE '!'
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 08:54:47.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = '28'
+
+
+Now : 2017-03-31 08:54:47.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+WHERE `users_groups`.`user_id` LIKE '%28%' ESCAPE '!'
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 08:54:47.  Time  :
+SELECT *
+FROM `upload_bg`
+
+
+Now : 2017-03-31 08:54:47.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 08:54:47.  Time  :
+INSERT INTO `activity_logs` (`username`, `super_id`, `user_id`, `section`, `action`, `activity_time`, `uri`) VALUES ('administrator', '0', '1', 'users', 'users_edit', 1490943287, 'sys-admin/users/users-edit/28')
+
+
+Now : 2017-03-31 08:54:55.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 08:54:55.  Time  :
+SELECT *, users.id AS MyID
+FROM `users`
+JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 08:54:55.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 08:54:55.  Time  :
+SELECT COUNT(*) AS `numrows`
+FROM `users`
+
+
+Now : 2017-03-31 08:54:55.  Time  :
+SELECT `users`.*, `groups`.`description` as `user_group_description`, GROUP_CONCAT(clients.client_name ) as client_name
+FROM `users`
+LEFT JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+LEFT JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+LEFT JOIN `users_clients` ON `users_clients`.`uc_user_id` = `users`.`id` AND `users_clients`.`uc_active_status` in ('E','O')
+LEFT JOIN `clients` ON `clients`.`cid` = `users_clients`.`uc_client_id`
+GROUP BY `users`.`id`, `groups`.`description`
+ORDER BY `username`
+ LIMIT 10
+
+
+Now : 2017-03-31 08:54:55.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `group_title` ASC
+
+
+Now : 2017-03-31 08:54:55.  Time  :
+SELECT *
+FROM `upload_bg`
+
+
+Now : 2017-03-31 08:54:55.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 08:54:55.  Time  :
+INSERT INTO `activity_logs` (`username`, `super_id`, `user_id`, `section`, `action`, `activity_time`, `uri`) VALUES ('administrator', '0', '1', 'users', 'users_view', 1490943295, 'sys-admin/users/users-view')
+
+
+Now : 2017-03-31 08:55:06.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 08:55:06.  Time  :
+SELECT *, users.id AS MyID
+FROM `users`
+JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 08:55:06.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 08:55:06.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `group_title` ASC
+
+
+Now : 2017-03-31 08:55:06.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `id` ASC
+
+
+Now : 2017-03-31 08:55:06.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+WHERE `users_groups`.`user_id` LIKE '%28%' ESCAPE '!'
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 08:55:06.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = '28'
+
+
+Now : 2017-03-31 08:55:06.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+WHERE `users_groups`.`user_id` LIKE '%28%' ESCAPE '!'
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 08:55:06.  Time  :
+SELECT *
+FROM `upload_bg`
+
+
+Now : 2017-03-31 08:55:06.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 08:55:06.  Time  :
+INSERT INTO `activity_logs` (`username`, `super_id`, `user_id`, `section`, `action`, `activity_time`, `uri`) VALUES ('administrator', '0', '1', 'users', 'users_edit', 1490943306, 'sys-admin/users/users-edit/28')
+
+
+Now : 2017-03-31 08:57:21.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 08:57:21.  Time  :
+SELECT *, users.id AS MyID
+FROM `users`
+JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 08:57:21.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 08:57:21.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `group_title` ASC
+
+
+Now : 2017-03-31 08:57:21.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `id` ASC
+
+
+Now : 2017-03-31 08:57:21.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 08:57:21.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = ''
+
+
+Now : 2017-03-31 08:57:21.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 08:57:21.  Time  :
+SELECT *
+FROM `upload_bg`
+
+
+Now : 2017-03-31 08:57:21.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 08:57:21.  Time  :
+INSERT INTO `activity_logs` (`username`, `super_id`, `user_id`, `section`, `action`, `activity_time`, `uri`) VALUES ('administrator', '0', '1', 'users', 'users_edit', 1490943441, 'sys-admin/users/users-edit/new')
+
+
+Now : 2017-03-31 08:57:34.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 08:57:34.  Time  :
+SELECT *, users.id AS MyID
+FROM `users`
+JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 08:57:34.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 08:57:34.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `group_title` ASC
+
+
+Now : 2017-03-31 08:57:34.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `id` ASC
+
+
+Now : 2017-03-31 08:57:34.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 08:57:35.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = ''
+
+
+Now : 2017-03-31 08:57:35.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 08:57:35.  Time  :
+SELECT *
+FROM `upload_bg`
+
+
+Now : 2017-03-31 08:57:35.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 08:57:35.  Time  :
+INSERT INTO `activity_logs` (`username`, `super_id`, `user_id`, `section`, `action`, `activity_time`, `uri`) VALUES ('administrator', '0', '1', 'users', 'users_edit', 1490943455, 'sys-admin/users/users-edit/new')
+
+
+Now : 2017-03-31 09:00:42.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 09:00:42.  Time  :
+SELECT *, users.id AS MyID
+FROM `users`
+JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 09:00:42.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 09:00:42.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `group_title` ASC
+
+
+Now : 2017-03-31 09:00:42.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `id` ASC
+
+
+Now : 2017-03-31 09:00:42.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 09:00:42.  Time  :
+SELECT *
+FROM `users`
+WHERE `username` = 'Ankita'
+
+
+Now : 2017-03-31 09:00:42.  Time  :
+SELECT *
+FROM `users`
+WHERE `email` = 'ankita.vasanani@bbitsol.com'
+
+
+Now : 2017-03-31 09:00:42.  Time  :
+TRANS BEGIN
+
+
+Now : 2017-03-31 09:00:42.  Time  :
+SELECT *
+FROM `users`
+WHERE `activation_code` = '62c70b884396a314b6e38c0c618ffc1c'
+ LIMIT 1
+
+
+Now : 2017-03-31 09:00:42.  Time  :
+SELECT COUNT(*) AS `numrows`
+FROM `users`
+WHERE `email` = 'Ankita'
+
+
+Now : 2017-03-31 09:00:42.  Time  :
+SELECT *
+FROM `groups`
+WHERE `name` = 'user'
+ LIMIT 1
+
+
+Now : 2017-03-31 09:00:42.  Time  :
+SHOW COLUMNS FROM `users`
+
+
+Now : 2017-03-31 09:00:42.  Time  :
+INSERT INTO `users` (`ip_address`, `activation_code`, `created_on`, `first_name`, `last_name`, `address1`, `address2`, `city`, `state`, `zip`, `mobile`, `phone`, `avatar`, `user_active_status`, `username`, `password`, `email`) VALUES ('::1', 'V4eV2c4s8oI86X1qiR3L18a24aLsJ8L976PTd23p', 1490943642, 'Ankita', 'Vasanani', 'Ahmedabad', '123', 'AMD', 'GUJ', '380015', '9876543210', '9876543210', '2.jpg', 'W', 'Ankita', 0, 'ankita.vasanani@bbitsol.com')
+
+
+Now : 2017-03-31 09:00:42.  Time  :
+INSERT INTO `users_groups` (`group_id`, `user_id`) VALUES (1, 29)
+
+
+Now : 2017-03-31 09:00:42.  Time  :
+SELECT *
+FROM `groups`
+WHERE `groups`.`id` = '1'
+ORDER BY `id` DESC
+ LIMIT 1
+
+
+Now : 2017-03-31 09:00:42.  Time  :
+COMMIT
+
+
+Now : 2017-03-31 09:02:04.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 09:02:04.  Time  :
+SELECT *, users.id AS MyID
+FROM `users`
+JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 09:02:05.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 09:02:05.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `group_title` ASC
+
+
+Now : 2017-03-31 09:02:05.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `id` ASC
+
+
+Now : 2017-03-31 09:02:05.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 09:02:05.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = ''
+
+
+Now : 2017-03-31 09:02:05.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 09:02:05.  Time  :
+SELECT *
+FROM `upload_bg`
+
+
+Now : 2017-03-31 09:02:05.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 09:02:05.  Time  :
+INSERT INTO `activity_logs` (`username`, `super_id`, `user_id`, `section`, `action`, `activity_time`, `uri`) VALUES ('administrator', '0', '1', 'users', 'users_edit', 1490943725, 'sys-admin/users/users-edit/new')
+
+
+Now : 2017-03-31 09:02:15.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 09:02:15.  Time  :
+SELECT *, users.id AS MyID
+FROM `users`
+JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 09:02:15.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 09:02:15.  Time  :
+SELECT COUNT(*) AS `numrows`
+FROM `users`
+
+
+Now : 2017-03-31 09:02:15.  Time  :
+SELECT `users`.*, `groups`.`description` as `user_group_description`, GROUP_CONCAT(clients.client_name ) as client_name
+FROM `users`
+LEFT JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+LEFT JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+LEFT JOIN `users_clients` ON `users_clients`.`uc_user_id` = `users`.`id` AND `users_clients`.`uc_active_status` in ('E','O')
+LEFT JOIN `clients` ON `clients`.`cid` = `users_clients`.`uc_client_id`
+GROUP BY `users`.`id`, `groups`.`description`
+ORDER BY `username`
+ LIMIT 10
+
+
+Now : 2017-03-31 09:02:15.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `group_title` ASC
+
+
+Now : 2017-03-31 09:02:15.  Time  :
+SELECT *
+FROM `upload_bg`
+
+
+Now : 2017-03-31 09:02:15.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 09:02:15.  Time  :
+INSERT INTO `activity_logs` (`username`, `super_id`, `user_id`, `section`, `action`, `activity_time`, `uri`) VALUES ('administrator', '0', '1', 'users', 'users_view', 1490943735, 'sys-admin/users/users-view')
+
+
+Now : 2017-03-31 09:02:28.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 09:02:28.  Time  :
+SELECT *, users.id AS MyID
+FROM `users`
+JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 09:02:28.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 09:02:28.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `group_title` ASC
+
+
+Now : 2017-03-31 09:02:28.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `id` ASC
+
+
+Now : 2017-03-31 09:02:28.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+WHERE `users_groups`.`user_id` LIKE '%29%' ESCAPE '!'
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 09:02:28.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = '29'
+
+
+Now : 2017-03-31 09:02:28.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+WHERE `users_groups`.`user_id` LIKE '%29%' ESCAPE '!'
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 09:02:28.  Time  :
+SELECT *
+FROM `upload_bg`
+
+
+Now : 2017-03-31 09:02:28.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 09:02:28.  Time  :
+INSERT INTO `activity_logs` (`username`, `super_id`, `user_id`, `section`, `action`, `activity_time`, `uri`) VALUES ('administrator', '0', '1', 'users', 'users_edit', 1490943748, 'sys-admin/users/users-edit/29')
+
+
+Now : 2017-03-31 09:04:30.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 09:04:30.  Time  :
+SELECT *, users.id AS MyID
+FROM `users`
+JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 09:04:30.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 09:04:30.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `group_title` ASC
+
+
+Now : 2017-03-31 09:04:30.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `id` ASC
+
+
+Now : 2017-03-31 09:04:31.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 09:04:31.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = ''
+
+
+Now : 2017-03-31 09:04:31.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 09:04:31.  Time  :
+SELECT *
+FROM `upload_bg`
+
+
+Now : 2017-03-31 09:04:31.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 09:04:31.  Time  :
+INSERT INTO `activity_logs` (`username`, `super_id`, `user_id`, `section`, `action`, `activity_time`, `uri`) VALUES ('administrator', '0', '1', 'users', 'users_edit', 1490943871, 'sys-admin/users/users-edit/new')
+
+
+Now : 2017-03-31 09:05:27.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 09:05:27.  Time  :
+SELECT *, users.id AS MyID
+FROM `users`
+JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 09:05:27.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 09:05:27.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `group_title` ASC
+
+
+Now : 2017-03-31 09:05:27.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `id` ASC
+
+
+Now : 2017-03-31 09:05:27.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 09:05:27.  Time  :
+SELECT *
+FROM `users`
+WHERE `username` = 'a1'
+
+
+Now : 2017-03-31 09:05:27.  Time  :
+SELECT *
+FROM `upload_bg`
+
+
+Now : 2017-03-31 09:05:27.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 09:05:27.  Time  :
+INSERT INTO `activity_logs` (`username`, `super_id`, `user_id`, `section`, `action`, `activity_time`, `uri`) VALUES ('administrator', '0', '1', 'users', 'users_edit', 1490943927, 'sys-admin/users/users-edit/new')
+
+
+Now : 2017-03-31 09:07:49.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 09:07:49.  Time  :
+SELECT *, users.id AS MyID
+FROM `users`
+JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 09:07:49.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 09:07:49.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `group_title` ASC
+
+
+Now : 2017-03-31 09:07:49.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `id` ASC
+
+
+Now : 2017-03-31 09:07:49.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 09:07:49.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = ''
+
+
+Now : 2017-03-31 09:07:49.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 09:07:49.  Time  :
+SELECT *
+FROM `upload_bg`
+
+
+Now : 2017-03-31 09:07:49.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 09:07:49.  Time  :
+INSERT INTO `activity_logs` (`username`, `super_id`, `user_id`, `section`, `action`, `activity_time`, `uri`) VALUES ('administrator', '0', '1', 'users', 'users_edit', 1490944069, 'sys-admin/users/users-edit/new')
+
+
+Now : 2017-03-31 09:07:53.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 09:07:53.  Time  :
+SELECT *, users.id AS MyID
+FROM `users`
+JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 09:07:53.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 09:07:53.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `group_title` ASC
+
+
+Now : 2017-03-31 09:07:53.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `id` ASC
+
+
+Now : 2017-03-31 09:07:53.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 09:07:53.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = ''
+
+
+Now : 2017-03-31 09:07:53.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 09:07:53.  Time  :
+SELECT *
+FROM `upload_bg`
+
+
+Now : 2017-03-31 09:07:53.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 09:07:53.  Time  :
+INSERT INTO `activity_logs` (`username`, `super_id`, `user_id`, `section`, `action`, `activity_time`, `uri`) VALUES ('administrator', '0', '1', 'users', 'users_edit', 1490944073, 'sys-admin/users/users-edit/new')
+
+
+Now : 2017-03-31 09:08:51.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 09:08:51.  Time  :
+SELECT *, users.id AS MyID
+FROM `users`
+JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 09:08:51.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 09:08:51.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `group_title` ASC
+
+
+Now : 2017-03-31 09:08:51.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `id` ASC
+
+
+Now : 2017-03-31 09:08:51.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 09:08:51.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = ''
+
+
+Now : 2017-03-31 09:08:51.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 09:08:51.  Time  :
+SELECT *
+FROM `upload_bg`
+
+
+Now : 2017-03-31 09:08:51.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 09:08:51.  Time  :
+INSERT INTO `activity_logs` (`username`, `super_id`, `user_id`, `section`, `action`, `activity_time`, `uri`) VALUES ('administrator', '0', '1', 'users', 'users_edit', 1490944131, 'sys-admin/users/users-edit/new')
+
+
+Now : 2017-03-31 09:10:35.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 09:10:35.  Time  :
+SELECT *, users.id AS MyID
+FROM `users`
+JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 09:10:35.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 09:10:35.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `group_title` ASC
+
+
+Now : 2017-03-31 09:10:35.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `id` ASC
+
+
+Now : 2017-03-31 09:10:35.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 09:10:35.  Time  :
+SELECT *
+FROM `users`
+WHERE `username` = 'a1'
+
+
+Now : 2017-03-31 09:10:35.  Time  :
+SELECT *
+FROM `users`
+WHERE `email` = 'a1@test.com'
+
+
+Now : 2017-03-31 09:10:35.  Time  :
+TRANS BEGIN
+
+
+Now : 2017-03-31 09:10:35.  Time  :
+SELECT *
+FROM `users`
+WHERE `activation_code` = '271cf56b795211c0a0ac830264e5f393'
+ LIMIT 1
+
+
+Now : 2017-03-31 09:10:35.  Time  :
+SELECT COUNT(*) AS `numrows`
+FROM `users`
+WHERE `email` = 'a1'
+
+
+Now : 2017-03-31 09:10:35.  Time  :
+SELECT *
+FROM `groups`
+WHERE `name` = 'user'
+ LIMIT 1
+
+
+Now : 2017-03-31 09:10:35.  Time  :
+SHOW COLUMNS FROM `users`
+
+
+Now : 2017-03-31 09:10:35.  Time  :
+INSERT INTO `users` (`ip_address`, `activation_code`, `created_on`, `first_name`, `last_name`, `address1`, `address2`, `city`, `state`, `zip`, `mobile`, `phone`, `avatar`, `user_active_status`, `username`, `password`, `email`) VALUES ('::1', 'CCd1T2YS8yM5toK6I1kC8NuQx17aS3Jn6doqbrtW', 1490944235, 'a1', 'a1', 'a1', 'a1', 'a1', 'a1', 'a1', '9876543210', '9876543210', '58832_300x300.jpg', 'W', 'a1', 0, 'a1@test.com')
+
+
+Now : 2017-03-31 09:10:35.  Time  :
+INSERT INTO `users_groups` (`group_id`, `user_id`) VALUES (1, 30)
+
+
+Now : 2017-03-31 09:10:35.  Time  :
+SELECT *
+FROM `groups`
+WHERE `groups`.`id` = '1'
+ORDER BY `id` DESC
+ LIMIT 1
+
+
+Now : 2017-03-31 09:10:35.  Time  :
+COMMIT
+
+
+Now : 2017-03-31 09:12:40.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 09:12:40.  Time  :
+SELECT *, users.id AS MyID
+FROM `users`
+JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 09:12:40.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 09:12:40.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `group_title` ASC
+
+
+Now : 2017-03-31 09:12:40.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `id` ASC
+
+
+Now : 2017-03-31 09:12:40.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 09:12:40.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = ''
+
+
+Now : 2017-03-31 09:12:40.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 09:12:40.  Time  :
+SELECT *
+FROM `upload_bg`
+
+
+Now : 2017-03-31 09:12:40.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 09:12:40.  Time  :
+INSERT INTO `activity_logs` (`username`, `super_id`, `user_id`, `section`, `action`, `activity_time`, `uri`) VALUES ('administrator', '0', '1', 'users', 'users_edit', 1490944360, 'sys-admin/users/users-edit/new')
+
+
+Now : 2017-03-31 09:13:13.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 09:13:13.  Time  :
+SELECT *, users.id AS MyID
+FROM `users`
+JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 09:13:13.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 09:18:16.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 09:18:16.  Time  :
+SELECT *, users.id AS MyID
+FROM `users`
+JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 09:18:16.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 09:18:16.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `group_title` ASC
+
+
+Now : 2017-03-31 09:18:16.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `id` ASC
+
+
+Now : 2017-03-31 09:18:16.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 09:18:16.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = ''
+
+
+Now : 2017-03-31 09:18:16.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 09:18:16.  Time  :
+SELECT *
+FROM `upload_bg`
+
+
+Now : 2017-03-31 09:18:16.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 09:18:16.  Time  :
+INSERT INTO `activity_logs` (`username`, `super_id`, `user_id`, `section`, `action`, `activity_time`, `uri`) VALUES ('administrator', '0', '1', 'users', 'users_edit', 1490944696, 'sys-admin/users/users-edit/new')
+
+
+Now : 2017-03-31 09:24:51.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 09:24:51.  Time  :
+SELECT *, users.id AS MyID
+FROM `users`
+JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 09:24:51.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 09:24:51.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `group_title` ASC
+
+
+Now : 2017-03-31 09:24:51.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `id` ASC
+
+
+Now : 2017-03-31 09:24:51.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 09:24:51.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = ''
+
+
+Now : 2017-03-31 09:24:51.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 09:24:51.  Time  :
+SELECT *
+FROM `upload_bg`
+
+
+Now : 2017-03-31 09:24:51.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 09:24:51.  Time  :
+INSERT INTO `activity_logs` (`username`, `super_id`, `user_id`, `section`, `action`, `activity_time`, `uri`) VALUES ('administrator', '0', '1', 'users', 'users_edit', 1490945091, 'sys-admin/users/users-edit/new')
+
+
+Now : 2017-03-31 09:25:19.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 09:25:19.  Time  :
+SELECT *, users.id AS MyID
+FROM `users`
+JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 09:25:19.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 09:25:19.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `group_title` ASC
+
+
+Now : 2017-03-31 09:25:19.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `id` ASC
+
+
+Now : 2017-03-31 09:25:19.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 09:25:19.  Time  :
+SELECT *
+FROM `users`
+WHERE `username` = 'a1'
+
+
+Now : 2017-03-31 09:25:19.  Time  :
+SELECT *
+FROM `users`
+WHERE `email` = 'a1@test.com'
+
+
+Now : 2017-03-31 09:25:19.  Time  :
+SELECT *
+FROM `upload_bg`
+
+
+Now : 2017-03-31 09:25:19.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 09:25:19.  Time  :
+INSERT INTO `activity_logs` (`username`, `super_id`, `user_id`, `section`, `action`, `activity_time`, `uri`) VALUES ('administrator', '0', '1', 'users', 'users_edit', 1490945119, 'sys-admin/users/users-edit/new')
+
+
+Now : 2017-03-31 09:25:30.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 09:25:30.  Time  :
+SELECT *, users.id AS MyID
+FROM `users`
+JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 09:25:30.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 09:25:30.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `group_title` ASC
+
+
+Now : 2017-03-31 09:25:30.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `id` ASC
+
+
+Now : 2017-03-31 09:25:30.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 09:25:30.  Time  :
+SELECT *
+FROM `users`
+WHERE `username` = 'a1'
+
+
+Now : 2017-03-31 09:25:30.  Time  :
+SELECT *
+FROM `users`
+WHERE `email` = 'a11@test.com'
+
+
+Now : 2017-03-31 09:25:30.  Time  :
+SELECT *
+FROM `upload_bg`
+
+
+Now : 2017-03-31 09:25:30.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 09:25:30.  Time  :
+INSERT INTO `activity_logs` (`username`, `super_id`, `user_id`, `section`, `action`, `activity_time`, `uri`) VALUES ('administrator', '0', '1', 'users', 'users_edit', 1490945130, 'sys-admin/users/users-edit/new')
+
+
+Now : 2017-03-31 09:25:38.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 09:25:38.  Time  :
+SELECT *, users.id AS MyID
+FROM `users`
+JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 09:25:38.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 09:25:38.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `group_title` ASC
+
+
+Now : 2017-03-31 09:25:38.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `id` ASC
+
+
+Now : 2017-03-31 09:25:38.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 09:25:38.  Time  :
+SELECT *
+FROM `users`
+WHERE `username` = 'a11'
+
+
+Now : 2017-03-31 09:25:38.  Time  :
+SELECT *
+FROM `users`
+WHERE `email` = 'a11@test.com'
+
+
+Now : 2017-03-31 09:35:09.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 09:35:09.  Time  :
+SELECT *, users.id AS MyID
+FROM `users`
+JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 09:35:09.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 09:35:09.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `group_title` ASC
+
+
+Now : 2017-03-31 09:35:09.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `id` ASC
+
+
+Now : 2017-03-31 09:35:09.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 09:35:09.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = ''
+
+
+Now : 2017-03-31 09:35:09.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 09:35:10.  Time  :
+SELECT *
+FROM `upload_bg`
+
+
+Now : 2017-03-31 09:35:10.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 09:35:10.  Time  :
+INSERT INTO `activity_logs` (`username`, `super_id`, `user_id`, `section`, `action`, `activity_time`, `uri`) VALUES ('administrator', '0', '1', 'users', 'users_edit', 1490945710, 'sys-admin/users/users-edit/new')
+
+
+Now : 2017-03-31 11:15:11.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 11:15:11.  Time  :
+SELECT *, users.id AS MyID
+FROM `users`
+JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 11:15:11.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 11:15:12.  Time  :
+SELECT COUNT(*) AS `numrows`
+FROM `users`
+
+
+Now : 2017-03-31 11:15:12.  Time  :
+SELECT `users`.*, `groups`.`description` as `user_group_description`, GROUP_CONCAT(clients.client_name ) as client_name
+FROM `users`
+LEFT JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+LEFT JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+LEFT JOIN `users_clients` ON `users_clients`.`uc_user_id` = `users`.`id` AND `users_clients`.`uc_active_status` in ('E','O')
+LEFT JOIN `clients` ON `clients`.`cid` = `users_clients`.`uc_client_id`
+GROUP BY `users`.`id`, `groups`.`description`
+ORDER BY `username`
+ LIMIT 10
+
+
+Now : 2017-03-31 11:15:12.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `group_title` ASC
+
+
+Now : 2017-03-31 11:15:12.  Time  :
+SELECT *
+FROM `upload_bg`
+
+
+Now : 2017-03-31 11:15:12.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 11:15:13.  Time  :
+INSERT INTO `activity_logs` (`username`, `super_id`, `user_id`, `section`, `action`, `activity_time`, `uri`) VALUES ('administrator', '0', '1', 'users', 'users_view', 1490951713, 'sys-admin/users/users-view')
+
+
+Now : 2017-03-31 11:15:19.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 11:15:19.  Time  :
+SELECT *, users.id AS MyID
+FROM `users`
+JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 11:15:19.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 11:15:19.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `group_title` ASC
+
+
+Now : 2017-03-31 11:15:19.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `id` ASC
+
+
+Now : 2017-03-31 11:15:19.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+WHERE `users_groups`.`user_id` LIKE '%29%' ESCAPE '!'
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 11:15:19.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = '29'
+
+
+Now : 2017-03-31 11:15:19.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+WHERE `users_groups`.`user_id` LIKE '%29%' ESCAPE '!'
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 11:15:19.  Time  :
+SELECT *
+FROM `upload_bg`
+
+
+Now : 2017-03-31 11:15:19.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 11:15:19.  Time  :
+INSERT INTO `activity_logs` (`username`, `super_id`, `user_id`, `section`, `action`, `activity_time`, `uri`) VALUES ('administrator', '0', '1', 'users', 'users_edit', 1490951719, 'sys-admin/users/users-edit/29')
+
+
+Now : 2017-03-31 11:15:40.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 11:15:49.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 11:15:49.  Time  :
+SELECT *, users.id AS MyID
+FROM `users`
+JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 11:15:49.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 11:15:49.  Time  :
+SELECT *
+FROM `upload_bg`
+
+
+Now : 2017-03-31 11:15:49.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 11:15:49.  Time  :
+INSERT INTO `activity_logs` (`username`, `super_id`, `user_id`, `section`, `action`, `activity_time`, `uri`) VALUES ('administrator', '0', '1', 'sys_admin', 'index', 1490951749, 'sys-admin')
+
+
+Now : 2017-03-31 11:23:07.  Time  :
+SELECT `email`, `email`, `id`, `password`, `user_active_status`, `last_login`
+FROM `users`
+WHERE `email` = 'Himisha'
+ORDER BY `id` DESC
+ LIMIT 1
+
+
+Now : 2017-03-31 11:23:20.  Time  :
+SELECT `email`, `email`, `id`, `password`, `user_active_status`, `last_login`
+FROM `users`
+WHERE `email` = 'himisha.patel@bbitsol.com'
+ORDER BY `id` DESC
+ LIMIT 1
+
+
+Now : 2017-03-31 11:23:20.  Time  :
+SELECT `password`, `salt`
+FROM `users`
+WHERE `id` = '28'
+ORDER BY `id` DESC
+ LIMIT 1
+
+
+Now : 2017-03-31 11:24:15.  Time  :
+SELECT `email`, `email`, `id`, `password`, `user_active_status`, `last_login`
+FROM `users`
+WHERE `email` = 'himisha.patel@bbitsol.com'
+ORDER BY `id` DESC
+ LIMIT 1
+
+
+Now : 2017-03-31 11:24:15.  Time  :
+SELECT `password`, `salt`
+FROM `users`
+WHERE `id` = '28'
+ORDER BY `id` DESC
+ LIMIT 1
+
+
+Now : 2017-03-31 11:24:39.  Time  :
+SELECT `email`, `email`, `id`, `password`, `user_active_status`, `last_login`
+FROM `users`
+WHERE `email` = 'himisha.patel@bbitsol.com'
+ORDER BY `id` DESC
+ LIMIT 1
+
+
+Now : 2017-03-31 11:24:39.  Time  :
+SELECT `password`, `salt`
+FROM `users`
+WHERE `id` = '28'
+ORDER BY `id` DESC
+ LIMIT 1
+
+
+Now : 2017-03-31 11:25:28.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 11:25:28.  Time  :
+SELECT *, users.id AS MyID
+FROM `users`
+JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 11:25:28.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 11:25:28.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `group_title` ASC
+
+
+Now : 2017-03-31 11:25:28.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `id` ASC
+
+
+Now : 2017-03-31 11:25:28.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 11:25:28.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = ''
+
+
+Now : 2017-03-31 11:25:28.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 11:25:28.  Time  :
+SELECT *
+FROM `upload_bg`
+
+
+Now : 2017-03-31 11:25:28.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 11:25:28.  Time  :
+INSERT INTO `activity_logs` (`username`, `super_id`, `user_id`, `section`, `action`, `activity_time`, `uri`) VALUES ('administrator', '0', '1', 'users', 'users_edit', 1490952328, 'sys-admin/users/users-edit/new')
+
+
+Now : 2017-03-31 11:26:41.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 11:26:41.  Time  :
+SELECT *, users.id AS MyID
+FROM `users`
+JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 11:26:41.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 11:26:41.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `group_title` ASC
+
+
+Now : 2017-03-31 11:26:41.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `id` ASC
+
+
+Now : 2017-03-31 11:26:41.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 11:26:41.  Time  :
+SELECT *
+FROM `users`
+WHERE `username` = 'BBITS'
+
+
+Now : 2017-03-31 11:26:41.  Time  :
+SELECT *
+FROM `users`
+WHERE `email` = 'demo.bbits@gmail.com'
+
+
+Now : 2017-03-31 11:27:31.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 11:27:31.  Time  :
+SELECT *, users.id AS MyID
+FROM `users`
+JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 11:27:31.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 11:27:31.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `group_title` ASC
+
+
+Now : 2017-03-31 11:27:31.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `id` ASC
+
+
+Now : 2017-03-31 11:27:31.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 11:27:31.  Time  :
+SELECT *
+FROM `users`
+WHERE `username` = 'BBITS'
+
+
+Now : 2017-03-31 11:27:31.  Time  :
+SELECT *
+FROM `users`
+WHERE `email` = 'demo.bbits@gmail.com'
+
+
+Now : 2017-03-31 11:27:31.  Time  :
+TRANS BEGIN
+
+
+Now : 2017-03-31 11:27:31.  Time  :
+SELECT *
+FROM `users`
+WHERE `activation_code` = '36c58b41bffafc550e4b6a8cecb6f6c8'
+ LIMIT 1
+
+
+Now : 2017-03-31 11:27:31.  Time  :
+SELECT COUNT(*) AS `numrows`
+FROM `users`
+WHERE `email` = 'BBITS'
+
+
+Now : 2017-03-31 11:27:31.  Time  :
+SELECT *
+FROM `groups`
+WHERE `name` = 'user'
+ LIMIT 1
+
+
+Now : 2017-03-31 11:27:31.  Time  :
+SHOW COLUMNS FROM `users`
+
+
+Now : 2017-03-31 11:27:31.  Time  :
+INSERT INTO `users` (`ip_address`, `activation_code`, `created_on`, `first_name`, `last_name`, `address1`, `address2`, `city`, `state`, `zip`, `mobile`, `phone`, `avatar`, `user_active_status`, `username`, `password`, `email`) VALUES ('::1', '7yVU96854YJamjpZDe44wb8e48LIi8oc1xuv6e0A', 1490952451, 'BBITS', 'BBITS', 'AMD', '208', 'AMD', 'GUJ', '380015', '9876543210', '9876543210', '58832_300x300.jpg', 'W', 'BBITS', 0, 'demo.bbits@gmail.com')
+
+
+Now : 2017-03-31 11:27:31.  Time  :
+INSERT INTO `users_groups` (`group_id`, `user_id`) VALUES (1, 31)
+
+
+Now : 2017-03-31 11:27:31.  Time  :
+SELECT *
+FROM `groups`
+WHERE `groups`.`id` = '1'
+ORDER BY `id` DESC
+ LIMIT 1
+
+
+Now : 2017-03-31 11:27:31.  Time  :
+COMMIT
+
+
+Now : 2017-03-31 11:27:39.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 11:27:39.  Time  :
+SELECT *, users.id AS MyID
+FROM `users`
+JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 11:27:39.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 11:27:39.  Time  :
+SELECT COUNT(*) AS `numrows`
+FROM `users`
+
+
+Now : 2017-03-31 11:27:39.  Time  :
+SELECT `users`.*, `groups`.`description` as `user_group_description`, GROUP_CONCAT(clients.client_name ) as client_name
+FROM `users`
+LEFT JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+LEFT JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+LEFT JOIN `users_clients` ON `users_clients`.`uc_user_id` = `users`.`id` AND `users_clients`.`uc_active_status` in ('E','O')
+LEFT JOIN `clients` ON `clients`.`cid` = `users_clients`.`uc_client_id`
+GROUP BY `users`.`id`, `groups`.`description`
+ORDER BY `username`
+ LIMIT 10
+
+
+Now : 2017-03-31 11:27:39.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `group_title` ASC
+
+
+Now : 2017-03-31 11:27:39.  Time  :
+SELECT *
+FROM `upload_bg`
+
+
+Now : 2017-03-31 11:27:39.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 11:27:39.  Time  :
+INSERT INTO `activity_logs` (`username`, `super_id`, `user_id`, `section`, `action`, `activity_time`, `uri`) VALUES ('administrator', '0', '1', 'users', 'users_view', 1490952459, 'sys-admin/users/users-view')
+
+
+Now : 2017-03-31 11:27:47.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 11:27:47.  Time  :
+SELECT *, users.id AS MyID
+FROM `users`
+JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 11:27:47.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 11:27:47.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `group_title` ASC
+
+
+Now : 2017-03-31 11:27:47.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `id` ASC
+
+
+Now : 2017-03-31 11:27:47.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+WHERE `users_groups`.`user_id` LIKE '%31%' ESCAPE '!'
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 11:27:48.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = '31'
+
+
+Now : 2017-03-31 11:27:48.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+WHERE `users_groups`.`user_id` LIKE '%31%' ESCAPE '!'
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 11:27:48.  Time  :
+SELECT *
+FROM `upload_bg`
+
+
+Now : 2017-03-31 11:27:48.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 11:27:48.  Time  :
+INSERT INTO `activity_logs` (`username`, `super_id`, `user_id`, `section`, `action`, `activity_time`, `uri`) VALUES ('administrator', '0', '1', 'users', 'users_edit', 1490952468, 'sys-admin/users/users-edit/31')
+
+
+Now : 2017-03-31 11:34:46.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 11:34:46.  Time  :
+SELECT *, users.id AS MyID
+FROM `users`
+JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 11:34:46.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 11:34:46.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `group_title` ASC
+
+
+Now : 2017-03-31 11:34:46.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `id` ASC
+
+
+Now : 2017-03-31 11:34:46.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 11:34:46.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = ''
+
+
+Now : 2017-03-31 11:34:46.  Time  :
+SELECT `users_groups`.*
+FROM `users_groups`
+ORDER BY `user_id`
+
+
+Now : 2017-03-31 11:34:46.  Time  :
+SELECT *
+FROM `upload_bg`
+
+
+Now : 2017-03-31 11:34:46.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 11:34:47.  Time  :
+INSERT INTO `activity_logs` (`username`, `super_id`, `user_id`, `section`, `action`, `activity_time`, `uri`) VALUES ('administrator', '0', '1', 'users', 'users_edit', 1490952886, 'sys-admin/users/users-edit/new')
+
+
+Now : 2017-03-31 11:37:32.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 11:37:32.  Time  :
+SELECT *, users.id AS MyID
+FROM `users`
+JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 11:37:32.  Time  :
+SELECT `users_groups`.`group_id` as `id`, `groups`.`name`, `groups`.`description`
+FROM `users_groups`
+JOIN `groups` ON `users_groups`.`group_id`=`groups`.`id`
+WHERE `users_groups`.`user_id` = '1'
+
+
+Now : 2017-03-31 11:37:32.  Time  :
+SELECT COUNT(*) AS `numrows`
+FROM `users`
+
+
+Now : 2017-03-31 11:37:32.  Time  :
+SELECT `users`.*, `groups`.`description` as `user_group_description`, GROUP_CONCAT(clients.client_name ) as client_name
+FROM `users`
+LEFT JOIN `users_groups` ON `users_groups`.`user_id` = `users`.`id`
+LEFT JOIN `groups` ON `groups`.`id` = `users_groups`.`group_id`
+LEFT JOIN `users_clients` ON `users_clients`.`uc_user_id` = `users`.`id` AND `users_clients`.`uc_active_status` in ('E','O')
+LEFT JOIN `clients` ON `clients`.`cid` = `users_clients`.`uc_client_id`
+GROUP BY `users`.`id`, `groups`.`description`
+ORDER BY `username`
+ LIMIT 10
+
+
+Now : 2017-03-31 11:37:32.  Time  :
+SELECT `groups`.*
+FROM `groups`
+ORDER BY `group_title` ASC
+
+
+Now : 2017-03-31 11:37:32.  Time  :
+SELECT *
+FROM `upload_bg`
+
+
+Now : 2017-03-31 11:37:32.  Time  :
+SELECT *
+FROM `users`
+WHERE `users`.`id` = '1'
+
+
+Now : 2017-03-31 11:37:32.  Time  :
+INSERT INTO `activity_logs` (`username`, `super_id`, `user_id`, `section`, `action`, `activity_time`, `uri`) VALUES ('administrator', '0', '1', 'users', 'users_view', 1490953052, 'sys-admin/users/users-view')
+
+
