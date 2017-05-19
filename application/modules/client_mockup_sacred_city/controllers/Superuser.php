@@ -9,6 +9,7 @@ class Superuser extends CI_Controller {
     }
     public function index(){
         $data['page']		= 'main_superuser/dasboard';
+        $data['title']		= 'dashboard';
         $data['pls'] 		= array(); //page level scripts optional
         $data['plugins'] 	= array(); //page plugins
         $data['javascript'] = array('/assets/global/js/client-overview.js'); //page javascript
@@ -22,9 +23,30 @@ class Superuser extends CI_Controller {
         $this->load->view('main_superuser/client-overview');
     }
 
-    public function client_overview_patient_new(){
+    public function new_patient(){
+        $data['page']		= 'main_superuser/new-patient';
+        $data['title']		= 'new-patient';
+        $data['pls'] 		= array(); //page level scripts optional
+        $data['plugins'] 	= array(); //page plugins
+        $data['javascript'] = array('/assets/global/js/client-overview.js'); //page javascript
+        $views				= array('layout/topbar_superuser','layout/sidebar_superuser','layout/page_superuser','layout/footer_superuser');
 
-        $this->load->view('main_superuser/client-overview-patient-new');
+        $this->layout->view($views,$data);
+
+//        $this->load->view('main_superuser/new-patient');
+    }
+
+    public function new_patient_verification(){
+        $data['page']		= 'main_superuser/new-patient-verification';
+        $data['title']		= 'new-patient';
+        $data['pls'] 		= array(); //page level scripts optional
+        $data['plugins'] 	= array(); //page plugins
+        $data['javascript'] = array('/assets/global/js/client-overview.js'); //page javascript
+        $views				= array('layout/topbar_superuser','layout/sidebar_superuser','layout/page_superuser','layout/footer_superuser');
+
+        $this->layout->view($views,$data);
+
+//        $this->load->view('main_superuser/new-patient');
     }
 
     public function client_overview_patient_manage(){

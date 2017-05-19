@@ -75,7 +75,23 @@ $lang['license']                = "License";
 
 
 $lang['patients']               = "Patients";
+$lang['new-patient']            = "New Patient";
 $lang['patients-view']          = "Manage";
+$lang['prefix']                 = "Prefix";
+$lang['first']                  = "First";
+$lang['middle']                 = "Middle";
+$lang['last']                   = "Last";
+$lang['suffix']                 = "Suffix";
+$lang['nickname']               = "Nickname";
+$lang['country']                = "Country";
+$lang['gender']                 = "Gender";
+$lang['date-of-birth']          = "Date of Birth";
+$lang['soc-secur-number']       = "Social Security Number";
+$lang['me']                     = "Me";
+$lang['doctor']                 = "Doctor";
+$lang['social-worker']          = "Social Worker";
+
+
 
 $lang ['locations']             = "Locations";
 $lang ['locations-add']         = "New";
