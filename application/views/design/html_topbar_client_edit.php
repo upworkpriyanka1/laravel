@@ -6,7 +6,7 @@ $res = $query->row();
 $img_url = base_url()."/assets/avatar/".$res->filename;
 ?>
 <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-md" style="background:url(<?php echo $img_url; ?>) no-repeat center center / cover;">
-<?php }else{ ?>
+<?php } else { ?>
 <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-md">
 <?php } ?>
 

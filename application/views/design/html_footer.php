@@ -23,4 +23,4 @@
 
         </div>
 
-<?php $this->load->view('design/client_dialogs');?>
+<?php //$this->load->view('clients/client_dialogs');?>

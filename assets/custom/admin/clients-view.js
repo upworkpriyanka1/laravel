@@ -118,6 +118,13 @@ function clearAllData() {
     });
 }
 
+function dialogAddNewClient() {
+    $( "#create-contact" ).modal(  {
+        "backdrop": "static",
+        "keyboard": true,
+        "show": true
+    } );
+}
 /**********************
  * clicking on "Filter" button in clients View page filters popup dialog is opened and inputs are filled from "hidden_" hidden inputs of form and date initialization
  * access public
