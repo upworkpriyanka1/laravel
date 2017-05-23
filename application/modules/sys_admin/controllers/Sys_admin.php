@@ -1811,10 +1811,4 @@ class Sys_admin extends CI_Controller {
     }
 
 
-
-    public function test()
-    {
-        $data['cl_type'] = $this->clients_mdl->get_clients_type();
-        $this->load->view('test', $data);
-    }
 }
