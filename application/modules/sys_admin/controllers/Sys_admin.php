@@ -285,7 +285,7 @@ class Sys_admin extends CI_Controller {
         $data['pagination_links'] 	= $pagination_links;
         $data['javascript'] = array( 'assets/custom/admin/clients-view.js',  'assets/custom/admin/client-edit.js', 'assets/global/plugins/picker/picker.js', 'assets/global/plugins/picker/picker.date.js', 'assets/global/plugins/picker/picker.time.js');
 
-        $views				= array( 'clients/client_dialogs.php', 'design/html_topbar', 'sidebar','design/page','design/html_footer');
+        $views				= array( 'design/html_topbar', 'sidebar','design/page','design/html_footer');
 
         $this->layout->view($views, $data);
     }
@@ -569,7 +569,7 @@ class Sys_admin extends CI_Controller {
         $data['plugins'] 	= array('validation'); //page plugins
         $data['javascript'] = array( '/assets/global/js/client-overview-view.js','assets/custom/admin/custom.js' );//page javascript
         /*'assets/custom/admin/user-edit.js', 'assets/custom/admin/client-edit.js'*/
-        $views				=  array('clients/html_topbar_client', 'clients/client_dialogs.php', 'sidebar','design/page','design/html_footer');
+        $views				=  array('clients/html_topbar_client', 'sidebar','design/page','design/html_footer');
         $this->layout->view($views, $data);
 //		echo "<pre>";
 //		print_r($data);
