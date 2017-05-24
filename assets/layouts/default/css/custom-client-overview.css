@@ -15,7 +15,9 @@ body{
 }
 main{
     min-height: 100%;
-    margin-bottom: -73px;
+    /*margin-bottom: -73px;*/
+    /*margin-bottom: -54px;*/
+    margin-bottom: -20px;
 }
 @media (max-width: 999px) and (min-width: 990px){
     .top-nav .page-header{
@@ -786,7 +788,7 @@ input[type=text]:focus:not([readonly]){
     top: 20px;
 }
 
-#profile-form-mock #profile-form .btn-add {
+#profile-form-mock #profile-form .btn-add{
     display: inline-block;
     position: absolute;
     right: 20px;
@@ -806,7 +808,7 @@ input[type=text]:focus:not([readonly]){
     color: #9e9e9e;
     /*color: #000;*/
 }
-#profile-form-mock #profile-form input[type=text]{
+#profile-form-mock #profile-form input[type=text], #new_patient_form input[type=text]{
     color: #000;
 }
 #profile-form-mock #profile-form select.leng:focus,  #profile-form-mock #profile-form select.title-drop:focus {
@@ -820,18 +822,19 @@ input[type=text]:focus:not([readonly]){
     margin-bottom: 0;
 
 }
-#profile-form-mock #profile-form .pad-card .card {
+#profile-form-mock #profile-form .pad-card .card, #new_patient_form .pad-card .card {
     
     background-color: #fff !important;
+    width:100%;
 }
-#profile-form-mock #profile-form .card .card-content .card-title{
+#profile-form-mock #profile-form .card .card-content .card-title, #new_patient_form .card .card-content .card-title, #new_patient_form .pad-card .card textarea{
     color: #000;
 }
-#profile-form-mock .page-content-wrapper .col-md-12 {
+#profile-form-mock .page-content-wrapper .col-md-12, #new_patient_form .page-content-wrapper .col-md-12{
     background-color: transparent !important;
     color: #000;
 }
-#profile-form-mock, #profile-form-mock .pad-card{
+#profile-form-mock, #profile-form-mock .pad-card, #new_patient {
     background-color: #e4e4e4;
 }
 
@@ -841,6 +844,10 @@ input[type=text]:focus:not([readonly]){
 #profile-form-mock #profile-form .sev-canc-mock button{
     margin-bottom: 20px;
     margin-left: 15px;
+}
+/*new patient*/
+#new_patient .page-content-wrapper .page-content {
+    padding-top: 130px !important;
 }
 
 

@@ -24,10 +24,12 @@ echo link_tag('/assets/layouts/default/css/custom-client-overview-view.css');
 
             </div>
 
+
             <button data-toggle="modal" data-target="#newclient-over" class="newclient-over waves-effect waves-light btn-large" style="background-color: #fff; color: #000;font-size: 16px;">
                 <i class="fa fa-plus" style="font-size: 16px"></i>
                 USER
             </button>
+
             <div class="modal fade newclient" id="newclient-over" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class=" modal-content">
@@ -263,6 +265,7 @@ echo link_tag('/assets/layouts/default/css/custom-client-overview-view.css');
     //validation_text = '12345';
     if(validation_text != '')
     {
+        alert( "-1123 ::" )
         $('#newclient-over').modal('show');
     }
 </script>

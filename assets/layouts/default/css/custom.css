@@ -688,7 +688,9 @@ input[type=text]:focus:not([readonly]){
 .pad-card .card {
     margin: 0.5rem 0.5rem 1rem 0;
 }
-
+.pad-col3 .pad-card .card{
+    margin: 1.5rem 1.5rem 2rem 0.5rem;
+}
 .page-header .top-notific-page{
     position: absolute;
     top:0;
@@ -1019,7 +1021,7 @@ body{
         column-count: 4;
     }
 }
-<<<<<<< HEAD
+
 /* BBITS Dev CSS Start */
 .page-sidebar-wrapper {
     float: left;
@@ -1028,7 +1030,7 @@ body{
     top: 100px;
 }
 /* BBITS Dev CSS end */
-=======
+
 @media only screen and (min-width: 993px){
     #newuserform{
         margin-left: -235px;
@@ -1120,4 +1122,4 @@ body{
 #client-edit .page-content{
     padding: 0 !important;
 }
->>>>>>> 0bd26d59917a355f81b92e86c99970fb9800b6b9
+

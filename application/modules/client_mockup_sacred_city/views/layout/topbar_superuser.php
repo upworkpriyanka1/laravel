@@ -11,9 +11,9 @@
                     <h1  id="logo">
                         <!-- <a href="#" data-activates="nav-mobile" class="button-collapse" id="nav_mobile_button"><i class="material-icons">menu</i></a>-->
                         <!--                        <span class='logo_first'>S</span>Sacred City-->
-                        <?php if($page_title != ''){ echo $page_title; }else{ ?>
-                            <?=lang('dashboard')?>
-                        <?php } ?>
+<!--                        --><?php //if($page_title != ''){ echo $page_title; }else{ ?>
+                            <?=lang($title)?>
+<!--                        --><?php //} ?>
                     </h1>
 
                     <div class="chevron">
