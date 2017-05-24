@@ -254,7 +254,7 @@ echo link_tag('/assets/layouts/default/css/custom-client-overview-view.css');
     //validation_text = '12345';
     if(validation_text != '')
     {
-        alert( "-1 ::" )
+        alert( "-1123 ::" )
         $('#newclient-over').modal('show');
     }
 </script>
