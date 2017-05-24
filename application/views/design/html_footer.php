@@ -22,5 +22,3 @@
             </div>
 
         </div>
-
-<?php $this->load->view('sys_admin/clients/client_dialogs');?>
