@@ -445,8 +445,9 @@ class Sys_admin extends CI_Controller {
      *********************************/
     public function client()
     {
+		
         $UriArray = $this->uri->uri_to_assoc(2);
-
+		
         $is_insert= true;
         $app_config = $this->config->config;
 
@@ -455,7 +456,6 @@ class Sys_admin extends CI_Controller {
             $is_insert= false;
             $cid= $UriArray['client'];
         }
-
         if($this->session->flashdata( 'validation_errors_text' ) != '')
         {
             $validation_text = trim(preg_replace('/\s+/', ' ', addslashes($this->session->flashdata( 'validation_errors_text'))));;
@@ -463,10 +463,10 @@ class Sys_admin extends CI_Controller {
             $this->session->set_flashdata('user_edit_new_post_data1',$this->session->flashdata( 'user_edit_new_post_data'));
             //echo "explode data is : " . explode('^',$this->session->flashdata( 'user_edit_new_post_data'));
             //exit(0);
-            header('Location: '.base_url().'sys-admin/client/' . $cid);
-            exit(0);
+            //header('Location: '.base_url().'sys-admin/client/' . $cid);
+            //exit(0);
         }
-
+		
         $post_array = $this->input->post();
         $sort= $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort');
         $sort_direction = $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort_direction');
@@ -488,7 +488,7 @@ class Sys_admin extends CI_Controller {
         $data['filter_created_at_from_formatted']= $filter_created_at_from_formatted;
         $data['filter_created_at_till_formatted']= $filter_created_at_till_formatted;
         $data['filter_created_at_till_formatted']= $filter_created_at_till_formatted;
-
+		
         $page_parameters_with_sort = $this->clientsPreparePageParameters($UriArray, $post_array, false, true);
         $page_parameters_without_sort = $this->clientsPreparePageParameters($UriArray, $post_array, false, false);
         $redirect_url = base_url() . 'sys-admin/clients-view' . $page_parameters_with_sort;
@@ -567,7 +567,7 @@ class Sys_admin extends CI_Controller {
 //		$data['page']		= 'clients/client-edit'; //page view to load
         $data['page']		= 'clients/client'; //page view to load
         $data['plugins'] 	= array('validation'); //page plugins
-        $data['javascript'] = array( '/assets/global/js/client-overview-view.js','assets/custom/admin/custom.js' );//page javascript
+        $data['javascript'] = array( '/assets/global/js/client-overview-view.js','assets/custom/admin/custom.js', 'assets/custom/admin/custom1.js' );//page javascript
         /*'assets/custom/admin/user-edit.js', 'assets/custom/admin/client-edit.js'*/
         $views				=  array('design/html_topbar_client','sidebar','design/page','design/html_footer');
         $this->layout->view($views, $data);
