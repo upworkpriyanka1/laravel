@@ -285,7 +285,7 @@ class Sys_admin extends CI_Controller {
         $data['pagination_links'] 	= $pagination_links;
         $data['javascript'] = array( 'assets/custom/admin/clients-view.js',  'assets/custom/admin/client-edit.js', 'assets/global/plugins/picker/picker.js', 'assets/global/plugins/picker/picker.date.js', 'assets/global/plugins/picker/picker.time.js');
 
-        $views				= array('design/html_topbar','sidebar','design/page','design/html_footer');
+        $views				= array( 'clients/client_dialogs.php', 'design/html_topbar', 'sidebar','design/page','design/html_footer');
 
         $this->layout->view($views, $data);
     }
@@ -445,8 +445,9 @@ class Sys_admin extends CI_Controller {
      *********************************/
     public function client()
     {
+		
         $UriArray = $this->uri->uri_to_assoc(2);
-
+		
         $is_insert= true;
         $app_config = $this->config->config;
 
@@ -455,7 +456,6 @@ class Sys_admin extends CI_Controller {
             $is_insert= false;
             $cid= $UriArray['client'];
         }
-
         if($this->session->flashdata( 'validation_errors_text' ) != '')
         {
             $validation_text = trim(preg_replace('/\s+/', ' ', addslashes($this->session->flashdata( 'validation_errors_text'))));;
@@ -463,10 +463,10 @@ class Sys_admin extends CI_Controller {
             $this->session->set_flashdata('user_edit_new_post_data1',$this->session->flashdata( 'user_edit_new_post_data'));
             //echo "explode data is : " . explode('^',$this->session->flashdata( 'user_edit_new_post_data'));
             //exit(0);
-            header('Location: '.base_url().'sys-admin/client/' . $cid);
-            exit(0);
+            //header('Location: '.base_url().'sys-admin/client/' . $cid);
+            //exit(0);
         }
-
+		
         $post_array = $this->input->post();
         $sort= $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort');
         $sort_direction = $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort_direction');
@@ -488,7 +488,7 @@ class Sys_admin extends CI_Controller {
         $data['filter_created_at_from_formatted']= $filter_created_at_from_formatted;
         $data['filter_created_at_till_formatted']= $filter_created_at_till_formatted;
         $data['filter_created_at_till_formatted']= $filter_created_at_till_formatted;
-
+		
         $page_parameters_with_sort = $this->clientsPreparePageParameters($UriArray, $post_array, false, true);
         $page_parameters_without_sort = $this->clientsPreparePageParameters($UriArray, $post_array, false, false);
         $redirect_url = base_url() . 'sys-admin/clients-view' . $page_parameters_with_sort;
@@ -567,9 +567,9 @@ class Sys_admin extends CI_Controller {
 //		$data['page']		= 'clients/client-edit'; //page view to load
         $data['page']		= 'clients/client'; //page view to load
         $data['plugins'] 	= array('validation'); //page plugins
-        $data['javascript'] = array( '/assets/global/js/client-overview-view.js','assets/custom/admin/custom.js' );//page javascript
+        $data['javascript'] = array( '/assets/global/js/client-overview-view.js','assets/custom/admin/custom.js', 'assets/custom/admin/custom1.js' );//page javascript
         /*'assets/custom/admin/user-edit.js', 'assets/custom/admin/client-edit.js'*/
-        $views				=  array('design/html_topbar_client','sidebar','design/page','design/html_footer');
+        $views				=  array('clients/html_topbar_client', 'clients/client_dialogs.php', 'sidebar','design/page','design/html_footer');
         $this->layout->view($views, $data);
 //		echo "<pre>";
 //		print_r($data);
@@ -581,6 +581,7 @@ class Sys_admin extends CI_Controller {
 
     }
 
+    /*
     public function client_edit(){
         if ($this->input->server('REQUEST_METHOD') == 'GET'){
             $data['meta_description']='';
@@ -627,7 +628,8 @@ class Sys_admin extends CI_Controller {
             }
         }
 
-    }
+    }  */
+
     public function client_edit_post(){
 
         $this->client_edit_form_validation();
@@ -1811,10 +1813,4 @@ class Sys_admin extends CI_Controller {
     }
 
 
-
-    public function test()
-    {
-        $data['cl_type'] = $this->clients_mdl->get_clients_type();
-        $this->load->view('test', $data);
-    }
 }

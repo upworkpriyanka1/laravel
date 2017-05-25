@@ -27,7 +27,7 @@
                     <ul>
                         <!-- SIDEBAR MENU LINK -->
                         <li class="nav-item">
-                            <a href="/client-mockup-sacred-city/superuser/client-overview-patient-new/" class="nav-link ">
+                            <a href="/client-mockup-sacred-city/superuser/new-patient/" class="nav-link ">
                                 <!-- <a href="--><!--" class="nav-link ">-->
                                 <span class="fa fa-plus"></span>
                                 <span class="title">New</span>
