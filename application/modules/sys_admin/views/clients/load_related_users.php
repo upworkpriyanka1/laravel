@@ -14,7 +14,7 @@
         <tr>
             <td><?php echo $next_related_user->first_name.' '.$next_related_user->last_name; ?></td>
             <td><?php echo $next_related_user->user_title; ?> </td>
-            <td><?php echo $this->clients_mdl->getUserActiveStatusLabel($next_related_user->user_active_status) ?></td>
+            <td><?php echo $this->users_mdl->getUserActiveStatusLabel($next_related_user->user_active_status) ?></td>
             <td><?php echo $this->common_lib->format_datetime( $next_related_user->uc_created_at) ?></td>
         </tr>
             <?php
