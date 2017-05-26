@@ -68,7 +68,7 @@ class Sys_admin_mdl extends CI_Model {
         if (!empty($filters['client_id'])) {
             if ( !$are_clients_joined ) {
                 $this->db->join($this->m_users_clients_table, $this->m_users_clients_table . '.uc_user_id = ' . $this->m_users_table . '.id' . ' AND ' .
-                    $this->m_users_clients_table.'.uc_client_id = ' . "'" . $filters['client_id'] . "'", 'left');
+                    $this->m_users_clients_table.'.uc_client_id = ' . "'" . $filters['client_id'] . "'", '');
             }
 //            $this->db->where($this->m_users_clients_table.'.uc_client_id = ' . "'" . $filters['client_id'] . "'");
 //                $additive_fields_for_select.= ', '.$this->m_users_clients_table.".uc_active_status as uc_is_active";

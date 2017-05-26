@@ -128,7 +128,7 @@ class Common_lib
 
         $data['javascript'] = array('assets/custom/admin/user-edit-validation.js', 'assets/custom/common/upload.js');
 
-        $views = array('design/html_topbar', 'sidebar', 'design/page', 'design/html_footer');
+        $views = array('design/html_topbar', 'sidebar', 'design/page', 'design/html_footer', 'common_dialogs.php');
 
         $this->CI->layout->view($views, $data);
 

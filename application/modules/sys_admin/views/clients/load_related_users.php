@@ -1,4 +1,35 @@
-<?php $ci = &get_instance();
+<div class="table-responsive">
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Title</th>
+            <th>Status</th>
+            <th>Created</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <? foreach ($related_users_list as $next_related_user) { ?>
+        <tr>
+            <td><?php echo $next_related_user->first_name.' '.$next_related_user->last_name; ?></td>
+            <td><?php echo $next_related_user->user_title; ?> </td>
+            <td><?php echo $this->clients_mdl->getUserActiveStatusLabel($next_related_user->user_active_status) ?></td>
+            <td><?php echo $this->common_lib->format_datetime( $next_related_user->uc_created_at) ?></td>
+        </tr>
+            <?php
+        }//end foreach( $ as $next_key=>$next_value ) {
+        ?>
+        </tbody>
+    </table>
+</div>
+
+
+<?php
+
+return;
+
+$ci = &get_instance();
 if ( isset($related_users_list) && count($related_users_list) > 0 ) { ?>
 
 <!--<h4>--><?//=$users_count ?><!-- Related User(s)  $related_users_type::--><?//= $related_users_type ?><!--;; $related_users_filter::--><?//= $related_users_filter ?><!--</h4>   <!-- $related_users_type, 'related_users_filter' -->

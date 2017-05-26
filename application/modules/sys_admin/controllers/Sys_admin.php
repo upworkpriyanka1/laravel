@@ -64,7 +64,7 @@ class Sys_admin extends CI_Controller {
         $data['pls'] 		= array(); //page level scripts optional
         $data['plugins'] 	= array(); //page plugins
         $data['javascript'] = array(); //page javascript
-        $views				= array('design/html_topbar','sidebar','design/page','design/html_footer');
+        $views				= array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php' );
 
         $this->layout->view($views,$data);
     }
@@ -81,7 +81,7 @@ class Sys_admin extends CI_Controller {
         $data['pls'] 		= array(); //page level scripts optional
         $data['plugins'] 	= array(); //page plugins
         $data['javascript'] = array(); //page javascript
-        $views				= array('design/html_topbar','sidebar','design/page','design/html_footer');
+        $views				= array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php' );
 
         $this->layout->view($views,$data);
     }
@@ -96,7 +96,7 @@ class Sys_admin extends CI_Controller {
         $data['pls'] 		= array(); //page level scripts optional
         $data['plugins'] 	= array(); //page plugins
         $data['javascript'] = array(); //page javascript
-        $views				= array('design/html_topbar','design/page','design/html_footer');
+        $views				= array('design/html_topbar','design/page','design/html_footer', 'common_dialogs.php' );
 
         $this->layout->view($views,$data);
     }
@@ -122,7 +122,7 @@ class Sys_admin extends CI_Controller {
         $data['pls'] 		= array(); //page level scripts optional
         $data['plugins'] 	= array(); //page plugins
         $data['javascript'] = array(); //page javascript
-        $views=  array('design/html_topbar','sidebar','design/page','design/html_footer');
+        $views=  array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php' );
         $this->layout->view($views, $data);
     }
 
@@ -285,10 +285,11 @@ class Sys_admin extends CI_Controller {
         $data['pagination_links'] 	= $pagination_links;
         $data['javascript'] = array( 'assets/custom/admin/clients-view.js',  'assets/custom/admin/client-edit.js', 'assets/global/plugins/picker/picker.js', 'assets/global/plugins/picker/picker.date.js', 'assets/global/plugins/picker/picker.time.js');
 
-        $views				= array( 'clients/client_dialogs.php', 'design/html_topbar', 'sidebar','design/page','design/html_footer');
+        $views				= array( 'design/html_topbar', 'sidebar','design/page','design/html_footer', 'common_dialogs.php' );
 
         $this->layout->view($views, $data);
     }
+
 
     public function clients_view_new(){
 
@@ -436,7 +437,6 @@ class Sys_admin extends CI_Controller {
         echo json_encode(["html"=>$html]);
         exit();
     }
-
     /**********************
      * Edit clients
      * access public
@@ -567,9 +567,9 @@ class Sys_admin extends CI_Controller {
 //		$data['page']		= 'clients/client-edit'; //page view to load
         $data['page']		= 'clients/client'; //page view to load
         $data['plugins'] 	= array('validation'); //page plugins
-        $data['javascript'] = array( '/assets/global/js/client-overview-view.js','assets/custom/admin/custom.js', 'assets/custom/admin/custom1.js' );//page javascript
+        $data['javascript'] = array( '/assets/global/js/client-overview-view.js','assets/custom/admin/client_overview_methods.js' );//page javascript
         /*'assets/custom/admin/user-edit.js', 'assets/custom/admin/client-edit.js'*/
-        $views				=  array('clients/html_topbar_client', 'clients/client_dialogs.php', 'sidebar','design/page','design/html_footer');
+        $views				=  array( 'clients/html_topbar_client', 'sidebar','design/page','design/html_footer', 'common_dialogs.php' );
         $this->layout->view($views, $data);
 //		echo "<pre>";
 //		print_r($data);
@@ -581,54 +581,110 @@ class Sys_admin extends CI_Controller {
 
     }
 
-    /*
-    public function client_edit(){
-        if ($this->input->server('REQUEST_METHOD') == 'GET'){
-            $data['meta_description']='';
-            $data['menu']		= $this->menu;
 
-            $data['user'] 		= $this->user;
-            $data['group'] 		= $this->group->name;
+    public function save_client_related_user()
+    {
+        $UriArray = [];
+        $is_insert= false;
+        $post_array = $this->input->post();
+        $id = $this->common_lib->getParameter($this, $UriArray, $post_array, 'id' );
+        $client_id = $this->common_lib->getParameter($this, $UriArray, $post_array, 'client_id' );
+        $first_name = $this->common_lib->getParameter($this, $UriArray, $post_array, 'first_name' );
+        $last_name = $this->common_lib->getParameter($this, $UriArray, $post_array, 'last_name' );
+        $phone = $this->common_lib->getParameter($this, $UriArray, $post_array, 'phone' );
+        $email = $this->common_lib->getParameter($this, $UriArray, $post_array, 'email' );
 
+        $username= $first_name . '_' . $last_name;
+        $user_active_status= 'W';
+        $city= '';
+        $state= '';
+        $auth= 0;
 
-            $UriArray = $this->uri->uri_to_assoc(2);
-            $client_id=$UriArray['client-edit'];
-            $client		= $this->clients_mdl->getRowById($client_id);
-            $data['client']		= $client;
-            $data['page']		='clients/client-edit';
-            $views=  array('design/html_topbar_client_edit','sidebar','design/page','design/html_footer');
-            $this->layout->view($views, $data);
-        }else if ($this->input->server('REQUEST_METHOD') == 'POST'){
-            $client_id = $this->input->post('data[client_id]');
-            $this->client_edit_form_validation();
-            $validation_status = $this->form_validation->run();
-            if ($validation_status == FALSE) {
-                $this->session->set_flashdata('errors', validation_errors());
-                redirect('sys-admin/client-edit/'.$client_id.'/');
+        $this->db->trans_start( );
+        $ip_address= !empty($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
+
+        $additional_data= array(  'ip_address'=> $ip_address, 'user_active_status' => $user_active_status, 'first_name' => $first_name, 'last_name' => $last_name, 'city' => $city, 'state' => $state, 'phone' => $phone, 'created_on'=> now(), 'avatar' => $post_array['data']['avatar'], 'is_multi_auth' => $auth, 'created_at' => date('Y-m-d H:i:s'), 'super_id' => $this->user->user_id );
+        $user_group_array= array();
+        $new_user_id = $this->ion_auth->register( $username, '', $email, $additional_data,   array(  $user_group_array  )  );
+
+        if ($new_user_id) {
+            $ret = $this->admin_mdl->update_users_clients( $client_id, $new_user_id, 'N' );
+
+            $this->session->set_flashdata('editor_message', lang('user') . " '" . $post_array['data']['first_name'] . "' was " . ($is_insert ? "inserted" : "updated") );
+            if ($this->db->trans_status() === FALSE) {
+                $this->db->trans_rollback();
+                $this->output->set_content_type('application/json')->set_output(json_encode(array('ErrorMessage' => 'Error creating user', 'ErrorCode' => 1, 'id' => $id )));
             } else {
-                $data = array(
-                    'client_name' => $this->input->post('data[client_name]'),
-                    'client_address1' => $this->input->post('data[client_address1]'),
-                    'client_address2' => $this->input->post('data[client_address2]'),
-                    'client_city' => $this->input->post('data[client_city]'),
-                    'client_state' => $this->input->post('data[client_state]'),
-                    'client_zip' => $this->input->post('data[client_zip]'),
-                    'client_phone' => $this->input->post('data[client_phone]'),
-                    'client_phone_2' => $this->input->post('data[client_phone2]'),
-                    'client_phone_3' => $this->input->post('data[client_phone3]'),
-                    'client_phone_4' => $this->input->post('data[client_phone4]'),
-                    'client_phone_type' => $this->input->post('data[client_phone_type]'),
-                    'client_email' => $this->input->post('data[client_email]'),
-                    'client_website' => $this->input->post('data[client_website]'),
-                );
-                $this->db->where( $this->clients_mdl->m_clients_table . '.cid', $client_id);
-                $this->db->update($this->clients_mdl->m_clients_table, $data);
-                $this->session->set_flashdata('massege', 'Updated successfully');
-                redirect('sys-admin/client/'.$client_id.'/');
+                $this->db->trans_commit();
             }
+            $this->output->set_content_type('application/json')->set_output(json_encode(array('ErrorMessage' => '', 'ErrorCode' => 0, 'id' => $new_user_id )));
         }
 
-    }  */
+
+    }
+
+
+    /**********************
+     * for client load list of related_users, with filters, sorting
+     * access public
+     * @params : filter_client_id - client_id, filter_related_users_filter - filter string by username, filter_related_users_type - users type of relation,
+     * user_active_status - filter by user active_status, sort/sort_direction - order and direction of resulting listing
+     * return list related users
+     *********************************/
+    public function load_client_related_users()
+    {
+        $UriArray = $this->uri->uri_to_assoc(3);
+        $post_array = $this->input->post();
+        $filter_client_id = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_id');
+        $page = $this->common_lib->getParameter($this, $UriArray, $post_array, 'page');
+        $filter_related_users_filter = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_related_users_filter');
+        $filter_related_users_type = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_related_users_type');
+        $db_filter_related_users_type= $filter_related_users_type;
+        $user_active_status = $this->common_lib->getParameter($this, $UriArray, $post_array, 'user_active_status');
+        $sort= $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort', 'username');
+        $sort_direction = $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort_direction', 'desc');
+        if ($filter_related_users_type == 'A') { // SHOW ALL USERS
+            $db_filter_related_users_type= '';
+        }
+        if ( empty($page) ) $page= 1;
+
+
+        $PageParametersWithSort = $this->clientsRelatedUsersPreparePageParameters($UriArray, $post_array, false, true);     // keep all sorting parameters for using in sorting
+        $PageParametersWithoutSort = $this->clientsRelatedUsersPreparePageParameters($UriArray, $post_array, false, false); // by column header or at editor submitting to keep current filters
+
+        $this->load->library('pagination');
+        $pagination_config= $this->common_lib->getPaginationParams('ajax');
+        $pagination_config['base_url'] = base_url() . 'sys-admin/clients_edit_load_related_users' . '/page';
+        $filters= array('client_id'=>$filter_client_id, 'uc_active_status'=> $db_filter_related_users_type, 'show_uc_active_status'=> 1, 'username'=> $filter_related_users_filter, 'user_active_status'=> $user_active_status);
+        $users_count = $this->admin_mdl->getUsersList( true, 0, $filters );
+
+        $pagination_config['total_rows'] = $users_count;
+        $this->pagination->suffix = $this->clientsRelatedUsersPreparePageParameters($UriArray, $post_array, false, true);
+
+        $this->pagination->initialize($pagination_config);
+        $this->pagination->cur_page= $page;
+        $pagination_links = $this->pagination->create_links();
+        $related_users_list= [];
+        if ( $users_count > 0 ) {
+            $related_users_list = $this->admin_mdl->getUsersList( false, $page, $filters, $sort, $sort_direction );
+        }
+//        echo '<pre>'.count($related_users_list).'::$related_users_list::'.print_r($related_users_list,true).'</pre>';
+//        die("-1 XXZ");
+        $data = array('related_users_list' => $related_users_list, 'client_id' => $filter_client_id, 'users_count'=> $users_count, 'related_users_type'=> $filter_related_users_type, 'related_users_filter'=> $filter_related_users_filter, 'sort_direction'=> $sort_direction, 'sort'=> $sort, 		'PageParametersWithSort'=> $PageParametersWithSort, 'PageParametersWithoutSort'=> $PageParametersWithoutSort,
+                      'pagination_links'=> 		$pagination_links   );
+        $data['page']		= 'clients/load_related_users'; //page view to load
+        $data['page_number']		= $page;
+        $data['plugins'] 	= array();
+        $data['javascript'] = array();
+        $views				= array(  'design/page'  );
+        ob_start();
+        $this->layout->view($views, $data);
+        $html = ob_get_contents();
+        ob_end_clean();
+        $this->output->set_content_type('application/json')->set_output(json_encode(array('ErrorMessage' => '', 'ErrorCode' => 0, 'client_id' => $filter_client_id, 'users_count'=> $users_count, 'html' => $html )));
+
+    }
+
 
     public function client_edit_post(){
 
@@ -856,64 +912,6 @@ class Sys_admin extends CI_Controller {
 
 
 
-    /**********************
-     * for client load list of related_users, with filters, sorting
-     * access public
-     * @params : filter_client_id - client_id, filter_related_users_filter - filter string by username, filter_related_users_type - users type of relation,
-     * user_active_status - filter by user active_status, sort/sort_direction - order and direction of resulting listing
-     * return list related users
-     *********************************/
-    public function clients_edit_load_related_users()
-    {
-        $UriArray = $this->uri->uri_to_assoc(3);
-        $post_array = $this->input->post();
-        $filter_client_id = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_id');
-        $page = $this->common_lib->getParameter($this, $UriArray, $post_array, 'page');
-        $filter_related_users_filter = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_related_users_filter');
-        $filter_related_users_type = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_related_users_type');
-        $db_filter_related_users_type= $filter_related_users_type;
-        $user_active_status = $this->common_lib->getParameter($this, $UriArray, $post_array, 'user_active_status');
-        $sort= $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort', 'username');
-        $sort_direction = $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort_direction', 'desc');
-        if ($filter_related_users_type == 'A') { // SHOW ALL USERS
-            $db_filter_related_users_type= '';
-        }
-        if ( empty($page) ) $page= 1;
-
-
-        $PageParametersWithSort = $this->clientsRelatedUsersPreparePageParameters($UriArray, $post_array, false, true);     // keep all sorting parameters for using in sorting
-        $PageParametersWithoutSort = $this->clientsRelatedUsersPreparePageParameters($UriArray, $post_array, false, false); // by column header or at editor submitting to keep current filters
-
-        $this->load->library('pagination');
-        $pagination_config= $this->common_lib->getPaginationParams('ajax');
-        $pagination_config['base_url'] = base_url() . 'sys-admin/clients_edit_load_related_users' . '/page';
-        $filters= array('client_id'=>$filter_client_id, 'uc_active_status'=> $db_filter_related_users_type, 'show_uc_active_status'=> 1, 'username'=> $filter_related_users_filter, 'user_active_status'=> $user_active_status);
-        $users_count = $this->admin_mdl->getUsersList( true, 0, $filters );
-
-        $pagination_config['total_rows'] = $users_count;
-        $this->pagination->suffix = $this->clientsRelatedUsersPreparePageParameters($UriArray, $post_array, false, true);
-
-        $this->pagination->initialize($pagination_config);
-        $this->pagination->cur_page= $page;
-        $pagination_links = $this->pagination->create_links();
-        $related_users_list= [];
-        if ( $users_count > 0 ) {
-            $related_users_list = $this->admin_mdl->getUsersList( false, $page, $filters, $sort, $sort_direction );
-        }
-        $data = array('related_users_list' => $related_users_list, 'client_id' => $filter_client_id, 'users_count'=> $users_count, 'related_users_type'=> $filter_related_users_type, 'related_users_filter'=> $filter_related_users_filter, 'sort_direction'=> $sort_direction, 'sort'=> $sort, 		'PageParametersWithSort'=> $PageParametersWithSort, 'PageParametersWithoutSort'=> $PageParametersWithoutSort,
-            'pagination_links'=> 		$pagination_links   );
-        $data['page']		= 'clients/load_related_users'; //page view to load
-        $data['page_number']		= $page;
-        $data['plugins'] 	= array();
-        $data['javascript'] = array();
-        $views				= array(  'design/page'  );
-        ob_start();
-        $this->layout->view($views, $data);
-        $html = ob_get_contents();
-        ob_end_clean();
-        $this->output->set_content_type('application/json')->set_output(json_encode(array('ErrorMessage' => '', 'ErrorCode' => 0, 'client_id' => $filter_client_id, 'users_count'=> $users_count, 'html' => $html )));
-
-    }
 
     /**********************
      * for client update/insert related_user_status
@@ -1239,7 +1237,7 @@ class Sys_admin extends CI_Controller {
         $data['menu']		= $this->menu;
         $data['plugins'] 	= array();
         $data['javascript'] = array();
-        $views				= array('design/html_topbar','sidebar','design/page','design/html_footer');
+        $views				= array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php' );
         $this->layout->view($views, $data);
     }
 
@@ -1323,7 +1321,7 @@ class Sys_admin extends CI_Controller {
         $data['page']		= 'users/users-edit'; //page view to load
         $data['plugins'] 	= array('validation');
         $data['javascript'] = array( 'assets/custom/admin/user-edit-validation.js');
-        $views=  array('design/html_topbar','sidebar','design/page','design/html_footer');
+        $views=  array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php' );
         $this->layout->view($views, $data);
     }
 
@@ -1407,7 +1405,7 @@ class Sys_admin extends CI_Controller {
         $data['page']		= 'users/users-add';
         $data['plugins'] 	= array('validation');
         $data['javascript'] = array( 'assets/custom/admin/user-add-validation.js');
-        $views=  array('design/html_topbar','sidebar','design/page','design/html_footer');
+        $views=  array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php' );
         $this->layout->view($views, $data);
     }
 
@@ -1483,7 +1481,7 @@ class Sys_admin extends CI_Controller {
         $data['page']		='users/users-jobs';
         $data['plugins'] 	= array(); //page plugins
         $data['javascript'] = array(); //page javascript
-        $views				= array('design/html_topbar','sidebar','design/page','design/html_footer');
+        $views				= array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php' );
         $this->layout->view($views, $data);
     }
 
@@ -1559,7 +1557,7 @@ class Sys_admin extends CI_Controller {
         $data['page']		='users/users-role';
         $data['plugins'] 	= array(); //page plugins
         $data['javascript'] = array(); //page javascript
-        $views				= array('design/html_topbar','sidebar','design/page','design/html_footer');
+        $views				= array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php' );
         $this->layout->view($views, $data);
     }
 
@@ -1650,7 +1648,7 @@ class Sys_admin extends CI_Controller {
         $data['page']		='clients/clients-types';
         $data['plugins'] 	= array('validation');
         $data['javascript'] = array( 'assets/custom/admin/client-type-add-validation.js');
-        $views				= array('design/html_topbar','sidebar','design/page','design/html_footer');
+        $views				= array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php' );
         $this->layout->view($views, $data);
     }
 
@@ -1734,7 +1732,7 @@ class Sys_admin extends CI_Controller {
         $data['page']		='contacts/contacts-types';
         $data['plugins'] 	= array('validation','xeditable');
         $data['javascript'] = array( 'assets/custom/admin/contacts-type-add-validation.js');
-        $views				= array('design/html_topbar','sidebar','design/page','design/html_footer');
+        $views				= array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php' );
         $this->layout->view($views, $data);
     }
 
