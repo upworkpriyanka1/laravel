@@ -36,7 +36,7 @@ function setClientUserValidationRules() {
                 url: href,
                 type: 'POST',
                 dataType: 'json',
-                data: {   'client_id' : $("#form_user_modal_editor_client_id").val(),    'first_name' : $("#form_user_modal_editor_first_name").val(),    'last_name' : $("#form_user_modal_editor_last_name").val(),    'phone' : $("#form_user_modal_editor_phone").val(),    'email' : $("#form_user_modal_editor_email").val(),    'email1' : $("#form_user_modal_editor_email1").val(),   },
+                data: {   'client_id' : $("#form_user_modal_editor_client_id").val(),    'first_name' : $("#form_user_modal_editor_first_name").val(),    'last_name' : $("#form_user_modal_editor_last_name").val(),    'phone' : $("#form_user_modal_editor_phone").val(),    'email' : $("#form_user_modal_editor_email").val(),    'user_group_id' : $("#form_user_modal_editor_title").val(),   },
                 success: function(result) {
                     // alert( "form_user_modal_editor result::"+var_dump(result) )
                     if (result.ErrorCode == 0) {

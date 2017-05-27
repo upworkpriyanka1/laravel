@@ -36,6 +36,7 @@ echo link_tag('/assets/layouts/default/css/custom-client-overview-view.css');
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
                             <h3 class="modal-title" id="lineModalLabel">New user for <?php echo $client->client_name ?> </h3>
+                            <h5>All fields are required.</h5>
                         </div>
 
                         <div class="row">
@@ -76,6 +77,20 @@ echo link_tag('/assets/layouts/default/css/custom-client-overview-view.css');
                                         <i class="material-icons prefix">email</i>
                                         <input required type="email" name="form_user_modal_editor_email1" id="form_user_modal_editor_email1" value="" class="user_email_confirm validate required_form" onChange="validateFormEnableOrDisable('form_client_edit2');"/>
                                         <label for="email1">Verify email address</label>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <i class="material-icons prefix">account_circle</i>
+                                        <select required name="form_user_modal_editor_title" id="form_user_modal_editor_title" class="user_email_confirm validate required_form" >
+                                            <option value="">Select Type</option>
+                                            <?php foreach( $groupsSelectionList as $next_key=>$nextGroupsSelection ) { ?>
+                                                <option value="<?=$nextGroupsSelection['key']  ?>" ><?=$nextGroupsSelection['value']  ?></option>
+                                            <?php } ?>
+                                        </select>
+                                        <label for="email1">Verify title</label>
                                     </div>
                                 </div>
                             </form>

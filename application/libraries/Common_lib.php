@@ -1239,13 +1239,9 @@ class Common_lib
 
 
     public static function sendEmail($to, $subject, $message)
-
     {
-
         //AppUtils::deb( $cms_item_template_id, 'SendEmail $cms_item_template_id::');
-
         $ci = & get_instance();
-
 	    $ci->common_lib->DebToFile( 'sendEmail $to::'.print_r($to,true));
 
 	    $ci->common_lib->DebToFile( 'sendEmail $subject::'.print_r($subject,true));

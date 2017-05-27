@@ -1,3 +1,10 @@
+<?php if ( !isset($related_users_list) or empty($related_users_list) ) {
+    echo '<h4>There are no users for this client</h4>';
+    return;
+}
+?>
+
+
 <div class="table-responsive">
     <table>
         <thead>
@@ -13,9 +20,9 @@
         <? foreach ($related_users_list as $next_related_user) { ?>
         <tr>
             <td><?php echo $next_related_user->first_name.' '.$next_related_user->last_name; ?></td>
-            <td><?php echo $next_related_user->user_title; ?> </td>
+            <td><?php echo $next_related_user->user_group_description; ?> </td>
             <td><?php echo $this->users_mdl->getUserActiveStatusLabel($next_related_user->user_active_status) ?></td>
-            <td><?php echo $this->common_lib->format_datetime( $next_related_user->uc_created_at) ?></td>
+            <td><?php echo $this->common_lib->format_datetime( $next_related_user->created_at) ?></td>
         </tr>
             <?php
         }//end foreach( $ as $next_key=>$next_value ) {

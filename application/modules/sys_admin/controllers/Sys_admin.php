@@ -10,6 +10,7 @@ class Sys_admin extends CI_Controller {
         $this->load->model('sys_admin_mdl','admin_mdl');
         $this->load->model('clients_mdl','clients_mdl');
         $this->load->model('users_mdl');
+        $this->load->model('cms_items_mdl');
         $this->lang->load('sys_admin');
 //		 $this->config->load('sys_admin_menu', true );
 //		 $this->menu    			= $this->config->item( 'sys_admin_menu' );
@@ -535,9 +536,6 @@ class Sys_admin extends CI_Controller {
 
         }
 
-
-        // For add new user by BBITS DEV
-        // Start BBITS DEV
         $groupsSelectionList= $this->users_mdl->getGroupsSelectionList( array(), 'id',  'asc' );
 
         $usersGroups = $this->users_mdl->getUsersGroupsList( false, 0, array('user_id'=> $user_id) );
@@ -587,12 +585,15 @@ class Sys_admin extends CI_Controller {
         $UriArray = [];
         $is_insert= false;
         $post_array = $this->input->post();
+        $app_config = $this->config->config;
+
         $id = $this->common_lib->getParameter($this, $UriArray, $post_array, 'id' );
         $client_id = $this->common_lib->getParameter($this, $UriArray, $post_array, 'client_id' );
         $first_name = $this->common_lib->getParameter($this, $UriArray, $post_array, 'first_name' );
         $last_name = $this->common_lib->getParameter($this, $UriArray, $post_array, 'last_name' );
         $phone = $this->common_lib->getParameter($this, $UriArray, $post_array, 'phone' );
         $email = $this->common_lib->getParameter($this, $UriArray, $post_array, 'email' );
+        $user_group_id = $this->common_lib->getParameter($this, $UriArray, $post_array, 'user_group_id' );
 
         $username= $first_name . '_' . $last_name;
         $user_active_status= 'W';
@@ -602,15 +603,36 @@ class Sys_admin extends CI_Controller {
 
         $this->db->trans_start( );
         $ip_address= !empty($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
+        $activation_code= $this->common_lib->GenerateActivationCode();
+//        echo '<pre>$activation_code:'.print_r($activation_code,true).'</pre>';
 
-        $additional_data= array(  'ip_address'=> $ip_address, 'user_active_status' => $user_active_status, 'first_name' => $first_name, 'last_name' => $last_name, 'city' => $city, 'state' => $state, 'phone' => $phone, 'created_on'=> now(), 'avatar' => $post_array['data']['avatar'], 'is_multi_auth' => $auth, 'created_at' => date('Y-m-d H:i:s'), 'super_id' => $this->user->user_id );
-        $user_group_array= array();
+        $additional_data= array(  'ip_address'=> $ip_address, 'user_active_status' => $user_active_status, 'first_name' => $first_name, 'last_name' => $last_name, 'city' => $city, 'state' => $state, 'phone' => $phone, 'created_on'=> now(), 'avatar' => '', 'is_multi_auth' => $auth, 'created_at' => date('Y-m-d H:i:s'), 'super_id' => $this->user->user_id, 'activation_code'=> $activation_code );
+        $user_group_array= array($user_group_id);
         $new_user_id = $this->ion_auth->register( $username, '', $email, $additional_data,   array(  $user_group_array  )  );
 
         if ($new_user_id) {
             $ret = $this->admin_mdl->update_users_clients( $client_id, $new_user_id, 'N' );
 
-            $this->session->set_flashdata('editor_message', lang('user') . " '" . $post_array['data']['first_name'] . "' was " . ($is_insert ? "inserted" : "updated") );
+            $activation_page_url= $app_config['base_url']."/activation/".$activation_code;
+            $title= 'You are registered at ' . $app_config['site_name'] . ' site';
+            $content = $this->cms_items_mdl->getBodyContentByAlias('user_register',
+                array('username' => $username,
+                    'first_name' => $first_name,
+                    'last_name' => $last_name,
+                    'site_name' => $app_config['site_name'],
+                    'support_signature' => $app_config['support_signature'],
+                    'activation_page_url' => $activation_page_url,
+                    'site_url' => $app_config['base_url'],
+                    'email' => $email
+                ), true);
+//            echo '<pre>$title::'.print_r($title,true).'</pre>';
+//            echo '<pre>$content::'.print_r($content,true).'</pre>';
+                $EmailOutput = $this->common_lib->SendEmail($email, $title, $content );
+//            echo '<pre>$EmailOutput::'.print_r($EmailOutput,true).'</pre>';
+//				$this->common_lib->DebToFile( 'sendEmail $content::'.print_r($content,true));
+
+
+            $this->session->set_flashdata('editor_message', lang('user') . " '" . $first_name . "' was " . ($is_insert ? "inserted" : "updated") );
             if ($this->db->trans_status() === FALSE) {
                 $this->db->trans_rollback();
                 $this->output->set_content_type('application/json')->set_output(json_encode(array('ErrorMessage' => 'Error creating user', 'ErrorCode' => 1, 'id' => $id )));
@@ -641,8 +663,8 @@ class Sys_admin extends CI_Controller {
         $filter_related_users_type = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_related_users_type');
         $db_filter_related_users_type= $filter_related_users_type;
         $user_active_status = $this->common_lib->getParameter($this, $UriArray, $post_array, 'user_active_status');
-        $sort= $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort', 'username');
-        $sort_direction = $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort_direction', 'desc');
+        $sort= $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort', 'created_at');
+        $sort_direction = $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort_direction', 'asc');
         if ($filter_related_users_type == 'A') { // SHOW ALL USERS
             $db_filter_related_users_type= '';
         }
@@ -655,8 +677,9 @@ class Sys_admin extends CI_Controller {
         $this->load->library('pagination');
         $pagination_config= $this->common_lib->getPaginationParams('ajax');
         $pagination_config['base_url'] = base_url() . 'sys-admin/clients_edit_load_related_users' . '/page';
-        $filters= array('client_id'=>$filter_client_id, 'uc_active_status'=> $db_filter_related_users_type, 'show_uc_active_status'=> 1, 'username'=> $filter_related_users_filter, 'user_active_status'=> $user_active_status);
-        $users_count = $this->admin_mdl->getUsersList( true, 0, $filters );
+        $filters= array( 'client_id'=>$filter_client_id, 'uc_active_status'=> $db_filter_related_users_type, 'show_uc_active_status'=> 1, 'username'=> $filter_related_users_filter, 'user_active_status'=> $user_active_status );
+        $users_count = $this->users_mdl->getUsersList( true, 0, $filters );
+        $filters['show_user_group']= 1;
 
         $pagination_config['total_rows'] = $users_count;
         $this->pagination->suffix = $this->clientsRelatedUsersPreparePageParameters($UriArray, $post_array, false, true);
@@ -666,10 +689,8 @@ class Sys_admin extends CI_Controller {
         $pagination_links = $this->pagination->create_links();
         $related_users_list= [];
         if ( $users_count > 0 ) {
-            $related_users_list = $this->admin_mdl->getUsersList( false, $page, $filters, $sort, $sort_direction );
+            $related_users_list = $this->users_mdl->getUsersList( false, $page, $filters, $sort, $sort_direction );
         }
-//        echo '<pre>'.count($related_users_list).'::$related_users_list::'.print_r($related_users_list,true).'</pre>';
-//        die("-1 XXZ");
         $data = array('related_users_list' => $related_users_list, 'client_id' => $filter_client_id, 'users_count'=> $users_count, 'related_users_type'=> $filter_related_users_type, 'related_users_filter'=> $filter_related_users_filter, 'sort_direction'=> $sort_direction, 'sort'=> $sort, 		'PageParametersWithSort'=> $PageParametersWithSort, 'PageParametersWithoutSort'=> $PageParametersWithoutSort,
                       'pagination_links'=> 		$pagination_links   );
         $data['page']		= 'clients/load_related_users'; //page view to load

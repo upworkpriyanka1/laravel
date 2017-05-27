@@ -31,16 +31,10 @@ class Main extends CI_Controller {
 
 
 	public function activation() {
-
 		//echo "here in activation function...";
-
 		$app_config = $this->config->config;
-
 		$UriArray = $this->uri->uri_to_assoc(1);
-
 		$activation_code= $this->common_lib->getParameter($this, $UriArray, array(), 'activation');
-
-
 
 		$activated_user= $this->users_mdl->getUserRowByActivationCode($activation_code);
 
@@ -58,7 +52,7 @@ class Main extends CI_Controller {
 			if(empty($check_code_validity))
 			{
 			
-				$error_message= 'Actication code expired.';
+				$error_message= 'activation code expired.';
 	
 				$has_error= true;
 			}
@@ -75,22 +69,14 @@ class Main extends CI_Controller {
 
 
 		if ( !$has_error and !empty($activated_user) and ( empty($activated_user->user_active_status) or $activated_user->user_active_status != 'W' ) ) {
-
 			$error_message= 'Invalid activation code : user is not in waiting for activation status ! ';
-
 			$has_error= true;
-
 		}
 		
-
 		$data= array();
-
 		$data['page']		= 'main/activation';
-
 		if ( !$has_error ) {
-		
 			if($activated_user->is_multi_auth == '1')
-
 			{
 			
 				$data['auth_user_id'] = $activated_user->id;
@@ -158,41 +144,29 @@ class Main extends CI_Controller {
 
 		/*if($activated_user->is_multi_auth == '0')
 		{*/
-
-			
 			$data['error_message']= $error_message;
 			$data['success_message']= $success_message;
 		//}
 		
 		$data['menu']		= array();
-
 		$data['has_error']= $has_error;
 
-		
-
-
-
 		$data['plugins'] 	= array();
-
 		$data['css'] = array('https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css');
-			
-			$data['javascript'] = array('assets/custom/admin/user-edit.js','https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js');
-		
-		
+        $data['javascript'] = array('assets/custom/admin/user-edit.js','https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js');
+
 		// For Authenticity step 2
 		if(!$has_error )
 		{
 			//echo "in not has error...";
 			// Check if authenticity is 1 then user need to provide some information for validity
-
 			// Check is_multi_auth status for user
 			//echo "multi auth is : " . $activated_user->is_multi_auth;
-			
 		}
 
-		
-
 		$views	= array('design/html_topbar','sidebar','design/page','design/html_footer');
+//        echo '<pre>$views::'.print_r($views,true).'</pre>';
+//        die("-1 XXZ activation");
 
 		$this->layout->view($views, $data);
 

@@ -32,8 +32,9 @@ class Sys_admin_mdl extends CI_Model {
      * $sort_direction - current sort direction(asc/desc) and $sort - current sort Both have sense if $OutputFormatCount= false
      * return query array
      *********************************/
-    public function getUsersList($OutputFormatCount = false, $page = 0, $filters = array(), $sort = '', $sort_direction = '')
+    public function getUsersList_DELETE($OutputFormatCount = false, $page = 0, $filters = array(), $sort = '', $sort_direction = '')
     {
+
         if (empty($sort))
             $sort = 'username';
         $config_data = $this->config->config;
@@ -54,6 +55,7 @@ class Sys_admin_mdl extends CI_Model {
         }
 
         $are_clients_joined= false;
+        $is_user_group_joined= false;
         $additive_fields_for_select = "";
         $fields_for_select = $this->m_users_table . ".*";
         if (!empty($filters['username'])) {
@@ -93,31 +95,47 @@ class Sys_admin_mdl extends CI_Model {
             $are_clients_joined= true;
         }
 
-/*         if (!empty($filters['show_uc_active_status'])) {
-            $cond_1= '';
-            if ( !empty($filters['uc_active_status']) ) {
-                $cond_1= ' and ' . $this->m_users_clients_table.'.uc_active_status = ' . "'" . $filters['uc_active_status'] . "'";
-            }
-            if ( !$are_clients_joined ) {
-                $this->db->join($this->m_users_clients_table, $this->m_users_clients_table . '.uc_user_id = ' . $this->m_users_table . '.id' . $cond_1, 'left');
+        if ( !empty($filters['show_user_group']) ) {
+            $additive_fields_for_select .= ", ".$this->m_groups_table.".description as user_group_description ";
+            $additive_fields_for_select .= ", ".$this->m_groups_table.".description";
+//			echo '<pre>$additive_fields_for_select::'.print_r($additive_fields_for_select,true).'</pre>';
+            echo '<pre>-1 $is_user_group_joined::'.print_r($is_user_group_joined,true).'</pre>';
+            if ( !$is_user_group_joined ) {
+                $is_user_group_joined= true;
+                echo '<pre>-2 $is_user_group_joined::'.print_r($is_user_group_joined,true).'</pre>';
+                $this->db->join($this->m_users_groups_table, $this->m_users_groups_table . '.user_id = ' . $this->m_users_table . '.id', 'left');
             }
 
-            $additive_fields_for_select.= ', '.$this->m_users_clients_table.".uc_active_status as uc_active_status, " .
-                ', '.$this->m_users_clients_table.".uc_client_id as uc_client_id, " .
-                ', '.$this->m_users_clients_table.".created_at as uc_created_at" . ', '.$this->m_users_clients_table.".updated_at as uc_updated_at";
-            $are_clients_joined= true;
+            $this->db->join($this->m_groups_table, $this->m_groups_table . '.id = ' . $this->m_users_groups_table . '.group_id', 'left');
+
         }
 
-        if ( !empty($filters['uc_active_status']) and empty($filters['show_uc_active_status']) ) {
-            if ( !$are_clients_joined ) {
-                $this->db->join($this->m_users_clients_table, $this->m_users_clients_table . '.uc_user_id = ' . $this->m_users_table . '.id', 'left');
-            }
-//            $additive_fields_for_select.= ', '.$this->m_users_clients_table.".uc_active_status as uc_active_status, " . ', '.$this->m_users_clients_table.".created_at as uc_created_at" . ', '.$this->m_users_clients_table.".updated_at as uc_updated_at";
-            $this->db->where($this->m_users_clients_table.'.uc_active_status = ' . "'" . $filters['uc_active_status'] . "'");
 
-            $are_clients_joined= true;
-        }
- */
+        /*         if (!empty($filters['show_uc_active_status'])) {
+                    $cond_1= '';
+                    if ( !empty($filters['uc_active_status']) ) {
+                        $cond_1= ' and ' . $this->m_users_clients_table.'.uc_active_status = ' . "'" . $filters['uc_active_status'] . "'";
+                    }
+                    if ( !$are_clients_joined ) {
+                        $this->db->join($this->m_users_clients_table, $this->m_users_clients_table . '.uc_user_id = ' . $this->m_users_table . '.id' . $cond_1, 'left');
+                    }
+
+                    $additive_fields_for_select.= ', '.$this->m_users_clients_table.".uc_active_status as uc_active_status, " .
+                        ', '.$this->m_users_clients_table.".uc_client_id as uc_client_id, " .
+                        ', '.$this->m_users_clients_table.".created_at as uc_created_at" . ', '.$this->m_users_clients_table.".updated_at as uc_updated_at";
+                    $are_clients_joined= true;
+                }
+
+                if ( !empty($filters['uc_active_status']) and empty($filters['show_uc_active_status']) ) {
+                    if ( !$are_clients_joined ) {
+                        $this->db->join($this->m_users_clients_table, $this->m_users_clients_table . '.uc_user_id = ' . $this->m_users_table . '.id', 'left');
+                    }
+        //            $additive_fields_for_select.= ', '.$this->m_users_clients_table.".uc_active_status as uc_active_status, " . ', '.$this->m_users_clients_table.".created_at as uc_created_at" . ', '.$this->m_users_clients_table.".updated_at as uc_updated_at";
+                    $this->db->where($this->m_users_clients_table.'.uc_active_status = ' . "'" . $filters['uc_active_status'] . "'");
+
+                    $are_clients_joined= true;
+                }
+         */
         if (!empty($filters['created_at_from'])) {
             $this->db->where($this->m_users_table.'.created_at >= ' . "'" . $filters['created_at_from'] . "'");
         }
