@@ -27,7 +27,7 @@ class Main extends CI_Controller {
 		$UriArray = $this->uri->uri_to_assoc(1);
 		$activation_code= $this->common_lib->getParameter($this, $UriArray, array(), 'activation');
 		$activatedUser= $this->users_mdl->getUserRowByActivationCode($activation_code);
-        echo '<pre>$activatedUser::'.print_r($activatedUser,true).'</pre>';
+//        echo '<pre>$activatedUser::'.print_r($activatedUser,true).'</pre>';
 
 		$has_error= false;
 		$error_message= '';
@@ -55,9 +55,6 @@ class Main extends CI_Controller {
 		
 		$data= array();
 		$data['page']		= 'main/activation';
-        echo '<pre>$has_error::'.print_r($has_error,true).'</pre>';
-        echo '<pre>$error_message::'.print_r($error_message,true).'</pre>';
-//        die("-1 XXZ");
 		if ( $has_error ) {
             redirect('/msg/' . urldecode($error_message) . '/sign/danger');
         }
@@ -82,7 +79,6 @@ class Main extends CI_Controller {
 			$data['success_message']= '';
 		}*/
 		$password= $this->common_lib->generatePassword();
-        echo '<pre>$password::'.print_r($password,true).'</pre>';
 
     	$ret = $this->db->update( $this->users_mdl->m_users_table, array( 'user_active_status' => 'A', 'activation_code'=> '', 'password'=> $this->ion_auth->hash_password($password, false )), array( 'id' => $activatedUser->id ) );
 		$success_message= 'Your account was activated successfully. Your password and new login was sent to you. Now you can login into the system!';
@@ -98,10 +94,9 @@ class Main extends CI_Controller {
 				'email' => $activatedUser->email
 			), true);
 
-        echo '<pre>$content::'.print_r($content,true).'</pre>';
+//        echo '<pre>$content::'.print_r($content,true).'</pre>';
 		$this->common_lib->DebToFile( 'sendEmail $content::'.print_r($content,true));
 		$EmailOutput = $this->common_lib->SendEmail($activatedUser->email, $title, $content );
-        echo '<pre>$EmailOutput::'.print_r($EmailOutput,true).'</pre>';
         $success_message= 'You were successfully activated at '.$app_config['site_name']. ' site. Your login and password was sent at your email.';
         redirect('/msg/' . urldecode($success_message) . '/sign/success');
 
