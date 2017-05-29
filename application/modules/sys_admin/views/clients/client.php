@@ -47,35 +47,43 @@ echo link_tag('/assets/layouts/default/css/custom-client-overview-view.css');
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <i class="material-icons prefix">account_circle</i>
-                                        <input required type="text" name="form_user_modal_editor_first_name" id="form_user_modal_editor_first_name" value="" class="validate"/>
+                                        <input required type="text" name="form_user_modal_editor_username" id="form_user_modal_editor_username" maxlength="100" value="" class="validate" onchange="validateFormEnableOrDisable('form_user_modal_editor');" />
+                                        <label for="username">Username</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <i class="material-icons prefix">account_circle</i>
+                                        <input required type="text" name="form_user_modal_editor_first_name" id="form_user_modal_editor_first_name" maxlength="50" value="" class="validate" onchange="validateFormEnableOrDisable('form_user_modal_editor');" />
                                         <label for="first_name">First Name</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <i class="material-icons prefix">supervisor_account</i>
-                                        <input required type="text" name="form_user_modal_editor_last_name" id="form_user_modal_editor_last_name" value="" class="validate"/>
+                                        <input required type="text" name="form_user_modal_editor_last_name" id="form_user_modal_editor_last_name" maxlength="50" value="" class="validate" onchange="validateFormEnableOrDisable('form_user_modal_editor');" />
                                         <label for="last_name">Last Name</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <i class="material-icons prefix">phone</i>
-                                        <input  type="tel" name="form_user_modal_editor_phone" id="form_user_modal_editor_phone" value="" class="userphone validate"/>
+                                        <input  type="tel" name="form_user_modal_editor_phone" id="form_user_modal_editor_phone" value="" maxlength="20" class="userphone validate" onchange="validateFormEnableOrDisable('form_user_modal_editor');" />
                                         <label for="phone">Telephone</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <i class="material-icons prefix">email</i>
-                                        <input required type="email" name="form_user_modal_editor_email" id="form_user_modal_editor_email" value=""  class="user_email validate required_form"  onchange="validateFormEnableOrDisable('form_client_edit2');"/>
+                                        <input required type="email" name="form_user_modal_editor_email" id="form_user_modal_editor_email" value="" maxlength="100" class="user_email validate required_form"  onchange="validateFormEnableOrDisable('form_user_modal_editor');"/>
                                         <label for="email">Email address</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <i class="material-icons prefix">email</i>
-                                        <input required type="email" name="form_user_modal_editor_email1" id="form_user_modal_editor_email1" value="" class="user_email_confirm validate required_form" onChange="validateFormEnableOrDisable('form_client_edit2');"/>
+                                        <input required type="email" name="form_user_modal_editor_email1" id="form_user_modal_editor_email1" value="" maxlength="100" class="user_email_confirm validate required_form" onChange="validateFormEnableOrDisable('form_user_modal_editor');"/>
                                         <label for="email1">Verify email address</label>
                                     </div>
                                 </div>
@@ -84,7 +92,7 @@ echo link_tag('/assets/layouts/default/css/custom-client-overview-view.css');
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <i class="material-icons prefix">account_circle</i>
-                                        <select required name="form_user_modal_editor_title" id="form_user_modal_editor_title" class="user_email_confirm validate required_form" >
+                                        <select required name="form_user_modal_editor_title" id="form_user_modal_editor_title" class="user_email_confirm validate required_form" onchange="validateFormEnableOrDisable('form_user_modal_editor');" >
                                             <option value="">Select Type</option>
                                             <?php foreach( $groupsSelectionList as $next_key=>$nextGroupsSelection ) { ?>
                                                 <option value="<?=$nextGroupsSelection['key']  ?>" ><?=$nextGroupsSelection['value']  ?></option>
@@ -105,7 +113,7 @@ echo link_tag('/assets/layouts/default/css/custom-client-overview-view.css');
                                         <!-- <button type="button" class="btn btn-cancel-action" data-dismiss="modal" role="button">Cancel</button> -->
                                     </li>
                                     <li> <!-- class="create-contact-save " data-action="save"-->
-                                        <!--<button class="btn-flat  disable_form_id_form_client_edit2" disabled> VERIFY </button> -->
+                                        <!--<button class="btn-flat  disable_form_id_form_user_modal_editor" disabled> VERIFY </button> -->
                                         <button type="button" class="btn add_Userform" onClick="javascript:onuserModalEditorSubmit();" >VERIFY</button>
                                     </li>
                                 </ul>

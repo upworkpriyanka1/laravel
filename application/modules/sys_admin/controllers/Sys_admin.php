@@ -536,18 +536,21 @@ class Sys_admin extends CI_Controller {
 
         }
 
-        $groupsSelectionList= $this->users_mdl->getGroupsSelectionList( array(), 'id',  'asc' );
-
-        $usersGroups = $this->users_mdl->getUsersGroupsList( false, 0, array('user_id'=> $user_id) );
-        if ( !$is_insert ) {
-            foreach ($groupsSelectionList as $next_key => $next_user_group_selection) {
-                foreach ($usersGroups as $next_users_ob) {
-                    if ($next_user_group_selection['key'] == $next_users_ob->group_id) {
-                        $groupsSelectionList[$next_key]['checked'] = true;
-                    }
-                }
-            }
-        }
+        $groupsSelectionList= $this->users_mdl->getGroupsSelectionList( array(), 'id',  'asc', ['sys-admin'] );
+//        echo '<pre>$groupsSelectionList::'.print_r($groupsSelectionList,true).'</pre>';
+        usort($groupsSelectionList,'cmpGroups');
+//        echo '++<pre>$groupsSelectionList::'.print_r($groupsSelectionList,true).'</pre>';
+//        die("-1 XXZ");
+//        $usersGroups = $this->users_mdl->getUsersGroupsList( false, 0, array('user_id'=> $user_id) );
+//        if ( !$is_insert ) {
+//            foreach ($groupsSelectionList as $next_key => $next_user_group_selection) {
+//                foreach ($usersGroups as $next_users_ob) {
+//                    if ($next_user_group_selection['key'] == $next_users_ob->group_id) {
+//                        $groupsSelectionList[$next_key]['checked'] = true;
+//                    }
+//                }
+//            }
+//        }
         $data['groupsSelectionList']  = $groupsSelectionList;
 
         $data['userActiveStatusValueArray']= $this->users_mdl->getUserActiveStatusValueArray();
@@ -589,19 +592,19 @@ class Sys_admin extends CI_Controller {
 
         $id = $this->common_lib->getParameter($this, $UriArray, $post_array, 'id' );
         $client_id = $this->common_lib->getParameter($this, $UriArray, $post_array, 'client_id' );
+        $username = $this->common_lib->getParameter($this, $UriArray, $post_array, 'username' );
         $first_name = $this->common_lib->getParameter($this, $UriArray, $post_array, 'first_name' );
         $last_name = $this->common_lib->getParameter($this, $UriArray, $post_array, 'last_name' );
         $phone = $this->common_lib->getParameter($this, $UriArray, $post_array, 'phone' );
         $email = $this->common_lib->getParameter($this, $UriArray, $post_array, 'email' );
         $user_group_id = $this->common_lib->getParameter($this, $UriArray, $post_array, 'user_group_id' );
 
-        $username= $first_name . '_' . $last_name;
         $user_active_status= 'W';
         $city= '';
         $state= '';
         $auth= 0;
 
-        $this->db->trans_start( );
+        $this->db->trans_start();
         $ip_address= !empty($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
         $activation_code= $this->common_lib->GenerateActivationCode();
 //        echo '<pre>$activation_code:'.print_r($activation_code,true).'</pre>';
@@ -613,7 +616,7 @@ class Sys_admin extends CI_Controller {
         if ($new_user_id) {
             $ret = $this->admin_mdl->update_users_clients( $client_id, $new_user_id, 'N' );
 
-            $activation_page_url= $app_config['base_url']."/activation/".$activation_code;
+            $activation_page_url= $app_config['base_url']."activation/".$activation_code;
             $title= 'You are registered at ' . $app_config['site_name'] . ' site';
             $content = $this->cms_items_mdl->getBodyContentByAlias('user_register',
                 array('username' => $username,
@@ -1832,4 +1835,13 @@ class Sys_admin extends CI_Controller {
     }
 
 
+}
+
+function cmpGroups($a, $b)
+{
+    if ( $a['value'] == 'Super User' ) return -1;
+    if ($a['value'] == $b['value']) {
+        return 0;
+    }
+    return ($a['value'] < $b['value']) ? -1 : 1;
 }

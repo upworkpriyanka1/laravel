@@ -9,23 +9,14 @@ class Main extends CI_Controller {
 
 
 	public function __construct() {
-
 		parent::__construct();
-
 		$this->load->library('Sys_admin_lib', NULL, 'admin_lib');
-
 		$this->load->model('sys_admin_mdl', 'admin_mdl');
-
 		$this->load->model('users_mdl');
-
 		$this->load->model('cms_items_mdl');
-
 		$this->load->model('activity_logs_mdl');
-
 		$this->lang->load('sys_admin');
-
 		$this->config->load('sys_admin_menu', true);
-
 	}
 
 
@@ -35,140 +26,84 @@ class Main extends CI_Controller {
 		$app_config = $this->config->config;
 		$UriArray = $this->uri->uri_to_assoc(1);
 		$activation_code= $this->common_lib->getParameter($this, $UriArray, array(), 'activation');
-
-		$activated_user= $this->users_mdl->getUserRowByActivationCode($activation_code);
-
+		$activatedUser= $this->users_mdl->getUserRowByActivationCode($activation_code);
+        echo '<pre>$activatedUser::'.print_r($activatedUser,true).'</pre>';
 
 		$has_error= false;
-
 		$error_message= '';
-
 		$success_message= '';
-		
-		if(!empty($activated_user))
+		if(!empty($activatedUser))
 		{
 			$check_code_validity = $this->users_mdl->checkActivationCodeValidity($activation_code);
-			
+//            echo '<pre>$check_code_validity::'.print_r($check_code_validity,true).'</pre>';
 			if(empty($check_code_validity))
 			{
-			
-				$error_message= 'activation code expired.';
-	
+				$error_message= 'Activation code expired';
 				$has_error= true;
 			}
 		}
 
-		if (empty($activated_user)) {
-
-			$error_message= 'Invalid activation code : user is not found !';
-
+		if (empty($activatedUser)) {
+			$error_message= 'Invalid activation code : user is not found';
 			$has_error= true;
-
 		}
 
-
-
-		if ( !$has_error and !empty($activated_user) and ( empty($activated_user->user_active_status) or $activated_user->user_active_status != 'W' ) ) {
-			$error_message= 'Invalid activation code : user is not in waiting for activation status ! ';
+		if ( !$has_error and !empty($activatedUser) and ( empty($activatedUser->user_active_status) or $activatedUser->user_active_status != 'W' ) ) {
+			$error_message= 'Invalid activation code user is not in waiting for activation status';
 			$has_error= true;
 		}
 		
 		$data= array();
 		$data['page']		= 'main/activation';
-		if ( !$has_error ) {
-			if($activated_user->is_multi_auth == '1')
-			{
-			
-				$data['auth_user_id'] = $activated_user->id;
+        echo '<pre>$has_error::'.print_r($has_error,true).'</pre>';
+        echo '<pre>$error_message::'.print_r($error_message,true).'</pre>';
+//        die("-1 XXZ");
+		if ( $has_error ) {
+            redirect('/msg/' . urldecode($error_message) . '/sign/danger');
+        }
 
-				// Redirect user to validation screen to validate some information like lastname and phone nu,ber
-
-				$data['page']		= 'main/authenticity';
-				$data['error_message']= '';
-				$data['success_message']= '';
-
-			}
-			else
-			{
-				$user_data= $this->users_mdl->getUserRowById($activated_user->id);
-				$data = (array)$user_data;
-				/*echo "here we are...";
-				echo "u data is : ";
-				print_r($user_data);*/
-				$data['page']		= 'main/new_user_form';
-				$data['error_message']= '';
-				$data['success_message']= '';
-			}
-			/*else {
-
-
-			$password= $this->common_lib->generatePassword();
-
-			$ret = $this->db->update( $this->users_mdl->m_users_table, array( 'user_active_status' => 'A', 'activation_code'=> '', 'password'=> $this->ion_auth->hash_password($password, false ) , 'plain_password'=> $password), array( 'id' => $activated_user->id ) );
-
-			$success_message= 'Your account was activated successfully. Your password and new login was sent to you. Now you can login into the system!';
-
-			$title= 'Your account was activated at ' . $app_config['site_name'] . ' site';
-
-
-
-			$content = $this->cms_items_mdl->getBodyContentByAlias('account_activated',
-
-				array('username' => $activated_user->username,
-
-				      'password' => $password,
-
-				      'first_name' => $activated_user->first_name,
-
-				      'last_name' => $activated_user->last_name,
-
-				      'site_name' => $app_config['site_name'],
-
-				      'support_signature' => $app_config['support_signature'],
-
-				      'site_url' => $app_config['base_url'],
-
-				      'email' => $activated_user->email
-
-				), true);
-
-				
-
-//			$this->common_lib->DebToFile( 'sendEmail $content::'.print_r($content,true));
-
-			$EmailOutput = $this->common_lib->SendEmail($activated_user->email, $title, $content );
-
-
-			}*/
-		}
-
-		/*if($activated_user->is_multi_auth == '0')
-		{*/
-			$data['error_message']= $error_message;
-			$data['success_message']= $success_message;
-		//}
-		
-		$data['menu']		= array();
-		$data['has_error']= $has_error;
-
-		$data['plugins'] 	= array();
-		$data['css'] = array('https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css');
-        $data['javascript'] = array('assets/custom/admin/user-edit.js','https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js');
-
-		// For Authenticity step 2
-		if(!$has_error )
+/*        if($activatedUser->is_multi_auth == '1')
 		{
-			//echo "in not has error...";
-			// Check if authenticity is 1 then user need to provide some information for validity
-			// Check is_multi_auth status for user
-			//echo "multi auth is : " . $activated_user->is_multi_auth;
+			$data['auth_user_id'] = $activatedUser->id;
+			// Redirect user to validation screen to validate some information like lastname and phone nu,ber
+			$data['page']		= 'main/authenticity';
+			$data['error_message']= '';
+			$data['success_message']= '';
 		}
+		else
+		{
+			$user_data= $this->users_mdl->getUserRowById($activatedUser->id);
+			$data = (array)$user_data;
+//		    echo "here we are...";
+//			echo "u data is : ";
+//			print_r($user_data);
+			$data['page']		= 'main/new_user_form';
+			$data['error_message']= '';
+			$data['success_message']= '';
+		}*/
+		$password= $this->common_lib->generatePassword();
+        echo '<pre>$password::'.print_r($password,true).'</pre>';
 
-		$views	= array('design/html_topbar','sidebar','design/page','design/html_footer');
-//        echo '<pre>$views::'.print_r($views,true).'</pre>';
-//        die("-1 XXZ activation");
+    	$ret = $this->db->update( $this->users_mdl->m_users_table, array( 'user_active_status' => 'A', 'activation_code'=> '', 'password'=> $this->ion_auth->hash_password($password, false )), array( 'id' => $activatedUser->id ) );
+		$success_message= 'Your account was activated successfully. Your password and new login was sent to you. Now you can login into the system!';
+		$title= 'Your account was activated at ' . $app_config['site_name'] . ' site';
+		$content = $this->cms_items_mdl->getBodyContentByAlias('account_activated',
+			array('username' => $activatedUser->username,
+		        'password' => $password,
+				'first_name' => $activatedUser->first_name,
+				'last_name' => $activatedUser->last_name,
+				'site_name' => $app_config['site_name'],
+				'support_signature' => $app_config['support_signature'],
+				'site_url' => $app_config['base_url'],
+				'email' => $activatedUser->email
+			), true);
 
-		$this->layout->view($views, $data);
+        echo '<pre>$content::'.print_r($content,true).'</pre>';
+		$this->common_lib->DebToFile( 'sendEmail $content::'.print_r($content,true));
+		$EmailOutput = $this->common_lib->SendEmail($activatedUser->email, $title, $content );
+        echo '<pre>$EmailOutput::'.print_r($EmailOutput,true).'</pre>';
+        $success_message= 'You were successfully activated at '.$app_config['site_name']. ' site. Your login and password was sent at your email.';
+        redirect('/msg/' . urldecode($success_message) . '/sign/success');
 
 	} // public function activation() {
 
@@ -605,6 +540,28 @@ class Main extends CI_Controller {
         $ci->email->send();
 		redirect('/sys-admin/main/send_mail', 'refresh');
 		
+	}
+
+	public function msg()
+	{
+        $UriArray = $this->uri->uri_to_assoc(1);
+   		$msg= $this->common_lib->getParameter($this, $UriArray, [], 'msg');
+   		$sign= $this->common_lib->getParameter($this, $UriArray, [], 'sign');
+        $data['page_title']= '';
+        $data['msg']= $msg;
+        $data['sign']= $sign;
+        $data['meta_description']='';
+        $data['menu']		= array();
+        $data['user'] 		= $this->user;
+//		$data['job'] 		= $this->job;
+        $data['group'] 		= $this->group->name;
+        $data['page']		= 'main/msg';
+        $data['pls'] 		= array(); //page level scripts optional
+        $data['plugins'] 	= array(); //page plugins
+        $data['javascript'] = array(); //page javascript
+        $views				= array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php' );
+        $this->layout->view($views,$data);
+
 	}
 
 }

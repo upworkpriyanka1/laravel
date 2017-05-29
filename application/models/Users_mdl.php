@@ -339,21 +339,13 @@ class Users_mdl extends CI_Model
 
 
 	public function getUserRowByActivationCode($activation_code)
-
 	{
-
 		$query = $this->db->get_where($this->m_users_table, array('activation_code' => $activation_code), 1, 0);
-
 		$ResultRow = $query->result();
-
 		if (!empty($ResultRow[0])) {
-
 			return $ResultRow[0];
-
 		}
-
 		return false;
-
 	}
 	
 	// Function by BBITS DEV for activation code validity
@@ -538,7 +530,7 @@ class Users_mdl extends CI_Model
 
 	////////////// GROUPS BLOCK START /////////////
 
-	public function getGroupsSelectionList( $filters = array(), $sort = 'group_title',  $sort_direction = 'asc')
+	public function getGroupsSelectionList( $filters = array(), $sort = 'group_title',  $sort_direction = 'asc', $excludeArray= [])
 
 	{
 
@@ -549,7 +541,7 @@ class Users_mdl extends CI_Model
 		$ResArray = array();
 
 		foreach ($groupsList as $lgroup) {
-
+            if ( in_array($lgroup->name,$excludeArray) ) continue;
 			$ResArray[] = array('key' => $lgroup->id, 'value' => $lgroup->description);
 
 		}
