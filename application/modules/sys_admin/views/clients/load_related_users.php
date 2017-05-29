@@ -9,7 +9,7 @@
     <table>
         <thead>
         <tr>
-            <th>Name</th>
+            <th>Username</th>
             <th>Title</th>
             <th>Status</th>
             <th>Created</th>

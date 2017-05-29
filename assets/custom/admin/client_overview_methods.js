@@ -39,9 +39,8 @@ function setClientUserValidationRules() {
                 dataType: 'json',
                 data: {   'client_id' : $("#form_user_modal_editor_client_id").val(),    'username' : $("#form_user_modal_editor_username").val(),  'first_name' : $("#form_user_modal_editor_first_name").val(),    'last_name' : $("#form_user_modal_editor_last_name").val(),    'phone' : $("#form_user_modal_editor_phone").val(),    'email' : $("#form_user_modal_editor_email").val(),    'user_group_id' : $("#form_user_modal_editor_title").val(),   },
                 success: function(result) {
-                    // alert( "form_user_modal_editor result::"+var_dump(result) )
                     if (result.ErrorCode == 0) {
-                        $("#form_user_modal_editor_client_id").val("");
+                        loadClientRelatedUsers(1)
                         $("#form_user_modal_editor_username").val("");
                         $("#form_user_modal_editor_first_name").val("");
                         $("#form_user_modal_editor_last_name").val("");
@@ -51,7 +50,6 @@ function setClientUserValidationRules() {
                         $("#form_user_modal_editor_title").val("");
                         $('#client_new_user_dialog').modal('hide');
                         Materialize.toast('New user was created !', 4000)
-                        loadClientRelatedUsers(1)
                     }
                 }
             });
