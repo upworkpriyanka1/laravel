@@ -41,6 +41,14 @@ function setClientUserValidationRules() {
                 success: function(result) {
                     // alert( "form_user_modal_editor result::"+var_dump(result) )
                     if (result.ErrorCode == 0) {
+                        $("#form_user_modal_editor_client_id").val("");
+                        $("#form_user_modal_editor_username").val("");
+                        $("#form_user_modal_editor_first_name").val("");
+                        $("#form_user_modal_editor_last_name").val("");
+                        $("#form_user_modal_editor_phone").val("");
+                        $("#form_user_modal_editor_email").val("");
+                        $("#form_user_modal_editor_email1").val("");
+                        $("#form_user_modal_editor_title").val("");
                         $('#client_new_user_dialog').modal('hide');
                         Materialize.toast('New user was created !', 4000)
                         loadClientRelatedUsers(1)
@@ -51,12 +59,19 @@ function setClientUserValidationRules() {
         }
     });
 
-    $(".userphone").rules("add", {
+    $("#form_user_modal_editor_username").rules("add", {
+        required: true,
+        minlength: 5
+        // specialChrs: true
+        // regex: /[A-Za-z]+/
+        // regex: /^[a-zA-Z\s]+$/
+    });
+    $("#form_user_modal_editor_phone").rules("add", {
         required: true,
         phoneUS: true
     });
-    $(".user_email_confirm").rules("add", {
-        equalTo: ".user_email"
+    $("#form_user_modal_editor_email").rules("add", {
+        equalTo: "#form_user_modal_editor_email1"
     });
 }
 
