@@ -20,85 +20,87 @@ echo link_tag('/assets/layouts/default/css/custom-client-overview-view.css');
             <?php } ?>
 
             <div class="edit" style="display: inline-block;margin-right: 30px;">
-                <a  href="/sys-admin/client-edit/<?=$client->cid?>/" class="btn-floating btn-large waves-effect waves-light " style="border-radius: 50% !important;"><i class="large material-icons">edit</i></a>
+                <a  href="/sys-admin/client/<?=$client->cid?>/" class="btn-floating btn-large waves-effect waves-light " style="border-radius: 50% !important;"><i class="large material-icons">edit</i></a>
 
             </div>
 
 
-            <button data-toggle="modal" data-target="#newclient-over" class="newclient-over waves-effect waves-light btn-large" style="background-color: #fff; color: #000;font-size: 16px;">
+            <button data-toggle="modal" data-target="#client_new_user_dialog" class="client_new_user_dialog waves-effect waves-light btn-large" style="background-color: #fff; color: #000;font-size: 16px;">
                 <i class="fa fa-plus" style="font-size: 16px"></i>
                 USER
             </button>
 
-            <div class="modal fade newclient" id="newclient-over" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal fade newclient" id="client_new_user_dialog" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class=" modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
                             <h3 class="modal-title" id="lineModalLabel">New user for <?php echo $client->client_name ?> </h3>
+                            <h5>All fields are required.</h5>
                         </div>
 
                         <div class="row">
-                            <form class="col s12 form-horizontal" action="<?php echo base_url() ;?>sys-admin/users/users-edit/new" method="post" id="form_user_edit" name="form_user_edit" enctype="multipart/form-data">
-                                <?php if ( $validation_errors_text != "" ) : ?>
-									<?php /* ?>
-                                    <div class="row error" style="padding: 5px; margin: 5px;" >
+                            <form class="col s12 form-horizontal" action="<?php echo base_url() ;?>sys-admin/users/users-edit/new" method="post" id="form_user_modal_editor" name="form_user_modal_editor" enctype="multipart/form-data">
 
-                                        <?= $validation_errors_text ?>
 
-                                    </div>
-									<?php **/ ?>
-                                <? endif; ?>
-
-                                <?php if ( $this->session->flashdata( 'validation_errors_text1' ) ) { ?>
-                                    <?php /* ?>
-									<div class="alert alert-danger"><?php echo stripslashes($this->session->flashdata( 'validation_errors_text1' )); ?></div>
-                                    <?php
-                                    $edit = 1;
-                                    $form_data = explode('^',$this->session->flashdata( 'user_edit_new_post_data1' ));
-                                    ?>
-									<?php **/ ?>
-                                <?php }
-                                else
-                                {
-                                    $edit = 0;
-                                }
-                                ?>
-
-                                <input type="hidden" name="hdn_client_id" value="<?php echo $client_id;?>" id="hdn_client_id" />
+                                <input type="hidden" name="form_user_modal_editor_client_id" value="<?php echo $client_id;?>" id="form_user_modal_editor_client_id" />
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <i class="material-icons prefix">account_circle</i>
-                                        <input required type="text" name="data[first_name]" id="first_name" value="<?php echo ($edit == 1)?$form_data[0]:'';?>" class="validate"/>
+                                        <input required type="text" name="form_user_modal_editor_username" id="form_user_modal_editor_username" maxlength="100" value="" class="validate" onchange="validateFormEnableOrDisable('form_user_modal_editor');" />
+                                        <label for="username">Username</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <i class="material-icons prefix">account_circle</i>
+                                        <input required type="text" name="form_user_modal_editor_first_name" id="form_user_modal_editor_first_name" maxlength="50" value="" class="validate" onchange="validateFormEnableOrDisable('form_user_modal_editor');" />
                                         <label for="first_name">First Name</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <i class="material-icons prefix">supervisor_account</i>
-                                        <input required type="text" name="data[last_name]" id="last_name" value="<?php echo ($edit == 1)?$form_data[1]:'';?>" class="validate"/>
+                                        <input required type="text" name="form_user_modal_editor_last_name" id="form_user_modal_editor_last_name" maxlength="50" value="" class="validate" onchange="validateFormEnableOrDisable('form_user_modal_editor');" />
                                         <label for="last_name">Last Name</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <i class="material-icons prefix">phone</i>
-                                        <input  type="tel" name="data[phone]" id="phone" value="<?php echo ($edit == 1)?$form_data[2]:'';?>" class="userphone validate"/>
+                                        <input  type="tel" name="form_user_modal_editor_phone" id="form_user_modal_editor_phone" value="" maxlength="20" class="userphone validate" onchange="validateFormEnableOrDisable('form_user_modal_editor');" />
                                         <label for="phone">Telephone</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <i class="material-icons prefix">email</i>
-                                        <input required type="email" name="data[email]" id="email" value="<?php echo ($edit == 1)?$form_data[3]:'';?>"  class="user_email validate required_form"  onchange="validateFormEnableOrDisable('form_client_edit2');"/>
+                                        <input required type="email" name="form_user_modal_editor_email" id="form_user_modal_editor_email" value="" maxlength="100" class="user_email validate required_form"  onchange="validateFormEnableOrDisable('form_user_modal_editor');"/>
                                         <label for="email">Email address</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <i class="material-icons prefix">email</i>
-                                        <input required type="email" name="data[email1]" id="email1" value="<?php echo ($edit == 1)?$form_data[4]:'';?>" class="user_email_confirm validate required_form" onChange="validateFormEnableOrDisable('form_client_edit2');"/>
+                                        <input required type="email" name="form_user_modal_editor_email1" id="form_user_modal_editor_email1" value="" maxlength="100" class="user_email_confirm validate required_form" onChange="validateFormEnableOrDisable('form_user_modal_editor');"/>
                                         <label for="email1">Verify email address</label>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="input-field row col s12">
+                                        <i class="material-icons prefix">account_circle</i>
+                                        <label for="form_user_modal_editor_title">Verify title</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <select required name="form_user_modal_editor_title" id="form_user_modal_editor_title" class="user_email_confirm validate required_form" onchange="validateFormEnableOrDisable('form_user_modal_editor');" >
+                                            <option value="">Select Type</option>
+                                            <?php foreach( $groupsSelectionList as $next_key=>$nextGroupsSelection ) { ?>
+                                                <option value="<?=$nextGroupsSelection['key']  ?>" ><?=$nextGroupsSelection['value']  ?></option>
+                                            <?php } ?>
+                                        </select>
                                     </div>
                                 </div>
                             </form>
@@ -109,11 +111,12 @@ echo link_tag('/assets/layouts/default/css/custom-client-overview-view.css');
                             <div class="col-xs-12">
                                 <ul class ="md-foot-bot">
                                     <li data-dismiss="modal">
-                                        <button class="btn" onClick="javascript:document.location='<?=base_url()?>sys-admin/clients-view<?=$page_parameters_with_sort?>'">CANCEL</button>
+                                        <button class="btn"  data-dismiss="modal" role="button" type="button" >CANCEL</button>
+                                        <!-- <button type="button" class="btn btn-cancel-action" data-dismiss="modal" role="button">Cancel</button> -->
                                     </li>
                                     <li> <!-- class="create-contact-save " data-action="save"-->
-                                        <!--<button class="btn-flat  disable_form_id_form_client_edit2" disabled> VERIFY </button> -->
-                                        <button type="button" class="btn add_Userform" onClick="javascript:onuserSubmit();" >VERIFY</button>
+                                        <!--<button class="btn-flat  disable_form_id_form_user_modal_editor" disabled> VERIFY </button> -->
+                                        <button type="button" class="btn add_Userform" onClick="javascript:onuserModalEditorSubmit();" >VERIFY</button>
                                     </li>
                                 </ul>
                             </div>
@@ -121,6 +124,7 @@ echo link_tag('/assets/layouts/default/css/custom-client-overview-view.css');
                     </div>
                 </div>
             </div>
+
 
             <div id="grid-pinned" class="scrollspy">
                 <h3 class="header">Pinned</h3>
@@ -135,47 +139,19 @@ echo link_tag('/assets/layouts/default/css/custom-client-overview-view.css');
                     <nav class="nav-extended">
                         <div class="nav-content">
                             <ul class="tabs tabs-transparent">
-                                <li class="tab"><a href="#test1" class="active">Users</a></li>
-                                <li class="tab"><a href="#test2">Patients</a></li>
+                                <li class="tab"><a href="#tab_client_related_users" class="active">Users</a></li>
+                                <li class="tab"><a href="#tab_client_related_patients">Patients</a></li>
                             </ul>
                         </div>
                     </nav>
-                    <div id="test1" class="col s12">
-                        <div class="table-responsive">
-                            <table>
-                                <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Title</th>
-                                    <th>Status</th>
-                                    <th>Created</th>
-                                </tr>
-                                </thead>
 
-                                <tbody>
-                                <tr>
-                                    <td>Alvin</td>
-                                    <td>Eclair</td>
-                                    <td>Hi</td>
-                                    <td>$0.87</td>
-                                </tr>
-                                <tr>
-                                    <td>Alan</td>
-                                    <td>Jellybean</td>
-                                    <td>Hello</td>
-                                    <td>$3.76</td>
-                                </tr>
-                                <tr>
-                                    <td>Jonathan</td>
-                                    <td>Lollipop</td>
-                                    <td>Hi</td>
-                                    <td>$7.00</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
+
+                    <div id="tab_client_related_users" class="col s12">
+                        <div id="div_load_client_related_users"></div>
                     </div>
-                    <div id="test2" class="col s12">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </div>
+
+
+                    <div id="tab_client_related_patients" class="col s12">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </div>
                 </div>
             </div>
 
@@ -265,7 +241,6 @@ echo link_tag('/assets/layouts/default/css/custom-client-overview-view.css');
     //validation_text = '12345';
     if(validation_text != '')
     {
-        alert( "-1123 ::" )
-        $('#newclient-over').modal('show');
+        $('#client_new_user_dialog').modal('show');
     }
 </script>

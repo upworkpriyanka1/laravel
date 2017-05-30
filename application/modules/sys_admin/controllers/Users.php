@@ -59,7 +59,7 @@ class Users extends CI_Controller
 		$data['group'] 		= $this->group->name;
 		$data['page']		= 'users/user-overview-page';
 		$data['javascript'] = array( 'assets/global/js/users-overview-view.js','assets/global/js/validate.js' );//page javascript
-		$views				=  array('design/html_topbar_user_overview','sidebar','design/page','design/html_footer');
+		$views				=  array('design/html_topbar_user_overview','sidebar','design/page','design/html_footer', 'common_dialogs.php');
 //		$this->load->view('users/user-overview-page');
 		$this->layout->view($views, $data);
 	}
@@ -135,7 +135,7 @@ class Users extends CI_Controller
 		$data['plugins'] 	= array();
 		$data['pagination_links'] 	= $pagination_links;
 		$data['javascript'] = array( 'assets/custom/admin/users.js', 'assets/global/plugins/picker/picker.js', 'assets/global/plugins/picker/picker.date.js', 'assets/global/plugins/picker/picker.time.js'); // add picker.date pluging for date selection in fileters form
-		$views				= array('design/html_topbar','sidebar','design/page','design/html_footer');
+		$views				= array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php');
 //		echo "<pre>";
 //		print_r($data['menu']);
 //		die;
@@ -325,7 +325,7 @@ class Users extends CI_Controller
 //		$data['javascript'] = array( 'assets/custom/admin/user-edit.js' );//page javascript
 		$data['javascript'] = array( 'assets/global/js/users-overview-view.js','assets/global/js/validate.js','assets/custom/admin/user-edit.js');//page javascript
 //		$views				=  array('design/html_topbar','sidebar','design/page','design/html_footer');
-		$views				=  array('design/html_topbar_user_overview','sidebar','design/page','design/html_footer');
+		$views				=  array('design/html_topbar_user_overview','sidebar','design/page','design/html_footer', 'common_dialogs.php');
 //		echo "<pre>";
 //		print_r($data);
 //		die;

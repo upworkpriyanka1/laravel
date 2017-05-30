@@ -102,7 +102,7 @@ class Vendors extends CI_Controller
 //        $data['javascript'] = array( 'assets/custom/admin/vendor-types.js', 'assets/global/plugins/picker/picker.js', 'assets/global/plugins/picker/picker.date.js', 'assets/global/plugins/picker/picker.time.js');
 	    $data['javascript'] = array( 'assets/custom/admin/vendor-types.js', 'assets/global/plugins/picker/classic.js', 'assets/global/plugins/picker/classic.date.js', 'assets/global/plugins/picker/picker.time.js');
 
-	    $views				= array('design/html_topbar','sidebar','design/page','design/html_footer');
+	    $views				= array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php' );
         $this->layout->view($views, $data);
     }
 
@@ -178,7 +178,7 @@ class Vendors extends CI_Controller
         $data['page']		= 'vendor-types/vendor-types-edit'; //page view to load
         $data['plugins'] 	= array('validation'); //page plugins
         $data['javascript'] = array( 'assets/custom/admin/vendor-types-edit.js' );//page javascript
-        $views				=  array('design/html_topbar','sidebar','design/page','design/html_footer');
+        $views				=  array( 'design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php' );
         $this->layout->view($views, $data);
     }
 
@@ -411,7 +411,7 @@ class Vendors extends CI_Controller
 //        $data['javascript'] = array( 'assets/custom/admin/vendors.js', 'assets/global/plugins/picker/picker.js', 'assets/global/plugins/picker/picker.date.js', 'assets/global/plugins/picker/picker.time.js'); // add picker.date pluging for date selection in fileters form
 	    $data['javascript'] = array( 'assets/custom/admin/vendor-types.js', 'assets/global/plugins/picker/classic.js', 'assets/global/plugins/picker/classic.date.js', 'assets/global/plugins/picker/picker.time.js');
 
-	    $views				= array('design/html_topbar','sidebar','design/page','design/html_footer');
+	    $views				= array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php');
         $this->layout->view($views, $data);
     }
 
@@ -517,7 +517,7 @@ class Vendors extends CI_Controller
         $data['page']		= 'vendors/vendors-edit'; //page view to load
         $data['plugins'] 	= array('validation'); //page plugins
         $data['javascript'] = array( 'assets/custom/admin/vendor-edit.js' );//page javascript
-        $views				=  array('design/html_topbar','sidebar','design/page','design/html_footer');
+        $views				=  array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php');
         $this->layout->view($views, $data);
     }
 

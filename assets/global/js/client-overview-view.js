@@ -1,4 +1,6 @@
 $(document).ready(function(){
+
+
     $('.create_contact').on('click',function(){
         $.ajax({
             url: '/sys-admin/clients_view_new',

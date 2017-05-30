@@ -128,7 +128,7 @@ class Common_lib
 
         $data['javascript'] = array('assets/custom/admin/user-edit-validation.js', 'assets/custom/common/upload.js');
 
-        $views = array('design/html_topbar', 'sidebar', 'design/page', 'design/html_footer');
+        $views = array('design/html_topbar', 'sidebar', 'design/page', 'design/html_footer', 'common_dialogs.php');
 
         $this->CI->layout->view($views, $data);
 
@@ -603,29 +603,21 @@ class Common_lib
     public static function DebToFile($contents, $IsClearText = true, $FileName = '')
 
     {
-
         //return;
-
         try {
-
-            if (empty($FileName))
-
+            if (empty($FileName)) {
                 $FileName = './log/logging_deb.txt';
-
+                if ((!empty($_SERVER["HTTP_HOST"]) and !(strpos($_SERVER["HTTP_HOST"], "local-zntral-dev.com") === false))) {
+                    $FileName = './logs/logging_deb.txt';
+                }
+            }
             $fd = fopen($FileName, ($IsClearText ? "w+" : "a+"));
-
             fwrite($fd, print_r($contents,true) . chr(13));
-
             fclose($fd);
-
             return true;
-
         } catch (Exception $lException) {
-
             return false;
-
         }
-
     }
 
 
@@ -1239,13 +1231,9 @@ class Common_lib
 
 
     public static function sendEmail($to, $subject, $message)
-
     {
-
         //AppUtils::deb( $cms_item_template_id, 'SendEmail $cms_item_template_id::');
-
         $ci = & get_instance();
-
 	    $ci->common_lib->DebToFile( 'sendEmail $to::'.print_r($to,true));
 
 	    $ci->common_lib->DebToFile( 'sendEmail $subject::'.print_r($subject,true));
