@@ -121,251 +121,149 @@ class Users_mdl extends CI_Model
 
 
 	/**********************
-
 	 * Get users list/rows count depending of filters parameters
-
 	 * access public
-
 	 * @ params : $OutputFormatCount = TRUE- returns number of rows, FALSE- returns array of user objects; $page - page number($OutputFormatCount must be = FALSE)
-
 	 * $filters : assoc keys of fieldname=>fieldvalue, if field value is not empty filter is set by this value for user_active_status, user_zip, user_type and between
-
 	 * created_at_from and created_at_till
-
 	 * filters work independently on $OutputFormatCount returning list(FALSE) or rows count(TRUE).
-
 	 * Sense of using $OutputFormatCount with $filters is to have common function with same filter parameters
-
 	 * $sort_direction - current sort direction(asc/desc) and $sort - current sort Both have sense if $OutputFormatCount= false
-
 	 * return query array
-
 	 *********************************/
 
 	public function getUsersList($OutputFormatCount = false, $page = 0, $filters = array(), $sort = '', $sort_direction = '')
-
 	{
-
 		if (empty($sort))
-
 			$sort = 'username';
-
 //        echo '<pre>$filters::'.print_r($filters,true).'</pre>';
-
 		$config_data = $this->config->config;
-
 		$ci = & get_instance();
-
 		$items_per_page= $ci->common_lib->getSettings('items_per_page');
-
 		$limit = !empty($filters['limit']) ? $filters['limit'] : '';
-
 		$offset = !empty($filters['offset']) ? $filters['offset'] : '';
-
 		$is_page_positive_integer= $ci->common_lib->is_positive_integer($page);
-
 		$is_user_job_title_joined = false;
-
+        $are_clients_joined= false;
 		$is_user_group_joined = false;
-
 		$is_user_client_joined = false;
-
 		if ( !empty($page) and $is_page_positive_integer ) {
-
 			$limit = '';
-
 			$offset = '';
-
 		}
 
 		if (!empty($items_per_page) and $is_page_positive_integer) {
-
 			$per_page= ( !empty($filters['per_page']) and $ci->common_lib->is_positive_integer($filters['per_page']) ) ? $filters['per_page'] : $items_per_page;
-
 			$limit = $per_page;
-
 			$offset = ($page - 1) * $per_page;
-
 		}
-
-
 
 		if (!empty($filters['username'])) {
-
 			$this->db->like( $this->m_users_table . '.username', $filters['username'] );
-
 		}
 
-		if (!empty($filters['user_active_status']) ) {
+        if (!empty($filters['client_id'])) {
+            if ( !$are_clients_joined ) {
+                $this->db->join($this->m_users_clients_table, $this->m_users_clients_table . '.uc_user_id = ' . $this->m_users_table . '.id' . ' AND ' .
+                                                              $this->m_users_clients_table.'.uc_client_id = ' . "'" . $filters['client_id'] . "'", '');
+            }
+//            $this->db->where($this->m_users_clients_table.'.uc_client_id = ' . "'" . $filters['client_id'] . "'");
+//                $additive_fields_for_select.= ', '.$this->m_users_clients_table.".uc_active_status as uc_is_active";
+            $are_clients_joined= true;
+        }
 
+
+        if (!empty($filters['user_active_status']) ) {
 			if ( strlen($filters['user_active_status']) > 0) {
-
 				$this->db->where( $this->m_users_table . '.user_active_status = ' . "'" . $filters['user_active_status'] . "'" );
-
 			}
-
 		}
 
 		if (!empty($filters['zip'])) {
-
 			$this->db->where($this->m_users_table.'.zip = ' . "'" . $filters['zip'] . "'");
-
 		}
 
 		if (!empty($filters['user_group_id'])) {
-
 			$is_user_group_joined= true;
-
 			$this->db->join($this->m_users_groups_table, $this->m_users_groups_table . '.user_id = ' . $this->m_users_table . '.id', 'left');
-
 			$this->db->where($this->m_users_groups_table.'.group_id = ' . "'" . $filters['user_group_id'] . "'");
-
-
-
 		}
 
 		if (!empty($filters['created_at_from'])) {
-
 			$this->db->where($this->m_users_table.'.created_at >= ' . "'" . $filters['created_at_from'] . "'");
-
 		}
 
 		if (!empty($filters['created_at_till'])) {
-
 			$this->db->where($this->m_users_table.'.created_at <= ' . "'" . $filters['created_at_till'] . " 23:59:59'");
-
 		}
-
-
 
 		$additive_fields_for_select = "";
-
 		$additive_group_fields = "";
-
 		$fields_for_select = $this->m_users_table . ".*";
-
 //		if ( !empty($filters['show_job_title']) ) {
-
 //			$additive_fields_for_select .= ", GROUP_CONCAT(".$this->m_jobs_table.".job_title) as job_title, GROUP_CONCAT(".$this->m_jobs_table.".job_name) as job_name ";
-
 //			if ( !$is_user_job_title_joined ) {
-
 //				$is_user_job_title_joined= true;
-
 //				$this->db->join($this->m_users_jobs_table, $this->m_users_jobs_table . '.user_id = ' . $this->m_users_table . '.id', 'left');
-
 //				$this->db->join($this->m_jobs_table, $this->m_jobs_table . '.id = ' . $this->m_users_jobs_table . '.job_id', 'left');
-
 //			}
-
 //		}
 
-
-
 		if ( !empty($filters['show_user_group']) ) {
-
 			$additive_fields_for_select .= ", ".$this->m_groups_table.".description as user_group_description ";
-
 			$additive_group_fields .= ", ".$this->m_groups_table.".description";
-
 //			echo '<pre>$additive_fields_for_select::'.print_r($additive_fields_for_select,true).'</pre>';
-
 			if ( !$is_user_group_joined ) {
-
 				$is_user_group_joined= true;
-
 				$this->db->join($this->m_users_groups_table, $this->m_users_groups_table . '.user_id = ' . $this->m_users_table . '.id', 'left');
-
 			}
-
 			$this->db->join($this->m_groups_table, $this->m_groups_table . '.id = ' . $this->m_users_groups_table . '.group_id', 'left');
-
 		}
-
-
 
 		if ( !empty($filters['show_clients_name']) ) {
-
 			$additive_fields_for_select .= ", GROUP_CONCAT(".$this->m_clients_table.".client_name ) as client_name";
-
 //			$additive_group_fields .= ", ".$this->m_clients_table.".client_name";
-
 //			echo '<pre>$additive_fields_for_select::'.print_r($additive_fields_for_select,true).'</pre>';
-
 			if ( !$is_user_client_joined ) {
-
 				$is_user_client_joined= true;
-
 				$this->db->join($this->m_users_clients_table, $this->m_users_clients_table . '.uc_user_id = ' . $this->m_users_table . '.id AND '.$this->m_users_clients_table.'.uc_active_status in (\'E\',\'O\') ' , 'left'); // -- E-Employee, O-Only Out Of Staff, N- Not Related
-
 			}
-
 			$this->db->join($this->m_clients_table, $this->m_clients_table . '.cid = ' . $this->m_users_clients_table . '.uc_client_id', 'left');
-
 		}
-
-
 
 		if ( ( !empty($limit) and $ci->common_lib->is_positive_integer($limit) ) and ( !empty($offset) and $ci->common_lib->is_positive_integer($offset) ) ) {
-
 			$this->db->limit($limit, $offset);
-
 		}
 
-
-
 		if ( ( !empty($limit) and $ci->common_lib->is_positive_integer($limit) ) ) {
-
 			$this->db->limit($limit);
-
 		}
 
 
 
 		if (!$OutputFormatCount) {
-
 			$this->db->group_by( $this->m_users_table . '.id ' . $additive_group_fields );
-
 //			$this->db->group_by( $this->m_users_table . '.id, ' . $this->m_groups_table . '.id ' . ( $is_user_client_joined ? ', '.$this->m_clients_table . '.cid '  : "" ) );
-
 		}
 
 		$fields_for_select.= ' ' . $additive_fields_for_select;
-
 		if (!empty($sort)) {
-
 			$this->db->order_by($sort, ((strtolower($sort_direction) == 'desc' or strtolower($sort_direction) == 'asc') ? $sort_direction : ''));
-
 		}
-
-
-
-
 
 //        echo '<pre>$fields_for_select::'.print_r($fields_for_select,true).'</pre>';
 
 		if ($OutputFormatCount) {
-
 			return $this->db->count_all_results($this->m_users_table);
-
 		} else {
-
 			$query = $this->db->from($this->m_users_table);
-
 			$ci = & get_instance();
-
 			if (strlen(trim($fields_for_select)) > 0) {
-
 				$query->select($fields_for_select);
-
 			}
-
 			$ret_array= $query->get()->result();
-
 			return $ret_array;
-
 		}
-
 	}
 
 
@@ -441,24 +339,16 @@ class Users_mdl extends CI_Model
 
 
 	public function getUserRowByActivationCode($activation_code)
-
 	{
-
 		$query = $this->db->get_where($this->m_users_table, array('activation_code' => $activation_code), 1, 0);
-
 		$ResultRow = $query->result();
-
 		if (!empty($ResultRow[0])) {
-
 			return $ResultRow[0];
-
 		}
-
 		return false;
-
 	}
 	
-	// Function by BBITS DEV for actication code validity
+	// Function by BBITS DEV for activation code validity
 	public function checkActivationCodeValidity($activation_code)
 	{
 		//$query = $this->db->get_where($this->m_users_table, array('activation_code' => $activation_code,'created_at >=' => NOW() - INTERVAL 2 HOUR), 1, 0);
@@ -640,7 +530,7 @@ class Users_mdl extends CI_Model
 
 	////////////// GROUPS BLOCK START /////////////
 
-	public function getGroupsSelectionList( $filters = array(), $sort = 'group_title',  $sort_direction = 'asc')
+	public function getGroupsSelectionList( $filters = array(), $sort = 'group_title',  $sort_direction = 'asc', $excludeArray= [])
 
 	{
 
@@ -651,7 +541,7 @@ class Users_mdl extends CI_Model
 		$ResArray = array();
 
 		foreach ($groupsList as $lgroup) {
-
+            if ( in_array($lgroup->name,$excludeArray) ) continue;
 			$ResArray[] = array('key' => $lgroup->id, 'value' => $lgroup->description);
 
 		}

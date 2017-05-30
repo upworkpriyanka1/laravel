@@ -11,6 +11,8 @@ class Volunteer extends CI_Controller {
 				redirect('./', 'refresh');
 			}
 		/*check if allowed to access page */
+        echo '<h2>INSIDE OF Volunteer</h2>';
+        die("-1 XXZ");
 			if (!$this->common_mdl->in_job($job)){
 				echo "Not allowed";
 				return die();
