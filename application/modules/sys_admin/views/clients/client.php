@@ -90,15 +90,17 @@ echo link_tag('/assets/layouts/default/css/custom-client-overview-view.css');
 
 
                                 <div class="row">
-                                    <div class="input-field col s12">
+                                    <div class="input-field row col s12">
                                         <i class="material-icons prefix">account_circle</i>
+                                        <label for="form_user_modal_editor_title">Verify title</label>
+                                    </div>
+                                    <div class="input-field col s12">
                                         <select required name="form_user_modal_editor_title" id="form_user_modal_editor_title" class="user_email_confirm validate required_form" onchange="validateFormEnableOrDisable('form_user_modal_editor');" >
                                             <option value="">Select Type</option>
                                             <?php foreach( $groupsSelectionList as $next_key=>$nextGroupsSelection ) { ?>
                                                 <option value="<?=$nextGroupsSelection['key']  ?>" ><?=$nextGroupsSelection['value']  ?></option>
                                             <?php } ?>
                                         </select>
-                                        <label for="email1">Verify title</label>
                                     </div>
                                 </div>
                             </form>
