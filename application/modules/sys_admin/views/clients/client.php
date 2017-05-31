@@ -115,8 +115,8 @@ echo link_tag('/assets/layouts/default/css/custom-client-overview-view.css');
                                         <!-- <button type="button" class="btn btn-cancel-action" data-dismiss="modal" role="button">Cancel</button> -->
                                     </li>
                                     <li> <!-- class="create-contact-save " data-action="save"-->
-                                        <!--<button class="btn-flat  disable_form_id_form_user_modal_editor" disabled> VERIFY </button> -->
-                                        <button type="button" class="btn add_Userform" onClick="javascript:onuserModalEditorSubmit();" >VERIFY</button>
+<!--                                        <button class="btn-flat  disable_form_id_form_user_modal_editor" disabled> VERIFY </button>-->
+                                        <button type="button" class="btn add_Userform" id="but-verify" onClick="javascript:onuserModalEditorSubmit();" >VERIFY</button>
                                     </li>
                                 </ul>
                             </div>

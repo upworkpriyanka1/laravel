@@ -358,7 +358,9 @@ function validateFormEnableOrDisable(form_id){
             disable = true;
             $(this).parent().find('.required').css('display', 'inline');
         }else{
+            disable = false;
             $(this).parent().find('span.required').css('display', 'none');
+            return false
         }
     });
 
@@ -371,8 +373,10 @@ function validateFormEnableOrDisable(form_id){
     });
 
     if(disable){
+        $('#but-verify').css({fontWeight:'normal    '});
         $('.disable_form_id_'+form_id).attr('disabled', true);
     }else{
+        $('#but-verify').css({fontWeight:'bold'});
         $('.disable_form_id_'+form_id).removeAttr('disabled');
     }
 

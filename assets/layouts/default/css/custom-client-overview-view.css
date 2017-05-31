@@ -828,7 +828,16 @@ input[type=text]:focus:not([readonly]){
 #newclient .portlet-form .form-body, #new_user_modal .portlet-form .form-body{
     padding-bottom: 0;
 }
-select#form_user_modal_editor_title{
+
+#client_new_user_dialog input[type=text].error, #client_new_user_dialog input[type=tel].error, #client_new_user_dialog input[type=email].error, #client_new_user_dialog select.error{
+    border-bottom: 2px solid red !important;
+    box-shadow: none;
+
+}
+#client_new_user_dialog label.error{
+    color: red;
+}
+#client_new_user_dialog select{
     border:none;
     border-bottom: 1px solid #9e9e9e;;
 }

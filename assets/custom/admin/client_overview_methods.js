@@ -68,8 +68,8 @@ function setClientUserValidationRules() {
         required: true,
         phoneUS: true
     });
-    $("#form_user_modal_editor_email").rules("add", {
-        equalTo: "#form_user_modal_editor_email1"
+    $("#form_user_modal_editor_email1").rules("add", {
+        equalTo: "#form_user_modal_editor_email"
     });
 }
 
