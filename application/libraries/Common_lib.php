@@ -978,9 +978,9 @@ class Common_lib
 
         $imgHtlm = $this->tplListSortingImage($fieldname, $sort, $sort_direction);
 
-		$url = rtrim(base_url(),'/') . $url;
+	$url = rtrim(base_url(),'/') . $url;
 
-		//echo "url is " . $url;
+	//echo "url is " . $url;
 
         $res_url = '<a href="' . $url . $filters_str . '"><span>' . $field_title . $imgHtlm . '</span></a>';
 
@@ -1047,31 +1047,45 @@ class Common_lib
      *********************************/
 
     public function format_datetime( $time, $format = '', $default = '' )
-
     {
-
 //        echo '<pre>$time::'.print_r($time,true).'</pre>';
 
         if ( $time == '0000-00-00 00:00:00' or empty($time)) return $default;
 
         if (!is_numeric($time)) {
-
             $time = strtotime($time);
-
         }
+//        if (empty($format)) {
+//            $format= $this->CI->common_lib->getSettings( 'date_time_as_text_format' );
+//        }
 
-
-
-        if (empty($format)) {
-
-            $format= $this->CI->common_lib->getSettings( 'date_time_as_text_format' );
-
-        }
-
-        return strftime( $format, $time );
+//        return strftime( $format, $time );
+        return $this->humanTiming( $time );
 
     }
 
+    function humanTiming ($time)
+    {
+
+        $time = time() - $time; // to get the time since that moment
+        $time = ($time<1)? 1 : $time;
+        $tokens = array (
+            31536000 => 'year',
+            2592000 => 'month',
+            604800 => 'week',
+            86400 => 'day',
+            3600 => 'hour',
+            60 => 'minute',
+            1 => 'second'
+        );
+
+        foreach ($tokens as $unit => $text) {
+            if ($time < $unit) continue;
+            $numberOfUnits = floor($time / $unit);
+            return $numberOfUnits.' '.$text.(($numberOfUnits>1)?'s':'');
+        }
+
+    }
 
 
     /**********************
@@ -1234,11 +1248,11 @@ class Common_lib
     {
         //AppUtils::deb( $cms_item_template_id, 'SendEmail $cms_item_template_id::');
         $ci = & get_instance();
-	    $ci->common_lib->DebToFile( 'sendEmail $to::'.print_r($to,true));
+        $ci->common_lib->DebToFile( 'sendEmail $to::'.print_r($to,true));
 
-	    $ci->common_lib->DebToFile( 'sendEmail $subject::'.print_r($subject,true));
+        $ci->common_lib->DebToFile( 'sendEmail $subject::'.print_r($subject,true));
 
-	    $ci->common_lib->DebToFile( 'sendEmail $message::'.print_r($message,true));
+        $ci->common_lib->DebToFile( 'sendEmail $message::'.print_r($message,true));
 
         $config_array = $ci->config->config;
 
