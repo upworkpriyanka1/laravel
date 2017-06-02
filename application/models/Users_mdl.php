@@ -135,7 +135,8 @@ class Users_mdl extends CI_Model
     public function getUsersList($OutputFormatCount = false, $page = 0, $filters = array(), $sort = '', $sort_direction = '')
     {
 	if (empty($sort))
-	    $sort = 'username';
+	    $sort = $this->m_users_table.'.created_at';
+        if ( empty($sort_direction) ) $sort_direction= 'desc';
 //        echo '<pre>$filters::'.print_r($filters,true).'</pre>';
 	$config_data = $this->config->config;
 	$ci = & get_instance();

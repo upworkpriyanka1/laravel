@@ -1055,9 +1055,9 @@ class Common_lib
         if (!is_numeric($time)) {
             $time = strtotime($time);
         }
-//        if (empty($format)) {
-//            $format= $this->CI->common_lib->getSettings( 'date_time_as_text_format' );
-//        }
+        if (empty($format)) {
+            $format= $this->CI->common_lib->getSettings( 'date_time_as_text_format' );
+        }
 
 //        return strftime( $format, $time );
         return $this->humanTiming( $time );
