@@ -16,6 +16,7 @@ class Users extends CI_Controller
 		$this->load->model('users_mdl');
 		$this->load->model('cms_items_mdl');
 		$this->load->model('activity_logs_mdl');
+        $this->load->model('clients_mdl');
 		$this->lang->load('sys_admin');
 		$this->config->load('sys_admin_menu_new', true);
 		$this->menu = $this->config->item('sys_admin_menu_new');
@@ -693,6 +694,139 @@ class Users extends CI_Controller
 		$this->output->set_content_type('application/json')->set_output(json_encode(array('ErrorMessage' => '', 'ErrorCode' => 0, 'user_id' => $user_id )));
 	}
 
+    public function load_user_related_clients()
+    {
+        $UriArray = $this->uri->uri_to_assoc(4);
+        $post_array = $this->input->post();
+        $filter_user_id = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_user_id');
+
+        $page = $this->common_lib->getParameter($this, $UriArray, $post_array, 'page');
+        $filter_related_clients_filter = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_related_clients_filter');
+        $filter_related_clients_type = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_related_clients_type');
+        $db_filter_related_clients_type= $filter_related_clients_type;
+        $client_active_status = $this->common_lib->getParameter($this, $UriArray, $post_array, 'client_active_status');
+        $sort= $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort', 'created_at');
+        $sort_direction = $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort_direction', 'asc');
+
+        if ($filter_related_clients_type == 'A') { // SHOW ALL USERS
+            $db_filter_related_clients_type= '';
+        }
+        if ( empty($page) ) $page= 1;
+
+
+        $PageParametersWithSort = $this->usersRelatedClientsPreparePageParameters($UriArray, $post_array, false, true);     // keep all sorting parameters for using in sorting
+        $PageParametersWithoutSort = $this->usersRelatedClientsPreparePageParameters($UriArray, $post_array, false, false); // by column header or at editor submitting to keep current filters
+
+        $this->load->library('pagination');
+        $pagination_config= $this->common_lib->getPaginationParams('ajax');
+        $pagination_config['base_url'] = base_url() . 'sys-admin/clients_edit_load_related_users' . '/page';
+        $filters= array( 'user_id'=>$filter_user_id, 'uc_active_status'=> $db_filter_related_clients_type, 'show_uc_active_status'=> 1, 'username'=> $filter_related_clients_filter, 'client_active_status'=> $client_active_status );
+        $clients_count = $this->clients_mdl->getClientsList( true, 0, $filters );
+        $filters['show_user_group']= 1;
+
+        $pagination_config['total_rows'] = $clients_count;
+        $this->pagination->suffix = $this->usersRelatedClientsPreparePageParameters($UriArray, $post_array, false, true);
+
+        $this->pagination->initialize($pagination_config);
+        $this->pagination->cur_page= $page;
+        $pagination_links = $this->pagination->create_links();
+        $related_clients_list= [];
+        if ( $clients_count > 0 ) {
+            $related_clients_list = $this->clients_mdl->getClientsList( false, $page, $filters, $sort, $sort_direction );
+        }
+
+        $data = array('related_clients_list' => $related_clients_list, 'user_id' => $filter_user_id, 'clients_count'=> $clients_count, 'related_users_type'=> $filter_related_clients_type, 'related_users_filter'=> $filter_related_clients_filter, 'sort_direction'=> $sort_direction, 'sort'=> $sort, 		'PageParametersWithSort'=> $PageParametersWithSort, 'PageParametersWithoutSort'=> $PageParametersWithoutSort,
+            'pagination_links'=> 		$pagination_links   );
+        $data['page']		= 'users/load_related_clients'; //page view to load
+        $data['page_number']		= $page;
+        $data['plugins'] 	= array();
+        $data['javascript'] = array();
+        $views				= array(  'design/page'  );
+
+//        echo "<pre>";
+//        print_r($data);
+//        die;
+        ob_start();
+        $this->layout->view($views, $data);
+        $html = ob_get_contents();
+        ob_end_clean();
+        $this->output->set_content_type('application/json')->set_output(json_encode(array('ErrorMessage' => '', 'ErrorCode' => 0, 'user_id' => $filter_user_id, 'clients_count'=> $clients_count, 'html' => $html )));
+
+    }
+
+
+    public function load_user_related_clients_new()
+    {
+        $UriArray = $this->uri->uri_to_assoc(4);
+        $post_array = $this->input->post();
+        $filter_user_id = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_user_id');
+
+        $filters= array( 'user_id'=>$filter_user_id, 'uc_active_status'=> $db_filter_related_clients_type, 'show_uc_active_status'=> 1, 'username'=> $filter_related_clients_filter, 'client_active_status'=> $client_active_status );
+        $clients_count = $this->clients_mdl->getClientsList( true, 0, $filters );
+
+        $related_clients_list= [];
+        if ( $clients_count > 0 ) {
+            $related_clients_list = $this->clients_mdl->getClientsList( false, 0, $filters );
+        }
+        echo "<pre>";
+        print_r($filters);
+        die;
+        $data = array('related_clients_list' => $related_clients_list, 'user_id' => $filter_user_id, 'clients_count'=> $clients_count, 'related_clients_type'=> $filter_related_clients_type, 'related_users_filter'=> $filter_related_clients_filter);
+        $data['page']		= 'users/load_related_clients'; //page view to load
+        $data['page_number']		= $page;
+        $data['plugins'] 	= array();
+        $data['javascript'] = array();
+        $views				= array(  'design/page'  );
+
+//        echo "<pre>";
+//        print_r($data);
+//        die;
+        ob_start();
+        $this->layout->view($views, $data);
+        $html = ob_get_contents();
+        ob_end_clean();
+        $this->output->set_content_type('application/json')->set_output(json_encode(array('ErrorMessage' => '', 'ErrorCode' => 0, 'user_id' => $filter_user_id, 'clients_count'=> $clients_count, 'html' => $html )));
+
+    }
 	////////////// USERS BLOCK END /////////////
 
+
+
+    private function usersRelatedClientsPreparePageParameters($UriArray, $_post_array, $WithPage, $WithSort)
+    {
+        $ResStr = '';
+        if (!empty($_post_array)) { // form was submitted
+            if ($WithPage) {
+                $page = $this->input->post('page');
+                $ResStr .= !empty($page) ? 'page/' . $page . '/' : 'page/1/';
+            }
+            $filter_client_id = $this->input->post('filter_user_id');
+            $ResStr .= !empty($filter_client_id) ? 'filter_user_id/' . $filter_client_id . '/' : '';
+            $filter_related_users_filter = $this->input->post('filter_related_clients_filter');
+            $ResStr .= !empty($filter_related_users_filter) ? 'filter_related_clients_filter/' . $filter_related_users_filter . '/' : '';
+            $filter_provides_vendors_type = $this->input->post('filter_provides_vendors_type');
+            $ResStr .= !empty($filter_provides_vendors_type) ? 'filter_provides_vendors_type/' . $filter_provides_vendors_type . '/' : '';
+            if ($WithSort) {
+                $sort_direction = $this->input->post('sort_direction');
+                $ResStr .= !empty($sort_direction) ? 'sort_direction/' . $sort_direction . '/' : '';
+                $sort = $this->input->post('sort');
+                $ResStr .= !empty($sort) ? 'sort/' . $sort . '/' : '';
+            }
+        } else {
+            if ($WithPage) {
+                $ResStr .= !empty($UriArray['page']) ? 'page/' . $UriArray['page'] . '/' : 'page/1/';
+            }
+            $ResStr .= !empty($UriArray['filter_user_id']) ? 'filter_user_id/' . $UriArray['filter_user_id'] . '/' : '';
+            $ResStr .= !empty($UriArray['filter_related_clients_filter']) ? 'filter_related_clients_filter/' . $UriArray['filter_related_clients_filter'] . '/' : '';
+            $ResStr .= !empty($UriArray['filter_provides_vendors_type']) ? 'filter_provides_vendors_type/' . $UriArray['filter_provides_vendors_type'] . '/' : '';
+            if ($WithSort) {
+                $ResStr .= !empty($UriArray['sort_direction']) ? 'sort_direction/' . $UriArray['sort_direction'] . '/' : '';
+                $ResStr .= !empty($UriArray['sort']) ? 'sort/' . $UriArray['sort'] . '/' : '';
+            }
+        }
+        if (substr($ResStr, strlen($ResStr) - 1, 1) == '/') {
+            $ResStr = substr($ResStr, 0, strlen($ResStr) - 1);
+        }
+        return '/' . $ResStr;
+    }
 }

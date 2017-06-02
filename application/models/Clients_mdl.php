@@ -154,7 +154,7 @@ class Clients_mdl extends CI_Model
             $this->db->like( $this->m_clients_table . '.client_name', $filters['client_name'] );
         }
         if (!empty($filters['client_active_status']) or strlen($filters['client_active_status']) > 0) {
-            $this->db->where($this->m_clients_table.'.client_active_status = ' . "'" . $filters['client_active_status'] . "'");
+            $this->db->where($this->m_clients_table.'.client_status = ' . "'" . $filters['client_active_status'] . "'");
         }
         if (!empty($filters['client_zip'])) {
             $this->db->where($this->m_clients_table.'.client_zip = ' . "'" . $filters['client_zip'] . "'");

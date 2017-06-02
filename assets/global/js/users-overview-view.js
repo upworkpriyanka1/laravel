@@ -2,6 +2,7 @@ $(document).ready(function(){
 
 
 
+
     $('#avatar').on('change',function(){
         var user_id=$('input[name="user"]').val();
         var file_data = $('#avatar').prop('files')[0];
@@ -116,6 +117,25 @@ $(document).ready(function(){
     });
 });
 
+$(function() {
+    // setClientUserValidationRules()
+    loadUserRelatedClients(1)
+});
+
+
+function loadUserRelatedClients(page) {
+    var href= "/sys-admin/users/load_user_related_clients/filter_user_id/"+$("input[name='id']").val()+"/page/"+page
+    $.ajax({
+        url: href,
+        type: 'GET',
+        dataType: 'json',
+        success: function(result) {
+            if (result.ErrorCode == 0) {
+                $('#div_load_user_related_clients').html(result.html)
+            }
+        }
+    });
+}
 
 ( function( window ) {
 

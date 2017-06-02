@@ -146,12 +146,12 @@ echo link_tag('/assets/layouts/default/css/custom-client-overview-view.css');
                     </nav>
 
 
-                    <div id="tab_client_related_users" class="col s12">
+                    <div id="tab_client_related_users" class="col s12" style="background-color: #fff; padding-top: 20px">
                         <div id="div_load_client_related_users"></div>
                     </div>
 
 
-                    <div id="tab_client_related_patients" class="col s12">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </div>
+                    <div id="tab_client_related_patients" class="col s12" style="background-color: #fff; padding-top: 20px"">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </div>
                 </div>
             </div>
 
