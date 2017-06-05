@@ -60,7 +60,7 @@ echo link_tag('/assets/layouts/default/css/custom-users-overview-view.css');
 
 
                 <div class="table-responsive">
-                    <table style="background-color: #fff;">
+                    <table style="background-color: #fff;" class="table table-striped table-bordered table-hover  order-column">
                         <thead>
                         <tr>
                             <th>Name</th>

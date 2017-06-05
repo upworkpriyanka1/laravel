@@ -75,10 +75,6 @@ $(document).ready(function(){
         $('.user-change-status-title').text(status);
         $('#user-status-change-confirm-modal').modal('show');
     });
-    $('.reset_form_btn').on('click',function(){
-        $("#new_user_form")[0].reset();
-    });
-
     $('.user_status_confirm').on('click', function(){
         $('.user-status-parent .disabled').removeClass('disabled');
         var text = $('.user-change-status-title').text();
@@ -101,6 +97,43 @@ $(document).ready(function(){
         });
         $('#user-status-change-confirm-modal').modal('hide');
     });
+
+    $('li.client-status').on('click',function () {
+        if ($(this).hasClass('disabled'))
+            return;
+        var status= $(this ).find('a').text();
+        $('.client-change-status-title').text(status);
+        $('#client-status-change-confirm-modal').modal('show');
+    });
+    $('.client_status_confirm').on('click', function(){
+        $('.client-status-parent .disabled').removeClass('disabled');
+        var text = $('.client-change-status-title').text();
+        $( ".client-status-parent li" ).each(function( index ) {
+            if($(this).find('a').text() == text){
+                $(this).addClass('disabled');
+                $('.status_but_name').text(text);
+                return;
+            }
+        });
+        var client_id=$("input[name=id]").val();
+        $.ajax({
+            url:'/sys-admin/client-change-status/',
+            type: 'POST',
+            data: {'status':text,'id':client_id},
+            dataType: 'json',
+            success: function(data){
+
+            }
+        });
+        $('#client-status-change-confirm-modal').modal('hide');
+    });
+
+
+    $('.reset_form_btn').on('click',function(){
+        $("#new_user_form")[0].reset();
+    });
+
+
 
     $('#us-pass-conf').on('keyup',function(){
        var us_pass=$('#us-pass').val();

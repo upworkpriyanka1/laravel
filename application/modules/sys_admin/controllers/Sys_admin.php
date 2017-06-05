@@ -1834,6 +1834,20 @@ class Sys_admin extends CI_Controller {
         $this->common_lib->activity_log($this->menu,$this->user, $this->group->name,TRUE);
     }
 
+    public function client_change_status(){
+        $user_id=$_POST["id"];
+        $status =$_POST["status"];
+        $arr_status=[
+            'Pending'=>'P',
+            'Active'=>'A',
+            'Inactive'=>'I'
+        ];
+        $this->db->update($this->clients_mdl->m_clients_table, array('user_status'=>$arr_status[$status]), array('id' => $user_id));
+        exit;
+
+
+    }
+
 
 }
 

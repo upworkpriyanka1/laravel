@@ -40,6 +40,7 @@ $lang['edit']                   = "Edit";
 $lang['created_at']             = "Created At";
 $lang['updated_at']             = "Updated At";
 $lang['created']                = "Created";
+$lang['updated']                = "Updated";
 
 
 $lang['newuserform']            = 'User form';
@@ -54,6 +55,7 @@ $lang['client']                 = "New Client";
 $lang['clients-type']           = "Client Type";
 $lang['client_type_help']       = "select min 1 option (Ctrl+Click)";
 $lang['client_name']            = "Client Name";
+$lang['name']                   = "Name";
 $lang['cid']                    = "ID";
 $lang['client_owner']           = "Client Owner";
 $lang['client_email']           = "Client Email";
@@ -73,6 +75,9 @@ $lang['col3']                   = "Col 3";
 $lang['eh']                     = "Sacred City";
 $lang['sacred-city']            = "Sacred City";
 $lang['license']                = "License";
+$lang['type']                   = "Type";
+$lang['users']                  = "Users";
+
 
 
 

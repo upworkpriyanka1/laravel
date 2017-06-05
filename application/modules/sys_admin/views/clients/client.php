@@ -30,6 +30,34 @@ echo link_tag('/assets/layouts/default/css/custom-client-overview-view.css');
                 USER
             </button>
 
+            <div class="user-st">
+                <h4>Status</h4>
+
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><span class="status_but_name"><?=$client_active_status_array[$client->client_status];?></span><span class="caret"></span></button>
+                    <ul class="dropdown-menu client-status-parent">
+                        <li class="client-status <?=($client->client_status == "P") ? "disabled":''?>"><a href="javascript:void(0)">Pending</a></li>
+                        <li class="client-status <?=($client->client_status == "A") ? "disabled":''?>"><a href="javascript:void(0)">Active</a></li>
+                        <li class="client-status <?=($client->client_status == "I") ? "disabled":''?>"><a href="javascript:void(0)">Inactive</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="client-status-change-confirm-modal" class="modal fade in">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body text-center">
+                            <input type="hidden" name="id" value="<?= $client->cid; ?>">
+                            <h4> Change <?= $client->client_name; ?> status to <span class="client-change-status-title"></span> ? </h4>
+                            <div class="btn-group">
+                                <button class="btn btn-danger" data-dismiss="modal" style="margin-right: 10px">No</button>
+                                <input type="button" class="btn btn-primary client_status_confirm" value="yes">
+                            </div>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dalog -->
+            </div><!-- /.modal -->
+
             <div class="modal fade newclient" id="client_new_user_dialog" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class=" modal-content">
