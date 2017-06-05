@@ -33,10 +33,10 @@ class Services_mdl extends CI_Model
         return $ResArray;
     }
 
-    public function getServiceActiveStatusLabel($client_active_status)
+    public function getServiceActiveStatusLabel($sv_active_status)
     {
-        if (!empty($this->ServiceActiveStatusLabelValueArray[$client_active_status])) {
-            return $this->ServiceActiveStatusLabelValueArray[$client_active_status];
+        if (!empty($this->ServiceActiveStatusLabelValueArray[$sv_active_status])) {
+            return $this->ServiceActiveStatusLabelValueArray[$sv_active_status];
         }
         return '';
     }

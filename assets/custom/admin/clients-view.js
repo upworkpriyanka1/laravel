@@ -140,7 +140,7 @@ function clientsListFilterApplied( ) {
     } );
     $("#filter_client_name").val( jQuery.trim($("#hidden_filter_client_name").val()) )
     $("#filter_client_type").val( jQuery.trim($("#hidden_filter_client_type").val()) )
-    $("#filter_client_active_status").val( jQuery.trim($("#hidden_filter_client_active_status").val()) )
+    $("#filter_client_status").val( jQuery.trim($("#hidden_filter_client_status").val()) )
     $("#filter_client_zip").val( jQuery.trim($("#hidden_filter_client_zip").val()) )
 
     $("#filter_created_at_from").css("display", "block")
@@ -170,7 +170,7 @@ function clientsListFilterApplied( ) {
  *********************************/
 function clientsListMakeFilterDialogSubmit() {
     $("#hidden_filter_client_name").val( jQuery.trim($("#filter_client_name").val()) )
-    $("#hidden_filter_client_active_status").val( $("#filter_client_active_status").val() )
+    $("#hidden_filter_client_status").val( $("#filter_client_status").val() )
     $("#hidden_filter_client_type").val( jQuery.trim($("#filter_client_type").val()) )
     $("#hidden_filter_client_zip").val( jQuery.trim($("#filter_client_zip").val()) )
 

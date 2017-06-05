@@ -1,6 +1,10 @@
 <?php $ci = &get_instance();
 echo link_tag('/assets/layouts/default/css/custom-client-overview-view.css');
 ?>
+<script>
+    var client_id= '<?php echo $client->cid ?>'
+</script>
+
 <style>
 .error{
 	left: 0 !important;
@@ -12,7 +16,7 @@ echo link_tag('/assets/layouts/default/css/custom-client-overview-view.css');
     <div class="col s12 m9 l10">
         <div class="row" style="margin-bottom: 0;">
             <?php
-			
+
             $message = $this->session->flashdata('massege');
             if($message && $message != ''){ ?>
                 <div class="massege" style="background-color: #fff;padding: 10px;margin-bottom: 10px">
@@ -20,8 +24,7 @@ echo link_tag('/assets/layouts/default/css/custom-client-overview-view.css');
             <?php } ?>
 
             <div class="edit" style="display: inline-block;margin-right: 30px;">
-                <a  href="/sys-admin/client/<?=$client->cid?>/" class="btn-floating btn-large waves-effect waves-light " style="border-radius: 50% !important;"><i class="large material-icons">edit</i></a>
-
+                <a  href="/sys-admin/client-edit/<?=$client->cid?>/" class="btn-floating btn-large waves-effect waves-light " style="border-radius: 50% !important;"><i class="large material-icons">edit</i></a>
             </div>
 
 
@@ -126,8 +129,11 @@ echo link_tag('/assets/layouts/default/css/custom-client-overview-view.css');
             </div>
 
 
+
+
             <div id="grid-pinned" class="scrollspy">
                 <h3 class="header">Pinned</h3>
+                <h3 class="header">Status : <?= $this->common_lib->get_client_status_label($client->client_status ) ?></h3>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci assumenda at distinctio, dolorem exercitationem iure libero nesciunt nihil nisi odio odit pariatur placeat porro, repellendus, sapiente sunt totam unde! Accusamus.</p>
             </div>
 

@@ -20,14 +20,14 @@ http://local-zntral.com/sys-admin/api/clients/clients/show_client_type_descripti
 
 
 
-filter_client_active_status = value, where value can be one of value 'N' - 'New', 'A' - 'Active', 'I' - 'Inactive'
+filter_client_status = value, where value can be one of value 'N' - 'New', 'A' - 'Active', 'I' - 'Inactive'
 Set filter on active_status field. All clients could have one of next active_status
 'N' / New    : just created clients. They are NOT visible at frontend and needs be checked by Sys Admin,who can set it to Active status.
 'A' / Active : are visible at frontend
 'I' / Inactive : are NOT visible at frontend
 
 example:
-http://local-zntral.com/sys-admin/api/clients/clients/show_client_type_description/1/filter_client_active_status/A
+http://local-zntral.com/sys-admin/api/clients/clients/show_client_type_description/1/filter_client_status/A
 get list of all active users with client type description field.
 
 
@@ -36,7 +36,7 @@ filter_client_type - numeric value of client type
 Set filter on client type
 
 example:
-http://local-zntral.com/sys-admin/api/clients/clients/filter_client_active_status/A/filter_client_type/4
+http://local-zntral.com/sys-admin/api/clients/clients/filter_client_status/A/filter_client_type/4
 get list of all active users with client type "Home Health" ( type_id= 4 ).
 
 
@@ -45,7 +45,7 @@ filter_client_zip = value, where value is searched zip
 Set filter on client zip
 
 example:
-http://local-zntral.com/sys-admin/api/clients/clients/show_client_type_description/1/filter_client_active_status/A/filter_client_zip/1234
+http://local-zntral.com/sys-admin/api/clients/clients/show_client_type_description/1/filter_client_status/A/filter_client_zip/1234
 get list of all active users with zip "1234" and with client type description field.
 
 
@@ -53,7 +53,7 @@ By default resulting rows are ordered by client_name field.
 You can set order by any fields in resulting rows using   "sort" and "sort_direction"
 
 example:
-http://local-zntral.com/sys-admin/api/clients/clients/filter_client_active_status/A/sort/client_owner/sort_direction/desc
+http://local-zntral.com/sys-admin/api/clients/clients/filter_client_status/A/sort/client_owner/sort_direction/desc
 get list of all active users ordered by owner_name desc.
 
 In case of request returned rows code 200 is returned.
@@ -101,7 +101,7 @@ http://local-zntral.com/sys-admin/api_testing/client_post
 	client_website         - VARCHAR(100) required,   checks valid url value
 	color_scheme           - VARCHAR(20)              Can Be Empty, DEFAULT '',
 	client_notes           - TEXT required,
-	client_active_status   - ENUM('N','A','I')        checks valid enum value, Can Be Empty, DEFAULT 'N',
+	client_status   - ENUM('N','A','I')        checks valid enum value, Can Be Empty, DEFAULT 'N',
 
 1) If varchar is too big, concat it, raise error?
 
