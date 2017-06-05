@@ -544,10 +544,6 @@ if ((!empty($_SERVER["HTTP_HOST"]) and !(strpos($_SERVER["HTTP_HOST"], "local-zn
 
         $config['is_developer_comp'] = 1;
 
-
-
-    }
-
     } else if (ENVIRONMENT == 'devs') {
 
         $config['log_path'] = '/home/zntral/devs/log/'; // '/home/dev9soft/public_html/tb/'
