@@ -1810,14 +1810,14 @@ class Sys_admin extends CI_Controller {
     }
 
     public function client_change_status(){
-        $user_id=$_POST["id"];
+        $client_id=$_POST["id"];
         $status =$_POST["status"];
         $arr_status=[
             'Pending'=>'P',
             'Active'=>'A',
             'Inactive'=>'I'
         ];
-        $this->db->update($this->clients_mdl->m_clients_table, array('user_status'=>$arr_status[$status]), array('id' => $user_id));
+        $this->db->update($this->clients_mdl->m_clients_table, array('client_status'=>$arr_status[$status]), array('cid' => $client_id));
         exit;
 
 

@@ -37,7 +37,7 @@ echo link_tag('/assets/layouts/default/css/custom-client-overview-view.css');
                 <h4>Status</h4>
 
                 <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><span class="status_but_name"><?=$client_active_status_array[$client->client_status];?></span><span class="caret"></span></button>
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><span class="status_but_name"><?=$client_status_array[$client->client_status];?></span><span class="caret"></span></button>
                     <ul class="dropdown-menu client-status-parent">
                         <li class="client-status <?=($client->client_status == "P") ? "disabled":''?>"><a href="javascript:void(0)">Pending</a></li>
                         <li class="client-status <?=($client->client_status == "A") ? "disabled":''?>"><a href="javascript:void(0)">Active</a></li>
@@ -161,7 +161,6 @@ echo link_tag('/assets/layouts/default/css/custom-client-overview-view.css');
 
             <div id="grid-pinned" class="scrollspy">
                 <h3 class="header">Pinned</h3>
-                <h3 class="header">Status : <?= $this->common_lib->get_client_status_label($client->client_status ) ?></h3>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci assumenda at distinctio, dolorem exercitationem iure libero nesciunt nihil nisi odio odit pariatur placeat porro, repellendus, sapiente sunt totam unde! Accusamus.</p>
             </div>
 
