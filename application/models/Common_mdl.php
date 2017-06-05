@@ -9,7 +9,10 @@ class Common_mdl extends CI_Model {
         {
             parent::__construct();
         }
-/*********************************
+
+
+
+    /*********************************
 * Get user Info
 * Access public
 * @params user_id

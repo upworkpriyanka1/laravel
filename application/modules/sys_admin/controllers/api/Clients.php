@@ -49,14 +49,14 @@ class Clients extends REST_Controller {
             // apply all filters to data retrieving
             $show_client_type_description= !empty($uri_array['show_client_type_description']) ? $uri_array['show_client_type_description'] : '';
             $filter_client_name= !empty($uri_array['filter_client_name']) ? $uri_array['filter_client_name'] : '';
-            $filter_client_active_status= !empty($uri_array['filter_client_active_status']) ? $uri_array['filter_client_active_status'] : '';
+            $filter_client_status= !empty($uri_array['filter_client_status']) ? $uri_array['filter_client_status'] : '';
             $filter_client_type= !empty($uri_array['filter_client_type']) ? $uri_array['filter_client_type'] : '';
             $filter_client_zip= !empty($uri_array['filter_client_zip']) ? $uri_array['filter_client_zip'] : '';
             $filter_created_at_from= !empty($uri_array['filter_created_at_from']) ? $uri_array['filter_created_at_from'] : '';
             $filter_created_at_till= !empty($uri_array['filter_created_at_till']) ? $uri_array['filter_created_at_till'] : '';
             $sort= !empty($uri_array['sort']) ? $uri_array['sort'] : '';
             $sort_direction= !empty($uri_array['sort_direction']) ? $uri_array['sort_direction'] : '';
-            $clients= $this->clients_mdl->getClientsList(false, '', array( 'show_client_type_description'=>$show_client_type_description, 'client_name'=> $filter_client_name, 'client_active_status'=> $filter_client_active_status, 'client_type'=> $filter_client_type, 'client_zip'=> $filter_client_zip, 'created_at_from'=> $filter_created_at_from, 'created_at_till'=> $filter_created_at_till ), $sort, $sort_direction );
+            $clients= $this->clients_mdl->getClientsList(false, '', array( 'show_client_type_description'=>$show_client_type_description, 'client_name'=> $filter_client_name, 'client_status'=> $filter_client_status, 'client_type'=> $filter_client_type, 'client_zip'=> $filter_client_zip, 'created_at_from'=> $filter_created_at_from, 'created_at_till'=> $filter_created_at_till ), $sort, $sort_direction );
             if ($clients)     // If there are clients set the response and exit
             {
                 $this->response($clients, REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
@@ -102,7 +102,7 @@ class Clients extends REST_Controller {
         $client_name = $this->post('client_name');
         $client_email = $this->post('client_email');
         $client_website = $this->post('client_website');
-        $client_active_status = $this->post('client_active_status');
+        $client_status = $this->post('client_status');
         $clients_types_id  = $this->post('clients_types_id');
         $client_owner = $this->post('client_owner');
         $client_address1 = $this->post('client_address1');
@@ -117,7 +117,7 @@ class Clients extends REST_Controller {
         $validation_errors= array();
         include_once("validateData.php");
         $validateDataObj= new validateData($this);
-        $validateDataObj->set_validation_required_fields(  array( 'client_name', 'client_email', 'client_active_status', 'clients_types_id', 'client_owner', 'client_address1', 'client_city', 'client_state', 'client_zip', 'client_phone', 'client_fax' ) );
+        $validateDataObj->set_validation_required_fields(  array( 'client_name', 'client_email', 'client_status', 'clients_types_id', 'client_owner', 'client_address1', 'client_city', 'client_state', 'client_zip', 'client_phone', 'client_fax' ) );
         $validateDataObj->set_validation_email_fields(  array( 'client_email' ) );
         $validateDataObj->set_validation_not_negative_fields(  array( 'client_zip' ) );
         $validateDataObj->set_validation_integer_fields(  array( 'client_zip' ) );
@@ -126,7 +126,7 @@ class Clients extends REST_Controller {
         $validateDataObj->set_validation_phone_fields(  array( 'client_phone' ) );
         $validateDataObj->set_validation_url_fields(  array( 'client_website' ) );
         $validateDataObj->set_validation_enum_fields(  array(
-            array( 'field_name'=>'client_active_status', 'values'=>array( 'N','A','I' ) ),
+            array( 'field_name'=>'client_status', 'values'=>array( 'N','A','I' ) ),
         ) );
         $validateDataObj->set_validation_reference_links(  array(
             array( 'field_name'=>"clients_types_id", 'ref_table'=>'clients_types', 'ref_column'=>'type_id' ),
@@ -151,7 +151,7 @@ class Clients extends REST_Controller {
             exit;
         }
 
-        $client_data= array( 'client_name'=> $client_name, 'client_email'=> $client_email, 'client_website'=> $client_website,  'client_active_status'=> $client_active_status, 'clients_types_id'=> $clients_types_id, 'client_owner'=> $client_owner, 'client_address1'=> $client_address1, 'client_address2'=> $client_address2,  'client_city'=> $client_city,  'client_state'=> $client_state, 'client_zip'=> $client_zip, 'client_phone'=> $client_phone, 'client_fax'=> $client_fax, 'client_notes'=> $client_notes, 'created_at'=>strftime($date_time_mysql_format) , 'updated_at'=>strftime($date_time_mysql_format) );
+        $client_data= array( 'client_name'=> $client_name, 'client_email'=> $client_email, 'client_website'=> $client_website,  'client_status'=> $client_status, 'clients_types_id'=> $clients_types_id, 'client_owner'=> $client_owner, 'client_address1'=> $client_address1, 'client_address2'=> $client_address2,  'client_city'=> $client_city,  'client_state'=> $client_state, 'client_zip'=> $client_zip, 'client_phone'=> $client_phone, 'client_fax'=> $client_fax, 'client_notes'=> $client_notes, 'created_at'=>strftime($date_time_mysql_format) , 'updated_at'=>strftime($date_time_mysql_format) );
         if ( $this->db->insert('clients',$client_data) ) {
             $new_client_id = $this->db->insert_id();
             $this->set_response($new_client_id, REST_Controller::HTTP_CREATED);

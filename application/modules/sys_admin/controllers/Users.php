@@ -704,7 +704,7 @@ class Users extends CI_Controller
         $filter_related_clients_filter = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_related_clients_filter');
         $filter_related_clients_type = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_related_clients_type');
         $db_filter_related_clients_type= $filter_related_clients_type;
-        $client_active_status = $this->common_lib->getParameter($this, $UriArray, $post_array, 'client_active_status');
+        $client_status = $this->common_lib->getParameter($this, $UriArray, $post_array, 'client_status');
         $sort= $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort', 'created_at');
         $sort_direction = $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort_direction', 'asc');
 
@@ -720,7 +720,7 @@ class Users extends CI_Controller
         $this->load->library('pagination');
         $pagination_config= $this->common_lib->getPaginationParams('ajax');
         $pagination_config['base_url'] = base_url() . 'sys-admin/clients_edit_load_related_users' . '/page';
-        $filters= array( 'user_id'=>$filter_user_id, 'uc_active_status'=> $db_filter_related_clients_type, 'show_uc_active_status'=> 1, 'username'=> $filter_related_clients_filter, 'client_active_status'=> $client_active_status );
+        $filters= array( 'user_id'=>$filter_user_id, 'uc_active_status'=> $db_filter_related_clients_type, 'show_uc_active_status'=> 1, 'username'=> $filter_related_clients_filter, 'client_status'=> $client_status );
         $clients_count = $this->clients_mdl->getClientsList( true, 0, $filters );
         $filters['show_user_group']= 1;
 
@@ -761,7 +761,7 @@ class Users extends CI_Controller
         $post_array = $this->input->post();
         $filter_user_id = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_user_id');
 
-        $filters= array( 'user_id'=>$filter_user_id, 'uc_active_status'=> $db_filter_related_clients_type, 'show_uc_active_status'=> 1, 'username'=> $filter_related_clients_filter, 'client_active_status'=> $client_active_status );
+        $filters= array( 'user_id'=>$filter_user_id, 'uc_active_status'=> $db_filter_related_clients_type, 'show_uc_active_status'=> 1, 'username'=> $filter_related_clients_filter, 'client_status'=> $client_status );
         $clients_count = $this->clients_mdl->getClientsList( true, 0, $filters );
 
         $related_clients_list= [];

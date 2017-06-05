@@ -36,7 +36,7 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
 
                         <input type="hidden" id="page_number" name="page_number" value="1">
                         <input type="hidden" id="hidden_filter_client_name" name="filter_client_name" value="<?= $filter_client_name ?>">
-                        <input type="hidden" id="hidden_filter_client_active_status" name="filter_client_active_status" value="<?= $filter_client_active_status ?>">
+                        <input type="hidden" id="hidden_filter_client_status" name="filter_client_status" value="<?= $filter_client_status ?>">
                         <input type="hidden" id="hidden_filter_client_type" name="filter_client_type" value="<?= $filter_client_type ?>">
                         <input type="hidden" id="hidden_filter_client_zip" name="filter_client_zip" value="<?= $filter_client_zip ?>">
                         <input type="hidden" id="hidden_filter_created_at_from" name="filter_created_at_from" value="<?= $filter_created_at_from ?>">
@@ -55,9 +55,9 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
 
                         <div class="row">
                             <div class="form-group" >
-                                <label class="col-xs-12 col-sm-4 control-label" for="filter_client_active_status">Client Active Status</label>
+                                <label class="col-xs-12 col-sm-4 control-label" for="filter_client_status">Client Active Status</label>
                                 <div class="col-xs-12 col-sm-8">
-                                    <select id="filter_client_active_status"  class="form-control editable_field">
+                                    <select id="filter_client_status"  class="form-control editable_field">
                                         <option value="">  -Select All-  </option>
                                         <?php foreach( $client_ActiveStatusList as $next_key=>$next_Client_ActiveStatus ) { ?>
                                             <option value="<?= $next_Client_ActiveStatus['key'] ?>" ><?= $next_Client_ActiveStatus['value'] ?></option>
@@ -143,6 +143,7 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
 <!--                            <th>--><?//= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $page_parameters_without_sort, lang('phone'), "client_phone", $sort_direction, $sort ) ?><!--</th>-->
                             <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $page_parameters_without_sort, lang('created'), "created_at", $sort_direction, $sort ) ?></th>
                             <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $page_parameters_without_sort, lang('updated'), "updated_at", $sort_direction, $sort ) ?></th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -157,7 +158,7 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
                                 </a>
                             </td>
                             <td><?php echo $row->type_description;?></td>
-                            <td><?php echo $this->common_lib->get_client_active_status_label($row->client_status);?>  </td>
+                            <td><?php echo $this->common_lib->get_client_status_label($row->client_status);?>  </td>
                             <td></td>
                             <td></td>
 
@@ -227,7 +228,7 @@ var is_insert= '<?= $is_insert ?>'
 
                     <input type="hidden" id="page_number" name="page_number" value="1">
                     <input type="hidden" id="hidden_filter_client_name" name="filter_client_name" value="<?= $filter_client_name ?>">
-                    <input type="hidden" id="hidden_filter_client_active_status" name="filter_client_active_status" value="<?= $filter_client_active_status ?>">
+                    <input type="hidden" id="hidden_filter_client_status" name="filter_client_status" value="<?= $filter_client_status ?>">
                     <input type="hidden" id="hidden_filter_client_type" name="filter_client_type" value="<?= $filter_client_type ?>">
                     <input type="hidden" id="hidden_filter_client_zip" name="filter_client_zip" value="<?= $filter_client_zip ?>">
                     <input type="hidden" id="hidden_filter_created_at_from" name="filter_created_at_from" value="<?= $filter_created_at_from ?>">
@@ -246,9 +247,9 @@ var is_insert= '<?= $is_insert ?>'
 
                     <div class="row">
                         <div class="form-group" >
-                            <label class="col-xs-12 col-sm-4 control-label" for="filter_client_active_status">Client Active Status</label>
+                            <label class="col-xs-12 col-sm-4 control-label" for="filter_client_status">Client Active Status</label>
                             <div class="col-xs-12 col-sm-8">
-                                <select id="filter_client_active_status"  class="form-control editable_field">
+                                <select id="filter_client_status"  class="form-control editable_field">
                                     <option value="">  -Select All-  </option>
                                     <?php foreach( $client_ActiveStatusList as $next_key=>$next_Client_ActiveStatus ) { ?>
                                         <option value="<?= $next_Client_ActiveStatus['key'] ?>" ><?= $next_Client_ActiveStatus['value'] ?></option>

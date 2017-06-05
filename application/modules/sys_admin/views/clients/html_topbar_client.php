@@ -19,33 +19,85 @@ $img_url = base_url()."/assets/avatar/".$res->filename;
                 <!-- BEGIN PAGE TITLE-->
                 <div class="page-title client-ed">
                     <h1  id="logo">
-                        <!-- <a href="#" data-activates="nav-mobile" class="button-collapse" id="nav_mobile_button"><i class="material-icons">menu</i></a>-->
-                        <span class='logo_first'><?php echo $client->client_name[0] ?></span><?php echo $client->client_name ?>
-
+                        <span class='logo_first' id="span_client_client_name_logo_first"></span>
+                        <?php if ( !empty($client->image_url) and !empty($client->image_path_height) ) : ?>
+                            <img src="<?= $client->image_url ?>" width="<?= $client->image_path_width ?>"  height="<?= $client->image_path_height ?>" >
+                        <?php endif; ?>
+                        <span id="span_client_client_name"></span>
                     </h1>
                     <div class="rand-place">
 
+
                         <div class="row">
-                            <div class="col s2 locat-call ">
+
+
+                            <div class="col s2 locat-call tb-adr" id="div_client_client_owner" style="display: none">
                                 <div class="tb-adr">
                                     <span class="icon-tb-cl"><i class="material-icons">location_on</i></span>
                                     <ul class="text-tb-cl">
-                                        <li><?php echo $client-> client_address1 ?></li>
-                                        <li><?php echo $client-> client_address2 ?></li>
+                                        <li><span id="span_client_client_owner"></span></li>
                                     </ul>
                                 </div>
                             </div>
 
-                            <div class="col s2 locat-call">
+                            <div class="col s2 locat-call" id="div_client_client_type_label" style="display: none">
                                 <div class="tb-adr">
-                                    <p class="icon-tb-cl"><i class="material-icons">call</i></p>
+                                    <span class="icon-tb-cl"><i class="material-icons">account_circle</i></span>
                                     <ul class="text-tb-cl">
-                                        <li><?php echo $client-> client_phone?></li>
-                                        <li><?php echo $client->client_phone_2?></li>
-                                        <li><?php echo $client->client_phone_3?></li>
+                                        <li><span id="span_client_client_type_label"></span></li>
                                     </ul>
                                 </div>
                             </div>
+
+                            <div class="col s2 locat-call" id="div_client_client_address1" style="display: none">
+                                <div class="tb-adr">
+                                    <span class="icon-tb-cl"><i class="material-icons">location_on</i></span>
+                                    <ul class="text-tb-cl">
+                                        <li><span id="span_client_client_address1"></span></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="col s2 locat-call" id="div_client_client_city" style="display: none">
+                                <div class="tb-adr">
+                                    <span class="icon-tb-cl"><i class="material-icons">location_on</i></span>
+                                    <ul class="text-tb-cl">
+                                        <li><span id="span_client_client_city"></span></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="col s2 locat-call" id="div_client_client_phone" style="display: none">
+                                <div class="tb-adr">
+                                    <p class="icon-tb-cl"><i class="material-icons">call</i></p>
+                                    <ul class="text-tb-cl">
+                                        <li><span id="span_client_client_phone"></span></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+
+                            <div class="col s2 locat-call" id="div_client_client_email" style="display: none">
+                                <div class="tb-adr">
+                                    <p class="icon-tb-cl"><i class="material-icons prefix">email</i></p>
+                                    <ul class="text-tb-cl">
+                                        <li><span id="span_client_client_email"></span></li>
+                                    </ul>
+                                </div>
+                            </div>
+<!---->
+<!---->
+<!--                            <div class="col s2 locat-call" id="div_client_client_fax" style="display: none">-->
+<!--                                <div class="tb-adr">-->
+<!--                                    <p class="icon-tb-cl"><i class="material-icons">call</i></p>-->
+<!--                                    <ul class="text-tb-cl">-->
+<!--                                        <li><span id="span_client_client_fax"></span></li>-->
+<!--                                    </ul>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!---->
+
+
 
                         </div>
                     </div>

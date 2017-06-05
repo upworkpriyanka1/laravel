@@ -22,6 +22,45 @@ class Common_lib
 
 
 
+    public static function concatArray2($arr, $equal= '=', $splitter = ',', $skip_empty = true, $skip_last_delimiter = true) {
+        $ret_str= '';
+        if ( !is_array($arr) or empty( $arr )) return '';
+        $l= count($arr);
+        $nonempty_array= array();
+        $i= 0;
+        foreach( $arr as $next_key=>$next_value ) {
+            $next_value= trim($next_value);
+            if ( empty($next_value) ) continue;
+            $nonempty_array[$next_key]= $next_value;
+            $ret_str.= $next_key .$equal. $next_value . ( ( $skip_last_delimiter and $i==$l-1 ) ? '' : $splitter );
+            $i++;
+        }
+        return $ret_str;
+    }
+
+    public static function concatArray($arr, $splitter = ',', $skip_empty = true, $skip_last_delimiter = true) {
+        $ret_str= '';
+        if ( !is_array($arr) or empty( $arr )) return '';
+        $l= count($arr);
+        $nonempty_array= array();
+        for( $i= 0; $i< $l; $i++ ) {
+            $next_value = trim($arr[$i]);
+            if (empty($next_value) and $skip_empty) continue;
+            $nonempty_array[] = self::removeMore1Space($next_value);
+        }
+
+        $l= count($nonempty_array);
+        for( $i= 0; $i< $l; $i++ ) {
+            $next_value= trim( $nonempty_array[$i] );
+            $ret_str.= $next_value . ( ( $skip_last_delimiter and $i==$l-1 ) ? '' : $splitter );
+        }
+        return $ret_str;
+    }
+
+    public static function removeMore1Space($str)    {
+        $res = preg_replace('/\s\s+/', ' ', $str);
+        return $res;
+    }
 
 
     /************************
@@ -724,19 +763,19 @@ class Common_lib
 
     /**********************
 
-     * Get readable label of client_active_status field
+     * Get readable label of client_status field
 
      * access public
 
-     * @params $client_active_status
+     * @params $client_status
 
      * return string label
 
      *********************************/
 
-    public function get_client_active_status_label($active_status) {
+    public function get_client_status_label($client_status) {
 
-        return $this->CI->clients_mdl->getClientActiveStatusLabel($active_status);
+        return $this->CI->clients_mdl->getClientStatusLabel($client_status);
 
     }
 
