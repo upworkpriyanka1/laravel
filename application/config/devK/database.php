@@ -73,12 +73,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $active_group = 'default';
 $query_builder = TRUE;
 
+//	'username' => 'zntral_dev4',
+//	'password' => '@kOTf1rD8Ug5',
+//	'database' => 'zntral_dev',
+
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
-	'username' => 'zntral_dev4',
-	'password' => '@kOTf1rD8Ug5',
-	'database' => 'zntral_dev',
+	'username' => 'zntral_devk',
+	'password' => 'CZ{WdC)kfHId',
+	'database' => 'zntral_devk',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
