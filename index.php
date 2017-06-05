@@ -34,6 +34,8 @@ else if (strpos ($domain,'dev5') !==FALSE)
 	define('ENVIRONMENT', 'devB');   	//define('ENVIRONMENT', 'dev5');
 else if (strpos ($domain,'devk') !==FALSE)
 	define('ENVIRONMENT', 'devK');
+else if (strpos ($domain,'devs') !==FALSE)
+	define('ENVIRONMENT', 'devs');
 //else if (strpos ($domain,'localhost') !==FALSE)
 //	define('ENVIRONMENT', 'devB');	
 else if (strpos ($domain,'dev') !==FALSE)
@@ -87,6 +89,13 @@ switch (ENVIRONMENT)
 		ini_set('display_errors', 1);
 		break;
 	case 'devK':
+		//Report all errors
+		//error_reporting(-1);
+		//Report only errors and warning. Do not show uninitialized variables because it can break the normal functioning.
+		error_reporting(E_ERROR | E_WARNING);
+		ini_set('display_errors', 1);
+		break;
+	case 'devs':
 		//Report all errors
 		//error_reporting(-1);
 		//Report only errors and warning. Do not show uninitialized variables because it can break the normal functioning.
