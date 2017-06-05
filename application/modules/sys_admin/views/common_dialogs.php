@@ -56,7 +56,7 @@
                                                     <div class="col-md-12" style="display: <?php echo ( $client_owner_input_visible ? "block" :"block" ) ; ?>" id="div_client_owner_input">
                                                         <i class="material-icons prefix">assignment_ind</i>
                                                         <input type="text" name="data[client_owner]" id="client_owner" value="<?= ( !empty($client->client_owner) ? $client->client_owner : '' ); ?>" class="x-able form-control required_form" maxlength="100" onchange="validateFormEnableOrDisable('form_client_edit');"/>
-                                                        <label for="client_owner" class=""><?php echo lang('company_name') ?><span class="required">&nbsp;*&nbsp;</span></label>
+                                                        <label for="client_owner" class=""><?php echo lang('client_owner') ?><span class="required">&nbsp;*&nbsp;</span></label>
                                                     </div>
 
                                                 </div>

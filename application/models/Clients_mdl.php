@@ -9,7 +9,7 @@ class Clients_mdl extends CI_Model
     public $m_clients_table;
     private $m_clients_types_table;
     public $m_vendor_table;     // P-Provides; N-Does Not Provides
-    private $ClientActiveStatusLabelValueArray = Array('A' => 'Active', 'I' => 'Inactive', 'P' => 'Pending');  // values/labels for enum field
+    private $ClientStatusLabelValueArray = Array('A' => 'Active', 'I' => 'Inactive', 'P' => 'Pending');  // values/labels for enum field
     private $UsersClientsActiveStatusLabelValueArray = Array('E' => 'Employee', 'O' => 'Out Of Staff', 'N' => 'Not Related');
     private $UserActiveStatusLabelValueArray = Array('N' => 'New', 'A' => 'Active', 'I' => 'Inactive');
     private $ClientsVendorsActiveStatusLabelValueArray = Array('P' => 'Provides', 'N' => 'Does Not Provides');
@@ -24,10 +24,10 @@ class Clients_mdl extends CI_Model
     }
 
 
-    public function getClientActiveStatusValueArray($ret_with_subarray= true)
+    public function getClientStatusValueArray($ret_with_subarray= true)
     {
         $ResArray = array();
-        foreach ($this->ClientActiveStatusLabelValueArray as $Key => $Value) {
+        foreach ($this->ClientStatusLabelValueArray as $Key => $Value) {
             if ( $ret_with_subarray ) {
                 $ResArray[] = array('key' => $Key, 'value' => $Value);
             }else {
@@ -38,10 +38,10 @@ class Clients_mdl extends CI_Model
         return $ResArray;
     }
 
-    public function getClientActiveStatusLabel($client_active_status)
+    public function getClientStatusLabel($client_status)
     {
-        if (!empty($this->ClientActiveStatusLabelValueArray[$client_active_status])) {
-            return $this->ClientActiveStatusLabelValueArray[$client_active_status];
+        if (!empty($this->ClientStatusLabelValueArray[$client_status])) {
+            return $this->ClientStatusLabelValueArray[$client_status];
         }
         return '';
     }
@@ -121,7 +121,7 @@ class Clients_mdl extends CI_Model
      * Get clients list/rows count depending of filters parameters
      * access public
      * @ params : $OutputFormatCount = TRUE- returns number of rows, FALSE- returns array of client objects; $page - page number($OutputFormatCount must be = FALSE)
-     * $filters : assoc keys of fieldname=>fieldvalue, if field value is not empty filter is set by this value for client_active_status, client_zip, client_type and between
+     * $filters : assoc keys of fieldname=>fieldvalue, if field value is not empty filter is set by this value for client_status, client_zip, client_type and between
      * created_at_from and created_at_till
      * filters work independently on $OutputFormatCount returning list(FALSE) or rows count(TRUE).
      * Sense of using $OutputFormatCount with $filters is to have common function with same filter parameters
@@ -153,8 +153,8 @@ class Clients_mdl extends CI_Model
         if (!empty($filters['client_name'])) {
             $this->db->like( $this->m_clients_table . '.client_name', $filters['client_name'] );
         }
-        if (!empty($filters['client_active_status']) or strlen($filters['client_active_status']) > 0) {
-            $this->db->where($this->m_clients_table.'.client_active_status = ' . "'" . $filters['client_active_status'] . "'");
+        if (!empty($filters['client_status']) or strlen($filters['client_status']) > 0) {
+            $this->db->where($this->m_clients_table.'.client_status = ' . "'" . $filters['client_status'] . "'");
         }
         if (!empty($filters['client_zip'])) {
             $this->db->where($this->m_clients_table.'.client_zip = ' . "'" . $filters['client_zip'] . "'");
@@ -295,7 +295,7 @@ class Clients_mdl extends CI_Model
     /**********************
      * Get client types in assoc array as key->value
      * access public
-     * $filters : assoc keys of fieldname => fieldvalue, if field value is not empty filter is set by this value for client_active_status, client_zip, client_type and between created_at_from and created_at_till
+     * $filters : assoc keys of fieldname => fieldvalue, if field value is not empty filter is set by this value for client_status, client_zip, client_type and between created_at_from and created_at_till
      * Does not depend on $OutputFormatCount
      * $sort_direction - current sort direction(asc/desc) and $sort - current sort
      * return query array  in assoc array as key->value

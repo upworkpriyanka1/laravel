@@ -1,6 +1,10 @@
 <?php $ci = &get_instance();
 echo link_tag('/assets/layouts/default/css/custom-client-overview-view.css');
 ?>
+<script>
+    var client_id= '<?php echo $client->cid ?>'
+</script>
+
 <style>
 .error{
 	left: 0 !important;
@@ -12,7 +16,7 @@ echo link_tag('/assets/layouts/default/css/custom-client-overview-view.css');
     <div class="col s12 m9 l10">
         <div class="row" style="margin-bottom: 0;">
             <?php
-			
+
             $message = $this->session->flashdata('massege');
             if($message && $message != ''){ ?>
                 <div class="massege" style="background-color: #fff;padding: 10px;margin-bottom: 10px">
@@ -20,8 +24,7 @@ echo link_tag('/assets/layouts/default/css/custom-client-overview-view.css');
             <?php } ?>
 
             <div class="edit" style="display: inline-block;margin-right: 30px;">
-                <a  href="/sys-admin/client/<?=$client->cid?>/" class="btn-floating btn-large waves-effect waves-light " style="border-radius: 50% !important;"><i class="large material-icons">edit</i></a>
-
+                <a  href="/sys-admin/client-edit/<?=$client->cid?>/" class="btn-floating btn-large waves-effect waves-light " style="border-radius: 50% !important;"><i class="large material-icons">edit</i></a>
             </div>
 
 
@@ -29,6 +32,34 @@ echo link_tag('/assets/layouts/default/css/custom-client-overview-view.css');
                 <i class="fa fa-plus" style="font-size: 16px"></i>
                 USER
             </button>
+
+            <div class="user-st">
+                <h4>Status</h4>
+
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><span class="status_but_name"><?=$client_status_array[$client->client_status];?></span><span class="caret"></span></button>
+                    <ul class="dropdown-menu client-status-parent">
+                        <li class="client-status <?=($client->client_status == "P") ? "disabled":''?>"><a href="javascript:void(0)">Pending</a></li>
+                        <li class="client-status <?=($client->client_status == "A") ? "disabled":''?>"><a href="javascript:void(0)">Active</a></li>
+                        <li class="client-status <?=($client->client_status == "I") ? "disabled":''?>"><a href="javascript:void(0)">Inactive</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="client-status-change-confirm-modal" class="modal fade in">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body text-center">
+                            <input type="hidden" name="id" value="<?= $client->cid; ?>">
+                            <h4> Change <?= $client->client_name; ?> status to <span class="client-change-status-title"></span> ? </h4>
+                            <div class="btn-group">
+                                <button class="btn btn-danger" data-dismiss="modal" style="margin-right: 10px">No</button>
+                                <input type="button" class="btn btn-primary client_status_confirm" value="yes">
+                            </div>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dalog -->
+            </div><!-- /.modal -->
 
             <div class="modal fade newclient" id="client_new_user_dialog" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -115,8 +146,8 @@ echo link_tag('/assets/layouts/default/css/custom-client-overview-view.css');
                                         <!-- <button type="button" class="btn btn-cancel-action" data-dismiss="modal" role="button">Cancel</button> -->
                                     </li>
                                     <li> <!-- class="create-contact-save " data-action="save"-->
-                                        <!--<button class="btn-flat  disable_form_id_form_user_modal_editor" disabled> VERIFY </button> -->
-                                        <button type="button" class="btn add_Userform" onClick="javascript:onuserModalEditorSubmit();" >VERIFY</button>
+<!--                                        <button class="btn-flat  disable_form_id_form_user_modal_editor" disabled> VERIFY </button>-->
+                                        <button type="button" class="btn add_Userform" id="but-verify" onClick="javascript:onuserModalEditorSubmit();" >VERIFY</button>
                                     </li>
                                 </ul>
                             </div>
@@ -124,6 +155,8 @@ echo link_tag('/assets/layouts/default/css/custom-client-overview-view.css');
                     </div>
                 </div>
             </div>
+
+
 
 
             <div id="grid-pinned" class="scrollspy">
@@ -146,12 +179,12 @@ echo link_tag('/assets/layouts/default/css/custom-client-overview-view.css');
                     </nav>
 
 
-                    <div id="tab_client_related_users" class="col s12">
+                    <div id="tab_client_related_users" class="col s12" style="background-color: #fff; padding-top: 20px">
                         <div id="div_load_client_related_users"></div>
                     </div>
 
 
-                    <div id="tab_client_related_patients" class="col s12">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </div>
+                    <div id="tab_client_related_patients" class="col s12" style="background-color: #fff; padding-top: 20px"">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </div>
                 </div>
             </div>
 

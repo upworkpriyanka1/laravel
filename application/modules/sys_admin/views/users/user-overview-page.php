@@ -55,8 +55,12 @@ echo link_tag('/assets/layouts/default/css/custom-users-overview-view.css');
 
                 <h3 class="header">Clients</h3>
 
+
+
+
+
                 <div class="table-responsive">
-                    <table style="background-color: #fff;">
+                    <table style="background-color: #fff;" class="table table-striped table-bordered table-hover  order-column">
                         <thead>
                         <tr>
                             <th>Name</th>
@@ -88,6 +92,12 @@ echo link_tag('/assets/layouts/default/css/custom-users-overview-view.css');
                         </tbody>
                     </table>
                 </div>
+
+<!--                <div id="tab_user_related_clients" class="col s12">-->
+<!--                    <div id="div_load_user_related_clients">-->
+<!---->
+<!--                    </div>-->
+<!--                </div>-->
 
             </div>
             <!-- Grid History -->

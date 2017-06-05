@@ -35,9 +35,9 @@ function showEditMode(cid, is_insert) {
     $("#div_client_address2_input").css("display","block")
     $("#div_client_address2_view").css("display","none")
 
-    $("#div_client_active_status_btn").css("display","none")
-    $("#div_client_active_status_input").css("display","block")
-    $("#div_client_active_status_view").css("display","none")
+    $("#div_client_status_btn").css("display","none")
+    $("#div_client_status_input").css("display","block")
+    $("#div_client_status_view").css("display","none")
 
     $("#div_client_owner_btn").css("display","none")
     $("#div_client_owner_input").css("display","block")

@@ -5,8 +5,8 @@
 ?>
 
 
-<div class="table-responsive">
-    <table>
+<div class="table-responsive" style="background-color: #fff">
+    <table class="table table-striped table-bordered table-hover  order-column">
         <thead>
         <tr>
             <th>Username</th>
@@ -19,7 +19,7 @@
         <tbody>
         <? foreach ($related_users_list as $next_related_user) { ?>
         <tr>
-            <td><?php echo $next_related_user->username; ?></td>
+            <td> <a href="<?= base_url('/sys-admin/users/users-overview/'.$next_related_user->id.'/');?>"> <?=$next_related_user->username; ?></a></td>
             <td><?php echo $next_related_user->user_group_description; ?> </td>
             <td><?php echo $this->users_mdl->getUserActiveStatusLabel($next_related_user->user_active_status) ?></td>
             <td><?php echo $this->common_lib->format_datetime( $next_related_user->created_at) ?></td>

@@ -434,20 +434,13 @@ $config['directory_trigger'] = 'd';
 
 //echo '<pre>ENVIRONMENT::'.print_r(ENVIRONMENT,true).'</pre>';
 
-if ((!empty($_SERVER["HTTP_HOST"]) and !(strpos($_SERVER["HTTP_HOST"], "local-zntral.com") === false))) {
-
-    $config['log_path'] = '/_wwwroot/zntral/zntral/log/';   // file:///_wwwroot/zntral/zntral/application
-
-    $config['document_root'] = '/_wwwroot/zntral/zntral/';
-
-    $config['sql_queries_to_file'] = '/_wwwroot/zntral/zntral/log/sql_queries_to_file_';
-
-    $config['base_url'] = 'http://local-zntral.com';
-
+if ((!empty($_SERVER["HTTP_HOST"]) and !(strpos($_SERVER["HTTP_HOST"], "local-zntral-dev.com") === false))) {
+    $config['log_path'] = '/_wwwroot/zntral/Dev/logs/';   // file:///_wwwroot/zntral/Dev/application
+    $config['document_root'] = '/_wwwroot/zntral/Dev/';
+    $config['sql_queries_to_file'] = '/_wwwroot/zntral/Dev/logs/sql_queries_to_file_';
+    $config['base_url'] = 'http://local-zntral-dev.com/';
     $config['is_developer_comp'] = 1;
-
     $config['log_threshold'] = 4;
-
 //    die("-1 XXZ");
 
 } else {
@@ -553,33 +546,33 @@ if ((!empty($_SERVER["HTTP_HOST"]) and !(strpos($_SERVER["HTTP_HOST"], "local-zn
 
 
 
-    } 
+    }
 
-	else if (ENVIRONMENT == 'devB') {
+    else if (ENVIRONMENT == 'devB') {
 
-        //$config['log_path'] = FCPATH . 'devB\log'; 
+        //$config['log_path'] = FCPATH . 'devB\log';
 
-		$config['log_path'] = '/home/zntral/dev5/log/';
+        $config['log_path'] = '/home/zntral/dev5/log/';
 
         //$config['sql_queries_to_file'] = FCPATH . 'devB\logs\sql_queries_to_file_';
 
-		$config['sql_queries_to_file'] = '/home/zntral/dev5/logs/sql_queries_to_file_';
+        $config['sql_queries_to_file'] = '/home/zntral/dev5/logs/sql_queries_to_file_';
 
         //$config['document_root'] = FCPATH;
 
-		$config['document_root'] = '/home/zntral/dev5/';
+        $config['document_root'] = '/home/zntral/dev5/';
 
         $config['base_url'] = 'https://dev5.zntral.net/';
-		//$config['base_url'] = 'http://binarybakers.com/zntral/';
+        //$config['base_url'] = 'http://binarybakers.com/zntral/';
         //$config['base_url'] = 'https://localhost/zntral_site_new/';
 
         $config['is_developer_comp'] = 1;
 
 
 
-    } 
+    }
 
-	 else {
+    else {
 
         $config['log_path'] = '/home/zntral/front2/log/'; // '/home/dev9soft/public_html/tb/'
 
@@ -1302,7 +1295,6 @@ $config['date_format'] = '%B %d, %Y';
 $config['month_as_text_year_date_format'] = '%B %Y';
 
 $config['date_time_format'] = '%Y-%m-%d %H:%M';
-
 $config['date_time_as_text_format'] = '%B %d, %Y %H:%M%p';
 
 $config['date_as_text_format'] = '%B %d, %Y';

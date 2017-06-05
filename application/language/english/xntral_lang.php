@@ -39,23 +39,27 @@ $lang['url']                    = "URL";
 $lang['edit']                   = "Edit";
 $lang['created_at']             = "Created At";
 $lang['updated_at']             = "Updated At";
+$lang['created']                = "Created";
+$lang['updated']                = "Updated";
 
 
 $lang['newuserform']            = 'User form';
 
 //clients section
-$lang['client']                = "Client";
+$lang['client']                 = "Client";
 $lang['clients']                = "Clients";
+$lang['client(s)']              =" Client(s)";
 $lang['clients-view']           = "Manage";
 $lang['clients-add']            = "New";
 $lang['client']                 = "New Client";
 $lang['clients-type']           = "Client Type";
 $lang['client_type_help']       = "select min 1 option (Ctrl+Click)";
 $lang['client_name']            = "Client Name";
+$lang['name']                   = "Name";
 $lang['cid']                    = "ID";
 $lang['client_owner']           = "Client Owner";
 $lang['client_email']           = "Client Email";
-$lang['client_active_status']   = "Client Active Status";
+$lang['client_status']          = "Client Status";
 $lang['cv_active_status']       = "Provides Vendor";
 $lang['client_fax']             = "Fax";
 $lang['client_website']         = "Website";
@@ -71,6 +75,9 @@ $lang['col3']                   = "Col 3";
 $lang['eh']                     = "Sacred City";
 $lang['sacred-city']            = "Sacred City";
 $lang['license']                = "License";
+$lang['type']                   = "Type";
+$lang['users']                  = "Users";
+
 
 
 
@@ -167,7 +174,7 @@ $lang['full_time']              = "Full time";
 $lang['part_time']              = "Part time";
 $lang['contractor']             = "Contractor";
 
-$lang['user']                   = "user";
+$lang['user']                   = "User";
 $lang['user_id']                = "ID";
 $lang['username']               = "Username";
 $lang['user_name']              = "User Name";

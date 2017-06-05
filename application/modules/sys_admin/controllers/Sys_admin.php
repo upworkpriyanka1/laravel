@@ -150,7 +150,7 @@ class Sys_admin extends CI_Controller {
 //		$sort_direction = $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort_direction');
 //		$page_number = $this->common_lib->getParameter($this, $UriArray, $post_array, 'page_number', 1);
 //		$filter_client_name = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_name');
-//		$filter_client_active_status = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_active_status');
+//		$filter_client_status = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_status');
 //		$filter_client_type = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_type');
 //		$filter_client_zip = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_zip');
 //		$filter_created_at_from = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_created_at_from');
@@ -158,7 +158,7 @@ class Sys_admin extends CI_Controller {
 //		$filter_created_at_from_formatted= $this->common_lib->convertFromMySqlToCalendarFormat($filter_created_at_from);
 //		$filter_created_at_till_formatted= $this->common_lib->convertFromMySqlToCalendarFormat($filter_created_at_till); //2016-09-05 -> 5 September, 2016
 //		$data['filter_client_name']= $filter_client_name;
-//		$data['filter_client_active_status']= $filter_client_active_status;
+//		$data['filter_client_status']= $filter_client_status;
 //		$data['filter_client_type']= $filter_client_type;
 //		$data['filter_client_zip']= $filter_client_zip;
 //		$data['filter_created_at_from']= $filter_created_at_from;
@@ -176,7 +176,7 @@ class Sys_admin extends CI_Controller {
         $data['select_on_update']= $this->common_lib->getParameter($this, $UriArray, $post_array, 'select_on_update');
 
         $data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
-        $data['client_active_status_array']= $this->clients_mdl->getClientActiveStatusValueArray(false);
+        $data['client_status_array']= $this->clients_mdl->getClientStatusValueArray(false);
         $data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
         $data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
         $data['client_color_schemes'] = $this->config->item('client_color_schemes');
@@ -227,7 +227,7 @@ class Sys_admin extends CI_Controller {
         $sort_direction = $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort_direction');
         $page = $this->common_lib->getParameter($this, $UriArray, $post_array, 'page', 1);
         $filter_client_name = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_name');
-        $filter_client_active_status = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_active_status');
+        $filter_client_status = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_status');
         $filter_client_type = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_type');
         $filter_client_zip = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_zip');
         $filter_created_at_from = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_created_at_from');
@@ -242,23 +242,23 @@ class Sys_admin extends CI_Controller {
         $pagination_config= $this->common_lib->getPaginationParams();
         $pagination_config['base_url'] = base_url() . 'sys-admin/clients-view' . '/page';
 
-        $RowsInTable= $this->clients_mdl->getClientsList(true, '', array( 'show_client_type_description'=>'', 'client_name'=> $filter_client_name, 'client_active_status'=> $filter_client_active_status, 'client_type'=> $filter_client_type, 'client_zip'=> $filter_client_zip, 'created_at_from'=> $filter_created_at_from, 'created_at_till'=> $filter_created_at_till ), $sort, $sort_direction );  // get number of rows by given parameters
+        $RowsInTable= $this->clients_mdl->getClientsList(true, '', array( 'show_client_type_description'=>'', 'client_name'=> $filter_client_name, 'client_status'=> $filter_client_status, 'client_type'=> $filter_client_type, 'client_zip'=> $filter_client_zip, 'created_at_from'=> $filter_created_at_from, 'created_at_till'=> $filter_created_at_till ), $sort, $sort_direction );  // get number of rows by given parameters
         $pagination_config['total_rows'] = $RowsInTable;
         $this->pagination->initialize($pagination_config);  // pagination system initialization by parameters in config file
         $data['clients']= array();
         if ($RowsInTable > 0) { // number of rows by given parameters > 0 - get rows by given parameters for given $page.
-            $data['clients']= $this->clients_mdl->getClientsList(false, $page, array( 'show_client_type_description'=>1, 'client_name'=> $filter_client_name, 'client_active_status'=> $filter_client_active_status, 'client_type'=> $filter_client_type, 'client_zip'=> $filter_client_zip, 'created_at_from'=> $filter_created_at_from, 'created_at_till'=> $filter_created_at_till ), $sort, $sort_direction );
+            $data['clients']= $this->clients_mdl->getClientsList(false, $page, array( 'show_client_type_description'=>1, 'client_name'=> $filter_client_name, 'client_status'=> $filter_client_status, 'client_type'=> $filter_client_type, 'client_zip'=> $filter_client_zip, 'created_at_from'=> $filter_created_at_from, 'created_at_till'=> $filter_created_at_till ), $sort, $sort_direction );
         } // IMPORTANT : all filter parameters must be similar as in calling of getClientsList above
 
         $data['client_TypesSelectionList']= $this->clients_mdl->getClient_TypesSelectionList();
-        $data['client_ActiveStatusList']= $this->clients_mdl->getClientActiveStatusValueArray();
+        $data['client_ActiveStatusList']= $this->clients_mdl->getClientStatusValueArray();
         $data['page']		= 'clients/clients-view';
         $data['page_number']		= $page;
         $data['RowsInTable']= $RowsInTable;
         $data['editor_message']= $this->session->flashdata('editor_message');
 
         $data['filter_client_name']= $filter_client_name;
-        $data['filter_client_active_status']= $filter_client_active_status;
+        $data['filter_client_status']= $filter_client_status;
         $data['filter_client_type']= $filter_client_type;
         $data['filter_client_zip']= $filter_client_zip;
         $data['filter_created_at_from']= $filter_created_at_from;
@@ -276,7 +276,7 @@ class Sys_admin extends CI_Controller {
         $clients_count_in_db= $this->admin_mdl->clients_count_in_db();
 
         // create label for current parameter so moving mouse over "Filter" button user can see current filters
-        $filters_label_array= array('name'=> $filter_client_name, 'is active'=> $this->common_lib->get_client_active_status_label($filter_client_active_status), 'client type'=>
+        $filters_label_array= array('name'=> $filter_client_name, 'is active'=> $this->common_lib->get_client_status_label($filter_client_status), 'client type'=>
             $this->common_lib->get_client_type_label($filter_client_type), 'zip'=> $filter_client_zip, 'created at from'=> $filter_created_at_from, 'created at till'=>$filter_created_at_till);
 
         $filters_label= $this->common_lib->get_filters_label( $filters_label_array, '<br>' );
@@ -319,7 +319,7 @@ class Sys_admin extends CI_Controller {
         $data['select_on_update']= $this->common_lib->getParameter($this, $UriArray, $post_array, 'select_on_update');
 
         $data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
-        $data['client_active_status_array']= $this->clients_mdl->getClientActiveStatusValueArray(false);
+        $data['client_status_array']= $this->clients_mdl->getClientStatusValueArray(false);
         $data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
         $data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
         $data['client_color_schemes'] = $this->config->item('client_color_schemes');
@@ -370,7 +370,7 @@ class Sys_admin extends CI_Controller {
         $sort_direction = $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort_direction');
         $page = $this->common_lib->getParameter($this, $UriArray, $post_array, 'page', 1);
         $filter_client_name = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_name');
-        $filter_client_active_status = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_active_status');
+        $filter_client_status = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_status');
         $filter_client_type = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_type');
         $filter_client_zip = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_zip');
         $filter_created_at_from = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_created_at_from');
@@ -385,16 +385,16 @@ class Sys_admin extends CI_Controller {
         $pagination_config= $this->common_lib->getPaginationParams();
         $pagination_config['base_url'] = base_url() . 'sys-admin/clients-view' . '/page';
 
-        $RowsInTable= $this->clients_mdl->getClientsList(true, '', array( 'show_client_type_description'=>'', 'client_name'=> $filter_client_name, 'client_active_status'=> $filter_client_active_status, 'client_type'=> $filter_client_type, 'client_zip'=> $filter_client_zip, 'created_at_from'=> $filter_created_at_from, 'created_at_till'=> $filter_created_at_till ), $sort, $sort_direction );  // get number of rows by given parameters
+        $RowsInTable= $this->clients_mdl->getClientsList(true, '', array( 'show_client_type_description'=>'', 'client_name'=> $filter_client_name, 'client_status'=> $filter_client_status, 'client_type'=> $filter_client_type, 'client_zip'=> $filter_client_zip, 'created_at_from'=> $filter_created_at_from, 'created_at_till'=> $filter_created_at_till ), $sort, $sort_direction );  // get number of rows by given parameters
         $pagination_config['total_rows'] = $RowsInTable;
         $this->pagination->initialize($pagination_config);  // pagination system initialization by parameters in config file
         $data['clients']= array();
         if ($RowsInTable > 0) { // number of rows by given parameters > 0 - get rows by given parameters for given $page.
-            $data['clients']= $this->clients_mdl->getClientsList(false, $page, array( 'show_client_type_description'=>1, 'client_name'=> $filter_client_name, 'client_active_status'=> $filter_client_active_status, 'client_type'=> $filter_client_type, 'client_zip'=> $filter_client_zip, 'created_at_from'=> $filter_created_at_from, 'created_at_till'=> $filter_created_at_till ), $sort, $sort_direction );
+            $data['clients']= $this->clients_mdl->getClientsList(false, $page, array( 'show_client_type_description'=>1, 'client_name'=> $filter_client_name, 'client_status'=> $filter_client_status, 'client_type'=> $filter_client_type, 'client_zip'=> $filter_client_zip, 'created_at_from'=> $filter_created_at_from, 'created_at_till'=> $filter_created_at_till ), $sort, $sort_direction );
         } // IMPORTANT : all filter parameters must be similar as in calling of getClientsList above
 
         $data['client_TypesSelectionList']= $this->clients_mdl->getClient_TypesSelectionList();
-        $data['client_ActiveStatusList']= $this->clients_mdl->getClientActiveStatusValueArray();
+        $data['client_ActiveStatusList']= $this->clients_mdl->getClientStatusValueArray();
         $data['page']		= 'clients/clients-view-modal';
 //		$data['page']		= 'main/grid';
         $data['page_number']		= $page;
@@ -402,7 +402,7 @@ class Sys_admin extends CI_Controller {
         $data['editor_message']= $this->session->flashdata('editor_message');
 
         $data['filter_client_name']= $filter_client_name;
-        $data['filter_client_active_status']= $filter_client_active_status;
+        $data['filter_client_status']= $filter_client_status;
         $data['filter_client_type']= $filter_client_type;
         $data['filter_client_zip']= $filter_client_zip;
         $data['filter_created_at_from']= $filter_created_at_from;
@@ -420,7 +420,7 @@ class Sys_admin extends CI_Controller {
         $clients_count_in_db= $this->admin_mdl->clients_count_in_db();
 
         // create label for current parameter so moving mouse over "Filter" button user can see current filters
-        $filters_label_array= array('name'=> $filter_client_name, 'is active'=> $this->common_lib->get_client_active_status_label($filter_client_active_status), 'client type'=>
+        $filters_label_array= array('name'=> $filter_client_name, 'is active'=> $this->common_lib->get_client_status_label($filter_client_status), 'client type'=>
             $this->common_lib->get_client_type_label($filter_client_type), 'zip'=> $filter_client_zip, 'created at from'=> $filter_created_at_from, 'created at till'=>$filter_created_at_till);
 
         $filters_label= $this->common_lib->get_filters_label( $filters_label_array, '<br>' );
@@ -438,6 +438,140 @@ class Sys_admin extends CI_Controller {
         echo json_encode(["html"=>$html]);
         exit();
     }
+
+
+
+    /**********************
+     * get client info
+     * access public
+     * @params : client_id - id of client     \
+     * return client info if operation was successful, otherwise error
+     *********************************/
+    function get_client_info() {
+        $UriArray = $this->uri->uri_to_assoc(3);
+        $post_array = $this->input->post();
+        $client_id = $this->common_lib->getParameter($this, $UriArray, $post_array, 'client_id');
+        if ( empty($client_id) ) {
+            $this->output->set_content_type('application/json')->set_output(json_encode(array('ErrorMessage' => 'Invalid parameters !', 'ErrorCode' => 1, 'ret' => 0 )));
+            return;
+        }
+        $client	= $this->clients_mdl->getRowById( $client_id, array('show_file_info'=> 1, 'image_width'=> 128, 'image_height'=> 128) );
+        $client->formatted_client_logo_first= substr($client->client_name,0,1);
+
+        $clients_types= $this->clients_mdl->getClient_TypesRowById($client->clients_types_id);
+
+        $client->formatted_client_type_label= !empty($clients_types->type_description) ? $clients_types->type_description : '';
+        $client->formatted_client_address= $this->common_lib->concatArray(array($client->client_address1, $client->client_address2 ), ', ');
+        $client->formatted_client_phone= $this->common_lib->concatArray(array($client->client_phone, $client->client_phone_2, $client->client_phone_3, $client->client_phone_4 ), ', ');
+        $client->formatted_client_city= $this->common_lib->concatArray(array($client->client_zip, $client->client_state, $client->client_city ), ', ');
+        $this->output->set_content_type('application/json')->set_output(json_encode(array('ErrorMessage' => '', 'ErrorCode' => 0, 'client' => $client )));
+    }
+
+    /**********************
+     * get client info
+     * access public
+     * @params : client_id - id of client     \
+     * return client info if operation was successful, otherwise error
+     *********************************/
+    function save_client_info() {
+        $UriArray = $this->uri->uri_to_assoc(3);
+        $post_array = $this->input->post();
+
+        $client_id = $this->common_lib->getParameter($this, $UriArray, $post_array, 'client_id');
+        if ( empty($client_id) ) {
+            $this->output->set_content_type('application/json')->set_output(json_encode(array('ErrorMessage' => 'Invalid parameters !', 'ErrorCode' => 1, 'ret' => 0 )));
+            return;
+        }
+
+        $update_data= array(
+            'client_name' => $this->common_lib->getParameter($this, $UriArray, $post_array, 'client_name'),
+            'client_address1' => $this->common_lib->getParameter($this, $UriArray, $post_array, 'client_address1') ,
+            'client_address2' => $this->common_lib->getParameter($this, $UriArray, $post_array, 'client_address2'),
+            'client_city' => $this->common_lib->getParameter($this, $UriArray, $post_array, 'client_city'),
+            'client_state' => $this->common_lib->getParameter($this, $UriArray, $post_array, 'client_state'),
+            'client_zip' => $this->common_lib->getParameter($this, $UriArray, $post_array, 'client_zip'),
+            'client_phone' => $this->common_lib->getParameter($this, $UriArray, $post_array, 'client_phone'),
+            'client_phone_2' => $this->common_lib->getParameter($this, $UriArray, $post_array, 'client_phone_2'),
+            'client_phone_3' => $this->common_lib->getParameter($this, $UriArray, $post_array, 'client_phone_3'),
+        );
+        $this->db->where( $this->clients_mdl->m_clients_table . '.cid', $client_id);
+        $ret= $this->db->update($this->clients_mdl->m_clients_table, $update_data);
+        $this->output->set_content_type('application/json')->set_output(json_encode(array('ErrorMessage' => '', 'ErrorCode' => 0  )));
+    }
+
+
+    public function client_edit(){
+        $is_insert= false;
+        $UriArray = $this->uri->uri_to_assoc(2);
+        $client_id=$UriArray['client-edit'];
+
+        if ($this->input->server('REQUEST_METHOD') == 'POST') {
+            $post_array = $this->input->post();
+            $client_id = $post_array['data']['client_id'];
+            $this->client_edit_form_validation();
+            $validation_status = $this->form_validation->run();
+            if ($validation_status == FALSE) {
+                $client = $this->client_edit_fill_current_data( null, $is_insert, $client_id );
+                $this->session->set_flashdata('errors', validation_errors());
+            } else {
+                $data = array(
+                    'client_name' => $post_array['data']['client_name'],
+                    'client_address1' => $post_array['data']['client_address1'],
+                    'client_address2' => $post_array['data']['client_address2'],
+                    'client_city' => $post_array['data']['client_city'],
+                    'client_state' => $post_array['data']['client_state'],
+                    'client_zip' => $post_array['data']['client_zip'],
+                    'client_phone' => $post_array['data']['client_phone'],
+                    'client_phone_2' => $post_array['data']['client_phone2'],
+                    'client_phone_3' => $post_array['data']['client_phone3'],
+                    'client_phone_4' => $post_array['data']['client_phone4'],
+                    'client_phone_type' => $post_array['data']['client_phone_type'],
+                    'client_email' => $post_array['data']['client_email'],
+                    'client_website' => $post_array['data']['client_website'],
+                );
+
+                $original_client_img= !empty($post_array['data']['client_img']) ? $post_array['data']['client_img'] : '';
+                if  (  !empty( $post_array['cbx_clear_image'])  )  {
+                    $data['client_img']= '';
+                }
+                if ( !empty( $_FILES['data']['name']['client_img'] ) ) {
+                    $data['client_img']= $_FILES['data']['name']['client_img'];
+                }
+
+                $this->db->where( $this->clients_mdl->m_clients_table . '.cid', $client_id);
+                $ret= $this->db->update($this->clients_mdl->m_clients_table, $data);
+                if (  !empty( $post_array['cbx_clear_image']) or !empty($_FILES['data']['name']['client_img'])  )   {
+                    $original_img_path= $this->clients_mdl->getClientImagePath($client_id, $original_client_img);
+                    if ( !empty($original_img_path) and file_exists($original_img_path) and !is_dir($original_img_path)) {
+                        unlink($original_img_path);
+                    }
+                }
+
+                $clientImagesDirs = array( FCPATH . 'uploads', $this->clients_mdl->getClientsDir(), $this->clients_mdl->getClientDir($client_id) );
+                $src_filename = $_FILES['data']['tmp_name']['client_img'];
+                $img_basename = $_FILES['data']['name']['client_img'];
+
+                $this->common_lib->createDir($clientImagesDirs);
+                $ret = move_uploaded_file( $src_filename, $this->clients_mdl->getClientDir($client_id) . $img_basename );
+
+                $this->session->set_flashdata('massege', 'Updated successfully');
+                redirect('sys-admin/client/'.$client_id.'/');
+            }
+        } // if ($this->input->server('REQUEST_METHOD') == 'POST') {
+        else { // That is GET REQUEST
+            $client	= $this->clients_mdl->getRowById( $client_id, array('show_file_info'=> 1, 'image_width'=> 128, 'image_height'=> 128) );
+        }
+        $data['meta_description']='';
+        $data['menu']		= $this->menu;
+        $data['user'] 		= $this->user;
+        $data['group'] 		= $this->group->name;
+        $data['client']		= $client;
+        $data['page']		='clients/client-edit';
+        $views=  array('clients/html_topbar_client_edit','sidebar','design/page','design/html_footer');
+        $this->layout->view($views, $data);
+
+    } // public function client_edit(){
+
     /**********************
      * Edit clients
      * access public
@@ -473,7 +607,7 @@ class Sys_admin extends CI_Controller {
         $sort_direction = $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort_direction');
         $page_number = $this->common_lib->getParameter($this, $UriArray, $post_array, 'page_number', 1);
         $filter_client_name = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_name');
-        $filter_client_active_status = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_active_status');
+        $filter_client_status = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_status');
         $filter_client_type = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_type');
         $filter_client_zip = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_zip');
         $filter_created_at_from = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_created_at_from');
@@ -481,7 +615,7 @@ class Sys_admin extends CI_Controller {
         $filter_created_at_from_formatted= $this->common_lib->convertFromMySqlToCalendarFormat($filter_created_at_from);
         $filter_created_at_till_formatted= $this->common_lib->convertFromMySqlToCalendarFormat($filter_created_at_till); //2016-09-05 -> 5 September, 2016
         $data['filter_client_name']= $filter_client_name;
-        $data['filter_client_active_status']= $filter_client_active_status;
+        $data['filter_client_status']= $filter_client_status;
         $data['filter_client_type']= $filter_client_type;
         $data['filter_client_zip']= $filter_client_zip;
         $data['filter_created_at_from']= $filter_created_at_from;
@@ -501,7 +635,7 @@ class Sys_admin extends CI_Controller {
         // Get list of client types
         $data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
         // Get client status array
-        $data['client_active_status_array']= $this->clients_mdl->getClientActiveStatusValueArray(false);
+        $data['client_status_array']= $this->clients_mdl->getClientStatusValueArray(false);
         // Get user status array
         $data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
         // Get client phone type like home,work
@@ -516,41 +650,13 @@ class Sys_admin extends CI_Controller {
         $data['user'] 		= $this->user;
 //		$data['job'] 		= $this->job;
         $data['group'] 		= $this->group->name;
-        $client= '';
-        $data['validation_errors_text'] = '';
 
-        $this->client_edit_form_validation($is_insert, $cid);
-        if (!empty($_POST)) {
-            $validation_status = $this->form_validation->run();
-            if ($validation_status != FALSE) {
-                $this->client_edit_makesave($is_insert, $cid, $data['select_on_update'], $redirect_url, $page_parameters_with_sort, $post_array, $app_config, $data['client_color_schemes'] );
-            } else {
-                $client = $this->client_edit_fill_current_data( $client, $is_insert, $cid );
-                $data['validation_errors_text'] = validation_errors( /*$layout_config['backend_error_icon_start'], $layout_config['backend_error_icon_end']*/ );
-//				echo '<pre>$data[\'validation_errors_text\']::'.print_r($data['validation_errors_text'],true).'</pre>';
-            }
-        }
-        else {
-            // Get client informations
-            $client		= $this->clients_mdl->getRowById( $this->uri->segment(3), array('show_file_info'=> 1, 'image_width'=> 128, 'image_height'=> 128) );
-
-        }
+        $client_id= $this->uri->segment(3);
+//        echo '<pre>$client_id::'.print_r($client_id,true).'</pre>';
+        $client		= $this->clients_mdl->getRowById( $client_id, array('show_file_info'=> 1, 'image_width'=> 128, 'image_height'=> 128) );
 
         $groupsSelectionList= $this->users_mdl->getGroupsSelectionList( array(), 'id',  'asc', ['sys-admin'] );
-//        echo '<pre>$groupsSelectionList::'.print_r($groupsSelectionList,true).'</pre>';
         usort($groupsSelectionList,'cmpGroups');
-//        echo '++<pre>$groupsSelectionList::'.print_r($groupsSelectionList,true).'</pre>';
-//        die("-1 XXZ");
-//        $usersGroups = $this->users_mdl->getUsersGroupsList( false, 0, array('user_id'=> $user_id) );
-//        if ( !$is_insert ) {
-//            foreach ($groupsSelectionList as $next_key => $next_user_group_selection) {
-//                foreach ($usersGroups as $next_users_ob) {
-//                    if ($next_user_group_selection['key'] == $next_users_ob->group_id) {
-//                        $groupsSelectionList[$next_key]['checked'] = true;
-//                    }
-//                }
-//            }
-//        }
         $data['groupsSelectionList']  = $groupsSelectionList;
 
         $data['userActiveStatusValueArray']= $this->users_mdl->getUserActiveStatusValueArray();
@@ -565,20 +671,11 @@ class Sys_admin extends CI_Controller {
         $data['client']		= $client;
         $data['page_parameters_with_sort']= $page_parameters_with_sort;
         $data['page_parameters_without_sort']= $page_parameters_without_sort;
-//		$data['page']		= 'clients/client-edit'; //page view to load
         $data['page']		= 'clients/client'; //page view to load
         $data['plugins'] 	= array('validation'); //page plugins
-        $data['javascript'] = array( '/assets/global/js/client-overview-view.js','assets/custom/admin/client_overview_methods.js' );//page javascript
-        /*'assets/custom/admin/user-edit.js', 'assets/custom/admin/client-edit.js'*/
+        $data['javascript'] = array( '/assets/global/js/client-overview-view.js','assets/custom/admin/client_overview_methods.js' );
         $views				=  array( 'clients/html_topbar_client', 'sidebar','design/page','design/html_footer', 'common_dialogs.php' );
         $this->layout->view($views, $data);
-//		echo "<pre>";
-//		print_r($data);
-//		die;
-//		$this->load->view('clients/client',$data);
-        //$this->load->view('clients/client-edit-new',$data);
-//		redirect(base_url().'/sys-admin/clients-view');
-//		redirect(base_url().'/client-mockup-sacred-city/system-admin/client_overview_view');
 
     }
 
@@ -607,7 +704,6 @@ class Sys_admin extends CI_Controller {
         $this->db->trans_start();
         $ip_address= !empty($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
         $activation_code= $this->common_lib->GenerateActivationCode();
-//        echo '<pre>$activation_code:'.print_r($activation_code,true).'</pre>';
 
         $additional_data= array(  'ip_address'=> $ip_address, 'user_active_status' => $user_active_status, 'first_name' => $first_name, 'last_name' => $last_name, 'city' => $city, 'state' => $state, 'phone' => $phone, 'created_on'=> now(), 'avatar' => '', 'is_multi_auth' => $auth, 'created_at' => date('Y-m-d H:i:s'), 'super_id' => $this->user->user_id, 'activation_code'=> $activation_code );
         $user_group_array= array($user_group_id);
@@ -628,12 +724,7 @@ class Sys_admin extends CI_Controller {
                     'site_url' => $app_config['base_url'],
                     'email' => $email
                 ), true);
-//            echo '<pre>$title::'.print_r($title,true).'</pre>';
-//            echo '<pre>$content::'.print_r($content,true).'</pre>';
                 $EmailOutput = $this->common_lib->SendEmail($email, $title, $content );
-//            echo '<pre>$EmailOutput::'.print_r($EmailOutput,true).'</pre>';
-//				$this->common_lib->DebToFile( 'sendEmail $content::'.print_r($content,true));
-
 
             $this->session->set_flashdata('editor_message', lang('user') . " '" . $first_name . "' was " . ($is_insert ? "inserted" : "updated") );
             if ($this->db->trans_status() === FALSE) {
@@ -644,7 +735,6 @@ class Sys_admin extends CI_Controller {
             }
             $this->output->set_content_type('application/json')->set_output(json_encode(array('ErrorMessage' => '', 'ErrorCode' => 0, 'id' => $new_user_id )));
         }
-
 
     }
 
@@ -738,112 +828,6 @@ class Sys_admin extends CI_Controller {
         }
     }
 
-    private function client_edit_makesave($is_insert, $cid, $select_on_update, $redirect_url, $page_parameters_with_sort, $post_array, $app_config, $client_color_schemes_array ) {
-        /*echo "in insert... post data is : ";
-        print_r($post_array);
-        exit(0);*/
-        $this->db->trans_start();
-        if ( !$is_insert ) {
-            $color_scheme = $post_array['data']['color_scheme'];
-        } else {
-            foreach ( $client_color_schemes_array as $next_key => $next_color_scheme ) {
-                if ( !empty($next_color_scheme['default']) and $next_color_scheme['default'] ) {
-                    $color_scheme = $next_color_scheme['id'];
-                    break;
-                }
-            }
-        }
-
-//		$client_phone= !empty($post_array['data']['client_phone']) ? $post_array['data']['client_phone'] : '';
-//		$client_phone_2= !empty($post_array['data']['client_phone_2']) ? $post_array['data']['client_phone_2'] : '';
-//		$client_phone_3= !empty($post_array['data']['client_phone_3']) ? $post_array['data']['client_phone_3'] : '';
-//		$client_phone_4= !empty($post_array['data']['client_phone_4']) ? $post_array['data']['client_phone_4'] : '';
-//		if ( empty($client_phone) ) {
-//
-//		}
-
-//		$update_data= array( 'client_name' => $post_array['data']['client_name'],  'client_img' => $post_array['data']['client_img'],  'clients_types_id' => $post_array['data']['clients_types_id'], 'client_name' => $post_array['data']['client_owner'] , 'client_address1' => $post_array['data']['client_address1'] , 'client_address2' => $post_array['data']['client_address2'] , 'client_city' => $post_array['data']['client_city'] , 'client_state' => $post_array['data']['client_state'] , 'client_zip' => $post_array['data']['client_zip'], 'client_phone' => $post_array['data']['client_phone'],  'client_phone_2' => $post_array['data']['client_phone_2'],  'client_phone_3' => $post_array['data']['client_phone_3'],  'client_phone_4' => $post_array['data']['client_phone_4'],  'client_phone_type' => $post_array['data']['client_phone_type'],   'client_fax' => $post_array['data']['client_fax'] , 'client_email' => $post_array['data']['client_email'] , 'client_website' => $post_array['data']['client_website']  , 'color_scheme' => $color_scheme, 'client_active_status' => $post_array['data']['client_active_status'] );
-        $update_data= array(
-            'client_name' => $post_array['data']['client_name'],
-            'client_img' => $post_array['data']['client_img'],
-            //'clients_types_id' => $post_array['data']['clients_types_id'],
-            'clients_types_id' => $post_array['group1'],
-            'client_name' => $post_array['data']['client_owner'] ,
-            'client_address1' => $post_array['data']['client_address1'] ,
-            'client_address2' => $post_array['data']['client_address2'] ,
-            'client_city' => $post_array['data']['client_city'] ,
-            'client_state' => $post_array['data']['client_state'] ,
-            'client_zip' => $post_array['data']['client_zip'],
-            'client_phone' => $post_array['data']['client_phone'],
-            'client_phone_2' => $post_array['data']['client_phone_2'],
-            'client_phone_3' => $post_array['data']['client_phone_3'],
-            'client_phone_4' => $post_array['data']['client_phone_4'],
-            'client_phone_type' => $post_array['data']['client_phone_type'],
-            'client_fax' => $post_array['data']['client_fax'] ,
-            'client_email' => $post_array['data']['client_email_first'] ,
-            'client_website' => $post_array['data']['client_website']  ,
-            'color_scheme' => $color_scheme
-        );
-
-        $original_client_img= !empty($post_array['data']['client_img']) ? $post_array['data']['client_img'] : '';
-
-        if  (  !empty( $post_array['cbx_clear_image'])  )  {
-            $update_data['client_img']= '';
-        }
-
-        if ( !empty( $_FILES['data']['name']['client_img_file_upload'] ) ) {
-            $update_data['client_img']= $_FILES['data']['name']['client_img_file_upload'];
-        }
-
-
-        if ( $is_insert ) {
-            $this->db->insert($this->clients_mdl->m_clients_table, $update_data);
-            $cid= $this->db->insert_id();
-        } else {
-            $this->db->where( $this->clients_mdl->m_clients_table . '.cid', $cid);
-            $this->db->update($this->clients_mdl->m_clients_table, $update_data);
-        }
-
-        $client_img_path= $this->clients_mdl->getClientImagePath($cid, $post_array['data']['client_img']);
-        $client_dir= $this->clients_mdl->getClientDir($cid);
-        if (  !empty( $post_array['cbx_clear_image']) or !empty($_FILES['data']['name']['client_img_file_upload'])  )   {
-            $original_img_path= $this->clients_mdl->getClientImagePath($cid, $original_client_img);
-            if ( !empty($original_img_path) and file_exists($original_img_path) and !is_dir($original_img_path)) {
-                unlink($original_img_path);
-            }
-        }
-
-
-        $clientImagesDirs = array( FCPATH . 'uploads', $this->clients_mdl->getClientsDir(), $this->clients_mdl->getClientDir($cid) );
-        $src_filename = $_FILES['data']['tmp_name']['client_img_file_upload'];
-        $img_basename = $_FILES['data']['name']['client_img_file_upload'];
-
-        $this->common_lib->createDir($clientImagesDirs);
-        $ret = move_uploaded_file( $src_filename, $this->clients_mdl->getClientDir($cid) . $img_basename );
-
-        if ($select_on_update == 'reopen_editor') {
-//			$redirect_url = base_url() . 'sys-admin/client/' . $cid . $page_parameters_with_sort;
-            $redirect_url = base_url() . 'sys-admin/clients-view/'. $cid . $page_parameters_with_sort;
-        }
-        if ($select_on_update == 'open_editor_for_new') {
-//			$redirect_url = base_url() . 'sys-admin/client/new' . $page_parameters_with_sort;
-            $redirect_url = base_url() . 'sys-admin/clients-view/' . $page_parameters_with_sort;
-        }
-        $redirect_url = base_url() . 'sys-admin/client/' . $cid;
-        if ($cid) {
-            $this->session->set_flashdata('editor_message', lang('client') . " '" . $post_array['data']['client_name'] . "' was " . ($is_insert ? "inserted" : "updated") );
-            if ($this->db->trans_status() === FALSE) {
-                $this->db->trans_rollback();
-            } else {
-                $this->db->trans_commit();
-            }
-//		die("-1 XXZ");
-            redirect($redirect_url);
-            return;
-        }
-
-    }
-
 
     public function client_check_client_email_is_unique()
     {
@@ -865,7 +849,7 @@ class Sys_admin extends CI_Controller {
     {
         $client = new stdClass;
         $client->cid = $cid;
-//		$client->client_name = set_value('data[client_name]');
+        $client->client_name = set_value('data[client_name]');
         $client->clients_types_id = set_value('data[clients_types_id]');
         $client->client_address1 = set_value('data[client_address1]');
         $client->client_address2 = set_value('data[client_address2]');
@@ -880,8 +864,8 @@ class Sys_admin extends CI_Controller {
         $client->client_phone_3 = set_value('data[client_phone_3]');
         $client->client_phone_4 = set_value('data[client_phone_4]');
         $client->client_phone_type = set_value('data[client_phone_type]');
-//		$client->client_fax = set_value('data[client_fax]');
-//		$client->client_active_status = set_value('data[client_active_status]');
+		$client->client_fax = set_value('data[client_fax]');
+//		$client->client_status = set_value('data[client_status]');
         $client->color_scheme = set_value('data[color_scheme]');
         return $client;
     }
@@ -890,11 +874,8 @@ class Sys_admin extends CI_Controller {
     private function client_edit_form_validation()
     {
         $this->form_validation->set_rules( 'data[client_name]', lang('client_name'), 'required' );
-//		$this->form_validation->set_rules( 'data[clients_types_id]', lang('clients-type'), 'required' );
         $this->form_validation->set_rules( 'data[client_address1]', lang('client_address1'), 'required' );
         $this->form_validation->set_rules( 'data[client_address2]', lang('client_address2'), '' );
-//		$this->form_validation->set_rules( 'data[client_owner]', lang('client_owner'), '' );
-//		$this->form_validation->set_rules( 'data[client_email]', lang('client_email'), 'valid_email|callback_client_check_client_email_is_unique' );
         $this->form_validation->set_rules( 'data[client_email]', lang('client_email'), 'valid_email' );
         $this->form_validation->set_rules( 'data[client_website]', lang('client_website'), '' );
         $this->form_validation->set_rules( 'data[client_city]', lang('client_city'), 'required' );
@@ -904,16 +885,12 @@ class Sys_admin extends CI_Controller {
         $this->form_validation->set_rules( 'data[client_phone_2]', lang('phone_2'), '' );
         $this->form_validation->set_rules( 'data[client_phone_3]', lang('phone_3'), '' );
         $this->form_validation->set_rules( 'data[client_phone_4]', lang('phone-4'), '' );
-//        $this->form_validation->set_rules( 'data[client_phone_5]', lang('phone_5'), '' );
+        $this->form_validation->set_rules( 'data[client_phone_5]', lang('phone-5'), '' );
         $this->form_validation->set_rules( 'data[client_phone_type]', lang('phone_type'), '' );
-//        $this->form_validation->set_rules( 'data[client_lic_tag]', lang('tag-drop'),'' );
         $this->form_validation->set_rules( 'data[client_img]', lang('client_img'),'' );
-//        $this->form_validation->set_rules( 'data[client_primary_color]', lang('primary-color'),'' );
-//        $this->form_validation->set_rules( 'data[client_accent_color]', lang('accent-color'),'' );
-
 
 //		$this->form_validation->set_rules( 'data[client_fax]', lang('client_fax'), 'required' );
-//		$this->form_validation->set_rules( 'data[client_active_status]', lang('client_active_status'), 'required' );
+//		$this->form_validation->set_rules( 'data[client_status]', lang('client_status'), 'required' );
 //		$this->form_validation->set_rules( 'data[color_scheme]', lang('color_scheme'), ( $is_insert ? '' : 'required' ) );
     }
 
@@ -941,12 +918,11 @@ class Sys_admin extends CI_Controller {
      * for client update/insert related_user_status
      * access public
      * @params : client_id - id of client, related_user_id - id of user to change status, new_status - new status('E' => 'Employee', 'O' => 'Out Of Staff', 'N' => 'Not Related'),
-     * return if operation was succcessful
+     * return if operation was successful
      *********************************/
     function clients_set_related_user_status() {
         $UriArray = $this->uri->uri_to_assoc(3);
         $post_array = $this->input->post();
-
         $client_id = $this->common_lib->getParameter($this, $UriArray, $post_array, 'client_id');
         $related_user_id = $this->common_lib->getParameter($this, $UriArray, $post_array, 'related_user_id');
         $new_status = $this->common_lib->getParameter($this, $UriArray, $post_array, 'new_status');
@@ -955,7 +931,6 @@ class Sys_admin extends CI_Controller {
             $this->output->set_content_type('application/json')->set_output(json_encode(array('ErrorMessage' => 'Invalid parameters !', 'ErrorCode' => 1, 'ret' => 0 )));
             return;
         }
-
 
         $ret = $this->admin_mdl->update_users_clients( $client_id, $related_user_id, $new_status );
         $this->output->set_content_type('application/json')->set_output(json_encode(array('ErrorMessage' => '', 'ErrorCode' => 0, 'ret' => $ret )));
@@ -1024,7 +999,7 @@ class Sys_admin extends CI_Controller {
      * for client update/insert related_user_status
      * access public
      * @params : client_id - id of client, provides_vendor_id - id of user to change status, new_status - new status('E' => 'Employee', 'O' => 'Out Of Staff', 'N' => 'Not Related'),
-     * return if operation was succcessful
+     * return if operation was successful
      *********************************/
     function clients_set_vendors_status_status() {
         $UriArray = $this->uri->uri_to_assoc(3);
@@ -1106,8 +1081,8 @@ class Sys_admin extends CI_Controller {
             }
             $filter_client_name = $this->input->post('filter_client_name');
             $ResStr .= !empty($filter_client_name) ? 'filter_client_name/' . $filter_client_name . '/' : '';
-            $filter_client_active_status = $this->input->post('filter_client_active_status');
-            $ResStr .= !empty($filter_client_active_status) ? 'filter_client_active_status/' . $filter_client_active_status . '/' : '';
+            $filter_client_status = $this->input->post('filter_client_status');
+            $ResStr .= !empty($filter_client_status) ? 'filter_client_status/' . $filter_client_status . '/' : '';
             $filter_client_type = $this->input->post('filter_client_type');
             $ResStr .= !empty($filter_client_type) ? 'filter_client_type/' . $filter_client_type . '/' : '';
             $filter_client_zip = $this->input->post('filter_client_zip');
@@ -1127,7 +1102,7 @@ class Sys_admin extends CI_Controller {
                 $ResStr .= !empty($UriArray['page']) ? 'page/' . $UriArray['page'] . '/' : 'page/1/';
             }
             $ResStr .= !empty($UriArray['filter_client_name']) ? 'filter_client_name/' . $UriArray['filter_client_name'] . '/' : '';
-            $ResStr .= !empty($UriArray['filter_client_active_status']) ? 'filter_client_active_status/' . $UriArray['filter_client_active_status'] . '/' : '';
+            $ResStr .= !empty($UriArray['filter_client_status']) ? 'filter_client_status/' . $UriArray['filter_client_status'] . '/' : '';
             $ResStr .= !empty($UriArray['filter_client_type']) ? 'filter_client_type/' . $UriArray['filter_client_type'] . '/' : '';
             $ResStr .= !empty($UriArray['filter_client_zip']) ? 'filter_client_zip/' . $UriArray['filter_client_zip'] . '/' : '';
             $ResStr .= !empty($UriArray['filter_created_at_from']) ? 'filter_created_at_from/' . $UriArray['filter_created_at_from'] . '/' : '';
@@ -1216,7 +1191,7 @@ class Sys_admin extends CI_Controller {
         $data['select_on_update']= $this->common_lib->getParameter($this, $UriArray, $post_array, 'select_on_update');
 
         $data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
-        $data['client_active_status_array']= $this->clients_mdl->getClientActiveStatusValueArray(false);
+        $data['client_status_array']= $this->clients_mdl->getClientStatusValueArray(false);
         $data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
         $data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
         $data['client_color_schemes'] = $this->config->item('client_color_schemes');
@@ -1293,7 +1268,7 @@ class Sys_admin extends CI_Controller {
         $data['select_on_update']= $this->common_lib->getParameter($this, $UriArray, $post_array, 'select_on_update');
 
         $data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
-        $data['client_active_status_array']= $this->clients_mdl->getClientActiveStatusValueArray(false);
+        $data['client_status_array']= $this->clients_mdl->getClientStatusValueArray(false);
         $data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
         $data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
         $data['client_color_schemes'] = $this->config->item('client_color_schemes');
@@ -1379,7 +1354,7 @@ class Sys_admin extends CI_Controller {
         $data['select_on_update']= $this->common_lib->getParameter($this, $UriArray, $post_array, 'select_on_update');
 
         $data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
-        $data['client_active_status_array']= $this->clients_mdl->getClientActiveStatusValueArray(false);
+        $data['client_status_array']= $this->clients_mdl->getClientStatusValueArray(false);
         $data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
         $data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
         $data['client_color_schemes'] = $this->config->item('client_color_schemes');
@@ -1461,7 +1436,7 @@ class Sys_admin extends CI_Controller {
         $data['select_on_update']= $this->common_lib->getParameter($this, $UriArray, $post_array, 'select_on_update');
 
         $data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
-        $data['client_active_status_array']= $this->clients_mdl->getClientActiveStatusValueArray(false);
+        $data['client_status_array']= $this->clients_mdl->getClientStatusValueArray(false);
         $data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
         $data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
         $data['client_color_schemes'] = $this->config->item('client_color_schemes');
@@ -1538,7 +1513,7 @@ class Sys_admin extends CI_Controller {
         $data['select_on_update']= $this->common_lib->getParameter($this, $UriArray, $post_array, 'select_on_update');
 
         $data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
-        $data['client_active_status_array']= $this->clients_mdl->getClientActiveStatusValueArray(false);
+        $data['client_status_array']= $this->clients_mdl->getClientStatusValueArray(false);
         $data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
         $data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
         $data['client_color_schemes'] = $this->config->item('client_color_schemes');
@@ -1613,7 +1588,7 @@ class Sys_admin extends CI_Controller {
         $data['select_on_update']= $this->common_lib->getParameter($this, $UriArray, $post_array, 'select_on_update');
 
         $data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
-        $data['client_active_status_array']= $this->clients_mdl->getClientActiveStatusValueArray(false);
+        $data['client_status_array']= $this->clients_mdl->getClientStatusValueArray(false);
         $data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
         $data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
         $data['client_color_schemes'] = $this->config->item('client_color_schemes');
@@ -1704,7 +1679,7 @@ class Sys_admin extends CI_Controller {
         $data['select_on_update']= $this->common_lib->getParameter($this, $UriArray, $post_array, 'select_on_update');
 
         $data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
-        $data['client_active_status_array']= $this->clients_mdl->getClientActiveStatusValueArray(false);
+        $data['client_status_array']= $this->clients_mdl->getClientStatusValueArray(false);
         $data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
         $data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
         $data['client_color_schemes'] = $this->config->item('client_color_schemes');
@@ -1798,7 +1773,7 @@ class Sys_admin extends CI_Controller {
         $data['select_on_update']= $this->common_lib->getParameter($this, $UriArray, $post_array, 'select_on_update');
 
         $data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
-        $data['client_active_status_array']= $this->clients_mdl->getClientActiveStatusValueArray(false);
+        $data['client_status_array']= $this->clients_mdl->getClientStatusValueArray(false);
         $data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
         $data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
         $data['client_color_schemes'] = $this->config->item('client_color_schemes');
@@ -1832,6 +1807,20 @@ class Sys_admin extends CI_Controller {
 //		************************************************************* ____END____ *********************************************************************************
 
         $this->common_lib->activity_log($this->menu,$this->user, $this->group->name,TRUE);
+    }
+
+    public function client_change_status(){
+        $client_id=$_POST["id"];
+        $status =$_POST["status"];
+        $arr_status=[
+            'Pending'=>'P',
+            'Active'=>'A',
+            'Inactive'=>'I'
+        ];
+        $this->db->update($this->clients_mdl->m_clients_table, array('client_status'=>$arr_status[$status]), array('cid' => $client_id));
+        exit;
+
+
     }
 
 
