@@ -9,6 +9,10 @@
             </li>
             <?php 
             //make sure $segment and $view is defined
+			
+				/*echo "segment is : " . $segment;
+				echo "<br/>view is : " . $view;*/
+				
                 $segment = (isset($this->uri->segments['2'])) ? $this->uri->segments['2'] : '';
                 $view = explode("-", $segment);
                 foreach ($menu as $key => $value):

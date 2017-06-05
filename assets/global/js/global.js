@@ -67,9 +67,74 @@
 //
 $(document).ready(function(){
 
+
+    $('li.user-status').on('click',function () {
+        if ($(this).hasClass('disabled'))
+            return;
+        var status= $(this ).find('a').text();
+        $('.user-change-status-title').text(status);
+        $('#user-status-change-confirm-modal').modal('show');
+    });
+    $('.user_status_confirm').on('click', function(){
+        $('.user-status-parent .disabled').removeClass('disabled');
+        var text = $('.user-change-status-title').text();
+        $( ".user-status-parent li" ).each(function( index ) {
+            if($(this).find('a').text() == text){
+                $(this).addClass('disabled');
+                $('.status_but_name').text(text);
+                return;
+            }
+        });
+        var user_id=$("input[name=id]").val();
+        $.ajax({
+            url:'/sys-admin/users/user-change-status/',
+            type: 'POST',
+            data: {'status':text,'id':user_id},
+            dataType: 'json',
+            success: function(data){
+
+            }
+        });
+        $('#user-status-change-confirm-modal').modal('hide');
+    });
+
+    $('li.client-status').on('click',function () {
+        if ($(this).hasClass('disabled'))
+            return;
+        var status= $(this ).find('a').text();
+        $('.client-change-status-title').text(status);
+        $('#client-status-change-confirm-modal').modal('show');
+    });
+    $('.client_status_confirm').on('click', function(){
+        $('.client-status-parent .disabled').removeClass('disabled');
+        var text = $('.client-change-status-title').text();
+        $( ".client-status-parent li" ).each(function( index ) {
+            if($(this).find('a').text() == text){
+                $(this).addClass('disabled');
+                $('.status_but_name').text(text);
+                return;
+            }
+        });
+        var client_id=$("input[name=id]").val();
+        $.ajax({
+            url:'/sys-admin/client-change-status/',
+            type: 'POST',
+            data: {'status':text,'id':client_id},
+            dataType: 'json',
+            success: function(data){
+
+            }
+        });
+        $('#client-status-change-confirm-modal').modal('hide');
+    });
+
+
     $('.reset_form_btn').on('click',function(){
         $("#new_user_form")[0].reset();
     });
+
+
+
     $('#us-pass-conf').on('keyup',function(){
        var us_pass=$('#us-pass').val();
        var us_pass_conf=$(this).val();
@@ -326,7 +391,9 @@ function validateFormEnableOrDisable(form_id){
             disable = true;
             $(this).parent().find('.required').css('display', 'inline');
         }else{
+            disable = false;
             $(this).parent().find('span.required').css('display', 'none');
+            return false
         }
     });
 
@@ -339,8 +406,10 @@ function validateFormEnableOrDisable(form_id){
     });
 
     if(disable){
+        $('#but-verify').css({fontWeight:'normal    '});
         $('.disable_form_id_'+form_id).attr('disabled', true);
     }else{
+        $('#but-verify').css({fontWeight:'bold'});
         $('.disable_form_id_'+form_id).removeAttr('disabled');
     }
 

@@ -389,6 +389,8 @@ class Services extends CI_Controller
             'FilenameInfo' =>$this->common_lib->GetImageShowSize($tmp_dest_filename, $orig_width, $orig_height),
             "sizeLabel" => $this->common_lib->getFileSizeAsString($filesize),
             "url" => $tmp_dest_dirname_url . '/' .  $img_basename . '?tm=' . time(),
+			"sess_id" => $unique_session_id,
+			"img_name" => $img_basename
         ));
 //        $this->common_lib->DebToFile( 'upload_image_to_tmp_service $resArray::'.print_r($resArray,true));
         echo json_encode($resArray);
@@ -397,13 +399,21 @@ class Services extends CI_Controller
     public function upload_image_to_service()
     {
         $UriArray = $this->uri->uri_to_assoc(4);
+		/*echo "uri array is : ";
+		print_r($UriArray);*/
         $service_id = $UriArray['service_id'];
         $is_main_image = $UriArray['is_main_image'];
         $this->common_lib->DebToFile($UriArray, ' upload_image_to_service $UriArray::');
-        $service_image = $this->common_lib->tbUrlDecode($UriArray['service_image']);
+		$unique_session_id = $UriArray['service_sess_id'];
+		//$service_image_name = $UriArray['service_image_name'];
+        $service_image = FCPATH . $this->config->item('image_tmp_directory') . $unique_session_id ."/". $UriArray['service_image_name'];
         $img_basename = basename($service_image);
+		/*echo "service name is " . $service_image;
+		echo "image base name is " . $img_basename;*/
+		//exit(0);
 
-        $src_filename = urldecode($service_image);//$_FILES['files']['tmp_name'][0];
+        //$src_filename = urldecode($service_image);//$_FILES['files']['tmp_name'][0];
+		$src_filename = $service_image;
         $this->common_lib->DebToFile($service_image, '$service_image::');
         if (file_exists($src_filename)) {
             $this->common_lib->DebToFile($src_filename, 'EXISTS$src_filename::');
@@ -421,6 +431,7 @@ class Services extends CI_Controller
         }
 
         $this->common_lib->createDir($tmpServiceImagesDirs);
+		//echo "source file is : " . $src_filename . " dest file is : " . $dest_filename;
         $uploaded_file_return = copy($src_filename, $dest_filename);
         $this->common_lib->DebToFile($uploaded_file_return, '$uploaded_file_return::');
         if ($uploaded_file_return) {

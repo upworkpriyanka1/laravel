@@ -965,7 +965,11 @@ class Ion_auth_model extends CI_Model
 		}
 
 		$this->trigger_events('extra_where');
-
+        $pattern= '~[a-z]\w*@\w+\.[a-z]+~i';
+        $ret= preg_match($pattern, $identity);
+        if (!$ret) { // if not valid email entered we check by username
+            $this->identity_column= 'username';
+        }
 		$query = $this->db->select($this->identity_column . ', email, id, password, user_active_status, last_login')
 		                  ->where($this->identity_column, $identity)
 		                  ->limit(1)

@@ -1,7 +1,6 @@
 <?php $ci = &get_instance();
 echo link_tag('assets/global/plugins/picker/classic.css');
 echo link_tag('assets/global/plugins/picker/classic.date.css');
-
 ?>
 
 <div class="row">
@@ -23,7 +22,9 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
                     </h4>
 
                     <button type="button" class="dropdown-button btn filter_dropdown btn-filter " data-activates='dropdown1' onclick="javascript:clientsListFilterApplied();" data-toggle="tooltip" data-html="true" data-placement="top" title="" data-original-title="Open dialog window to set filter for Clients. <?= ( trim($filters_label) != "" ? "Current filter(s):".$filters_label : "") ?> "><i class="glyphicon glyphicon-filter"></i>&nbsp;Filter </button>
-                    <button type="button" class="btn btn-plus sbold btn-sm pull-right create_contact" ><i class="glyphicon glyphicon-plus"></i></button>
+<!--                    <button type="button" class="btn btn-plus sbold btn-sm pull-right create_contact" ><i class="glyphicon glyphicon-plus"></i></button>-->
+                    <button type="button" class="btn btn-plus sbold btn-sm pull-right create_contact" onclick="javascript:dialogAddNewClient();" >
+                        <i class="glyphicon glyphicon-plus"></i></button>
                 </div>
                     <!-- Dropdown Structure -->
 
@@ -35,7 +36,7 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
 
                         <input type="hidden" id="page_number" name="page_number" value="1">
                         <input type="hidden" id="hidden_filter_client_name" name="filter_client_name" value="<?= $filter_client_name ?>">
-                        <input type="hidden" id="hidden_filter_client_active_status" name="filter_client_active_status" value="<?= $filter_client_active_status ?>">
+                        <input type="hidden" id="hidden_filter_client_status" name="filter_client_status" value="<?= $filter_client_status ?>">
                         <input type="hidden" id="hidden_filter_client_type" name="filter_client_type" value="<?= $filter_client_type ?>">
                         <input type="hidden" id="hidden_filter_client_zip" name="filter_client_zip" value="<?= $filter_client_zip ?>">
                         <input type="hidden" id="hidden_filter_created_at_from" name="filter_created_at_from" value="<?= $filter_created_at_from ?>">
@@ -54,9 +55,9 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
 
                         <div class="row">
                             <div class="form-group" >
-                                <label class="col-xs-12 col-sm-4 control-label" for="filter_client_active_status">Client Active Status</label>
+                                <label class="col-xs-12 col-sm-4 control-label" for="filter_client_status">Client Active Status</label>
                                 <div class="col-xs-12 col-sm-8">
-                                    <select id="filter_client_active_status"  class="form-control editable_field">
+                                    <select id="filter_client_status"  class="form-control editable_field">
                                         <option value="">  -Select All-  </option>
                                         <?php foreach( $client_ActiveStatusList as $next_key=>$next_Client_ActiveStatus ) { ?>
                                             <option value="<?= $next_Client_ActiveStatus['key'] ?>" ><?= $next_Client_ActiveStatus['value'] ?></option>
@@ -132,13 +133,17 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
                     <thead>
                         <tr>
 
-                            <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $page_parameters_without_sort, lang('client_name'), "client_name", $sort_direction, $sort ) ?></th>
-                            <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $page_parameters_without_sort, lang('client_owner'), "client_owner", $sort_direction, $sort ) ?></th>
-                            <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $page_parameters_without_sort, lang('client_active_status'), "client_active_status", $sort_direction, $sort ) ?></th>
-                            <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $page_parameters_without_sort, lang('phone'), "client_phone", $sort_direction, $sort ) ?></th>
-                            <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $page_parameters_without_sort, lang('clients-type'), "type_description", $sort_direction, $sort ) ?></th>
-                            <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $page_parameters_without_sort, lang('created_at'), "created_at", $sort_direction, $sort ) ?></th>
-                            <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $page_parameters_without_sort, lang('updated_at'), "updated_at", $sort_direction, $sort ) ?></th>
+                            <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $page_parameters_without_sort, lang('name'), "client_name", $sort_direction, $sort ) ?></th>
+                            <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $page_parameters_without_sort, lang('type'), "type_description", $sort_direction, $sort ) ?></th>
+                            <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $page_parameters_without_sort, lang('status'), "client_status", $sort_direction, $sort ) ?></th>
+                            <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $page_parameters_without_sort, lang('users'), "users", $sort_direction, $sort ) ?></th>
+                            <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $page_parameters_without_sort, lang('patients'), "patients", $sort_direction, $sort ) ?></th>
+
+<!--                            <th>--><?//= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $page_parameters_without_sort, lang('client_owner'), "client_owner", $sort_direction, $sort ) ?><!--</th>-->
+<!--                            <th>--><?//= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $page_parameters_without_sort, lang('phone'), "client_phone", $sort_direction, $sort ) ?><!--</th>-->
+                            <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $page_parameters_without_sort, lang('created'), "created_at", $sort_direction, $sort ) ?></th>
+                            <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $page_parameters_without_sort, lang('updated'), "updated_at", $sort_direction, $sort ) ?></th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -146,18 +151,22 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
                 		    foreach($clients as $row){?>
                         <tr>
 
-
                             <td>
-                                <a class="a_link" href="<?= base_url($this->uri->segment(1).'/clients-edit/'.$row->cid);?><?= $page_parameters_with_sort ?>">
+                                <a class="a_link" href="<?= base_url($this->uri->segment(1).'/client/'.$row->cid);?><?= $page_parameters_with_sort ?>">
+
                                     <?php echo $row->client_name;?>
                                 </a>
                             </td>
-                            <td>
-                                <a href="mailto:<?php echo $row->client_email;?>"> <?php echo $row->client_owner;?> </a>
-                            </td>
-                            <td><?php echo $this->common_lib->get_client_active_status_label($row->client_active_status);?>  </td>
-                            <td><?php echo $row->client_phone;?>  </td>
                             <td><?php echo $row->type_description;?></td>
+                            <td><?php echo $this->common_lib->get_client_status_label($row->client_status);?>  </td>
+                            <td></td>
+                            <td></td>
+
+<!--                            <td>-->
+<!--                                <a href="mailto:--><?php //echo $row->client_email;?><!--"> --><?php //echo $row->client_owner;?><!-- </a>-->
+<!--                            </td>-->
+<!--                            <td>--><?php //echo $row->client_phone;?><!--  </td>-->
+
                             <td><?php echo $ci->common_lib->format_datetime( $row->created_at) ?></td>
                             <td><?php echo $ci->common_lib->format_datetime( $row->updated_at ) ?></td>
                         </tr>
@@ -219,7 +228,7 @@ var is_insert= '<?= $is_insert ?>'
 
                     <input type="hidden" id="page_number" name="page_number" value="1">
                     <input type="hidden" id="hidden_filter_client_name" name="filter_client_name" value="<?= $filter_client_name ?>">
-                    <input type="hidden" id="hidden_filter_client_active_status" name="filter_client_active_status" value="<?= $filter_client_active_status ?>">
+                    <input type="hidden" id="hidden_filter_client_status" name="filter_client_status" value="<?= $filter_client_status ?>">
                     <input type="hidden" id="hidden_filter_client_type" name="filter_client_type" value="<?= $filter_client_type ?>">
                     <input type="hidden" id="hidden_filter_client_zip" name="filter_client_zip" value="<?= $filter_client_zip ?>">
                     <input type="hidden" id="hidden_filter_created_at_from" name="filter_created_at_from" value="<?= $filter_created_at_from ?>">
@@ -238,9 +247,9 @@ var is_insert= '<?= $is_insert ?>'
 
                     <div class="row">
                         <div class="form-group" >
-                            <label class="col-xs-12 col-sm-4 control-label" for="filter_client_active_status">Client Active Status</label>
+                            <label class="col-xs-12 col-sm-4 control-label" for="filter_client_status">Client Active Status</label>
                             <div class="col-xs-12 col-sm-8">
-                                <select id="filter_client_active_status"  class="form-control editable_field">
+                                <select id="filter_client_status"  class="form-control editable_field">
                                     <option value="">  -Select All-  </option>
                                     <?php foreach( $client_ActiveStatusList as $next_key=>$next_Client_ActiveStatus ) { ?>
                                         <option value="<?= $next_Client_ActiveStatus['key'] ?>" ><?= $next_Client_ActiveStatus['value'] ?></option>

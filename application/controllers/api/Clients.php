@@ -57,14 +57,14 @@ class Clients extends REST_Controller {
             //    public function getClientsList($OutputFormatCount = false, $page = 0, $filters = array(), $sort = '', $sort_direction = '')
             $show_client_type_description= !empty($_GET['show_client_type_description']) ? $_GET['show_client_type_description'] : '';
             $filter_client_name= !empty($_GET['filter_client_name']) ? $_GET['filter_client_name'] : '';
-            $filter_client_active_status= !empty($_GET['filter_client_active_status']) ? $_GET['filter_client_active_status'] : '';
+            $filter_client_status= !empty($_GET['filter_client_status']) ? $_GET['filter_client_status'] : '';
             $filter_client_type= !empty($_GET['filter_client_type']) ? $_GET['filter_client_type'] : '';
             $filter_client_zip= !empty($_GET['filter_client_zip']) ? $_GET['filter_client_zip'] : '';
             $filter_created_at_from= !empty($_GET['filter_created_at_from']) ? $_GET['filter_created_at_from'] : '';
             $filter_created_at_till= !empty($_GET['filter_created_at_till']) ? $_GET['filter_created_at_till'] : '';
             $sort= !empty($_GET['sort']) ? $_GET['sort'] : '';
             $sort_direction= !empty($_GET['sort_direction']) ? $_GET['sort_direction'] : '';
-            $clients= $this->admin_mdl->getClientsList(true, '', array( 'show_client_type_description'=>$show_client_type_description, 'client_name'=> $filter_client_name, 'client_active_status'=> $filter_client_active_status, 'client_type'=> $filter_client_type, 'client_zip'=> $filter_client_zip, 'created_at_from'=> $filter_created_at_from, 'created_at_till'=> $filter_created_at_till ), $sort, $sort_direction );  // get number of rows by given parameters
+            $clients= $this->admin_mdl->getClientsList(true, '', array( 'show_client_type_description'=>$show_client_type_description, 'client_name'=> $filter_client_name, 'client_status'=> $filter_client_status, 'client_type'=> $filter_client_type, 'client_zip'=> $filter_client_zip, 'created_at_from'=> $filter_created_at_from, 'created_at_till'=> $filter_created_at_till ), $sort, $sort_direction );  // get number of rows by given parameters
             echo '<pre>$clients::'.print_r($clients,true).'</pre>';
 
             if ($clients)

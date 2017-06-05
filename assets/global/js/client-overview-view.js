@@ -1,4 +1,6 @@
 $(document).ready(function(){
+
+
     $('.create_contact').on('click',function(){
         $.ajax({
             url: '/sys-admin/clients_view_new',
@@ -290,12 +292,7 @@ function init() {
     $('#artash').click(function(){
         $('.page-content-wrapper .page-content').css('padding-top','0');
     });
-    $(".zang").click(function(){
-        $(this).css('background-color','#fff');
-        $( ".notific-area" ).toggle();
-        if( $(".notific-area").css("display") == "none")
-            $(".zang").css('background-color','transparent');
-    });
+
 
     //$(document).mouseup(function (e)
     //{
@@ -331,17 +328,34 @@ function init() {
 
         }
 
-        if(!$(el).hasClass('notific-area') && !$(el).hasClass('zang') && !$(el).parents('.notific-area').length){
-            if( $(".notific-area").css("display") != "none"){
-                $(".zang").css('background-color','transparent');
-                $(".zang").css('opacity','1');
-                $( ".notific-area" ).toggle();
-            }
-        }
+
     });
 }
 window.onload = init();
 
+$(window).scroll(function (event) {
+    var scroll = $(window).scrollTop();
+    var width = $(window).width();
+    var grid_pinned = $('#grid-pinned').offset().top - 300;
+    var grid_associations = $('#grid-associations').offset().top - 300;
+    var grid_history = $('#grid-history').offset().top - 300;
+
+    // Do something
+//        alert('wwwwww');
+//        console.log(scroll+' - '+width+" - "+grid_responsive);
+    if(scroll >= grid_history) {
+        $('.table-of-contents li a').removeClass('active');
+        $('.table-of-contents li a[href="#grid-history"]').addClass('active');
+    }else if(scroll >= grid_associations) {
+        $('.table-of-contents li a').removeClass('active');
+        $('.table-of-contents li a[href="#grid-associations"]').addClass('active');
+    }else {
+        $('.table-of-contents li a').removeClass('active');
+        $('.table-of-contents li a[href="#grid-pinned"]').addClass('active');
+    }
+
+
+});
 
 
 

@@ -27,7 +27,7 @@
                             <span class="page-title-text">
                            <!-- <a href="#" data-activates="nav-mobile" class="button-collapse" id="nav_mobile_button"><i class="material-icons">menu</i></a>-->
                                 <?php if($page_title != ''){ echo $page_title; }else{ ?>
-                                   <?=lang('vendor-types-view')?>
+                                   <?=$page_title?>
                                 <?php } ?>
                             </span>
                         </h1>

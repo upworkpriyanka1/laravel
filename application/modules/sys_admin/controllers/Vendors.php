@@ -102,7 +102,7 @@ class Vendors extends CI_Controller
 //        $data['javascript'] = array( 'assets/custom/admin/vendor-types.js', 'assets/global/plugins/picker/picker.js', 'assets/global/plugins/picker/picker.date.js', 'assets/global/plugins/picker/picker.time.js');
 	    $data['javascript'] = array( 'assets/custom/admin/vendor-types.js', 'assets/global/plugins/picker/classic.js', 'assets/global/plugins/picker/classic.date.js', 'assets/global/plugins/picker/picker.time.js');
 
-	    $views				= array('design/html_topbar','sidebar','design/page','design/html_footer');
+	    $views				= array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php' );
         $this->layout->view($views, $data);
     }
 
@@ -178,7 +178,7 @@ class Vendors extends CI_Controller
         $data['page']		= 'vendor-types/vendor-types-edit'; //page view to load
         $data['plugins'] 	= array('validation'); //page plugins
         $data['javascript'] = array( 'assets/custom/admin/vendor-types-edit.js' );//page javascript
-        $views				=  array('design/html_topbar','sidebar','design/page','design/html_footer');
+        $views				=  array( 'design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php' );
         $this->layout->view($views, $data);
     }
 
@@ -411,7 +411,7 @@ class Vendors extends CI_Controller
 //        $data['javascript'] = array( 'assets/custom/admin/vendors.js', 'assets/global/plugins/picker/picker.js', 'assets/global/plugins/picker/picker.date.js', 'assets/global/plugins/picker/picker.time.js'); // add picker.date pluging for date selection in fileters form
 	    $data['javascript'] = array( 'assets/custom/admin/vendor-types.js', 'assets/global/plugins/picker/classic.js', 'assets/global/plugins/picker/classic.date.js', 'assets/global/plugins/picker/picker.time.js');
 
-	    $views				= array('design/html_topbar','sidebar','design/page','design/html_footer');
+	    $views				= array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php');
         $this->layout->view($views, $data);
     }
 
@@ -517,7 +517,7 @@ class Vendors extends CI_Controller
         $data['page']		= 'vendors/vendors-edit'; //page view to load
         $data['plugins'] 	= array('validation'); //page plugins
         $data['javascript'] = array( 'assets/custom/admin/vendor-edit.js' );//page javascript
-        $views				=  array('design/html_topbar','sidebar','design/page','design/html_footer');
+        $views				=  array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php');
         $this->layout->view($views, $data);
     }
 
@@ -571,10 +571,22 @@ class Vendors extends CI_Controller
     {
         $this->form_validation->set_rules( 'data[vn_name]', lang('vendor'), 'callback_vendor_check_vn_name_is_unique' );
         $this->form_validation->set_rules( 'data[vn_email]', lang('vn_email'), 'required|valid_email|callback_vendor_check_vn_email_is_unique' );
-        $this->form_validation->set_rules( 'data[vn_website]', lang('vn_website'), 'required' );
+        $this->form_validation->set_rules( 'data[vn_website]', lang('vn_website'), 'required|callback_valid_url_format' );
         $this->form_validation->set_rules( 'data[vn_description]', lang('vn_description'), '' );
         $this->form_validation->set_rules( 'vendor_has_types_label', lang('vendor_has_types_label'), 'callback_vendors_have_types_label');
     }
+	
+	// Added by BBITS Dev to validate URL
+	public function valid_url_format($str)
+	{
+		$pattern = "|^http(s)?://[a-z0-9-]+(.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i";
+		if(!preg_match($pattern, $str))
+		{
+			$this->form_validation->set_message('valid_url_format','Enter correct URL');
+			return false;
+		}
+		return true;
+	}
 
     public function vendors_have_types_label($str)
     {

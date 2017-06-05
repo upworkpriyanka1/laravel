@@ -16,11 +16,13 @@ class Users extends CI_Controller
 		$this->load->model('users_mdl');
 		$this->load->model('cms_items_mdl');
 		$this->load->model('activity_logs_mdl');
+        $this->load->model('clients_mdl');
 		$this->lang->load('sys_admin');
 		$this->config->load('sys_admin_menu_new', true);
 		$this->menu = $this->config->item('sys_admin_menu_new');
 
 		$this->user = $this->common_mdl->get_admin_user();
+		
 		if ( $this->user->user_active_status != 'A' ) {  // Only active user can access admin pages
 			redirect( base_url() . "login/logout" );
 		}
@@ -37,12 +39,19 @@ class Users extends CI_Controller
 	 *********************************/
 
 	public function users_overview(){
-
 		$UriArray = $this->uri->uri_to_assoc(3);
 		if ( !empty($UriArray['users-overview']) and $this->common_lib->is_positive_integer($UriArray['users-overview'])  ) {
 			$user_id= $UriArray['users-overview'];
 		}
 		$editable_user= $this->users_mdl->getUserRowById( $user_id, array('show_file_info'=> 1, 'image_width'=> 128, 'image_height'=> 128) );
+		if ($editable_user->user_active_status == 'N' || $editable_user->user_active_status == 'W' )
+            $data['user_status'] = 'Pending';
+		elseif ($editable_user->user_active_status == 'A')
+            $data['user_status'] = 'Active';
+        elseif ($editable_user->user_active_status == 'I')
+            $data['user_status'] = 'Inactive';
+        else
+            $data['user_status'] = $editable_user->user_active_status;
 
 		$data['editable_user']		= $editable_user;
 		$data['meta_description']='';
@@ -51,12 +60,14 @@ class Users extends CI_Controller
 		$data['group'] 		= $this->group->name;
 		$data['page']		= 'users/user-overview-page';
 		$data['javascript'] = array( 'assets/global/js/users-overview-view.js','assets/global/js/validate.js' );//page javascript
-		$views				=  array('design/html_topbar_user_overview','sidebar','design/page','design/html_footer');
+		$views				=  array('design/html_topbar_user_overview','sidebar','design/page','design/html_footer', 'common_dialogs.php');
 //		$this->load->view('users/user-overview-page');
 		$this->layout->view($views, $data);
 	}
 
 	public function users_view(){
+	
+		
 		$data['meta_description']='';
 		$data['menu']		= $this->menu;
 
@@ -125,14 +136,26 @@ class Users extends CI_Controller
 		$data['plugins'] 	= array();
 		$data['pagination_links'] 	= $pagination_links;
 		$data['javascript'] = array( 'assets/custom/admin/users.js', 'assets/global/plugins/picker/picker.js', 'assets/global/plugins/picker/picker.date.js', 'assets/global/plugins/picker/picker.time.js'); // add picker.date pluging for date selection in fileters form
-		$views				= array('design/html_topbar','sidebar','design/page','design/html_footer');
+		$views				= array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php');
 //		echo "<pre>";
 //		print_r($data['menu']);
 //		die;
 		$this->layout->view($views, $data);
 	}
 
+    public function user_change_status(){
+	    $user_id=$_POST["id"];
+	    $status =$_POST["status"];
+	    $arr_status=[
+	        'Pending'=>'W',
+	        'Active'=>'A',
+	        'Inactive'=>'I'
+        ];
+        $this->db->update($this->users_mdl->m_users_table, array('user_active_status'=>$arr_status[$status]), array('id' => $user_id));
+	    exit;
 
+
+    }
 	/**********************
 	 * Edit users
 	 * access public
@@ -141,6 +164,7 @@ class Users extends CI_Controller
 	 *********************************/
 	public function users_edit()
 	{
+		//echo "here we are...";exit(0);
 		$UriArray = $this->uri->uri_to_assoc(3);
 		$is_insert= true;
 		$app_config = $this->config->config;
@@ -150,6 +174,10 @@ class Users extends CI_Controller
 			$user_id= $UriArray['users-edit'];
 		}
 		$post_array = $this->input->post();
+		/*echo "post array is ";
+		print_r($post_array);
+		exit(0);*/
+		
 		$sort= $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort');
 		$sort_direction = $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort_direction');
 		$page_number = $this->common_lib->getParameter($this, $UriArray, $post_array, 'page_number', 1);
@@ -212,11 +240,12 @@ class Users extends CI_Controller
 		if (!empty($_POST)) {
 
 			$validation_status = $this->form_validation->run();
-
+			//echo "validation status is : " . $validation_status ;
 			if ($validation_status != FALSE) {
-
+				//echo "in if...";
 				$this->user_edit_makesave ($is_insert, $user_id, $data['select_on_update'], $redirect_url, $page_parameters_with_sort, $post_array, $app_config );
 			} else {
+				//echo "in else...";
 				$editable_user = $this->user_edit_fill_current_data( $editable_user, $is_insert, $user_id );
 				foreach ($groupsSelectionList as $next_key => $next_groups_selection) {
 					$is_found= false;
@@ -236,7 +265,13 @@ class Users extends CI_Controller
 				}
 				$data['groupsSelectionList']  = $groupsSelectionList;
 				$data['validation_errors_text'] = validation_errors( /*$layout_config['backend_error_icon_start'], $layout_config['backend_error_icon_end']*/ );
+				$this->session->set_flashdata('validation_errors_text',$data['validation_errors_text']);
+				$this->session->set_flashdata('user_edit_new_post_data',implode('^',$post_array['data']));
 			}
+			//echo "validation error is : " . validation_errors();
+			//exit(0);
+			$client_id = $this->input->post('hdn_client_id');
+			redirect('/sys-admin/client/' . $client_id, 'refresh');
 		}
 		else {
 			$editable_user= $this->users_mdl->getUserRowById( $user_id, array('show_file_info'=> 1, 'image_width'=> 128, 'image_height'=> 128) );
@@ -289,12 +324,13 @@ class Users extends CI_Controller
 		$data['page']		= 'users/user-overview-page'; //page view to load
 		$data['plugins'] 	= array('validation'); //page plugins
 //		$data['javascript'] = array( 'assets/custom/admin/user-edit.js' );//page javascript
-		$data['javascript'] = array( 'assets/global/js/users-overview-view.js','assets/global/js/validate.js' );//page javascript
+		$data['javascript'] = array( 'assets/global/js/users-overview-view.js','assets/global/js/validate.js','assets/custom/admin/user-edit.js');//page javascript
 //		$views				=  array('design/html_topbar','sidebar','design/page','design/html_footer');
-		$views				=  array('design/html_topbar_user_overview','sidebar','design/page','design/html_footer');
+		$views				=  array('design/html_topbar_user_overview','sidebar','design/page','design/html_footer', 'common_dialogs.php');
 //		echo "<pre>";
 //		print_r($data);
 //		die;
+
 		$this->layout->view($views, $data);
 	}
 
@@ -371,17 +407,17 @@ class Users extends CI_Controller
 	private function user_edit_form_validation($is_insert, $user_id)
 	{
 //		$this->form_validation->set_rules( 'data[username]', lang('user'), 'callback_user_check_username_is_unique' );
-//		$this->form_validation->set_rules( 'data[email]', lang('email'), 'trim|required|valid_email|callback_user_check_email_is_unique' );
+		$this->form_validation->set_rules( 'data[email]', lang('email'), 'trim|required|valid_email|callback_user_check_email_is_unique' );
 
 //		$this->form_validation->set_rules( 'data[user_active_status]', lang('user_active_status'), 'required' );
 		$this->form_validation->set_rules( 'data[first_name]', lang('first_name'), 'required' );
 		$this->form_validation->set_rules( 'data[last_name]', lang('last_name'), 'required' );
-		$this->form_validation->set_rules( 'data[middle_name]', lang('middle_name'), 'required' );
-		$this->form_validation->set_rules( 'data[city]', lang('city'), 'required' );
-		$this->form_validation->set_rules( 'data[state]', lang('state'), 'required' );
-		$this->form_validation->set_rules( 'data[zip]', lang('zip'), 'required' );
-		$this->form_validation->set_rules( 'data[address1]', lang('address1'), 'required' );
-		$this->form_validation->set_rules( 'data[address2]', lang('address2'), '' );
+		//$this->form_validation->set_rules( 'data[middle_name]', lang('middle_name'), 'required' );
+		//$this->form_validation->set_rules( 'data[city]', lang('city'), 'required' );
+		//$this->form_validation->set_rules( 'data[state]', lang('state'), 'required' );
+		//$this->form_validation->set_rules( 'data[zip]', lang('zip'), 'required' );
+		//$this->form_validation->set_rules( 'data[address1]', lang('address1'), 'required' );
+		//$this->form_validation->set_rules( 'data[address2]', lang('address2'), '' );
 //		$this->form_validation->set_rules( 'data[mobile]', lang('mobile'), '' );
 		$this->form_validation->set_rules( 'data[phone]', lang('phone'), '' );
 //		$this->form_validation->set_rules( 'user_has_groups_label', lang('user_has_groups_label'), 'callback_user_has_groups_label');
@@ -401,6 +437,9 @@ class Users extends CI_Controller
 
 	private function user_edit_makesave($is_insert, $user_id, $select_on_update, $redirect_url, $page_parameters_with_sort, $post_array, $app_config ) {
 
+		/*echo "here we are...post array is : ";
+		print_r($post_array);
+		exit(0);*/
 		$this->db->trans_start( );
 		$ip_address= !empty($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
 
@@ -413,9 +452,12 @@ class Users extends CI_Controller
 					$user_group_array[]= $a[1];
 				}
 			}
-
-			$additional_data= array(  'ip_address'=> $ip_address, 'first_name' => $post_array['data']['first_name'], 'last_name' => $post_array['data']['last_name'],'middle_name' => $post_array['data']['middle_name'],'user_active_status' => $post_array['data']['user_active_status'], 'city' => $post_array['data']['city'], 'state' => $post_array['data']['state'], 'zip' => $post_array['data']['zip'],  'address1' => $post_array['data']['address1'], 'address2' => $post_array['data']['address2'], 'phone' => $post_array['data']['phone'],'phone_type' => $post_array['data']['user_phone_type'], 'created_on'=> now(),  );
-//			$additional_data= array(  'ip_address'=> $ip_address, 'user_active_status' => $post_array['data']['user_active_status'], 'first_name' => $post_array['data']['first_name'], 'last_name' => $post_array['data']['last_name'], 'city' => $post_array['data']['city'], 'state' => $post_array['data']['state'], 'zip' => $post_array['data']['zip'],  'address1' => $post_array['data']['address1'], 'address2' => $post_array['data']['address2'], 'mobile' => $post_array['data']['mobile'], 'phone' => $post_array['data']['phone'], 'created_on'=> now(), 'avatar' => $post_array['data']['avatar'] );
+			
+			$auth = isset($post_array['cbx_auth'])?1:0;
+			// For default waiting status
+			$post_array['data']['user_active_status'] = "W";
+			
+			$additional_data= array(  'ip_address'=> $ip_address, 'user_active_status' => $post_array['data']['user_active_status'], 'first_name' => $post_array['data']['first_name'], 'last_name' => $post_array['data']['last_name'], 'city' => $post_array['data']['city'], 'state' => $post_array['data']['state'], 'zip' => $post_array['data']['zip'],  'address1' => $post_array['data']['address1'], 'address2' => $post_array['data']['address2'], 'mobile' => $post_array['data']['mobile'], 'phone' => $post_array['data']['phone'], 'created_on'=> now(), 'avatar' => $post_array['data']['avatar'], 'is_multi_auth' => $auth, 'created_at' => date('Y-m-d H:i:s'), 'super_id' => $this->user->user_id );
 
 			if  (  !empty( $post_array['cbx_clear_image'])  )  {
 				$additional_data['avatar']= '';
@@ -426,25 +468,32 @@ class Users extends CI_Controller
 			$activation_code= $this->common_lib->GenerateActivationCode();
 			$additional_data['activation_code']= $activation_code;
 
-//			$user_id = $this->ion_auth->register( $post_array['data']['username'], '', $post_array['data']['email'], $additional_data,   array(  $user_group_array  )  );
-			$user_id = $this->ion_auth->register( '', '', '', $additional_data,   array(  $user_group_array  )  );
-//			if ( $post_array['data']['user_active_status'] == "W" ) { // sent message with activation code
-//				$activation_page_url= $app_config['base_url']."/activation/".$activation_code;
-//				$title= 'You are registered at ' . $app_config['site_name'] . ' site';
-//				$content = $this->cms_items_mdl->getBodyContentByAlias('user_register',
-//					array('username' => $post_array['data']['username'],
-//					      'first_name' => $post_array['data']['first_name'],
-//					      'last_name' => $post_array['data']['last_name'],
-//					      'site_name' => $app_config['site_name'],
-//					      'support_signature' => $app_config['support_signature'],
-//					      'activation_page_url' => $activation_page_url,
-//					      'site_url' => $app_config['base_url'],
-//					      'email' => $post_array['data']['email']
-//					), true);
-//				$EmailOutput = $this->common_lib->SendEmail($post_array['data']['email'], $title, $content );
-////				$this->common_lib->DebToFile( 'sendEmail $content::'.print_r($content,true));
-//			} // if ( $post_array['data']['user_active_status'] == "W" ) { // sent message with activation code
-
+			$user_id = $this->ion_auth->register( $post_array['data']['username'], '', $post_array['data']['email'], $additional_data,   array(  $user_group_array  )  );
+			
+			// add data to users_clients table
+			//hdn_client_id
+			$insertClient['uc_user_id']= $user_id;
+			$insertClient['uc_client_id']= $post_array['hdn_client_id'];
+			//$insertClient['uc_active_status']= 'W';
+			$insert_id=$this->common_mdl->db_insert('users_clients',$insertClient, TRUE);
+			
+			
+			if ( $post_array['data']['user_active_status'] == "W" ) { // sent message with activation code
+				$activation_page_url= $app_config['base_url']."activation/".$activation_code;
+				$title= 'You are registered at ' . $app_config['site_name'] . ' site';
+				$content = $this->cms_items_mdl->getBodyContentByAlias('user_register',
+					array('username' => $post_array['data']['username'],
+					      'first_name' => $post_array['data']['first_name'],
+					      'last_name' => $post_array['data']['last_name'],
+					      'site_name' => $app_config['site_name'],
+					      'support_signature' => $app_config['support_signature'],
+					      'activation_page_url' => $activation_page_url,
+					      'site_url' => $app_config['base_url'],
+					      'email' => $post_array['data']['email']
+					), true);
+				$EmailOutput = $this->common_lib->SendEmail($post_array['data']['email'], $title, $content );
+//				$this->common_lib->DebToFile( 'sendEmail $content::'.print_r($content,true));
+			} 
 		} else {
 //			$update_data= array( 'username' => $post_array['data']['username'], 'ip_address'=> $ip_address, 'email' => $post_array['data']['email'], 'user_active_status' => $post_array['data']['user_active_status'], 'first_name' => $post_array['data']['first_name'], 'last_name' => $post_array['data']['last_name'], 'city' => $post_array['data']['city'], 'state' => $post_array['data']['state'], 'zip' => $post_array['data']['zip'],  'address1' => $post_array['data']['address1'], 'address2' => $post_array['data']['address2'], 'mobile' => $post_array['data']['mobile'], 'phone' => $post_array['data']['phone'], 'avatar' => $post_array['data']['avatar'] );
 			$update_data= array( 'ip_address'=> $ip_address,'first_name' => $post_array['data']['first_name'], 'last_name' => $post_array['data']['last_name'],'middle_name' => $post_array['data']['middle_name'], 'user_active_status' => $post_array['data']['user_active_status'], 'city' => $post_array['data']['city'], 'state' => $post_array['data']['state'], 'zip' => $post_array['data']['zip'],  'address1' => $post_array['data']['address1'], 'address2' => $post_array['data']['address2'], 'phone' => $post_array['data']['phone'],'phone_type' => $post_array['data']['user_phone_type'] );
@@ -499,7 +548,7 @@ class Users extends CI_Controller
 		}
 
 		if ($user_id) {
-			$this->session->set_flashdata('editor_message', lang('user') . " '" . $post_array['data']['username'] . "' was " . ($is_insert ? "inserted" : "updated") );
+			$this->session->set_flashdata('editor_message', lang('user') . " '" . $post_array['data']['first_name'] . "' was " . ($is_insert ? "inserted" : "updated") );
 			if ($this->db->trans_status() === FALSE) {
 				$this->db->trans_rollback();
 			} else {
@@ -645,6 +694,139 @@ class Users extends CI_Controller
 		$this->output->set_content_type('application/json')->set_output(json_encode(array('ErrorMessage' => '', 'ErrorCode' => 0, 'user_id' => $user_id )));
 	}
 
+    public function load_user_related_clients()
+    {
+        $UriArray = $this->uri->uri_to_assoc(4);
+        $post_array = $this->input->post();
+        $filter_user_id = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_user_id');
+
+        $page = $this->common_lib->getParameter($this, $UriArray, $post_array, 'page');
+        $filter_related_clients_filter = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_related_clients_filter');
+        $filter_related_clients_type = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_related_clients_type');
+        $db_filter_related_clients_type= $filter_related_clients_type;
+        $client_status = $this->common_lib->getParameter($this, $UriArray, $post_array, 'client_status');
+        $sort= $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort', 'created_at');
+        $sort_direction = $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort_direction', 'asc');
+
+        if ($filter_related_clients_type == 'A') { // SHOW ALL USERS
+            $db_filter_related_clients_type= '';
+        }
+        if ( empty($page) ) $page= 1;
+
+
+        $PageParametersWithSort = $this->usersRelatedClientsPreparePageParameters($UriArray, $post_array, false, true);     // keep all sorting parameters for using in sorting
+        $PageParametersWithoutSort = $this->usersRelatedClientsPreparePageParameters($UriArray, $post_array, false, false); // by column header or at editor submitting to keep current filters
+
+        $this->load->library('pagination');
+        $pagination_config= $this->common_lib->getPaginationParams('ajax');
+        $pagination_config['base_url'] = base_url() . 'sys-admin/clients_edit_load_related_users' . '/page';
+        $filters= array( 'user_id'=>$filter_user_id, 'uc_active_status'=> $db_filter_related_clients_type, 'show_uc_active_status'=> 1, 'username'=> $filter_related_clients_filter, 'client_status'=> $client_status );
+        $clients_count = $this->clients_mdl->getClientsList( true, 0, $filters );
+        $filters['show_user_group']= 1;
+
+        $pagination_config['total_rows'] = $clients_count;
+        $this->pagination->suffix = $this->usersRelatedClientsPreparePageParameters($UriArray, $post_array, false, true);
+
+        $this->pagination->initialize($pagination_config);
+        $this->pagination->cur_page= $page;
+        $pagination_links = $this->pagination->create_links();
+        $related_clients_list= [];
+        if ( $clients_count > 0 ) {
+            $related_clients_list = $this->clients_mdl->getClientsList( false, $page, $filters, $sort, $sort_direction );
+        }
+
+        $data = array('related_clients_list' => $related_clients_list, 'user_id' => $filter_user_id, 'clients_count'=> $clients_count, 'related_users_type'=> $filter_related_clients_type, 'related_users_filter'=> $filter_related_clients_filter, 'sort_direction'=> $sort_direction, 'sort'=> $sort, 		'PageParametersWithSort'=> $PageParametersWithSort, 'PageParametersWithoutSort'=> $PageParametersWithoutSort,
+            'pagination_links'=> 		$pagination_links   );
+        $data['page']		= 'users/load_related_clients'; //page view to load
+        $data['page_number']		= $page;
+        $data['plugins'] 	= array();
+        $data['javascript'] = array();
+        $views				= array(  'design/page'  );
+
+//        echo "<pre>";
+//        print_r($data);
+//        die;
+        ob_start();
+        $this->layout->view($views, $data);
+        $html = ob_get_contents();
+        ob_end_clean();
+        $this->output->set_content_type('application/json')->set_output(json_encode(array('ErrorMessage' => '', 'ErrorCode' => 0, 'user_id' => $filter_user_id, 'clients_count'=> $clients_count, 'html' => $html )));
+
+    }
+
+
+    public function load_user_related_clients_new()
+    {
+        $UriArray = $this->uri->uri_to_assoc(4);
+        $post_array = $this->input->post();
+        $filter_user_id = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_user_id');
+
+        $filters= array( 'user_id'=>$filter_user_id, 'uc_active_status'=> $db_filter_related_clients_type, 'show_uc_active_status'=> 1, 'username'=> $filter_related_clients_filter, 'client_status'=> $client_status );
+        $clients_count = $this->clients_mdl->getClientsList( true, 0, $filters );
+
+        $related_clients_list= [];
+        if ( $clients_count > 0 ) {
+            $related_clients_list = $this->clients_mdl->getClientsList( false, 0, $filters );
+        }
+        echo "<pre>";
+        print_r($filters);
+        die;
+        $data = array('related_clients_list' => $related_clients_list, 'user_id' => $filter_user_id, 'clients_count'=> $clients_count, 'related_clients_type'=> $filter_related_clients_type, 'related_users_filter'=> $filter_related_clients_filter);
+        $data['page']		= 'users/load_related_clients'; //page view to load
+        $data['page_number']		= $page;
+        $data['plugins'] 	= array();
+        $data['javascript'] = array();
+        $views				= array(  'design/page'  );
+
+//        echo "<pre>";
+//        print_r($data);
+//        die;
+        ob_start();
+        $this->layout->view($views, $data);
+        $html = ob_get_contents();
+        ob_end_clean();
+        $this->output->set_content_type('application/json')->set_output(json_encode(array('ErrorMessage' => '', 'ErrorCode' => 0, 'user_id' => $filter_user_id, 'clients_count'=> $clients_count, 'html' => $html )));
+
+    }
 	////////////// USERS BLOCK END /////////////
 
+
+
+    private function usersRelatedClientsPreparePageParameters($UriArray, $_post_array, $WithPage, $WithSort)
+    {
+        $ResStr = '';
+        if (!empty($_post_array)) { // form was submitted
+            if ($WithPage) {
+                $page = $this->input->post('page');
+                $ResStr .= !empty($page) ? 'page/' . $page . '/' : 'page/1/';
+            }
+            $filter_client_id = $this->input->post('filter_user_id');
+            $ResStr .= !empty($filter_client_id) ? 'filter_user_id/' . $filter_client_id . '/' : '';
+            $filter_related_users_filter = $this->input->post('filter_related_clients_filter');
+            $ResStr .= !empty($filter_related_users_filter) ? 'filter_related_clients_filter/' . $filter_related_users_filter . '/' : '';
+            $filter_provides_vendors_type = $this->input->post('filter_provides_vendors_type');
+            $ResStr .= !empty($filter_provides_vendors_type) ? 'filter_provides_vendors_type/' . $filter_provides_vendors_type . '/' : '';
+            if ($WithSort) {
+                $sort_direction = $this->input->post('sort_direction');
+                $ResStr .= !empty($sort_direction) ? 'sort_direction/' . $sort_direction . '/' : '';
+                $sort = $this->input->post('sort');
+                $ResStr .= !empty($sort) ? 'sort/' . $sort . '/' : '';
+            }
+        } else {
+            if ($WithPage) {
+                $ResStr .= !empty($UriArray['page']) ? 'page/' . $UriArray['page'] . '/' : 'page/1/';
+            }
+            $ResStr .= !empty($UriArray['filter_user_id']) ? 'filter_user_id/' . $UriArray['filter_user_id'] . '/' : '';
+            $ResStr .= !empty($UriArray['filter_related_clients_filter']) ? 'filter_related_clients_filter/' . $UriArray['filter_related_clients_filter'] . '/' : '';
+            $ResStr .= !empty($UriArray['filter_provides_vendors_type']) ? 'filter_provides_vendors_type/' . $UriArray['filter_provides_vendors_type'] . '/' : '';
+            if ($WithSort) {
+                $ResStr .= !empty($UriArray['sort_direction']) ? 'sort_direction/' . $UriArray['sort_direction'] . '/' : '';
+                $ResStr .= !empty($UriArray['sort']) ? 'sort/' . $UriArray['sort'] . '/' : '';
+            }
+        }
+        if (substr($ResStr, strlen($ResStr) - 1, 1) == '/') {
+            $ResStr = substr($ResStr, 0, strlen($ResStr) - 1);
+        }
+        return '/' . $ResStr;
+    }
 }

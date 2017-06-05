@@ -1,4 +1,42 @@
-<?php $ci = &get_instance();
+<?php if ( !isset($related_users_list) or empty($related_users_list) ) {
+    echo '<h4>There are no users for this client</h4>';
+    return;
+}
+?>
+
+
+<div class="table-responsive" style="background-color: #fff">
+    <table class="table table-striped table-bordered table-hover  order-column">
+        <thead>
+        <tr>
+            <th>Username</th>
+            <th>Title</th>
+            <th>Status</th>
+            <th>Created</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <? foreach ($related_users_list as $next_related_user) { ?>
+        <tr>
+            <td> <a href="<?= base_url('/sys-admin/users/users-overview/'.$next_related_user->id.'/');?>"> <?=$next_related_user->username; ?></a></td>
+            <td><?php echo $next_related_user->user_group_description; ?> </td>
+            <td><?php echo $this->users_mdl->getUserActiveStatusLabel($next_related_user->user_active_status) ?></td>
+            <td><?php echo $this->common_lib->format_datetime( $next_related_user->created_at) ?></td>
+        </tr>
+            <?php
+        }//end foreach( $ as $next_key=>$next_value ) {
+        ?>
+        </tbody>
+    </table>
+</div>
+
+
+<?php
+
+return;
+
+$ci = &get_instance();
 if ( isset($related_users_list) && count($related_users_list) > 0 ) { ?>
 
 <!--<h4>--><?//=$users_count ?><!-- Related User(s)  $related_users_type::--><?//= $related_users_type ?><!--;; $related_users_filter::--><?//= $related_users_filter ?><!--</h4>   <!-- $related_users_type, 'related_users_filter' -->

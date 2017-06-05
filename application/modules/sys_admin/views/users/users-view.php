@@ -3,7 +3,6 @@ echo link_tag('assets/global/plugins/picker/classic.css');
 echo link_tag('assets/global/plugins/picker/classic.date.css');
 
 ?>
-
 <script type="text/javascript">
 	/*<![CDATA[*/
 
@@ -44,14 +43,15 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
 						<table class="table table-striped table-bordered table-hover  order-column" id="users_listing">
 							<thead>
 							<tr>
-								<th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('username'), "username", $sort_direction, $sort ) ?></th>
-								<th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('client_name'), "client_name", $sort_direction, $sort ) ?></th>
-								<th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('phone'), "phone", $sort_direction, $sort ) ?></th>
+								<th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('user'), "username", $sort_direction, $sort ) ?></th>
+								<th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('client(s)'), "client_name", $sort_direction, $sort ) ?></th>
+                                <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('status'), "user_active_status", $sort_direction, $sort ) ?></th>
+                                <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('title'), "user_group_description", $sort_direction, $sort ) ?></th>
+                                <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('created'), "users.created_at", $sort_direction, $sort ) ?></th>
+<!--                                <th>--><?//= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('phone'), "phone", $sort_direction, $sort ) ?><!--</th>-->
 <!--								<th>--><?//= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('job'), "job_name", $sort_direction, $sort ) ?><!--</th>-->
-								<th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('zip'), "zip", $sort_direction, $sort ) ?></th>
-								<th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('user_active_status'), "user_active_status", $sort_direction, $sort ) ?></th>
-								<th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('user_group_description'), "user_group_description", $sort_direction, $sort ) ?></th>
-								<th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('created_at'), "created_at", $sort_direction, $sort ) ?></th>
+<!--								<th>--><?//= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('zip'), "zip", $sort_direction, $sort ) ?><!--</th>-->
+
 							</tr>
 							</thead>
 							<tbody>
@@ -67,12 +67,13 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
 										<td>
 											<?php echo $this->common_lib->groupItems($row->client_name,',', 'client(s)');?></a>
 										</td>
-										<td><?php echo $row->phone;?></td>
+                                        <td><?php echo $this->common_lib->get_user_active_status_label( $row->user_active_status ) ?></td>
+                                        <td><?php echo $row->user_group_description;?></td>
+                                        <td><?php echo $ci->common_lib->format_datetime( $row->created_at) ?></td>
+<!--                                        <td>--><?php //echo $row->phone;?><!--</td>-->
 <!--										<td>--><?php //echo $row->job_name;?><!--</td>-->
-										<td><?php echo $row->zip;?></td>
-										<td><?php echo $this->common_lib->get_user_active_status_label( $row->user_active_status ) ?></td>
-										<td><?php echo $row->user_group_description;?></td>
-										<td><?php echo $ci->common_lib->format_datetime( $row->created_at) ?></td>
+<!--										<td>--><?php //echo $row->zip;?><!--</td>-->
+
 									</tr>
 									<?php
 								}//end foreach
@@ -105,6 +106,7 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
 				<div class="modal-title">Users&nbsp;Filter&nbsp;Setup</div>
 			</section>
 
+
 			<section class="modal-body">
 				<form role="form" class="form-horizontal" id="form_users" name="form_users" method="post"  enctype="multipart/form-data" >
 
@@ -120,7 +122,7 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
 
 					<div class="row">
 						<div class="form-group" >
-							<label class="col-xs-12 col-sm-4 control-label" for="filter_username">User name</label>
+							<label class="col-xs-12 col-sm-4 control-label" for="filter_username"><?php echo lang('user')?></label>
 							<div class="col-xs-12 col-sm-8">
 								<input class="form-control editable_field" value="" id="filter_username" type="text" size="20" maxlength="100">
 							</div>

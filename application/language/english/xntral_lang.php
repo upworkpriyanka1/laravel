@@ -39,23 +39,27 @@ $lang['url']                    = "URL";
 $lang['edit']                   = "Edit";
 $lang['created_at']             = "Created At";
 $lang['updated_at']             = "Updated At";
+$lang['created']                = "Created";
+$lang['updated']                = "Updated";
 
 
 $lang['newuserform']            = 'User form';
 
 //clients section
-$lang['client']                = "Client";
+$lang['client']                 = "Client";
 $lang['clients']                = "Clients";
+$lang['client(s)']              =" Client(s)";
 $lang['clients-view']           = "Manage";
 $lang['clients-add']            = "New";
-$lang['clients-edit']           = "New Client";
+$lang['client']                 = "New Client";
 $lang['clients-type']           = "Client Type";
 $lang['client_type_help']       = "select min 1 option (Ctrl+Click)";
 $lang['client_name']            = "Client Name";
+$lang['name']                   = "Name";
 $lang['cid']                    = "ID";
 $lang['client_owner']           = "Client Owner";
 $lang['client_email']           = "Client Email";
-$lang['client_active_status']   = "Client Active Status";
+$lang['client_status']          = "Client Status";
 $lang['cv_active_status']       = "Provides Vendor";
 $lang['client_fax']             = "Fax";
 $lang['client_website']         = "Website";
@@ -64,14 +68,37 @@ $lang['client_address2']        = "Additive Address";
 $lang['client_city']            = "City";
 $lang['client_state']           = "State";
 $lang['client_zip']             = "Zip";
+$lang['client_img']             = "Image";
+
 $lang['grid']                   = "Grid";
 $lang['col3']                   = "Col 3";
 $lang['eh']                     = "Sacred City";
-$lang['license']                 ="License";
+$lang['sacred-city']            = "Sacred City";
+$lang['license']                = "License";
+$lang['type']                   = "Type";
+$lang['users']                  = "Users";
+
+
 
 
 $lang['patients']               = "Patients";
+$lang['new-patient']            = "New Patient";
 $lang['patients-view']          = "Manage";
+$lang['prefix']                 = "Prefix";
+$lang['first']                  = "First";
+$lang['middle']                 = "Middle";
+$lang['last']                   = "Last";
+$lang['suffix']                 = "Suffix";
+$lang['nickname']               = "Nickname";
+$lang['country']                = "Country";
+$lang['gender']                 = "Gender";
+$lang['date-of-birth']          = "Date of Birth";
+$lang['soc-secur-number']       = "Social Security Number";
+$lang['me']                     = "Me";
+$lang['doctor']                 = "Doctor";
+$lang['social-worker']          = "Social Worker";
+
+
 
 $lang ['locations']             = "Locations";
 $lang ['locations-add']         = "New";
@@ -147,7 +174,7 @@ $lang['full_time']              = "Full time";
 $lang['part_time']              = "Part time";
 $lang['contractor']             = "Contractor";
 
-$lang['user']                   = "user";
+$lang['user']                   = "User";
 $lang['user_id']                = "ID";
 $lang['username']               = "Username";
 $lang['user_name']              = "User Name";
@@ -161,6 +188,7 @@ $lang['users-edit']             = "Edit User";
 $lang['user_active_status']     = "User's Status";
 $lang['user_has_groups']        = "Title(s)";
 $lang['user_has_groups_label']  = "Title(s)";
+$lang['authenticity']  			= "Authenticity"; // BBITS
 $lang['title']                  = "Title";
 $lang['status']                 = "Status";
 $lang['uc_active_status']       = "Relation Status";
@@ -173,6 +201,8 @@ $lang['address1']               = "Address";
 $lang['address2']               = "Suite, #, Unit";
 $lang['user_address1']          ="Address1";
 $lang['user_address2']          ="Address2";
+$lang['cl_address1']          ="Address1";
+$lang['cl_address2']          ="Address2";
 $lang['city']                   = "City";
 $lang['state']                  = "State";
 $lang['zip']                    = "Zip";
@@ -180,6 +210,8 @@ $lang['phone']                  = "Phone";
 $lang['phone_2']                = "Phone 2";
 $lang['phone_3']                = "Phone 3";
 $lang['phone_4']                = "Phone Type";
+$lang['phone-4']                = "Phone 4";
+$lang['phone_5']                = "Phone 5";
 $lang['fax']                    = "Fax";
 $lang['email']                  = "e-mail";
 $lang['website']                = "Website";
@@ -188,6 +220,10 @@ $lang['notes']                  = "Notes";
 $lang['select']                 = "Select";
 $lang['submit']                 = "Submit";
 $lang['Filter']                 = "Filter";
+$lang['primary-color']          = "Primary color";
+$lang['accent-color']           = "Accent  color";
+$lang['tag-drop']               = "Tag line";
+
 /*TITLES*/
 $lang['t-sys-admin']            = "SYS Admin";
 $lang['t-np']                   = "NP";

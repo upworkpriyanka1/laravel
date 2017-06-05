@@ -76,9 +76,9 @@ $query_builder = TRUE;
 $db['default'] = array(
         'dsn'   => '',
         'hostname' => 'localhost',
-        'username' => 'zntral_front2',
-        'password' => 'U)]vb36y1{uV',
-        'database' => 'zntral_dev',
+        'username' => 'zntral_devM',
+        'password' => 'RA.cvosu=aS1',
+        'database' => 'zntral_devM',
         'dbdriver' => 'mysqli',
         'dbprefix' => '',
         'pconnect' => FALSE,
@@ -94,3 +94,4 @@ $db['default'] = array(
         'failover' => array(),
         'save_queries' => TRUE
 );
+

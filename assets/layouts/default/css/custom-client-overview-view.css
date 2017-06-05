@@ -249,7 +249,7 @@ header h1#logo {
 
 header h1 .logo_first{
     background-color: white;
-    border-radius: 50% !important;
+    /*border-radius: 50% !important;*/
     width: 50px;
     height: 50px;
     text-align: center;
@@ -726,6 +726,59 @@ ul.side-nav.fixed ul.collapsible-accordion-green{
     margin-bottom: 0;
 }
 
+
+
+.clients-overview .user-st .dropdown-menu{
+    top: -10px !important;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2)
+}
+.clients-overview .user-st .dropdown-menu:after{
+    border: none;
+}
+.clients-overview .user-st .dropdown-menu li a{
+    font-size: 16px;
+    line-height: normal;
+    padding: 10px 15px;
+    color: #000;
+    background-color: transparent;
+
+}
+.clients-overview .user-st .dropdown-menu li{
+    clear: both;
+    color: rgba(0, 0, 0, 0.87);
+    cursor: pointer;
+    min-height: 50px;
+    line-height: 1.5rem;
+    width: 100%;
+    text-align: left;
+    text-transform: none;
+}
+.clients-overview .user-st .dropdown-menu li:hover, .user-st .dropdown-menu li.active{
+    background-color: #eee;
+}
+.clients-overview .user-st .dropdown-menu li.disabled{
+    background-color: #ccc;
+}
+.clients-overview .edit , .clients-overview .user-st{
+    display: inline-block;
+    margin-left: 10px;
+}
+.clients-overview .user-st h4, .clients-overview .user-st .dropdown, .clients-overview .user-st .dropdown .caret {
+    display: inline-block;
+    margin-left: 10px;
+}
+.clients-overview #client-status-change-confirm-modal .modal-dialog .btn-group{
+    margin-top: 15px;
+}
+.clients-overview #client-status-change-confirm-modal .modal-dialog{
+    margin: 40vh auto;
+}
+
+
+
+
+
+
 .phone, .email{
     position: relative;
 }
@@ -828,3 +881,17 @@ input[type=text]:focus:not([readonly]){
 #newclient .portlet-form .form-body, #new_user_modal .portlet-form .form-body{
     padding-bottom: 0;
 }
+
+#client_new_user_dialog input[type=text].error, #client_new_user_dialog input[type=tel].error, #client_new_user_dialog input[type=email].error, #client_new_user_dialog select.error{
+    border-bottom: 2px solid red !important;
+    box-shadow: none;
+
+}
+#client_new_user_dialog label.error{
+    color: red;
+}
+#client_new_user_dialog select{
+    border:none;
+    border-bottom: 1px solid #9e9e9e;;
+}
+

@@ -118,6 +118,13 @@ function clearAllData() {
     });
 }
 
+function dialogAddNewClient() {
+    $( "#create-contact" ).modal(  {
+        "backdrop": "static",
+        "keyboard": true,
+        "show": true
+    } );
+}
 /**********************
  * clicking on "Filter" button in clients View page filters popup dialog is opened and inputs are filled from "hidden_" hidden inputs of form and date initialization
  * access public
@@ -133,7 +140,7 @@ function clientsListFilterApplied( ) {
     } );
     $("#filter_client_name").val( jQuery.trim($("#hidden_filter_client_name").val()) )
     $("#filter_client_type").val( jQuery.trim($("#hidden_filter_client_type").val()) )
-    $("#filter_client_active_status").val( jQuery.trim($("#hidden_filter_client_active_status").val()) )
+    $("#filter_client_status").val( jQuery.trim($("#hidden_filter_client_status").val()) )
     $("#filter_client_zip").val( jQuery.trim($("#hidden_filter_client_zip").val()) )
 
     $("#filter_created_at_from").css("display", "block")
@@ -163,7 +170,7 @@ function clientsListFilterApplied( ) {
  *********************************/
 function clientsListMakeFilterDialogSubmit() {
     $("#hidden_filter_client_name").val( jQuery.trim($("#filter_client_name").val()) )
-    $("#hidden_filter_client_active_status").val( $("#filter_client_active_status").val() )
+    $("#hidden_filter_client_status").val( $("#filter_client_status").val() )
     $("#hidden_filter_client_type").val( jQuery.trim($("#filter_client_type").val()) )
     $("#hidden_filter_client_zip").val( jQuery.trim($("#filter_client_zip").val()) )
 

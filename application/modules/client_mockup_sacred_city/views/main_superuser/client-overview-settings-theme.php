@@ -164,7 +164,7 @@
     </div>
     <ul id="nav-mobile" class="side-nav fixed" style="transform: translateX(-100%);">
         <li class="logo">
-            <a href="client-overview" class="brand-logo">
+            <a href="/client-mockup-sacred-city/superuser" class="brand-logo">
                 <!-- <img src="/assets/img/logo.png" alt="logo" class="logo-default" />-->
                 <span class="logo-default"> Sacred City</span>
             </a>
@@ -185,7 +185,7 @@
                         <ul>
                             <!-- SIDEBAR MENU LINK -->
                             <li class="nav-item">
-                                <a href="client-overview-patient-new" class="nav-link ">
+                                <a href="/client-mockup-sacred-city/superuser/new-patient" class="nav-link ">
                                     <!-- <a href="--><!--" class="nav-link ">-->
                                     <span class="fa fa-plus"></span>
                                     <span class="title">New</span>

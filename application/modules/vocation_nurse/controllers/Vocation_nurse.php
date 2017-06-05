@@ -11,10 +11,10 @@ class Vocation_nurse extends CI_Controller {
 				redirect('./', 'refresh');
 			}
 		/*check if allowed to access page */
-			if (!$this->common_mdl->in_job($job)){
+			/*if (!$this->common_mdl->in_job($job)){
 				echo "Not allowed";
 				return die();
-			}
+			}*/
 	/* load library & model with aliases, config and language */
 			$this->load->library('Vocation_nurse_lib',NULL, 'nurse_lib');
 			$this->load->model('vocation_nurse_mdl','nurse_mdl');

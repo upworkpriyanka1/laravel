@@ -15,11 +15,52 @@ echo link_tag('/assets/layouts/default/css/custom-users-overview-view.css');
     <div class="row">
     <div class="col s12 m9 l10">
         <div>
+            <?php
+            $message = $this->session->flashdata('massege');
+            if($message && $message != ''){ ?>
+            <div class="massege" style="background-color: #fff;padding: 10px;margin-bottom: 10px"><?=$this->session->flashdata('massege');?></div>
+            <?php } ?>
             <div id="grid-pinned" class="scrollspy">
+                <div class="edit">
+                    <a  href="/client-mockup-sacred-city/superuser/client-overview-profile-form/<?php echo $editable_user->id ?>/" class="btn-floating btn-large waves-effect waves-light " style="border-radius: 50% !important;"><i class="large material-icons">edit</i></a>
+                </div>
+
+                <div class="user-st">
+                    <h4>Status</h4>
+
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><span class="status_but_name"><?=$user_status;?></span><span class="caret"></span></button>
+                        <ul class="dropdown-menu user-status-parent">
+                            <li class="user-status <?=($editable_user->user_active_status == "N" || $editable_user->user_active_status == "W") ? "disabled":''?>"><a href="javascript:void(0)">Pending</a></li>
+                            <li class="user-status <?=($editable_user->user_active_status == "A") ? "disabled":''?>"><a href="javascript:void(0)">Active</a></li>
+                            <li class="user-status <?=($editable_user->user_active_status == "I") ? "disabled":''?>"><a href="javascript:void(0)">Inactive</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="user-status-change-confirm-modal" class="modal fade in">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body text-center">
+                                <input type="hidden" name="id" value="<?= $editable_user->id; ?>">
+                                <h4> Change <?= $editable_user->username; ?> status to <span class="user-change-status-title"></span> ? </h4>
+                                <div class="btn-group">
+                                    <button class="btn btn-danger" data-dismiss="modal" style="margin-right: 10px">No</button>
+                                    <input type="button" class="btn btn-primary user_status_confirm" value="yes">
+                                </div>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dalog -->
+                </div><!-- /.modal -->
+
                 <h3 class="header">Clients</h3>
 
+
+
+
+
                 <div class="table-responsive">
-                    <table style="background-color: #fff;">
+                    <table style="background-color: #fff;" class="table table-striped table-bordered table-hover  order-column">
                         <thead>
                         <tr>
                             <th>Name</th>
@@ -51,6 +92,12 @@ echo link_tag('/assets/layouts/default/css/custom-users-overview-view.css');
                         </tbody>
                     </table>
                 </div>
+
+<!--                <div id="tab_user_related_clients" class="col s12">-->
+<!--                    <div id="div_load_user_related_clients">-->
+<!---->
+<!--                    </div>-->
+<!--                </div>-->
 
             </div>
             <!-- Grid History -->
@@ -121,3 +168,4 @@ echo link_tag('/assets/layouts/default/css/custom-users-overview-view.css');
         </div>
     </div>
 </div>
+

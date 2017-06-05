@@ -688,7 +688,9 @@ input[type=text]:focus:not([readonly]){
 .pad-card .card {
     margin: 0.5rem 0.5rem 1rem 0;
 }
-
+.pad-col3 .pad-card .card{
+    margin: 1.5rem 1.5rem 2rem 0.5rem;
+}
 .page-header .top-notific-page{
     position: absolute;
     top:0;
@@ -890,6 +892,7 @@ input[type=text]:focus:not([readonly]){
         scrollbar-shadow-color: #666;
         scrollbar-dark-shadow-color: #666;
     }
+
     header h1#logo::-webkit-scrollbar-thumb,
     header h1#logo::-webkit-scrollbar-track,
     header h1#logo::-webkit-scrollbar {
@@ -917,6 +920,14 @@ input[type=text]:focus:not([readonly]){
         width:100%;
         overflow-x: auto;
     }
+    .client-ed h1#logo{
+        width:100%;
+    }
+     header.smaller .client-ed h1#logo{
+         margin: 0;
+     }
+
+
 
 
 
@@ -988,14 +999,21 @@ body{
         -moz-column-count: 2;
         column-count: 2;
     }
-}
+    #client-edit .card_db{
+        display: inline-block;
+    }
+  }
 @media only screen and (min-width: 993px) {
     .cards-container {
         -webkit-column-count: 3;
         -moz-column-count: 3;
         column-count: 3;
     }
-}
+    #client-edit .card_db{
+        display: block;
+    }
+ }
+
 @media only screen and (min-width: 1960px) {
     .cards-container {
         -webkit-column-count: 4;
@@ -1003,6 +1021,16 @@ body{
         column-count: 4;
     }
 }
+
+/* BBITS Dev CSS Start */
+.page-sidebar-wrapper {
+    float: left;
+    position: absolute;
+    left: 0;
+    top: 100px;
+}
+/* BBITS Dev CSS end */
+
 @media only screen and (min-width: 993px){
     #newuserform{
         margin-left: -235px;
@@ -1028,5 +1056,70 @@ body{
     position: absolute;
     right: 10px;
     top: 20px;
+}
+
+
+/*client-edit*/
+
+
+#client-edit #profile-form-client .phone .btn-add, #client-edit #profile-form-client .email .btn-add {
+    display: inline-block;
+    position: absolute;
+    right: 20px;
+    top: 5px;
+}
+#client-edit #profile-form-client .phone .btn-rem, #client-edit #profile-form-client .email .btn-rem{
+    display: inline-block;
+    position: absolute;
+    right: 40px;
+    top: 5px;
+    color: #000;
+}
+
+#client-edit #profile-form-client select.leng, #client-edit #profile-form-client select.tag-drop{
+    border: none;
+    border-bottom: 1px solid #9e9e9e;
+    color: #9e9e9e;
+    /*color: #000;*/
+}
+#client-edit #profile-form-client input[type=text]{
+    color: #000;
+}
+#client-edit #profile-form-client select.leng:focus,  #client-edit #profile-form-client select.tag-drop:focus {
+    outline: none;
+}
+#client-edit #profile-form-client .md-foot-top li{
+    display: inline-block;
+    margin-bottom: 10px;
+}
+#client-edit #profile-form-client #client_edit_form .row{
+    margin-bottom: 0;
+
+}
+#client-edit #profile-form-client .pad-card .card {
+
+    background-color: #fff !important;
+    width:100%;
+}
+#client-edit #profile-form-client .card .card-content .card-title{
+    color: #000;
+}
+#client-edit .page-content-wrapper .col-md-12 {
+    background-color: transparent !important;
+    color: #000;
+}
+#client-edit, #client-edit .pad-card{
+    background-color: #e4e4e4;
+}
+
+#client-edit h1.logo{
+    margin:0;
+}
+#client-edit #profile-form-client .sev-canc-mock button{
+    margin-bottom: 20px;
+    margin-left: 15px;
+}
+#client-edit .page-content{
+    padding: 0 !important;
 }
 

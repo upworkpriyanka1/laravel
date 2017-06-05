@@ -220,7 +220,7 @@
                                 </li>
                                 <!-- END SIDEBAR MENU LINK -->
                                 <!-- SIDEBAR MENU LINK -->
-                                <li class="nav-item /clients-edit/new/   /eh/">
+                                <li class="nav-item /client/new/   /eh/">
                                     <a href="#" class="create_contact"  class="nav-link ">
                                         <!-- <a href="--><!--" class="nav-link ">-->
                                         <span class="fa fa-plus"></span>
