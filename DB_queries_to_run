@@ -1,8 +1,2 @@
-# Updated clients table column client_active_status to client_status
-ALTER TABLE clients CHANGE client_active_status client_status ENUM('P','A','I') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'P';
-# Allow avatar field to accept null values.
-ALTER TABLE `users` CHANGE `avatar` `avatar` VARCHAR(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT 'avatar.png';
-# Modify users table to add required fields for user verification process
-ALTER TABLE users ADD user_employment VARCHAR(50) NOT NULL AFTER updated_at, ADD user_title VARCHAR(100) NOT NULL AFTER user_employment, ADD licence_number VARCHAR(100) NOT NULL AFTER user_title, ADD licence_from DATE NOT NULL AFTER licence_number, ADD licence_to DATE NOT NULL AFTER licence_from, ADD is_multi_auth TINYINT(1) NOT NULL DEFAULT '0' AFTER licence_to;
-# Add middle_name field in users table
-ALTER TABLE users ADD middle_name VARCHAR(50) NULL;
+# 
+# Apply __SQL/patch_16.sql after making sure that there are no duplicate emails.
