@@ -221,7 +221,7 @@ class Users_mdl extends CI_Model
 	}
 
 	if ( !empty($filters['show_user_client_relation_group']) ) {
-	    $additive_fields_for_select .= ", ".$this->m_groups_table.".description as user_client_relation_description ";
+	    $additive_fields_for_select .= ", "."groups_1.description as user_client_relation_description ";
 	    $additive_group_fields .= ", groups_1.description";
 //			echo '<pre>$additive_fields_for_select::'.print_r($additive_fields_for_select,true).'</pre>';
 	    if ( !$is_user_group_joined ) {
