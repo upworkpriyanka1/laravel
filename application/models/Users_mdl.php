@@ -221,6 +221,17 @@ class Users_mdl extends CI_Model
 	    $this->db->join($this->m_groups_table, $this->m_groups_table . '.id = ' . $this->m_users_groups_table . '.group_id', 'left');
 	}
 
+	if ( !empty($filters['show_user_client_relation_group']) ) {
+	    $additive_fields_for_select .= ", ".$this->m_groups_table.".description as user_client_relation_description ";
+	    $additive_group_fields .= ", ".$this->m_groups_table.".description";
+//			echo '<pre>$additive_fields_for_select::'.print_r($additive_fields_for_select,true).'</pre>';
+	    if ( !$is_user_group_joined ) {
+		$is_user_group_joined= true;
+		$this->db->join($this->m_users_clients_table, $this->m_users_clients_table . '.uc_user_id = ' . $this->m_users_table . '.id', 'left');
+	    }
+	    $this->db->join($this->m_groups_table." as groups_1 ",  'groups_1.id = ' . $this->m_users_clients_table . '.uc_group_id', 'left');
+	}
+
 	if ( !empty($filters['show_clients_name']) ) {
 	    $additive_fields_for_select .= ", GROUP_CONCAT(".$this->m_clients_table.".client_name ) as client_name";
 //			$additive_group_fields .= ", ".$this->m_clients_table.".client_name";
@@ -794,119 +805,72 @@ class Users_mdl extends CI_Model
      *********************************/
 
     public function getUsersGroupsList( $OutputFormatCount = false, $page = 0, $filters = array(), $sort = '', $sort_direction = '')
-
     {
-
-	if (empty( $sort ))
-
-	    $sort = 'user_id';
-
-	$config_data = $this->config->config;
-
-	$ci = & get_instance();
-
-	$items_per_page= $ci->common_lib->getSettings('items_per_page');
-
-	$limit = !empty($filters['limit']) ? $filters['limit'] : '';
-
-	$offset = !empty($filters['offset']) ? $filters['offset'] : '';
-
-	$is_page_positive_integer= $ci->common_lib->is_positive_integer($page);
-
-	if ( !empty($page) and $is_page_positive_integer ) {
-
-	    $limit = '';
-
-	    $offset = '';
-
-	}
-
-	if (!empty($config_data) and $is_page_positive_integer) {
-
-	    $per_page= ( !empty($filters['per_page']) and $ci->common_lib->is_positive_integer($filters['per_page']) ) ? $filters['per_page'] : $items_per_page;
-
-	    $limit = $per_page;
-
-	    $offset = ($page - 1) * $per_page;
-
-	}
-
-
-
-	if (!empty($filters['user_id'])) {
-
-	    $this->db->like( $this->m_users_groups_table.'.user_id', $filters['user_id'] );
-
-	}
-
-
-
-	if (!empty($filters['group_id'])) {
-
-	    $this->db->like( $this->m_users_groups_table.'.group_id', $filters['group_id'] );
-
-	}
-
-
-
-	$additive_fields_for_select= "";
-
-	$fields_for_select= $this->m_users_groups_table.".*";
-
-
-
-	if ( ( !empty($limit) and $ci->common_lib->is_positive_integer($limit) ) and ( !empty($offset) and $ci->common_lib->is_positive_integer($offset) ) ) {
-
-	    $this->db->limit($limit, $offset);
-
-	}
-
-
-
-	if ( ( !empty($limit) and $ci->common_lib->is_positive_integer($limit) ) ) {
-
-	    $this->db->limit($limit);
-
-	}
-
-
-
-
-
-	$fields_for_select.= ' ' . $additive_fields_for_select;
-
-
-
-	if (!empty($sort)) {
-
-	    $this->db->order_by($sort, ((strtolower($sort_direction) == 'desc' or strtolower($sort_direction) == 'asc') ? $sort_direction : ''));
-
-	}
-
-
-
-	if ($OutputFormatCount) {
-
-	    return $this->db->count_all_results($this->m_users_groups_table);
-
-	} else {
-
-	    $query = $this->db->from($this->m_users_groups_table);
-
-	    if (strlen(trim($fields_for_select)) > 0) {
-
-		$query->select($fields_for_select);
-
-	    }
-
-	    $ci = & get_instance();
-
-	    $ret_array= $query->get()->result();
-
-	    return $ret_array;
-
-	}
-
+        if (empty( $sort )) $sort = 'user_id';
+
+        $config_data = $this->config->config;
+        $ci = & get_instance();
+        $items_per_page= $ci->common_lib->getSettings('items_per_page');
+
+        $limit = !empty($filters['limit']) ? $filters['limit'] : '';
+        $offset = !empty($filters['offset']) ? $filters['offset'] : '';
+        $is_page_positive_integer= $ci->common_lib->is_positive_integer($page);
+
+        if ( !empty($page) and $is_page_positive_integer ) {
+            $limit = '';
+            $offset = '';
+        }
+
+        if (!empty($config_data) and $is_page_positive_integer) {
+            $per_page= ( !empty($filters['per_page']) and $ci->common_lib->is_positive_integer($filters['per_page']) ) ? $filters['per_page'] : $items_per_page;
+            $limit = $per_page;
+            $offset = ($page - 1) * $per_page;
+        }
+
+        if (!empty($filters['user_id'])) {
+            $this->db->where( $this->m_users_groups_table.'.user_id', $filters['user_id'] );
+        }
+
+        if (!empty($filters['group_id'])) {
+            $this->db->where( $this->m_users_groups_table.'.group_id', $filters['group_id'] );
+        }
+
+        $is_users_groups_joined= false;
+        $additive_fields_for_select= "";
+        $fields_for_select= $this->m_users_groups_table.".*";
+//        $fields_for_select = $this->m_clients_table . ".*";
+        if ( !empty($filters['show_groups_description']) ) {
+            $additive_fields_for_select .= ", description as group_description ";
+            if ( !$is_users_groups_joined ) {
+                $is_users_groups_joined= true;
+                $this->db->join($this->m_groups_table, $this->m_groups_table . '.id = ' . $this->m_users_groups_table . '.group_id', 'left');
+            }
+        }
+
+        if ( ( !empty($limit) and $ci->common_lib->is_positive_integer($limit) ) and ( !empty($offset) and $ci->common_lib->is_positive_integer($offset) ) ) {
+            $this->db->limit($limit, $offset);
+        }
+
+        if ( ( !empty($limit) and $ci->common_lib->is_positive_integer($limit) ) ) {
+            $this->db->limit($limit);
+        }
+
+        $fields_for_select.= ' ' . $additive_fields_for_select;
+        if (!empty($sort)) {
+            $this->db->order_by($sort, ((strtolower($sort_direction) == 'desc' or strtolower($sort_direction) == 'asc') ? $sort_direction : ''));
+        }
+
+        if ($OutputFormatCount) {
+            return $this->db->count_all_results($this->m_users_groups_table);
+        } else {
+            $query = $this->db->from($this->m_users_groups_table);
+            if (strlen(trim($fields_for_select)) > 0) {
+                $query->select($fields_for_select);
+            }
+            $ci = & get_instance();
+            $ret_array= $query->get()->result();
+            return $ret_array;
+        }
     }
 
 

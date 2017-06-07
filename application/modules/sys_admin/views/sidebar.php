@@ -98,6 +98,21 @@
                                         <span><?= lang('my-profile'); ?></span>
                                     </a>
                                 </li>
+                                <?php
+//                                echo '<pre>$user->user_id::'.print_r($user->user_id,true).'</pre>';
+                                $usersGroups = $this->users_mdl->getUsersGroupsList( false, 0, array('user_id'=> $user->user_id, 'show_groups_description'=> 1) );
+//                                echo '<pre>$usersGroups::'.print_r($usersGroups,true).'</pre>';
+                                ?>
+
+                                <?php foreach( $usersGroups as $nextUsersGroup ) : ?>
+                                <li class="nav-item">
+                                    <a href="<?php echo base_url()?>switch_to_title/<?= $nextUsersGroup->group_id?>" class="nav-link ">
+                                        <span class="fa fa-sign-out" aria-hidden="true"></span>
+                                        <span> <?= str_replace(' ','&nbsp;',"Switch as " . $nextUsersGroup->group_description) ?></span>
+                                    </a>
+                                </li>
+                                <?php endforeach;?>
+
                                 <li class="nav-item">
                                     <a href="<?php echo base_url()?>login/logout" class="nav-link ">
                                         <span class="fa fa-sign-out" aria-hidden="true"></span>

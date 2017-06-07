@@ -177,7 +177,7 @@ class Sys_admin_mdl extends CI_Model {
      * @ params
      * return users_clients.uc_id
      *********************************/
-    public function update_users_clients( $client_id, $related_user_id, $new_status ) {
+    public function update_users_clients( $client_id, $related_user_id, $new_status, $group_id ) {
         $date_time_mysql_format= $this->common_lib->getSettings('date_time_mysql_format', '%Y-%m-%d %H:%M:%S');
         $this->db->where( $this->m_users_clients_table . '.uc_client_id', $client_id);
         $this->db->where( $this->m_users_clients_table . '.uc_user_id', $related_user_id);
@@ -188,6 +188,7 @@ class Sys_admin_mdl extends CI_Model {
             $data = array(
                 'uc_client_id' => $client_id ,
                 'uc_user_id' => $related_user_id,
+                'uc_group_id' => $group_id,
                 'uc_active_status'=> $new_status,
                 'updated_at'=> strftime($date_time_mysql_format)
             );
@@ -197,6 +198,7 @@ class Sys_admin_mdl extends CI_Model {
             $data = array(
                 'uc_client_id' => $client_id ,
                 'uc_user_id' => $related_user_id,
+                'uc_group_id' => $group_id,
                 'uc_active_status'=> $new_status,
                 'updated_at'=> strftime($date_time_mysql_format)
             );

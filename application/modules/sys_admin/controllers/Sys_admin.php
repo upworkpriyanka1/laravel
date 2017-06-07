@@ -680,7 +680,7 @@ class Sys_admin extends CI_Controller {
     }
 
 
-    public function save_client_related_user()
+    public function save_client_related_user ()
     {
         $UriArray = [];
         $is_insert= false;
@@ -710,7 +710,7 @@ class Sys_admin extends CI_Controller {
         $new_user_id = $this->ion_auth->register( $username, '', $email, $additional_data,   array(  $user_group_array  )  );
 
         if ($new_user_id) {
-            $ret = $this->admin_mdl->update_users_clients( $client_id, $new_user_id, 'N' );
+            $ret = $this->admin_mdl->update_users_clients( $client_id, $new_user_id, 'N', $user_group_id );
 
             $activation_page_url= $app_config['base_url']."activation/".$activation_code;
             $title= 'You are registered at ' . $app_config['site_name'] . ' site';
@@ -773,6 +773,7 @@ class Sys_admin extends CI_Controller {
         $filters= array( 'client_id'=>$filter_client_id, 'uc_active_status'=> $db_filter_related_users_type, 'show_uc_active_status'=> 1, 'username'=> $filter_related_users_filter, 'user_active_status'=> $user_active_status );
         $users_count = $this->users_mdl->getUsersList( true, 0, $filters );
         $filters['show_user_group']= 1;
+        $filters['show_user_client_relation_group']= 1;
 
         $pagination_config['total_rows'] = $users_count;
         $this->pagination->suffix = $this->clientsRelatedUsersPreparePageParameters($UriArray, $post_array, false, true);
@@ -835,9 +836,11 @@ class Sys_admin extends CI_Controller {
         if (empty($client_email)) {
             return;
         }
-        $cid = $this->input->post('data[cid]', 0);
-        if ( $cid == 'new' ) $cid= 0;
-        $similarClient= $this->clients_mdl->getSimilarClientByClient_Email( $client_email, $cid );
+        $client_id = $this->input->post('data[client_id]', 0);
+//        echo '<pre>$_POST::'.print_r($_POST,true).'</pre>';
+//        die("-1 XXZ");
+        if ( $client_id == 'new' ) $client_id= 0;
+        $similarClient= $this->clients_mdl->getSimilarClientByClient_Email( $client_email, $client_id );
         if (!empty($similarClient)) {
             $this->form_validation->set_message('client_check_client_email_is_unique', lang('email') . " '".$client_email."' must be unique ! ");
             return FALSE;
@@ -876,7 +879,7 @@ class Sys_admin extends CI_Controller {
         $this->form_validation->set_rules( 'data[client_name]', lang('client_name'), 'required' );
         $this->form_validation->set_rules( 'data[client_address1]', lang('client_address1'), 'required' );
         $this->form_validation->set_rules( 'data[client_address2]', lang('client_address2'), '' );
-        $this->form_validation->set_rules( 'data[client_email]', lang('client_email'), 'valid_email' );
+        $this->form_validation->set_rules( 'data[client_email]', lang('client_email'), 'valid_email|callback_client_check_client_email_is_unique'  );
         $this->form_validation->set_rules( 'data[client_website]', lang('client_website'), '' );
         $this->form_validation->set_rules( 'data[client_city]', lang('client_city'), 'required' );
         $this->form_validation->set_rules( 'data[client_state]', lang('client_state'), 'required' );
