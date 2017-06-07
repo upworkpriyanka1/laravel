@@ -137,7 +137,6 @@ class Users_mdl extends CI_Model
 	if (empty($sort))
 	    $sort = $this->m_users_table.'.created_at';
         if ( empty($sort_direction) ) $sort_direction= 'desc';
-//        echo '<pre>$filters::'.print_r($filters,true).'</pre>';
 	$config_data = $this->config->config;
 	$ci = & get_instance();
 	$items_per_page= $ci->common_lib->getSettings('items_per_page');
@@ -223,7 +222,7 @@ class Users_mdl extends CI_Model
 
 	if ( !empty($filters['show_user_client_relation_group']) ) {
 	    $additive_fields_for_select .= ", ".$this->m_groups_table.".description as user_client_relation_description ";
-	    $additive_group_fields .= ", ".$this->m_groups_table.".description";
+	    $additive_group_fields .= ", groups_1.description";
 //			echo '<pre>$additive_fields_for_select::'.print_r($additive_fields_for_select,true).'</pre>';
 	    if ( !$is_user_group_joined ) {
 		$is_user_group_joined= true;
@@ -806,6 +805,7 @@ class Users_mdl extends CI_Model
 
     public function getUsersGroupsList( $OutputFormatCount = false, $page = 0, $filters = array(), $sort = '', $sort_direction = '')
     {
+
         if (empty( $sort )) $sort = 'user_id';
 
         $config_data = $this->config->config;
