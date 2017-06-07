@@ -783,7 +783,7 @@ class Sys_admin extends CI_Controller {
         $pagination_links = $this->pagination->create_links();
         $related_users_list= [];
         if ( $users_count > 0 ) {
-            $related_users_list = $this->users_mdl->getUsersList( false, $page, $filters, $sort, $sort_direction );
+            $related_users_list = $this->users_mdl->getUsersList( false, '', $filters, $sort, $sort_direction );
         }
         $data = array('related_users_list' => $related_users_list, 'client_id' => $filter_client_id, 'users_count'=> $users_count, 'related_users_type'=> $filter_related_users_type, 'related_users_filter'=> $filter_related_users_filter, 'sort_direction'=> $sort_direction, 'sort'=> $sort, 		'PageParametersWithSort'=> $PageParametersWithSort, 'PageParametersWithoutSort'=> $PageParametersWithoutSort,
                       'pagination_links'=> 		$pagination_links   );
