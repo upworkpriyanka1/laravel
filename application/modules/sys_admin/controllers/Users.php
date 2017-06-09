@@ -22,7 +22,7 @@ class Users extends CI_Controller
 		$this->menu = $this->config->item('sys_admin_menu_new');
 
 		$this->user = $this->common_mdl->get_admin_user();
-		
+
 		if ( $this->user->user_active_status != 'A' ) {  // Only active user can access admin pages
 			redirect( base_url() . "login/logout" );
 		}
@@ -61,13 +61,21 @@ class Users extends CI_Controller
 		$data['page']		= 'users/user-overview-page';
 		$data['javascript'] = array( 'assets/global/js/users-overview-view.js','assets/global/js/validate.js' );//page javascript
 		$views				=  array('design/html_topbar_user_overview','sidebar','design/page','design/html_footer', 'common_dialogs.php');
+
+
+        $us_id =  $this->uri->segment(4, 0);
+        $data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
+		$data['clients'] =$this->clients_mdl->getClients($us_id);
+//        echo "<pre>";
+//        print_r($data);
+//        die;
 //		$this->load->view('users/user-overview-page');
 		$this->layout->view($views, $data);
 	}
 
 	public function users_view(){
-	
-		
+
+
 		$data['meta_description']='';
 		$data['menu']		= $this->menu;
 
@@ -177,7 +185,7 @@ class Users extends CI_Controller
 		/*echo "post array is ";
 		print_r($post_array);
 		exit(0);*/
-		
+
 		$sort= $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort');
 		$sort_direction = $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort_direction');
 		$page_number = $this->common_lib->getParameter($this, $UriArray, $post_array, 'page_number', 1);
@@ -452,11 +460,11 @@ class Users extends CI_Controller
 					$user_group_array[]= $a[1];
 				}
 			}
-			
+
 			$auth = isset($post_array['cbx_auth'])?1:0;
 			// For default waiting status
 			$post_array['data']['user_active_status'] = "W";
-			
+
 			$additional_data= array(  'ip_address'=> $ip_address, 'user_active_status' => $post_array['data']['user_active_status'], 'first_name' => $post_array['data']['first_name'], 'last_name' => $post_array['data']['last_name'], 'city' => $post_array['data']['city'], 'state' => $post_array['data']['state'], 'zip' => $post_array['data']['zip'],  'address1' => $post_array['data']['address1'], 'address2' => $post_array['data']['address2'], 'mobile' => $post_array['data']['mobile'], 'phone' => $post_array['data']['phone'], 'created_on'=> now(), 'avatar' => $post_array['data']['avatar'], 'is_multi_auth' => $auth, 'created_at' => date('Y-m-d H:i:s'), 'super_id' => $this->user->user_id );
 
 			if  (  !empty( $post_array['cbx_clear_image'])  )  {
@@ -469,15 +477,15 @@ class Users extends CI_Controller
 			$additional_data['activation_code']= $activation_code;
 
 			$user_id = $this->ion_auth->register( $post_array['data']['username'], '', $post_array['data']['email'], $additional_data,   array(  $user_group_array  )  );
-			
+
 			// add data to users_clients table
 			//hdn_client_id
 			$insertClient['uc_user_id']= $user_id;
 			$insertClient['uc_client_id']= $post_array['hdn_client_id'];
 			//$insertClient['uc_active_status']= 'W';
 			$insert_id=$this->common_mdl->db_insert('users_clients',$insertClient, TRUE);
-			
-			
+
+
 			if ( $post_array['data']['user_active_status'] == "W" ) { // sent message with activation code
 				$activation_page_url= $app_config['base_url']."activation/".$activation_code;
 				$title= 'You are registered at ' . $app_config['site_name'] . ' site';
@@ -493,7 +501,7 @@ class Users extends CI_Controller
 					), true);
 				$EmailOutput = $this->common_lib->SendEmail($post_array['data']['email'], $title, $content );
 //				$this->common_lib->DebToFile( 'sendEmail $content::'.print_r($content,true));
-			} 
+			}
 		} else {
 //			$update_data= array( 'username' => $post_array['data']['username'], 'ip_address'=> $ip_address, 'email' => $post_array['data']['email'], 'user_active_status' => $post_array['data']['user_active_status'], 'first_name' => $post_array['data']['first_name'], 'last_name' => $post_array['data']['last_name'], 'city' => $post_array['data']['city'], 'state' => $post_array['data']['state'], 'zip' => $post_array['data']['zip'],  'address1' => $post_array['data']['address1'], 'address2' => $post_array['data']['address2'], 'mobile' => $post_array['data']['mobile'], 'phone' => $post_array['data']['phone'], 'avatar' => $post_array['data']['avatar'] );
 			$update_data= array( 'ip_address'=> $ip_address,'first_name' => $post_array['data']['first_name'], 'last_name' => $post_array['data']['last_name'],'middle_name' => $post_array['data']['middle_name'], 'user_active_status' => $post_array['data']['user_active_status'], 'city' => $post_array['data']['city'], 'state' => $post_array['data']['state'], 'zip' => $post_array['data']['zip'],  'address1' => $post_array['data']['address1'], 'address2' => $post_array['data']['address2'], 'phone' => $post_array['data']['phone'],'phone_type' => $post_array['data']['user_phone_type'] );
@@ -673,10 +681,10 @@ class Users extends CI_Controller
 			$this->output->set_content_type('application/json')->set_output(json_encode(array('ErrorMessage' => 'User not found !', 'ErrorCode' => 1, 'user_id' => $user_id )));
 			return;
 		}
-		
+
 		$password= $this->common_lib->generatePassword();
 		$ret = $this->db->update( $this->users_mdl->m_users_table, array( 'password'=> $this->ion_auth->hash_password($password, false ) ), array( 'id' => $modified_user->id ) );
-		
+
 		$title= 'New password generated at ' . $app_config['site_name'] . ' site';
 		$content = $this->cms_items_mdl->getBodyContentByAlias('new_password_generated',
 			array('username' => $modified_user->username,

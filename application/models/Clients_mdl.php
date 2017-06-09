@@ -562,4 +562,23 @@ class Clients_mdl extends CI_Model
 //        $result = $query->result_array();
     }
 
+    public  function getClients($us_id)
+    {
+
+//        $this->db->from('users_clients');
+        $this->db->where('uc_user_id', $us_id);
+        $this->db->from('users_clients');
+        $query = $this->db->get();
+        $res =$query->row();
+        $cl_id =  $res->uc_client_id;
+
+
+
+
+        $this->db->where('cid', $cl_id);
+        $this->db->from('clients');
+        $query = $this->db->get();
+        return $query->result();
+
+    }
 }

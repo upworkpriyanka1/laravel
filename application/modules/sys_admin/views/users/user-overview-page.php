@@ -71,24 +71,22 @@ echo link_tag('/assets/layouts/default/css/custom-users-overview-view.css');
                         </thead>
 
                         <tbody>
-                        <tr>
-                            <td>Alvin</td>
-                            <td>Eclair</td>
-                            <td>Hi</td>
-                            <td>$0.87</td>
-                        </tr>
-                        <tr>
-                            <td>Alan</td>
-                            <td>Jellybean</td>
-                            <td>Hello</td>
-                            <td>$3.76</td>
-                        </tr>
-                        <tr>
-                            <td>Jonathan</td>
-                            <td>Lollipop</td>
-                            <td>Hi</td>
-                            <td>$7.00</td>
-                        </tr>
+
+                        <?php if(empty($clients)):?>
+                        <tr><td colspan="4">No client association</td></tr>
+                        <?php else:?>
+                        <?php foreach($clients as $val): ?>
+                            <tr>
+                                <td> <a href="<?= base_url('/sys-admin/client/' . $val->cid . '/'); ?>">
+                                        <?php echo $val->client_name ?>
+                                    </a></td>
+                                <td><?php echo $client_types[$val->clients_types_id]?></td>
+                                <td><?php echo $val->client_status ?></td>
+                                <td><?php echo $val->created_at?></td>
+
+                            </tr>
+                        <?php endforeach; ?>
+                        <?php endif;?>
                         </tbody>
                     </table>
                 </div>
