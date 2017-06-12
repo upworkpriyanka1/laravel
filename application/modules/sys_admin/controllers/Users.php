@@ -23,7 +23,7 @@ class Users extends CI_Controller
 
 		$this->user = $this->common_mdl->get_admin_user();
 
-		if ( $this->user->user_active_status != 'A' ) {  // Only active user can access admin pages
+		if ( $this->user->user_status != 'A' ) {  // Only active user can access admin pages
 			redirect( base_url() . "login/logout" );
 		}
 		$this->group = $this->ion_auth->get_users_groups()->row();
@@ -44,14 +44,14 @@ class Users extends CI_Controller
 			$user_id= $UriArray['users-overview'];
 		}
 		$editable_user= $this->users_mdl->getUserRowById( $user_id, array('show_file_info'=> 1, 'image_width'=> 128, 'image_height'=> 128) );
-		if ($editable_user->user_active_status == 'N' || $editable_user->user_active_status == 'W' )
+		if ($editable_user->user_status == 'N' || $editable_user->user_status == 'P' )
             $data['user_status'] = 'Pending';
-		elseif ($editable_user->user_active_status == 'A')
+		elseif ($editable_user->user_status == 'A')
             $data['user_status'] = 'Active';
-        elseif ($editable_user->user_active_status == 'I')
+        elseif ($editable_user->user_status == 'I')
             $data['user_status'] = 'Inactive';
         else
-            $data['user_status'] = $editable_user->user_active_status;
+            $data['user_status'] = $editable_user->user_status;
 
 		$data['editable_user']		= $editable_user;
 		$data['meta_description']='';
@@ -89,7 +89,7 @@ class Users extends CI_Controller
 		$sort_direction = $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort_direction');
 		$page_number = $this->common_lib->getParameter($this, $UriArray, $post_array, 'page_number', 1);
 		$filter_username = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_username');
-		$filter_user_active_status = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_user_active_status');
+		$filter_user_status = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_user_status');
 		$filter_zip = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_zip');
 		$filter_user_group_id = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_user_group_id');
 		$filter_created_at_from = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_created_at_from');
@@ -104,12 +104,12 @@ class Users extends CI_Controller
 		$pagination_config= $this->common_lib->getPaginationParams();
 		$pagination_config['base_url'] = base_url() . 'sys-admin/users/users-view' . $page_parameters_with_sort . '/page_number';
 
-		$rows_in_table= $this->users_mdl->getUsersList(true, '', array( 'username'=> $filter_username, 'user_active_status'=> $filter_user_active_status, 'zip'=> $filter_zip, 'user_group_id'=> $filter_user_group_id, 'created_at_from'=> $filter_created_at_from, 'created_at_till'=> $filter_created_at_till ), $sort, $sort_direction );  // get number of rows by given parameters
+		$rows_in_table= $this->users_mdl->getUsersList(true, '', array( 'username'=> $filter_username, 'user_status'=> $filter_user_status, 'zip'=> $filter_zip, 'user_group_id'=> $filter_user_group_id, 'created_at_from'=> $filter_created_at_from, 'created_at_till'=> $filter_created_at_till ), $sort, $sort_direction );  // get number of rows by given parameters
 		$pagination_config['total_rows'] = $rows_in_table;
 		$this->pagination->initialize($pagination_config);  // pagination system initialization by parameters in config file
 		$data['users']= array();
 		if ($rows_in_table > 0) { // number of rows by given parameters > 0 - get rows by given parameters for given $page_number.
-			$data['users']= $this->users_mdl->getUsersList(false, $page_number, array( 'show_user_group'=>1, 'show_clients_name'=>1, 'username'=> $filter_username, 'user_active_status'=> $filter_user_active_status, 'zip'=> $filter_zip, 'user_group_id'=> $filter_user_group_id, 'created_at_from'=> $filter_created_at_from, 'created_at_till'=> $filter_created_at_till ), $sort, $sort_direction );
+			$data['users']= $this->users_mdl->getUsersList(false, $page_number, array( 'show_user_group'=>1, 'show_clients_name'=>1, 'username'=> $filter_username, 'user_status'=> $filter_user_status, 'zip'=> $filter_zip, 'user_group_id'=> $filter_user_group_id, 'created_at_from'=> $filter_created_at_from, 'created_at_till'=> $filter_created_at_till ), $sort, $sort_direction );
 		} // IMPORTANT : all filter parameters must be similar as in calling of getUsersList above
 
 		$data['page']		= 'users/users-view';
@@ -119,11 +119,11 @@ class Users extends CI_Controller
 		$data['select_on_update']= $this->common_lib->getParameter($this, $UriArray, $post_array, 'select_on_update');
 
 		$data['user_GroupsSelectionList']= $this->users_mdl->getGroupsSelectionList();
-		$data['userActiveStatusValueArray']= $this->users_mdl->getUserActiveStatusValueArray();
+		$data['userStatusValueArray']= $this->users_mdl->getUserStatusValueArray();
 
 		$data['filter_username']= $filter_username;
 		$data['filter_zip']= $filter_zip;
-		$data['filter_user_active_status']= $filter_user_active_status;
+		$data['filter_user_status']= $filter_user_status;
 		$data['filter_user_group_id']= $filter_user_group_id;
 		$data['filter_created_at_from']= $filter_created_at_from;
 		$data['filter_created_at_till']= $filter_created_at_till;
@@ -137,7 +137,7 @@ class Users extends CI_Controller
 		$pagination_links = $this->pagination->create_links();
 
 		// create label for current parameter so moving mouse over "Filter" button user can see current filters
-		$filters_label_array= array('username'=> $filter_username, 'user_active_status'=> $this->common_lib->get_user_active_status_label($filter_user_active_status), 'zip'=> $filter_zip, 'filter_user_group_id'=> $filter_user_group_id, 'created at from'=> $filter_created_at_from, 'created at till'=>$filter_created_at_till);
+		$filters_label_array= array('username'=> $filter_username, 'user_status'=> $this->common_lib->get_user_status_label($filter_user_status), 'zip'=> $filter_zip, 'filter_user_group_id'=> $filter_user_group_id, 'created at from'=> $filter_created_at_from, 'created at till'=>$filter_created_at_till);
 
 		$filters_label= $this->common_lib->get_filters_label( $filters_label_array, '<br>' );
 		$data['filters_label'] = $filters_label;
@@ -155,11 +155,11 @@ class Users extends CI_Controller
 	    $user_id=$_POST["id"];
 	    $status =$_POST["status"];
 	    $arr_status=[
-	        'Pending'=>'W',
+	        'Pending'=>'P',
 	        'Active'=>'A',
 	        'Inactive'=>'I'
         ];
-        $this->db->update($this->users_mdl->m_users_table, array('user_active_status'=>$arr_status[$status]), array('id' => $user_id));
+        $this->db->update($this->users_mdl->m_users_table, array('user_status'=>$arr_status[$status]), array('id' => $user_id));
 	    exit;
 
 
@@ -190,7 +190,7 @@ class Users extends CI_Controller
 		$sort_direction = $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort_direction');
 		$page_number = $this->common_lib->getParameter($this, $UriArray, $post_array, 'page_number', 1);
 		$filter_username = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_username');
-		$filter_user_active_status = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_user_active_status');
+		$filter_user_status = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_user_status');
 		$filter_zip = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_zip');
 		$filter_user_group_id = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_user_group_id');
 		$filter_created_at_from = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_created_at_from');
@@ -198,7 +198,7 @@ class Users extends CI_Controller
 		$filter_created_at_from_formatted= $this->common_lib->convertFromMySqlToCalendarFormat($filter_created_at_from);
 		$filter_created_at_till_formatted= $this->common_lib->convertFromMySqlToCalendarFormat($filter_created_at_till); //2016-09-05 -> 5 September, 2016
 		$data['filter_username']= $filter_username;
-		$data['filter_user_active_status']= $filter_user_active_status;
+		$data['filter_user_status']= $filter_user_status;
 		$data['filter_zip']= $filter_zip;
 		$data['filter_user_group_id']= $filter_user_group_id;
 		$data['filter_created_at_from']= $filter_created_at_from;
@@ -214,14 +214,14 @@ class Users extends CI_Controller
 		$data['editor_message']= $this->session->flashdata('editor_message');
 		$data['select_on_update']= $this->common_lib->getParameter($this, $UriArray, $post_array, 'select_on_update');
 		$data['user_GroupsSelectionList']= $this->users_mdl->getGroupsSelectionList();
-		$data['userActiveStatusValueArray']= $this->users_mdl->getUserActiveStatusValueArray();
+		$data['userStatusValueArray']= $this->users_mdl->getUserStatusValueArray();
 		$data['userPhoneTypeArray']= $this->users_mdl->getUserPhoneTypeArray();
 //		if ( $is_insert ) { // in insert mode user can be new or waiting for confirmation
-//			foreach ( $data['userActiveStatusValueArray'] as $next_key=>$next_userActiveStatus ) {
-//				if ( !in_array($next_userActiveStatus['key'],array('N', 'W')) ) {
-//					unset($data['userActiveStatusValueArray'][$next_key]);
+//			foreach ( $data['userStatusValueArray'] as $next_key=>$next_userStatus ) {
+//				if ( !in_array($next_userStatus['key'],array('N', 'P')) ) {
+//					unset($data['userStatusValueArray'][$next_key]);
 //				}
-//			}  // Array('N' => 'New', 'W' => 'Waiting for activation', 'A' => 'Active', 'I' => 'Inactive');
+//			}  // Array('N' => 'New', 'P' => 'Waiting for activation', 'A' => 'Active', 'I' => 'Inactive');
 //		}
 		$groupsSelectionList= $this->users_mdl->getGroupsSelectionList( array(), 'id',  'asc' );
 
@@ -284,21 +284,21 @@ class Users extends CI_Controller
 		else {
 			$editable_user= $this->users_mdl->getUserRowById( $user_id, array('show_file_info'=> 1, 'image_width'=> 128, 'image_height'=> 128) );
 
-//			if ( !empty($editable_user) and in_array($editable_user->user_active_status, array('A','I') ) ) {
-//				foreach ( $data['userActiveStatusValueArray'] as $next_key=>$next_userActiveStatus ) {
-//					if ( !in_array($next_userActiveStatus['key'],array('A', 'I')) ) {
-//						unset($data['userActiveStatusValueArray'][$next_key]);
+//			if ( !empty($editable_user) and in_array($editable_user->user_status, array('A','I') ) ) {
+//				foreach ( $data['userStatusValueArray'] as $next_key=>$next_userStatus ) {
+//					if ( !in_array($next_userStatus['key'],array('A', 'I')) ) {
+//						unset($data['userStatusValueArray'][$next_key]);
 //					}
 //				}
-//			}   // Array('N' => 'New', 'W' => 'Waiting for activation', 'A' => 'Active', 'I' => 'Inactive');
+//			}   // Array('N' => 'New', 'P' => 'Waiting for activation', 'A' => 'Active', 'I' => 'Inactive');
 
-//			if ( !empty($editable_user) and in_array($editable_user->user_active_status, array('N','W') ) ) {
-//				foreach ( $data['userActiveStatusValueArray'] as $next_key=>$next_userActiveStatus ) {
-//					if ( !in_array($next_userActiveStatus['key'],array('N', 'W')) ) {
-//						unset($data['userActiveStatusValueArray'][$next_key]);
+//			if ( !empty($editable_user) and in_array($editable_user->user_status, array('N','P') ) ) {
+//				foreach ( $data['userStatusValueArray'] as $next_key=>$next_userStatus ) {
+//					if ( !in_array($next_userStatus['key'],array('N', 'P')) ) {
+//						unset($data['userStatusValueArray'][$next_key]);
 //			/.lrtfg		}
 //				}
-//			}   // Array('N' => 'New', 'W' => 'Waiting for activation', 'A' => 'Active', 'I' => 'Inactive');
+//			}   // Array('N' => 'New', 'P' => 'Waiting for activation', 'A' => 'Active', 'I' => 'Inactive');
 			$users_groups_list= $this->users_mdl->getUsersGroupsList( false, 0, array('user_id'=> $user_id));
 			if ( !empty($editable_user) and !empty($users_groups_list[0]->group_id) ) {
 //				$editable_user->user_group_id = $users_groups_list[0]->group_id;
@@ -398,7 +398,7 @@ class Users extends CI_Controller
 		$editable_user->id = $user_id;
 		$editable_user->username = set_value('data[username]');
 		$editable_user->email = set_value('data[email]');
-		$editable_user->user_active_status = set_value('data[user_active_status]');
+		$editable_user->user_status = set_value('data[user_status]');
 //		$editable_user->user_group_id = set_value('data[user_group_id]');
 		$editable_user->first_name = set_value('data[first_name]');
 		$editable_user->last_name = set_value('data[last_name]');
@@ -417,7 +417,7 @@ class Users extends CI_Controller
 //		$this->form_validation->set_rules( 'data[username]', lang('user'), 'callback_user_check_username_is_unique' );
 		$this->form_validation->set_rules( 'data[email]', lang('email'), 'trim|required|valid_email|callback_user_check_email_is_unique' );
 
-//		$this->form_validation->set_rules( 'data[user_active_status]', lang('user_active_status'), 'required' );
+//		$this->form_validation->set_rules( 'data[user_status]', lang('user_status'), 'required' );
 		$this->form_validation->set_rules( 'data[first_name]', lang('first_name'), 'required' );
 		$this->form_validation->set_rules( 'data[last_name]', lang('last_name'), 'required' );
 		//$this->form_validation->set_rules( 'data[middle_name]', lang('middle_name'), 'required' );
@@ -463,9 +463,9 @@ class Users extends CI_Controller
 
 			$auth = isset($post_array['cbx_auth'])?1:0;
 			// For default waiting status
-			$post_array['data']['user_active_status'] = "W";
+			$post_array['data']['user_status'] = "P";
 
-			$additional_data= array(  'ip_address'=> $ip_address, 'user_active_status' => $post_array['data']['user_active_status'], 'first_name' => $post_array['data']['first_name'], 'last_name' => $post_array['data']['last_name'], 'city' => $post_array['data']['city'], 'state' => $post_array['data']['state'], 'zip' => $post_array['data']['zip'],  'address1' => $post_array['data']['address1'], 'address2' => $post_array['data']['address2'], 'mobile' => $post_array['data']['mobile'], 'phone' => $post_array['data']['phone'], 'created_on'=> now(), 'avatar' => $post_array['data']['avatar'], 'is_multi_auth' => $auth, 'created_at' => date('Y-m-d H:i:s'), 'super_id' => $this->user->user_id );
+			$additional_data= array(  'ip_address'=> $ip_address, 'user_status' => $post_array['data']['user_status'], 'first_name' => $post_array['data']['first_name'], 'last_name' => $post_array['data']['last_name'], 'city' => $post_array['data']['city'], 'state' => $post_array['data']['state'], 'zip' => $post_array['data']['zip'],  'address1' => $post_array['data']['address1'], 'address2' => $post_array['data']['address2'], 'mobile' => $post_array['data']['mobile'], 'phone' => $post_array['data']['phone'], 'created_on'=> now(), 'avatar' => $post_array['data']['avatar'], 'is_multi_auth' => $auth, 'created_at' => date('Y-m-d H:i:s'), 'super_id' => $this->user->user_id );
 
 			if  (  !empty( $post_array['cbx_clear_image'])  )  {
 				$additional_data['avatar']= '';
@@ -482,11 +482,11 @@ class Users extends CI_Controller
 			//hdn_client_id
 			$insertClient['uc_user_id']= $user_id;
 			$insertClient['uc_client_id']= $post_array['hdn_client_id'];
-			//$insertClient['uc_active_status']= 'W';
+			//$insertClient['uc_active_status']= 'P';
 			$insert_id=$this->common_mdl->db_insert('users_clients',$insertClient, TRUE);
 
 
-			if ( $post_array['data']['user_active_status'] == "W" ) { // sent message with activation code
+			if ( $post_array['data']['user_status'] == "P" ) { // sent message with activation code
 				$activation_page_url= $app_config['base_url']."activation/".$activation_code;
 				$title= 'You are registered at ' . $app_config['site_name'] . ' site';
 				$content = $this->cms_items_mdl->getBodyContentByAlias('user_register',
@@ -503,8 +503,8 @@ class Users extends CI_Controller
 //				$this->common_lib->DebToFile( 'sendEmail $content::'.print_r($content,true));
 			}
 		} else {
-//			$update_data= array( 'username' => $post_array['data']['username'], 'ip_address'=> $ip_address, 'email' => $post_array['data']['email'], 'user_active_status' => $post_array['data']['user_active_status'], 'first_name' => $post_array['data']['first_name'], 'last_name' => $post_array['data']['last_name'], 'city' => $post_array['data']['city'], 'state' => $post_array['data']['state'], 'zip' => $post_array['data']['zip'],  'address1' => $post_array['data']['address1'], 'address2' => $post_array['data']['address2'], 'mobile' => $post_array['data']['mobile'], 'phone' => $post_array['data']['phone'], 'avatar' => $post_array['data']['avatar'] );
-			$update_data= array( 'ip_address'=> $ip_address,'first_name' => $post_array['data']['first_name'], 'last_name' => $post_array['data']['last_name'],'middle_name' => $post_array['data']['middle_name'], 'user_active_status' => $post_array['data']['user_active_status'], 'city' => $post_array['data']['city'], 'state' => $post_array['data']['state'], 'zip' => $post_array['data']['zip'],  'address1' => $post_array['data']['address1'], 'address2' => $post_array['data']['address2'], 'phone' => $post_array['data']['phone'],'phone_type' => $post_array['data']['user_phone_type'] );
+//			$update_data= array( 'username' => $post_array['data']['username'], 'ip_address'=> $ip_address, 'email' => $post_array['data']['email'], 'user_status' => $post_array['data']['user_status'], 'first_name' => $post_array['data']['first_name'], 'last_name' => $post_array['data']['last_name'], 'city' => $post_array['data']['city'], 'state' => $post_array['data']['state'], 'zip' => $post_array['data']['zip'],  'address1' => $post_array['data']['address1'], 'address2' => $post_array['data']['address2'], 'mobile' => $post_array['data']['mobile'], 'phone' => $post_array['data']['phone'], 'avatar' => $post_array['data']['avatar'] );
+			$update_data= array( 'ip_address'=> $ip_address,'first_name' => $post_array['data']['first_name'], 'last_name' => $post_array['data']['last_name'],'middle_name' => $post_array['data']['middle_name'], 'user_status' => $post_array['data']['user_status'], 'city' => $post_array['data']['city'], 'state' => $post_array['data']['state'], 'zip' => $post_array['data']['zip'],  'address1' => $post_array['data']['address1'], 'address2' => $post_array['data']['address2'], 'phone' => $post_array['data']['phone'],'phone_type' => $post_array['data']['user_phone_type'] );
 
 			if  (  !empty( $post_array['cbx_clear_image'])  )  {
 				$update_data['avatar']= '';
@@ -513,10 +513,10 @@ class Users extends CI_Controller
 				$update_data['avatar']= $_FILES['data']['name']['avatar_file_upload'];
 			}
 
-			if ( $post_array['data']['user_active_status'] == "W" ) { // sent message with activation code
+			if ( $post_array['data']['user_status'] == "P" ) { // sent message with activation code
 				$activation_code= $this->common_lib->generateActivationCode();
 				$update_data['activation_code']= $activation_code;
-			} // if ( $post_array['data']['user_active_status'] == "W" ) { // sent message with activation code
+			} // if ( $post_array['data']['user_status'] == "W" ) { // sent message with activation code
 //			echo "<pre>";
 //			print_r($update_data);
 //			die;
@@ -629,8 +629,8 @@ class Users extends CI_Controller
 			}
 			$filter_username = $this->input->post('filter_username');
 			$ResStr .= !empty($filter_username) ? 'filter_username/' . $filter_username . '/' : '';
-			$filter_user_active_status = $this->input->post('filter_user_active_status');
-			$ResStr .= !empty($filter_user_active_status) ? 'filter_user_active_status/' . $filter_user_active_status . '/' : '';
+			$filter_user_status = $this->input->post('filter_user_status');
+			$ResStr .= !empty($filter_user_status) ? 'filter_user_status/' . $filter_user_status . '/' : '';
 			$filter_zip = $this->input->post('filter_zip');
 			$ResStr .= !empty($filter_zip) ? 'filter_zip/' . $filter_zip . '/' : '';
 
@@ -653,7 +653,7 @@ class Users extends CI_Controller
 				$ResStr .= !empty($UriArray['page_number']) ? 'page_number/' . $UriArray['page_number'] . '/' : 'page_number/1/';
 			}
 			$ResStr .= !empty($UriArray['filter_username']) ? 'filter_username/' . $UriArray['filter_username'] . '/' : '';
-			$ResStr .= !empty($UriArray['filter_user_active_status']) ? 'filter_user_active_status/' . $UriArray['filter_user_active_status'] . '/' : '';
+			$ResStr .= !empty($UriArray['filter_user_status']) ? 'filter_user_status/' . $UriArray['filter_user_status'] . '/' : '';
 			$ResStr .= !empty($UriArray['filter_zip']) ? 'filter_zip/' . $UriArray['filter_zip'] . '/' : '';
 			$ResStr .= !empty($UriArray['filter_user_group_id']) ? 'filter_user_group_id/' . $UriArray['filter_user_group_id'] . '/' : '';
 			$ResStr .= !empty($UriArray['filter_created_at_from']) ? 'filter_created_at_from/' . $UriArray['filter_created_at_from'] . '/' : '';

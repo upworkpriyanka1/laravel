@@ -81,8 +81,8 @@ class Patients_mdl extends CI_Model
         if (!empty($filters['pt_patient_login'])) {
             $this->db->like( $this->m_patients_table . '.pt_patient_login', $filters['pt_patient_login'] );
         }
-        if ( !empty($filters['pt_patient_active_status']) ) {
-            $this->db->where( $this->m_patients_table.'.pt_patient_active_status', $filters['pt_patient_active_status'] );
+        if ( !empty($filters['patient_status']) ) {
+            $this->db->where( $this->m_patients_table.'.patient_status', $filters['patient_status'] );
         }
         if (!empty($filters['pt_zip'])) {
             $this->db->where( $this->m_patients_table.'.pt_zip', $filters['pt_zip'] );

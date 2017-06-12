@@ -887,19 +887,19 @@ class Common_lib
 
     /**********************
 
-     * Get readable label of user_active_status field
+     * Get readable label of user_status field
 
      * access public
 
-     * @params $user_active_status
+     * @params $user_status
 
      * return string label
 
      *********************************/
 
-    public function get_user_active_status_label($active_status) {
+    public function get_user_status_label($active_status) {
 
-        return $this->CI->users_mdl->getUserActiveStatusLabel($active_status);
+        return $this->CI->users_mdl->getUserStatusLabel($active_status);
 
     }
 

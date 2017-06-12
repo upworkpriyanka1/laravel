@@ -69,6 +69,7 @@ if ( ! function_exists('lang'))
 		{
 			$line = '<label for="'.$for.'"'._stringify_attributes($attributes).'>'.$line.'</label>';
 		}
-		return str_replace(' ','&nbsp;',$line);
+		return $line;
+//		return str_replace(' ','&nbsp;',$line);
 	}
 }

@@ -18,7 +18,6 @@ class Sys_admin extends CI_Controller {
         $this->config->load('sys_admin_menu_new', true );
         $this->menu    			= $this->config->item( 'sys_admin_menu_new' );
 
-
         $eh_url = base_url() . 'sys-admin/eh';
         if(current_url()!=$eh_url){
             $group = array('sys-admin');
@@ -26,9 +25,14 @@ class Sys_admin extends CI_Controller {
                 redirect( base_url() . "login/logout" );
             }
             $this->user 			= $this->common_mdl->get_admin_user();
-            if ( $this->user->user_active_status != 'A' ) {    // Only active user can access admin pages
+            if ( $this->user->user_status != 'A' ) {    // Only active user can access admin pages
                 redirect( base_url() . "login/logout" );
             }
+            $logged_user_title_name= $this->session->userdata['logged_user_title_name'];
+//            echo '<pre>$logged_user_title_name::'.print_r($logged_user_title_name,true).'</pre>';
+//            if ( $logged_user_title_name != 'sys-admin' ) {
+//                redirect('/msg/' . urldecode(lang("title_has_no_access_page")) . '/sign/danger');
+//            }
             $this->group 			= $this->ion_auth->get_users_groups()->row();
         }
 
@@ -177,7 +181,7 @@ class Sys_admin extends CI_Controller {
 
         $data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
         $data['client_status_array']= $this->clients_mdl->getClientStatusValueArray(false);
-        $data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
+        $data['user_status_array']= $this->clients_mdl->getUserStatusValueArray(true);
         $data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
         $data['client_color_schemes'] = $this->config->item('client_color_schemes');
 
@@ -320,7 +324,7 @@ class Sys_admin extends CI_Controller {
 
         $data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
         $data['client_status_array']= $this->clients_mdl->getClientStatusValueArray(false);
-        $data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
+        $data['user_status_array']= $this->clients_mdl->getUserStatusValueArray(true);
         $data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
         $data['client_color_schemes'] = $this->config->item('client_color_schemes');
 
@@ -637,7 +641,7 @@ class Sys_admin extends CI_Controller {
         // Get client status array
         $data['client_status_array']= $this->clients_mdl->getClientStatusValueArray(false);
         // Get user status array
-        $data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
+        $data['user_status_array']= $this->clients_mdl->getUserStatusValueArray(true);
         // Get client phone type like home,work
         $data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
         // Get list of color scheme options
@@ -659,10 +663,10 @@ class Sys_admin extends CI_Controller {
         usort($groupsSelectionList,'cmpGroups');
         $data['groupsSelectionList']  = $groupsSelectionList;
 
-        $data['userActiveStatusValueArray']= $this->users_mdl->getUserActiveStatusValueArray();
-        foreach ( $data['userActiveStatusValueArray'] as $next_key=>$next_userActiveStatus ) {
-            if ( !in_array($next_userActiveStatus['key'],array('N', 'W')) ) {
-                unset($data['userActiveStatusValueArray'][$next_key]);
+        $data['userStatusValueArray']= $this->users_mdl->getUserStatusValueArray();
+        foreach ( $data['userStatusValueArray'] as $next_key=>$next_userStatus ) {
+            if ( !in_array($next_userStatus['key'],array('N', 'P')) ) {
+                unset($data['userStatusValueArray'][$next_key]);
             }
         }
         $data['client_id'] = $client->cid;
@@ -696,7 +700,7 @@ class Sys_admin extends CI_Controller {
         $email = $this->common_lib->getParameter($this, $UriArray, $post_array, 'email' );
         $user_group_id = $this->common_lib->getParameter($this, $UriArray, $post_array, 'user_group_id' );
 
-        $user_active_status= 'W';
+        $user_status= 'P';
         $city= '';
         $state= '';
         $auth= 0;
@@ -705,7 +709,7 @@ class Sys_admin extends CI_Controller {
         $ip_address= !empty($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
         $activation_code= $this->common_lib->GenerateActivationCode();
 
-        $additional_data= array(  'ip_address'=> $ip_address, 'user_active_status' => $user_active_status, 'first_name' => $first_name, 'last_name' => $last_name, 'city' => $city, 'state' => $state, 'phone' => $phone, 'created_on'=> now(), 'avatar' => '', 'is_multi_auth' => $auth, 'created_at' => date('Y-m-d H:i:s'), 'super_id' => $this->user->user_id, 'activation_code'=> $activation_code );
+        $additional_data= array(  'ip_address'=> $ip_address, 'user_status' => $user_status, 'first_name' => $first_name, 'last_name' => $last_name, 'city' => $city, 'state' => $state, 'phone' => $phone, 'created_on'=> now(), 'avatar' => '', 'is_multi_auth' => $auth, 'created_at' => date('Y-m-d H:i:s'), 'super_id' => $this->user->user_id, 'activation_code'=> $activation_code );
         $user_group_array= array($user_group_id);
         $new_user_id = $this->ion_auth->register( $username, '', $email, $additional_data,   array(  $user_group_array  )  );
 
@@ -743,7 +747,7 @@ class Sys_admin extends CI_Controller {
      * for client load list of related_users, with filters, sorting
      * access public
      * @params : filter_client_id - client_id, filter_related_users_filter - filter string by username, filter_related_users_type - users type of relation,
-     * user_active_status - filter by user active_status, sort/sort_direction - order and direction of resulting listing
+     * user_status - filter by user active_status, sort/sort_direction - order and direction of resulting listing
      * return list related users
      *********************************/
     public function load_client_related_users()
@@ -755,7 +759,7 @@ class Sys_admin extends CI_Controller {
         $filter_related_users_filter = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_related_users_filter');
         $filter_related_users_type = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_related_users_type');
         $db_filter_related_users_type= $filter_related_users_type;
-        $user_active_status = $this->common_lib->getParameter($this, $UriArray, $post_array, 'user_active_status');
+        $user_status = $this->common_lib->getParameter($this, $UriArray, $post_array, 'user_status');
         $sort= $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort', 'created_at');
         $sort_direction = $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort_direction', 'asc');
         if ($filter_related_users_type == 'A') { // SHOW ALL USERS
@@ -770,7 +774,7 @@ class Sys_admin extends CI_Controller {
         $this->load->library('pagination');
         $pagination_config= $this->common_lib->getPaginationParams('ajax');
         $pagination_config['base_url'] = base_url() . 'sys-admin/clients_edit_load_related_users' . '/page';
-        $filters= array( 'client_id'=>$filter_client_id, 'uc_active_status'=> $db_filter_related_users_type, 'show_uc_active_status'=> 1, 'username'=> $filter_related_users_filter, 'user_active_status'=> $user_active_status );
+        $filters= array( 'client_id'=>$filter_client_id, 'uc_active_status'=> $db_filter_related_users_type, 'show_uc_active_status'=> 1, 'username'=> $filter_related_users_filter, 'user_status'=> $user_status );
         $users_count = $this->users_mdl->getUsersList( true, 0, $filters );
         $filters['show_user_group']= 1;
         $filters['show_user_client_relation_group']= 1;
@@ -945,7 +949,7 @@ class Sys_admin extends CI_Controller {
      * for client load list of provides_vendors, with filters, sorting
      * access public
      * @params : filter_client_id - client_id, filter_provides_vendors_filter - filter string by username, filter_provides_vendors_type - users type of relation,
-     * user_active_status - filter by user active_status, sort/sort_direction - order and direction of resulting listing
+     * user_status - filter by user active_status, sort/sort_direction - order and direction of resulting listing
      * return list Provides Vendors
      *********************************/
     public function clients_edit_load_provides_vendors()
@@ -957,7 +961,7 @@ class Sys_admin extends CI_Controller {
         $filter_provides_vendors_filter = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_provides_vendors_filter');
         $filter_provides_vendors_type = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_provides_vendors_type');
         $db_filter_provides_vendors_type= $filter_provides_vendors_type;
-        $user_active_status = $this->common_lib->getParameter($this, $UriArray, $post_array, 'user_active_status');
+        $user_status = $this->common_lib->getParameter($this, $UriArray, $post_array, 'user_status');
         $sort= $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort', 'vn_name');
         $sort_direction = $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort_direction', 'desc');
         if ($filter_provides_vendors_type == 'A') { // SHOW ALL USERS
@@ -1195,7 +1199,7 @@ class Sys_admin extends CI_Controller {
 
         $data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
         $data['client_status_array']= $this->clients_mdl->getClientStatusValueArray(false);
-        $data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
+        $data['user_status_array']= $this->clients_mdl->getUserStatusValueArray(true);
         $data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
         $data['client_color_schemes'] = $this->config->item('client_color_schemes');
 
@@ -1272,7 +1276,7 @@ class Sys_admin extends CI_Controller {
 
         $data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
         $data['client_status_array']= $this->clients_mdl->getClientStatusValueArray(false);
-        $data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
+        $data['user_status_array']= $this->clients_mdl->getUserStatusValueArray(true);
         $data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
         $data['client_color_schemes'] = $this->config->item('client_color_schemes');
 
@@ -1358,7 +1362,7 @@ class Sys_admin extends CI_Controller {
 
         $data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
         $data['client_status_array']= $this->clients_mdl->getClientStatusValueArray(false);
-        $data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
+        $data['user_status_array']= $this->clients_mdl->getUserStatusValueArray(true);
         $data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
         $data['client_color_schemes'] = $this->config->item('client_color_schemes');
 
@@ -1440,7 +1444,7 @@ class Sys_admin extends CI_Controller {
 
         $data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
         $data['client_status_array']= $this->clients_mdl->getClientStatusValueArray(false);
-        $data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
+        $data['user_status_array']= $this->clients_mdl->getUserStatusValueArray(true);
         $data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
         $data['client_color_schemes'] = $this->config->item('client_color_schemes');
 
@@ -1517,7 +1521,7 @@ class Sys_admin extends CI_Controller {
 
         $data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
         $data['client_status_array']= $this->clients_mdl->getClientStatusValueArray(false);
-        $data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
+        $data['user_status_array']= $this->clients_mdl->getUserStatusValueArray(true);
         $data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
         $data['client_color_schemes'] = $this->config->item('client_color_schemes');
 
@@ -1592,7 +1596,7 @@ class Sys_admin extends CI_Controller {
 
         $data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
         $data['client_status_array']= $this->clients_mdl->getClientStatusValueArray(false);
-        $data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
+        $data['user_status_array']= $this->clients_mdl->getUserStatusValueArray(true);
         $data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
         $data['client_color_schemes'] = $this->config->item('client_color_schemes');
 
@@ -1683,7 +1687,7 @@ class Sys_admin extends CI_Controller {
 
         $data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
         $data['client_status_array']= $this->clients_mdl->getClientStatusValueArray(false);
-        $data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
+        $data['user_status_array']= $this->clients_mdl->getUserStatusValueArray(true);
         $data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
         $data['client_color_schemes'] = $this->config->item('client_color_schemes');
 
@@ -1777,7 +1781,7 @@ class Sys_admin extends CI_Controller {
 
         $data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
         $data['client_status_array']= $this->clients_mdl->getClientStatusValueArray(false);
-        $data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
+        $data['user_status_array']= $this->clients_mdl->getUserStatusValueArray(true);
         $data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
         $data['client_color_schemes'] = $this->config->item('client_color_schemes');
 

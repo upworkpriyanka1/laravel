@@ -13,8 +13,8 @@
             <form class="login-form" action="" method="post">
                 <h3 class="form-title font-green"><?php echo lang('sign-in')?></h3>
                 <?php if ( $this->session->flashdata( 'message' ) ) : ?>
-                <div class="alert alert-danger"><?php echo $this->session->flashdata( 'message' ); ?></div>
-        <?php endif; ?>
+                    <div class="alert alert-danger"><?php echo $this->session->flashdata( 'message' ); ?></div>
+                <?php endif; ?>
                 <div class="alert alert-danger display-hide">
                     <button class="close" data-close="alert"></button>
                     <span> <?php echo lang('sign-in-help')?> </span>
@@ -32,10 +32,7 @@
                         <input type="checkbox" name="remember" value="1" /><?= lang("remember");?> </label>
                     <a href="<?php echo base_url('login/reset') ?>" id="forget-password" class="forget-password"><?= lang("forgot-password");?></a><div class="clear_fix"></div>
                 </div>
-  
-      
             </form>
-
 
         </div>
 

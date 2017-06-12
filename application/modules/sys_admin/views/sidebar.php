@@ -76,7 +76,11 @@
                 <?php if ( !empty($user->user_id) ) : ?>
                     <li class="nav-item">
                         <a href="javascript:;" class="nav-link nav-toggle collapsible-header waves-effect waves-teal">
-                            <?php 		$this->load->model('users_mdl');
+                            <?php
+                            $ci = &get_instance();
+                            $logged_user_title_name= $ci->session->userdata['logged_user_title_name'];
+//                            echo '<pre>$logged_user_title_name::'.print_r($logged_user_title_name,true).'</pre>';
+                            $this->load->model('users_mdl');
                             $logged_user= $this->users_mdl->getUserRowById( $user->user_id, array('show_file_info'=> 1, 'image_width'=> 32, 'image_height'=> 32) );
                             ?>
 
@@ -88,7 +92,7 @@
                                 <span><img alt="" class="img-circle" src="<?php echo base_url() ?>assets/avatar/avatar.png"></span>
                             <?php } ?>
 
-                            <span class="title"><?php echo $user->first_name." ". $user->last_name;?></span>
+                            <span class="title"><?php echo $user->first_name." ". $user->last_name . ( !empty($logged_user_title_name) ? ', <b><small>'.$logged_user_title_name . '</small></b>' : '' );?></span>
                         </a>
                         <div class="collapsible-body">
                             <ul>
@@ -99,14 +103,15 @@
                                     </a>
                                 </li>
                                 <?php
-//                                echo '<pre>$user->user_id::'.print_r($user->user_id,true).'</pre>';
-                                $usersGroups = $this->users_mdl->getUsersGroupsList( false, 0, array('user_id'=> $user->user_id, 'show_groups_description'=> 1) );
+                                $usersGroups = $this->users_mdl->getUsersGroupsList( false, 0, array('user_id'=> $user->user_id, 'status'=>'A','show_groups_description'=> 1) );
 //                                echo '<pre>$usersGroups::'.print_r($usersGroups,true).'</pre>';
+//                                die("-1 XXZ");
                                 ?>
 
                                 <?php foreach( $usersGroups as $nextUsersGroup ) : ?>
+                                <?php if ( $nextUsersGroup->group_name == $logged_user_title_name ) continue; ?>
                                 <li class="nav-item">
-                                    <a href="<?php echo base_url()?>switch_to_title/<?= $nextUsersGroup->group_id?>" class="nav-link ">
+                                    <a href="<?php echo base_url()?>login/switch_active_title/active_title_id/<?= $nextUsersGroup->group_id?>" class="nav-link ">
                                         <span class="fa fa-sign-out" aria-hidden="true"></span>
                                         <span> <?= str_replace(' ','&nbsp;',"Switch as " . $nextUsersGroup->group_description) ?></span>
                                     </a>

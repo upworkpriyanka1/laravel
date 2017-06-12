@@ -31,9 +31,9 @@ echo link_tag('/assets/layouts/default/css/custom-users-overview-view.css');
                     <div class="dropdown">
                         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><span class="status_but_name"><?=$user_status;?></span><span class="caret"></span></button>
                         <ul class="dropdown-menu user-status-parent">
-                            <li class="user-status <?=($editable_user->user_active_status == "N" || $editable_user->user_active_status == "W") ? "disabled":''?>"><a href="javascript:void(0)">Pending</a></li>
-                            <li class="user-status <?=($editable_user->user_active_status == "A") ? "disabled":''?>"><a href="javascript:void(0)">Active</a></li>
-                            <li class="user-status <?=($editable_user->user_active_status == "I") ? "disabled":''?>"><a href="javascript:void(0)">Inactive</a></li>
+                            <li class="user-status <?=($editable_user->user_status == "P") ? "disabled":''?>"><a href="javascript:void(0)">Pending</a></li>
+                            <li class="user-status <?=($editable_user->user_status == "A") ? "disabled":''?>"><a href="javascript:void(0)">Active</a></li>
+                            <li class="user-status <?=($editable_user->user_status == "I") ? "disabled":''?>"><a href="javascript:void(0)">Inactive</a></li>
                         </ul>
                     </div>
                 </div>
