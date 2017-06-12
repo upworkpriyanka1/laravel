@@ -49,7 +49,7 @@
                             <a href="<?= base_url('/sys-admin/users/users-overview/' . $next_related_user->id . '/'); ?>">
                                 <?= $next_related_user->username; ?>
                             </a>
-                            <?php echo $this->users_mdl->getUserStatusLabel($next_related_user->user_status) ?>
+                            (<?php echo $this->users_mdl->getUserStatusLabel($next_related_user->user_status) ?>)
                         </td>
                         <td><?php echo $next_related_user->user_client_relation_description; ?> </td>
                         <td><?php echo $this->users_mdl->getUserGroupStatusLabel( $next_related_user->user_group_status ) ?></td>
@@ -59,8 +59,8 @@
                         <td>
                             <a href="<?= base_url('/sys-admin/users/users-overview/' . $next_related_user->id . '/'); ?>">
                                 <?= $next_related_user->username; ?>
-                            </a><!-- &nbsp;( --><?//= $next_related_user->user_group_description;
-                            ?><!-- )-->
+                            </a>
+                            (<?php echo $this->users_mdl->getUserStatusLabel($next_related_user->user_status) ?>)
                         </td>
                         <td><?php echo $next_related_user->user_group_description; ?> </td>
                         <td><?php echo  $this->users_mdl->getUserGroupStatusLabel( $next_related_user->user_group_status ) ?></td>
