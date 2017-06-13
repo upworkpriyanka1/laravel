@@ -294,20 +294,19 @@ if ((!empty($_SERVER["HTTP_HOST"]) and !(strpos($_SERVER["HTTP_HOST"], "local-zn
 
     } else if (ENVIRONMENT == 'devK') {
 
-        $config['log_path'] = 'C:\xampp\htdocs\zntral\application\config/devK/log/'; // '/home/dev9soft/public_html/tb/'
-        $config['sql_queries_to_file'] = 'C:\xampp\htdocs\zntral\application\config\devK\logs\sql_queries_to_file_';
-        $config['document_root'] = 'C:\xampp\htdocs\zntral';
-        $config['base_url'] = 'http://devk.loc/';
+        $config['log_path'] = '/home/zntral/devk/log/'; // '/home/dev9soft/public_html/tb/'
+        $config['sql_queries_to_file'] = '/home/zntral/devk/logs/sql_queries_to_file_';
+        $config['document_root'] = '/home/zntral/devk/';
+        $config['base_url'] = 'https://devk.zntral.net/';
         $config['is_developer_comp'] = 1;
 
-
     }
-    else if (ENVIRONMENT == 'devk2') {
+    else if (ENVIRONMENT == 'devK2') {
 
-        $config['log_path'] = 'C:\xampp\htdocs\zntral\application\config/devK/log/'; // '/home/dev9soft/public_html/tb/'
-        $config['sql_queries_to_file'] = 'C:\xampp\htdocs\zntral\application\config\devK\logs\sql_queries_to_file_';
-        $config['document_root'] = 'C:\xampp\htdocs\zntral';
-        $config['base_url'] = 'http://devk.loc/';
+        $config['log_path'] = '/home/zntral/devk2/log/'; // '/home/dev9soft/public_html/tb/'
+        $config['sql_queries_to_file'] = '/home/zntral/devk2/logs/sql_queries_to_file_';
+        $config['document_root'] = '/home/zntral/devk2/';
+        $config['base_url'] = 'https://devk2.zntral.net/';
         $config['is_developer_comp'] = 1;
     }
     else {
