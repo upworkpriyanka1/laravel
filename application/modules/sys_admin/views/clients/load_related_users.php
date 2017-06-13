@@ -35,10 +35,11 @@
                             <a href="<?= base_url('/sys-admin/users/users-overview/' . $next_related_user->id . '/'); ?>">
                                 <?= $next_related_user->username; ?>
                             </a>
-                            (<?php echo $this->users_mdl->getUserStatusLabel($next_related_user->user_status) ?>)
+<!--                            (--><?php //echo $this->users_mdl->getUserStatusLabel($next_related_user->user_status) ?><!--)-->
                         </td>
                         <td><?php echo $next_related_user->user_client_relation_description; ?> </td>
-                        <td><?php echo $this->users_mdl->getUserGroupStatusLabel( $next_related_user->user_group_status ) ?></td>
+                        <td><?php echo $this->users_mdl->getUserStatusLabel($next_related_user->user_status) ?></td>
+<!--                        <td>--><?php //echo $this->users_mdl->getUserGroupStatusLabel( $next_related_user->user_group_status ) ?><!--</td>-->
                         <td><?php echo $this->common_lib->format_datetime($next_related_user->created_at) ?></td>
                     </tr>
                     <?php
@@ -49,10 +50,11 @@
                             <a href="<?= base_url('/sys-admin/users/users-overview/' . $next_related_user->id . '/'); ?>">
                                 <?= $next_related_user->username; ?>
                             </a>
-                            (<?php echo $this->users_mdl->getUserStatusLabel($next_related_user->user_status) ?>)
+<!--                            (--><?php //echo $this->users_mdl->getUserStatusLabel($next_related_user->user_status) ?><!--)-->
                         </td>
                         <td><?php echo $next_related_user->user_client_relation_description; ?> </td>
-                        <td><?php echo $this->users_mdl->getUserGroupStatusLabel( $next_related_user->user_group_status ) ?></td>
+                        <td><?php echo $this->users_mdl->getUserStatusLabel($next_related_user->user_status) ?></td>
+                        <!--                        <td>--><?php //echo $this->users_mdl->getUserGroupStatusLabel( $next_related_user->user_group_status ) ?><!--</td>-->
                         <td><?php echo $this->common_lib->format_datetime($next_related_user->created_at) ?></td>
                     </tr>
                     <tr>
@@ -60,10 +62,11 @@
                             <a href="<?= base_url('/sys-admin/users/users-overview/' . $next_related_user->id . '/'); ?>">
                                 <?= $next_related_user->username; ?>
                             </a>
-                            (<?php echo $this->users_mdl->getUserStatusLabel($next_related_user->user_status) ?>)
+<!--                            (--><?php //echo $this->users_mdl->getUserStatusLabel($next_related_user->user_status) ?><!--)-->
                         </td>
                         <td><?php echo $next_related_user->user_group_description; ?> </td>
-                        <td><?php echo  $this->users_mdl->getUserGroupStatusLabel( $next_related_user->user_group_status ) ?></td>
+                        <td><?php echo $this->users_mdl->getUserStatusLabel($next_related_user->user_status) ?></td>
+                        <!--                        <td>--><?php //echo $this->users_mdl->getUserGroupStatusLabel( $next_related_user->user_group_status ) ?><!--</td>-->
                         <td><?php echo $this->common_lib->format_datetime($next_related_user->created_at) ?></td>
                     </tr>
                     <?php
