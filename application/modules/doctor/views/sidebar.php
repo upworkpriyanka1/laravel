@@ -6,12 +6,11 @@
 </div>
 <ul id="nav-mobile" class="side-nav fixed" style="transform: translateX(-100%);">
     <li class="logo">
-        <a href="/sys-admin/" class="brand-logo">
+        <a href="/doctor/" class="brand-logo">
             <img src="<?= base_url('assets/img/logo.png');?>" alt="logo" class="logo-default" />
         </a>
     </li>
-
-
+\
 
 
     <li class="no-padding">
@@ -50,7 +49,7 @@
                                 <!-- SIDEBAR MENU LINK -->
                                 <li class="nav-item <?= $LinkActive ;?>">
                                     <a href="<?php
-                                    if($link['href'] != '/client/new/' && $link['href'] != '/users/users-edit/new/') echo base_url().$link['href'];
+                                    if($link['href'] != '/client/new/' && $link['href'] != '/users/users-edit/new/') echo base_url().$this->uri->segment('1').$link['href'];
                                     else echo '#' ?>"
                                         <?php if($link['href'] == '/client/new/') echo 'class="create_contact"' ?>  class="nav-link <?php if($link['href'] == '/users/users-edit/new/') echo 'new_user_btn'?> ">
                                         <!--                                        <a href="--><?php //echo base_url().$this->uri->segment('1').$link['href'];?><!--" class="nav-link ">-->
@@ -80,6 +79,8 @@
                         $ci = &get_instance();
                         $logged_user_title_name= $ci->session->userdata['logged_user_title_name'];
                         $logged_user_title_description= $ci->session->userdata['logged_user_title_description'];
+//                        echo '<pre>$logged_user_title_description::'.print_r($logged_user_title_description,true).'</pre>';
+//                        die("-1 XXZ");
                         $this->load->model('users_mdl');
                         $logged_user= $this->users_mdl->getUserRowById( $user->user_id, array('show_file_info'=> 1, 'image_width'=> 32, 'image_height'=> 32) );
                         ?>
@@ -97,15 +98,13 @@
                     <div class="collapsible-body">
                         <ul>
                             <li class="nav-item">
-                                <a href="<?= base_url($this->uri->segment(1).'/profile');?>">
+                                <a href="<?= base_url($logged_user_title_name.'/profile');?>">
                                     <span class="fa fa-user"></span>
                                     <span><?= lang('my-profile'); ?></span>
                                 </a>
                             </li>
                             <?php
                             $usersGroups = $this->users_mdl->getUsersGroupsList( false, 0, array('user_id'=> $user->user_id, 'status'=>'A','show_groups_description'=> 1) );
-                            //                                echo '<pre>$usersGroups::'.print_r($usersGroups,true).'</pre>';
-                            //                                die("-1 XXZ");
                             ?>
 
                             <?php foreach( $usersGroups as $nextUsersGroup ) : ?>
@@ -135,22 +134,10 @@
 
 </ul>
 
-
-
-
-
-<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>-->
-
 <script>
     $(document).ready(function(){
-//        $(".btn-add").click(function(){
-//            $(".email-add").append('<div class="input-field col-xs-12">' +
-//                '<input type="email" class="validate"> <label for="email">Email</label><div class="btn-rem"><i class="fa fa-times-circle" aria-hidden="true"></i></div></div>');
-//        });
-
         $("body").on('click','.btn-rem',function(){
-
-            console.log($(this));
+//            console.log($(this));
             $(this).parent().remove();
         });
 
@@ -160,19 +147,6 @@
                 $('.btn-rem-name').css('display', 'block');
             }
         });
-
-        /* $('body').on('click','.btn-rem-name',function(){
-
-         console.log(68)
-         $('input[name=name]').val('');
-         //            $('.btn-rem-name').css('display', 'none');
-         });*/
-
-
-
-
-
-
 
     });
 

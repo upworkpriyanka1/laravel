@@ -60,17 +60,19 @@ class Login extends CI_Controller {
         }
         $has_access_to_select_active_title= false;
         $logged_user_title_name = '';
+        $logged_user_title_description = '';
         foreach( $groupsList as $nextGroup ) {
             if ($nextGroup->group_id == $active_title_id) {
                 $has_access_to_select_active_title= true;
                 $logged_user_title_name = $nextGroup->group_name;
+                $logged_user_title_description = $nextGroup->group_description;
                 break;
             }
         }
         if ( !$has_access_to_select_active_title or empty($logged_user_title_name) ) {
             redirect('/msg/' . urldecode(lang("have_no_access_to_this_title")) . '/sign/danger');
         }
-        $this->ion_auth->set_session($user, $logged_user_title_name);
+        $this->ion_auth->set_session($user, $logged_user_title_name, $logged_user_title_description);
     	redirect('/'.$logged_user_title_name, 'refresh');
     }
 
