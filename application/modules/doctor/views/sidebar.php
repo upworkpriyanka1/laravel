@@ -10,7 +10,7 @@
             <img src="<?= base_url('assets/img/logo.png');?>" alt="logo" class="logo-default" />
         </a>
     </li>
-\
+
 
 
     <li class="no-padding">
