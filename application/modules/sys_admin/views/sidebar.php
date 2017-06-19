@@ -134,6 +134,8 @@
 
 </ul>
 
+<script src="/assets/global/plugins/jquery.min.js" type="text/javascript" ></script>
+
 <script>
     $(document).ready(function(){
           $("body").on('click','.btn-rem',function(){

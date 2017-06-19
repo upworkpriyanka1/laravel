@@ -9,50 +9,29 @@
  * ****************************/
 
 class Users_mdl extends CI_Model
-
 {
-
     public $m_users_table;
-
 //	private $m_users_jobs_table;
-
     private $m_users_clients_table;
-
     private $m_clients_table;
-
     public $m_jobs_table;
-
     public $m_users_groups_table;
     public $m_groups_table;
 
     private $UserStatusLabelValueArray = Array('P'=> 'Pending', 'A' => 'Active', 'I' => 'Inactive', 'On' => 'Online','Of' => 'Offline', 'L'=>'Last Login');
-
     private $UserGroupStatusLabelValueArray = Array('P'=> 'Pending', 'A' => 'Active', 'I' => 'Inactive');
-
     private $PhoneTypeArray = Array('H' => 'Home', 'W' => 'Work', 'O' => 'Other');
 
-
-
     function __construct()
-
     {
-
         parent::__construct();
-
         $this->m_users_table = 'users';
-
 //		$this->m_users_jobs_table= 'users_jobs';
-
         $this->m_users_clients_table= 'users_clients';
-
         $this->m_clients_table= 'clients';
-
         $this->m_jobs_table= 'jobs';
-
         $this->m_users_groups_table= 'users_groups';
-
         $this->m_groups_table= 'groups';
-
     }
 
 
@@ -224,8 +203,8 @@ class Users_mdl extends CI_Model
         }
 
         if ( !empty($filters['show_user_client_relation_group']) ) {
-            $additive_fields_for_select .= ", "."groups_1.description as user_client_relation_description ";
-            $additive_group_fields .= ", groups_1.description";
+            $additive_fields_for_select .= ", "."groups_1.description as user_client_relation_description, " . $this->m_users_clients_table.'.uc_id ';
+            $additive_group_fields .= ", groups_1.description, uc_id";
 //			echo '<pre>$additive_fields_for_select::'.print_r($additive_fields_for_select,true).'</pre>';
             if ( !$is_user_group_joined ) {
                 $is_user_group_joined= true;
@@ -283,51 +262,27 @@ class Users_mdl extends CI_Model
 
 
     public function getSimilarUserByUsername($username, $id='')
-
     {
-
         $this->db->where('username', $username);
-
         $this->db->from($this->m_users_table);
-
         if (!empty($id)) {
-
             $this->db->where('id != ' . $id);
-
         }
-
         $row= $this->db->get()->result();
-
         if (empty($row[0])) return false;
-
         return $row[0];
-
     }
 
-
-
-
-
     public function getSimilarUserByEmail($email, $id='')
-
     {
-
         $this->db->where('email', $email);
-
         $this->db->from($this->m_users_table);
-
         if (!empty($id)) {
-
             $this->db->where('id != ' . $id);
-
         }
-
         $row= $this->db->get()->result();
-
         if (empty($row[0])) return false;
-
         return $row[0];
-
     }
 
 
@@ -539,29 +494,116 @@ class Users_mdl extends CI_Model
     ////////////// USERS BLOCK END /////////////
 
 
+    ////////////// USERS CLIENTS BLOCK START /////////////
+    public function getUsersClientsList( $OutputFormatCount = false, $page = 0, $filters = array(), $sort = '', $sort_direction = '')
+    {
+        if (empty( $sort ))
+            $sort = 'uc_active_status';
+//        echo '<pre>$filters::'.print_r($filters,true).'</pre>';
+        $config_data = $this->config->config;
+        $ci = & get_instance();
+        $items_per_page= $ci->common_lib->getSettings('items_per_page');
+        $limit = !empty($filters['limit']) ? $filters['limit'] : '';
+        $offset = !empty($filters['offset']) ? $filters['offset'] : '';
+        $is_page_positive_integer= $ci->common_lib->is_positive_integer($page);
+        if ( !empty($page) and $is_page_positive_integer ) {
+            $limit = '';
+            $offset = '';
+        }
+        if (!empty($config_data) and $is_page_positive_integer) {
+            $per_page= ( !empty($filters['per_page']) and $ci->common_lib->is_positive_integer($filters['per_page']) ) ? $filters['per_page'] : $items_per_page;
+            $limit = $per_page;
+            $offset = ($page - 1) * $per_page;
+        }
+
+        if (!empty($filters['created_at_from'])) {
+            $this->db->where($this->m_users_clients_table.'.created_at >= ' . "'" . $filters['created_at_from'] . "'");
+        }
+        if (!empty($filters['created_at_till'])) {
+            $this->db->where($this->m_users_clients_table.'.created_at <= ' . "'" . $filters['created_at_till'] . " 23:59:59'");
+        }
+
+
+        if (!empty($filters['user_id'])) {
+            $this->db->where( $this->m_users_clients_table.'.uc_user_id', $filters['user_id'] );
+        }
+
+        if (!empty($filters['client_id'])) {
+            $this->db->where( $this->m_users_clients_table.'.uc_client_id', $filters['client_id'] );
+        }
+
+        if (!empty($filters['group_id'])) {
+            $this->db->where( $this->m_users_clients_table.'.uc_group_id', $filters['uc_group_id'] );
+        }
+
+        if (!empty($filters['active_status'])) {
+            $this->db->where( $this->m_users_clients_table.'.uc_active_status', $filters['active_status'] );
+        }
+
+        $additive_fields_for_select= '';
+        $is_user_joined= false;
+        if (!empty($filters['show_user_username'])) {
+            if ( !$is_user_joined ) {
+                $this->db->join( $this->m_users_table, $this->m_users_table . '.id = ' . $this->m_users_clients_table . '.uc_user_id' );
+            }
+            $additive_fields_for_select.= ', '.$this->m_users_table.".username, ".$this->m_users_table.".user_status, ".$this->m_users_table.".email as user_email, ".$this->m_users_table.".id as user_id ";
+            $is_user_joined= true;
+        }
+
+
+        $is_group_joined= false;
+        if (!empty($filters['show_group_name'])) {
+            if ( !$is_group_joined ) {
+                $this->db->join( $this->m_groups_table, $this->m_groups_table . '.id = ' . $this->m_users_clients_table . '.uc_group_id' );
+            }
+            $additive_fields_for_select.= ', '.$this->m_groups_table.".name as relation_group_name";
+            $is_group_joined= true;
+        }
+
+        $fields_for_select= $this->m_users_clients_table.".*";
+        if ( ( !empty($limit) and $ci->common_lib->is_positive_integer($limit) ) and ( !empty($offset) and $ci->common_lib->is_positive_integer($offset) ) ) {
+            $this->db->limit($limit, $offset);
+        }
+
+        if ( ( !empty($limit) and $ci->common_lib->is_positive_integer($limit) ) ) {
+            $this->db->limit($limit);
+        }
+        $fields_for_select.= ' ' . $additive_fields_for_select;
+
+        if (!empty($sort)) {
+            $this->db->order_by($sort, ((strtolower($sort_direction) == 'desc' or strtolower($sort_direction) == 'asc') ? $sort_direction : ''));
+        }
+
+        if ($OutputFormatCount) {
+            return $this->db->count_all_results($this->m_users_clients_table);
+        } else {
+            $query = $this->db->from($this->m_users_clients_table);
+            if (strlen(trim($fields_for_select)) > 0) {
+                $query->select($fields_for_select);
+            }
+            $ci = & get_instance();
+            $ret_array= $query->get()->result();
+            return $ret_array;
+        }
+    }
+
+    ////////////// USERS CLIENTS BLOCK END /////////////
+
+
 
 
 
     ////////////// GROUPS BLOCK START /////////////
-
     public function getGroupsSelectionList( $filters = array(), $sort = 'group_title',  $sort_direction = 'asc', $excludeArray= [])
-
     {
-
         $ci = & get_instance();
-
         $groupsList = $ci->users_mdl->getGroupsList(false, 0, $filters, $sort, $sort_direction);
-
         $ResArray = array();
-
         foreach ($groupsList as $lgroup) {
             if ( in_array($lgroup->name,$excludeArray) ) continue;
             $ResArray[] = array('key' => $lgroup->id, 'value' => $lgroup->description);
-
         }
-
         return $ResArray;
-
     }
 
 
@@ -883,43 +925,23 @@ class Users_mdl extends CI_Model
 
 
     public function updateUsersGroups($user_id, $DataArray)
-
     {
-
         if (empty($user_id)) return;
-
-
-
         $this->db->where('user_id', $user_id);
-
         $this->db->delete($this->m_users_groups_table);
-
-
-
         foreach( $DataArray as $next_key=>$next_group_id ) {
-
             $Res = $this->db->insert($this->m_users_groups_table, array( 'user_id'=> $user_id, 'group_id'=> $next_group_id ) );
-
         }
-
-
-
     }
 
 
 
     public function deleteUsers_GroupsByUserId($user_id) {
-
         if (!empty($user_id)) {
-
             $this->db->where('user_id', $user_id);
-
             $Res = $this->db->delete($this->m_users_groups_table);
-
             return $Res;
-
         }
-
     }
 
 

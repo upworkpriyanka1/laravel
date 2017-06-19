@@ -181,6 +181,7 @@ class Sys_admin_mdl extends CI_Model {
         $date_time_mysql_format= $this->common_lib->getSettings('date_time_mysql_format', '%Y-%m-%d %H:%M:%S');
         $this->db->where( $this->m_users_clients_table . '.uc_client_id', $client_id);
         $this->db->where( $this->m_users_clients_table . '.uc_user_id', $related_user_id);
+        $this->db->where( $this->m_users_clients_table . '.uc_group_id', $group_id);
         $query = $this->db->from($this->m_users_clients_table);
         $row = $query->get()->result();
         if ( !empty($row) and !empty($row[0]->uc_id) ) {
