@@ -308,8 +308,13 @@ if ((!empty($_SERVER["HTTP_HOST"]) and !(strpos($_SERVER["HTTP_HOST"], "local-zn
         $config['document_root'] = '/home/zntral/devk2/';
         $config['base_url'] = 'https://devk2.zntral.net/';
         $config['is_developer_comp'] = 1;
-    }
-    else {
+    } else if (ENVIRONMENT == 'dev') {
+        $config['log_path'] = '/home/zntral/dev/log/'; // '/home/dev9soft/public_html/tb/'
+        $config['sql_queries_to_file'] = '/home/zntral/dev/logs/sql_queries_to_file_';
+        $config['document_root'] = '/home/zntral/dev/';
+        $config['base_url'] = 'https://dev.zntral.net/';
+        $config['is_developer_comp'] = 1;
+    } else {
         $config['log_path'] = '/home/zntral/front2/log/'; // '/home/dev9soft/public_html/tb/'
         $config['sql_queries_to_file'] = '/home/zntral/front2/logs/sql_queries_to_file_';
         $config['document_root'] = '/home/zntral/front2/';
