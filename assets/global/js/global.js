@@ -367,20 +367,20 @@ $(document).ready(function(){
         }
     };
 
-    setTitleDots();
+    // setTitleDots();
 
-    window.onresize = function(event) {
-
-        $('.page-title').removeAttr('style');
-        $('.page-title-dots').css('display', 'none');
-
-        setTimeout(function(){
-
-            document.getElementById("logo").removeEventListener("scroll", setTitleDots());
-
-        }, 200);
-
-    };
+    // window.onresize = function(event) {
+    //
+    //     $('.page-title').removeAttr('style');
+    //     $('.page-title-dots').css('display', 'none');
+    //
+    //     setTimeout(function(){
+    //
+    //         document.getElementById("logo").removeEventListener("scroll", setTitleDots());
+    //
+    //     }, 200);
+    //
+    // };
 
 })( window );
 
