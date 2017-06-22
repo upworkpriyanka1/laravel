@@ -15,11 +15,11 @@
         <?php endif; ?>
 
         <div class="form-group">
-        <?php foreach( $groupsList as $nextGroup ) { ?>
-            <input class="with-gap" type="radio" value="<?= $nextGroup->group_id; ?>" name="active_title_id" id="active_title_<?= $nextGroup->group_id; ?>" >
-            <label class="control-label" for="active_title_id_<?= $nextGroup->group_id; ?>"><?= $nextGroup->group_description; ?></label>
+            <?php foreach( $groupsList as $nextGroup ) { ?>
+                <input class="with-gap" type="radio" value="<?= $nextGroup->group_id; ?>" name="active_title_id" id="active_title_<?= $nextGroup->group_id; ?>" >
+                <label class="control-label" for="active_title_<?= $nextGroup->group_id; ?>"><?= $nextGroup->group_description; ?></label>
                 <div class="clear_fix"></div>
-        <?php } ?>
+            <?php } ?>
         </div>
 
         <div class="form-actions">
