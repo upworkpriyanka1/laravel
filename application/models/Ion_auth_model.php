@@ -473,7 +473,7 @@ class Ion_auth_model extends CI_Model
 
 			$data = array(
 			    'activation_code' => NULL,
-			    'user_active_status'          => 'A'
+			    'user_status'     => 'A'
 			);
 
 			$this->trigger_events('extra_where');
@@ -483,7 +483,7 @@ class Ion_auth_model extends CI_Model
 		{
 			$data = array(
 			    'activation_code' => NULL,
-			    'user_active_status'          => 'A'
+			    'user_status'     => 'A'
 			);
 
 
@@ -530,7 +530,7 @@ class Ion_auth_model extends CI_Model
 
 		$data = array(
 		    'activation_code' => $activation_code,
-		    'user_active_status'          => 'I'
+		    'user_status'     => 'I'
 		);
 
 		$this->trigger_events('extra_where');
@@ -851,7 +851,7 @@ class Ion_auth_model extends CI_Model
 			$data = array(
 			    'password'                => $this->hash_password($password, $salt),
 			    'forgotten_password_code' => NULL,
-			    'user_active_status'                  => 'A',
+			    'user_status'             => 'A',
 			 );
 
 			$this->db->update($this->tables['users'], $data, array('forgotten_password_code' => $code));
@@ -910,7 +910,7 @@ class Ion_auth_model extends CI_Model
 		    'email'      => $email,
 		    'ip_address' => $ip_address,
 		    'created_on' => time(),
-		    'user_active_status'     => ($manual_activation === false ? 'A' : 'W')
+		    'user_status'=> ($manual_activation === false ? 'A' : 'P')
 		);
 
 		if ($this->store_salt)
@@ -970,7 +970,7 @@ class Ion_auth_model extends CI_Model
         if (!$ret) { // if not valid email entered we check by username
             $this->identity_column= 'username';
         }
-		$query = $this->db->select($this->identity_column . ', email, id, password, user_active_status, last_login')
+		$query = $this->db->select($this->identity_column . ', email, id, password, user_status, last_login')
 		                  ->where($this->identity_column, $identity)
 		                  ->limit(1)
 		    			  ->order_by('id', 'desc')
@@ -995,29 +995,53 @@ class Ion_auth_model extends CI_Model
 
 			if ($password === TRUE)
 			{
-				if ($user->user_active_status == 'I')
+				if ($user->user_status != 'A')
 				{
 					$this->trigger_events('post_login_unsuccessful');
 					$this->set_error('login_unsuccessful_not_active');
-
 					return FALSE;
 				}
 
-				$this->set_session($user);
+                $groupsList = $this->users_mdl->getUsersGroupsList( false, 0, array('user_id'=> $user->id, 'status'=>'A', 'show_groups_description'=> 1) );
+//                echo '<pre>$groupsList::'.print_r($groupsList,true).'</pre>';
+                if ( count($groupsList) == 0 ) {
+                    $error_message= 'You account has no active Titles ';
+                    redirect('/msg/' . urldecode($error_message) . '/sign/danger');
+                }
+                if ( count($groupsList) == 1 ) {
+                    $logged_user_title_name= $groupsList[0]->group_name;
+                    $logged_user_title_description= $groupsList[0]->group_description;
+                    $this->set_session($user, $logged_user_title_name, $logged_user_title_description);
 
-				$this->update_last_login($user->id);
+                    $this->update_last_login($user->id);
 
-				$this->clear_login_attempts($identity);
+                    $this->clear_login_attempts($identity);
 
-				if ($remember && $this->config->item('remember_users', 'ion_auth'))
-				{
-					$this->remember_user($user->id);
-				}
+                    if ($remember && $this->config->item('remember_users', 'ion_auth'))
+                    {
+                        $this->remember_user($user->id);
+                    }
 
-				$this->trigger_events(array('post_login', 'post_login_successful'));
-				$this->set_message('login_successful');
+                    $this->trigger_events(array('post_login', 'post_login_successful'));
+                    $this->set_message('login_successful');
 
-				return TRUE;
+                    return TRUE;
+                }
+                if ( count($groupsList) > 1 ) { // user has more 1 active title - user must select his title to access other pages.
+                    $logged_user_title_name= $groupsList[0]->group_name;
+                    $logged_user_title_description= $groupsList[0]->group_description;
+                    $this->set_session($user, $logged_user_title_name, $logged_user_title_description);
+
+                    $this->update_last_login($user->id);
+
+                    $this->clear_login_attempts($identity);
+
+                    if ($remember && $this->config->item('remember_users', 'ion_auth'))
+                    {
+                        $this->remember_user($user->id);
+                    }
+                    redirect('/login/select_active_title');
+                }
 			}
 		}
 
@@ -1723,17 +1747,19 @@ class Ion_auth_model extends CI_Model
 	 * @return bool
 	 * @author jrmadsen67
 	 **/
-	public function set_session($user)
+	public function set_session($user, $logged_user_title_name= '', $logged_user_title_description= '')
 	{
 
 		$this->trigger_events('pre_set_session');
 
 		$session_data = array(
-		    'identity'             => $user->{$this->identity_column},
-		    $this->identity_column             => $user->{$this->identity_column},
-		    'email'                => $user->email,
-		    'user_id'              => $user->id, //everyone likes to overwrite id so we'll use user_id
-		    'old_last_login'       => $user->last_login
+		    'identity'                        => $user->{$this->identity_column},
+		    $this->identity_column            => $user->{$this->identity_column},
+		    'email'                           => $user->email,
+		    'user_id'                         => $user->id, //everyone likes to overwrite id so we'll use user_id
+		    'old_last_login'                  => $user->last_login,
+		    'logged_user_title_name'          => $logged_user_title_name,
+		    'logged_user_title_description'   => $logged_user_title_description
 		);
 
 		$this->session->set_userdata($session_data);
@@ -1832,6 +1858,7 @@ class Ion_auth_model extends CI_Model
 
 			$this->update_last_login($user->id);
 
+//            die("-1 XXZ MUST BE FIXED!");
 			$this->set_session($user);
 
 			// extend the users cookies if the option is enabled

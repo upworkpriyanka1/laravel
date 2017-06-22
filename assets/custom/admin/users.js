@@ -60,7 +60,7 @@ function usersListFilterApplied( ) {
         "show": true
     }  );
     $("#filter_username").val( jQuery.trim($("#hidden_filter_username").val()) )
-    $("#filter_user_active_status").val( jQuery.trim($("#hidden_filter_user_active_status").val()) )
+    $("#filter_user_status").val( jQuery.trim($("#hidden_filter_user_status").val()) )
     $("#filter_zip").val( jQuery.trim($("#hidden_filter_zip").val()) )
     $("#filter_user_group_id").val( jQuery.trim($("#hidden_filter_user_group_id").val()) )
 
@@ -91,7 +91,7 @@ function usersListFilterApplied( ) {
  *********************************/
 function usersListMakeFilterDialogSubmit() {
     $("#hidden_filter_username").val( jQuery.trim($("#filter_username").val()) )
-    $("#hidden_filter_user_active_status").val( jQuery.trim($("#filter_user_active_status").val()) )
+    $("#hidden_filter_user_status").val( jQuery.trim($("#filter_user_status").val()) )
     $("#hidden_filter_zip").val( jQuery.trim($("#filter_zip").val()) )
     $("#hidden_filter_user_group_id").val( jQuery.trim($("#filter_user_group_id").val()) )
 

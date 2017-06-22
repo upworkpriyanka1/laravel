@@ -11,7 +11,7 @@ class Clients_mdl extends CI_Model
     public $m_vendor_table;     // P-Provides; N-Does Not Provides
     private $ClientStatusLabelValueArray = Array('A' => 'Active', 'I' => 'Inactive', 'P' => 'Pending');  // values/labels for enum field
     private $UsersClientsActiveStatusLabelValueArray = Array('E' => 'Employee', 'O' => 'Out Of Staff', 'N' => 'Not Related');
-    private $UserActiveStatusLabelValueArray = Array('N' => 'New', 'A' => 'Active', 'I' => 'Inactive');
+    private $UserStatusLabelValueArray = Array('N' => 'New', 'A' => 'Active', 'I' => 'Inactive');
     private $ClientsVendorsActiveStatusLabelValueArray = Array('P' => 'Provides', 'N' => 'Does Not Provides');
 
     function __construct()
@@ -70,10 +70,10 @@ class Clients_mdl extends CI_Model
     }
 
 
-    public function getUserActiveStatusValueArray($ret_with_subarray= true)
+    public function getUserStatusValueArray($ret_with_subarray= true)
     {
         $ResArray = array();
-        foreach ($this->UserActiveStatusLabelValueArray as $Key => $Value) {
+        foreach ($this->UserStatusLabelValueArray as $Key => $Value) {
             if ( $ret_with_subarray ) {
                 $ResArray[] = array('key' => $Key, 'value' => $Value);
             }else {
@@ -83,10 +83,10 @@ class Clients_mdl extends CI_Model
         return $ResArray;
     }
 
-    public function getUserActiveStatusLabel($user_active_status)
+    public function getUserStatusLabel($user_status)
     {
-        if (!empty($this->UserActiveStatusLabelValueArray[$user_active_status])) {
-            return $this->UserActiveStatusLabelValueArray[$user_active_status];
+        if (!empty($this->UserStatusLabelValueArray[$user_status])) {
+            return $this->UserStatusLabelValueArray[$user_status];
         }
         return '';
     }
@@ -560,6 +560,28 @@ class Clients_mdl extends CI_Model
         $query = $this->db->get();
         return $query->result();
 //        $result = $query->result_array();
+    }
+
+    public  function getClients($us_id)
+    {
+
+//        $this->db->from('users_clients');
+        $this->db->where('uc_user_id', $us_id);
+        $this->db->from('users_clients');
+        $query = $this->db->get();
+
+        $res = $query->result();
+        $result = array();
+        foreach ($res as $re) {
+            $cl_id = $re->uc_client_id;
+
+
+            $this->db->where('cid', $cl_id);
+            $this->db->from('clients');
+            $query = $this->db->get();
+            $result[] = $query->result();
+        }
+        return $result;
     }
 
 }

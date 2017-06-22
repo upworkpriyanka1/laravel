@@ -45,7 +45,7 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
 							<tr>
 								<th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('user'), "username", $sort_direction, $sort ) ?></th>
 								<th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('client(s)'), "client_name", $sort_direction, $sort ) ?></th>
-                                <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('status'), "user_active_status", $sort_direction, $sort ) ?></th>
+                                <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('status'), "user_status", $sort_direction, $sort ) ?></th>
                                 <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('title'), "user_group_description", $sort_direction, $sort ) ?></th>
                                 <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('created'), "users.created_at", $sort_direction, $sort ) ?></th>
 <!--                                <th>--><?//= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('phone'), "phone", $sort_direction, $sort ) ?><!--</th>-->
@@ -67,7 +67,7 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
 										<td>
 											<?php echo $this->common_lib->groupItems($row->client_name,',', 'client(s)');?></a>
 										</td>
-                                        <td><?php echo $this->common_lib->get_user_active_status_label( $row->user_active_status ) ?></td>
+                                        <td><?php echo $this->common_lib->get_user_status_label( $row->user_status ) ?></td>
                                         <td><?php echo $row->user_group_description;?></td>
                                         <td><?php echo $ci->common_lib->format_datetime( $row->created_at) ?></td>
 <!--                                        <td>--><?php //echo $row->phone;?><!--</td>-->
@@ -112,7 +112,7 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
 
 					<input type="hidden" id="page_number" name="page_number" value="1">
 					<input type="hidden" id="hidden_filter_username" name="filter_username" value="<?= $filter_username ?>">
-					<input type="hidden" id="hidden_filter_user_active_status" name="filter_user_active_status" value="<?= $filter_user_active_status ?>">
+					<input type="hidden" id="hidden_filter_user_status" name="filter_user_status" value="<?= $filter_user_status ?>">
 					<input type="hidden" id="hidden_filter_zip" name="filter_zip" value="<?= $filter_zip ?>">
 					<input type="hidden" id="hidden_filter_user_group_id" name="filter_user_group_id" value="<?= $filter_user_group_id ?>">
 					<input type="hidden" id="hidden_filter_created_at_from" name="filter_created_at_from" value="<?= $filter_created_at_from ?>">
@@ -146,11 +146,11 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
 
 					<div class="row">
 						<div class="form-group" >
-							<label class="col-xs-12 col-sm-4 control-label" for="filter_user_active_status">User Active Status</label>
+							<label class="col-xs-12 col-sm-4 control-label" for="filter_user_status">User Status</label>
 							<div class="col-xs-12 col-sm-8">
-								<select id="filter_user_active_status"  class="form-control editable_field">
+								<select id="filter_user_status"  class="form-control editable_field">
 									<option value="">  -Select All-  </option>
-									<?php foreach( $userActiveStatusValueArray as $next_key=>$next_User_Active ) { ?>
+									<?php foreach( $userStatusValueArray as $next_key=>$next_User_Active ) { ?>
 										<option value="<?= $next_User_Active['key'] ?>" ><?= $next_User_Active['value'] ?></option>
 									<?php } ?>
 								</select>

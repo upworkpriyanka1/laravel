@@ -915,10 +915,10 @@
 							</select>
 						</div>
 						<div class="col-xs-6 col-sm-4" style="padding: 5px;">
-							<select id="select_user_active_status" class="form-control">
+							<select id="select_user_status" class="form-control">
 								<option value="">Select User Status</option>
-								<?php foreach( $user_active_status_array as $next_key=>$next_user_active_status ) { ?>
-									<option value="<?=$next_user_active_status['key']  ?>"><?=$next_user_active_status['value']  ?></option>
+								<?php foreach( $user_status_array as $next_key=>$next_user_status ) { ?>
+									<option value="<?=$next_user_status['key']  ?>"><?=$next_user_status['value']  ?></option>
 								<?php } ?>
 							</select>
 						</div>
@@ -995,7 +995,7 @@
 						<div class="col-xs-12 center">
 							You can set relation for user
 							<b><span id="span_related_user_username"></span></b>
-							&nbsp;( <b><span id="span_related_user_active_status_label"></span>&nbsp;status,&nbsp;<span id="span_uc_active_status_label"></span></b>&nbsp;)<br>
+							&nbsp;( <b><span id="span_related_user_status_label"></span>&nbsp;status,&nbsp;<span id="span_uc_active_status_label"></span></b>&nbsp;)<br>
 							&nbsp;with email&nbsp;<b><span id="span_related_user_email"></span></b>,&nbsp;with phone&nbsp;<b><span id="span_related_user_phone"></span></b>
 						</div>
 					</div>

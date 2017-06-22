@@ -48,7 +48,7 @@ class Main extends CI_Controller {
 			$has_error= true;
 		}
 
-		if ( !$has_error and !empty($activatedUser) and ( empty($activatedUser->user_active_status) or $activatedUser->user_active_status != 'W' ) ) {
+		if ( !$has_error and !empty($activatedUser) and ( empty($activatedUser->user_status) or $activatedUser->user_status != 'P' ) ) {
 			$error_message= 'Invalid activation code user is not in waiting for activation status';
 			$has_error= true;
 		}
@@ -80,7 +80,17 @@ class Main extends CI_Controller {
 		}*/
 		$password= $this->common_lib->generatePassword();
 
-    	$ret = $this->db->update( $this->users_mdl->m_users_table, array( 'user_active_status' => 'A', 'activation_code'=> '', 'password'=> $this->ion_auth->hash_password($password, false )), array( 'id' => $activatedUser->id ) );
+        $updateArray= array( 'user_status' => 'A', 'activation_code'=> '', 'password'=> $this->ion_auth->hash_password($password, false ));
+    	$ret = $this->db->update( $this->users_mdl->m_users_table, $updateArray, array( 'id' => $activatedUser->id ) );
+
+        $usersGroups = $this->users_mdl->getUsersGroupsList( false, 0, array('user_id'=> $activatedUser->id) );
+        foreach( $usersGroups as $nextGroups) {
+            if ( $nextGroups->status == 'P' ) { // has user group with pending status => we need to activate it
+                $ret = $this->db->update( $this->users_mdl->m_users_groups_table, ['status'=>'A'], array( 'id' => $nextGroups->id ) );
+            }
+        }
+
+//        die("-1 XXZ");
 		$success_message= 'Your account was activated successfully. Your password and new login was sent to you. Now you can login into the system!';
 		$title= 'Your account was activated at ' . $app_config['site_name'] . ' site';
 		$content = $this->cms_items_mdl->getBodyContentByAlias('account_activated',
@@ -140,7 +150,7 @@ class Main extends CI_Controller {
 			// Adding password and updating user status
 			$password= $this->common_lib->generatePassword();
 
-			////HIMISHA////$ret = $this->db->update( $this->users_mdl->m_users_table, array( 'user_active_status' => 'A', 'activation_code'=> '', 'password'=> $this->ion_auth->hash_password($password, false ) , 'plain_password'=> $password), array( 'id' => $user_id ) );
+			////HIMISHA////$ret = $this->db->update( $this->users_mdl->m_users_table, array( 'user_status' => 'A', 'activation_code'=> '', 'password'=> $this->ion_auth->hash_password($password, false ) , 'plain_password'=> $password), array( 'id' => $user_id ) );
 			
 			$success_message= 'Your account was activated successfully. Your password and new login was sent to you. Now you can login into the system!';
 
@@ -285,7 +295,7 @@ class Main extends CI_Controller {
 				//$u_data['plain_password'] = $password;
 				$p_password = $password;
 				$u_data['activation_code'] = '';
-				$u_data['user_active_status'] = 'A';
+				$u_data['user_status'] = 'A';
 	
 				$ret = $this->db->update( $this->users_mdl->m_users_table, $u_data, array( 'id' => $id ) );
 	
@@ -439,7 +449,7 @@ class Main extends CI_Controller {
 
 
 
-		if ( !$has_error and !empty($activated_user) and ( empty($activated_user->user_active_status) or $activated_user->user_active_status != 'A' ) ) {
+		if ( !$has_error and !empty($activated_user) and ( empty($activated_user->user_status) or $activated_user->user_status != 'A' ) ) {
 
 			$error_message= 'Invalid forgotten password code : user is not in waiting for forgotten password activation ! ';
 
@@ -537,26 +547,5 @@ class Main extends CI_Controller {
 		
 	}
 
-	public function msg()
-	{
-        $UriArray = $this->uri->uri_to_assoc(1);
-   		$msg= $this->common_lib->getParameter($this, $UriArray, [], 'msg');
-   		$sign= $this->common_lib->getParameter($this, $UriArray, [], 'sign');
-        $data['page_title']= '';
-        $data['msg']= $msg;
-        $data['sign']= $sign;
-        $data['meta_description']='';
-        $data['menu']		= array();
-        $data['user'] 		= $this->user;
-//		$data['job'] 		= $this->job;
-        $data['group'] 		= $this->group->name;
-        $data['page']		= 'main/msg';
-        $data['pls'] 		= array(); //page level scripts optional
-        $data['plugins'] 	= array(); //page plugins
-        $data['javascript'] = array(); //page javascript
-        $views				= array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php' );
-        $this->layout->view($views,$data);
-
-	}
 
 }
