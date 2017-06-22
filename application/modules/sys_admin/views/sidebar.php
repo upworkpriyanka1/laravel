@@ -12,8 +12,6 @@
     </li>
 
 
-
-
     <li class="no-padding">
 
             <ul class="collapsible collapsible-accordion">
@@ -79,6 +77,7 @@
                             <?php
                             $ci = &get_instance();
                             $logged_user_title_name= $ci->session->userdata['logged_user_title_name'];
+                            $logged_user_title_description= $ci->session->userdata['logged_user_title_description'];
 //                            echo '<pre>$logged_user_title_name::'.print_r($logged_user_title_name,true).'</pre>';
                             $this->load->model('users_mdl');
                             $logged_user= $this->users_mdl->getUserRowById( $user->user_id, array('show_file_info'=> 1, 'image_width'=> 32, 'image_height'=> 32) );
@@ -92,12 +91,12 @@
                                 <span><img alt="" class="img-circle" src="<?php echo base_url() ?>assets/avatar/avatar.png"></span>
                             <?php } ?>
 
-                            <span class="title"><?php echo $user->first_name." ". $user->last_name . ( !empty($logged_user_title_name) ? ', <b><small>'.$logged_user_title_name . '</small></b>' : '' );?></span>
+                            <span class="title"><?php echo $user->first_name." ". $user->last_name . ( !empty($logged_user_title_description) ? ', <b><small>'.$logged_user_title_description . '</small></b>' : '' );?></span>
                         </a>
                         <div class="collapsible-body">
                             <ul>
                                 <li class="nav-item">
-                                    <a href="<?= base_url($this->uri->segment(1).'/profile');?>">
+                                    <a href="<?= base_url($logged_user_title_name.'/profile');?>">
                                         <span class="fa fa-user"></span>
                                         <span><?= lang('my-profile'); ?></span>
                                     </a>
@@ -135,22 +134,12 @@
 
 </ul>
 
-
-
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="/assets/global/plugins/jquery.min.js" type="text/javascript" ></script>
 
 <script>
     $(document).ready(function(){
-//        $(".btn-add").click(function(){
-//            $(".email-add").append('<div class="input-field col-xs-12">' +
-//                '<input type="email" class="validate"> <label for="email">Email</label><div class="btn-rem"><i class="fa fa-times-circle" aria-hidden="true"></i></div></div>');
-//        });
-
           $("body").on('click','.btn-rem',function(){
-
-              console.log($(this));
+//              console.log($(this));
             $(this).parent().remove();
          });
 
@@ -160,25 +149,6 @@
                 $('.btn-rem-name').css('display', 'block');
             }
         });
-
-       /* $('body').on('click','.btn-rem-name',function(){
-
-            console.log(68)
-            $('input[name=name]').val('');
-//            $('.btn-rem-name').css('display', 'none');
-        });*/
-
-
-
-
-
-
-
     });
 
-
-
-
 </script>
-
-

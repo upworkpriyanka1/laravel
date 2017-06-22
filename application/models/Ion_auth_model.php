@@ -1010,8 +1010,8 @@ class Ion_auth_model extends CI_Model
                 }
                 if ( count($groupsList) == 1 ) {
                     $logged_user_title_name= $groupsList[0]->group_name;
-//                    echo '<pre>$logged_user_title_name::'.print_r($logged_user_title_name,true).'</pre>';
-                    $this->set_session($user, $logged_user_title_name);
+                    $logged_user_title_description= $groupsList[0]->group_description;
+                    $this->set_session($user, $logged_user_title_name, $logged_user_title_description);
 
                     $this->update_last_login($user->id);
 
@@ -1029,8 +1029,8 @@ class Ion_auth_model extends CI_Model
                 }
                 if ( count($groupsList) > 1 ) { // user has more 1 active title - user must select his title to access other pages.
                     $logged_user_title_name= $groupsList[0]->group_name;
-//                    echo '<pre>$logged_user_title_name::'.print_r($logged_user_title_name,true).'</pre>';
-                    $this->set_session($user, $logged_user_title_name);
+                    $logged_user_title_description= $groupsList[0]->group_description;
+                    $this->set_session($user, $logged_user_title_name, $logged_user_title_description);
 
                     $this->update_last_login($user->id);
 
@@ -1747,18 +1747,19 @@ class Ion_auth_model extends CI_Model
 	 * @return bool
 	 * @author jrmadsen67
 	 **/
-	public function set_session($user, $logged_user_title_name= '')
+	public function set_session($user, $logged_user_title_name= '', $logged_user_title_description= '')
 	{
 
 		$this->trigger_events('pre_set_session');
 
 		$session_data = array(
-		    'identity'             => $user->{$this->identity_column},
-		    $this->identity_column             => $user->{$this->identity_column},
-		    'email'                => $user->email,
-		    'user_id'              => $user->id, //everyone likes to overwrite id so we'll use user_id
-		    'old_last_login'       => $user->last_login,
-		    'logged_user_title_name'       => $logged_user_title_name
+		    'identity'                        => $user->{$this->identity_column},
+		    $this->identity_column            => $user->{$this->identity_column},
+		    'email'                           => $user->email,
+		    'user_id'                         => $user->id, //everyone likes to overwrite id so we'll use user_id
+		    'old_last_login'                  => $user->last_login,
+		    'logged_user_title_name'          => $logged_user_title_name,
+		    'logged_user_title_description'   => $logged_user_title_description
 		);
 
 		$this->session->set_userdata($session_data);
@@ -1857,7 +1858,7 @@ class Ion_auth_model extends CI_Model
 
 			$this->update_last_login($user->id);
 
-            die("-1 XXZ MUST BE FIXED!");
+//            die("-1 XXZ MUST BE FIXED!");
 			$this->set_session($user);
 
 			// extend the users cookies if the option is enabled

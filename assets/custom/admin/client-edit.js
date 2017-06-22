@@ -513,36 +513,6 @@ function providesVendorsSortingClick(field_title, sort_field_name, sort_directio
 
 /*  PROVIDED VENDORS BLOCK END */
 
-/**********************
- * Debugging function of different scalar/object value
- * params : oElem - scalar/object value. When oElem is too big(say in alert function) number values for from_line and till_line could be given to show big value by parts
- * access public
- * return none
- *********************************/
-function var_dump(oElem, from_line, till_line) {
-    var sStr = '';
-    if (typeof(oElem) == 'string' || typeof(oElem) == 'number')     {
-        sStr = oElem;
-    } else {
-        var sValue = '';
-        for (var oItem in oElem) {
-            sValue = oElem[oItem];
-            if (typeof(oElem) == 'innerHTML' || typeof(oElem) == 'outerHTML') {
-                sValue = sValue.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-            }
-            sStr += 'obj.' + oItem + ' = ' + sValue + '\n';
-        }
-    }
-    //alert( "from_line::"+(typeof from_line) )
-    if ( typeof from_line == "number" && typeof till_line == "number" ) {
-        return sStr.substr( from_line, till_line );
-    }
-    if ( typeof from_line == "number" ) {
-        return sStr.substr( from_line );
-    }
-    return sStr;
-}
-
 function client_phone_typeOnChange() {
     var client_phone_type= $("#client_phone_type").val()
     // alert( "client_phone_typeOnChange::" + client_phone_type )

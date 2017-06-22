@@ -2,6 +2,14 @@ ALTER TABLE `users_groups`
   ADD COLUMN 	`status` ENUM('A','I', 'P') NOT NULL DEFAULT 'P';
   
   
+  INSERT INTO `users_groups` ( `user_id`, `group_id`, `status`) VALUES
+( 1, 5, 'A'),
+( 1, 11, 'A');
+
+  
+UPDATE `users_groups` SET  `status`=  'A' WHERE `user_id` = 1;
+
+  
 ALTER TABLE `users_groups` 
   ADD INDEX `fk_users_groups_group_id_status_idx` (`group_id`, `status`);
   

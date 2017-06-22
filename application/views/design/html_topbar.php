@@ -1,3 +1,4 @@
+  <script src="/assets/global/plugins/jquery.min.js" type="text/javascript" ></script>
 </head>
 <?php 
     $query = $this->db->get("upload_bg");
@@ -18,14 +19,20 @@
                     <div class="page-header navbar navbar-fixed-top">
                         <!-- BEGIN PAGE TITLE-->
                         <?php
-                        $page_title= lang('dashboard-title');
-                            if (isset($this->uri->segments['2'])){
-                                $page_title= lang($this->uri->segment('2'));
-                            }
+                        $ci = &get_instance();
+                        $logged_user_title_description= $ci->session->userdata['logged_user_title_description'];
+                        $username= !empty($user->username) ? $user->username : '';
+                        if ( !empty($username) and !empty($logged_user_title_description) ) {
+                            $page_title = $logged_user_title_description . ' : ' . $username;
+                        } else {
+                            $page_title = lang('dashboard-title');
+                        }
+                        if (isset($this->uri->segments['2'])){
+                            $page_title= lang($this->uri->segment('2'));
+                        }
                         ?>
                         <h1 class="page-title" id="logo">
                             <span class="page-title-text">
-                           <!-- <a href="#" data-activates="nav-mobile" class="button-collapse" id="nav_mobile_button"><i class="material-icons">menu</i></a>-->
                                 <?php if($page_title != ''){ echo $page_title; }else{ ?>
                                    <?=$page_title?>
                                 <?php } ?>

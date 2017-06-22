@@ -677,11 +677,87 @@ class Sys_admin extends CI_Controller {
         $data['page_parameters_without_sort']= $page_parameters_without_sort;
         $data['page']		= 'clients/client'; //page view to load
         $data['plugins'] 	= array('validation'); //page plugins
-        $data['javascript'] = array( '/assets/global/js/client-overview-view.js','assets/custom/admin/client_overview_methods.js' );
+        $data['javascript'] = array( '/assets/global/js/client-overview-view.js','assets/custom/admin/client_overview_methods.js', 'assets/custom/common/funcs.js' );
         $views				=  array( 'clients/html_topbar_client', 'sidebar','design/page','design/html_footer', 'common_dialogs.php' );
         $this->layout->view($views, $data);
 
     }
+
+
+
+    /**********************
+     * get user info
+     * access public
+     * @params : email - email of user     \
+     * return user info if operation was successful, otherwise error
+     *********************************/
+    function get_user_info_by_email() {
+        $UriArray = $this->uri->uri_to_assoc(3);
+        $post_array = $this->input->post();
+        $email = $this->common_lib->getParameter($this, $UriArray, $post_array, 'email');
+        $client_id = $this->common_lib->getParameter($this, $UriArray, $post_array, 'client_id');
+        if ( empty($email) ) {
+            $this->output->set_content_type('application/json')->set_output(json_encode(array('ErrorMessage' => 'Invalid parameters !', 'ErrorCode' => 1, 'ret' => 0 )));
+            return;
+        }
+        $user    = $this->users_mdl->getSimilarUserByEmail( $email );
+        $groupsList = $this->users_mdl->getGroupsSelectionList(array(), 'id', 'asc', ['sys-admin']);
+        if ( !empty($user) ) {
+            $userGroupsList = $this->users_mdl->getUsersClientsList( false, 0, array('user_id'=>$user->id, 'client_id'=>$client_id) );
+            foreach( $groupsList as $next_key=>$nextGroup) {
+                foreach( $userGroupsList as $nextUserGroup) {
+                    if ( $nextGroup['key']  == $nextUserGroup->uc_group_id ) {
+                        unset($groupsList[$next_key]);
+                        break;
+                    }
+                }
+            }
+        }
+        $this->output->set_content_type('application/json')->set_output(json_encode(array('ErrorMessage' => '', 'ErrorCode' => (empty($user) ? 1 : 0), 'user' => $user, 'groupsList'=> $groupsList , 'groups_length'=> count($groupsList) )));
+    }
+
+    public function add_client_user_relation ()
+    {
+        $post_array = $this->input->post();
+        $app_config = $this->config->config;
+
+        $client_id = $this->common_lib->getParameter($this, array(), $post_array, 'client_id' );
+        $group_id = $this->common_lib->getParameter($this, array(), $post_array, 'group_id' );
+        $user_id = $this->common_lib->getParameter($this, array(), $post_array, 'user_id' );
+
+        $this->db->trans_start();
+
+        $userGroupsList = $this->users_mdl->getUsersGroupsList(false, 0, array('user_id'=> $user_id, 'group_id'=> $group_id));
+        if( count($userGroupsList) == 0 ) {
+            $ret = $this->db->insert($this->users_mdl->m_users_groups_table, array('user_id' => $user_id, 'group_id' => $group_id, 'status' => 'P'));
+        }
+        $ret = $this->admin_mdl->update_users_clients( $client_id, $user_id, 'N', $group_id );
+
+/*            $activation_page_url= $app_config['base_url']."activation/".$activation_code;
+            $title= 'You are registered at ' . $app_config['site_name'] . ' site';
+            $content = $this->cms_items_mdl->getBodyContentByAlias('user_register',
+                array('username' => $username,
+                    'first_name' => $first_name,
+                    'last_name' => $last_name,
+                    'site_name' => $app_config['site_name'],
+                    'support_signature' => $app_config['support_signature'],
+                    'activation_page_url' => $activation_page_url,
+                    'site_url' => $app_config['base_url'],
+                    'email' => $email
+                ), true);
+                $EmailOutput = $this->common_lib->SendEmail($email, $title, $content );*/
+
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+            $this->output->set_content_type('application/json')->set_output(json_encode(array('ErrorMessage' => 'Error creating user', 'ErrorCode' => 1, 'client_id' => $client_id, 'user_id' => $user_id, 'group_id' => $group_id )));
+        } else {
+            $this->db->trans_commit();
+        }
+        $this->output->set_content_type('application/json')->set_output(json_encode(array('ErrorMessage' => '', 'ErrorCode' => 0, 'client_id' => $client_id, 'user_id' => $user_id, 'group_id' => $group_id )));
+
+    } // public function add_client_user_relation ()
+
+
 
 
     public function save_client_related_user ()
@@ -740,7 +816,7 @@ class Sys_admin extends CI_Controller {
             $this->output->set_content_type('application/json')->set_output(json_encode(array('ErrorMessage' => '', 'ErrorCode' => 0, 'id' => $new_user_id )));
         }
 
-    }
+    } // public function save_client_related_user ()
 
 
     /**********************
@@ -761,7 +837,7 @@ class Sys_admin extends CI_Controller {
         $db_filter_related_users_type= $filter_related_users_type;
         $user_status = $this->common_lib->getParameter($this, $UriArray, $post_array, 'user_status');
         $sort= $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort', 'created_at');
-        $sort_direction = $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort_direction', 'asc');
+        $sort_direction = $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort_direction', 'desc');
         if ($filter_related_users_type == 'A') { // SHOW ALL USERS
             $db_filter_related_users_type= '';
         }
@@ -774,10 +850,10 @@ class Sys_admin extends CI_Controller {
         $this->load->library('pagination');
         $pagination_config= $this->common_lib->getPaginationParams('ajax');
         $pagination_config['base_url'] = base_url() . 'sys-admin/clients_edit_load_related_users' . '/page';
-        $filters= array( 'client_id'=>$filter_client_id, 'uc_active_status'=> $db_filter_related_users_type, 'show_uc_active_status'=> 1, 'username'=> $filter_related_users_filter, 'user_status'=> $user_status );
-        $users_count = $this->users_mdl->getUsersList( true, 0, $filters );
-        $filters['show_user_group']= 1;
-        $filters['show_user_client_relation_group']= 1;
+        $filters= array( 'client_id'=>$filter_client_id );
+        $users_count = $this->users_mdl->getUsersClientsList( true, 0, $filters );
+        $filters['show_user_username']= 1;
+        $filters['show_group_name']= 1;
 
         $pagination_config['total_rows'] = $users_count;
         $this->pagination->suffix = $this->clientsRelatedUsersPreparePageParameters($UriArray, $post_array, false, true);
@@ -787,7 +863,7 @@ class Sys_admin extends CI_Controller {
         $pagination_links = $this->pagination->create_links();
         $related_users_list= [];
         if ( $users_count > 0 ) {
-            $related_users_list = $this->users_mdl->getUsersList( false, '', $filters, $sort, $sort_direction );
+            $related_users_list = $this->users_mdl->getUsersClientsList( false, '', $filters, $sort, $sort_direction );
         }
         $data = array('related_users_list' => $related_users_list, 'client_id' => $filter_client_id, 'users_count'=> $users_count, 'related_users_type'=> $filter_related_users_type, 'related_users_filter'=> $filter_related_users_filter, 'sort_direction'=> $sort_direction, 'sort'=> $sort, 		'PageParametersWithSort'=> $PageParametersWithSort, 'PageParametersWithoutSort'=> $PageParametersWithoutSort,
                       'pagination_links'=> 		$pagination_links   );
@@ -841,8 +917,6 @@ class Sys_admin extends CI_Controller {
             return;
         }
         $client_id = $this->input->post('data[client_id]', 0);
-//        echo '<pre>$_POST::'.print_r($_POST,true).'</pre>';
-//        die("-1 XXZ");
         if ( $client_id == 'new' ) $client_id= 0;
         $similarClient= $this->clients_mdl->getSimilarClientByClient_Email( $client_email, $client_id );
         if (!empty($similarClient)) {

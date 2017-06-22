@@ -1,28 +1,28 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Volunteer extends CI_Controller {
+class Doctor extends CI_Controller {
 	public function __construct() {
 	   parent::__construct();
 
-	   $job = array('volunteer');
+	   $job = array('doctor');
 	/*check if logged in */
 			if (!$this->ion_auth->logged_in()){
 				redirect('./', 'refresh');
 			}
 		/*check if allowed to access page */
-//        echo '<h2>INSIDE OF Volunteer</h2>';
+//        echo '<h2>INSIDE OF Doctor</h2>';
 //        die("-1 XXZ");
 //			if (!$this->common_mdl->in_job($job)){
 //				echo "Not allowed";
 //				return die();
 //			}
 	/* load library & model with aliases, config and language */
-			$this->load->library('Volunteer_lib',NULL, 'nurse_lib');
-			$this->load->model('volunteer_mdl','nurse_mdl');
-			$this->lang->load('volunteer');
-			$this->config->load('volunteer_menu', true );
-			$this->menu    			= $this->config->item( 'volunteer_menu' );
+			$this->load->library('Doctor_lib',NULL, 'nurse_lib');
+			$this->load->model('doctor_mdl','nurse_mdl');
+			$this->lang->load('doctor');
+			$this->config->load('doctor_menu', true );
+			$this->menu    			= $this->config->item( 'doctor_menu' );
 
 			$this->user 			= $this->common_mdl->get_user();
 			$this->superviser 		=  $this->ion_auth->user($this->user->super_id)->row();
