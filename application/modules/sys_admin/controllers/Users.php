@@ -65,9 +65,9 @@ class Users extends CI_Controller
 
         $us_id =  $this->uri->segment(4, 0);
         $data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
-		$data['clients'] =$this->clients_mdl->getClients($us_id);
+		$data['clients']=$this->clients_mdl->getClients($us_id);
 //        echo "<pre>";
-//        print_r($data);
+//        print_r( $data);
 //        die;
 //		$this->load->view('users/user-overview-page');
 		$this->layout->view($views, $data);

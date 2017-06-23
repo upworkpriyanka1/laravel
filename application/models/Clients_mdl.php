@@ -17,6 +17,7 @@ class Clients_mdl extends CI_Model
     function __construct()
     {
         parent::__construct();
+        $this->load->model('users_mdl');
         $this->m_clients_vendors_table = 'clients_vendors';
         $this->m_clients_table = 'clients';
         $this->m_clients_types_table= 'clients_types';
@@ -565,7 +566,6 @@ class Clients_mdl extends CI_Model
     public  function getClients($us_id)
     {
 
-//        $this->db->from('users_clients');
         $this->db->where('uc_user_id', $us_id);
         $this->db->from('users_clients');
         $query = $this->db->get();
@@ -573,13 +573,14 @@ class Clients_mdl extends CI_Model
         $res = $query->result();
         $result = array();
         foreach ($res as $re) {
+            $group=$this->users_mdl->getGroupRowById($re->uc_group_id);
             $cl_id = $re->uc_client_id;
-
-
             $this->db->where('cid', $cl_id);
             $this->db->from('clients');
             $query = $this->db->get();
-            $result[] = $query->result();
+            $query->row()->group=$group;
+            $result[]= $query->row();
+
         }
         return $result;
     }

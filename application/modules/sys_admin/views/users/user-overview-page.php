@@ -75,20 +75,16 @@ echo link_tag('/assets/layouts/default/css/custom-users-overview-view.css');
                         <?php if(empty($clients)):?>
                         <tr><td colspan="4">No client association</td></tr>
                         <?php else:?>
-                        <?php  foreach($clients as $client):
-                            foreach($client as $val): ?>
+                        <?php  foreach($clients as $client):  ?>
                             <tr>
-                                <td> <a href="<?= base_url('/sys-admin/client/' . $val->cid . '/'); ?>">
-                                        <?php echo $val->client_name ?>
+                                <td> <a href="<?= base_url('/sys-admin/client/' . $client->cid . '/'); ?>">
+                                        <?php echo $client->client_name ?>
                                     </a></td>
-                                <td><?php echo $client_types[$val->clients_types_id]?></td>
-                                <td><?php echo $val->client_status ?></td>
-                                <td><?php echo $val->created_at?></td>
-
+                                <td><?php echo $client->group->name?></td>
+                                <td><?php echo $client->client_status ?></td>
+                                <td><?php echo $client->created_at?></td>
                             </tr>
-                        <?php endforeach;
-                            endforeach;
-                            ?>
+                        <?php  endforeach;  ?>
                         <?php endif;?>
                         </tbody>
                     </table>

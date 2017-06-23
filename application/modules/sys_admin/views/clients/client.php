@@ -93,7 +93,7 @@ echo link_tag('/assets/layouts/default/css/custom-client-overview-view.css');
                                     </div>
                                 </div>
 
-                                <div class="row">
+                                <div class="row" style="display: none">
                                     <div class="input-field col s12">
                                         <span id="span_message"></span>
                                     </div>
@@ -113,22 +113,21 @@ echo link_tag('/assets/layouts/default/css/custom-client-overview-view.css');
                                         </select>
                                     </div>
                                 </div>
+                                <div class="row md-foot-row">
+                                    <div class="col-xs-12">
+                                        <ul class ="md-foot-bot">
+                                            <li data-dismiss="modal">
+                                                <button class="btn"  data-dismiss="modal" role="button" type="button" >CANCEL</button>
+                                            </li>
+                                            <li> <!-- class="create-contact-save " data-action="save"-->
+                                                <button type="button" class="btn add_Userform" id="but-verify" onClick="javascript:onuserModalEditorChecking();" >CHECK</button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
 
                             </form>
 
-                        </div>
-
-                        <div class="modal-footer">
-                            <div class="col-xs-12">
-                                <ul class ="md-foot-bot">
-                                    <li data-dismiss="modal">
-                                        <button class="btn"  data-dismiss="modal" role="button" type="button" >CANCEL</button>
-                                    </li>
-                                    <li> <!-- class="create-contact-save " data-action="save"-->
-                                        <button type="button" class="btn add_Userform" id="but-verify" onClick="javascript:onuserModalEditorChecking();" >CHECK</button>
-                                    </li>
-                                </ul>
-                            </div>
                         </div>
                     </div>
                 </div>
