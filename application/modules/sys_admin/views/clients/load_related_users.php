@@ -26,7 +26,7 @@ if ( !isset($related_users_list) or empty($related_users_list) ) {
         <? foreach ($related_users_list as $next_related_user) { ?>
             <tr>
                 <td>
-                    <a href="<?= base_url('/sys-admin/users/users-overview/' . $next_related_user->id . '/'); ?>">
+                    <a href="<?= base_url('/sys-admin/users/users-overview/' . $next_related_user->user_id . '/'); ?>">
                         <?= $next_related_user->uc_id.'->'.$next_related_user->username; ?><small> (<?= $next_related_user->user_id.'->'.$next_related_user->user_email; ?>&nbsp;user_status:<?php echo $next_related_user->user_status .', '. $this->users_mdl->getUserStatusLabel($next_related_user->user_status) ?>)</small>
                     </a>
                 </td>
@@ -84,7 +84,7 @@ if ( !isset($related_users_list) or empty($related_users_list) ) {
                     ?>
                     <tr>
                         <td>
-                            <a href="<?= base_url('/sys-admin/users/users-overview/' . $next_related_user->id . '/'); ?>">
+                            <a href="<?= base_url('/sys-admin/users/users-overview/' . $next_related_user->uc_id . '/'); ?>">
                                 <?= $next_related_user->uc_id.'->'.$next_related_user->username; ?><small> (<?= $next_related_user->id.'->'.$next_related_user->email; ?>)</small>
                             </a>
 <!--                            (--><?php //echo $this->users_mdl->getUserStatusLabel($next_related_user->user_status) ?><!--)-->
@@ -99,7 +99,7 @@ if ( !isset($related_users_list) or empty($related_users_list) ) {
                     ?>
                     <tr>
                         <td>
-                            <a href="<?= base_url('/sys-admin/users/users-overview/' . $next_related_user->id . '/'); ?>">
+                            <a href="<?= base_url('/sys-admin/users/users-overview/' . $next_related_user->uc_id . '/'); ?>">
                                 <?= $next_related_user->uc_id.'->'.$next_related_user->username; ?><small> (<?= $next_related_user->id.'->'.$next_related_user->email; ?>)</small>
                             </a>
 <!--                            (--><?php //echo $this->users_mdl->getUserStatusLabel($next_related_user->user_status) ?><!--)-->
@@ -111,7 +111,7 @@ if ( !isset($related_users_list) or empty($related_users_list) ) {
                     </tr>
                     <tr>
                         <td>
-                            <a href="<?= base_url('/sys-admin/users/users-overview/' . $next_related_user->id . '/'); ?>">
+                            <a href="<?= base_url('/sys-admin/users/users-overview/' . $next_related_user->uc_id . '/'); ?>">
                                 <?= $next_related_user->uc_id.'->'.$next_related_user->username; ?><small> (<?= $next_related_user->id.'->'.$next_related_user->email; ?>)</small>
                             </a>
 <!--                            (--><?php //echo $this->users_mdl->getUserStatusLabel($next_related_user->user_status) ?><!--)-->
