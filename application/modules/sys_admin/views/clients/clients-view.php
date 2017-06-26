@@ -157,7 +157,7 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
                                     <?php echo $row->client_name;?>
                                 </a>
                             </td>
-                            <td><?php echo $row->type_description;?></td>
+                            <td><?php echo $client_types[$row->type_description];?></td>
                             <td><?php echo $this->common_lib->get_client_status_label($row->client_status);?>  </td>
                             <td></td>
                             <td></td>

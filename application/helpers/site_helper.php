@@ -81,7 +81,8 @@ function object_to_array($obj,$id){
 	foreach($obj as $row):
 		$vars = get_object_vars ( $row );
 			foreach($vars as $key=>$value) {
-				$array[$row->$id]=$value;
+
+				$array[$row->type_description]=$row->type_name;
 			}
 	endforeach;
 	return $array;

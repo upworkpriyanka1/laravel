@@ -851,16 +851,21 @@ ul.side-nav.fixed ul.collapsible-accordion-green{
 .phone .rem-sel{
     margin-top: 1rem;
 }
-
-.modal-footer ul li{
+.md-foot-row{
+    margin-bottom: 0;
+}
+.md-foot-bot{
+    text-align: right;
+}
+.md-foot-bot li{
     display: inline-block;
     margin: 5px;
 }
-.modal-footer ul li a{
+.md-foot-bot li a{
     color: #000;
     padding:0;
 }
-.modal-footer ul li .btn-flat{
+.md-foot-bot li .btn-flat{
     color: #fff;
     font-weight: bold;
     padding:0 15px;
@@ -870,7 +875,7 @@ ul.side-nav.fixed ul.collapsible-accordion-green{
 .btn-flat[disabled]{
     background-color: transparent !important;
 }
-.modal-footer ul li .btn{
+.md-foot-bot li .btn{
     color: #000;
     background-color: transparent !important;
     padding:0 15px;
