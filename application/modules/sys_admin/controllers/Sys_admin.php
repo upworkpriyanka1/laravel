@@ -12,8 +12,9 @@ class Sys_admin extends CI_Controller {
         $this->load->model('users_mdl');
         $this->load->model('cms_items_mdl');
         $this->lang->load('sys_admin');
-//		 $this->config->load('sys_admin_menu', true );
-//		 $this->menu    			= $this->config->item( 'sys_admin_menu' );
+		$this->lang->load('sys_admin_pt');
+		//$this->config->load('sys_admin_menu', true );
+		//$this->menu = $this->config->item( 'sys_admin_menu' );
 
         $this->config->load('sys_admin_menu_new', true );
         $this->menu    			= $this->config->item( 'sys_admin_menu_new' );
@@ -73,7 +74,22 @@ class Sys_admin extends CI_Controller {
 
         $this->layout->view($views,$data);
     }
+	
+	 public function grid_without_shortcuts(){
+        $data['meta_description']='';
+        $data['menu']		= $this->menu;
 
+        $data['user'] 		= $this->user;
+        $data['group'] 		= $this->group->name;
+
+        $data['page']		= 'main/grid-without-shortcuts';
+        $data['pls'] 		= array(); //page level scripts optional
+        $data['plugins'] 	= array(); //page plugins
+        $data['javascript'] = array(); //page javascript
+        $views				= array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php' );
+
+        $this->layout->view($views,$data);
+    }
     public function col3(){
         $data['meta_description']='';
         $data['menu']		= $this->menu;
@@ -106,11 +122,12 @@ class Sys_admin extends CI_Controller {
         $this->layout->view($views,$data);
     }
     public function eh(){
-
         $this->load->view('main/eh');
     }
+	public function pt(){
+        $this->load->view('main/pt');
+    }
     public function client_overview(){
-
         $this->load->view('main/client_overview');
     }
 

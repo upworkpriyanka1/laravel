@@ -62,20 +62,12 @@ class Superuser extends CI_Controller {
         $this->load->view('main_superuser/client-overview-settings-theme');
     }
 
-    public function client_overview_profile_form(){
+   public function client_overview_profile_form(){
         $UriArray = $this->uri->uri_to_assoc(3);
         $user_id=$UriArray['client-overview-profile-form'];
         $editable_user= $this->users_mdl->getUserRowById( $user_id, array('show_file_info'=> 1, 'image_width'=> 128, 'image_height'=> 128) );
         if ($this->input->server('REQUEST_METHOD') == 'GET'){
-            $data['page']		= 'main_superuser/client-overview-profile-form';
-            $data['menu']		= $this->menu;
-            $data['title']		= 'new-patient';
-            $data['pls'] 		= array(); //page level scripts optional
-            $data['plugins'] 	= array(); //page plugins
-            $data['javascript'] = array('/assets/global/js/client-overview.js'); //page javascript
-            $views				= array('layout/html_topbar','layout/sidebar','design/page','design/html_footer');
-            $data['user']       = $editable_user;
-            $this->layout->view($views,$data);
+            $this->load->view('main_superuser/client-overview-profile-form',['user'=>$editable_user]);
         }else if ($this->input->server('REQUEST_METHOD') == 'POST'){
             if(isset($_POST['submit'])){
                 $this->load->helper(array('form', 'url'));
@@ -124,15 +116,7 @@ class Superuser extends CI_Controller {
 
                 if ($this->form_validation->run() == FALSE)
                 {
-                    $data['page']		= 'main_superuser/client-overview-profile-form';
-                    $data['menu']		= $this->menu;
-                    $data['title']		= 'new-patient';
-                    $data['pls'] 		= array(); //page level scripts optional
-                    $data['plugins'] 	= array(); //page plugins
-                    $data['javascript'] = array('/assets/global/js/client-overview.js'); //page javascript
-                    $views				= array('layout/html_topbar','layout/sidebar','design/page','design/html_footer');
-                    $data['user']       = $editable_user;
-                    $this->layout->view($views,$data);
+                    $this->load->view('main_superuser/client-overview-profile-form',['user'=>$editable_user]);
                 }
                 else
                 {
@@ -140,7 +124,6 @@ class Superuser extends CI_Controller {
                     $this->db->update('users', $data);
                     $this->session->set_flashdata('massege', 'Updated successfully');
                     redirect('sys-admin/users/users-overview/'.$id.'/');
-
                 }
 
             }

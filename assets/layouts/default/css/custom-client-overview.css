@@ -235,9 +235,10 @@ header {
     transition: height 0.3s; }
 header h1#logo {
     display: inline-block;
-    height: 76px;
+    height: 50px;
     font-size: 48px;
     color: #666;
+	margin: 6px 0;
     font-weight: 300;
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
@@ -504,7 +505,7 @@ header.smaller{
         padding-top: 220px;
     }
     #profile-form-mock .page-content-wrapper .page-content {
-        padding-top: 150px !important;
+        padding-top: 60px !important;
     }
 }
 a.button-collapse.top-nav{

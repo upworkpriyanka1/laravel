@@ -29,7 +29,7 @@
     <link href="<?= base_url(); ?>assets/layouts/default/css/themes/light2.min.css" rel="stylesheet" type="text/css" id="style_color" />
     <link href="<?= base_url(); ?>assets/layouts/default/css/custom-eh.css" rel="stylesheet" type="text/css" />
     <!-- END THEME LAYOUT STYLES -->
-    <link rel="shortcut icon" href="/assets/favicon.ico" />
+    <link rel="shortcut icon" href="<?= base_url(); ?>assets/favicon.ico" />
 </head>
 <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-md">
 
@@ -42,7 +42,7 @@
                     <div class="page-title">
                         <h1  id="logo">
                             <!-- <a href="#" data-activates="nav-mobile" class="button-collapse" id="nav_mobile_button"><i class="material-icons">menu</i></a>-->
-                            <span class='logo_first'>S</span>Sacred&nbsp;City
+                            <span class='logo_first'>P</span>Patient
                         </h1>
                         <div class="rand-place">
 
@@ -446,246 +446,147 @@
                         <!-- BEGIN CONTENT -->
                         <div class="page-content-wrapper">
                             <!-- BEGIN CONTENT BODY -->
-                            <div class="page-content">
-
+                            <div class="page-content"><br/>
                                 <div class="clearfix"></div>
                                 <div class="col s12">
-                                    <div>
-                                        <div id="grid-container" class="scrollspy">
-                                            <p class="caption">We are using a standard 12 column fluid responsive grid system. The grid helps you layout your page in an ordered, easy fashion.</p>
-                                            <h3 class="header">Container</h3>
-                                            <p>The container class is not strictly part of the grid but is important in laying out content. It allows you to center your page content. The <code class=" language-markup">container</code> class is set to ~70% of the window width. It helps you center and contain your page content. We use the container to contain our body content.</p>
-                                            <h4>Demo</h4>
-                                            <p>Try the button below to see what the page looks like without containers</p>
-                                            <a id="container-toggle-button" class="btn waves-effect waves-light">Turn off Containers</a>
+									<ul class="tabs tab-demo z-depth-1">
+										<li class="tab"><a href="#circulatory" class=""><?php echo lang('circulatory')?></a></li>
+										<li class="tab"><a class="" href="#digestive"><?php echo lang('digestive')?></a></li>
+										<li class="tab"><a href="#endocrine" class=""><?php echo lang('endocrine')?></a></li>
+										<li class="tab"><a href="#skin_wounds" class=""><?php echo lang('skin_wounds')?></a></li>
+										<li class="tab"><a class="" href="#lymphatic"><?php echo lang('lymphatic')?></a></li>
+										<li class="tab"><a class="" href="#musc_skeletal"><?php echo lang('musc_skeletal')?></a></li>
+										<li class="tab"><a class="" href="#nervous"><?php echo lang('nervous')?></a></li>
+										<li class="tab"><a class="" href="#reproductive"><?php echo lang('reproductive')?></a></li>
+										<li class="tab"><a class="" href="#respiratory"><?php echo lang('respiratory')?></a></li>
+										<li class="tab"><a class="" href="#urinary"><?php echo lang('urinary')?></a></li>
+										<li class="tab"><a class="" href="#vs_pain"><?php echo lang('vs_pain')?></a></li>		
+									</ul>
+									<div id="circulatory" class="col s12">
+										<h3>Section 1</h3>
+										<p>The container class is not strictly part of the grid but is important in laying out content. It allows you to center your page content. The container class is set to ~70% of the window width. It helps you center and contain your page content. We use the container to contain our body content.</p>
 
-                                            <!-- Container Visual Demo -->
-                                            <div class="row">
-                                                <div class="col s12">
-                                                    <div class="browser-window">
-                                                        <div class="top-bar">
-                                                            <div class="circles">
-                                                                <div id="close-circle" class="circle"></div>
-                                                                <div id="minimize-circle" class="circle"></div>
-                                                                <div id="maximize-circle" class="circle"></div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="content">
-                                                            <div class="row">
+										<h3>Care Plan</h3>
+										<p>The tabs structure consists of an unordered list of tabs that have hashes corresponding to tab ids. Then when you click on each tab, only the container with the corresponding tab id will become visible.</p>	
+									</div>
+									<div id="digestive" class="col s12">
+										<h3>Section 2</h3>
+										<div class="row">
+											<div class="col-md-12">
+												<div class="input-field">
+														<select class="title-drop" name="data[lic-title]">
+															<option value="" disabled="" selected="">Title</option>
+															<option value="1">Superuser</option>
+															<option value="2">Administrative</option>
+															<option value="3">Registered Nurse</option>
+															<option value="4">Licensed Vocational Nurse</option>
+															<option value="5">Aid</option>
+															<option value="6">Quality Assurance</option>
+															<option value="7">Social Worker</option>
+															<option value="8">Spiritual Councellor</option>
+														</select>
+												</div>
+											</div>
+											<div class="col-md-12">
+												<div class="input-field">
+													<input id="us-lic" type="text" name="data[us-lic]">
+													<label for="us-lic">License</label>
+												</div>
+											</div>											
+										</div>
+										<h3>Care Plan</h3>
+										<p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>	
+									</div>
+									<div id="endocrine" class="col s12">
+										<h3>Section 3</h3>
+										<p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet.</p>
 
-                                                                <div id="site-layout-example-top" class="col s12">
-                                                                    <!-- <p class="flat-text-logo"></p> -->
-                                                                </div>
-                                                                <div id="site-layout-example-right" class="col s12">
-                                                                    <div class="container">
+										<h3>Care Plan</h3>
+										<p>The tabs structure consists of an unordered list of tabs that have hashes corresponding to tab ids. Then when you click on each tab, only the container with the corresponding tab id will become visible.</p>	
+									</div>
+									<div id="skin_wounds" class="col s12">
+										<h3>Section 4</h3>
+										<p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet.</p>
 
-                                                                        <p class="flat-text small"></p>
-                                                                        <p class="flat-text full-width"></p>
-                                                                        <p class="flat-text full-width"></p>
-                                                                        <p class="flat-text full-width"></p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+										<h3>Care Plan</h3>
+										<p>It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable.</p>	
+									</div>
+									<div id="lymphatic" class="col s12">
+										<h3>Section 5</h3>
+										<p>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.</p>
 
+										<h3>Care Plan</h3>
+										<p>It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>	
+									</div>
+									<div id="musc_skeletal" class="col s12">
+										<h3>Section 6</h3>
+										<p>The container class is not strictly part of the grid but is important in laying out content. It allows you to center your page content. The container class is set to ~70% of the window width. It helps you center and contain your page content. We use the container to contain our body content.</p>
 
-                                            <p>To add a container just put your content inside a <code class=" language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span></code> tag with a <code class=" language-markup">container</code> class. Here's an example of how your page might be set up.</p>
+										<h3>Care Plan</h3>
+										<p>The tabs structure consists of an unordered list of tabs that have hashes corresponding to tab ids. Then when you click on each tab, only the container with the corresponding tab id will become visible.</p>	
+									</div>
+									<div id="nervous" class="col s12">
+										<h3>Section 7</h3>
+										<div class="row">
+											<div class="col-md-12">
+												<div class="input-field">
+													<input id="us-lic" type="text" name="data[us-lic]">
+													<label for="us-lic">Company</label>
+												</div>
+											</div>
+											<div class="col-md-12">
+												<div class="input-field">
+													<input id="us-lic" type="text" name="data[us-lic]">
+													<label for="us-lic">Address</label>
+												</div>
+											</div>											
+										</div>
 
-                                          <pre class=" language-markup">
-                                              <code class=" language-markup">
-                                                  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>
-                                                  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>container<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-                                                  <span class="token comment" spellcheck="true">&lt;!-- Page Content goes here --&gt;</span>
-                                                  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
-                                                  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
-                                              </code>
-                                          </pre>
-                                        </div>
+										<h3>Care Plan</h3>
+										<p>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...</p>	
+									</div>
+									<div id="reproductive" class="col s12">
+										<h3>Where does it come from?</h3>
+										<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. </p>
 
-                                        <!-- Grid visual demo -->
-                                        <div id="grid-intro" class="scrollspy">
-                                            <h3 class="header">Multi-column</h3>
+										<h3>Care Plan</h3>
+										<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. </p>	
+									</div>
+									<div id="respiratory" class="col s12">
+										<h3>Section 9</h3>
+										<div class="row">
+											<div class="col-md-12">
+												<div class="input-field">
+													<input id="us-lic" type="text" name="data[us-lic]">
+													<label for="us-lic">First Name</label>
+												</div>
+											</div>
+											<div class="col-md-12">
+												<div class="input-field">
+													<input id="us-lic" type="text" name="data[us-lic]">
+													<label for="us-lic">Last Name</label>
+												</div>
+											</div>											
+										</div>
 
-                                            <div class="row">
-                                                <div class="pad-card">
-                                                    <div class="cards-container">
-                                                        <div class="card white">
-                                                            <div class="card-content black-text">
-                                                                <span class="card-title">Card Title</span>
-                                                                <p>I am a very simple card. I am good at containing small bits of information.
-                                                                    I am convenient because I require little markup to use effectively.</p>
-                                                            </div>
-                                                            <div class="card-action">
-                                                                <a href="#">This is a link</a>
-                                                                <a href="#">This is a link</a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card white">
-                                                            <div class="card-content black-text">
-                                                                <span class="card-title">Card Title</span>
-                                                                <p>I am a very simple card. I am good at containing small bits of information.</p>
-                                                            </div>
-                                                            <div class="card-action">
-                                                                <a href="#">This is a link</a>
-                                                                <a href="#">This is a link</a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card white">
-                                                            <div class="card-content black-text">
-                                                                <span class="card-title">Card Title</span>
-                                                                <p>I am a very simple card. I am good at containing small bits of information.
-                                                                    I am convenient because I require little markup to use effectively.</p>
-                                                            </div>
-                                                            <div class="card-action">
-                                                                <a href="#">This is a link</a>
-                                                                <a href="#">This is a link</a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card white">
-                                                            <div class="card-content black-text">
-                                                                <span class="card-title">Card Title</span>
-                                                                <p>I am a very simple card. I am good at containing small bits of information.
-                                                                    I am convenient because I require little markup to use effectively.</p>
-                                                            </div>
-                                                            <div class="card-action">
-                                                                <a href="#">This is a link</a>
-                                                                <a href="#">This is a link</a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card white">
-                                                            <div class="card-content black-text">
-                                                                <span class="card-title">Card Title</span>
-                                                                <p>I am a very simple card. I am good at containing small bits of information.
-                                                                    I am convenient because I require little markup to use effectively.</p>
-                                                            </div>
-                                                            <div class="card-action">
-                                                                <a href="#">This is a link</a>
-                                                                <a href="#">This is a link</a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card white">
-                                                            <div class="card-content black-text">
-                                                                <span class="card-title">Card Title</span>
-                                                                <p>I am a very simple card. I am good at containing small bits of information.
-                                                                    I am convenient because I require little markup to use effectively.</p>
-                                                            </div>
-                                                            <div class="card-action">
-                                                                <a href="#">This is a link</a>
-                                                                <a href="#">This is a link</a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card white">
-                                                            <div class="card-content black-text">
-                                                                <span class="card-title">Card Title</span>
-                                                                <p>I am a very simple card. I am good at containing small bits of information</p>
-                                                            </div>
-                                                            <div class="card-action">
-                                                                <a href="#">This is a link</a>
-                                                                <a href="#">This is a link</a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card white">
-                                                            <div class="card-content black-text">
-                                                                <span class="card-title">Card Title</span>
-                                                                <p>I am a very simple card. I am good at containing small bits of information.
-                                                                    I am convenient because I require little markup to use effectively.</p>
+										<h3>Care Plan</h3>
+										<p>But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?</p>	
+									</div>
+									<div id="urinary" class="col s12">
+										<h3>Section 10</h3>
+										<p>On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain.</p>
 
-                                                                <p>This card has some extra info, which will make it taller. This is OK because we're using CSS columns!!!</p>
-                                                            </div>
-                                                            <div class="card-action">
-                                                                <a href="#">This is a link</a>
-                                                                <a href="#">This is a link</a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card white">
-                                                            <div class="card-content black-text">
-                                                                <span class="card-title">Card Title</span>
-                                                                <p>I am a very simple card. I am good at containing small bits of information.
-                                                                    I am convenient because I require little markup to use effectively.</p>
-                                                                <p>This card has some extra info, which will make it taller. This is OK because we're using CSS columns!!!</p>
-                                                            </div>
-                                                            <div class="card-action">
-                                                                <a href="#">This is a link</a>
-                                                                <a href="#">This is a link</a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card white">
-                                                            <div class="card-content black-text">
-                                                                <span class="card-title">Card Title</span>
-                                                                <p>I am a very simple card. I am good at containing small bits of information.
-                                                                    I am convenient because I require little markup to use effectively.</p>
-                                                                <p>This card has some extra info, which will make it taller. This is OK because we're using CSS columns!!!</p>
-                                                            </div>
-                                                            <div class="card-action">
-                                                                <a href="#">This is a link</a>
-                                                                <a href="#">This is a link</a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card white">
-                                                            <div class="card-content black-text">
-                                                                <span class="card-title">Card Title</span>
-                                                                <p>I am a very simple card. I am good at containing small bits of information.
-                                                                    I am convenient because I require little markup to use effectively.</p>
-                                                                <p>This card has some extra info, which will make it taller. This is OK because we're using CSS columns!!!</p>
-                                                            </div>
-                                                            <div class="card-action">
-                                                                <a href="#">This is a link</a>
-                                                                <a href="#">This is a link</a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card white">
-                                                            <div class="card-content black-text">
-                                                                <span class="card-title">Card Title</span>
-                                                                <p>I am a very simple card. I am good at containing small bits of information.
-                                                                    I am convenient because I require little markup to use effectively.</p>
-                                                            </div>
-                                                            <div class="card-action">
-                                                                <a href="#">This is a link</a>
-                                                                <a href="#">This is a link</a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card white">
-                                                            <div class="card-content black-text">
-                                                                <span class="card-title">Card Title</span>
-                                                                <p>I am a very simple card. I am good at containing small bits of information.
-                                                                    I am convenient because I require little markup to use effectively.</p>
-                                                            </div>
-                                                            <div class="card-action">
-                                                                <a href="#">This is a link</a>
-                                                                <a href="#">This is a link</a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card white">
-                                                            <div class="card-content black-text">
-                                                                <span class="card-title">Card Title</span>
-                                                                <p>I am a very simple card. I am good at containing small bits of information.
-                                                                    I am convenient because I require little markup to use effectively.</p>
-                                                            </div>
-                                                            <div class="card-action">
-                                                                <a href="#">This is a link</a>
-                                                                <a href="#">This is a link</a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card white">
-                                                            <div class="card-content black-text">
-                                                                <span class="card-title">Card Title</span>
-                                                                <p>I am a very simple card. I am good at containing small bits of information.
-                                                                    I am convenient because I require little markup to use effectively.</p>
-                                                            </div>
-                                                            <div class="card-action">
-                                                                <a href="#">This is a link</a>
-                                                                <a href="#">This is a link</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+										<h3>Care Plan</h3>
+										<p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>	
+									</div>
+									<div id="vs_pain" class="col s12">
+										<h3>The standard Lorem Ipsum passage, used since the 1500s</h3>
+										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 
-                                        </div>
-                                    </div>
+										<h3>Care Plan</h3>
+										<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>	
+									</div>
+									
                                 </div>
                             </div><!-- ./page-conten -->
                         </div>
@@ -727,8 +628,8 @@
 
 
     <!--[if lt IE 9]>
-    <script src="/assets/global/plugins/respond.min.js" type="text/javascript" ></script>
-    <script src="/assets/global/plugins/excanvas.min.js" type="text/javascript" ></script>
+    <script src="<?= base_url(); ?>assets/global/plugins/respond.min.js" type="text/javascript" ></script>
+    <script src="<?= base_url(); ?>assets/global/plugins/excanvas.min.js" type="text/javascript" ></script>
     <![endif]-->
     <!-- BEGIN CORE PLUGINS -->
     <script src="<?= base_url(); ?>assets/global/plugins/jquery.min.js" type="text/javascript" ></script>
