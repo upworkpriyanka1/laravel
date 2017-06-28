@@ -413,9 +413,9 @@ header.smaller{
 }
 @media only screen and (min-width: 993px) {
     .cards-container {
-        -webkit-column-count: 3;
-        -moz-column-count: 3;
-        column-count: 3;
+        -webkit-column-count: 4;
+        -moz-column-count: 4;
+        column-count: 4;
     }
 }
 @media only screen and (min-width: 1960px) {
@@ -493,20 +493,19 @@ a.button-collapse.top-nav{
 
 }
 .rand-place .locat-call{
-    width: 240px !important;
-    margin:10px;
-    height: 80px;
-    overflow: auto;
-    background-color: #ccc;
-    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.3);
-    -webkit-overflow-scrolling: touch;
-    scrollbar-base-color: #666;
-    scrollbar-3dlight-color: #fff;
-    scrollbar-highlight-color: #666;
-    scrollbar-track-color: #E9E9E9;
-    scrollbar-arrow-color: #666;
-    scrollbar-shadow-color: #666;
-    scrollbar-dark-shadow-color: #666;
+	width: 240px !important;
+	margin:10px;
+	height: 80px;
+	overflow: auto;
+	background-color: #ccc;
+	-webkit-overflow-scrolling: touch;
+	scrollbar-base-color: #666;
+	scrollbar-3dlight-color: #fff;
+	scrollbar-highlight-color: #666;
+	scrollbar-track-color: #E9E9E9;
+	scrollbar-arrow-color: #666;
+	scrollbar-shadow-color: #666;
+	scrollbar-dark-shadow-color: #666;
 }
 
 .rand-place .locat-call::-webkit-scrollbar-thumb,
