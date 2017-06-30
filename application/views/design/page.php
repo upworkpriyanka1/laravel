@@ -1,10 +1,6 @@
 <?php if ( $this->common_lib->is_ajax_request() ) : ?>
 
     <?php
-    echo "<pre>";
-    print_r($page);
-    echo "</pre>";
-    die();
     if (isset($page)){
         $this->load->view($page);
         return;
