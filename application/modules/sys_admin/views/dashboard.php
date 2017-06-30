@@ -8,6 +8,7 @@
         Client: <?= $user->username;?><br />
         <pre>
         <?php
+		echo "test </br>";
             var_dump($_SESSION);
             ?>
         </div>
