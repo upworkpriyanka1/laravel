@@ -42,7 +42,7 @@ class Signup extends CI_Controller {
 //		$this->job = $this->common_mdl->get_users_jobs()->row();
     }
     public function index(){
-		$data['page']		= 'Signup'; 
+		$data['page']		= 'sign-up/signup'; 
         array('','','design/page','', '');
         $this->layout->view($views, $data);
     }
