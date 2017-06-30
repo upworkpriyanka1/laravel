@@ -5,7 +5,7 @@ class Signup extends CI_Controller {
 
     public function index(){
 		$data['page']		= 'Signup'; 
-        array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php');
+        array('','','design/page','', '');
         $this->layout->view($views, $data);
     }
 }
