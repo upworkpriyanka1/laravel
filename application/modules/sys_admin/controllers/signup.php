@@ -33,7 +33,7 @@ class Signup extends CI_Controller {
 //            if ( $logged_user_title_name != 'sys-admin' ) {
 //                redirect('/msg/' . urldecode(lang("title_has_no_access_page")) . '/sign/danger');
 //            }
-            $this->group 			= $this->ion_auth->get_users_groups()->row();
+            $this->group 			= $this->ion_auth->get_users_groups()->row(); 
         }
 
 
