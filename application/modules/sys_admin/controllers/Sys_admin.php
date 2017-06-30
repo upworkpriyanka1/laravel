@@ -1831,6 +1831,19 @@ class Sys_admin extends CI_Controller {
         $data['javascript'] = array( 'assets/custom/admin/contacts-type-add-validation.js');
         $views				= array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php' );
         $this->layout->view($views, $data);
+    }  
+	/**********************
+     * view and add Contact Types
+     * access public
+     * @params
+     * return view
+     *********************************/
+    public function signup(){
+        //		************************************************************* ____START____ **********************************************************************************/
+
+        $data['page']		='signup/signup';
+        $views				= array('','','design/page','', '' );
+        $this->layout->view($views, $data);
     }
 
     /**********************
