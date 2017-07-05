@@ -225,6 +225,9 @@ li[name='active'] {
     font-size: 12px;
     margin-left: 10px;
 }
+button.btn.btn-plus.sbold.btn-sm.pull-right.create_contact {
+    margin-top: 11px;
+}
 .btn-filter i, .btn-plus i{
     font-size: 12px;
 }
@@ -1139,15 +1142,15 @@ body{
 .table-hover>tbody>tr:hover .icon-type-pen{
     opacity:1 !important;
 }
-#add-clients-type .btn-type{
+#add-clients-type .btn-type, #edit-clients-type .btn-type{
     color: #000;
     background-color: transparent !important;
     padding: 0;
     margin: 0 15px;
 }
-#add-clients-type .input-field .prefix ~ label {
+#add-clients-type .input-field .prefix ~ label, #edit-clients-type .input-field .prefix ~ label {
     margin-left: 5rem;
 }
-#add-clients-type .row:last-child{
+#add-clients-type .row:last-child, #edit-clients-type .row:last-child{
     margin-bottom: 0;
 }
