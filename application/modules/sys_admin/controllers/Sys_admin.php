@@ -20,7 +20,8 @@ class Sys_admin extends CI_Controller {
         $this->menu    			= $this->config->item( 'sys_admin_menu_new' );
 
         $eh_url = base_url() . 'sys-admin/eh';
-        if(current_url()!=$eh_url){
+        $manage_client_type = base_url() . 'sys-admin/manage-client-type';
+        if(current_url()!=$eh_url && current_url()!=$manage_client_type){
             $group = array('sys-admin');
             if (!$this->ion_auth->in_group($group)){
                 redirect( base_url() . "login/logout" );
@@ -1747,6 +1748,22 @@ class Sys_admin extends CI_Controller {
         $data['javascript'] = array( 'assets/custom/admin/client-type-add-validation.js');
         $views				= array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php' );
         $this->layout->view($views, $data);
+    }
+
+    /**********************
+     * view and add Contact Types
+     * access public
+     * @params
+     * return view
+     *********************************/
+    public function manage_client_type(){
+
+        //		************************************************************* ____START____ **********************************************************************************
+        $data['menu']		= $this->menu;
+        $data['user'] 		= $this->user;
+        $data['page']		='clients/manage_client_type';
+        $views				= array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php' );
+        $this->layout->view( $views,$data);
     }
 
     /**********************

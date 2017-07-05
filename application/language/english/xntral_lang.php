@@ -77,6 +77,8 @@ $lang['sacred-city']            = "Sacred City";
 $lang['license']                = "License";
 $lang['type']                   = "Type";
 $lang['users']                  = "Users";
+$lang['SAVE']                  = "SAVE";
+
 
 
 
