@@ -668,7 +668,7 @@
                                         <div class="row">
                                             <div class="input-field col s12">
                                                 <i class="material-icons prefix">email</i>
-                                                <input id="email" type="email" class="validate required_form" onchange="validateFormEnableOrDisable('form_client_edit2');"/>
+                                                <input id="email" type="email" class="validate required_form" onChange="validateFormEnableOrDisable('form_client_edit2');"/>
                                                 <label for="email">Verify email address</label>
                                             </div>
                                         </div>

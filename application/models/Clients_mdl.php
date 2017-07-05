@@ -584,5 +584,19 @@ class Clients_mdl extends CI_Model
         }
         return $result;
     }
+	
+	// Function to get Client detail based on client id 
+	public  function getClientDetail($client_id)
+    {
+
+        $this->db->where('cid', $client_id);
+        $this->db->from('clients');
+        $query = $this->db->get();
+		$res = $query->row();
+		/*echo "res is ";
+		print_r($res);
+		exit(0);*/
+		return $res;
+    }
 
 }

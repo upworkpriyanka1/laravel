@@ -395,7 +395,7 @@
                                             10 Rows(Page # <strong>1 </strong>)
                                         </h4>
 
-                                        <button type="button" class="dropdown-button btn filter_dropdown btn-filter " data-activates="dropdown1" onclick="javascript:clientsListFilterApplied();" data-toggle="tooltip" data-html="true" data-placement="top" title="" data-original-title="Open dialog window to set filter for Clients.  "><i class="glyphicon glyphicon-filter"></i>&nbsp;Filter </button>
+                                        <button type="button" class="dropdown-button btn filter_dropdown btn-filter " data-activates="dropdown1" onClick="javascript:clientsListFilterApplied();" data-toggle="tooltip" data-html="true" data-placement="top" title="" data-original-title="Open dialog window to set filter for Clients.  "><i class="glyphicon glyphicon-filter"></i>&nbsp;Filter </button>
                                         <button type="button" class="btn btn-plus sbold btn-sm pull-right" data-toggle="modal" data-target=""><i class="glyphicon glyphicon-plus"></i></button>
                                     </div>
                                     <!-- Dropdown Structure -->

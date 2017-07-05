@@ -1,2 +1,15 @@
 # 
 # Apply __SQL/patch_16.sql after making sure that there are no duplicate emails.
+
+### BBITS QUERIES START ###
+ 
+ALTER TABLE `users_clients` ADD `username` VARCHAR(100) NOT NULL AFTER `uc_active_status`, ADD `password` VARCHAR(255) NOT NULL AFTER `username`, ADD `salt` VARCHAR(255) NOT NULL AFTER `password`, ADD `activation_code` VARCHAR(40) NOT NULL AFTER `salt`;
+
+ALTER TABLE `users_clients` ADD `updated_at` DATETIME NULL AFTER `created_at`;
+
+ALTER TABLE `users_clients` CHANGE `uc_active_status` `uc_active_status` ENUM('N', 'P', 'A', 'I', 'L') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'P';
+
+DELETE FROM `users_clients` WHERE `uc_user_id` = 1 
+
+INSERT INTO `users_clients` (`uc_user_id`, `uc_client_id`, `uc_group_id`, `uc_active_status`, `username`, `password`, `salt`, `activation_code`, `created_at`,`updated_at`) VALUES ('1', '1', '1', 'A', '', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', '', CURRENT_TIMESTAMP, '');
+

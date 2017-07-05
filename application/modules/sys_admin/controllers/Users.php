@@ -324,6 +324,8 @@ class Users extends CI_Controller
 			$data['user_image_name']=['avatar.png'];
 		}
 
+		
+
 		$data['editable_user']		= $editable_user;
 
 		$data['page_parameters_with_sort']= $page_parameters_with_sort;
@@ -445,9 +447,6 @@ class Users extends CI_Controller
 
 	private function user_edit_makesave($is_insert, $user_id, $select_on_update, $redirect_url, $page_parameters_with_sort, $post_array, $app_config ) {
 
-		/*echo "here we are...post array is : ";
-		print_r($post_array);
-		exit(0);*/
 		$this->db->trans_start( );
 		$ip_address= !empty($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
 
@@ -465,7 +464,7 @@ class Users extends CI_Controller
 			// For default waiting status
 			$post_array['data']['user_status'] = "P";
 
-			$additional_data= array(  'ip_address'=> $ip_address, 'user_status' => $post_array['data']['user_status'], 'first_name' => $post_array['data']['first_name'], 'last_name' => $post_array['data']['last_name'], 'city' => $post_array['data']['city'], 'state' => $post_array['data']['state'], 'zip' => $post_array['data']['zip'],  'address1' => $post_array['data']['address1'], 'address2' => $post_array['data']['address2'], 'mobile' => $post_array['data']['mobile'], 'phone' => $post_array['data']['phone'], 'created_on'=> now(), 'avatar' => $post_array['data']['avatar'], 'is_multi_auth' => $auth, 'created_at' => date('Y-m-d H:i:s'), 'super_id' => $this->user->user_id );
+			$additional_data= array(  'ip_address'=> $ip_address, 'user_status' => $post_array['data']['user_status'], 'first_name' => $post_array['data']['first_name'], 'last_name' => $post_array['data']['last_name'], 'city' => $post_array['data']['city'], 'state' => $post_array['data']['state'], 'zip' => $post_array['data']['zip'],  'address1' => $post_array['data']['address1'], 'address2' => $post_array['data']['address2'], 'mobile' => $post_array['data']['mobile'], 'phone' => $post_array['data']['phone'], 'created_on'=> now(), 'avatar' => $post_array['data']['avatar'], 'is_multi_auth' => $auth, 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s'), 'super_id' => $this->user->user_id, 'uc_client_id' => $post_array['hdn_client_id'], 'uc_active_status' => 'P' );
 
 			if  (  !empty( $post_array['cbx_clear_image'])  )  {
 				$additional_data['avatar']= '';
@@ -475,15 +474,22 @@ class Users extends CI_Controller
 			}
 			$activation_code= $this->common_lib->GenerateActivationCode();
 			$additional_data['activation_code']= $activation_code;
+			
+			//$additional_data['uc_user_id']= $user_id;
+			//$additional_data['uc_client_id']= $post_array['hdn_client_id'];
+			//$additional_data['uc_active_status']= 'P';
+			
 
 			$user_id = $this->ion_auth->register( $post_array['data']['username'], '', $post_array['data']['email'], $additional_data,   array(  $user_group_array  )  );
 
 			// add data to users_clients table
 			//hdn_client_id
-			$insertClient['uc_user_id']= $user_id;
-			$insertClient['uc_client_id']= $post_array['hdn_client_id'];
+			/*$insertClient['uc_user_id']= $user_id;
+			$insertClient['uc_client_id']= $post_array['hdn_client_id'];*/
+			/*$additional_data['uc_user_id']= $user_id;
+			$additional_data['uc_client_id']= $post_array['hdn_client_id'];
 			//$insertClient['uc_active_status']= 'P';
-			$insert_id=$this->common_mdl->db_insert('users_clients',$insertClient, TRUE);
+			$insert_id=$this->common_mdl->db_insert('users_clients',$additional_data, TRUE);*/
 
 
 			if ( $post_array['data']['user_status'] == "P" ) { // sent message with activation code
@@ -516,10 +522,7 @@ class Users extends CI_Controller
 			if ( $post_array['data']['user_status'] == "P" ) { // sent message with activation code
 				$activation_code= $this->common_lib->generateActivationCode();
 				$update_data['activation_code']= $activation_code;
-			} // if ( $post_array['data']['user_status'] == "W" ) { // sent message with activation code
-//			echo "<pre>";
-//			print_r($update_data);
-//			die;
+			} 
 			$this->db->update($this->users_mdl->m_users_table, $update_data, array('id' => $user_id));
 			$user_groups_array= array();
 			foreach( $_POST as $next_key=>$next_value ) {

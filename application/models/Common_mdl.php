@@ -276,5 +276,14 @@ class Common_mdl extends CI_Model {
 		}
 	}
 
+	// Function to get list of all groups
+	public function get_all_groups()
+	{
+		$this->db->select('*');
+		$groups = $this->db->from('groups');
+		echo "groups are : ";
+		print_r($groups);
+		exit(0);
+	}
 
 }

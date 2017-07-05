@@ -26,6 +26,8 @@ class Main extends CI_Controller {
 		$app_config = $this->config->config;
 		$UriArray = $this->uri->uri_to_assoc(1);
 		$activation_code= $this->common_lib->getParameter($this, $UriArray, array(), 'activation');
+		//$activatedUser= $this->users_mdl->getUserRowByActivationCode($activation_code);
+		//check activation code in users_clients table instead of users table
 		$activatedUser= $this->users_mdl->getUserRowByActivationCode($activation_code);
 //        echo '<pre>$activatedUser::'.print_r($activatedUser,true).'</pre>';
 
@@ -48,7 +50,7 @@ class Main extends CI_Controller {
 			$has_error= true;
 		}
 
-		if ( !$has_error and !empty($activatedUser) and ( empty($activatedUser->user_status) or $activatedUser->user_status != 'P' ) ) {
+		if ( !$has_error and !empty($activatedUser) and ( empty($activatedUser->uc_active_status) or $activatedUser->uc_active_status != 'P' ) ) {
 			$error_message= 'Invalid activation code user is not in waiting for activation status';
 			$has_error= true;
 		}
@@ -78,12 +80,33 @@ class Main extends CI_Controller {
 			$data['error_message']= '';
 			$data['success_message']= '';
 		}*/
-		$password= $this->common_lib->generatePassword();
+		$password = $this->common_lib->generatePassword();
+		$hash_pass = $this->ion_auth->hash_password($password, false );
 
-        $updateArray= array( 'user_status' => 'A', 'activation_code'=> '', 'password'=> $this->ion_auth->hash_password($password, false ));
-    	$ret = $this->db->update( $this->users_mdl->m_users_table, $updateArray, array( 'id' => $activatedUser->id ) );
-
-        $usersGroups = $this->users_mdl->getUsersGroupsList( false, 0, array('user_id'=> $activatedUser->id) );
+        $updateArray= array( 'uc_active_status' => 'A', 'activation_code'=> '', 'password'=> $hash_pass);
+    	$ret = $this->db->update( 'users_clients', $updateArray, array( 'uc_id' => $activatedUser->uc_id ) );
+		
+		// Also update password in users table if user activates first time
+		$this->db->where('uc_user_id',$activatedUser->uc_user_id);
+		$this->db->from('users_clients');
+        $check_first_user = $this->db->get();
+		$res = $check_first_user->result();
+		/*echo "check first user is :";
+		print_r($res); echo "count is : " . count($res); exit(0);*/
+		if(count($res) == 1)
+		{
+			$updateUserArray = array(
+								'user_status' => 'A',
+								'activation_code' => '',
+								'password' => $hash_pass
+								);
+			/*echo "user update array is : ";
+			print_r($updateUserArray);
+			echo "ucid is : " . $uc_user_id;*/
+			$update_user = $this->db->update('users', $updateUserArray, array( 'id' => $activatedUser->uc_user_id));
+		
+		}
+        $usersGroups = $this->users_mdl->getUsersGroupsList( false, 0, array('user_id'=> $activatedUser->uc_id) );
         foreach( $usersGroups as $nextGroups) {
             if ( $nextGroups->status == 'P' ) { // has user group with pending status => we need to activate it
                 $ret = $this->db->update( $this->users_mdl->m_users_groups_table, ['status'=>'A'], array( 'id' => $nextGroups->id ) );
@@ -91,7 +114,7 @@ class Main extends CI_Controller {
         }
 
 //        die("-1 XXZ");
-		$success_message= 'Your account was activated successfully. Your password and new login was sent to you. Now you can login into the system!';
+		$success_message= 'Your account was activated successfully. Your password and new login was sent to you. Now you can login into the system! Your password is : ' . $password;
 		$title= 'Your account was activated at ' . $app_config['site_name'] . ' site';
 		$content = $this->cms_items_mdl->getBodyContentByAlias('account_activated',
 			array('username' => $activatedUser->username,
@@ -106,8 +129,15 @@ class Main extends CI_Controller {
 
 //        echo '<pre>$content::'.print_r($content,true).'</pre>';
 		$this->common_lib->DebToFile( 'sendEmail $content::'.print_r($content,true));
-		$EmailOutput = $this->common_lib->SendEmail($activatedUser->email, $title, $content );
-        $success_message= 'You were successfully activated at '.$app_config['site_name']. ' site. Your login and password was sent at your email.';
+		if(count($res) == 1)
+		{
+			$EmailOutput = $this->common_lib->SendEmail($activatedUser->email, $title, $content );
+        	$success_message= 'You were successfully activated at '.$app_config['site_name']. ' site. Your login and password was sent at your email. Your password is : ' . $password;
+		}
+		else
+		{
+			$success_message= 'You were successfully activated at '.$app_config['site_name']. ' site. ';
+		}
         redirect('/msg/' . urldecode($success_message) . '/sign/success');
 
 	} // public function activation() {

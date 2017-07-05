@@ -301,6 +301,7 @@ class Ion_auth_model extends CI_Model
 	 **/
 	public function hash_password_db($id, $password, $use_sha1_override=FALSE)
 	{
+		//echo "id is : " . $id . " password is : " . $password; exit(0);
 		if (empty($id) || empty($password))
 		{
 			return FALSE;
@@ -309,12 +310,15 @@ class Ion_auth_model extends CI_Model
 		$this->trigger_events('extra_where');
 
 		$query = $this->db->select('password, salt')
-		                  ->where('id', $id)
+		                  ->where('uc_user_id', $id)
 		                  ->limit(1)
-		                  ->order_by('id', 'desc')
-		                  ->get($this->tables['users']);
+		                  ->order_by('uc_user_id', 'desc')
+						  ->get('users_clients');
+		                  //->get($this->tables['users']);
 
 		$hash_password_db = $query->row();
+		
+		//echo "last query in hash password db is : " . $this->db->last_query(); exit(0);
 
 		if ($query->num_rows() !== 1)
 		{
@@ -917,16 +921,63 @@ class Ion_auth_model extends CI_Model
 		{
 			$data['salt'] = $salt;
 		}
-
+		
+		/*echo "additional_data is :";
+		print_r($additional_data);
+		echo "user data is : ";
+		print_r($user_data);
+		echo "data is : ";
+		print_r($data);
+		exit(0);*/
+		
+		$user_created = $additional_data['super_id'];
+		$client_id = $additional_data['client_id'];
+		$group_id = $groups[0][0];
+		//echo "client id is : " . $client_id . "group id is : " . $group_id;
+		
 		// filter out any data passed that doesnt have a matching column in the users table
 		// and merge the set user data and the additional data
 		$user_data = array_merge($this->_filter_data($this->tables['users'], $additional_data), $data);
-
+		//$user_data = $this->_filter_data($this->tables['users'], $additional_data);
+		
+		
+		//print_r($groups);
+		//exit(0);
 		$this->trigger_events('extra_set');
 
 		$this->db->insert($this->tables['users'], $user_data);
 
 		$id = $this->db->insert_id();
+		$user_id = $id;
+		
+		// Insert data into users_clients table
+		$additional_data['uc_user_id']= $user_id;
+		$additional_data['uc_group_id']= $group_id;
+		/*$additional_data['uc_client_id']= $post_array['hdn_client_id'];*/
+		$additional_data['uc_active_status']= 'P';
+		$additional_data['username'] = $identity;
+		/*echo "additional_data is : ";
+		print_r($additional_data);*/
+		//exit(0);               
+		$additional_data = $this->_filter_data('users_clients', $additional_data);         
+		/*echo "additional_data is : ";
+		print_r($additional_data);
+		exit(0); */
+		//$insert_id=$this->common_mdl->db_insert('users_clients',$additional_data, TRUE);
+		$insert_id=$this->db->insert('users_clients',$additional_data);
+		
+		// Insert data in user_client_group table
+		/*$ucg_data = array(
+						'user_id' => $user_id,
+						'client_id' => $client_id,
+						'group_id' => $group_id,
+						'user_created' => $user_created,
+						'user_modified' => $user_created,
+						'date_created' => date('Y-m-d H:i:s'),
+						'date_modified' => date('Y-m-d H:i:s')
+						);
+		$this->db->insert('user_client_group',$ucg_data);*/
+		
 
 		// add in groups array if it doesn't exits and stop adding into default group if default group ids are set
 		if( isset($default_group->id) && empty($groups) )
@@ -963,14 +1014,14 @@ class Ion_auth_model extends CI_Model
 			$this->set_error('login_unsuccessful');
 			return FALSE;
 		}
-
+		/*echo "after empty condition..."; exit(0);*/
 		$this->trigger_events('extra_where');
         $pattern= '~[a-z]\w*@\w+\.[a-z]+~i';
         $ret= preg_match($pattern, $identity);
         if (!$ret) { // if not valid email entered we check by username
-            $this->identity_column= 'username';
+            //$this->identity_column= 'username';
         }
-		$query = $this->db->select($this->identity_column . ', email, id, password, user_status, last_login')
+		$query = $this->db->select($this->identity_column . ', email, id, password, super_id, user_status, last_login')
 		                  ->where($this->identity_column, $identity)
 		                  ->limit(1)
 		    			  ->order_by('id', 'desc')
@@ -978,6 +1029,7 @@ class Ion_auth_model extends CI_Model
 
 		if($this->is_time_locked_out($identity))
 		{
+			//echo "in is time lock out...";
 			// Hash something anyway, just to take up time
 			$this->hash_password($password);
 
@@ -986,23 +1038,155 @@ class Ion_auth_model extends CI_Model
 
 			return FALSE;
 		}
+		/*echo "after checking time lock out...";
+		//exit(0);
+		echo "last query ia : " . $this->db->last_query();
+		echo "query num rows is : " . $query->num_rows(); exit(0);*/
 
 		if ($query->num_rows() === 1)
 		{
 			$user = $query->row();
 
 			$password = $this->hash_password_db($user->id, $password);
+			
+			/*echo "user data is : ";
+			print_r($user);*/
+			//echo "password is : " . $password; exit(0);
+			
+			// Get Users status from users_clients
+			$get_user_status = $this->db->select('uc_user_id,uc_active_status')
+		                  ->where('uc_user_id', $user->id)
+		                  ->limit(1)
+		    			  ->order_by('uc_user_id', 'desc')
+		                  ->get('users_clients')->result();
+			/*echo "last query is : " . $this->db->last_query();
+			echo "get_user_status is : ";
+			print_r($get_user_status); */
+			/*if($get_user_status[0]->super_id != 0)
+			{*/
+				$user_status = $get_user_status[0]->uc_active_status;
+			/*}
+			else
+			{
+				$user_status = $get_user_status[0]->user_status;
+			}*/
+			/*echo "user status is : " . $user_status;
+			echo "password is : " . $password;
+			if($password === TRUE) echo "yes in if...";
+			exit(0);*/
 
 			if ($password === TRUE)
 			{
-				if ($user->user_status != 'A')
+				//echo "in if...";
+				if ($user_status != 'A')
 				{
 					$this->trigger_events('post_login_unsuccessful');
 					$this->set_error('login_unsuccessful_not_active');
 					return FALSE;
 				}
+				/*echo "<pre>user data is :";
+				print_r($user);
+				echo "super id is : " . $user->super_id;
+				exit(0);
+				*/
+				if($user->super_id != 0)
+				{
+					// Get ALL Active Clients
+					$clientList = $this->users_mdl->getUsersClientsList( false, 0, array('user_id'=> $user->id, 'active_status'=>'A') );
+					/*echo "<pre>";
+					echo "Client list is :";
+					print_r($clientList);
+					exit(0);*/
+					$clients = array();
+					foreach($clientList as $c)
+					{
+						//echo "c is : ";
+						//print_r($c);
+						if(!in_array($c->uc_client_id,$clients))
+						{
+							$clients[] = $c->uc_client_id;
+						}
+					}
+					/*echo "clients are :";
+					print_r($clients); exit(0);*/
+					$this->load->model('clients_mdl','clients_mdl');
+					if(count($clients) == 0)
+					{
+						//echo "here in client selection process we are...";exit(0);
+						// No client associates with user
+						$error_message= 'You account has no active Titles ';
+						redirect('/msg/' . urldecode($error_message) . '/sign/danger');
+					}
+					else if(count($clients) == 1)
+					{
+						// Only one client is associated with user
+						$client_detail = $this->clients_mdl->getClientDetail($clients[0],array());
+						$logged_user_client_id = $client_detail->cid;
+						$logged_user_client_name = $client_detail->client_name;
+						
+						$this->set_session($user, '', '', $logged_user_client_id, $logged_user_client_name);
+	
+						$this->update_last_login($user->id);
+	
+						$this->clear_login_attempts($identity);
+	
+						if ($remember && $this->config->item('remember_users', 'ion_auth'))
+						{
+							$this->remember_user($user->id);
+						}
+	
+						$this->trigger_events(array('post_login', 'post_login_successful'));
+						$this->set_message('login_successful');
+	
+						//return TRUE;
+						redirect('/login/select_active_title');
+					}
+					else
+					{
+						// Multiple clients are associated with user
+						$client_detail = $this->clients_mdl->getClientDetail($clients[0],array());
+						$logged_user_client_id = $client_detail->cid;
+						$logged_user_client_name = $client_detail->client_name;
+						
+						$this->set_session($user, '', '', $logged_user_client_id, $logged_user_client_name);
+	
+						$this->update_last_login($user->id);
+	
+						$this->clear_login_attempts($identity);
+	
+						if ($remember && $this->config->item('remember_users', 'ion_auth'))
+						{
+							$this->remember_user($user->id);
+						}
+						//echo "here we are at last...";
+						//exit(0);
+						redirect('/login/select_active_client');
+					}
+					
+					//exit(0);
+				
+				}
+				
+				//echo "after if...";exit(0);
+				
+				$this->set_session($user);
 
-                $groupsList = $this->users_mdl->getUsersGroupsList( false, 0, array('user_id'=> $user->id, 'status'=>'A', 'show_groups_description'=> 1) );
+				$this->update_last_login($user->id);
+
+				$this->clear_login_attempts($identity);
+
+				if ($remember && $this->config->item('remember_users', 'ion_auth'))
+				{
+					$this->remember_user($user->id);
+				}
+
+				$this->trigger_events(array('post_login', 'post_login_successful'));
+				$this->set_message('login_successful');
+
+				return TRUE;
+				
+
+                /*$groupsList = $this->users_mdl->getUsersGroupsList( false, 0, array('user_id'=> $user->id, 'status'=>'A', 'show_groups_description'=> 1) );
 //                echo '<pre>$groupsList::'.print_r($groupsList,true).'</pre>';
                 if ( count($groupsList) == 0 ) {
                     $error_message= 'You account has no active Titles ';
@@ -1041,7 +1225,7 @@ class Ion_auth_model extends CI_Model
                         $this->remember_user($user->id);
                     }
                     redirect('/login/select_active_title');
-                }
+                }*/
 			}
 		}
 
@@ -1747,7 +1931,7 @@ class Ion_auth_model extends CI_Model
 	 * @return bool
 	 * @author jrmadsen67
 	 **/
-	public function set_session($user, $logged_user_title_name= '', $logged_user_title_description= '')
+	public function set_session($user, $logged_user_title_name= '', $logged_user_title_description= '', $logged_user_client_id = '', $logged_user_client_name = '' )
 	{
 
 		$this->trigger_events('pre_set_session');
@@ -1758,9 +1942,15 @@ class Ion_auth_model extends CI_Model
 		    'email'                           => $user->email,
 		    'user_id'                         => $user->id, //everyone likes to overwrite id so we'll use user_id
 		    'old_last_login'                  => $user->last_login,
-		    'logged_user_title_name'          => $logged_user_title_name,
-		    'logged_user_title_description'   => $logged_user_title_description
+		    
 		);
+		if($user->super_id != 0 )
+		{
+			$session_data['logged_user_title_name']          = $logged_user_title_name;
+			$session_data['logged_user_title_description']   = $logged_user_title_description;
+			$session_data['logged_user_client_id']  		 = $logged_user_client_id;
+			$session_data['logged_user_client_name']  		 = $logged_user_client_name;
+		}
 
 		$this->session->set_userdata($session_data);
 
@@ -2275,7 +2465,7 @@ class Ion_auth_model extends CI_Model
 					$filtered_data[$column] = $data[$column];
 			}
 		}
-
+		
 		return $filtered_data;
 	}
 

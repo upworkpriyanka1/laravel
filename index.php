@@ -38,8 +38,8 @@ else if (strpos ($domain,'devk') !==FALSE)
 	define('ENVIRONMENT', 'devK');
 else if (strpos ($domain,'devs') !==FALSE)
 	define('ENVIRONMENT', 'devs');
-//else if (strpos ($domain,'localhost') !==FALSE)
-//	define('ENVIRONMENT', 'devB');	
+else if (strpos ($domain,'localhost') !==FALSE)
+	define('ENVIRONMENT', 'devB');	
 else if (strpos ($domain,'dev') !==FALSE)
 	define('ENVIRONMENT', 'dev');
 else
