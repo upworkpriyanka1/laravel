@@ -783,7 +783,7 @@ class Sys_admin extends CI_Controller {
                     'site_url' => $app_config['base_url'],
                     'email' => $user_email
                 ), true);
-                $EmailOutput = $this->common_lib->SendEmail($email, $title, $content );
+                $EmailOutput = $this->common_lib->SendEmail($user_email, $title, $content );
 
         if ($this->db->trans_status() === FALSE) {
             $this->db->trans_rollback();
