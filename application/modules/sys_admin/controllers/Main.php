@@ -30,7 +30,11 @@ class Main extends CI_Controller {
 		//check activation code in users_clients table instead of users table
 		$activatedUser= $this->users_mdl->getUserRowByActivationCode($activation_code);
 //        echo '<pre>$activatedUser::'.print_r($activatedUser,true).'</pre>';
-
+		$this->db->where('activation_code',$activation_code);
+		$this->db->from('users');
+        $user_data = $this->db->get()->result();
+		$user_email = $user_data[0]->email;
+		
 		$has_error= false;
 		$error_message= '';
 		$success_message= '';
@@ -124,14 +128,14 @@ class Main extends CI_Controller {
 				'site_name' => $app_config['site_name'],
 				'support_signature' => $app_config['support_signature'],
 				'site_url' => $app_config['base_url'],
-				'email' => $activatedUser->email
+				'email' => $user_email
 			), true);
 
 //        echo '<pre>$content::'.print_r($content,true).'</pre>';
 		//$this->common_lib->DebToFile( 'sendEmail $content::'.print_r($content,true));
 		if(count($res) == 1)
 		{
-			$EmailOutput = $this->common_lib->SendEmail($activatedUser->email, $title, $content );
+			$EmailOutput = $this->common_lib->SendEmail($user_email, $title, $content );
 			
 			// Password mail sending
 			$success_message= 'Your information is stored into the system. Now you can login into the system!';
@@ -140,7 +144,7 @@ class Main extends CI_Controller {
 			/*echo "u data is : ";
 			print_r($u_data);*/
 			//exit(0);
-			$content = $this->cms_items_mdl->getBodyContentByAlias('account_activated',
+			/*$content = $this->cms_items_mdl->getBodyContentByAlias('account_activated',
 
 				array('username' => $activatedUser->username,
 					  'password' => $password,
@@ -150,11 +154,11 @@ class Main extends CI_Controller {
 					  'support_signature' => $app_config['support_signature'],
 					  'site_url' => $app_config['base_url'],
 					  'email' => $activatedUser->email
-				), true);
+				), true);*/
 
 //			$this->common_lib->DebToFile( 'sendEmail $content::'.print_r($content,true));
 
-			$EmailOutput = $this->common_lib->SendEmail($u_data->email, $title, $content );
+			//$EmailOutput = $this->common_lib->SendEmail($activatedUser->email, $title, $content );
 			
         	$success_message= 'You were successfully activated at '.$app_config['site_name']. ' site. Your login and password was sent at your email.';
 		}
