@@ -31,7 +31,7 @@ else if (strpos ($domain,'dev4') !==FALSE)
 else if (strpos ($domain,'dev4b') !==FALSE)
 	define('ENVIRONMENT', 'dev4b');
 else if (strpos ($domain,'dev5') !==FALSE)
-	define('ENVIRONMENT', 'devB');   	//define('ENVIRONMENT', 'dev5');
+	define('ENVIRONMENT', 'dev5');   	//define('ENVIRONMENT', 'dev5');
 else if (strpos ($domain,'devk2') !==FALSE)
 	define('ENVIRONMENT', 'devK2');
 else if (strpos ($domain,'devk') !==FALSE)
