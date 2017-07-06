@@ -21,7 +21,7 @@ $(function() {
  * return none
  *********************************/
 function loadClientInfo() {
-    var href= BASE_URL + "sys-admin/get_client_info/client_id/"+client_id
+    var href= "sys-admin/get_client_info/client_id/"+client_id
     $.ajax({
         url: href,
         type: 'GET',
@@ -84,7 +84,7 @@ function loadClientInfo() {
  * return none
  *********************************/
 function loadClientRelatedUsers(page) {
-    var href= BASE_URL + "/sys-admin/load_client_related_users/filter_client_id/"+$("#form_user_modal_editor_client_id").val()+"/page/"+page
+    var href= "/sys-admin/load_client_related_users/filter_client_id/"+$("#form_user_modal_editor_client_id").val()+"/page/"+page
     $.ajax({
         url: href,
         type: 'GET',
@@ -99,7 +99,7 @@ function loadClientRelatedUsers(page) {
 
 function setClientUserValidationRulesChecking() {
 	/* ======= BBITS DEV START : 30/06/2017 ======= */
-	alert('here');
+	//alert('here');
 	/* ======= BBITS DEV END ======= */
     $( "#form_user_modal_editor_checking" ).validate({
         submitHandler: function(form) { // valid email was entered
@@ -107,7 +107,7 @@ function setClientUserValidationRulesChecking() {
             var selected_title= $("#form_user_modal_editor_checking_title").val()
             var selected_title_label= $("#form_user_modal_editor_checking_title option:selected").text() ;
             if ( entered_email!= "" && selected_title!= "" && selected_title_label!= "" ) {
-                var href= BASE_URL + "/sys-admin/add_client_user_relation"
+                var href= "/sys-admin/add_client_user_relation"
                 $.ajax({
                     url: href,
                     type: 'POST',
@@ -130,14 +130,14 @@ function setClientUserValidationRulesChecking() {
                 return;
             }
 
-            var href= BASE_URL + "/sys-admin/get_user_info_by_email/client_id/" + $("#form_user_modal_editor_client_id").val() + "/email/"+encodeURIComponent(entered_email)
+            var href= "/sys-admin/get_user_info_by_email/client_id/" + $("#form_user_modal_editor_client_id").val() + "/email/"+encodeURIComponent(entered_email)
             $.ajax({
                 url: href,
                 type: 'GET',
                 dataType: 'json',
                 success: function(result) {
 					/* ======= BBITS DEV START : 30/06/2017 ======= */
-                     alert( "get_user_info_by_email  result::"+var_dump(result) )
+                     //alert( "get_user_info_by_email  result::"+var_dump(result) )
 					 /* ======= BBITS DEV END ======= */
                     if (result.ErrorCode == 0) {      // FOUND USER WITH given email
                         selected_user_id= result.user.id
@@ -183,7 +183,7 @@ function setClientUserValidationRulesChecking() {
 function setClientUserValidationRules() {
     $( "#form_user_modal_editor" ).validate({
         submitHandler: function(form) {
-            var href= BASE_URL + "/sys-admin/save_client_related_user"
+            var href= "/sys-admin/save_client_related_user"
             $.ajax({
                 url: href,
                 type: 'POST',
