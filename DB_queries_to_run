@@ -11,5 +11,5 @@ ALTER TABLE `users_clients` CHANGE `uc_active_status` `uc_active_status` ENUM('N
 
 DELETE FROM `users_clients` WHERE `uc_user_id` = 1 
 
-INSERT INTO `users_clients` (`uc_user_id`, `uc_client_id`, `uc_group_id`, `uc_active_status`, `username`, `password`, `salt`, `activation_code`, `created_at`,`updated_at`) VALUES ('1', '1', '1', 'A', '', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', '', CURRENT_TIMESTAMP, '');
+INSERT INTO `users_clients` (`uc_user_id`, `uc_client_id`, `uc_group_id`, `uc_active_status`, `username`, `password`, `salt`, `activation_code`, `created_at`,`updated_at`) VALUES ('1', '1', '1', 'A', 'admin', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', '', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
