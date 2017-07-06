@@ -361,7 +361,7 @@
 
 <!-- BEGIN MAIN PAGE -->
 <main>
-    <div class="page-content" id="top_container">
+    <div class="page-content location-dashboard" id="top_container">
         <div class="row">
             <div class="col s12">
                 <div id="structure" class="section scrollspy">
@@ -374,7 +374,7 @@
                             <div class="col-xs-12">
                                 <div id="profile-form">
                                     <div class="row">
-										<button data-toggle="modal" data-target="#client_new_user_dialog_checking" class="client_new_user_dialog waves-effect waves-light btn-large" style="background-color: #fff; color: #000;font-size: 16px; margin-top:80px;">
+										<button data-toggle="modal" data-target="#client_new_user_dialog_checking" class="client_new_user_dialog waves-effect waves-light btn-large" style="background-color: #fff; color: #000;font-size: 16px; margin-top:100px;">
 											<i class="fa fa-plus" style="font-size: 16px"></i>
 											Add location
 										</button>  
