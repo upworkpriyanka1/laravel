@@ -848,6 +848,21 @@ class Sys_admin extends CI_Controller {
             }
             $this->output->set_content_type('application/json')->set_output(json_encode(array('ErrorMessage' => '', 'ErrorCode' => 0, 'id' => $new_user_id )));
         }
+		else
+		{
+			$activation_page_url= $app_config['base_url']."activation/".$activation_code;
+            $title= 'Your account was activated at ' . $app_config['site_name'] . ' site';
+			$content = $this->cms_items_mdl->getBodyContentByAlias('account_activated',
+			array('username' => $username,
+				'first_name' => $first_name,
+				'last_name' => $last_name,
+				'site_name' => $app_config['site_name'],
+				'support_signature' => $app_config['support_signature'],
+				'site_url' => $app_config['base_url'],
+				'email' => $email
+			), true);
+                $EmailOutput = $this->common_lib->SendEmail($email, $title, $content );		
+		}
 
     } // public function save_client_related_user ()
 
