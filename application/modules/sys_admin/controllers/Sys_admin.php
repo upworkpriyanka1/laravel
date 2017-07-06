@@ -836,7 +836,8 @@ class Sys_admin extends CI_Controller {
                     'site_url' => $app_config['base_url'],
                     'email' => $email
                 ), true);
-                $EmailOutput = $this->common_lib->SendEmail($email, $title, $content );
+                $EmailOutput = $this->common_lib->SendEmail($email, $title, $content );				
+				
 
             $this->session->set_flashdata('editor_message', lang('user') . " '" . $first_name . "' was " . ($is_insert ? "inserted" : "updated") );
             if ($this->db->trans_status() === FALSE) {

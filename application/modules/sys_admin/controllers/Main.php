@@ -128,7 +128,7 @@ class Main extends CI_Controller {
 			), true);
 
 //        echo '<pre>$content::'.print_r($content,true).'</pre>';
-		$this->common_lib->DebToFile( 'sendEmail $content::'.print_r($content,true));
+		//$this->common_lib->DebToFile( 'sendEmail $content::'.print_r($content,true));
 		if(count($res) == 1)
 		{
 			$EmailOutput = $this->common_lib->SendEmail($activatedUser->email, $title, $content );
