@@ -7,7 +7,7 @@ ALTER TABLE `users_clients` ADD `username` VARCHAR(100) NOT NULL AFTER `uc_activ
 
 ALTER TABLE `users_clients` ADD `updated_at` DATETIME NULL AFTER `created_at`;
 
-ALTER TABLE `users_clients` CHANGE `uc_active_status` `uc_active_status` ENUM('N', 'P', 'A', 'I', 'L') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'P';
+ALTER TABLE `users_clients` CHANGE `uc_active_status` `uc_active_status` ENUM('N', 'P', 'A', 'I', 'L', 'E') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'P';
 
 DELETE FROM `users_clients` WHERE `uc_user_id` = 1 
 
