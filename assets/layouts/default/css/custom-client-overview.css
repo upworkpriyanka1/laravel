@@ -534,16 +534,7 @@ a.button-collapse.top-nav{
     margin:10px;
     height: 80px;
     overflow: auto;
-    background-color: #ccc;
-    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.3);
-    -webkit-overflow-scrolling: touch;
-    scrollbar-base-color: #666;
-    scrollbar-3dlight-color: #fff;
-    scrollbar-highlight-color: #666;
-    scrollbar-track-color: #E9E9E9;
-    scrollbar-arrow-color: #666;
-    scrollbar-shadow-color: #666;
-    scrollbar-dark-shadow-color: #666;
+    background-color: #ccc;    
 }
 
 .rand-place .locat-call::-webkit-scrollbar-thumb,
@@ -607,9 +598,9 @@ background-color: #666;
 }
 /*---color---*/
 
-body, .rand-place .locat-call{
+/*body, .rand-place .locat-call{
     background-color: #fff;
-}
+}*/
 #nav-mobile, .page-footer{
     background-color: #26a69a;
 }
@@ -622,7 +613,7 @@ ul.side-nav.fixed ul.collapsible-accordion a.collapsible-header, ul.side-nav.fix
 ul.side-nav.fixed li.logo a{
     color: #333 !important;
 }
-.logo_first, .tb-adr .icon-tb-cl i, ul.side-nav.fixed li.logo a:hover{
+.logo_first, ul.side-nav.fixed li.logo a:hover{
     color: rgb(32, 141, 131) !important;
 }
 .page-header.navbar,header .chevron .chevron-down i, header .chevron .chevron-up i,  nav.top-nav{
