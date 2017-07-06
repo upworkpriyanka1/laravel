@@ -112,9 +112,9 @@ class Login extends CI_Controller {
         $user = $this->ion_auth->user()->row();
 		$client_id = $this->session->userdata('logged_user_client_id');
         $groupsList = $this->users_mdl->getUsersGroupsList( false, 0, array('user_id'=> $user->id, 'client_id'=>$clientid, 'group_id'=>$active_title_id, 'status'=>'A', 'show_groups_description'=> 1) );
-		echo "group list is : ";
+		/*echo "group list is : ";
 		print_r($groupsList);
-		exit(0);
+		exit(0);*/
 		/*echo "last query is : " . $this->db->last_query();
 		echo "session data is : ";
 		print_r($this->session->userdata());

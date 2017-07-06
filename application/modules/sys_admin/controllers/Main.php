@@ -132,7 +132,31 @@ class Main extends CI_Controller {
 		if(count($res) == 1)
 		{
 			$EmailOutput = $this->common_lib->SendEmail($activatedUser->email, $title, $content );
-        	$success_message= 'You were successfully activated at '.$app_config['site_name']. ' site. Your login and password was sent at your email. Your password is : ' . $password;
+			
+			// Password mail sending
+			$success_message= 'Your information is stored into the system. Now you can login into the system!';
+			$title= 'Your account was activated at ' . $app_config['site_name'] . ' site';
+			
+			/*echo "u data is : ";
+			print_r($u_data);*/
+			//exit(0);
+			$content = $this->cms_items_mdl->getBodyContentByAlias('account_activated',
+
+				array('username' => $activatedUser->username,
+					  'password' => $password,
+					  'first_name' => $activatedUser->first_name,
+					  'last_name' => $activatedUser->last_name,
+					  'site_name' => $app_config['site_name'],
+					  'support_signature' => $app_config['support_signature'],
+					  'site_url' => $app_config['base_url'],
+					  'email' => $activatedUser->email
+				), true);
+
+//			$this->common_lib->DebToFile( 'sendEmail $content::'.print_r($content,true));
+
+			$EmailOutput = $this->common_lib->SendEmail($u_data->email, $title, $content );
+			
+        	$success_message= 'You were successfully activated at '.$app_config['site_name']. ' site. Your login and password was sent at your email.';
 		}
 		else
 		{
