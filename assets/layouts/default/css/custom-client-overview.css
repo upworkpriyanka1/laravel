@@ -818,7 +818,7 @@ input[type=text]:focus:not([readonly]){
 #profile-form-mock #profile-form .pad-card .card, #new_patient_form .pad-card .card {
     
     background-color: #fff !important;
-    width:100%;
+    width:98.5%;
 }
 #profile-form-mock #profile-form .card .card-content .card-title, #new_patient_form .card .card-content .card-title, #new_patient_form .pad-card .card textarea{
     color: #000;
@@ -840,10 +840,42 @@ input[type=text]:focus:not([readonly]){
 }
 /*new patient*/
 #new_patient .page-content-wrapper .page-content {
-    padding-top: 130px !important;
+    padding-top: 60px !important;
 }
-
-
+#new_patient .page-content-wrapper .page-content input{
+    margin:0;
+}
+#new_patient .card .card-content{
+    padding-top: 0;
+}
+#new_patient .card-content select option{
+    color: #000;
+}
+#new_patient .card-content select{
+    border: none;
+    border-bottom: 1px solid #9e9e9e;
+    outline: none;
+    color: #9e9e9e;
+}
+#new_patient .card-bottom{
+    margin-top: 100px;
+}
+#new_patient .card-bottom button{
+    margin: 4px;
+}
+@media only screen and (min-width: 1960px) {
+    .cards-container {
+        -webkit-column-count: 4;
+        -moz-column-count: 4;
+        column-count: 4;
+    }
+    #new_patient .cards-container{
+        height:50%;
+    }
+    #new_patient{
+        height:100%;
+    }
+}
 /*----form-edit-us----*/
 
 .form-edit-us #nav-mobile{
