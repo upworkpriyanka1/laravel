@@ -375,7 +375,7 @@
                         <div class="page-content">
 
                             <div class="clearfix"></div>
-                            <div class="row" style="background-color: #fff"">
+                            <div class="row" style="background-color: #fff">
                                 <div class="col s12 m9 l10">
                                     <div>
                                         <div id="grid-pinned" class="scrollspy">

@@ -856,21 +856,42 @@ class Sys_admin extends CI_Controller {
         if( count($userGroupsList) == 0 ) {
             $ret = $this->db->insert($this->users_mdl->m_users_groups_table, array('user_id' => $user_id, 'group_id' => $group_id, 'status' => 'P'));
         }
-        $ret = $this->admin_mdl->update_users_clients( $client_id, $user_id, 'N', $group_id );
+		
+		// Update users_clients
+		$activation_code= $this->common_lib->GenerateActivationCode();
+		$update_data = array(
+							'uc_client_id' => $client_id,
+							'uc_user_id' => $user_id,
+							'uc_active_status' => 'P',
+							'uc_group_id' => $group_id,
+							'username' => '',
+							'activation_code' => $activation_code,
+							'created_at' => date('Y-m-d H:i:s'),
+							'updated_at' => date('Y-m-d H:i:s')
+						);
+		
+        //$ret = $this->admin_mdl->update_users_clients($update_data);
+		$ret = $this->db->insert('users_clients',$update_data);
+		
+		// Get user data
+		$this->db->where('id',$user_id);
+		$this->db->from('users');
+        $user_data = $this->db->get()->result();
+		$user_email = $user_data[0]->email;
+		$user_name = $user_data[0]->username;
 
-/*            $activation_page_url= $app_config['base_url']."activation/".$activation_code;
+            $activation_page_url= $app_config['base_url']."activation/".$activation_code;
             $title= 'You are registered at ' . $app_config['site_name'] . ' site';
-            $content = $this->cms_items_mdl->getBodyContentByAlias('user_register',
-                array('username' => $username,
-                    'first_name' => $first_name,
-                    'last_name' => $last_name,
+            $content = $this->cms_items_mdl->getBodyContentByAlias('existing_account_activated',
+                array(
+					'username' => $user_name,
                     'site_name' => $app_config['site_name'],
                     'support_signature' => $app_config['support_signature'],
                     'activation_page_url' => $activation_page_url,
                     'site_url' => $app_config['base_url'],
-                    'email' => $email
+                    'email' => $user_email
                 ), true);
-                $EmailOutput = $this->common_lib->SendEmail($email, $title, $content );*/
+                $EmailOutput = $this->common_lib->SendEmail($user_email, $title, $content );
 
         if ($this->db->trans_status() === FALSE) {
             $this->db->trans_rollback();
@@ -910,12 +931,12 @@ class Sys_admin extends CI_Controller {
         $ip_address= !empty($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
         $activation_code= $this->common_lib->GenerateActivationCode();
 
-        $additional_data= array(  'ip_address'=> $ip_address, 'user_status' => $user_status, 'first_name' => $first_name, 'last_name' => $last_name, 'city' => $city, 'state' => $state, 'phone' => $phone, 'created_on'=> now(), 'avatar' => '', 'is_multi_auth' => $auth, 'created_at' => date('Y-m-d H:i:s'), 'super_id' => $this->user->user_id, 'activation_code'=> $activation_code );
+        $additional_data= array(  'ip_address'=> $ip_address, 'user_status' => $user_status, 'first_name' => $first_name, 'last_name' => $last_name, 'city' => $city, 'state' => $state, 'phone' => $phone, 'created_on'=> now(), 'avatar' => '', 'is_multi_auth' => $auth, 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s'), 'super_id' => $this->user->user_id, 'activation_code'=> $activation_code , 'client_id' => $client_id, 'super_id' => $this->user->user_id, 'uc_client_id' => $client_id, 'uc_active_status' => 'P' );
         $user_group_array= array($user_group_id);
         $new_user_id = $this->ion_auth->register( $username, '', $email, $additional_data,   array(  $user_group_array  )  );
 
         if ($new_user_id) {
-            $ret = $this->admin_mdl->update_users_clients( $client_id, $new_user_id, 'N', $user_group_id );
+            //$ret = $this->admin_mdl->update_users_clients( $client_id, $new_user_id, 'N', $user_group_id );
 
             $activation_page_url= $app_config['base_url']."activation/".$activation_code;
             $title= 'You are registered at ' . $app_config['site_name'] . ' site';
@@ -929,7 +950,8 @@ class Sys_admin extends CI_Controller {
                     'site_url' => $app_config['base_url'],
                     'email' => $email
                 ), true);
-                $EmailOutput = $this->common_lib->SendEmail($email, $title, $content );
+                $EmailOutput = $this->common_lib->SendEmail($email, $title, $content );				
+				
 
             $this->session->set_flashdata('editor_message', lang('user') . " '" . $first_name . "' was " . ($is_insert ? "inserted" : "updated") );
             if ($this->db->trans_status() === FALSE) {
@@ -940,6 +962,7 @@ class Sys_admin extends CI_Controller {
             }
             $this->output->set_content_type('application/json')->set_output(json_encode(array('ErrorMessage' => '', 'ErrorCode' => 0, 'id' => $new_user_id )));
         }
+		
 
     } // public function save_client_related_user ()
 
