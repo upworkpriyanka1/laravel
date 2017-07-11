@@ -39,7 +39,7 @@
         <div class="xntral-footer">
             <ul>
                 <li class="first"><a href="#">Home Page</a></li>
-                <li><a href="#">Create an account</a></li>
+                <li><a href="<?php echo base_url('login/create_account') ?>">Create an account</a></li>
                 <li><a href="#">About Us</a></li>
             </ul>
             <div class="clear_fix"></div>
