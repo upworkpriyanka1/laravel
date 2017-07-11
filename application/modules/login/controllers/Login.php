@@ -239,4 +239,13 @@ class Login extends CI_Controller {
 		}
 	}
 
+	// function to view the create account page
+
+    function create_account()
+    {
+    	$data['pls'] = array('login');
+		$data['plugins'] = array();
+	  	$data['javascript'] = array();
+    	$this->layout->view( 'login/create_account', $data, 'default');
+    } 
 }
