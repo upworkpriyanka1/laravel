@@ -3,6 +3,7 @@ class Login extends CI_Controller {
 	 public function __construct() {
          parent::__construct();
 		 $this->load->model('users_mdl');
+		 $this->load->model('clients_mdl','clients_mdl');
  		 $this->lang->load('ion_auth');
     	 $this->lang->load('auth');
  		 $this->lang->load('login');
@@ -60,6 +61,14 @@ class Login extends CI_Controller {
 		//print_r($clientList);
 		$clients = array();
 		$client_ids = array();
+		$i=0;
+		$is_multi_client = 0;
+		$is_multi_title = 0;
+	
+		if(count($clientList) > 1)
+		{
+			$is_multi_client = 1;
+		}
 		foreach($clientList as $c)
 		{
 			//echo "c is : ";
@@ -68,7 +77,14 @@ class Login extends CI_Controller {
 			{
 				$client_ids[] = $c->uc_client_id;
 				$c_data = $this->clients_mdl->getClientDetail($c->uc_client_id,array());
-				$clients[] = $c_data;
+				$clients[$i]['client_data'] = $c_data;
+				$titles = $this->users_mdl->getUserClientGroup($user->id,$c->uc_client_id);
+				if(count($titles) > 1)
+				{
+					$is_multi_title = 1;
+				}
+				$clients[$i]['titles'] = $titles;
+				$i++;
 			}
 		}
 		/*echo "clients are :";
@@ -77,13 +93,58 @@ class Login extends CI_Controller {
         if ( count($clients) == 0 ) {
             redirect('/msg/' . urldecode(lang("account_has_no_active_clients")) . '/sign/danger');
         }
-        $data['clients'] = $clients;
-        $data['pls'] = array('login');
-        $data['plugins'] = array();
-        $data['javascript'] = array();
-        $data['page'] = 'select_active_client';
-        $views=array( 'select_active_client','design/html_footer' );
-        $this->layout->view($views, $data, 'default');
+		if($is_multi_client)
+		{
+			$data['clients'] = $clients;
+			$data['pls'] = array('login');
+			$data['plugins'] = array();
+			$data['javascript'] = array('assets/custom/admin/custom.js');
+			$data['page'] = 'select_active_client';
+			$views=array( 'select_active_client','design/html_footer' );
+			$this->layout->view($views, $data, 'default');
+		}
+		elseif(!$is_multi_client && $is_multi_title)
+		{
+			$data['clients'] = $clients;
+			$data['pls'] = array('login');
+			$data['plugins'] = array();
+			$data['javascript'] = array('assets/custom/admin/custom.js');
+			$data['page'] = 'select_active_client';
+			$views=array( 'select_active_client','design/html_footer' );
+			$this->layout->view($views, $data, 'default');
+		}
+		else if(!$is_multi_client && !$is_multi_title)
+		{
+			$client_id = $clientList[0]->uc_client_id;
+			$title_id = $clients[0]['titles']->id;
+		
+			// Get client name
+			$client_detail = $this->clients_mdl->getClientDetail($client_id);
+			$client_name = $client_detail->client_name;
+			//echo "client name is : " . $client_name;
+			//print_r($client_detail);
+			
+			
+			
+			// Get title name and description
+			$title_detail = $this->users_mdl->getGroupRowById($title_id);
+			$title_name = $title_detail->name;
+			$title_desc = $title_detail->description; 
+			
+			$user = $this->ion_auth->user()->row();
+			$this->ion_auth->set_session($user, $title_name, $title_desc, $client_id, $client_name);
+			$this->ion_auth_model->update_last_login($user_id);
+			$this->ion_auth_model->clear_login_attempts($identity);
+			if ($remember && $this->config->item('remember_users', 'ion_auth'))
+			{
+				$this->ion_auth_model->remember_user($user_id);
+			}
+			/*echo "session data are : ";
+			print_r($this->session->userdata());*/    	
+			redirect('/'.$title_name, 'refresh');
+	
+			//echo $title_name;
+		}
     }
 
 	public function switch_active_title()
@@ -103,10 +164,10 @@ class Login extends CI_Controller {
         echo '<pre>$active_title_id::'.print_r($active_title_id,true).'</pre>';
         exit(0);*/
 		//die("-1 XXZ");  
-        if ( empty($active_title_id) ) {
+        /*if ( empty($active_title_id) ) {
             $this->session->set_flashdata('message', "Select active title ");
             redirect('/login/select_active_title');
-        }
+        }*/
 
 
         $user = $this->ion_auth->user()->row();
@@ -162,10 +223,10 @@ class Login extends CI_Controller {
 		print_r($user);
 		exit(0);*/
         //die("-1 XXZ");  
-        if ( empty($active_client_id) ) {
+        /*if ( empty($active_client_id) ) {
             $this->session->set_flashdata('message', "Select active client ");
             redirect('/login/select_active_client');
-        }
+        }*/
 
 
 		$groupsList = $this->users_mdl->getUserClientGroup($user_id,$active_client_id);
@@ -235,6 +296,72 @@ class Login extends CI_Controller {
         $this->ion_auth->set_session($user, $logged_user_title_name, $logged_user_title_description);
     	redirect('/'.$logged_user_title_name, 'refresh');*/
     }
+	
+	// Function to set session data for selected client and title when user click on accordian menu item
+	public function set_client_title_session()
+	{
+		if (!$this->input->is_ajax_request()) 
+    		exit('No direct script access allowed'); 
+		/*$client_id = $this->input->get('client_id');
+		$title_id = $this->input->get('title_id');*/
+		//echo "URI assoc is : ";
+		$UriArray = $this->uri->uri_to_assoc(3);
+		//print_r($UriArray);
+		$client_id = $UriArray['client'];
+		$title_id = $UriArray['title'];
+		//echo "client id is : " . $client_id . " title id is : " . $title_id;
+		//echo "session data are : ";
+		//print_r($this->session->userdata());
+		$identity = $this->session->userdata('identity');
+		$user_id = $this->session->userdata('user_id');
+		$email = $this->session->userdata('email');
+		//echo "user identity is : " . $identity . " user id is : " . $user_id . " email is : " . $email;
+		
+		// Get client name
+		$client_detail = $this->clients_mdl->getClientDetail($client_id);
+		$client_name = $client_detail->client_name;
+		//echo "client name is : " . $client_name;
+		//print_r($client_detail);
+		
+		
+		
+		// Get title name and description
+		$title_detail = $this->users_mdl->getGroupRowById($title_id);
+		$title_name = $title_detail->name;
+		$title_desc = $title_detail->description; 
+		//echo "title name is : " . $title_name . " title desc is : " . $title_desc;
+		//print_r($title_detail);
+		
+		
+		
+				
+		//
+		/*$this->ion_auth_model->set_session($user, $logged_user_title_name, $logged_user_title_description);
+
+		$this->ion_auth_model->update_last_login($user_id);
+
+		$this->ion_auth_model->clear_login_attempts($identity);
+
+		if ($remember && $this->config->item('remember_users', 'ion_auth'))
+		{
+			$this->ion_auth_model->remember_user($user_id);
+		}*/
+		
+		
+		//
+		$user = $this->ion_auth->user()->row();
+		$this->ion_auth->set_session($user, $title_name, $title_desc, $client_id, $client_name);
+		$this->ion_auth_model->update_last_login($user_id);
+		$this->ion_auth_model->clear_login_attempts($identity);
+		if ($remember && $this->config->item('remember_users', 'ion_auth'))
+		{
+			$this->ion_auth_model->remember_user($user_id);
+		}
+		/*echo "session data are : ";
+		print_r($this->session->userdata());*/    	/*redirect('/'.$logged_user_title_name, 'refresh');*/
+
+		echo $title_name;
+	}
 
 	public function index(){
 		if ($this->ion_auth->logged_in()){

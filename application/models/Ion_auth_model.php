@@ -310,11 +310,12 @@ class Ion_auth_model extends CI_Model
 		$this->trigger_events('extra_where');
 
 		$query = $this->db->select('password, salt')
-		                  ->where('uc_user_id', $id)
+		                  //->where('uc_user_id', $id)
+						  ->where('id', $id)
 		                  ->limit(1)
-		                  ->order_by('uc_user_id', 'desc')
-						  ->get('users_clients');
-		                  //->get($this->tables['users']);
+		                  ->order_by('id', 'desc')
+						  //->get('users_clients');
+		                  ->get($this->tables['users']);
 
 		$hash_password_db = $query->row();
 		
@@ -1139,7 +1140,8 @@ class Ion_auth_model extends CI_Model
 						$this->set_message('login_successful');
 	
 						//return TRUE;
-						redirect('/login/select_active_title');
+						//redirect('/login/select_active_title');
+						redirect('/login/select_active_client');
 					}
 					else
 					{

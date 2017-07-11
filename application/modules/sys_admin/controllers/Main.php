@@ -160,7 +160,7 @@ class Main extends CI_Controller {
 
 			//$EmailOutput = $this->common_lib->SendEmail($activatedUser->email, $title, $content );
 			
-        	$success_message= 'You were successfully activated at '.$app_config['site_name']. ' site. Your login and password was sent at your email.';
+        	$success_message= 'You were successfully activated at '.$app_config['site_name']. ' site. Your login and password was sent at your email. Your password is : ' . $password;
 		}
 		else
 		{
