@@ -12,7 +12,7 @@ $(document).ready(function() {
 		//alert("client : " + client_id + " title is : " + title_id);
 		
 		// Ajax call to set login parameters for selected client and title
-		var href= BASE_URL + "login/set_client_title_session/client/"+client_id+"/title/"+title_id;
+		var href= "login/set_client_title_session/client/"+client_id+"/title/"+title_id;
 		$.ajax({
 			url: href,
 			type: 'GET',
