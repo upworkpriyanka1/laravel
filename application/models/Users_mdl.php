@@ -309,7 +309,9 @@ class Users_mdl extends CI_Model
 
     public function getUserRowByActivationCode($activation_code)
     {
-        $query = $this->db->get_where($this->m_users_table, array('activation_code' => $activation_code), 1, 0);
+        //$query = $this->db->get_where($this->m_users_table, array('activation_code' => $activation_code), 1, 0);
+		// Check activation code in users_clients table instead of users tale
+		$query = $this->db->get_where('users_clients', array('activation_code' => $activation_code));
         $ResultRow = $query->result();
         if (!empty($ResultRow[0])) {
             return $ResultRow[0];
@@ -322,8 +324,8 @@ class Users_mdl extends CI_Model
     {
         //$query = $this->db->get_where($this->m_users_table, array('activation_code' => $activation_code,'created_at >=' => NOW() - INTERVAL 2 HOUR), 1, 0);
         $expire_hour = $this->config->item('activation_link_expiration', 'ion_auth');
-        $query = $this->db->get_where($this->m_users_table, array('activation_code' => $activation_code,'created_at >=' => date('Y-m-d H:i:s', strtotime('-2 HOURS'))), 1, 0);
-
+        $query = $this->db->get_where('users_clients', array('activation_code' => $activation_code,'created_at >=' => date('Y-m-d H:i:s', strtotime('-2 HOURS'))), 1, 0);
+		//echo "last query is : " . $this->db->last_query();exit(0);
         $ResultRow = $query->result();
 
         if (!empty($ResultRow[0])) {
@@ -583,6 +585,9 @@ class Users_mdl extends CI_Model
             }
             $ci = & get_instance();
             $ret_array= $query->get()->result();
+			
+			//echo "last query is : " . $this->db->last_query(); exit(0);
+			
             return $ret_array;
         }
     }
@@ -737,7 +742,7 @@ class Users_mdl extends CI_Model
             $ci = & get_instance();
 
             $ret_array= $query->get()->result();
-
+			
             return $ret_array;
 
         }
@@ -850,6 +855,84 @@ class Users_mdl extends CI_Model
 
     public function getUsersGroupsList( $OutputFormatCount = false, $page = 0, $filters = array(), $sort = '', $sort_direction = '')
     {
+        if (empty( $sort )) $sort = 'uc_user_id';
+
+        $config_data = $this->config->config;
+        $ci = & get_instance();
+        $items_per_page= $ci->common_lib->getSettings('items_per_page');
+
+        $limit = !empty($filters['limit']) ? $filters['limit'] : '';
+        $offset = !empty($filters['offset']) ? $filters['offset'] : '';
+        $is_page_positive_integer= $ci->common_lib->is_positive_integer($page);
+
+        if ( !empty($page) and $is_page_positive_integer ) {
+            $limit = '';
+            $offset = '';
+        }
+
+        if (!empty($config_data) and $is_page_positive_integer) {
+            $per_page= ( !empty($filters['per_page']) and $ci->common_lib->is_positive_integer($filters['per_page']) ) ? $filters['per_page'] : $items_per_page;
+            $limit = $per_page;
+            $offset = ($page - 1) * $per_page;
+        }
+
+        if (!empty($filters['user_id'])) {
+            $this->db->where( $this->m_users_clients_table.'.uc_user_id', $filters['user_id'] );
+        }
+		
+		if (!empty($filters['client_id'])) {
+            $this->db->where( $this->m_users_clients_table.'.uc_client_id', $filters['client_id'] );
+        }
+
+        if (!empty($filters['status'])) {
+            $this->db->where( $this->m_users_clients_table.'.uc_active_status', $filters['status'] );
+        }
+
+        if (!empty($filters['group_id'])) {
+            $this->db->where( $this->m_users_clients_table.'.uc_group_id', $filters['group_id'] );
+        }
+
+        $is_users_groups_joined= false;
+        $additive_fields_for_select= "";
+        $fields_for_select= $this->m_users_clients_table.".*";
+//        $fields_for_select = $this->m_clients_table . ".*";
+        if ( !empty($filters['show_groups_description']) ) {
+            $additive_fields_for_select .= ", description as group_description , name as group_name ";
+            if ( !$is_users_groups_joined ) {
+                $is_users_groups_joined= true;
+                $this->db->join($this->m_groups_table, $this->m_groups_table . '.id = ' . $this->m_users_clients_table . '.uc_group_id', 'left');
+            }
+        }
+
+        if ( ( !empty($limit) and $ci->common_lib->is_positive_integer($limit) ) and ( !empty($offset) and $ci->common_lib->is_positive_integer($offset) ) ) {
+            $this->db->limit($limit, $offset);
+        }
+
+        if ( ( !empty($limit) and $ci->common_lib->is_positive_integer($limit) ) ) {
+            $this->db->limit($limit);
+        }
+		$this->db->group_by('uc_group_id');
+        $fields_for_select.= ' ' . $additive_fields_for_select;
+        if (!empty($sort)) {
+            $this->db->order_by($sort, ((strtolower($sort_direction) == 'desc' or strtolower($sort_direction) == 'asc') ? $sort_direction : ''));
+        }
+
+        if ($OutputFormatCount) {
+            return $this->db->count_all_results($this->m_users_clients_table);
+        } else {
+            $query = $this->db->from($this->m_users_clients_table);
+            if (strlen(trim($fields_for_select)) > 0) {
+                $query->select($fields_for_select);
+            }
+            $ci = & get_instance();
+            $ret_array= $query->get()->result();
+			//echo "last query is : " . $this->db->last_query(); exit(0);
+            return $ret_array;
+        }
+    }
+
+	/*public function getUsersGroupsList( $OutputFormatCount = false, $page = 0, $filters = array(), $sort = '', $sort_direction = '')
+    {
         if (empty( $sort )) $sort = 'user_id';
 
         $config_data = $this->config->config;
@@ -918,11 +1001,10 @@ class Users_mdl extends CI_Model
             }
             $ci = & get_instance();
             $ret_array= $query->get()->result();
+			echo "last query is : " . $this->db->last_query(); exit(0);
             return $ret_array;
         }
-    }
-
-
+    }*/
 
     public function updateUsersGroups($user_id, $DataArray)
     {
@@ -1215,6 +1297,29 @@ class Users_mdl extends CI_Model
         }
 
     }
+	
+	
+	public function getUserClientGroup($user_id,$client_id)
+	{
+		$this->db->where('uc_user_id',$user_id);
+		$this->db->where('uc_client_id',$client_id);
+		$this->db->from('users_clients');
+        $query = $this->db->get();
+		$res = $query->result();
+		/*echo "last query is " . $this->db->last_query();
+		echo "res is : ";
+		print_r($res);
+		exit(0);*/
+		$groupList = array();
+		foreach($res as $r)
+		{
+			$groupDetail = $this->getGroupRowById($r->uc_group_id);
+			$groupList[] = $groupDetail;
+		}
+		//echo "group list is : ";
+		//print_r($groupList);
+		return $groupList;
+	}
 
 
 

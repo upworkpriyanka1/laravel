@@ -14,6 +14,8 @@ $lang['users-role']   = "Titles";
 $lang['users-jobs']     = "Titles";
 
 $lang['job-add']        = "Add Job";
+$lang['email']        = "Email Address";
+$lang['email_confirm']        = "Verify Email Address";
 
 $lang['name']            = "Name";
 $lang['description']     = "Description";

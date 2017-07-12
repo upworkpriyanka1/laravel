@@ -9,29 +9,30 @@
     <meta content="" name="keywords" />
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
-    <link href="/assets/global/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets/global/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
     <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css" />
-    <link href="/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/global/css/materialize.min.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/global/css/ghpages-materialize.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets/global/css/materialize.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets/global/css/ghpages-materialize.css" rel="stylesheet" type="text/css" />
     <!-- END GLOBAL MANDATORY STYLES -->
 
     <!-- BEGIN THEME GLOBAL STYLES -->
-    <link href="/assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
-    <link href="/assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
+    <link href="<?= base_url(); ?>assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
     <!-- END THEME GLOBAL STYLES -->
 
     <!-- BEGIN THEME LAYOUT STYLES -->
-    <link href="/assets/layouts/default/css/layout.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/layouts/default/css/themes/light2.min.css" rel="stylesheet" type="text/css" id="style_color" />
-    <link href="/assets/layouts/default/css/custom-client-overview.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets/layouts/default/css/layout.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets/layouts/default/css/themes/light2.min.css" rel="stylesheet" type="text/css" id="style_color" />
+    <link href="<?= base_url(); ?>assets/layouts/default/css/custom-client-overview.css" rel="stylesheet" type="text/css" />
     <!-- END THEME LAYOUT STYLES -->
-    <link rel="shortcut icon" href="/assets/favicon.ico" />
+    <link rel="shortcut icon" href="<?= base_url(); ?>assets/favicon.ico" />
+	<script src="<?= base_url(); ?>assets/global/plugins/jquery.min.js" type="text/javascript" ></script>
 </head>
-<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-md">
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-md user form-edit-us" id="profile-form-mock">
 
 <!-- BEGIN HEADER -->
 <header>
@@ -39,84 +40,71 @@
         <div class="container">
             <div class="page-header navbar navbar-fixed-top">
                 <!-- BEGIN PAGE TITLE-->
-                <div class="page-title">
-                    <h1  id="logo">
-                        <!-- <a href="#" data-activates="nav-mobile" class="button-collapse" id="nav_mobile_button"><i class="material-icons">menu</i></a>-->
-                        <span class='logo_first'>M</span>Manage
+                <div class="page-title client-ed">
+                    <h1 id="logo" style="color:#666;">					
+                        <span id="span_client_client_name">Dashboard</span>
                     </h1>
                     <div class="rand-place">
-
                         <div class="row">
-                            <div class="col s2 locat-call ">
+                            <div class="col s2 locat-call tb-adr" id="div_client_client_owner">
                                 <div class="tb-adr">
                                     <span class="icon-tb-cl"><i class="material-icons">location_on</i></span>
                                     <ul class="text-tb-cl">
-                                        <li>622 Central Ave, Unit X </li>
-                                        <li>Central Valley, OE 99999</li>
+                                        <li><span id="span_client_client_owner">22</span></li>
                                     </ul>
                                 </div>
                             </div>
-
-                            <div class="col s2 locat-call">
+                            <div class="col s2 locat-call" id="div_client_client_type_label">
+                                <div class="tb-adr">
+                                    <span class="icon-tb-cl"><i class="material-icons">account_circle</i></span>
+                                    <ul class="text-tb-cl">
+                                        <li><span id="span_client_client_type_label">Adult Day Care</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col s2 locat-call" id="div_client_client_address1">
+                                <div class="tb-adr">
+                                    <span class="icon-tb-cl"><i class="material-icons">location_on</i></span>
+                                    <ul class="text-tb-cl">
+                                        <li><span id="span_client_client_address1">44,45</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col s2 locat-call" id="div_client_client_city">
+                                <div class="tb-adr">
+                                    <span class="icon-tb-cl"><i class="material-icons">location_on</i></span>
+                                    <ul class="text-tb-cl">
+                                        <li><span id="span_client_client_city">88,77,66</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col s2 locat-call" id="div_client_client_phone">
                                 <div class="tb-adr">
                                     <p class="icon-tb-cl"><i class="material-icons">call</i></p>
                                     <ul class="text-tb-cl">
-                                        <li>(246 463-2538)</li>
-                                        <li>(246 463-2500)</li>
+                                        <li><span id="span_client_client_phone">99999999</span></li>
                                     </ul>
                                 </div>
                             </div>
-
-                            <div class="col s2 locat-call ">
+                            <div class="col s2 locat-call" id="div_client_client_email">
                                 <div class="tb-adr">
-                                    <span class="icon-tb-cl"><i class="material-icons">location_on</i></span>
+                                    <p class="icon-tb-cl"><i class="material-icons prefix">email</i></p>
                                     <ul class="text-tb-cl">
-                                        <li>622 Central Ave, Unit X </li>
-                                        <li>Central Valley, OE 99999</li>
+                                        <li><span id="span_client_client_email">bb@hjhj.com</span></li>
                                     </ul>
                                 </div>
                             </div>
-                            <div class="col s2 locat-call ">
-                                <div class="tb-adr">
-                                    <span class="icon-tb-cl"><i class="material-icons">location_on</i></span>
-                                    <ul class="text-tb-cl">
-                                        <li>622 Central Ave, Unit X </li>
-                                        <li>Central Valley, OE 99999</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="col s2 locat-call">
-                                <div class="tb-adr">
-                                    <p class="icon-tb-cl"><i class="material-icons">call</i></p>
-                                    <ul class="text-tb-cl">
-                                        <li>(246 463-2538)</li>
-                                        <li>(246 463-2500)</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="col s2 locat-call ">
-                                <div class="tb-adr">
-                                    <span class="icon-tb-cl"><i class="material-icons">location_on</i></span>
-                                    <ul class="text-tb-cl">
-                                        <li>622 Central Ave, Unit X </li>
-                                        <li>Central Valley, OE 99999</li>
-                                    </ul>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
                     <div class="chevron">
-                            <span class="chevron-down" style="display:none;">
-                                <i class="fa fa-chevron-circle-down" aria-hidden="true"></i>
-                            </span>
-                            <span class="chevron-up" style="display:none;">
-                                <i class="fa fa-chevron-circle-up" aria-hidden="true"></i>
-                            </span>
+						<span class="chevron-down" style="display:none;">
+							<i class="fa fa-chevron-circle-down" aria-hidden="true"></i>
+						</span>
+						<span class="chevron-up" style="display:none;">
+							<i class="fa fa-chevron-circle-up" aria-hidden="true"></i>
+						</span>
                     </div>
-                </div>
+                </div>				
                 <div class="top-notific-page">
                     <div class="notifications">
                         <div class="zang">
@@ -127,18 +115,18 @@
                                 <ul>
                                     <li><a href="#">ALL</a></li>
                                     <li class="new-messages">
-                                        <a href="#"> <img src="/assets/layouts/default/img/new-messages.png" alt="new-messages">
+                                        <a href="#"> <img src="<?= base_url(); ?>assets/layouts/default/img/new-messages.png" alt="new-messages">
                                             <span class="round">1</span>
                                         </a>
                                     </li>
                                     <li class="patient-updates">
-                                        <a href="#"> <img src="/assets/layouts/default/img/patient-updates.png" alt="patient-updates">
+                                        <a href="#"> <img src="<?= base_url(); ?>assets/layouts/default/img/patient-updates.png" alt="patient-updates">
                                             <span class="round">2</span>
                                         </a>
                                     </li>
                                     <li class="news">
                                         <a href="#">
-                                            <img src="/assets/layouts/default/img/news.png" alt="news">
+                                            <img src="<?= base_url(); ?>assets/layouts/default/img/news.png" alt="news">
                                             <span class="round">3</span>
                                         </a>
                                     </li>
@@ -151,7 +139,7 @@
 
                     </div>
                 <div class="zang"></div>
-                <!-- END PAGE TITLE-->
+
             </div>
         </div>
     </nav>
@@ -164,7 +152,7 @@
     <ul id="nav-mobile" class="side-nav fixed" style="transform: translateX(-100%);">
         <li class="logo">
             <a href="/client-mockup-sacred-city/superuser" class="brand-logo">
-                <!--                    <img src="/assets/img/logo.png" alt="logo" class="logo-default" />-->
+                <!--                    <img src="<?= base_url(); ?>assets/img/logo.png" alt="logo" class="logo-default" /> -->
                 <span class="logo-default"> Sacred City</span>
             </a>
         </li>
@@ -217,7 +205,7 @@
                         <ul>
                             <!-- SIDEBAR MENU LINK -->
                             <li class="nav-item">
-                                <a href="#" class="nav-link ">
+                                <a href="#" class="nav-link"  data-toggle="modal" data-target="#new_user_modal1">
                                     <!--<a href="--><!--" class="nav-link ">-->
                                     <span class="fa fa-plus"></span>
                                     <span class="title">New</span>
@@ -245,7 +233,7 @@
                         </ul>
                     </div>
                 </li>
-                <!-- END SIDEBAR MENU -->
+                <!--      END SIDEBAR MENU -->
                 <!-- SIDEBAR MENU -->
                 <li class="nav-item">
                     <a href="javascript:;" class="nav-link nav-toggle collapsible-header waves-effect waves-teal">
@@ -291,7 +279,7 @@
                 <li class="nav-item">
                     <a href="javascript:;" class="nav-link nav-toggle collapsible-header waves-effect waves-teal">
 
-                        <span><img alt="" class="img-circle" src="/assets/avatar/avatar-gr.png"></span>
+                        <span><img alt="" class="img-circle" src="<?= base_url(); ?>assets/avatar/avatar-gr.png"></span>
 
                         <span class="title">Rod D</span>
                     </a>
@@ -373,7 +361,7 @@
 
 <!-- BEGIN MAIN PAGE -->
 <main>
-    <div class="page-content" id="top_container">
+    <div class="page-content location-dashboard" id="top_container">
         <div class="row">
             <div class="col s12">
                 <div id="structure" class="section scrollspy">
@@ -383,208 +371,140 @@
                         <div class="page-content">
 
                             <div class="clearfix"></div>
-                            <div class="portlet light bordered">
-                                <div class="portlet-body">
+                            <div class="col-xs-12">
+                                <div id="profile-form">
+                                    <div class="row">
+										<button data-toggle="modal" data-target="#client_new_user_dialog_checking" class="client_new_user_dialog waves-effect waves-light btn-large" style="background-color: #fff; color: #000;font-size: 16px; margin-top:100px;">
+											<i class="fa fa-plus" style="font-size: 16px"></i>
+											Add location
+										</button>  
+										
+										<div class="modal fade newclient" id="client_new_user_dialog_checking" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+											<div class="modal-dialog">
+												<div class=" modal-content">
+													<div class="modal-header">
+														<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+														<h3 class="modal-title" id="lineModalLabel">Add Location</h3>               
+														<h5>All fields are required.</h5>
+													</div>
 
-                                    <div class="page-bar">
-                                        <!--<h3 class="page-title">Manage</h3>-->
-                                    </div>
+													<div class="row">
+														<form class="col s12 form-horizontal" action="" method="post" id="form_location" name="form_location" enctype="multipart/form-data">
+															<div class="row">
+																<div class="input-field col s12">                                    
+																	<input required type="text" name="name" id="name" />
+																	<label for="name">Name</label>
+																</div>
+															</div>
 
-                                    <div class="table-toolbar table_info">
-                                        <h4>
-                                            10 Rows(Page # <strong>1 </strong>)
-                                        </h4>
+															<div class="row">
+																<div class="input-field col s12">                                   
+																	<input required type="text" name="address" id="address" value="" />
+																	<label for="address">Address</label>
+																</div>
+															</div>
+															<div class="row">
+																<div class="input-field col s12">                                   
+																	<input required type="text" name="residents" id="residents" value="" />
+																	<label for="residents">Residents</label>
+																</div>
+															</div>
 
-                                        <button type="button" class="dropdown-button btn filter_dropdown btn-filter " data-activates="dropdown1" onClick="javascript:clientsListFilterApplied();" data-toggle="tooltip" data-html="true" data-placement="top" title="" data-original-title="Open dialog window to set filter for Clients.  "><i class="glyphicon glyphicon-filter"></i>&nbsp;Filter </button>
-                                        <button type="button" class="btn btn-plus sbold btn-sm pull-right" data-toggle="modal" data-target=""><i class="glyphicon glyphicon-plus"></i></button>
-                                    </div>
-                                    <!-- Dropdown Structure -->
-
-
-
-                                </div>
-
-                                <div class="table-responsive">
-
-                                    <table class="table table-striped table-bordered table-hover  order-column" id="clients_listing">
-                                        <thead>
-                                        <tr>
-
-                                            <th><a href="#"><span>Client Name</span></a></th>
-                                            <th><a href="#"><span>Client Owner</span></a></th>
-                                            <th><a href="#"><span>Client Active Status</span></a></th>
-                                            <th><a href="#"><span>Phone</span></a></th>
-                                            <th><a href="#"><span>Client Type</span></a></th>
-                                            <th><a href="#"><span>Created At</span></a></th>
-                                            <th><a href="#"><span>Updated At</span></a></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-
-                                            <td>
-                                                <a class="a_link" href="#">
-                                                    MedLab
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <a href="#"> Mark </a>
-                                            </td>
-                                            <td>Inactive  </td>
-                                            <td>+44 563452772  </td>
-                                            <td>Home Health</td>
-                                            <td>November 23, 2016 13:26PM</td>
-                                            <td>November 23, 2016 13:26PM</td>
-                                        </tr>
-
-                                        <tr>
-
-
-                                            <td>
-                                                <a class="a_link" href="#">
-                                                    BluePharm
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <a href="#"> Peter </a>
-                                            </td>
-                                            <td>Active  </td>
-                                            <td>(02) 654295653  </td>
-                                            <td>Home Health</td>
-                                            <td>November 23, 2016 13:26PM</td>
-                                            <td>December 21, 2016 11:20AM</td>
-                                        </tr>
-                                        <tr>
-
-
-                                            <td>
-                                                <a class="a_link" href="#">
-                                                    Company B
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <a href="#">
-                                                 fsdsdfs
-                                                </a>
-                                            </td>
-                                            <td>Active  </td>
-                                            <td>  </td>
-                                            <td>Home Health</td>
-                                            <td>November 23, 2016 13:26PM</td>
-                                            <td>November 23, 2016 13:26PM</td>
-                                        </tr>
-                                        <tr>
-
-
-                                            <td>
-                                                <a class="a_link" href="#">
-                                                    555555555555555
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <a href="#">
-                                                sdfsdf
-                                                </a>
-                                            </td>
-                                            <td>Pending  </td>
-                                            <td>ee  </td>
-                                            <td>Adult Day Care</td>
-                                            <td>January 18, 2017 04:58AM</td>
-                                            <td>January 18, 2017 04:58AM</td>
-                                        </tr>
-                                        <tr>
-
-
-                                            <td>
-                                                <a class="a_link" href="#">
-                                                    MedLab
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <a href="#"> nbnbvcxn </a>
-                                            </td>
-                                            <td>Active  </td>
-                                            <td>6666666  </td>
-                                            <td>Adult Day Care</td>
-                                            <td>January 05, 2017 01:30AM</td>
-                                            <td>January 05, 2017 01:30AM</td>
-                                        </tr>
-                                        <tr>
-
-
-                                            <td>
-                                                <a class="a_link" href="#">
-                                                    MedLab
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <a href="#"> Mark </a>
-                                            </td>
-                                            <td>Inactive  </td>
-                                            <td>+44 563452772  </td>
-                                            <td>Home Health</td>
-                                            <td>November 23, 2016 13:26PM</td>
-                                            <td>November 23, 2016 13:26PM</td>
-                                        </tr>
-                                        <tr>
-
-
-                                            <td>
-                                                <a class="a_link" href="#">
-                                                    nilov
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <a href="#"> xx </a>
-                                            </td>
-                                            <td>Active  </td>
-                                            <td>4325  </td>
-                                            <td>Home Health</td>
-                                            <td>January 05, 2017 01:45AM</td>
-                                            <td>January 05, 2017 01:45AM</td>
-                                        </tr>
-                                        <tr>
-
-
-                                            <td>
-                                                <a class="a_link" href="#">
-                                                    nmnm                                </a>
-                                            </td>
-                                            <td>
-                                                <a href="#"> gvcvdf </a>
-                                            </td>
-                                            <td>Inactive  </td>
-                                            <td>98989898888  </td>
-                                            <td>Adult Day Care</td>
-                                            <td>February 08, 2017 05:56AM</td>
-                                            <td>February 08, 2017 05:56AM</td>
-                                        </tr>
-                                        <tr>
-
-
-                                            <td>
-                                                <a class="a_link" href="#">
-                                                    On the way Up                                </a>
-                                            </td>
-                                            <td>
-                                                <a href="#"> eree </a>
-                                            </td>
-                                            <td>Pending  </td>
-                                            <td>66  </td>
-                                            <td>Home</td>
-                                            <td>January 13, 2017 07:00AM</td>
-                                            <td>January 13, 2017 07:00AM</td>
-                                        </tr>
-
-
-                                        </tbody>
-                                    </table>
-                                </div>
-
+															<div class="row" style="display: none">
+																<div class="input-field col s12">
+																	<span id="span_message"></span>
+																</div>
+															</div>
+															
+															<div class="row md-foot-row">
+																<div class="col-xs-12">					
+																	<button class="btn" data-dismiss="modal" role="button" type="button" >CANCEL</button>
+																
+																	<button type="submit" class="btn">Save</button>
+																		
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+											</div>
+										</div> 
+									</div>
+								</div>
                             </div>
                         </div><!-- ./page-conten -->
                     </div>
                     <!-- END CONTAINER ./page-content-wrapper -->
+                </div>
+            </div>
+            <div class="modal fade newuser1" id="new_user_modal1" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content modal-top">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                            <h3 class="modal-title" id="lineModalLabel">New User</h3>
+                        </div>
+                        <div class="modal-body">
+                            <form action="">
+                                <div class="row">
+                                    <form class="col s12">
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <i class="material-icons prefix">account_circle</i>
+                                                <input id="icon_prefix" type="text" class="validate"/>
+                                                <label for="icon_prefix">First Name</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <i class="material-icons prefix">supervisor_account</i>
+                                                <input id="last_name" type="text" class="validate"/>
+                                                <label for="last_name">Last Name</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <i class="material-icons prefix">phone</i>
+                                                <input id="icon_telephone" type="tel" class="validate"/>
+                                                <label for="icon_telephone">Telephone</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <i class="material-icons prefix">email</i>
+                                                <input id="email" type="email" class="validate required_form"  onchange="validateFormEnableOrDisable('form_client_edit2');"/>
+                                                <label for="email">Email address</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <i class="material-icons prefix">email</i>
+                                                <input id="email" type="email" class="validate required_form" onchange="validateFormEnableOrDisable('form_client_edit2');"/>
+                                                <label for="email">Verify email address</label>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="modal-footer">
+
+                            <div class="col-xs-12">
+
+                                <ul class="md-foot-top">
+                                    <li class="create-contact-more"><button class="btn-flat btn-flat1 reset_form_btn">Reset</button></li>
+                                    <li class="create-contact-more"><button class="btn-flat btn-flat1">SUBMIT</button></li>
+                                </ul>
+
+                                <ul class ="md-foot-bot">
+                                    <li data-dismiss="modal"> <button class="btn">CANCEL</button> </li>
+                                </ul>
+
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -622,32 +542,32 @@
 
 
 <!--[if lt IE 9]>
-<script src="/assets/global/plugins/respond.min.js" type="text/javascript" ></script>
-<script src="/assets/global/plugins/excanvas.min.js" type="text/javascript" ></script>
+<script src="<?= base_url(); ?>assets/global/plugins/respond.min.js" type="text/javascript" ></script>
+<script src="<?= base_url(); ?>assets/global/plugins/excanvas.min.js" type="text/javascript" ></script>
 <![endif]-->
 <!-- BEGIN CORE PLUGINS -->
-<script src="/assets/global/plugins/jquery.min.js" type="text/javascript" ></script>
-<script src="/assets/global/js/materialize.min.js" type="text/javascript" ></script>
-<script src="/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript" ></script>
-<script src="/assets/global/plugins/js.cookie.min.js" type="text/javascript" ></script>
-<script src="/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript" ></script>
-<script src="/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript" ></script>
-<script src="/assets/global/plugins/jquery.blockui.min.js" type="text/javascript" ></script>
-<script src="/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript" ></script>
-<script src="/assets/global/js/init.js" type="text/javascript" ></script>
-<script src="/assets/global/js/client-overview.js" type="text/javascript" ></script>
+
+<script src="<?= base_url(); ?>assets/global/js/materialize.min.js" type="text/javascript" ></script>
+<script src="<?= base_url(); ?>assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript" ></script>
+<script src="<?= base_url(); ?>assets/global/plugins/js.cookie.min.js" type="text/javascript" ></script>
+<script src="<?= base_url(); ?>assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript" ></script>
+<script src="<?= base_url(); ?>assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript" ></script>
+<script src="<?= base_url(); ?>assets/global/plugins/jquery.blockui.min.js" type="text/javascript" ></script>
+<script src="<?= base_url(); ?>assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript" ></script>
+<script src="<?= base_url(); ?>assets/global/js/init.js" type="text/javascript" ></script>
+<script src="<?= base_url(); ?>assets/global/js/client-overview.js" type="text/javascript" ></script>
 
 <!-- END CORE PLUGINS -->
 <!-- BEGIN PAGE LEVEL PLUGINS -->
 <!-- END PAGE LEVEL PLUGINS -->
 <!-- BEGIN THEME GLOBAL SCRIPTS -->
-<script src="/assets/global/scripts/app.min.js" type="text/javascript" ></script>
+<script src="<?= base_url(); ?>assets/global/scripts/app.min.js" type="text/javascript" ></script>
 <!-- END THEME GLOBAL SCRIPTS -->
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 <!-- END PAGE LEVEL SCRIPTS -->
 <!-- BEGIN THEME LAYOUT SCRIPTS -->
-<script src="/assets/layouts/default/scripts/layout.js" type="text/javascript" ></script>
-<script src="/assets/layouts/default/scripts/demo.js" type="text/javascript" ></script>
+<script src="<?= base_url(); ?>assets/layouts/default/scripts/layout.js" type="text/javascript" ></script>
+<script src="<?= base_url(); ?>assets/layouts/default/scripts/demo.js" type="text/javascript" ></script>
 <!-- END THEME LAYOUT SCRIPTS -->
 
 

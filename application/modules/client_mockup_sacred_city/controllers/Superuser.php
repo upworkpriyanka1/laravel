@@ -152,7 +152,13 @@ class Superuser extends CI_Controller {
 //    }
     public function superuser(){
 
-
-
     }
+	
+	public function sign_up(){
+        $this->load->view('main_superuser/sign_up');
+    }
+	public function sign_dashboard(){
+        $this->load->view('main_superuser/sign_dashboard');
+    }
+	
 }

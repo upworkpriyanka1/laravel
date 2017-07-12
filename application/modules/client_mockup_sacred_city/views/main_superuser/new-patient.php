@@ -139,6 +139,35 @@ echo link_tag('/assets/layouts/default/css/custom-client-overview.css');
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <div class="input-field">
+                                                                            <input id="pat-name"  type="text"  class="validate" value="" name="" >
+                                                                            <label for="pat-name" class="control-label"><?php echo lang('name') ?></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div class="form-group">
+                                                                            <div class="input-field">
+                                                                                <select>
+                                                                                    <option value="" disabled selected>Type</option>
+                                                                                    <option value="1">Primary Residence</option>
+                                                                                    <option value="2"> House,Primary Residence</option>
+                                                                                    <option value="3"> Apartment/Community</option>
+                                                                                    <option value="4">Independent Living Communities</option>
+                                                                                    <option value="5">Assisted Living</option>
+                                                                                    <option value="6">Nursing Homes</option>
+                                                                                    <option value="7">Alzheimer's Care</option>
+                                                                                    <option value="8">Residential Care Homes</option>
+                                                                                    <option value="9">Respite Care</option>
+                                                                                    <option value="10">Home Care</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <div class="input-field">
                                                                             <input id="pat-address"  type="text"  class="validate" value="" name="" >
                                                                             <label for="pat-address" class="control-label"><?php echo lang('address') ?></label>
                                                                         </div>
@@ -261,7 +290,7 @@ echo link_tag('/assets/layouts/default/css/custom-client-overview.css');
                                                     </div>
                                                 </div>
 
-                                                <div class="col-xs-12 text-center ">
+                                                <div class="col-xs-12 card-bottom text-center ">
                                                     <button class="btn"><a href="" style="color: #fff;"> CANCEL</a></button>
                                                     <button class="btn" name="submit" type="submit">+CONTACT</button>
                                                     <button class="btn" name="submit" type="submit">SAVE</button>

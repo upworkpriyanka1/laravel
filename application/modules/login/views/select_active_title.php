@@ -16,8 +16,8 @@
 
         <div class="form-group">
             <?php foreach( $groupsList as $nextGroup ) { ?>
-                <input class="with-gap" type="radio" value="<?= $nextGroup->group_id; ?>" name="active_title_id" id="active_title_<?= $nextGroup->group_id; ?>" >
-                <label class="control-label" for="active_title_<?= $nextGroup->group_id; ?>"><?= $nextGroup->group_description; ?></label>
+                <input class="with-gap" type="radio" value="<?= $nextGroup->uc_group_id; ?>" name="active_title_id" id="active_title_<?= $nextGroup->group_id; ?>" >
+                <label class="control-label" for="active_title_<?= $nextGroup->uc_group_id; ?>"><?= $nextGroup->group_description; ?></label>
                 <div class="clear_fix"></div>
             <?php } ?>
         </div>

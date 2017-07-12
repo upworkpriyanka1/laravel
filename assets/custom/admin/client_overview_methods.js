@@ -21,7 +21,7 @@ $(function() {
  * return none
  *********************************/
 function loadClientInfo() {
-    var href= "/sys-admin/get_client_info/client_id/"+client_id
+    var href= "sys-admin/get_client_info/client_id/"+client_id
     $.ajax({
         url: href,
         type: 'GET',
@@ -98,6 +98,9 @@ function loadClientRelatedUsers(page) {
 }
 
 function setClientUserValidationRulesChecking() {
+	/* ======= BBITS DEV START : 30/06/2017 ======= */
+	//alert('here');
+	/* ======= BBITS DEV END ======= */
     $( "#form_user_modal_editor_checking" ).validate({
         submitHandler: function(form) { // valid email was entered
             var entered_email= $("#form_user_modal_editor_checking_email1").val()
@@ -133,7 +136,9 @@ function setClientUserValidationRulesChecking() {
                 type: 'GET',
                 dataType: 'json',
                 success: function(result) {
-                    // alert( "get_user_info_by_email  result::"+var_dump(result) )
+					/* ======= BBITS DEV START : 30/06/2017 ======= */
+                     //alert( "get_user_info_by_email  result::"+var_dump(result) )
+					 /* ======= BBITS DEV END ======= */
                     if (result.ErrorCode == 0) {      // FOUND USER WITH given email
                         selected_user_id= result.user.id
                         var message= selected_user_id+" = "+result.user.first_name+' '+result.user.last_name + ( jQuery.trim(result.user.phone) != "" ? ' at ' : '' ) + result.user.phone

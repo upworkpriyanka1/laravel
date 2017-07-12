@@ -498,7 +498,7 @@
                                                                                     <table>
                                                                                         <tr>
                                                                                             <td style="width: 98%">
-                                                                                                <input type="text" id="us_phone" value="<?=$user->phone?>" name="data[phone]" class="form-control required_form " maxlength="50" onchange="javascript:checkPhonesVisibilty(); validateFormEnableOrDisable('form_client_edit');" " />
+                                                                                                <input type="text" id="us_phone" value="<?=$user->phone?>" name="data[phone]" class="form-control required_form " maxlength="50" onChange="javascript:checkPhonesVisibilty(); validateFormEnableOrDisable('form_client_edit');" " />
                                                                                                 <label for="us_phone" class=""><?php echo lang('phone') ?><span class="required">&nbsp;*&nbsp;</span></label>
                                                                                             </td>
                                                                                         </tr>
@@ -525,7 +525,7 @@
                                                                         <div class="col-md-12 phone  phone-second-row" id="div_phone_2" style="display: <?= ( !empty($client->client_phone_2) ? 'block' : 'none' ); ?>">
                                                                             <div class="form-group input-field">
                                                                                 <div class="col-md-6" style="padding-left: 0">
-                                                                                    <input type="text"  id="us_phone-2" name="data[phone2]" class="form-control " maxlength="50" onchange="javascript:checkPhonesVisibilty(); " />
+                                                                                    <input type="text"  id="us_phone-2" name="data[phone2]" class="form-control " maxlength="50" onChange="javascript:checkPhonesVisibilty(); " />
                                                                                     <label for="us_phone-2" class=""><?php echo lang('phone_2') ?></label>
                                                                                 </div><!-- ./col -->
                                                                                 <div class="input-field col-md-6" style="margin-top: 0">
@@ -550,7 +550,7 @@
                                                                         <div class="col-md-12 phone  phone-third-row" id="div_phone_3" style="display: none;">
                                                                             <div class="form-group input-field">
                                                                                 <div class="col-md-6" style="padding-left: 0">
-                                                                                    <input type="text" id="us_phone_3"  name="data[phone3]" class="form-control " maxlength="50" onchange="javascript:checkPhonesVisibilty(); " />
+                                                                                    <input type="text" id="us_phone_3"  name="data[phone3]" class="form-control " maxlength="50" onChange="javascript:checkPhonesVisibilty(); " />
                                                                                     <label for="us_phone_3" class=""><?php echo lang('phone_3') ?></label>
                                                                                 </div><!-- ./col -->
                                                                                 <div class="input-field col-md-6" style="margin-top: 0">
@@ -828,7 +828,7 @@
                                         <div class="row">
                                             <div class="input-field col s12">
                                                 <i class="material-icons prefix">email</i>
-                                                <input id="email" type="email" class="validate required_form" onchange="validateFormEnableOrDisable('form_client_edit2');"/>
+                                                <input id="email" type="email" class="validate required_form" onChange="validateFormEnableOrDisable('form_client_edit2');"/>
                                                 <label for="email">Verify email address</label>
                                             </div>
                                         </div>
