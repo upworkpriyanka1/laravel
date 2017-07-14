@@ -360,7 +360,15 @@ class Login extends CI_Controller {
 		/*echo "session data are : ";
 		print_r($this->session->userdata());*/    	/*redirect('/'.$logged_user_title_name, 'refresh');*/
 
-		echo $title_name;
+		//echo $title_name;
+		if($title_name != '')
+		{
+			echo base_url() . $title_name;
+		}
+		else
+		{
+			echo '';
+		}
 	}
 
 	public function index(){
