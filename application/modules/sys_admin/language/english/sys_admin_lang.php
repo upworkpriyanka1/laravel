@@ -7,6 +7,7 @@ $lang['color_scheme']   = "Color Scheme";
 $lang['users']        = "Users";
 $lang['users-view']   = "Manage";
 $lang['users-add']    = "New";
+$lang['locations-types']    = "Types";
 
 //$lang['users-role']   = "Groups";
 
@@ -19,6 +20,10 @@ $lang['email_confirm']        = "Verify Email Address";
 
 $lang['name']            = "Name";
 $lang['description']     = "Description";
+
+$lang['SAVE']  = "SAVE";
+$lang['res']  = "Res";
+
 
 $lang['client_type_name'] = "Type name";
 $lang['client_type_description'] = "Type description";

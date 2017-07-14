@@ -141,6 +141,32 @@ class Sys_admin extends CI_Controller {
         $this->layout->view($views, $data);
     }
 	
+	public function locations_types(){
+       $data['meta_description']='';
+        $data['menu']		= $this->menu;
+        $data['user'] 		= $this->user;
+        $data['group'] 		= $this->group->name;
+        $data['page']		='mockup/location_types'; //page view to load
+        $data['pls'] 		= array(); //page level scripts optional
+        $data['plugins'] 	= array(); //page plugins
+        $data['javascript'] = array(); //page javascript
+        $views=  array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php' );
+        $this->layout->view($views, $data);
+    }
+	
+	public function locations_view(){
+       $data['meta_description']='';
+        $data['menu']		= $this->menu;
+        $data['user'] 		= $this->user;
+        $data['group'] 		= $this->group->name;
+        $data['page']		='mockup/locations_view'; //page view to load
+        $data['pls'] 		= array(); //page level scripts optional
+        $data['plugins'] 	= array(); //page plugins
+        $data['javascript'] = array(); //page javascript
+        $views=  array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php' );
+        $this->layout->view($views, $data);
+    }
+	
 	public function sign_dashboard()
     {		
        /* $UriArray = $this->uri->uri_to_assoc(2);		
@@ -1845,10 +1871,7 @@ class Sys_admin extends CI_Controller {
         $data['user'] 		= $this->user;
 //		$data['job'] 		= $this->job;
         $data['group'] 		= $this->group->name;
-
         $data['client_types']= $this->admin_mdl->get_client_types();
-
-
         $data['page']		='clients/clients-types';
         $data['plugins'] 	= array('validation');
         $data['javascript'] = array( 'assets/custom/admin/client-type-add-validation.js');
