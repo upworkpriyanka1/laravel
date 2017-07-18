@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Owner_mockup extends CI_Controller {
     public function __construct() {
-        parent::__construct();                 
+        parent::__construct();               
 		$this->lang->load('sys_admin');		
 		$this->config->load('sys_admin_menu_new', true );
 		$this->menu = $this->config->item( 'sys_admin_menu_new' );        
