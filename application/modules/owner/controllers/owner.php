@@ -1,16 +1,18 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class owner extends CI_Controller {
+class Owner extends CI_Controller {
     public function __construct() {
         parent::__construct();               
-		$this->lang->load('sys_admin');		
-		$this->config->load('sys_admin_menu_new', true );
-		$this->menu = $this->config->item( 'sys_admin_menu_new' );        
+		//$this->lang->load('sys_admin');		
+		//$this->config->load('sys_admin_menu_new', true );
+		//$this->menu = $this->config->item( 'sys_admin_menu_new' );        
     }
   
-    public function index(){   
-		$data['meta_description']='';
+    public function index(){
+		
+		die('Here');	
+		/*$data['meta_description']='';
         $data['menu'] = $this->menu;
         //$data['user'] 		= $this->user;
         //$data['group'] 		= $this->group->name;
@@ -19,10 +21,10 @@ class owner extends CI_Controller {
         $data['plugins'] 	= array(); //page plugins
         $data['javascript'] = array(); //page javascript
         $views=  array('design-mockup/html_topbar','sidebar','design-mockup/page','design-mockup/html_footer');
-        $this->layout->view($views, $data);
+        $this->layout->view($views, $data);*/
     }
 	
-	 public function locations_list(){		
+	/* public function locations_list(){		
 		$data['meta_description']='';
         $data['menu'] = $this->menu;
         //$data['user'] 		= $this->user;      
@@ -44,6 +46,6 @@ class owner extends CI_Controller {
         $data['javascript'] = array(); //page javascript
         $views=  array('design-mockup/html_topbar','sidebar','design-mockup/page','design-mockup/html_footer');
         $this->layout->view($views, $data);
-    }
+    }*/
 }
 
