@@ -78,10 +78,10 @@ switch (ENVIRONMENT)
 	break;
 	case 'dev2':
 		//Report all errors
-		//error_reporting(-1);
+		error_reporting(E_ALL);
 		//Report only errors and warning. Do not show uninitialized variables because it can break the normal functioning.
-		error_reporting(E_ERROR | E_WARNING);
-		ini_set('display_errors', 1);
+		//error_reporting(E_ERROR | E_WARNING);
+		//ini_set('display_errors', 1);
 	break;
 	case 'dev4':
 		//Report all errors
