@@ -12,8 +12,8 @@ class owner extends CI_Controller {
     public function index(){   
 		$data['meta_description']='';
         $data['menu'] = $this->menu;
-        $data['user'] 		= $this->user;
-        $data['group'] 		= $this->group->name;
+        //$data['user'] 		= $this->user;
+        //$data['group'] 		= $this->group->name;
         $data['page']		='dashboard'; //page view to load
         $data['pls'] 		= array(); //page level scripts optional
         $data['plugins'] 	= array(); //page plugins
@@ -25,7 +25,7 @@ class owner extends CI_Controller {
 	 public function locations_list(){		
 		$data['meta_description']='';
         $data['menu'] = $this->menu;
-        $data['user'] 		= $this->user;      
+        //$data['user'] 		= $this->user;      
         $data['page']		='main/location_view'; //page view to load
         $data['pls'] 		= array(); //page level scripts optional
         $data['plugins'] 	= array(); //page plugins
@@ -37,7 +37,7 @@ class owner extends CI_Controller {
 	public function contacts_list(){		
 		$data['meta_description']='';
         $data['menu'] = $this->menu;
-        $data['user'] 		= $this->user;      
+        //$data['user'] 		= $this->user;      
         $data['page']		='main/contacts_list'; //page view to load
         $data['pls'] 		= array(); //page level scripts optional
         $data['plugins'] 	= array(); //page plugins
