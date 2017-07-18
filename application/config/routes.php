@@ -3,6 +3,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 $route['default_controller'] = 'login';
+$route['Owner_mockup'] = 'owner_mockup';
 
 $route['404_override'] = '';
 
