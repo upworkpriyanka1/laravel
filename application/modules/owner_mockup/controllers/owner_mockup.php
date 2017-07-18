@@ -9,8 +9,7 @@ class Owner_mockup extends CI_Controller {
 		$this->menu = $this->config->item( 'sys_admin_menu_new' );        
     }
   
-    public function index(){	
-    die('kljgklf');
+    public function index(){   
 		$data['meta_description']='';
         $data['menu'] = $this->menu;
         $data['user'] 		= $this->user;
