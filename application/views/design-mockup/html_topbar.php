@@ -20,7 +20,7 @@
                         <!-- BEGIN PAGE TITLE-->
                         <?php
                         $ci = &get_instance();
-                        $logged_user_title_description = ''
+                        $logged_user_title_description = '';
                         $username= '';
                         if ( !empty($username) and !empty($logged_user_title_description) ) {
                             $page_title = $logged_user_title_description . ' : ' . $username;
