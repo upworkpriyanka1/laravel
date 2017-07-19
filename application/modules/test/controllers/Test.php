@@ -8,10 +8,12 @@ class Test extends CI_Controller {
 	}
 
 	public function index(){
-		echo 'testing here';
-		die();
-	}	
-	
+		$data['meta_description'] = '';
+        $data['menu'] = $this->menu;
+        $data['page']		='dashboard'; //page view to load   
+        $views=  array('design-mockup/html_topbar','sidebar','design-mockup/page','design-mockup/html_footer');
+        $this->layout->view($views, $data);
+	}		
 }
 
 ?>	
