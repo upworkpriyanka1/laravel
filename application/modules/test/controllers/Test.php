@@ -4,7 +4,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Test extends CI_Controller {
 	public function __construct() {
-		parent::__construct();	
+		parent::__construct();
+		$this->lang->load('owner');
+		$this->config->load('owner_menu_new', true );
+		$this->menu = $this->config->item( 'owner_menu_new' );
 	}
 
 	public function index(){
