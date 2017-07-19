@@ -20,8 +20,8 @@
                         <!-- BEGIN PAGE TITLE-->
                         <?php
                         $ci = &get_instance();
-                        $logged_user_title_description= $ci->session->userdata['logged_user_title_description'];
-                        $username= !empty($user->username) ? $user->username : '';
+                        $logged_user_title_description = ''
+                        $username= '';
                         if ( !empty($username) and !empty($logged_user_title_description) ) {
                             $page_title = $logged_user_title_description . ' : ' . $username;
                         } else {
@@ -137,49 +137,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </li>
-                                        <?php /*
-                                    <!-- BEGIN USER LOGIN DROPDOWN -->
-                                    <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                                    <li class="dropdown dropdown-user">
-                                        <a href="javascript:;" class="dropdown-button" data-beloworigin="true" href="#!" data-activates="dropdown1">
-                                            <img alt="" class="img-circle" src="<?= base_url('assets/avatar/'.$user->avatar);?>" />
-                                            <span class="username username-hide-on-mobile"> <?php echo $user->first_name." ". $user->last_name;?> </span>
-                                            <i class="fa fa-angle-down"></i>
-                                        </a>
-                                        <ul id="dropdown1" class="dropdown-content">
-                                            <li>
-                                                <a href="<?= base_url($this->uri->segment(1).'/profile');?>">
-                                                    <i class="icon-user"></i> <?= lang('my-profile'); ?>
-                                                </a>
-                                            </li>
-                                            <?php if ($user->group_title !="g-user"){?>
-                                                <li>
-                                                    <a href="<?php echo base_url($user->job_name)?>">
-                                                        <i class="icon-user"></i><?php echo lang($user->job_title); ?></a>
-                                                </li>
-                                                <?php if ($user->job_name !=$group){?>
-                                                <li>
-                                                    <a href="<?php echo base_url($group)?>">
-                                                        <i class="icon-user"></i><?= lang($user->group_title);?></a>
-                                                </li>
-                                                <?php }
-                                            } ?>
-                                            <li class="divider"> </li>
-                                            <li>
-                                                <a href="<?php echo base_url()?>login/logout">
-                                                    <i class="icon-key"></i> Log Out </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <!-- END USER LOGIN DROPDOWN -->
-                                    <!-- BEGIN QUICK SIDEBAR TOGGLER -->
-                                    <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                                    <li class="dropdown dropdown-quick-sidebar-toggler">
-                                        <a href="<?php echo base_url('login/logout')?>" class="dropdown-toggle">
-                                            <i class="icon-logout"></i>
-                                        </a>
-                                    </li>*/?>
+                                        </li>                                        
                                         <!-- END QUICK SIDEBAR TOGGLER -->
                                     </ul>
                                 </div>
