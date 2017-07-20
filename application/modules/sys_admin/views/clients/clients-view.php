@@ -128,16 +128,17 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
                 </div>
 
                 <div class="table-responsive">
-
                 <table class="table table-striped table-bordered table-hover  order-column" id="clients_listing">
                     <thead>
                         <tr>
 
                             <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $page_parameters_without_sort, lang('name'), "client_name", $sort_direction, $sort ) ?></th>
                             <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $page_parameters_without_sort, lang('type'), "type_description", $sort_direction, $sort ) ?></th>
-                            <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $page_parameters_without_sort, lang('status'), "client_status", $sort_direction, $sort ) ?></th>
-                            <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $page_parameters_without_sort, lang('users'), "users", $sort_direction, $sort ) ?></th>
-                            <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $page_parameters_without_sort, lang('patients'), "patients", $sort_direction, $sort ) ?></th>
+                            <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $page_parameters_without_sort, lang('status'), "client_active_status", $sort_direction, $sort ) ?></th>
+                            <?php /*?><th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $page_parameters_without_sort, lang('users'), "users", $sort_direction, $sort ) ?></th><?php */?>
+                            <?php /*?><th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $page_parameters_without_sort, lang('patients'), "patients", $sort_direction, $sort ) ?></th><?php */?>
+                            <th><span style="color:#337ab7;">Users</span></th>
+                            <th><span style="color:#337ab7;">Patients</span></th>
 
 <!--                            <th>--><?//= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $page_parameters_without_sort, lang('client_owner'), "client_owner", $sort_direction, $sort ) ?><!--</th>-->
 <!--                            <th>--><?//= $this->common_lib->showListHeaderItem ( '/sys-admin/clients-view', $page_parameters_without_sort, lang('phone'), "client_phone", $sort_direction, $sort ) ?><!--</th>-->
@@ -158,8 +159,8 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
                                 </a>
                             </td>
                             <td><?php echo $client_types[$row->type_description];?></td>
-                            <td><?php echo $this->common_lib->get_client_status_label($row->client_status);?>  </td>
-                            <td></td>
+                            <td><?php echo $this->common_lib->get_client_status_label($row->client_active_status);?>  </td>
+                            <td><?php echo $row->user_count;?></td>
                             <td></td>
 
 <!--                            <td>-->
