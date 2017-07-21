@@ -13,42 +13,6 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
 	
 </script>
 
-  
-
-  <script>
-  $(document).ready(function(e) {
-    $( function() {
-    var availableTags = [
-      "ActionScript",
-      "AppleScript",
-      "Asp",
-      "BASIC",
-      "C",
-      "C++",
-      "Clojure",
-      "COBOL",
-      "ColdFusion",
-      "Erlang",
-      "Fortran",
-      "Groovy",
-      "Haskell",
-      "Java",
-      "JavaScript",
-      "Lisp",
-      "Perl",
-      "PHP",
-      "Python",
-      "Ruby",
-      "Scala",
-      "Scheme"
-    ];
-    $( "#search" ).autocomplete({
-      source: availableTags
-    });
-  } );
-});
-  
-  </script>
 
 <div class="row">
 	<div class="col-md-12">

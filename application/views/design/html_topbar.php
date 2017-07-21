@@ -1,6 +1,4 @@
-  <script src="<?php echo base_url();?>/assets/global/plugins/jquery.min.js" type="text/javascript" ></script>
-  
-      <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<script src="/assets/global/plugins/jquery.min.js" type="text/javascript" ></script>
   
 </head>
 <?php 
