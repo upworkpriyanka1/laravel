@@ -35,7 +35,7 @@ $config['menu_2'] = array(
 		'data-target' => '#new_owner_resident'
     ),
     "sub_2" => array(
-        'href'	=>	'owner-mockup/#',
+        'href'	=>	'owner-mockup/residents-list',
         'title'	=>	'users-view', //make sure to use dash
         'icon'	=>	'fa fa-user'
     ), 
@@ -47,7 +47,9 @@ $config['menu_3'] = array(
     "sub_1" => array(
         'href'	=>	'owner-mockup/#', //make sure to use dash
         'title'	=>	'contacts-add',//should be the same as the lang()
-        'icon'	=>	'fa fa-plus'
+        'icon'	=>	'fa fa-plus',
+		'data-toggle' => 'modal',
+		'data-target' => '#new_owner_contact'
     ),
     "sub_2" => array(
         'href'	=>	'owner-mockup/contacts-list/',

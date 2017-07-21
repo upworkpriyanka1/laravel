@@ -33,5 +33,13 @@ class Owner_mockup extends CI_Controller {
         $data['page'] = 'main/contacts_list';        
         $views=  array('design-mockup/html_topbar','sidebar','design-mockup/page','design-mockup/html_footer');
         $this->layout->view($views, $data);
-    }	
+    }
+	public function residents_list(){		
+		$data['meta_description']='';
+        $data['menu'] = $this->menu;
+		$data['user'] = $this->user; 	
+        $data['page'] = 'main/residents_list';        
+        $views=  array('design-mockup/html_topbar','sidebar','design-mockup/page','design-mockup/html_footer');
+        $this->layout->view($views, $data);
+    }
 }	

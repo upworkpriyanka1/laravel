@@ -1,6 +1,6 @@
 <style>.modal-backdrop{z-index:99;}</style>
 <!-- New Location modal -->
-<div class="modal fade newclient" id="new_user_modal1" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true" style="z-index:99;">
+<div class="modal fade newclient" id="new_user_modal1" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content modal-top">
 			<div class="modal-header">

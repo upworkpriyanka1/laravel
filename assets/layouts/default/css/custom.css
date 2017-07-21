@@ -246,6 +246,7 @@ li[name='active'] {
 .page-content-white .page-content .page-bar {
     border-bottom: none;
 }
+.owner-dashboard .page-footer{position: relative;}
 .page-footer{
     background-color: #A9A9A9;
     position: absolute;

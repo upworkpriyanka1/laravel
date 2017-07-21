@@ -72,6 +72,7 @@
 </ul>
 <?php include('main/new-location.php'); ?>
 <?php include('main/new-resident.php'); ?>
+<?php include('main/new-contact.php'); ?>
 <script src="<?= base_url(); ?>/assets/global/plugins/jquery.min.js" type="text/javascript" ></script>
 <script>
     $(document).ready(function(){

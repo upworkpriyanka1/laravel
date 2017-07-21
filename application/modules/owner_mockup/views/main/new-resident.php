@@ -1,11 +1,11 @@
 <style>.modal-backdrop{z-index:99;}</style>
 <!-- New Location modal -->
-<div class="modal fade newclient" id="new_owner_resident" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true" style="z-index:99;">
+<div class="modal fade newclient" id="new_owner_resident" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content modal-top">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-				<h3 class="modal-title" id="lineModalLabel">New Location</h3>
+				<h3 class="modal-title" id="lineModalLabel">New Resident</h3>
 			</div>
 			<div class="modal-body">
 				<form action="">

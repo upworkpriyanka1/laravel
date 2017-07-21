@@ -8,7 +8,7 @@
 ?>
 <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-md" style="background:url(<?php echo $img_url; ?>) no-repeat center center / cover;">
 <?php }else{ ?>
-<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-md">
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-md owner-dashboard">
 <?php } ?>
 
         <!-- BEGIN HEADER -->
