@@ -1327,6 +1327,14 @@ class Users_mdl extends CI_Model
 
 		return $query->result();
 	}
+	public function getAutocompleteNames(){
+		$this->db->select("first_name, last_name, username, email");
+		//$this->db->where('id', 1);
+		$this->db->from("users");
+		$query = $this->db->get();
+		$res = $query->result_array();
+		return $res;
+	}
 
 
 

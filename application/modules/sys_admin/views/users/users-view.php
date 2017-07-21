@@ -19,7 +19,7 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
 		<!-- BEGIN EXAMPLE TABLE PORTLET-->
 		<div class="portlet light bordered">
 			<div class="portlet-body">
-
+				
 				<div class="page-bar">
 					<!--<h3 class="page-title"><?=lang('users-view')?></h3>-->
 					<?= $this->common_lib->show_info($editor_message) ?>
@@ -39,7 +39,8 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
 					<button type="button" class="btn btn-filter btn-default btn-sm pull_right_only_on_xs padding_right_sm" onclick="javascript:usersListFilterApplied();" data-toggle="tooltip" data-html="true" data-placement="top" title="" data-original-title="Open dialog window to set filter for Users. <?= ( trim($filters_label) != "" ? "Current filter(s):".$filters_label : "") ?> "><i class="glyphicon glyphicon-filter"></i>&nbsp;Filter </button>
 					<span><button type="button" class="btn btn-plus sbold btn-sm pull-right" onclick="javascript:document.location='<?= base_url() ?>sys-admin/users/users-edit/new<?=$page_parameters_with_sort ?>'" ><i class="glyphicon glyphicon-plus"></i></button>
                     
-                    <input type="text" name="search" id="search" /> </span>
+                    <form method="get" action=""><input type="text" placeholder="Enter text to search" name="search" id="autocomplete" /></form>
+                     </span>
 				</div>
 
 				<? if ( count($users) > 0 ) : ?>
