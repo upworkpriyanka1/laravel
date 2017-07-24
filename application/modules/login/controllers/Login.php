@@ -26,10 +26,10 @@ class Login extends CI_Controller {
 		echo "User is :";
 		print_r($user);*/
         $groupsList = $this->users_mdl->getUsersGroupsList( false, 0, array('user_id'=> $user->id, 'client_id' => $client_id, 'status'=>'A', 'show_groups_description'=> 1) );
-		echo "last query is : " . $this->db->last_query();
+		/*echo "last query is : " . $this->db->last_query();
 		echo "<br/>Group list is : ";
 		print_r($groupsList);
-		exit(0);
+		exit(0);*/
         if ( count($groupsList) == 0 ) {
             redirect('/msg/' . urldecode(lang("account_has_no_active_titles")) . '/sign/danger');
         }
@@ -57,9 +57,11 @@ class Login extends CI_Controller {
 		$this->load->model('clients_mdl','clients_mdl');
         //$clients = $this->clients_mdl->getUsersClientsList( false, 0, array('user_id'=> $user->id, 'status'=>'A') );
 		$clientList = $this->users_mdl->getUsersClientsList( false, 0, array('user_id'=> $user->id, 'active_status'=>'A') );
-		//echo "<pre>";
-		//echo "Client list is :";
-		//print_r($clientList);
+		echo "<pre>";
+		echo 'last query is : ' . $this->db->last_query(); 
+		echo "Client list is :";
+		print_r($clientList);
+		exit(0);
 		$clients = array();
 		$client_ids = array();
 		$i=0;
