@@ -90,9 +90,9 @@ class Login extends CI_Controller {
 				$i++;
 			}
 		}
-		echo "clients are :";
+		/*echo "clients are :";
 		print_r($clients);
-		exit(0);
+		exit(0);*/
         if ( count($clients) == 0 ) {
             redirect('/msg/' . urldecode(lang("account_has_no_active_clients")) . '/sign/danger');
         }

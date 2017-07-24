@@ -1303,6 +1303,7 @@ class Users_mdl extends CI_Model
 	{
 		$this->db->where('uc_user_id',$user_id);
 		$this->db->where('uc_client_id',$client_id);
+		$this->db->where('uc_active_status','A');
 		$this->db->from('users_clients');
         $query = $this->db->get();
 		$res = $query->result();
