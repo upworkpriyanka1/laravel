@@ -57,11 +57,11 @@ class Login extends CI_Controller {
 		$this->load->model('clients_mdl','clients_mdl');
         //$clients = $this->clients_mdl->getUsersClientsList( false, 0, array('user_id'=> $user->id, 'status'=>'A') );
 		$clientList = $this->users_mdl->getUsersClientsList( false, 0, array('user_id'=> $user->id, 'active_status'=>'A') );
-		echo "<pre>";
+		/*echo "<pre>";
 		echo 'last query is : ' . $this->db->last_query(); 
 		echo "Client list is :";
 		print_r($clientList);
-		exit(0);
+		exit(0);*/
 		$clients = array();
 		$client_ids = array();
 		$i=0;
@@ -90,9 +90,9 @@ class Login extends CI_Controller {
 				$i++;
 			}
 		}
-		/*echo "clients are :";
-		print_r($clients);*/
-		
+		echo "clients are :";
+		print_r($clients);
+		exit(0);
         if ( count($clients) == 0 ) {
             redirect('/msg/' . urldecode(lang("account_has_no_active_clients")) . '/sign/danger');
         }
