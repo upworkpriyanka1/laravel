@@ -55,7 +55,7 @@ class Login extends CI_Controller {
         $user = $this->ion_auth->user()->row();
 		$this->load->model('clients_mdl','clients_mdl');
         //$clients = $this->clients_mdl->getUsersClientsList( false, 0, array('user_id'=> $user->id, 'status'=>'A') );
-		$clientList = $this->users_mdl->getUsersClientsList( false, 0, array('user_id'=> $user->id, 'status'=>'A') );
+		$clientList = $this->users_mdl->getUsersClientsList( false, 0, array('user_id'=> $user->id, 'active_status'=>'A') );
 		//echo "<pre>";
 		//echo "Client list is :";
 		//print_r($clientList);
