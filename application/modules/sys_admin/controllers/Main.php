@@ -118,7 +118,7 @@ class Main extends CI_Controller {
         }
 
 //        die("-1 XXZ");
-		$success_message= 'Your account was activated successfully. Your password and new login was sent to you. Now you can login into the system! Your password is : ' . $password;
+		$success_message= 'Your account was activated successfully. Your password and new login was sent to you. Now you can login into the system!';
 		$title= 'Your account was activated at ' . $app_config['site_name'] . ' site';
 		$content = $this->cms_items_mdl->getBodyContentByAlias('account_activated',
 			array('username' => $activatedUser->username,
@@ -160,7 +160,7 @@ class Main extends CI_Controller {
 
 			//$EmailOutput = $this->common_lib->SendEmail($activatedUser->email, $title, $content );
 			
-        	$success_message= 'You were successfully activated at '.$app_config['site_name']. ' site. Your login and password was sent at your email. Your password is : ' . $password;
+        	$success_message= 'You were successfully activated at '.$app_config['site_name']. ' site. Your login and password was sent at your email.';
 		}
 		else
 		{
