@@ -259,6 +259,7 @@ class Users_mdl extends CI_Model
         }
     }
 
+	
 
 
     public function getSimilarUserByUsername($username, $id='')
@@ -1319,6 +1320,20 @@ class Users_mdl extends CI_Model
 		//echo "group list is : ";
 		//print_r($groupList);
 		return $groupList;
+	}
+	
+	public function getUsersCount($clientIds = array()){
+		$query = $this->db->query("SELECT uc_client_id, COUNT(uc_client_id) as user_count FROM users_clients WHERE uc_client_id IN (".implode(',', $clientIds).") GROUP BY uc_client_id ORDER BY `uc_client_id` ASC");
+
+		return $query->result();
+	}
+	public function getAutocompleteNames(){
+		$this->db->select("first_name, last_name, username, email");
+		//$this->db->where('id', 1);
+		$this->db->from("users");
+		$query = $this->db->get();
+		$res = $query->result_array();
+		return $res;
 	}
 
 

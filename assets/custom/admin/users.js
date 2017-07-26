@@ -149,3 +149,31 @@ function var_dump(oElem, from_line, till_line) {
     }
     return sStr;
 }
+	var searchFields = [];
+	var url = base_url+"sys-admin/users/getAutocompleteNames";
+
+	$.ajax({
+		url: url, 
+		success: function(result){
+			var data = JSON.parse(result);
+			for(var i=0; i < data.length; i++){
+				if(data[i].first_name){
+					searchFields.push(data[i].first_name);
+				}
+				if(data[i].last_name){
+					searchFields.push(data[i].last_name);
+				}
+				if(data[i].username){
+					var str = data[i].username;
+					searchFields.push(str.trim());
+				}
+				if(data[i].email){
+					searchFields.push(data[i].email);
+				}
+				
+			}
+			
+		}
+	});
+	
+	$("#autocomplete").autocomplete({ source: searchFields });

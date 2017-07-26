@@ -13,7 +13,9 @@ $img_url = base_url()."/assets/avatar/".$res->filename;
 <!-- BEGIN HEADER -->
 
 <header>
+<input name="base_url_hidden" id="base_url_hidden" value="<?php echo base_url(); ?>" />
     <nav class="top-nav">
+    
         <div class="container">
             <div class="page-header navbar navbar-fixed-top">
                 <!-- BEGIN PAGE TITLE-->
