@@ -80,8 +80,33 @@
 			clear: both;
 		}
 		.panel-collapse .panel-body{
-			background-color:#e4e4e4;
+			background-color: transparent;
 			padding-left:25px;
+		}
+		.section_one .panel-title a{
+			text-transform:none;
+		}
+		.sec-back{
+			background-color: #cccccc;
+		}
+		.save-btn{
+			margin-top:20px;
+			margin-bottom:20px;
+			margin-left:15px;
+		}
+		.panel-default {
+			border-color: transparent;
+		}
+		.panel-default>.panel-heading {
+			background-color: transparent !important;
+			border-color: transparent !important;
+		}
+		.panel-default {
+			border-color: transparent;
+			background-color: transparent;
+		}
+		.section_one{
+			background: transparent;
 		}
 	</style>
     
@@ -503,7 +528,7 @@
                             <!-- BEGIN CONTENT BODY -->
                             <div class="page-content"><br/>
                                 <div class="clearfix"></div>
-                                <div class="col s12">
+                                <div class="col s12 sec-back">
 									<ul class="tabs tab-demo z-depth-1 rand-place">
                                     	<li class="tab"><a class="" href="#vs_pain"><?php echo lang('vs_pain')?></a></li>	
 										<li class="tab"><a href="#circulatory" class=""><?php echo lang('circulatory')?></a></li>
@@ -523,10 +548,10 @@
   
 									<div id="circulatory" class="col s12">
                                     	
-                                        <div class="panel-heading active" role="tab" id="headingOne">
+                                        <div class="panel-heading active section_one" role="tab" id="headingOne">
                                             <h4 class="panel-title">
                                             <a data-toggle="collapse" data-target="#circulatory-section">
-                                            Section 1
+                                            	Circulatory
                                             </a>
                                             </h4>
                                         </div>
@@ -551,10 +576,10 @@
 									</div>
 									<div id="digestive" class="col s12">
                                     
-										<div class="panel-heading active" role="tab" id="heading-digestive">
+										<div class="panel-heading active section_one" role="tab" id="heading-digestive">
                                             <h4 class="panel-title">
                                             <a role="button" data-toggle="collapse" data-parent="#accordion" href="#digestive-section" aria-expanded="true" aria-controls="digestive-section" class="">
-                                            Section 1
+                                            	Digestive
                                             </a>
                                             </h4>
                                         </div>
@@ -603,10 +628,10 @@
                                         
 									</div>
 									<div id="endocrine" class="col s12">
-                                    	<div class="panel-heading active" role="tab" id="headingOne">
+                                    	<div class="panel-heading active section_one" role="tab" id="headingOne">
                                             <h4 class="panel-title">
                                             <a data-toggle="collapse" data-target="#endocrine-section">
-                                            Section 1
+                                            	Endocrine
                                             </a>
                                             </h4>
                                         </div>
@@ -633,10 +658,10 @@
                                         	
 									</div>
 									<div id="skin_wounds" class="col s12">
-										<div class="panel-heading active" role="tab" id="headingOne">
+										<div class="panel-heading active section_one" role="tab" id="headingOne">
                                             <h4 class="panel-title">
                                             <a data-toggle="collapse" data-target="#skin_wounds-section">
-                                            Section 1
+                                            	Skin-wounds
                                             </a>
                                             </h4>
                                         </div>
@@ -661,10 +686,10 @@
                                         	
 									</div>
 									<div id="lymphatic" class="col s12">
-										<div class="panel-heading active" role="tab" id="headingOne">
+										<div class="panel-heading active section_one" role="tab" id="headingOne">
                                             <h4 class="panel-title">
                                             <a data-toggle="collapse" data-target="#lymphatic-section">
-                                            Section 1
+                                            	Lymphatic
                                             </a>
                                             </h4>
                                         </div>
@@ -690,10 +715,10 @@
                                         	
 									</div>
 									<div id="musc_skeletal" class="col s12">
-										<div class="panel-heading active" role="tab" id="headingOne">
+										<div class="panel-heading active section_one" role="tab" id="headingOne">
                                             <h4 class="panel-title">
                                             <a data-toggle="collapse" data-target="#musc_skeletal-section">
-                                            Section 1
+                                            	Musc-skeletal
                                             </a>
                                             </h4>
                                         </div>
@@ -719,10 +744,10 @@
                                         	
 									</div>
 									<div id="nervous" class="col s12">
-										<div class="panel-heading active" role="tab" id="headingOne">
+										<div class="panel-heading active section_one" role="tab" id="headingOne">
                                             <h4 class="panel-title">
                                             <a data-toggle="collapse" data-target="#nervous-section">
-                                            Section 1
+                                            	Nervous
                                             </a>
                                             </h4>
                                         </div>
@@ -764,10 +789,10 @@
 									</div>
 									<div id="reproductive" class="col s12">
 										
-										<div class="panel-heading active" role="tab" id="headingOne">
+										<div class="panel-heading active section_one" role="tab" id="headingOne">
                                             <h4 class="panel-title">
                                             <a data-toggle="collapse" data-target="#reproductive-section">
-                                            Where does it come from?
+                                            	Reproductive
                                             </a>
                                             </h4>
                                         </div>
@@ -792,10 +817,10 @@
                                         	
 									</div>
 									<div id="respiratory" class="col s12">
-										<div class="panel-heading active" role="tab" id="headingOne">
+										<div class="panel-heading active section_one" role="tab" id="headingOne">
                                             <h4 class="panel-title">
                                             <a data-toggle="collapse" data-target="#respiratory-section">
-                                            Where does it come from?
+                                            	Respiratory
                                             </a>
                                             </h4>
                                         </div>
@@ -835,10 +860,10 @@
                                         	
 									</div>
 									<div id="urinary" class="col s12">
-										<div class="panel-heading active" role="tab" id="headingOne">
+										<div class="panel-heading active section_one" role="tab" id="headingOne">
                                             <h4 class="panel-title">
                                             <a data-toggle="collapse" data-target="#urinary-section">
-                                            Where does it come from?
+                                            	Urinary
                                             </a>
                                             </h4>
                                         </div>
@@ -865,17 +890,17 @@
                                     
 									</div>
 									<div id="vs_pain" class="col s12">
-										<div class="panel-heading active" role="tab" id="headingOne">
+										<div class="panel-heading active section_one" role="tab" id="headingOne">
                                             <h4 class="panel-title">
                                             <a data-toggle="collapse" data-target="#vs_pain-section">
-                                            The standard Lorem Ipsum passage, used since the 1500s
+                                            	Vs-Pain
                                             </a>
                                             </h4>
                                         </div>
+                                        
+                                        
         
 										<p id="vs_pain-section" class="panel-collapse collapse in">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-										
-                                        
                                         
                                         <div class="panel panel-default">
                                             <div class="panel-heading" role="tab" id="heading-vs_pain">
@@ -887,17 +912,20 @@
                                             </div><!--End of panel-heading -->
                                             <div id="vs_pain-care_plan" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-vs_pain">
                                                 <div class="panel-body">
-                                                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. 
+                                                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                                                 </div>
                                             </div>
                                         </div><!--End of panel panel-default -->
                                         
+                                        
+                                            
+                                        
 									</div>
                                     
-                                    
-                                    <button type="button" class="btn btn-default">SAVE</button>
-                                        <button type="button" class="btn btn-default">SAVE AND NEXT</button>
-                                        
+                                   
+                                    <button type="button" class="btn btn-default save-btn">SAVE</button>
+                                    <button type="button" class="btn btn-default save-btn">SAVE AND NEXT</button>
+                                      
 									
                                 </div>
                             </div><!-- ./page-conten -->
