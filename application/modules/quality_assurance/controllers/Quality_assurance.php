@@ -11,10 +11,10 @@ class Quality_assurance extends CI_Controller {
 				redirect('./', 'refresh');
 			}
 		/*check if allowed to access page */
-			if (!$this->common_mdl->in_job($job)){
+			/*if (!$this->common_mdl->in_job($job)){
 				echo "Not allowed";
 				return die();
-			}
+			}*/
 	/* load library & model with aliases, config and language */
 			$this->load->library('Quality_assurance_lib',NULL, 'quality_lib');
 			$this->load->model('quality_assurance_mdl','quality_mdl');
@@ -22,7 +22,8 @@ class Quality_assurance extends CI_Controller {
 			$this->config->load('quality_assurance_menu', true );
 			$this->menu    			= $this->config->item( 'quality_assurance_menu' );
 
-			$this->user 			= $this->common_mdl->get_user();
+			//$this->user 			= $this->common_mdl->get_user();
+			$this->user 			= $this->common_mdl->get_user_dashboard_info();
 			$this->superviser 		=  $this->ion_auth->user($this->user->super_id)->row();
 			$this->superviser_name 	= $this->superviser->first_name." ".$this->superviser->last_name;
 			$this->group 			= $this->ion_auth->get_users_groups()->row();
