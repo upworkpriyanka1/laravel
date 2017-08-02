@@ -1079,12 +1079,13 @@ class Ion_auth_model extends CI_Model
 			if ($password === TRUE)
 			{
 				//echo "in if...";
-				if ($user_status != 'A')
+				// By Nikita
+				/*if ($user_status != 'A')
 				{
 					$this->trigger_events('post_login_unsuccessful');
 					$this->set_error('login_unsuccessful_not_active');
 					return FALSE;
-				}
+				}*/
 				/*echo "<pre>user data is :";
 				print_r($user);
 				echo "super id is : " . $user->super_id;
