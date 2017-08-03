@@ -1,3 +1,4 @@
+var base_url_hidden = $("#base_url_hidden").val();
 function onuserModalEditorSubmit() {
     var theForm = $("#form_user_modal_editor");
     theForm.submit();
@@ -21,7 +22,9 @@ $(function() {
  * return none
  *********************************/
 function loadClientInfo() {
-    var href= "sys-admin/get_client_info/client_id/"+client_id
+    var href= base_url_hidden+"sys-admin/get_client_info/client_id/"+client_id;
+	var host = "http://"+window.location.hostname;
+
     $.ajax({
         url: href,
         type: 'GET',
@@ -84,7 +87,8 @@ function loadClientInfo() {
  * return none
  *********************************/
 function loadClientRelatedUsers(page) {
-    var href= "/sys-admin/load_client_related_users/filter_client_id/"+$("#form_user_modal_editor_client_id").val()+"/page/"+page
+    var href= base_url_hidden+"sys-admin/load_client_related_users/filter_client_id/"+$("#form_user_modal_editor_client_id").val()+"/page/"+page;
+	
     $.ajax({
         url: href,
         type: 'GET',
@@ -130,7 +134,7 @@ function setClientUserValidationRulesChecking() {
                 return;
             }
 
-            var href= "/sys-admin/get_user_info_by_email/client_id/" + $("#form_user_modal_editor_client_id").val() + "/email/"+encodeURIComponent(entered_email)
+            var href= base_url_hidden+"/sys-admin/get_user_info_by_email/client_id/" + $("#form_user_modal_editor_client_id").val() + "/email/"+encodeURIComponent(entered_email)
             $.ajax({
                 url: href,
                 type: 'GET',
@@ -183,7 +187,7 @@ function setClientUserValidationRulesChecking() {
 function setClientUserValidationRules() {
     $( "#form_user_modal_editor" ).validate({
         submitHandler: function(form) {
-            var href= "/sys-admin/save_client_related_user"
+            var href= base_url_hidden+"/sys-admin/save_client_related_user"
             $.ajax({
                 url: href,
                 type: 'POST',

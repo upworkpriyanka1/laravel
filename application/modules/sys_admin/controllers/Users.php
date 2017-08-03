@@ -75,7 +75,6 @@ class Users extends CI_Controller
 
 	public function users_view(){
 
-
 		$data['meta_description']='';
 		$data['menu']		= $this->menu;
 

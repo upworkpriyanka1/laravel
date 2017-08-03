@@ -416,6 +416,34 @@ class Sys_admin extends CI_Controller {
         $data['javascript'] = array( 'assets/custom/admin/clients-view.js',  'assets/custom/admin/client-edit.js', 'assets/global/plugins/picker/picker.js', 'assets/global/plugins/picker/picker.date.js', 'assets/global/plugins/picker/picker.time.js');
 
         $views				= array( 'design/html_topbar', 'sidebar','design/page','design/html_footer', 'common_dialogs.php' );
+		$i=0;
+		
+		$clientIds = array();
+		foreach($data['clients'] as $row){
+			array_push($clientIds, $row->cid);
+		}
+		$userCount = $this->users_mdl->getUsersCount($clientIds);
+
+		foreach($data['clients'] as $row){
+			$flag = 0;
+			$count = 0;
+			foreach($userCount as $userrow){
+				if($userrow->uc_client_id == $row->cid ){
+					$flag = 1;
+					$count = $userrow->user_count;
+					break;
+				}else{
+					$flag = 0;
+				}
+			}
+			if($flag == 1){
+				$row->user_count = $count;
+			}else{
+				$row->user_count = 0;
+			}
+			$i++;
+		}
+		//echo "<br><pre>";print_r($data['clients']);echo "</pre>";exit;
 
         $this->layout->view($views, $data);
     }
@@ -1400,7 +1428,6 @@ class Sys_admin extends CI_Controller {
      *********************************/
     public function users_view(){
         //		************************************************************* ____START____ **********************************************************************************
-
         $UriArray = $this->uri->uri_to_assoc(2);
         $is_insert= true;
         $app_config = $this->config->config;

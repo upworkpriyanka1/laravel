@@ -206,6 +206,7 @@ class Clients_mdl extends CI_Model
             return $ret_array;
         }
     }
+	
 
     public function checkIsClient_NameUnique($client_name, $client_id='')
     {
@@ -565,22 +566,30 @@ class Clients_mdl extends CI_Model
 
     public  function getClients($us_id)
     {
-
+		
         $this->db->where('uc_user_id', $us_id);
         $this->db->from('users_clients');
+		$this->db->select('users_clients.created_at as client_created_date_sid, users_clients.*');
         $query = $this->db->get();
 
         $res = $query->result();
+		//echo "<pre>";print_r($res);
         $result = array();
+		$i = 0;
         foreach ($res as $re) {
+			$data = array();
             $group=$this->users_mdl->getGroupRowById($re->uc_group_id);
             $cl_id = $re->uc_client_id;
             $this->db->where('cid', $cl_id);
             $this->db->from('clients');
             $query = $this->db->get();
+ 
             $query->row()->group=$group;
-            $result[]= $query->row();
-
+			
+			$result[]= $query->row();
+			$result[$i]->created_at = $re->client_created_date_sid;
+			
+			$i++;
         }
         return $result;
     }

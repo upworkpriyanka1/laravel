@@ -71,7 +71,6 @@ echo link_tag('/assets/layouts/default/css/custom-users-overview-view.css');
                         </thead>
 
                         <tbody>
-
                         <?php if(empty($clients)):?>
                         <tr><td colspan="4">No client association</td></tr>
                         <?php else:?>
@@ -81,7 +80,7 @@ echo link_tag('/assets/layouts/default/css/custom-users-overview-view.css');
                                         <?php echo $client->client_name ?>
                                     </a></td>
                                 <td><?php echo $client->group->name?></td>
-                                <td><?php echo $client->client_status ?></td>
+                                <td><?php echo $client->client_active_status ?></td>
                                 <td><?php echo $client->created_at?></td>
                             </tr>
                         <?php  endforeach;  ?>
