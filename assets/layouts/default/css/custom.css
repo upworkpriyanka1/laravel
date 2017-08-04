@@ -861,9 +861,12 @@ input[type=text]:focus:not([readonly]){
     .page-title-dots{
         display:none !important;
     }
+	
 }
 @media only screen and (max-width: 680px){
-
+	.top-notific-page .notifications .zang{right:0px;}
+	#responsive_design_1 .pad-card .card { margin: 0px 0px 16px 0px;}
+	.row  #responsive_design_1 {padding:0px;}
     header h1#logo{
         font-size: 7vw;
     }
@@ -1145,4 +1148,26 @@ body{
 }
 #add-clients-type .input-field .prefix ~ label, #edit-clients-type .input-field .prefix ~ label {
 	margin-left: 5rem;
+}
+
+@media only screen and (min-width:100px) and (max-width:600px)
+{
+	*{box-sizing:border-box; word-wrap:break-word;}
+	
+	.responsive_design_1 .page-content {
+	padding: 0px !important;
+}
+.responsive_design_1 .col.s12{padding:0 12px !important;}
+.responsive_design_1 #responsive_design_1 {
+	padding: 0 !important;
+}
+.responsive_design_1 .pad-card {
+	margin-right: 0;
+}
+#grid-container {
+	margin-top: 75px;
+}
+.p_d {
+	padding: 5px;
+}
 }

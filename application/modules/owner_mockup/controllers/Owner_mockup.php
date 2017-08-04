@@ -42,4 +42,13 @@ class Owner_mockup extends CI_Controller {
         $views=  array('design-mockup/html_topbar','sidebar','design-mockup/page','design-mockup/html_footer');
         $this->layout->view($views, $data);
     }
+	public function col3_1(){		
+		$data['meta_description']='';
+        $data['menu'] = $this->menu;
+		$data['user'] = $this->user;	
+		$data['body_class'] = 'responsive_design_1';	
+        $data['page'] = 'main/col3';        
+        $views=  array('design-mockup/html_topbar','sidebar','design-mockup/page','design-mockup/html_footer');
+        $this->layout->view($views, $data);
+    }
 }	

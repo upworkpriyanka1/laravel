@@ -1,14 +1,19 @@
   <script src="<?= base_url(); ?>/assets/global/plugins/jquery.min.js" type="text/javascript" ></script>
 </head>
-<?php 
+<?php
+	$body_cls = isset($body_class) ? $body_class : '';
     $query = $this->db->get("upload_bg");
     if($query->num_rows() > 0){
     $res = $query->row();
     $img_url = base_url()."/assets/avatar/".$res->filename;
+	
+	
+
+	
 ?>
-<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-md" style="background:url(<?php echo $img_url; ?>) no-repeat center center / cover;">
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-md <?php echo $body_cls; ?>" style="background:url(<?php echo $img_url; ?>) no-repeat center center / cover;">
 <?php }else{ ?>
-<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-md owner-dashboard">
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-md owner-dashboard <?php echo $body_cls; ?>">
 <?php } ?>
 
         <!-- BEGIN HEADER -->
