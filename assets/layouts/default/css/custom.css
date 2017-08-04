@@ -1171,10 +1171,6 @@ body{
 	padding: 5px;
 }
 div#responsive_design_1 {
-    /* background: red; */
-    min-width: 100%;
-    position: relative;
-    float: none;
-    margin: auto !important;
+    margin-left: 0px !important;
 }
 }
