@@ -1162,12 +1162,19 @@ body{
 	padding: 0 !important;
 }
 .responsive_design_1 .pad-card {
-	margin-right: 0;
+/*	margin-right: 0;*/
 }
 #grid-container {
 	margin-top: 75px;
 }
 .p_d {
 	padding: 5px;
+}
+div#responsive_design_1 {
+    /* background: red; */
+    min-width: 100%;
+    position: relative;
+    float: none;
+    margin: auto !important;
 }
 }
