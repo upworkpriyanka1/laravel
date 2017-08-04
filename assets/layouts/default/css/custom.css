@@ -1152,7 +1152,7 @@ body{
 
 @media only screen and (min-width:100px) and (max-width:600px)
 {
-	*{box-sizing:border-box; word-wrap:break-word;}
+	
 	
 	.responsive_design_1 .page-content {
 	padding: 0px !important;
@@ -1164,13 +1164,25 @@ body{
 .responsive_design_1 .pad-card {
 /*	margin-right: 0;*/
 }
-#grid-container {
+.responsive_design_1 #grid-container {
 	margin-top: 75px;
 }
 .p_d {
 	padding: 5px;
 }
-div#responsive_design_1 {
+.responsive_design_1 #responsive_design_1 {
     margin-left: 0px !important;
+}
+.responsive_design_1 #grid-intro .row {
+	margin-bottom: 0;
+}
+ .responsive_design_1 #structure {
+	padding-bottom: 0;
+}
+.responsive_design_1 .row {
+	margin-bottom: 0;
+}
+ .responsive_design_1 .cards-container .card.white:last-child {
+	margin-bottom: 5px !important;
 }
 }
