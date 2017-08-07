@@ -68,10 +68,11 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
 				<? endif; ?>
 
 				<div class="table-toolbar table_info">
+                	<h4>
 					<? if ( count($users) > 0 ) { ?>
 						<?= count($users); ?>&nbsp;Row<? if ( count($users) > 1 ) { ?>s<? } ?>&nbsp;of&nbsp;<?= $RowsInTable ?>&nbsp;(Page # <strong><?= $page_number ?> </strong>)
 					<? } ?>
-
+					</h4>
 					<button type="button" class="btn btn-filter btn-default btn-sm pull_right_only_on_xs padding_right_sm" onclick="javascript:usersListFilterApplied();" data-toggle="tooltip" data-html="true" data-placement="top" title="" data-original-title="Open dialog window to set filter for Users. <?= ( trim($filters_label) != "" ? "Current filter(s):".$filters_label : "") ?> "><i class="glyphicon glyphicon-filter"></i>&nbsp;Filter </button>
 					<span><button type="button" class="btn btn-plus sbold btn-sm pull-right" onclick="javascript:document.location='<?= base_url() ?>sys-admin/users/users-edit/new<?=$page_parameters_with_sort ?>'" ><i class="glyphicon glyphicon-plus"></i></button>
                     
