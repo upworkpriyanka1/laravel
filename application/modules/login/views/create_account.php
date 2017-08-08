@@ -85,7 +85,7 @@
 													<div class="col-md-12">
 														<div class="collection">
 															<a href="javascript:void(0);" class="collection-item">I am a licensee of a Residential Care Home (also called Assisted Living, Board and Care Homes, Group Homes, Adult Family Homes).</a>
-															<a href="javascript:void(0);" class="collection-item active">I am an administrator / manager of a Residential Care Home (also called Assisted Living, Board and Care Homes, Group Homes, Adult Family Homes).</a>
+															<a href="javascript:void(0);" class="collection-item">I am an administrator / manager of a Residential Care Home (also called Assisted Living, Board and Care Homes, Group Homes, Adult Family Homes).</a>
 															<a href="javascript:void(0);" class="collection-item">I own or live in a Home Care / House / Home.</a>												
 														</div>
 													</div>
