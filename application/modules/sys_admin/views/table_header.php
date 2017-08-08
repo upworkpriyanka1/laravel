@@ -1,7 +1,7 @@
 
 <!--Sart of table-toolbar -->               
 <div class="table-toolbar table_info" >
-    <h4> TEST
+    <h4>
 		<?php if ( $TotalRecords > 0 ) { ?>
         	<span> <?= $TotalRecords; ?>&nbsp;Row<?php if ( $TotalRecords > 1 ) { ?>s<?php } ?>&nbsp;of&nbsp;<?= $RowsInTable ?>&nbsp;(Page # <strong><?= $page_number ?> </strong>)</span>
         <?php } ?>
