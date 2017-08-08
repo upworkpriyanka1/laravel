@@ -74,7 +74,6 @@ class Users extends CI_Controller
 	}
 
 	public function users_view(){
-
 		$data['meta_description']='';
 		$data['menu']		= $this->menu;
 
@@ -147,6 +146,8 @@ class Users extends CI_Controller
 //		echo "<pre>";
 //		print_r($data['menu']);
 //		die;
+		$data['TotalRecords'] = count($data['users']);
+		$data['sidebarMenu'] = "users";
 		$this->layout->view($views, $data);
 	}
 

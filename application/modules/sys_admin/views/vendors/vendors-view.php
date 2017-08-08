@@ -7,18 +7,21 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
 <div class="row">
     <div class="col-md-12">
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
-        <div class="portlet light bordered" style="margin: 0;">
+        <div class="portlet light bordered">
             <div class="portlet-body">
 
-	            <?= $this->common_lib->show_info($editor_message) ?>
 	            
+	            <div class="page-bar">
+					<?= $this->common_lib->show_info($editor_message) ?>
+				</div>
 	            <?php if ( count($vendors) == 0 ) : ?>
                     <div class="row">
                         <button type="button" class="btn btn-error btn-lg btn-block"><?= lang('table_no_data') ?></button>
                     </div>
                 <?php endif; ?>
 
-                <div class="table-toolbar table_info" >
+				<?php $this->load->view('../modules/sys_admin/views/table_header'); ?>
+                <?php /*?><div class="table-toolbar table_info" >
                 	<h4>
 	                <?php if ( count($vendors) > 0 ) { ?>
 		                <span> <?= count($vendors); ?>&nbsp;Row<?php if ( count($vendors) > 1 ) { ?>s<?php } ?>&nbsp;of&nbsp;<?= $RowsInTable ?>&nbsp;(Page # <strong><?= $page_number ?> </strong>)</span>
@@ -30,7 +33,7 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
 
                     <!--<button type="button" class="btn sbold green waves-effect waves-light btn-sm pull-right" onclick="javascript:document.location='<?= base_url() ?>sys-admin/vendors/vendors-edit/new<?=$page_parameters_with_sort ?>'" ><i class="glyphicon glyphicon-plus"></i></button> -->
                     <button type="button" class="btn btn-plus sbold btn-sm pull-right" onclick="javascript:document.location='<?= base_url() ?>sys-admin/vendors/vendors-edit/new<?=$page_parameters_with_sort ?>'" ><i class="glyphicon glyphicon-plus"></i></button>
-                </div>
+                </div><?php */?>
 
 	            
                 <?php if ( count($vendors) > 0 ) : ?>

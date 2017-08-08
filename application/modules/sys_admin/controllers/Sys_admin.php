@@ -240,7 +240,6 @@ class Sys_admin extends CI_Controller {
     }
 
     public function index(){
-
         $data['meta_description']='';
         $data['menu']		= $this->menu;
 
@@ -444,7 +443,9 @@ class Sys_admin extends CI_Controller {
 			$i++;
 		}
 		//echo "<br><pre>";print_r($data['clients']);echo "</pre>";exit;
-
+		$data['TotalRecords'] = count($data['clients']);
+		$data['sidebarMenu'] = "clients";
+		
         $this->layout->view($views, $data);
     }
 

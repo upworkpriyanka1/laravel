@@ -66,8 +66,8 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
 						<button type="button" class="btn btn-error btn-lg btn-block"><?= lang('table_no_data') ?></button>
 					</div>
 				<? endif; ?>
-
-				<div class="table-toolbar table_info">
+				<?php $this->load->view('../modules/sys_admin/views/table_header'); ?>
+				<?php /*?><div class="table-toolbar table_info">
                 	<h4>
 					<? if ( count($users) > 0 ) { ?>
 						<?= count($users); ?>&nbsp;Row<? if ( count($users) > 1 ) { ?>s<? } ?>&nbsp;of&nbsp;<?= $RowsInTable ?>&nbsp;(Page # <strong><?= $page_number ?> </strong>)
@@ -77,7 +77,7 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
 					<span><button type="button" class="btn btn-plus sbold btn-sm pull-right" onclick="javascript:document.location='<?= base_url() ?>sys-admin/users/users-edit/new<?=$page_parameters_with_sort ?>'" ><i class="glyphicon glyphicon-plus"></i></button>
                     
                     <input type="text" name="search" id="search" /> </span>
-				</div>
+				</div><?php */?>
 
 				<? if ( count($users) > 0 ) : ?>
 					<div class="table-responsive">

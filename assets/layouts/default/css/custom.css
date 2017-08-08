@@ -955,7 +955,8 @@ body{
     position: relative;
 }
 .portlet.light{
-    margin-top: 25px;
+    /*margin-top: 25px;*/
+	margin-top: 0px;
 }
 .portlet.light.bordered{
     border:none !important;
