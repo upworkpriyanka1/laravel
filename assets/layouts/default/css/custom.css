@@ -11,6 +11,9 @@ div.dataTables_paginate > ul > li.next > a, div.dataTables_paginate > ul > li.pr
     position: relative;
     overflow: hidden;
 }
+.all-table-plus-btn{
+	margin-top: 13px;
+}
 .btn-file input[type=file] {
     position: absolute;
     top: 0;

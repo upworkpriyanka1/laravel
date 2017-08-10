@@ -12,7 +12,7 @@
 	</button>
     
     
-    <button type="button" class="btn btn-plus sbold btn-sm pull-right" 
+    <button type="button" class="btn btn-plus sbold btn-sm pull-right all-table-plus-btn" 
     	
 		<?php if($sidebarMenu == "clients"){?>
         	onclick="javascript:clientsListFilterApplied();"
