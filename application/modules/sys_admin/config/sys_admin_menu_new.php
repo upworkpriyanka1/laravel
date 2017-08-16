@@ -50,7 +50,12 @@ $config['menu_2'] = array(
 $config['menu_3'] = array(
     "icon" => "fa fa-book",
     "title" =>'patients', //should be the same as the lang()
-    "sub_1" => array(
+	"sub_1" => array(
+        'href'	=>	'/patients_new/', //make sure to use dash
+        'title'	=>	'users-add',//should be the same as the lang()
+        'icon'	=>	'fa fa-plus'
+    ),
+    "sub_2" => array(
         'href'	=>	'/patients/patients-view', //make sure to use dash
         'title'	=>	'patients-view',//should be the same as the lang()
         'icon'	=>	'fa fa-user'

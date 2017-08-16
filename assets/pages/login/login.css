@@ -5,7 +5,7 @@ Login page
 /* bg color */
 
 .login {
-  background-color: #a0b4c9 !important; }
+  background-color: #e4e4e4 !important; }
 
 .login .logo {
   margin: 0 auto;
@@ -33,9 +33,9 @@ Login page
   padding-top: 10px;
   overflow: hidden;
   position: relative;
-  border-radius: 7px!important;
-  -webkit-border-radius: 7px!important;
-  -moz-border-radius: 7px!important; }
+  border-radius: 0px!important;
+  -webkit-border-radius: 0px!important;
+  -moz-border-radius: 0px!important; }
 
 .login .content h3 {
   color: #4db3a5;
@@ -61,7 +61,10 @@ Login page
   background-color: #FFF;
   height: 43px;
   color: #8290a3;
-  border: 1px solid #dde3ec; }
+  border: 1px solid #dde3ec;
+  padding:0 10px;
+  width:95%;
+}
   .login .content .form-control:focus,
   .login .content .form-control:active {
     border: 1px solid #c3ccda; }

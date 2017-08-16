@@ -256,6 +256,25 @@ class Sys_admin extends CI_Controller {
         $this->layout->view($views, $data);
     }
 
+	public function patients_new(){
+		
+		 $data['meta_description']='';
+        $data['menu']		= $this->menu;
+        $data['user'] 		= $this->user;
+//        $data['job'] 		= $this->job;
+        $data['group'] 		= $this->group->name;
+        $UriArray = $this->uri->uri_to_assoc(4);
+        $post_array = $this->input->post();
+		$data['page']		= 'patients/patients-view';
+	    $data['javascript'] = array( 'assets/custom/admin/vendor-types.js', 'assets/global/plugins/picker/classic.js', 'assets/global/plugins/picker/classic.date.js', 'assets/global/plugins/picker/picker.time.js');
+
+	    $views				= array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php');
+		
+		$data['TotalRecords'] = count($data['vendors']);
+		$data['sidebarMenu'] = "vendors";
+		
+        $this->layout->view($views, $data);
+	}
     /**********************
      * view clients
      * access public
