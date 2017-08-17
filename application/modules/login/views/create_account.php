@@ -63,8 +63,20 @@
                                                 <div class="col-md-12"><h3>Sign Up Form</h3></div>
                                             </div>      
                                            <form action="" id="new_user_form" method="POST" enctype="multipart/form-data">
-                                                <?php echo validation_errors(); ?>          
-                                                <div class="row">
+                                                <?php echo validation_errors(); ?>
+
+												<div class="row" id="step1">
+													<div class="col-md-12">
+														<div class="collection">
+															<a href="javascript:void(0);" class="collection-item">I am a licensee of a Residential Care Home (also called Assisted Living, Board and Care Homes, Group Homes, Adult Family Homes).</a>
+															<a href="javascript:void(0);" class="collection-item">I am an administrator / manager of a Residential Care Home (also called Assisted Living, Board and Care Homes, Group Homes, Adult Family Homes).</a>
+															<a href="javascript:void(0);" class="collection-item">I own or live in a Home Care / House / Home.</a>												
+														</div>
+													</div>
+												</div>
+												<div style="height:30px;"></div>	
+												
+                                                <div class="row" id="step2" style="display:none;">
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <div class="input-field">
@@ -237,18 +249,22 @@
 <!-- END THEME LAYOUT SCRIPTS -->
 
 <script>
-  $("#us-email-conf").blur(function(){
-    var email=$("#us-email").val();
-    var emailc=$("#us-email-conf").val();
-
-    if(email==emailc)
-    {
-        $("#send").removeClass('disabled');
-    }  
-    else{
-$("#send").addClass('disabled');
-    }  
-  });
+	$("#us-email-conf").blur(function(){
+		var email=$("#us-email").val();
+		var emailc=$("#us-email-conf").val();
+		if(email==emailc){
+			$("#send").removeClass('disabled');
+		}else{
+			$("#send").addClass('disabled');
+		}  
+	});
+	$(document).ready(function(){
+		$('#step1 .collection a').click(function(){				
+			$('#step1 .collection a').removeClass('active');		
+			$(this).addClass('active');
+			$('#step2').show('slow','swing');	
+		});
+	});
 </script>
 <style>
 .login {
