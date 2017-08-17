@@ -35,6 +35,9 @@
 							if($this->uri->segment('2') == "locations-list"){
 								$page_title = "Locations"; 
 							}
+							if($this->uri->segment('2') == "edit-user-info"){
+								$page_title = "John Doe"; 
+							}
                         }
                         ?>
                         <h1 class="page-title" id="logo">
