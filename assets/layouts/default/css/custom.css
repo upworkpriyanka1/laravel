@@ -1154,6 +1154,7 @@ body{
 #add-clients-type .row:last-child, #edit-clients-type .row:last-child{
     margin-bottom: 0;
 }
+.responsive_design_1 .page-footer{position:relative;}
 @media only screen and (min-width:100px) and (max-width:600px){	
 	.responsive_design_1 .page-content {padding: 0px !important;}
 	.responsive_design_1 .col.s12{padding:0!important;}
