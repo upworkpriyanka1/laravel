@@ -1155,6 +1155,9 @@ body{
     margin-bottom: 0;
 }
 .responsive_design_1 .page-footer{position:relative;}
+@media only screen and (min-width:100px) and (max-width:800px){
+	.responsive_design_1 .pad-card .card { box-shadow: 0px 1px 10px #777 !important;}
+}
 @media only screen and (min-width:100px) and (max-width:600px){	
 	.responsive_design_1 .page-content {padding: 0px !important;}
 	.responsive_design_1 .col.s12{padding:0!important;}
