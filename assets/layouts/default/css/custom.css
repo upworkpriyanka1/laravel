@@ -1154,3 +1154,16 @@ body{
 #add-clients-type .row:last-child, #edit-clients-type .row:last-child{
     margin-bottom: 0;
 }
+@media only screen and (min-width:100px) and (max-width:600px){	
+	.responsive_design_1 .page-content {padding: 0px !important;}
+	.responsive_design_1 .col.s12{padding:0!important;}
+	.responsive_design_1 #responsive_design_1 {padding: 0 !important;}
+	.responsive_design_1 #grid-container {margin-top: 75px;}
+	.responsive_design_1 .p_d {padding:10px 15px ;}
+	.responsive_design_1 #responsive_design_1 {margin-left: 0px !important;}
+	.responsive_design_1 #grid-intro .row {margin-bottom: 0;}
+	.responsive_design_1 #structure {padding-bottom: 0;}
+	.responsive_design_1 .row {margin-bottom: 0;}
+	.responsive_design_1 .cards-container .card.white:last-child {margin-bottom: 5px !important;}	
+	.responsive_design_1 .pad-card .card {margin-right: 13px;margin-left: 12px; box-shadow: 0px 1px 10px #777 !important;}
+}
