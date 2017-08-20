@@ -119,7 +119,7 @@ class Login extends CI_Controller {
 		else if(!$is_multi_client && !$is_multi_title)
 		{
 			$client_id = $clientList[0]->uc_client_id;
-			$title_id = $clients[0]['titles']->id;
+			$title_id = $clients[0]['titles'][0]->id;
 		
 			// Get client name
 			$client_detail = $this->clients_mdl->getClientDetail($client_id);
