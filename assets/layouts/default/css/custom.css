@@ -1242,31 +1242,31 @@ select{
     padding: 0px 0px;
 }
 .card.blue-grey.darken-1.card-box .form-group .input-field input {
-    padding: 0px 33px 0px 14px;
+    padding: 0px 33px 0px 0px;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
 .form-group.date-box label {
-    padding-left: 15px;
+    padding-left: 0px;
 }
 .form-group.date-box input {
-     padding: 0px 33px 0px 14px;
+     padding: 0px 33px 0px 0px;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
 .col-md-12.phone.add-row-able.phone-box input {
-    padding-left: 15px;
+    padding-left: 0px;
 }
 .col-md-12.phone.add-row-able.phone-box label {
-    padding-left: 15px;
+    padding-left: 0px;
 }
 .email-box label {
-    padding-left: 15px;
+    padding-left: 0px;
 }
 .email-box input {
-	 padding: 0px 33px 0px 14px;
+	 padding: 0px 33px 0px 0px;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -1278,7 +1278,7 @@ select{
     color: #777;
 }
 .col-md-12.box-alignt .input-field label {
-    padding-left: 14px;
+    padding-left: 0px;
 }
 .col-md-12.box-alignt .input-field input {
 	 padding: 0px 33px 0px 14px;
@@ -1288,7 +1288,7 @@ select{
 	color:#777;
 }
 .col-md-12.box-alignt .input-field select.title-drop {
-    padding-left: 12px;
+    padding-left: 0px;
 }
 .margin-top--20 {
     margin-top: -20px;
@@ -1310,17 +1310,17 @@ input:not([type]), input[type=text], input[type=password], input[type=email], in
 	border-bottom: 1px solid #dedede;
 }
 .add-row-able select {
-    padding-left: 11px;
+    padding-left: 0px;
 }
 .col-md-12.date-box-2 > div {
     padding-right: 0px;
     padding-left: 0px;
 }
 .date-box-2 label {
-    padding-left: 14px;
+    padding-left: 0px;
 }
 .date-box-2 input.datepicker {
-    padding: 0px 18px 0px 14px;
+    padding: 0px 18px 0px 0px;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
