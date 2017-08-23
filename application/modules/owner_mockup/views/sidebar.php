@@ -27,13 +27,13 @@
 				<li class="nav-item  <?=$MenuActive;?>">
 					<a href="javascript:;" class="nav-link nav-toggle collapsible-header waves-effect waves-teal">
 						<span class="<?= $menu[$key]['icon'];?>"></span>
-						<span class="title"><?php echo lang($menu[$key]['title']);?></span>
+						<span class="title"><?php if($menu[$key]['title'] == "profile"){ echo "JOHN DOE";}else{ echo lang($menu[$key]['title']);} ?></span>
 						<span class="selected"></span>
 						<span class="arrow open"></span>
 					</a>
 					<div class="collapsible-body" >
 					<ul>
-					<?php
+					<?php 
 					if (is_array($menu[$key])): //if $menu[$key] is arry, it means it is menu link
 						foreach ($menu[$key] as $key => $link):
 							if (is_array($link)): //if $link, ie  $key value is array
@@ -50,7 +50,7 @@
 								<li class="nav-item <?= $LinkActive ;?>">
 										<a <?php echo $dtoggle; ?> href="<?php echo base_url().$link['href']; ?>" class="nav-link">
 										<span class="<?php echo $link['icon'];?>"></span>
-										<span class="title"><?php echo lang($link['title']);?></span>
+										<span class="title"><?php echo lang($link['title']); ?></span>
 									</a>
 								</li>
 								<!-- END SIDEBAR MENU LINK -->

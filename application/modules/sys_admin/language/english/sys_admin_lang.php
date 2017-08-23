@@ -7,7 +7,6 @@ $lang['color_scheme']   = "Color Scheme";
 $lang['users']        = "Users";
 $lang['users-view']   = "Manage";
 $lang['users-add']    = "New";
-$lang['locations-types']    = "Types";
 
 //$lang['users-role']   = "Groups";
 

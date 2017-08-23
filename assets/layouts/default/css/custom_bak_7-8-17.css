@@ -11,9 +11,6 @@ div.dataTables_paginate > ul > li.next > a, div.dataTables_paginate > ul > li.pr
     position: relative;
     overflow: hidden;
 }
-.all-table-plus-btn{
-	margin-top: 13px;
-}
 .btn-file input[type=file] {
     position: absolute;
     top: 0;
@@ -228,6 +225,9 @@ li[name='active'] {
     font-size: 12px;
     margin-left: 10px;
 }
+button.btn.btn-plus.sbold.btn-sm.pull-right.create_contact {
+    margin-top: 11px;
+}
 .btn-filter i, .btn-plus i{
     font-size: 12px;
 }
@@ -249,7 +249,6 @@ li[name='active'] {
 .page-content-white .page-content .page-bar {
     border-bottom: none;
 }
-.owner-dashboard .page-footer{position: relative;}
 .page-footer{
     background-color: #A9A9A9;
     position: absolute;
@@ -556,8 +555,8 @@ header.smaller{
 .phone .btn-add, .email .btn-add  {
     display: inline-block;
     position: absolute;
-    right: 15px;
-    top: 5px;
+    right: -20px;
+    top: 20px;
 }
 
 .phone .btn-rem, .email .btn-rem{
@@ -566,28 +565,7 @@ header.smaller{
     right: 0px;
     top:20px;
 }
-.owner-mockup-edit-user-form .darken-1.langauge-card .btn-add {
-    display: inline-block;
-    position: absolute;
-    right: 20px;
-    top: 5px;
-}
-.owner-mockup-edit-user-form select.leng, 
-.owner-mockup-edit-user-form select.title-drop {
-    border: none;
-    border-bottom: 1px solid #9e9e9e;
-    color: #9e9e9e;
-}
-.owner-mockup-edit-user-form .darken-1.langauge-card .phone{
-	margin-top:20px;
-}
-.owner-mockup-edit-user-form .btn-rem {
-    display: inline-block;
-    position: absolute;
-    right: 40px;
-    top: 5px;
-    color: #000;
-}
+
 
 .phone .form-group select, .email .form-group select{
     border:none;
@@ -979,8 +957,7 @@ body{
     position: relative;
 }
 .portlet.light{
-    /*margin-top: 25px;*/
-	margin-top: 0px;
+    margin-top: 25px;
 }
 .portlet.light.bordered{
     border:none !important;
@@ -1153,9 +1130,6 @@ body{
 #client-edit .page-content{
     padding: 0 !important;
 }
-#client-edit .page-content{
-    padding: 0 !important;
-}
 #client_types .icon-type-pen{
     float: right;
     font-size: 12px;
@@ -1168,56 +1142,15 @@ body{
 .table-hover>tbody>tr:hover .icon-type-pen{
     opacity:1 !important;
 }
+#add-clients-type .btn-type, #edit-clients-type .btn-type{
+    color: #000;
+    background-color: transparent !important;
+    padding: 0;
+    margin: 0 15px;
+}
 #add-clients-type .input-field .prefix ~ label, #edit-clients-type .input-field .prefix ~ label {
-	margin-left: 5rem;
+    margin-left: 5rem;
 }
-
-@media (max-width: 420px){
-.table-toolbar.table_info span {
-	display: block;
-	margin-bottom:5px;
-}
-.table-toolbar.table_info .btn-filter{
-	margin-left:0px;
-}	
-}
-
-.owner-mockup-edit-user-form #new_user_form .card.blue-grey{
-	background:#fff !important;
-}
-.owner-mockup-edit-user-form #new_user_form .card.blue-grey .card-title, 
-.owner-mockup-edit-user-form #new_user_form .card.blue-grey .card-title, 
-.owner-mockup-edit-user-form #new_user_form .card.blue-grey .card textarea {
-    color: #000;
-}
-
-.owner-mockup-edit-user-form .form-body .cards-container .col-md-12 .form-group{
-	margin-bottom:0px;
-	padding-top:20px;
-}
-.owner-mockup-edit-user-form .form-body .cards-container .col-md-12.phone .form-group{
-	width:100%;
-	display:table;
-}
-.owner-mockup-edit-user-form .form-body .cards-container .col-md-12.phone .form-group td{
-	padding:0px;
-}
-.owner-mockup-edit-user-form .form-body .cards-container .col-md-12.phone .form-group td input{
-	font-size: 0.9rem;
-	height: 2.4rem;
-}
-.owner-mockup-edit-user-form .form-body .cards-container .col-md-12 .form-group .input-field{
-	margin-top:0px;
-}
-.owner-mockup-edit-user-form .form-body .cards-container .col-md-12 .form-group .input-field input{
-    margin-bottom: 0px;
-    color: #000;
-    font-size: 13px;
-    height: 35px;
-}
-.owner-mockup-edit-user-form .form-body .cards-container .col-md-12 .form-group .input-field label{
-	font-size: 0.9rem;
-}
-.owner-mockup-edit-user-form .form-body .cards-container .col-md-12 .form-group .input-field label.active{
-	font-size: 0.7rem;
+#add-clients-type .row:last-child, #edit-clients-type .row:last-child{
+    margin-bottom: 0;
 }

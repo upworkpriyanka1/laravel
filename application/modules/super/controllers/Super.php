@@ -21,8 +21,7 @@ class Super extends CI_Controller {
 		$this->config->load('super_menu', true );
 		$this->menu    			= $this->config->item( 'super_menu' );
 
-		//$this->user 			= $this->common_mdl->get_user();
-		$this->user 			= $this->common_mdl->get_user_dashboard_info();
+		$this->user 			= $this->common_mdl->get_user();
 		$this->superviser 		=  $this->ion_auth->user($this->user->super_id)->row();
 		$this->superviser_name 	= $this->superviser->first_name." ".$this->superviser->last_name;
 		$this->group 			= $this->ion_auth->get_users_groups()->row();
@@ -37,7 +36,7 @@ class Super extends CI_Controller {
  * return view
  *********************************/
 	public function index(){
-	
+
 		$data['meta_description']='';
 		$data['menu']		= $this->menu;
 
@@ -66,8 +65,8 @@ class Super extends CI_Controller {
 		$data['user'] 		= $this->user;
 		//$data['job'] 		= $this->job;
 		$data['group'] 		= $this->group->name;
-		// echo "cid is : " . $this->user->cid;
-		// echo "user id is : " . $this->session->userdata('user_id');
+		echo "cid is : " . $this->user->cid;
+		echo "user id is : " . $this->session->userdata('user_id');
 		////$user_id = $this->ion_auth->user()->row()->id;
 		$data['users']		= $this->super_mdl->get_users($this->user->cid);
 		////$data['users']		= $this->super_mdl->get_users($user_id);

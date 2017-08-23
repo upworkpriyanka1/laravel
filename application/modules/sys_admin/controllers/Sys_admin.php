@@ -52,6 +52,7 @@ class Sys_admin extends CI_Controller {
      *
      **************************GRID Html**************
 
+	 
 
 
 
@@ -142,31 +143,6 @@ class Sys_admin extends CI_Controller {
         $this->layout->view($views, $data);
     }
 	
-	public function locations_types(){
-       $data['meta_description']='';
-        $data['menu']		= $this->menu;
-        $data['user'] 		= $this->user;
-        $data['group'] 		= $this->group->name;
-        $data['page']		='mockup/location_types'; //page view to load
-        $data['pls'] 		= array(); //page level scripts optional
-        $data['plugins'] 	= array(); //page plugins
-        $data['javascript'] = array(); //page javascript
-        $views=  array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php' );
-        $this->layout->view($views, $data);
-    }
-	
-	public function locations_view(){
-       $data['meta_description']='';
-        $data['menu']		= $this->menu;
-        $data['user'] 		= $this->user;
-        $data['group'] 		= $this->group->name;
-        $data['page']		='mockup/locations_view'; //page view to load
-        $data['pls'] 		= array(); //page level scripts optional
-        $data['plugins'] 	= array(); //page plugins
-        $data['javascript'] = array(); //page javascript
-        $views=  array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php' );
-        $this->layout->view($views, $data);
-    }
 	public function sign_dashboard()
     {		
        /* $UriArray = $this->uri->uri_to_assoc(2);		
@@ -265,7 +241,6 @@ class Sys_admin extends CI_Controller {
     }
 
     public function index(){
-
         $data['meta_description']='';
         $data['menu']		= $this->menu;
 
@@ -281,6 +256,25 @@ class Sys_admin extends CI_Controller {
         $this->layout->view($views, $data);
     }
 
+	public function patients_new(){
+		
+		 $data['meta_description']='';
+        $data['menu']		= $this->menu;
+        $data['user'] 		= $this->user;
+//        $data['job'] 		= $this->job;
+        $data['group'] 		= $this->group->name;
+        $UriArray = $this->uri->uri_to_assoc(4);
+        $post_array = $this->input->post();
+		$data['page']		= 'patients/patients-view';
+	    $data['javascript'] = array( 'assets/custom/admin/vendor-types.js', 'assets/global/plugins/picker/classic.js', 'assets/global/plugins/picker/classic.date.js', 'assets/global/plugins/picker/picker.time.js');
+
+	    $views				= array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php');
+		
+		$data['TotalRecords'] = count($data['vendors']);
+		$data['sidebarMenu'] = "vendors";
+		
+        $this->layout->view($views, $data);
+	}
     /**********************
      * view clients
      * access public
@@ -469,7 +463,9 @@ class Sys_admin extends CI_Controller {
 			$i++;
 		}
 		//echo "<br><pre>";print_r($data['clients']);echo "</pre>";exit;
-
+		$data['TotalRecords'] = count($data['clients']);
+		$data['sidebarMenu'] = "clients";
+		
         $this->layout->view($views, $data);
     }
 

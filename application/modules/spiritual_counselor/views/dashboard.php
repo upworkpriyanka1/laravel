@@ -7,9 +7,7 @@
         Group: <?= lang($user->group_title);?><br />
         Superviser: <?= $superviser;?><br />
         Client: <?= $user->client_name;?><br />
-		<pre>
-            <?php print_r($user); ?>
-        </pre>
+
         </div>
     </div>
 </div>
