@@ -535,7 +535,7 @@ header.smaller nav a {
 
 .page-content-wrapper .page-content{
 
-    padding: 25px 30px 10px;
+    padding: 25px 10px 20px 15px;
     padding-top: 80px;
 }
 header.smaller{
@@ -575,7 +575,7 @@ header.smaller{
 .owner-mockup-edit-user-form select.leng, 
 .owner-mockup-edit-user-form select.title-drop {
     border: none;
-    border-bottom: 1px solid #9e9e9e;
+    border-bottom: 1px solid #dedede;
     color: #9e9e9e;
 }
 .owner-mockup-edit-user-form .darken-1.langauge-card .phone{
@@ -1220,4 +1220,118 @@ body{
 }
 .owner-mockup-edit-user-form .form-body .cards-container .col-md-12 .form-group .input-field label.active{
 	font-size: 0.7rem;
+}
+.card-content > div .col-md-12 {
+    padding: 0px;
+}
+.card .card-content {
+    padding: 20px 0px;
+ }
+.card-content span.card-title {
+    padding: 0px 15px;
+}
+.card.blue-grey.darken-1.card-box .form-group .input-field label {
+    padding: 0px 15px;
+}
+.card.blue-grey.darken-1.card-box .form-group .input-field input {
+    padding: 0px 33px 0px 14px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.form-group.date-box label {
+    padding-left: 15px;
+}
+.form-group.date-box input {
+     padding: 0px 33px 0px 14px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.col-md-12.phone.add-row-able.phone-box input {
+    padding-left: 15px;
+}
+.col-md-12.phone.add-row-able.phone-box label {
+    padding-left: 15px;
+}
+.email-box label {
+    padding-left: 15px;
+}
+.email-box input {
+	 padding: 0px 33px 0px 14px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.margin-bottom-0 {
+    margin-bottom: 0px;
+}
+.email-box input {
+    color: #777;
+}
+.col-md-12.box-alignt .input-field label {
+    padding-left: 14px;
+}
+.col-md-12.box-alignt .input-field input {
+	 padding: 0px 33px 0px 14px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+	color:#777;
+}
+.col-md-12.box-alignt .input-field select.title-drop {
+    padding-left: 12px;
+}
+.margin-top--20 {
+    margin-top: -20px;
+}
+.rem-sel input[type="text"] {
+   padding: 0px 18px 0px 14px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+	color:#777;
+}
+.date-box-2 input {
+    color: #777;
+}
+input:not([type]), input[type=text], input[type=password], input[type=email], input[type=url], input[type=time], input[type=date], input[type=datetime], input[type=datetime-local], input[type=tel], input[type=number], input[type=search], textarea.materialize-textarea{
+	border-bottom: 1px solid #dedede;
+	}
+.owner-mockup-edit-user-form select.title-drop {
+	border-bottom: 1px solid #dedede;
+}
+.add-row-able select {
+    padding-left: 11px;
+}
+.col-md-12.date-box-2 > div {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+.date-box-2 label {
+    padding-left: 14px;
+}
+.date-box-2 input.datepicker {
+    padding: 0px 18px 0px 14px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #777;
+}
+.input-field.col-md-6.rem-sel {
+    padding: 2px 0px 0px 20px;
+}
+.col-md-6.sel-one {
+    padding-right: 10px!important;
+}
+.col-md-6.sel-two {
+    padding-left: 10px!important;
+}
+.file-path-wrapper.col-md-8.col-right-space {
+    padding-right: 0px!important;
+}
+@media only screen and (max-width: 990px){
+.card.blue-grey {
+    width: 100%;
+}
 }

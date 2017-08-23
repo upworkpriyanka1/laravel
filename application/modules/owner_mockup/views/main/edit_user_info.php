@@ -10,7 +10,8 @@
             <div class="row">
               <div class="pad-card">
                 <div class="cards-container">
-                  <div class="card blue-grey darken-1">
+                
+                  <div class="card blue-grey darken-1 card-box">
                     <div class="card-content white-text"> <span class="card-title">Account</span> 
                       <!-- User name -->
                       <div class="row">
@@ -42,7 +43,8 @@
                       <!-- end Account--> 
                     </div>
                   </div>
-                  <div class="card blue-grey darken-1">
+                  
+                  <div class="card blue-grey darken-1 card-box">
                     <div class="card-content white-text"> <span class="card-title">General</span> 
                       <!-- User names -->
                       <div class="row">
@@ -71,7 +73,7 @@
                           </div>
                         </div>
                         <div class="col-md-12">
-                          <div class="form-group">
+                          <div class="form-group date-box">
                             <label>Date of Birth</label>
                             <input type="date" class="form-control" id="exampleInputDOB1" placeholder="Date of Birth" name="data[birth_date]">
                           </div>
@@ -85,7 +87,7 @@
                                 <input type="file" id="avatar" name="data[avatar]">
                               </div>
                             </div>
-                            <div class="file-path-wrapper col-md-8">
+                            <div class="file-path-wrapper col-md-8 col-right-space">
                               <input class="file-path validate" type="text">
                             </div>
                           </div>
@@ -102,11 +104,11 @@
                       <!-- end General--> 
                     </div>
                   </div>
-                  <div class="card blue-grey darken-1">
+                  <div class="card blue-grey darken-1 card-box">
                     <div class="card-content white-text"> <span class="card-title">Contact</span> 
                       <!-- start Contact--> 
                       <!-- user address -->
-                      <div class="row">
+                      <div class="row margin-bottom-0">
                         <div class="col-md-12">
                           <div class="form-group">
                             <div class="input-field">
@@ -154,7 +156,7 @@
                         <!--Phone--> 
                         
                         <!-- client phone -->
-                        <div class="col-md-12 phone add-row-able" next-row-class="phone-second-row">
+                        <div class="col-md-12 phone add-row-able phone-box" next-row-class="phone-second-row">
                           <div class="form-group input-field">
                             <div class="col-md-6" style="padding-left: 0">
                               <table>
@@ -231,8 +233,8 @@
                       <!-- ./row --> 
                       <!--END Phone--> 
                       <!-- email-->
-                      <div class="row">
-                        <div class="col-md-12">
+                      <div class="row margin-bottom-0">
+                        <div class="col-md-12 email-box">
                           <div class="input-field">
                             <input id="us-email" type="email" class="validate" value="karr.prius4@gmail.com" name="data[email]">
                             <label for="us-email" data-error="wrong" data-success="right" class="active">Email</label>
@@ -243,11 +245,11 @@
                       <!-- end Contact--> 
                     </div>
                   </div>
-                  <div class="card blue-grey darken-1">
+                  <div class="card blue-grey darken-1 card-box">
                     <div class="card-content white-text"> <span class="card-title">Title / License</span> 
                       <!--start title-->
-                      <div class="row">
-                        <div class="col-md-12">
+                      <div class="row margin-bottom-0">
+                        <div class="col-md-12 box-alignt">
                           <div class="input-field">
                             <select class="title-drop" name="data[lic-title]">
                               <option value="" disabled="" selected="">Title</option>
@@ -262,29 +264,31 @@
                             </select>
                           </div>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-12 box-alignt">
                           <div class="input-field">
                             <input id="us-lic" type="text" name="data[us-lic]">
                             <label for="us-lic">License</label>
                           </div>
-                        </div>
-                        <div class="col-md-6">
+                        </div>                        
+                        <div class="col-md-12 date-box-2">
+                        <div class="col-md-6 sel-one">
                           <div class="row">
-                            <label>from</label>
+                            <label>From</label>
                             <input type="date" class="datepicker" name="data[start-date]">
                           </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 sel-two">
                           <div class="row">
                             <label>to</label>
                             <input type="date" class="datepicker" name="data[end-date]">
                           </div>
                         </div>
+                        </div>
                       </div>
                       <!--end title--> 
                     </div>
                   </div>
-                  <div class="card blue-grey darken-1 langauge-card">
+                  <div class="card blue-grey darken-1 langauge-card card-box">
                     <div class="card-content white-text"> <span class="card-title">Langauge</span> 
                       <!--start langauge-->
                       <div class="row">
@@ -305,7 +309,7 @@
                               <option value="Spoken"></option>
                             </datalist>
                           </div>
-                          <div class="col-md-12">
+                          <div class="col-md-12 margin-top--20">
                             <div class="form-group">
                               <div class="input-field">
                                 <input id="us-profic" type="text" class="validate" name="data[us-profic]">
@@ -374,7 +378,8 @@
                       <!--end Langauge--> 
                     </div>
                   </div>
-                  <div class="card blue-grey darken-1">
+                  
+                  <div class="card blue-grey darken-1 card-box">
                     <div class="card-content white-text"> <span class="card-title">Electronic Signature</span> 
                       <!--start Electronic Signature-->
                       <div class="row">
@@ -408,7 +413,8 @@
                   </div>
                 </div>
               </div>
-              <div class="col-xs-12 text-center sev-canc-mock">
+              
+              <div class="col-xs-12 text-center sev-canc-mock btn-submit-save">
                 <button class="btn">
                 <a href="/sys-admin/users/users-overview/42" style="color: #fff;"> CANCEL</a>
                 </button>
