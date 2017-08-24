@@ -1,5 +1,5 @@
 <div>
-	<div class="col-xs-12">
+	<div class="col-xs-12 profile-content">
 		<div id="profile-form " class="owner-mockup-edit-user-form">
 			<div class="row"> 
 				<!-- BEGIN FORM-->

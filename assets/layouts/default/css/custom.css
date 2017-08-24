@@ -910,7 +910,7 @@ input[type=text]:focus:not([readonly]){
 @media  only screen and (max-width: 480px) {
 
     header h1#logo{
-        font-size: 10vw;
+        font-size: 9vw;
         width: calc(100% - 115px);
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
@@ -999,8 +999,27 @@ body{
     .page-content-wrapper .page-content {
         padding-left:20px!important;
         padding-right:20px!important;
-    }
+    }	
 }
+
+@media (max-width: 600px){
+	.page-content-wrapper .page-content {
+        padding-left:0px!important;
+        padding-right:0px!important;
+		padding-top:50px;
+    }
+	.page-content-wrapper .profile-content{
+		padding-left: 0px; 
+		padding-right: 0px; 
+	}
+	.pad-card .card{
+		margin: 0.5rem 0.5rem 0.1rem 0;
+	}
+	.sev-canc-mock{
+		padding-top: 10px;
+	}
+}
+
 @media only screen and (max-width: 992px){
     .page-content-white .page-title {
         padding-left: 0px;
@@ -1343,5 +1362,9 @@ input:not([type]), input[type=text], input[type=password], input[type=email], in
     width: 100%;
 }
 }
-
-.pad-card
+@media only screen and (max-width: 372px)
+{
+header h1#logo {
+    font-size: 7vw;
+}
+}

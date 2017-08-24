@@ -38,7 +38,7 @@
 							if($this->uri->segment('2') == "edit-user-info"){
 								$page_title = "John Doe"; 
 							}
-							if($this->uri->segment('2') == "new-pt"){
+							if($this->uri->segment('2') == "new-pt" || $this->uri->segment('2') == "new_pt"){
 								$page_title = "New Patient"; 
 							}
                         }
