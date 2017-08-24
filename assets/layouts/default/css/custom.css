@@ -535,7 +535,7 @@ header.smaller nav a {
 
 .page-content-wrapper .page-content{
 
-    padding: 25px 10px 20px 15px;
+    padding: 25px 30px 20px 0px;
     padding-top: 80px;
 }
 header.smaller{
@@ -716,7 +716,7 @@ input[type=text]:focus:not([readonly]){
     padding-left: 0 !important;
 }
 .pad-card .card {
-    margin: 0.5rem 0.5rem 1rem 1rem;
+    margin: 0 22px 27px;
 }
 /*.pad-col3 .pad-card .card{
     margin: 1.5rem 1.5rem 2rem 0.5rem;
