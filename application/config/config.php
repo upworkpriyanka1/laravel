@@ -222,7 +222,7 @@ if ((!empty($_SERVER["HTTP_HOST"]) and !(strpos($_SERVER["HTTP_HOST"], "local-zn
     $config['log_path'] = '/_wwwroot/zntral/zntral/log/';   // file:///_wwwroot/zntral/zntral/application
     $config['document_root'] = '/_wwwroot/zntral/zntral/';
     $config['sql_queries_to_file'] = '/_wwwroot/zntral/zntral/log/sql_queries_to_file_';
-    $config['base_url'] = 'http://localhost:8771/zntral/';
+    $config['base_url'] = 'http://local-zntral.com';
     $config['is_developer_comp'] = 1;
     $config['log_threshold'] = 4;
 //    die("-1 XXZ");
@@ -255,48 +255,48 @@ if ((!empty($_SERVER["HTTP_HOST"]) and !(strpos($_SERVER["HTTP_HOST"], "local-zn
 } else {
 
     if (ENVIRONMENT == 'production') {
-        $config['log_path'] = '/zntral/public_html/log/';   // file:///_wwwroot/zntral/zntral/application
-        $config['sql_queries_to_file'] = '/zntral/public_html/logs/sql_queries_to_file_';
-        $config['document_root'] = '/zntral/public_html/';
-        $config['base_url'] = 'http://localhost:8771/zntral/';
+        $config['log_path'] = '/home/zntral/public_html/log/';   // file:///_wwwroot/zntral/zntral/application
+        $config['sql_queries_to_file'] = '/home/zntral/public_html/logs/sql_queries_to_file_';
+        $config['document_root'] = '/home/zntral/public_html/';
+        $config['base_url'] = 'https://zntral.net';
         $config['is_developer_comp'] = 1;
 //    die("-1 XXZ");
     } else if (ENVIRONMENT == 'dev2') {
-        $config['log_path'] = '/zntral/dev2/log/'; // '/home/dev9soft/public_html/tb/'
-        $config['sql_queries_to_file'] = '/zntral/dev2/logs/sql_queries_to_file_';
-        $config['document_root'] = '/zntral/dev2/';
+        $config['log_path'] = '/home/zntral/dev2/log/'; // '/home/dev9soft/public_html/tb/'
+        $config['sql_queries_to_file'] = '/home/zntral/dev2/logs/sql_queries_to_file_';
+        $config['document_root'] = '/home/zntral/dev2/';
         $config['base_url'] = 'https://dev2.zntral.net/';
         $config['is_developer_comp'] = 1;
         $config['log_threshold'] = 4;
 
     } else if (ENVIRONMENT == 'dev4b') {
-        $config['log_path'] = '/zntral/dev4b/log/'; // '/home/dev9soft/public_html/tb/'
-        $config['sql_queries_to_file'] = '/zntral/dev4b/logs/sql_queries_to_file_';
-        $config['document_root'] = '/zntral/dev4b/';
+        $config['log_path'] = '/home/zntral/dev4b/log/'; // '/home/dev9soft/public_html/tb/'
+        $config['sql_queries_to_file'] = '/home/zntral/dev4b/logs/sql_queries_to_file_';
+        $config['document_root'] = '/home/zntral/dev4b/';
         $config['base_url'] = 'https://dev4b.zntral.net/';
         $config['is_developer_comp'] = 1;
         $config['log_threshold'] = 4;
     } else if (ENVIRONMENT == 'dev4') {
 
-        $config['log_path'] = '/zntral/dev4/log/'; // '/home/dev9soft/public_html/tb/'
-        $config['sql_queries_to_file'] = '/zntral/dev4/logs/sql_queries_to_file_';
-        $config['document_root'] = '/zntral/dev4/';
+        $config['log_path'] = '/home/zntral/dev4/log/'; // '/home/dev9soft/public_html/tb/'
+        $config['sql_queries_to_file'] = '/home/zntral/dev4/logs/sql_queries_to_file_';
+        $config['document_root'] = '/home/zntral/dev4/';
         $config['base_url'] = 'https://dev4.zntral.net/';
         $config['is_developer_comp'] = 1;
         $config['log_threshold'] = 4;
     } else if (ENVIRONMENT == 'dev5') {
 
-        $config['log_path'] = '/zntral/dev5/log/'; // '/home/dev9soft/public_html/tb/'
-        $config['sql_queries_to_file'] = '/zntral/dev5/logs/sql_queries_to_file_';
-        $config['document_root'] = '/zntral/dev5/';
+        $config['log_path'] = '/home/zntral/dev5/log/'; // '/home/dev9soft/public_html/tb/'
+        $config['sql_queries_to_file'] = '/home/zntral/dev5/logs/sql_queries_to_file_';
+        $config['document_root'] = '/home/zntral/dev5/';
         $config['base_url'] = 'https://dev5.zntral.net/';
         $config['is_developer_comp'] = 1;
 
     } else if (ENVIRONMENT == 'devK') {
 
-        $config['log_path'] = '/zntral/devk/log/'; // '/home/dev9soft/public_html/tb/'
-        $config['sql_queries_to_file'] = '/zntral/devk/logs/sql_queries_to_file_';
-        $config['document_root'] = '/zntral/devk/';
+        $config['log_path'] = '/home/zntral/devk/log/'; // '/home/dev9soft/public_html/tb/'
+        $config['sql_queries_to_file'] = '/home/zntral/devk/logs/sql_queries_to_file_';
+        $config['document_root'] = '/home/zntral/devk/';
         $config['base_url'] = 'https://devk.zntral.net/';
         $config['is_developer_comp'] = 1;
 
@@ -309,17 +309,16 @@ if ((!empty($_SERVER["HTTP_HOST"]) and !(strpos($_SERVER["HTTP_HOST"], "local-zn
         $config['base_url'] = 'https://devk2.zntral.net/';
         $config['is_developer_comp'] = 1;
     } else if (ENVIRONMENT == 'dev') {
-        $config['log_path'] = 'C:\xampp\htdocs\zntral\log'; // '/home/dev9soft/public_html/tb/'
-        $config['sql_queries_to_file'] = 'C:\xampp\htdocs\zntral\sql_queries_to_file_';
-        $config['document_root'] = 'C:\xampp\htdocs\zntral';
-        $config['base_url'] = 'http://localhost:8771/zntral/';
+        $config['log_path'] = '/home/zntral/dev/log/'; // '/home/dev9soft/public_html/tb/'
+        $config['sql_queries_to_file'] = '/home/zntral/dev/logs/sql_queries_to_file_';
+        $config['document_root'] = '/home/zntral/dev/';
+        $config['base_url'] = 'https://dev.zntral.net/';
         $config['is_developer_comp'] = 1;
     } else {
-		
-        $config['log_path'] = 'C:/xampp/htdocs/zntral'; // '/home/dev9soft/public_html/tb/'
-        $config['sql_queries_to_file'] = 'C:/xampp/htdocs/zntral/application/config/devB/logs/sql_queries_to_file_';
-        $config['document_root'] = 'C:/xampp/htdocs/zntral';
-        $config['base_url'] = 'http://localhost:8771/zntral/';
+        $config['log_path'] = '/home/zntral/front2/log/'; // '/home/dev9soft/public_html/tb/'
+        $config['sql_queries_to_file'] = '/home/zntral/front2/logs/sql_queries_to_file_';
+        $config['document_root'] = '/home/zntral/front2/';
+        $config['base_url'] = 'https://front2.zntral.net/';
         $config['is_developer_comp'] = 1;
     }
 }
