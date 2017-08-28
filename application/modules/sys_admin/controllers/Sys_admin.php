@@ -1768,6 +1768,31 @@ class Sys_admin extends CI_Controller {
      * @params
      * return view
      *********************************/
+	 public function locations_types(){
+       $data['meta_description']='';
+        $data['menu']		= $this->menu;
+        $data['user'] 		= $this->user;
+        $data['group'] 		= $this->group->name;
+        $data['page']		='mockup/location_types'; //page view to load
+        $data['pls'] 		= array(); //page level scripts optional
+        $data['plugins'] 	= array(); //page plugins
+        $data['javascript'] = array(); //page javascript
+        $views=  array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php' );
+        $this->layout->view($views, $data);
+    }
+	
+	public function locations_view(){
+       $data['meta_description']='';
+        $data['menu']		= $this->menu;
+        $data['user'] 		= $this->user;
+        $data['group'] 		= $this->group->name;
+        $data['page']		='mockup/locations_view'; //page view to load
+        $data['pls'] 		= array(); //page level scripts optional
+        $data['plugins'] 	= array(); //page plugins
+        $data['javascript'] = array(); //page javascript
+        $views=  array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php' );
+        $this->layout->view($views, $data);
+    }
     public function users_role(){
         //		************************************************************* ____START____ **********************************************************************************
 

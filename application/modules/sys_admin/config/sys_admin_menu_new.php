@@ -94,6 +94,10 @@ $config['menu_5'] = array(
         'href'	=>	'/locations-view',
         'title'	=>	'locations-view', //make sure to use dash
         'icon'	=>	'fa fa-folder-open'
+    ),"sub_3" => array(
+        'href'	=>	'/locations-types',
+        'title'	=>	'locations-types', //make sure to use dash
+        'icon'	=>	'fa fa-plus'
     ),
 
 );
