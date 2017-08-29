@@ -580,9 +580,9 @@ class Sys_admin extends CI_Controller {
      *********************************/
     public function client()
     {
-		
+
         $UriArray = $this->uri->uri_to_assoc(2);
-		
+
         $is_insert= true;
         $app_config = $this->config->config;
 
@@ -601,7 +601,7 @@ class Sys_admin extends CI_Controller {
             //header('Location: '.base_url().'sys-admin/client/' . $cid);
             //exit(0);
         }
-		
+
         $post_array = $this->input->post();
         $sort= $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort');
         $sort_direction = $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort_direction');
@@ -623,7 +623,7 @@ class Sys_admin extends CI_Controller {
         $data['filter_created_at_from_formatted']= $filter_created_at_from_formatted;
         $data['filter_created_at_till_formatted']= $filter_created_at_till_formatted;
         $data['filter_created_at_till_formatted']= $filter_created_at_till_formatted;
-		
+
         $page_parameters_with_sort = $this->clientsPreparePageParameters($UriArray, $post_array, false, true);
         $page_parameters_without_sort = $this->clientsPreparePageParameters($UriArray, $post_array, false, false);
         $redirect_url = base_url() . 'sys-admin/clients-view' . $page_parameters_with_sort;
@@ -1568,7 +1568,7 @@ class Sys_admin extends CI_Controller {
      *********************************/
     public function clients_type(){
         //		************************************************************* ____START____ **********************************************************************************
-
+       //echo "<pre>";print_r($_REQUEST);die;
         $UriArray = $this->uri->uri_to_assoc(2);
         $is_insert= true;
         $app_config = $this->config->config;
@@ -1601,11 +1601,31 @@ class Sys_admin extends CI_Controller {
         $data['group'] 		= $this->group->name;
         $client= '';
         $data['validation_errors_text'] = '';
+
+//        BOF Update Param
+        if(isset($_POST['is_edit'])){
+            $is_insert = false;
+        }
+        if(isset($_POST['row-to-update']) && !empty($_POST['row-to-update'])){
+            $cid = $_POST['row-to-update'];
+        }
+//        EFO Update Param
+
+
         // Commented by BBITS Dev to add client type. It is setting validation rule for another fields.
         //H//$this->client_edit_form_validation($is_insert, $cid);
         $this->client_type_add_form_validation($is_insert, $cid);
         if (!empty($_POST)) {
             $validation_status = $this->form_validation->run();
+            if(isset($_POST['is_edit']) && isset($_POST['row-to-update'])){
+                $dataUpdate = array();
+                $dataUpdate['type_name']= preg_replace("/[^A-Za-z-]/", '-', $_POST['data']['name']);
+                $dataUpdate['type_description']=$_POST['data']['description'];
+
+                $this->admin_lib->CI->common_mdl->db_update('clients_types',$dataUpdate,'type_id',$_POST['row-to-update']); //isert job
+                echo $_POST['row-to-update'];
+                return true;
+            }
             if ($validation_status != FALSE) {
                 //echo "here we are... in validation if";
                 //$this->client_edit_makesave($is_insert, $cid, $data['select_on_update'], $redirect_url, $page_parameters_with_sort, $post_array, $app_config, $data['client_color_schemes'] );
