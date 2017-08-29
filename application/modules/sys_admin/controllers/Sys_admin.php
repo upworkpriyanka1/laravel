@@ -12,23 +12,29 @@ class Sys_admin extends CI_Controller {
         $this->load->model('users_mdl');
         $this->load->model('cms_items_mdl');
         $this->lang->load('sys_admin');
-//		 $this->config->load('sys_admin_menu', true );
-//		 $this->menu    			= $this->config->item( 'sys_admin_menu' );
+		$this->lang->load('sys_admin_pt');
+		//$this->config->load('sys_admin_menu', true );
+		//$this->menu = $this->config->item( 'sys_admin_menu' );
 
         $this->config->load('sys_admin_menu_new', true );
         $this->menu    			= $this->config->item( 'sys_admin_menu_new' );
 
-
         $eh_url = base_url() . 'sys-admin/eh';
-        if(current_url()!=$eh_url){
+        $manage_client_type = base_url() . 'sys-admin/manage-client-type';
+        if(current_url()!=$eh_url && current_url()!=$manage_client_type){
             $group = array('sys-admin');
             if (!$this->ion_auth->in_group($group)){
                 redirect( base_url() . "login/logout" );
             }
             $this->user 			= $this->common_mdl->get_admin_user();
-            if ( $this->user->user_active_status != 'A' ) {    // Only active user can access admin pages
+            if ( $this->user->user_status != 'A' ) {    // Only active user can access admin pages
                 redirect( base_url() . "login/logout" );
             }
+            $logged_user_title_name= $this->session->userdata['logged_user_title_name'];
+//            echo '<pre>$logged_user_title_name::'.print_r($logged_user_title_name,true).'</pre>';
+//            if ( $logged_user_title_name != 'sys-admin' ) {
+//                redirect('/msg/' . urldecode(lang("title_has_no_access_page")) . '/sign/danger');
+//            }
             $this->group 			= $this->ion_auth->get_users_groups()->row();
         }
 
@@ -69,7 +75,22 @@ class Sys_admin extends CI_Controller {
 
         $this->layout->view($views,$data);
     }
+	
+	 public function grid_without_shortcuts(){
+        $data['meta_description']='';
+        $data['menu']		= $this->menu;
 
+        $data['user'] 		= $this->user;
+        $data['group'] 		= $this->group->name;
+
+        $data['page']		= 'main/grid-without-shortcuts';
+        $data['pls'] 		= array(); //page level scripts optional
+        $data['plugins'] 	= array(); //page plugins
+        $data['javascript'] = array(); //page javascript
+        $views				= array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php' );
+
+        $this->layout->view($views,$data);
+    }
     public function col3(){
         $data['meta_description']='';
         $data['menu']		= $this->menu;
@@ -102,11 +123,144 @@ class Sys_admin extends CI_Controller {
         $this->layout->view($views,$data);
     }
     public function eh(){
-
         $this->load->view('main/eh');
     }
-    public function client_overview(){
+	public function pt(){
+        $this->load->view('main/pt');
+    }
+	
+	public function sign_up(){
+       $data['meta_description']='';
+        $data['menu']		= $this->menu;
+        $data['user'] 		= $this->user;
+        $data['group'] 		= $this->group->name;
+        $data['page']		='mockup/sign_up'; //page view to load
+        $data['pls'] 		= array(); //page level scripts optional
+        $data['plugins'] 	= array(); //page plugins
+        $data['javascript'] = array(); //page javascript
+        $views=  array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php' );
+        $this->layout->view($views, $data);
+    }
+	
+	public function locations_types(){
+       $data['meta_description']='';
+        $data['menu']		= $this->menu;
+        $data['user'] 		= $this->user;
+        $data['group'] 		= $this->group->name;
+        $data['page']		='mockup/location_types'; //page view to load
+        $data['pls'] 		= array(); //page level scripts optional
+        $data['plugins'] 	= array(); //page plugins
+        $data['javascript'] = array(); //page javascript
+        $views=  array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php' );
+        $this->layout->view($views, $data);
+    }
+	
+	public function locations_view(){
+       $data['meta_description']='';
+        $data['menu']		= $this->menu;
+        $data['user'] 		= $this->user;
+        $data['group'] 		= $this->group->name;
+        $data['page']		='mockup/locations_view'; //page view to load
+        $data['pls'] 		= array(); //page level scripts optional
+        $data['plugins'] 	= array(); //page plugins
+        $data['javascript'] = array(); //page javascript
+        $views=  array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php' );
+        $this->layout->view($views, $data);
+    }
+	public function sign_dashboard()
+    {		
+       /* $UriArray = $this->uri->uri_to_assoc(2);		
+        $is_insert= true;
+        $app_config = $this->config->config;
+        $cid= '';
+        if ( !empty($UriArray['client']) and $this->common_lib->is_positive_integer($UriArray['client'])  ) {
+            $is_insert= false;
+            $cid= $UriArray['client'];
+        }
+        if($this->session->flashdata( 'validation_errors_text' ) != ''){
+            $validation_text = trim(preg_replace('/\s+/', ' ', addslashes($this->session->flashdata( 'validation_errors_text'))));;
+            $this->session->set_flashdata('validation_errors_text1',$validation_text);
+            $this->session->set_flashdata('user_edit_new_post_data1',$this->session->flashdata( 'user_edit_new_post_data'));       
+        }
+		
+        $post_array = $this->input->post();
+        $sort= $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort');
+        $sort_direction = $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort_direction');
+        $page_number = $this->common_lib->getParameter($this, $UriArray, $post_array, 'page_number', 1);
+        $filter_client_name = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_name');
+        $filter_client_status = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_status');
+        $filter_client_type = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_type');
+        $filter_client_zip = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_zip');
+        $filter_created_at_from = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_created_at_from');
+        $filter_created_at_till = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_created_at_till');
+        $filter_created_at_from_formatted= $this->common_lib->convertFromMySqlToCalendarFormat($filter_created_at_from);
+        $filter_created_at_till_formatted= $this->common_lib->convertFromMySqlToCalendarFormat($filter_created_at_till); //2016-09-05 -> 5 September, 2016
+        $data['filter_client_name']= $filter_client_name;
+        $data['filter_client_status']= $filter_client_status;
+        $data['filter_client_type']= $filter_client_type;
+        $data['filter_client_zip']= $filter_client_zip;
+        $data['filter_created_at_from']= $filter_created_at_from;
+        $data['filter_created_at_till']= $filter_created_at_till;
+        $data['filter_created_at_from_formatted']= $filter_created_at_from_formatted;
+        $data['filter_created_at_till_formatted']= $filter_created_at_till_formatted;
+        $data['filter_created_at_till_formatted']= $filter_created_at_till_formatted;
+		
+        $page_parameters_with_sort = $this->clientsPreparePageParameters($UriArray, $post_array, false, true);
+        $page_parameters_without_sort = $this->clientsPreparePageParameters($UriArray, $post_array, false, false);
+        $redirect_url = base_url() . 'sys-admin/clients-view' . $page_parameters_with_sort;
 
+        $data['meta_description']='';
+        $data['editor_message']= $this->session->flashdata('editor_message');
+        $data['select_on_update']= $this->common_lib->getParameter($this, $UriArray, $post_array, 'select_on_update');
+
+        // Get list of client types
+        $data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
+        // Get client status array
+        $data['client_status_array']= $this->clients_mdl->getClientStatusValueArray(false);
+        // Get user status array
+        $data['user_status_array']= $this->clients_mdl->getUserStatusValueArray(true);
+        // Get client phone type like home,work
+        $data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
+        // Get list of color scheme options
+        $data['client_color_schemes'] = $this->config->item('client_color_schemes');
+
+
+        $data['is_insert']  = $is_insert;
+        $data['cid']      = $cid;        
+//		$data['job'] 		= $this->job;
+        $data['group'] 		= $this->group->name;
+
+        $client_id= $this->uri->segment(3);
+//        echo '<pre>$client_id::'.print_r($client_id,true).'</pre>';
+        $client		= $this->clients_mdl->getRowById( $client_id, array('show_file_info'=> 1, 'image_width'=> 128, 'image_height'=> 128) );
+
+        $groupsSelectionList= $this->users_mdl->getGroupsSelectionList( array(), 'id',  'asc', ['sys-admin'] );
+        usort($groupsSelectionList,'cmpGroups');
+        $data['groupsSelectionList']  = $groupsSelectionList;
+
+        $data['userStatusValueArray']= $this->users_mdl->getUserStatusValueArray();
+        foreach ( $data['userStatusValueArray'] as $next_key=>$next_userStatus ) {
+            if ( !in_array($next_userStatus['key'],array('N', 'P')) ) {
+                unset($data['userStatusValueArray'][$next_key]);
+            }
+        }
+        $data['client_id'] = $client->cid;
+        // END BBITS DEV
+
+        $data['client']		= $client;
+        $data['page_parameters_with_sort']= $page_parameters_with_sort;
+        $data['page_parameters_without_sort']= $page_parameters_without_sort;*/
+		$data['menu']		= $this->menu;
+        $data['user'] 		= $this->user;
+        $data['page']		= 'mockup/sign_dashboard'; //page view to load
+        $data['plugins'] 	= array('validation'); //page plugins
+        $data['javascript'] = array( '/assets/global/js/client-overview-view.js','assets/custom/admin/client_overview_methods.js', 'assets/custom/common/funcs.js' );
+        $views				=  array( 'clients/html_topbar_client', 'sidebar','design/page','design/html_footer', 'common_dialogs.php' );
+        $this->layout->view($views, $data);
+
+    }
+	
+    public function client_overview(){
         $this->load->view('main/client_overview');
     }
 
@@ -177,7 +331,7 @@ class Sys_admin extends CI_Controller {
 
         $data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
         $data['client_status_array']= $this->clients_mdl->getClientStatusValueArray(false);
-        $data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
+        $data['user_status_array']= $this->clients_mdl->getUserStatusValueArray(true);
         $data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
         $data['client_color_schemes'] = $this->config->item('client_color_schemes');
 
@@ -287,6 +441,34 @@ class Sys_admin extends CI_Controller {
         $data['javascript'] = array( 'assets/custom/admin/clients-view.js',  'assets/custom/admin/client-edit.js', 'assets/global/plugins/picker/picker.js', 'assets/global/plugins/picker/picker.date.js', 'assets/global/plugins/picker/picker.time.js');
 
         $views				= array( 'design/html_topbar', 'sidebar','design/page','design/html_footer', 'common_dialogs.php' );
+		$i=0;
+		
+		$clientIds = array();
+		foreach($data['clients'] as $row){
+			array_push($clientIds, $row->cid);
+		}
+		$userCount = $this->users_mdl->getUsersCount($clientIds);
+
+		foreach($data['clients'] as $row){
+			$flag = 0;
+			$count = 0;
+			foreach($userCount as $userrow){
+				if($userrow->uc_client_id == $row->cid ){
+					$flag = 1;
+					$count = $userrow->user_count;
+					break;
+				}else{
+					$flag = 0;
+				}
+			}
+			if($flag == 1){
+				$row->user_count = $count;
+			}else{
+				$row->user_count = 0;
+			}
+			$i++;
+		}
+		//echo "<br><pre>";print_r($data['clients']);echo "</pre>";exit;
 
         $this->layout->view($views, $data);
     }
@@ -320,7 +502,7 @@ class Sys_admin extends CI_Controller {
 
         $data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
         $data['client_status_array']= $this->clients_mdl->getClientStatusValueArray(false);
-        $data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
+        $data['user_status_array']= $this->clients_mdl->getUserStatusValueArray(true);
         $data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
         $data['client_color_schemes'] = $this->config->item('client_color_schemes');
 
@@ -580,9 +762,9 @@ class Sys_admin extends CI_Controller {
      *********************************/
     public function client()
     {
-
+		
         $UriArray = $this->uri->uri_to_assoc(2);
-
+		
         $is_insert= true;
         $app_config = $this->config->config;
 
@@ -601,7 +783,7 @@ class Sys_admin extends CI_Controller {
             //header('Location: '.base_url().'sys-admin/client/' . $cid);
             //exit(0);
         }
-
+		
         $post_array = $this->input->post();
         $sort= $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort');
         $sort_direction = $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort_direction');
@@ -623,7 +805,7 @@ class Sys_admin extends CI_Controller {
         $data['filter_created_at_from_formatted']= $filter_created_at_from_formatted;
         $data['filter_created_at_till_formatted']= $filter_created_at_till_formatted;
         $data['filter_created_at_till_formatted']= $filter_created_at_till_formatted;
-
+		
         $page_parameters_with_sort = $this->clientsPreparePageParameters($UriArray, $post_array, false, true);
         $page_parameters_without_sort = $this->clientsPreparePageParameters($UriArray, $post_array, false, false);
         $redirect_url = base_url() . 'sys-admin/clients-view' . $page_parameters_with_sort;
@@ -637,7 +819,7 @@ class Sys_admin extends CI_Controller {
         // Get client status array
         $data['client_status_array']= $this->clients_mdl->getClientStatusValueArray(false);
         // Get user status array
-        $data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
+        $data['user_status_array']= $this->clients_mdl->getUserStatusValueArray(true);
         // Get client phone type like home,work
         $data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
         // Get list of color scheme options
@@ -659,10 +841,10 @@ class Sys_admin extends CI_Controller {
         usort($groupsSelectionList,'cmpGroups');
         $data['groupsSelectionList']  = $groupsSelectionList;
 
-        $data['userActiveStatusValueArray']= $this->users_mdl->getUserActiveStatusValueArray();
-        foreach ( $data['userActiveStatusValueArray'] as $next_key=>$next_userActiveStatus ) {
-            if ( !in_array($next_userActiveStatus['key'],array('N', 'W')) ) {
-                unset($data['userActiveStatusValueArray'][$next_key]);
+        $data['userStatusValueArray']= $this->users_mdl->getUserStatusValueArray();
+        foreach ( $data['userStatusValueArray'] as $next_key=>$next_userStatus ) {
+            if ( !in_array($next_userStatus['key'],array('N', 'P')) ) {
+                unset($data['userStatusValueArray'][$next_key]);
             }
         }
         $data['client_id'] = $client->cid;
@@ -673,14 +855,111 @@ class Sys_admin extends CI_Controller {
         $data['page_parameters_without_sort']= $page_parameters_without_sort;
         $data['page']		= 'clients/client'; //page view to load
         $data['plugins'] 	= array('validation'); //page plugins
-        $data['javascript'] = array( '/assets/global/js/client-overview-view.js','assets/custom/admin/client_overview_methods.js' );
+        $data['javascript'] = array( '/assets/global/js/client-overview-view.js','assets/custom/admin/client_overview_methods.js', 'assets/custom/common/funcs.js' );
         $views				=  array( 'clients/html_topbar_client', 'sidebar','design/page','design/html_footer', 'common_dialogs.php' );
         $this->layout->view($views, $data);
 
     }
 
 
-    public function save_client_related_user()
+
+    /**********************
+     * get user info
+     * access public
+     * @params : email - email of user     \
+     * return user info if operation was successful, otherwise error
+     *********************************/
+    function get_user_info_by_email() {
+        $UriArray = $this->uri->uri_to_assoc(3);
+        $post_array = $this->input->post();
+        $email = $this->common_lib->getParameter($this, $UriArray, $post_array, 'email');
+        $client_id = $this->common_lib->getParameter($this, $UriArray, $post_array, 'client_id');
+        if ( empty($email) ) {
+            $this->output->set_content_type('application/json')->set_output(json_encode(array('ErrorMessage' => 'Invalid parameters !', 'ErrorCode' => 1, 'ret' => 0 )));
+            return;
+        }
+        $user    = $this->users_mdl->getSimilarUserByEmail( $email );
+        $groupsList = $this->users_mdl->getGroupsSelectionList(array(), 'id', 'asc', ['sys-admin']);
+        if ( !empty($user) ) {
+            $userGroupsList = $this->users_mdl->getUsersClientsList( false, 0, array('user_id'=>$user->id, 'client_id'=>$client_id) );
+            foreach( $groupsList as $next_key=>$nextGroup) {
+                foreach( $userGroupsList as $nextUserGroup) {
+                    if ( $nextGroup['key']  == $nextUserGroup->uc_group_id ) {
+                        unset($groupsList[$next_key]);
+                        break;
+                    }
+                }
+            }
+        }
+        $this->output->set_content_type('application/json')->set_output(json_encode(array('ErrorMessage' => '', 'ErrorCode' => (empty($user) ? 1 : 0), 'user' => $user, 'groupsList'=> $groupsList , 'groups_length'=> count($groupsList) )));
+    }
+
+    public function add_client_user_relation ()
+    {
+        $post_array = $this->input->post();
+        $app_config = $this->config->config;
+
+        $client_id = $this->common_lib->getParameter($this, array(), $post_array, 'client_id' );
+        $group_id = $this->common_lib->getParameter($this, array(), $post_array, 'group_id' );
+        $user_id = $this->common_lib->getParameter($this, array(), $post_array, 'user_id' );
+
+        $this->db->trans_start();
+
+        $userGroupsList = $this->users_mdl->getUsersGroupsList(false, 0, array('user_id'=> $user_id, 'group_id'=> $group_id));
+        if( count($userGroupsList) == 0 ) {
+            $ret = $this->db->insert($this->users_mdl->m_users_groups_table, array('user_id' => $user_id, 'group_id' => $group_id, 'status' => 'P'));
+        }
+		
+		// Update users_clients
+		$activation_code= $this->common_lib->GenerateActivationCode();
+		$update_data = array(
+							'uc_client_id' => $client_id,
+							'uc_user_id' => $user_id,
+							'uc_active_status' => 'P',
+							'uc_group_id' => $group_id,
+							'username' => '',
+							'activation_code' => $activation_code,
+							'created_at' => date('Y-m-d H:i:s'),
+							'updated_at' => date('Y-m-d H:i:s')
+						);
+		
+        //$ret = $this->admin_mdl->update_users_clients($update_data);
+		$ret = $this->db->insert('users_clients',$update_data);
+		
+		// Get user data
+		$this->db->where('id',$user_id);
+		$this->db->from('users');
+        $user_data = $this->db->get()->result();
+		$user_email = $user_data[0]->email;
+		$user_name = $user_data[0]->username;
+
+            $activation_page_url= $app_config['base_url']."activation/".$activation_code;
+            $title= 'You are registered at ' . $app_config['site_name'] . ' site';
+            $content = $this->cms_items_mdl->getBodyContentByAlias('existing_account_activated',
+                array(
+					'username' => $user_name,
+                    'site_name' => $app_config['site_name'],
+                    'support_signature' => $app_config['support_signature'],
+                    'activation_page_url' => $activation_page_url,
+                    'site_url' => $app_config['base_url'],
+                    'email' => $user_email
+                ), true);
+                $EmailOutput = $this->common_lib->SendEmail($user_email, $title, $content );
+
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+            $this->output->set_content_type('application/json')->set_output(json_encode(array('ErrorMessage' => 'Error creating user', 'ErrorCode' => 1, 'client_id' => $client_id, 'user_id' => $user_id, 'group_id' => $group_id )));
+        } else {
+            $this->db->trans_commit();
+        }
+        $this->output->set_content_type('application/json')->set_output(json_encode(array('ErrorMessage' => '', 'ErrorCode' => 0, 'client_id' => $client_id, 'user_id' => $user_id, 'group_id' => $group_id )));
+
+    } // public function add_client_user_relation ()
+
+
+
+
+    public function save_client_related_user ()
     {
         $UriArray = [];
         $is_insert= false;
@@ -696,7 +975,7 @@ class Sys_admin extends CI_Controller {
         $email = $this->common_lib->getParameter($this, $UriArray, $post_array, 'email' );
         $user_group_id = $this->common_lib->getParameter($this, $UriArray, $post_array, 'user_group_id' );
 
-        $user_active_status= 'W';
+        $user_status= 'P';
         $city= '';
         $state= '';
         $auth= 0;
@@ -705,12 +984,12 @@ class Sys_admin extends CI_Controller {
         $ip_address= !empty($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
         $activation_code= $this->common_lib->GenerateActivationCode();
 
-        $additional_data= array(  'ip_address'=> $ip_address, 'user_active_status' => $user_active_status, 'first_name' => $first_name, 'last_name' => $last_name, 'city' => $city, 'state' => $state, 'phone' => $phone, 'created_on'=> now(), 'avatar' => '', 'is_multi_auth' => $auth, 'created_at' => date('Y-m-d H:i:s'), 'super_id' => $this->user->user_id, 'activation_code'=> $activation_code );
+        $additional_data= array(  'ip_address'=> $ip_address, 'user_status' => $user_status, 'first_name' => $first_name, 'last_name' => $last_name, 'city' => $city, 'state' => $state, 'phone' => $phone, 'created_on'=> now(), 'avatar' => '', 'is_multi_auth' => $auth, 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s'), 'super_id' => $this->user->user_id, 'activation_code'=> $activation_code , 'client_id' => $client_id, 'super_id' => $this->user->user_id, 'uc_client_id' => $client_id, 'uc_active_status' => 'P' );
         $user_group_array= array($user_group_id);
         $new_user_id = $this->ion_auth->register( $username, '', $email, $additional_data,   array(  $user_group_array  )  );
 
         if ($new_user_id) {
-            $ret = $this->admin_mdl->update_users_clients( $client_id, $new_user_id, 'N' );
+            //$ret = $this->admin_mdl->update_users_clients( $client_id, $new_user_id, 'N', $user_group_id );
 
             $activation_page_url= $app_config['base_url']."activation/".$activation_code;
             $title= 'You are registered at ' . $app_config['site_name'] . ' site';
@@ -724,7 +1003,8 @@ class Sys_admin extends CI_Controller {
                     'site_url' => $app_config['base_url'],
                     'email' => $email
                 ), true);
-                $EmailOutput = $this->common_lib->SendEmail($email, $title, $content );
+                $EmailOutput = $this->common_lib->SendEmail($email, $title, $content );				
+				
 
             $this->session->set_flashdata('editor_message', lang('user') . " '" . $first_name . "' was " . ($is_insert ? "inserted" : "updated") );
             if ($this->db->trans_status() === FALSE) {
@@ -735,15 +1015,16 @@ class Sys_admin extends CI_Controller {
             }
             $this->output->set_content_type('application/json')->set_output(json_encode(array('ErrorMessage' => '', 'ErrorCode' => 0, 'id' => $new_user_id )));
         }
+		
 
-    }
+    } // public function save_client_related_user ()
 
 
     /**********************
      * for client load list of related_users, with filters, sorting
      * access public
      * @params : filter_client_id - client_id, filter_related_users_filter - filter string by username, filter_related_users_type - users type of relation,
-     * user_active_status - filter by user active_status, sort/sort_direction - order and direction of resulting listing
+     * user_status - filter by user active_status, sort/sort_direction - order and direction of resulting listing
      * return list related users
      *********************************/
     public function load_client_related_users()
@@ -755,9 +1036,9 @@ class Sys_admin extends CI_Controller {
         $filter_related_users_filter = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_related_users_filter');
         $filter_related_users_type = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_related_users_type');
         $db_filter_related_users_type= $filter_related_users_type;
-        $user_active_status = $this->common_lib->getParameter($this, $UriArray, $post_array, 'user_active_status');
+        $user_status = $this->common_lib->getParameter($this, $UriArray, $post_array, 'user_status');
         $sort= $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort', 'created_at');
-        $sort_direction = $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort_direction', 'asc');
+        $sort_direction = $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort_direction', 'desc');
         if ($filter_related_users_type == 'A') { // SHOW ALL USERS
             $db_filter_related_users_type= '';
         }
@@ -770,9 +1051,10 @@ class Sys_admin extends CI_Controller {
         $this->load->library('pagination');
         $pagination_config= $this->common_lib->getPaginationParams('ajax');
         $pagination_config['base_url'] = base_url() . 'sys-admin/clients_edit_load_related_users' . '/page';
-        $filters= array( 'client_id'=>$filter_client_id, 'uc_active_status'=> $db_filter_related_users_type, 'show_uc_active_status'=> 1, 'username'=> $filter_related_users_filter, 'user_active_status'=> $user_active_status );
-        $users_count = $this->users_mdl->getUsersList( true, 0, $filters );
-        $filters['show_user_group']= 1;
+        $filters= array( 'client_id'=>$filter_client_id );
+        $users_count = $this->users_mdl->getUsersClientsList( true, 0, $filters );
+        $filters['show_user_username']= 1;
+        $filters['show_group_name']= 1;
 
         $pagination_config['total_rows'] = $users_count;
         $this->pagination->suffix = $this->clientsRelatedUsersPreparePageParameters($UriArray, $post_array, false, true);
@@ -782,7 +1064,7 @@ class Sys_admin extends CI_Controller {
         $pagination_links = $this->pagination->create_links();
         $related_users_list= [];
         if ( $users_count > 0 ) {
-            $related_users_list = $this->users_mdl->getUsersList( false, $page, $filters, $sort, $sort_direction );
+            $related_users_list = $this->users_mdl->getUsersClientsList( false, '', $filters, $sort, $sort_direction );
         }
         $data = array('related_users_list' => $related_users_list, 'client_id' => $filter_client_id, 'users_count'=> $users_count, 'related_users_type'=> $filter_related_users_type, 'related_users_filter'=> $filter_related_users_filter, 'sort_direction'=> $sort_direction, 'sort'=> $sort, 		'PageParametersWithSort'=> $PageParametersWithSort, 'PageParametersWithoutSort'=> $PageParametersWithoutSort,
                       'pagination_links'=> 		$pagination_links   );
@@ -835,9 +1117,9 @@ class Sys_admin extends CI_Controller {
         if (empty($client_email)) {
             return;
         }
-        $cid = $this->input->post('data[cid]', 0);
-        if ( $cid == 'new' ) $cid= 0;
-        $similarClient= $this->clients_mdl->getSimilarClientByClient_Email( $client_email, $cid );
+        $client_id = $this->input->post('data[client_id]', 0);
+        if ( $client_id == 'new' ) $client_id= 0;
+        $similarClient= $this->clients_mdl->getSimilarClientByClient_Email( $client_email, $client_id );
         if (!empty($similarClient)) {
             $this->form_validation->set_message('client_check_client_email_is_unique', lang('email') . " '".$client_email."' must be unique ! ");
             return FALSE;
@@ -876,7 +1158,7 @@ class Sys_admin extends CI_Controller {
         $this->form_validation->set_rules( 'data[client_name]', lang('client_name'), 'required' );
         $this->form_validation->set_rules( 'data[client_address1]', lang('client_address1'), 'required' );
         $this->form_validation->set_rules( 'data[client_address2]', lang('client_address2'), '' );
-        $this->form_validation->set_rules( 'data[client_email]', lang('client_email'), 'valid_email' );
+        $this->form_validation->set_rules( 'data[client_email]', lang('client_email'), 'valid_email|callback_client_check_client_email_is_unique'  );
         $this->form_validation->set_rules( 'data[client_website]', lang('client_website'), '' );
         $this->form_validation->set_rules( 'data[client_city]', lang('client_city'), 'required' );
         $this->form_validation->set_rules( 'data[client_state]', lang('client_state'), 'required' );
@@ -942,7 +1224,7 @@ class Sys_admin extends CI_Controller {
      * for client load list of provides_vendors, with filters, sorting
      * access public
      * @params : filter_client_id - client_id, filter_provides_vendors_filter - filter string by username, filter_provides_vendors_type - users type of relation,
-     * user_active_status - filter by user active_status, sort/sort_direction - order and direction of resulting listing
+     * user_status - filter by user active_status, sort/sort_direction - order and direction of resulting listing
      * return list Provides Vendors
      *********************************/
     public function clients_edit_load_provides_vendors()
@@ -954,7 +1236,7 @@ class Sys_admin extends CI_Controller {
         $filter_provides_vendors_filter = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_provides_vendors_filter');
         $filter_provides_vendors_type = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_provides_vendors_type');
         $db_filter_provides_vendors_type= $filter_provides_vendors_type;
-        $user_active_status = $this->common_lib->getParameter($this, $UriArray, $post_array, 'user_active_status');
+        $user_status = $this->common_lib->getParameter($this, $UriArray, $post_array, 'user_status');
         $sort= $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort', 'vn_name');
         $sort_direction = $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort_direction', 'desc');
         if ($filter_provides_vendors_type == 'A') { // SHOW ALL USERS
@@ -1171,7 +1453,6 @@ class Sys_admin extends CI_Controller {
      *********************************/
     public function users_view(){
         //		************************************************************* ____START____ **********************************************************************************
-
         $UriArray = $this->uri->uri_to_assoc(2);
         $is_insert= true;
         $app_config = $this->config->config;
@@ -1192,7 +1473,7 @@ class Sys_admin extends CI_Controller {
 
         $data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
         $data['client_status_array']= $this->clients_mdl->getClientStatusValueArray(false);
-        $data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
+        $data['user_status_array']= $this->clients_mdl->getUserStatusValueArray(true);
         $data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
         $data['client_color_schemes'] = $this->config->item('client_color_schemes');
 
@@ -1269,7 +1550,7 @@ class Sys_admin extends CI_Controller {
 
         $data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
         $data['client_status_array']= $this->clients_mdl->getClientStatusValueArray(false);
-        $data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
+        $data['user_status_array']= $this->clients_mdl->getUserStatusValueArray(true);
         $data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
         $data['client_color_schemes'] = $this->config->item('client_color_schemes');
 
@@ -1355,7 +1636,7 @@ class Sys_admin extends CI_Controller {
 
         $data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
         $data['client_status_array']= $this->clients_mdl->getClientStatusValueArray(false);
-        $data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
+        $data['user_status_array']= $this->clients_mdl->getUserStatusValueArray(true);
         $data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
         $data['client_color_schemes'] = $this->config->item('client_color_schemes');
 
@@ -1437,7 +1718,7 @@ class Sys_admin extends CI_Controller {
 
         $data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
         $data['client_status_array']= $this->clients_mdl->getClientStatusValueArray(false);
-        $data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
+        $data['user_status_array']= $this->clients_mdl->getUserStatusValueArray(true);
         $data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
         $data['client_color_schemes'] = $this->config->item('client_color_schemes');
 
@@ -1514,7 +1795,7 @@ class Sys_admin extends CI_Controller {
 
         $data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
         $data['client_status_array']= $this->clients_mdl->getClientStatusValueArray(false);
-        $data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
+        $data['user_status_array']= $this->clients_mdl->getUserStatusValueArray(true);
         $data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
         $data['client_color_schemes'] = $this->config->item('client_color_schemes');
 
@@ -1670,6 +1951,21 @@ class Sys_admin extends CI_Controller {
         $views				= array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php' );
         $this->layout->view($views, $data);
     }
+    /**********************
+     * view and add Contact Types
+     * access public
+     * @params
+     * return view
+     *********************************/
+    public function manage_client_type(){
+
+        //		************************************************************* ____START____ **********************************************************************************
+        $data['menu']		= $this->menu;
+        $data['user'] 		= $this->user;
+        $data['page']		='clients/manage_client_type';
+        $views				= array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php' );
+        $this->layout->view( $views,$data);
+    }
 
     /**********************
      * view and add Contact Types
@@ -1700,7 +1996,7 @@ class Sys_admin extends CI_Controller {
 
         $data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
         $data['client_status_array']= $this->clients_mdl->getClientStatusValueArray(false);
-        $data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
+        $data['user_status_array']= $this->clients_mdl->getUserStatusValueArray(true);
         $data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
         $data['client_color_schemes'] = $this->config->item('client_color_schemes');
 
@@ -1753,6 +2049,19 @@ class Sys_admin extends CI_Controller {
         $data['javascript'] = array( 'assets/custom/admin/contacts-type-add-validation.js');
         $views				= array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php' );
         $this->layout->view($views, $data);
+    }  
+	/**********************
+     * view and add Contact Types
+     * access public
+     * @params
+     * return view
+     *********************************/
+    public function signup(){
+        //		************************************************************* ____START____ **********************************************************************************/
+
+        $data['page']		='signup/signup';
+        $views				= array('','','design/page','', '' );
+        $this->layout->view($views, $data);
     }
 
     /**********************
@@ -1794,7 +2103,7 @@ class Sys_admin extends CI_Controller {
 
         $data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
         $data['client_status_array']= $this->clients_mdl->getClientStatusValueArray(false);
-        $data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
+        $data['user_status_array']= $this->clients_mdl->getUserStatusValueArray(true);
         $data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
         $data['client_color_schemes'] = $this->config->item('client_color_schemes');
 
