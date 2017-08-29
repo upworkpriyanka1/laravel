@@ -277,7 +277,7 @@
                     $modalName.val($('#row-'+$rowNum+'-name').val());
                     $modalDesc.val($('#row-'+$rowNum+'-desc').val());
 
-
+ 
 
 //                    console.log($(e.target).find('[name="row-to-update"]'));
                 });
