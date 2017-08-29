@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
         <div class="portlet light bordered">
-            <div class="portlet-body">
+            <div class="portlet-body"> 
                 <div class="page-bar">
                     <?= $this->common_lib->show_info($editor_message) ?>
                 </div>
@@ -277,9 +277,6 @@
                     $modalName.val($('#row-'+$rowNum+'-name').val());
                     $modalDesc.val($('#row-'+$rowNum+'-desc').val());
 
-
-
-//                    console.log($(e.target).find('[name="row-to-update"]'));
                 });
 
             })
