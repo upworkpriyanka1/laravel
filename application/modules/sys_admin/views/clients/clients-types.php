@@ -201,7 +201,6 @@
 
     window.client_type = window.client_type || {};
 
-
     client_type = {
       init : function(){
         $('#update-client').on('click',function(){
@@ -257,8 +256,6 @@
               });
       }
     };
-
-
 
     $(document).ready(function(){ 
         client_type.init();
