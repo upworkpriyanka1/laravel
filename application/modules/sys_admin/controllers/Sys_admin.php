@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Sys_admin extends CI_Controller {
 
-    public function __construct() {
+    public function __construct() {echo "fsfsf";die;
         parent::__construct();
 
         $this->load->library('Sys_admin_lib',NULL,'admin_lib');
@@ -20,7 +20,7 @@ class Sys_admin extends CI_Controller {
         $this->menu    			= $this->config->item( 'sys_admin_menu_new' );
 
         $eh_url = base_url() . 'sys-admin/eh';
-        $manage_client_type = base_url() . 'sys-admin/manage-client-type';echo "fsf";die;
+        $manage_client_type = base_url() . 'sys-admin/manage-client-type';
         if(current_url()!=$eh_url && current_url()!=$manage_client_type){
             $group = array('sys-admin');
             if (!$this->ion_auth->in_group($group)){
