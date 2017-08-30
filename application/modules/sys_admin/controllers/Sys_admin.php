@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Sys_admin extends CI_Controller {
 
-    public function __construct() {echo "fsfsf";die;
+    public function __construct() {//echo "fsfsf";die;
         parent::__construct();
 
         $this->load->library('Sys_admin_lib',NULL,'admin_lib');
@@ -2179,9 +2179,6 @@ class Sys_admin extends CI_Controller {
 
     }
 
-
-}
-
 function cmpGroups($a, $b)
 {
     if ( $a['value'] == 'Super User' ) return -1;
@@ -2190,3 +2187,5 @@ function cmpGroups($a, $b)
     }
     return ($a['value'] < $b['value']) ? -1 : 1;
 }
+}
+
