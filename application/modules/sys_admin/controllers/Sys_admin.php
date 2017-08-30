@@ -1,7 +1,8 @@
 <?php
 
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 class Sys_admin extends CI_Controller {
 
     public function __construct() {
@@ -12,8 +13,8 @@ class Sys_admin extends CI_Controller {
         $this->load->model('clients_mdl','clients_mdl');
         $this->load->model('users_mdl');
         $this->load->model('cms_items_mdl');
-        $this->lang->load('sys_admin');
-		//$this->lang->load('sys_admin_pt');
+        $this->lang->load('sys_admin'); 
+		$this->lang->load('sys_admin_pt');
 		//$this->config->load('sys_admin_menu', true );
 		//$this->menu = $this->config->item( 'sys_admin_menu' );
 
