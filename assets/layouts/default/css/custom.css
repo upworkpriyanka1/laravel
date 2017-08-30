@@ -239,7 +239,7 @@ li[name='active'] {
 
 .table-toolbar h4{
     display: inline-block;
-    font-weight: bold;
+   font-weight: bold;
 }
 .newclient>.modal-dialog>.modal-content>.modal-header{
     /*background-color: #c8c8c8!important;*/
@@ -535,7 +535,7 @@ header.smaller nav a {
 
 .page-content-wrapper .page-content{
 
-    padding: 25px 10px 20px 30px;
+    padding: 25px 30px 20px;
     padding-top: 80px;
 }
 header.smaller{
@@ -556,8 +556,8 @@ header.smaller{
 .phone .btn-add, .email .btn-add  {
     display: inline-block;
     position: absolute;
-    right: 15px;
-    top: 5px;
+    right: -20px;
+    top: 20px;
 }
 
 .phone .btn-rem, .email .btn-rem{
@@ -980,7 +980,7 @@ body{
 }
 .portlet.light{
     /*margin-top: 25px;*/
-	margin-top: 0px;
+	margin-top: 25px;
 }
 .portlet.light.bordered{
     border:none !important;
@@ -1322,8 +1322,8 @@ select{
 .date-box-2 input {
     color: #777;
 }
-input:not([type]), input[type=text], input[type=password], input[type=email], input[type=url], input[type=time], input[type=date], input[type=datetime], input[type=datetime-local], input[type=tel], input[type=number], input[type=search], textarea.materialize-textarea{
-	border-bottom: 1px solid #dedede;
+input:not([type]), input[type=password], input[type=email], input[type=url], input[type=time], input[type=date], input[type=datetime], input[type=datetime-local], input[type=tel], input[type=number], input[type=search], textarea.materialize-textarea{
+	/*border-bottom: 1px solid #dedede;*/
 	}
 .owner-mockup-edit-user-form select.title-drop {
 	border-bottom: 1px solid #dedede;

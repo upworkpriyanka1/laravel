@@ -33,6 +33,9 @@
                         if (isset($this->uri->segments['2'])){
                             $page_title= lang($this->uri->segment('2'));
                         }
+						if($this->uri->segment('2') == "locations-types" || $this->uri->segment('2') == "locations_types"){
+							$page_title = "Types";
+						}
                         ?>
                         <h1 class="page-title" id="logo">
                             <span class="page-title-text">
