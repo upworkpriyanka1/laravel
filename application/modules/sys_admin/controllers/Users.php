@@ -148,8 +148,38 @@ class Users extends CI_Controller
 //		die;
 		$data['TotalRecords'] = count($data['users']);
 		$data['sidebarMenu'] = "users";
+		
+		$flag = 0;
+		
+		if($this->input->get("search")){
+			$search = $this->input->get("search");
+			//echo $search;
+			$j = 0;
+			//echo "<pre>";print_r($data['users']);echo "</pre>";
+			foreach($data['users'] as $row){
+				if (strpos($row->first_name, $search) !== false) {
+					$flag = 1;
+				}
+				if (strpos($row->last_name, $search) !== false) {
+					$flag = 1;
+				}
+				if (strpos($row->username, $search) !== false) {
+					$flag = 1;
+				}
+				if (strpos($row->email, $search) !== false) {
+					$flag = 1;
+				}
+				if($flag == 0){
+					unset($data['users'][$j]);
+				}
+				$flag = 0;
+				$j++;
+			}
+		}
+		
 		$this->layout->view($views, $data);
 	}
+	
 	public function getAutocompleteNames(){
 		$data = $this->users_mdl->getAutocompleteNames();
 		echo json_encode($data);

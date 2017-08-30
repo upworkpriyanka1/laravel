@@ -1368,3 +1368,37 @@ header h1#logo {
     font-size: 7vw;
 }
 }
+
+/* Autocomplete
+----------------------------------*/
+.ui-autocomplete { position: relative; cursor: default; }       
+
+
+/* Menu
+----------------------------------*/
+.ui-menu {
+        list-style:none;
+        padding: 10px;
+        margin: 0;
+        display:block;
+        width:79%;
+		background:#fff;
+		border:0.2px solid #e4e4e4;
+}
+.ui-menu .ui-menu {
+        margin-top: -3px;
+}
+
+.ui-menu .ui-menu-item {
+        margin-left:10px;
+        padding: 0;
+        
+}
+.ui-menu .ui-menu-item a {
+        text-decoration:none;
+        display:block;
+        padding:.2em .4em;
+        line-height:1.5;
+     
+        
+}
