@@ -1,6 +1,5 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /*
@@ -217,7 +216,7 @@ $config['directory_trigger'] = 'd';
 */
 #if ((!empty($_SERVER["HTTP_HOST"]) and !(strpos($_SERVER["HTTP_HOST"], "zntral.net") === false))) {
 
-echo '<pre>ENVIRONMENT::'.print_r(ENVIRONMENT,true).'</pre>';
+//echo '<pre>ENVIRONMENT::'.print_r(ENVIRONMENT,true).'</pre>';
 if ((!empty($_SERVER["HTTP_HOST"]) and !(strpos($_SERVER["HTTP_HOST"], "local-zntral.com") === false))) {
 
     $config['log_path'] = '/_wwwroot/zntral/zntral/log/';   // file:///_wwwroot/zntral/zntral/application
