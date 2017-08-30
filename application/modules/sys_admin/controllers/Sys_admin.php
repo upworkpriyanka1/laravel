@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Sys_admin extends CI_Controller {
 
     public function __construct() {
-        parent::__construct();
+        parent::__construct(); 
 
         $this->load->library('Sys_admin_lib',NULL,'admin_lib');
         $this->load->model('sys_admin_mdl','admin_mdl');
@@ -1961,7 +1961,7 @@ class Sys_admin extends CI_Controller {
         $data['javascript'] = array( 'assets/custom/admin/client-type-add-validation.js');
         $views				= array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php' );
         $this->layout->view($views, $data);
-    }
+    } 
     /**********************
      * view and add Contact Types
      * access public
