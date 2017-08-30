@@ -1984,7 +1984,7 @@ class Sys_admin extends CI_Controller {
      * @params
      * return view
      *********************************/
-    public function manage_client_type(){
+    /*public function manage_client_type(){
 
         //		************************************************************* ____START____ **********************************************************************************
         $data['menu']		= $this->menu;
@@ -1992,7 +1992,7 @@ class Sys_admin extends CI_Controller {
         $data['page']		='clients/manage_client_type';
         $views				= array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php' );
         $this->layout->view( $views,$data);
-    }
+    }*/
 
     /**********************
      * view and add Contact Types
