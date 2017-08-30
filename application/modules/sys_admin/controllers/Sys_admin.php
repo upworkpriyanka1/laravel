@@ -167,7 +167,100 @@ class Sys_admin extends CI_Controller {
     }
 	public function sign_dashboard()
     {		
-       
+       /* $UriArray = $this->uri->uri_to_assoc(2);		
+        $is_insert= true;
+        $app_config = $this->config->config;
+        $cid= '';
+        if ( !empty($UriArray['client']) and $this->common_lib->is_positive_integer($UriArray['client'])  ) {
+            $is_insert= false;
+            $cid= $UriArray['client'];
+        }
+        if($this->session->flashdata( 'validation_errors_text' ) != ''){
+            $validation_text = trim(preg_replace('/\s+/', ' ', addslashes($this->session->flashdata( 'validation_errors_text'))));;
+            $this->session->set_flashdata('validation_errors_text1',$validation_text);
+            $this->session->set_flashdata('user_edit_new_post_data1',$this->session->flashdata( 'user_edit_new_post_data'));       
+        }
+		
+        $post_array = $this->input->post();
+        $sort= $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort');
+        $sort_direction = $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort_direction');
+        $page_number = $this->common_lib->getParameter($this, $UriArray, $post_array, 'page_number', 1);
+        $filter_client_name = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_name');
+        $filter_client_status = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_status');
+        $filter_client_type = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_type');
+        $filter_client_zip = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_client_zip');
+        $filter_created_at_from = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_created_at_from');
+        $filter_created_at_till = $this->common_lib->getParameter($this, $UriArray, $post_array, 'filter_created_at_till');
+        $filter_created_at_from_formatted= $this->common_lib->convertFromMySqlToCalendarFormat($filter_created_at_from);
+        $filter_created_at_till_formatted= $this->common_lib->convertFromMySqlToCalendarFormat($filter_created_at_till); //2016-09-05 -> 5 September, 2016
+        $data['filter_client_name']= $filter_client_name;
+        $data['filter_client_status']= $filter_client_status;
+        $data['filter_client_type']= $filter_client_type;
+        $data['filter_client_zip']= $filter_client_zip;
+        $data['filter_created_at_from']= $filter_created_at_from;
+        $data['filter_created_at_till']= $filter_created_at_till;
+        $data['filter_created_at_from_formatted']= $filter_created_at_from_formatted;
+        $data['filter_created_at_till_formatted']= $filter_created_at_till_formatted;
+        $data['filter_created_at_till_formatted']= $filter_created_at_till_formatted;
+		
+        $page_parameters_with_sort = $this->clientsPreparePageParameters($UriArray, $post_array, false, true);
+        $page_parameters_without_sort = $this->clientsPreparePageParameters($UriArray, $post_array, false, false);
+        $redirect_url = base_url() . 'sys-admin/clients-view' . $page_parameters_with_sort;
+
+        $data['meta_description']='';
+        $data['editor_message']= $this->session->flashdata('editor_message');
+        $data['select_on_update']= $this->common_lib->getParameter($this, $UriArray, $post_array, 'select_on_update');
+
+        // Get list of client types
+        $data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
+        // Get client status array
+        $data['client_status_array']= $this->clients_mdl->getClientStatusValueArray(false);
+        // Get user status array
+        $data['user_status_array']= $this->clients_mdl->getUserStatusValueArray(true);
+        // Get client phone type like home,work
+        $data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
+        // Get list of color scheme options
+        $data['client_color_schemes'] = $this->config->item('client_color_schemes');
+
+<<<<<<< HEAD
+
+        $data['is_insert']  = $is_insert;
+        $data['cid']      = $cid;        
+//		$data['job'] 		= $this->job;
+        $data['group'] 		= $this->group->name;
+
+        $client_id= $this->uri->segment(3);
+//        echo '<pre>$client_id::'.print_r($client_id,true).'</pre>';
+        $client		= $this->clients_mdl->getRowById( $client_id, array('show_file_info'=> 1, 'image_width'=> 128, 'image_height'=> 128) );
+
+=======
+
+        $data['is_insert']  = $is_insert;
+        $data['cid']      = $cid;        
+//		$data['job'] 		= $this->job;
+        $data['group'] 		= $this->group->name;
+
+        $client_id= $this->uri->segment(3);
+//        echo '<pre>$client_id::'.print_r($client_id,true).'</pre>';
+        $client		= $this->clients_mdl->getRowById( $client_id, array('show_file_info'=> 1, 'image_width'=> 128, 'image_height'=> 128) );
+
+>>>>>>> Dev
+        $groupsSelectionList= $this->users_mdl->getGroupsSelectionList( array(), 'id',  'asc', ['sys-admin'] );
+        usort($groupsSelectionList,'cmpGroups');
+        $data['groupsSelectionList']  = $groupsSelectionList;
+
+        $data['userStatusValueArray']= $this->users_mdl->getUserStatusValueArray();
+        foreach ( $data['userStatusValueArray'] as $next_key=>$next_userStatus ) {
+            if ( !in_array($next_userStatus['key'],array('N', 'P')) ) {
+                unset($data['userStatusValueArray'][$next_key]);
+            }
+        }
+        $data['client_id'] = $client->cid;
+        // END BBITS DEV
+
+        $data['client']		= $client;
+        $data['page_parameters_with_sort']= $page_parameters_with_sort;
+        $data['page_parameters_without_sort']= $page_parameters_without_sort;*/
 		$data['menu']		= $this->menu;
         $data['user'] 		= $this->user;
         $data['page']		= 'mockup/sign_dashboard'; //page view to load
