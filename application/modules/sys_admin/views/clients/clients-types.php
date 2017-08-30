@@ -28,7 +28,10 @@
                             <div class="modal-body">
                                 <!-- BEGIN FORM-->
                                 <form action="<?php echo current_url();?>" method="post" id="client-type-add" class="form-horizontal">
+<<<<<<< HEAD
 
+=======
+>>>>>>> Dev
                                     <div class="form-body">
                                         <div class="alert alert-danger display-hide">
                                             <button class="close" data-close="alert"></button> <?= lang('form_error');?>
@@ -75,7 +78,10 @@
                                                 <div class="form-actions">
                                                     <div class="row">
                                                         <div class="col-md-12 text-right">
+<<<<<<< HEAD
                                                             <input type="hidden" name="editClient" id="edClient" value=""/>
+=======
+>>>>>>> Dev
                                                             <button type="button" class="btn btn-type" data-dismiss="modal">CANCEL</button>
                                                             <button type="submit" class="btn btn-type"><?php echo lang('SAVE');?></button>
                                                         </div>
@@ -99,16 +105,24 @@
                             </div>
                             <div class="modal-body">
                                 <!-- BEGIN FORM-->
+<<<<<<< HEAD
                                 <form action="<?php echo current_url();?>" method="post" id="client-type-edit" class="form-horizontal">
                                     <input type="hidden" name="row-to-update" id="row-to-update" value=""/>
                                     <input type="hidden" name="is_edit" value="1"/>
                                     <input type="hidden" name="ajaxpost" value="1"/>
+=======
+                                <form action="<?php echo current_url();?>" method="post" id="client-type-add" class="form-horizontal">
+>>>>>>> Dev
                                     <div class="form-body">
                                         <div class="alert alert-danger display-hide">
                                             <button class="close" data-close="alert"></button> <?= lang('form_error');?>
                                         </div>
                                         <div class="alert alert-success display-hide">
+<<<<<<< HEAD
                                             <button class="close" data-close="alert"></button> <?php echo "Client type updated.";?>
+=======
+                                            <button class="close" data-close="alert"></button> <?= lang('form_sucess');?>
+>>>>>>> Dev
                                         </div>
 
                                         <div class="row">
@@ -151,7 +165,11 @@
                                                         <div class="col-md-12 text-right">
                                                             <button type="button" class="btn btn-type" data-dismiss="modal">CANCEL</button>
                                                             <button type="button" class="btn btn-type">DELETE </button>
+<<<<<<< HEAD
                                                             <button type="button" id="update-client" class="btn btn-type"><?php echo lang('SAVE');?></button>
+=======
+                                                            <button type="button" class="btn btn-type"><?php echo lang('SAVE');?></button>
+>>>>>>> Dev
                                                         </div>
                                                     </div>
                                                 </div>
@@ -165,6 +183,7 @@
                     </div>
                 </div>
 
+<<<<<<< HEAD
                 <div class="table-responsive">
                     <table class="table table-striped table-bordered table-hover  order-column" id="client_types">
                         <thead>
@@ -284,3 +303,35 @@
 
 
 </script>
+=======
+				<div class="table-responsive">
+					<table class="table table-striped table-bordered table-hover  order-column" id="client_types">
+						<thead>
+						<tr>
+							<th> <?= lang('name');?> </th>
+							<th> <?= lang('description');?> </th>
+						</tr>
+						</thead>
+						<tbody>
+						<?php if (isset($client_types) && count($client_types)>0){
+							foreach($client_types as $row){?>
+								<tr>
+
+									<td><?php echo $row->type_name;?></td>
+									<td><?php echo $row->type_description;?>
+                                        <a href="#" class="icon-type-pen" data-toggle="modal" data-target="#edit-clients-type"><i class="material-icons">edit</i></a>
+                                    </td>
+								</tr>
+								<?php
+							}//end foreach
+						}//end isset
+						?>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<!-- END EXAMPLE TABLE PORTLET-->
+	</div>
+</div>
+>>>>>>> Dev

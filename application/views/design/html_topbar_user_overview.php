@@ -20,7 +20,7 @@ $img_url = base_url()."/assets/avatar/".$res->filename;
                 <div class="page-title">
                     <h1  id="logo">
                         <!-- <a href="#" data-activates="nav-mobile" class="button-collapse" id="nav_mobile_button"><i class="material-icons">menu</i></a>-->
-                        <span class='logo_first'><?php echo $editable_user->last_name[0] ?></span><?php echo $editable_user->last_name?> <?php echo $editable_user->first_name ?>
+                        <span class='logo_first'><?php echo $editable_user->username[0] ?></span><?php echo $editable_user->username; ?>
 
                     </h1>
 

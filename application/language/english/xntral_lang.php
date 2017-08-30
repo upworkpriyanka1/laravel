@@ -77,6 +77,8 @@ $lang['sacred-city']            = "Sacred City";
 $lang['license']                = "License";
 $lang['type']                   = "Type";
 $lang['users']                  = "Users";
+$lang['SAVE']                  = "SAVE";
+
 
 
 
@@ -185,7 +187,7 @@ $lang['middle_name']            = "Middle  Name";
 $lang['last_name']              = "Last Name";
 $lang['mobile']                 = "Mobile";
 $lang['users-edit']             = "Edit User";
-$lang['user_active_status']     = "User's Status";
+$lang['user_status']            = "User's Status";
 $lang['user_has_groups']        = "Title(s)";
 $lang['user_has_groups_label']  = "Title(s)";
 $lang['authenticity']  			= "Authenticity"; // BBITS

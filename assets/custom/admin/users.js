@@ -60,7 +60,7 @@ function usersListFilterApplied( ) {
         "show": true
     }  );
     $("#filter_username").val( jQuery.trim($("#hidden_filter_username").val()) )
-    $("#filter_user_active_status").val( jQuery.trim($("#hidden_filter_user_active_status").val()) )
+    $("#filter_user_status").val( jQuery.trim($("#hidden_filter_user_status").val()) )
     $("#filter_zip").val( jQuery.trim($("#hidden_filter_zip").val()) )
     $("#filter_user_group_id").val( jQuery.trim($("#hidden_filter_user_group_id").val()) )
 
@@ -91,7 +91,7 @@ function usersListFilterApplied( ) {
  *********************************/
 function usersListMakeFilterDialogSubmit() {
     $("#hidden_filter_username").val( jQuery.trim($("#filter_username").val()) )
-    $("#hidden_filter_user_active_status").val( jQuery.trim($("#filter_user_active_status").val()) )
+    $("#hidden_filter_user_status").val( jQuery.trim($("#filter_user_status").val()) )
     $("#hidden_filter_zip").val( jQuery.trim($("#filter_zip").val()) )
     $("#hidden_filter_user_group_id").val( jQuery.trim($("#filter_user_group_id").val()) )
 
@@ -149,3 +149,31 @@ function var_dump(oElem, from_line, till_line) {
     }
     return sStr;
 }
+	var searchFields = [];
+	var url = base_url+"sys-admin/users/getAutocompleteNames";
+
+	$.ajax({
+		url: url, 
+		success: function(result){
+			var data = JSON.parse(result);
+			for(var i=0; i < data.length; i++){
+				if(data[i].first_name){
+					searchFields.push(data[i].first_name);
+				}
+				if(data[i].last_name){
+					searchFields.push(data[i].last_name);
+				}
+				if(data[i].username){
+					var str = data[i].username;
+					searchFields.push(str.trim());
+				}
+				if(data[i].email){
+					searchFields.push(data[i].email);
+				}
+				
+			}
+			
+		}
+	});
+	
+	$("#autocomplete").autocomplete({ source: searchFields });

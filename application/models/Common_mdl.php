@@ -36,6 +36,38 @@ class Common_mdl extends CI_Model {
         return $query->row();
     }
 
+
+ /*********************************
+* Get logged in user Info for dashboard
+* Access public
+* @params user_id
+* join multiple tables, ignore id=1 (admin)
+* return array row
+******************************/
+    public function get_user_dashboard_info($id=false){
+        $id || $id = $this->session->userdata('user_id');
+		$client_id = $this->session->userdata('logged_user_client_id');
+		$group_name = $this->session->userdata('logged_user_title_name');
+        $this->db->select('*');
+        $this->db->select('users.id AS MyID', FALSE);
+        $this->db->from('users');
+        $this->db->join('users_groups', 'users_groups.user_id = users.id');
+        $this->db->join('groups', 'groups.id = users_groups.group_id');
+//        $this->db->join('users_jobs', 'users_jobs.user_id = users.id');
+//        $this->db->join('jobs', 'jobs.id = users_jobs.job_id');
+        $this->db->join('users_clients', 'users_clients.uc_user_id = users.id','right');
+        $this->db->join('clients', 'clients.cid = users_clients.uc_client_id');
+        $this->db->where('users.id', $id);
+		//$this->db->where('users_clients.uc_client_id', $client_id);
+		$this->db->where('clients.cid', $client_id);
+		$this->db->where('groups.name', $group_name);
+        $this->db->where('clients.cid !=', '1');
+        $query = $this->db->get();
+        return $query->row();
+    }
+
+
+
 /*********************************
 * Get user to edit Info
 * Access public
@@ -276,5 +308,14 @@ class Common_mdl extends CI_Model {
 		}
 	}
 
+	// Function to get list of all groups
+	public function get_all_groups()
+	{
+		$this->db->select('*');
+		$groups = $this->db->from('groups');
+		echo "groups are : ";
+		print_r($groups);
+		exit(0);
+	}
 
 }

@@ -9,14 +9,17 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
 	var base_url= '<?= base_url() ?>'
 
 	/*]]>*/
+	
+	
 </script>
+
 
 <div class="row">
 	<div class="col-md-12">
 		<!-- BEGIN EXAMPLE TABLE PORTLET-->
 		<div class="portlet light bordered">
 			<div class="portlet-body">
-
+				
 				<div class="page-bar">
 					<!--<h3 class="page-title"><?=lang('users-view')?></h3>-->
 					<?= $this->common_lib->show_info($editor_message) ?>
@@ -34,7 +37,10 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
 					<? } ?>
 
 					<button type="button" class="btn btn-filter btn-default btn-sm pull_right_only_on_xs padding_right_sm" onclick="javascript:usersListFilterApplied();" data-toggle="tooltip" data-html="true" data-placement="top" title="" data-original-title="Open dialog window to set filter for Users. <?= ( trim($filters_label) != "" ? "Current filter(s):".$filters_label : "") ?> "><i class="glyphicon glyphicon-filter"></i>&nbsp;Filter </button>
-					<button type="button" class="btn btn-plus sbold btn-sm pull-right" onclick="javascript:document.location='<?= base_url() ?>sys-admin/users/users-edit/new<?=$page_parameters_with_sort ?>'" ><i class="glyphicon glyphicon-plus"></i></button>
+					<span><button type="button" class="btn btn-plus sbold btn-sm pull-right" onclick="javascript:document.location='<?= base_url() ?>sys-admin/users/users-edit/new<?=$page_parameters_with_sort ?>'" ><i class="glyphicon glyphicon-plus"></i></button>
+                    
+                    <form method="get" action=""><input type="text" placeholder="Enter text to search" name="search" id="autocomplete" /></form>
+                     </span>
 				</div>
 
 				<? if ( count($users) > 0 ) : ?>
@@ -45,7 +51,7 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
 							<tr>
 								<th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('user'), "username", $sort_direction, $sort ) ?></th>
 								<th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('client(s)'), "client_name", $sort_direction, $sort ) ?></th>
-                                <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('status'), "user_active_status", $sort_direction, $sort ) ?></th>
+                                <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('status'), "user_status", $sort_direction, $sort ) ?></th>
                                 <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('title'), "user_group_description", $sort_direction, $sort ) ?></th>
                                 <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('created'), "users.created_at", $sort_direction, $sort ) ?></th>
 <!--                                <th>--><?//= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('phone'), "phone", $sort_direction, $sort ) ?><!--</th>-->
@@ -56,18 +62,22 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
 							</thead>
 							<tbody>
 							<?php if (isset($users) && count($users)>0){
+									$userName = "";
 								foreach($users as $row){?>
 									<tr>
-
+										
 										<td>
+                                        	<?php if($userName != $row->username){ ?>
 											<a class="a_link" href="<?= base_url($this->uri->segment(1).'/users/users-overview/'.$row->id);?><?= $page_parameters_with_sort ?>">
 												<?php echo $row->username;?>
 											</a>
+                                            <?php $userName = $row->username; ?>
+                                            <?php } ?>
 										</td>
 										<td>
 											<?php echo $this->common_lib->groupItems($row->client_name,',', 'client(s)');?></a>
 										</td>
-                                        <td><?php echo $this->common_lib->get_user_active_status_label( $row->user_active_status ) ?></td>
+                                        <td><?php echo $this->common_lib->get_user_status_label( $row->user_status ) ?></td>
                                         <td><?php echo $row->user_group_description;?></td>
                                         <td><?php echo $ci->common_lib->format_datetime( $row->created_at) ?></td>
 <!--                                        <td>--><?php //echo $row->phone;?><!--</td>-->
@@ -112,7 +122,7 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
 
 					<input type="hidden" id="page_number" name="page_number" value="1">
 					<input type="hidden" id="hidden_filter_username" name="filter_username" value="<?= $filter_username ?>">
-					<input type="hidden" id="hidden_filter_user_active_status" name="filter_user_active_status" value="<?= $filter_user_active_status ?>">
+					<input type="hidden" id="hidden_filter_user_status" name="filter_user_status" value="<?= $filter_user_status ?>">
 					<input type="hidden" id="hidden_filter_zip" name="filter_zip" value="<?= $filter_zip ?>">
 					<input type="hidden" id="hidden_filter_user_group_id" name="filter_user_group_id" value="<?= $filter_user_group_id ?>">
 					<input type="hidden" id="hidden_filter_created_at_from" name="filter_created_at_from" value="<?= $filter_created_at_from ?>">
@@ -146,11 +156,11 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
 
 					<div class="row">
 						<div class="form-group" >
-							<label class="col-xs-12 col-sm-4 control-label" for="filter_user_active_status">User Active Status</label>
+							<label class="col-xs-12 col-sm-4 control-label" for="filter_user_status">User Status</label>
 							<div class="col-xs-12 col-sm-8">
-								<select id="filter_user_active_status"  class="form-control editable_field">
+								<select id="filter_user_status"  class="form-control editable_field">
 									<option value="">  -Select All-  </option>
-									<?php foreach( $userActiveStatusValueArray as $next_key=>$next_User_Active ) { ?>
+									<?php foreach( $userStatusValueArray as $next_key=>$next_User_Active ) { ?>
 										<option value="<?= $next_User_Active['key'] ?>" ><?= $next_User_Active['value'] ?></option>
 									<?php } ?>
 								</select>

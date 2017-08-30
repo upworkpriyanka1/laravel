@@ -225,6 +225,9 @@ li[name='active'] {
     font-size: 12px;
     margin-left: 10px;
 }
+button.btn.btn-plus.sbold.btn-sm.pull-right.create_contact {
+    margin-top: 11px;
+}
 .btn-filter i, .btn-plus i{
     font-size: 12px;
 }
@@ -493,7 +496,12 @@ header h1#logo {
     -moz-transition: all 0.3s;
     -ms-transition: all 0.3s;
     -o-transition: all 0.3s;
-    transition: all 0.3s; }
+    transition: all 0.3s;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
 header nav {
     display: inline-block;
     float: right; }
@@ -688,9 +696,9 @@ input[type=text]:focus:not([readonly]){
 .pad-card .card {
     margin: 0.5rem 0.5rem 1rem 0;
 }
-.pad-col3 .pad-card .card{
+/*.pad-col3 .pad-card .card{
     margin: 1.5rem 1.5rem 2rem 0.5rem;
-}
+}*/
 .page-header .top-notific-page{
     position: absolute;
     top:0;
@@ -1122,4 +1130,48 @@ body{
 #client-edit .page-content{
     padding: 0 !important;
 }
-
+#client_types .icon-type-pen{
+    float: right;
+    font-size: 12px;
+    color: #8b8b8b;
+    opacity:0;
+}
+#client_types .table-hover>tbody>tr:hover .icon-type-pen{
+    display: block;
+}
+.table-hover>tbody>tr:hover .icon-type-pen{
+    opacity:1 !important;
+}
+#add-clients-type .btn-type, #edit-clients-type .btn-type{
+    color: #000;
+    background-color: transparent !important;
+    padding: 0;
+    margin: 0 15px;
+}
+#add-clients-type .input-field .prefix ~ label, #edit-clients-type .input-field .prefix ~ label {
+    margin-left: 5rem;
+}
+#add-clients-type .row:last-child, #edit-clients-type .row:last-child{
+    margin-bottom: 0;
+}
+.responsive_design_1 .page-footer{position:relative;}
+@media only screen and (min-width:601px) and (max-width:900px){
+	.responsive_design_1 .pad-card .card { box-shadow: 0px 1px 10px #777 !important;}
+	.responsive_design_1 .top-notific-page .notifications .zang {right: 0px;}
+	.responsive_design_1 .pad-card .card{margin: 0.5rem 0.5rem 1rem 0.5em;}
+}
+@media only screen and (min-width:100px) and (max-width:600px){	
+.responsive_design_1 .top-notific-page .notifications .zang {right: 0px;}
+	.responsive_design_1 .page-content {padding: 0px !important;}
+	.responsive_design_1 .col.s12{padding:0!important;}
+	.responsive_design_1 #responsive_design_1 {padding: 0 !important;}
+	.responsive_design_1 #grid-container {margin-top: 75px;}
+	.responsive_design_1 .p_d {padding:10px 15px ;}
+	.responsive_design_1 #responsive_design_1 {margin-left: 0px !important;}
+	.responsive_design_1 #grid-intro .row {margin-bottom: 0;}
+	.responsive_design_1 #structure {padding-bottom: 0;}
+	.responsive_design_1 .row {margin-bottom: 0;}
+	.responsive_design_1 .cards-container .card.white:last-child {margin-bottom: 5px !important;}	
+	.responsive_design_1 .pad-card .card {margin-right: 14px;margin-left: 12px;}
+	.responsive_design_1 .pad-card .card { box-shadow: 0px 1px 10px #777 !important;}
+}

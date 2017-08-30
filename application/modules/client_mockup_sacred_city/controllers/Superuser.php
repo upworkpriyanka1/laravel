@@ -6,6 +6,10 @@ class Superuser extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('users_mdl');
+        $this->config->load('sys_admin_menu_new', true);
+        $this->menu = $this->config->item('sys_admin_menu_new');
+
+
     }
     public function index(){
         $data['page']		= 'main_superuser/dasboard';
@@ -58,7 +62,7 @@ class Superuser extends CI_Controller {
         $this->load->view('main_superuser/client-overview-settings-theme');
     }
 
-    public function client_overview_profile_form(){
+   public function client_overview_profile_form(){
         $UriArray = $this->uri->uri_to_assoc(3);
         $user_id=$UriArray['client-overview-profile-form'];
         $editable_user= $this->users_mdl->getUserRowById( $user_id, array('show_file_info'=> 1, 'image_width'=> 128, 'image_height'=> 128) );
@@ -129,9 +133,32 @@ class Superuser extends CI_Controller {
 //		die;
 
     }
+
+//    public function client_overview_profile_form(){
+//        $UriArray = $this->uri->uri_to_assoc(3);
+//        $user_id=$UriArray['client-overview-profile-form'];
+//        $editable_user= $this->users_mdl->getUserRowById( $user_id, array('show_file_info'=> 1, 'image_width'=> 128, 'image_height'=> 128) );
+//        $data['page']		= 'main_superuser/client-overview-profile-form';
+//        $data['menu']		= $this->menu;
+//        $data['title']		= 'new-patient';
+//        $data['pls'] 		= array(); //page level scripts optional
+//        $data['plugins'] 	= array(); //page plugins
+//        $data['javascript'] = array('/assets/global/js/client-overview.js'); //page javascript
+//        $views				= array('layout/html_topbar','layout/sidebar','design/page','design/html_footer');
+//        $data['user']       = $editable_user;
+//        $this->layout->view($views,$data);
+//
+////        $this->load->view('main_superuser/new-patient');
+//    }
     public function superuser(){
 
-
-
     }
+	
+	public function sign_up(){
+        $this->load->view('main_superuser/sign_up');
+    }
+	public function sign_dashboard(){
+        $this->load->view('main_superuser/sign_dashboard');
+    }
+	
 }

@@ -31,9 +31,9 @@ echo link_tag('/assets/layouts/default/css/custom-users-overview-view.css');
                     <div class="dropdown">
                         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><span class="status_but_name"><?=$user_status;?></span><span class="caret"></span></button>
                         <ul class="dropdown-menu user-status-parent">
-                            <li class="user-status <?=($editable_user->user_active_status == "N" || $editable_user->user_active_status == "W") ? "disabled":''?>"><a href="javascript:void(0)">Pending</a></li>
-                            <li class="user-status <?=($editable_user->user_active_status == "A") ? "disabled":''?>"><a href="javascript:void(0)">Active</a></li>
-                            <li class="user-status <?=($editable_user->user_active_status == "I") ? "disabled":''?>"><a href="javascript:void(0)">Inactive</a></li>
+                            <li class="user-status <?=($editable_user->user_status == "P") ? "disabled":''?>"><a href="javascript:void(0)">Pending</a></li>
+                            <li class="user-status <?=($editable_user->user_status == "A") ? "disabled":''?>"><a href="javascript:void(0)">Active</a></li>
+                            <li class="user-status <?=($editable_user->user_status == "I") ? "disabled":''?>"><a href="javascript:void(0)">Inactive</a></li>
                         </ul>
                     </div>
                 </div>
@@ -71,24 +71,20 @@ echo link_tag('/assets/layouts/default/css/custom-users-overview-view.css');
                         </thead>
 
                         <tbody>
-                        <tr>
-                            <td>Alvin</td>
-                            <td>Eclair</td>
-                            <td>Hi</td>
-                            <td>$0.87</td>
-                        </tr>
-                        <tr>
-                            <td>Alan</td>
-                            <td>Jellybean</td>
-                            <td>Hello</td>
-                            <td>$3.76</td>
-                        </tr>
-                        <tr>
-                            <td>Jonathan</td>
-                            <td>Lollipop</td>
-                            <td>Hi</td>
-                            <td>$7.00</td>
-                        </tr>
+                        <?php if(empty($clients)):?>
+                        <tr><td colspan="4">No client association</td></tr>
+                        <?php else:?>
+                        <?php  foreach($clients as $client):  ?>
+                            <tr>
+                                <td> <a href="<?= base_url('/sys-admin/client/' . $client->cid . '/'); ?>">
+                                        <?php echo $client->client_name ?>
+                                    </a></td>
+                                <td><?php echo $client->group->name?></td>
+                                <td><?php echo $client->client_active_status ?></td>
+                                <td><?php echo $client->created_at?></td>
+                            </tr>
+                        <?php  endforeach;  ?>
+                        <?php endif;?>
                         </tbody>
                     </table>
                 </div>

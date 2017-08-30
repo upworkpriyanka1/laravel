@@ -3,6 +3,8 @@ echo link_tag('/assets/layouts/default/css/custom-client-overview-view.css');
 ?>
 <script>
     var client_id= '<?php echo $client->cid ?>'
+
+    var selected_user_id= 0
 </script>
 
 <style>
@@ -28,7 +30,7 @@ echo link_tag('/assets/layouts/default/css/custom-client-overview-view.css');
             </div>
 
 
-            <button data-toggle="modal" data-target="#client_new_user_dialog" class="client_new_user_dialog waves-effect waves-light btn-large" style="background-color: #fff; color: #000;font-size: 16px;">
+            <button data-toggle="modal" data-target="#client_new_user_dialog_checking" class="client_new_user_dialog waves-effect waves-light btn-large" style="background-color: #fff; color: #000;font-size: 16px;">
                 <i class="fa fa-plus" style="font-size: 16px"></i>
                 USER
             </button>
@@ -61,6 +63,78 @@ echo link_tag('/assets/layouts/default/css/custom-client-overview-view.css');
                 </div><!-- /.modal-dalog -->
             </div><!-- /.modal -->
 
+
+            <div class="modal fade newclient" id="client_new_user_dialog_checking" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class=" modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                            <h3 class="modal-title" id="lineModalLabel">New user for <?php echo $client->client_name ?> </h3>
+                            <h4>Enter new email or email of existing user</h4>
+                            <h5>All fields are required.</h5>
+                        </div>
+
+                        <div class="row">
+                            <form class="col s12 form-horizontal" action="<?php echo base_url() ;?>sys-admin/users/users-edit/new" method="post" id="form_user_modal_editor_checking" name="form_user_modal_editor_checking" enctype="multipart/form-data">
+
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <i class="material-icons prefix">email</i>
+                                        <input required type="email" name="form_user_modal_editor_checking_email" id="form_user_modal_editor_checking_email" value="" maxlength="100" class="user_email validate required_form"  onchange="validateFormEnableOrDisable('form_user_modal_editor_checking');" />
+                                        <label for="email">Email address</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <i class="material-icons prefix">email</i>
+                                        <input required type="email" name="form_user_modal_editor_checking_email1" id="form_user_modal_editor_checking_email1" value="" maxlength="100" class="user_email_confirm validate required_form" onChange="validateFormEnableOrDisable('form_user_modal_editor_checking');"/>
+                                        <label for="email1">Verify email address</label>
+                                    </div>
+                                </div>
+
+                                <div class="row" style="display: none">
+                                    <div class="input-field col s12">
+                                        <span id="span_message"></span>
+                                    </div>
+                                </div>
+
+                                <div class="row" id="div_form_user_modal_editor_checking_title" style="display: none">
+                                    <div class="input-field row col s12">
+                                        <i class="material-icons prefix">account_circle</i>
+                                        <label for="form_user_modal_editor_checking_title">Title</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <select required name="form_user_modal_editor_checking_title" id="form_user_modal_editor_checking_title" class="user_email_confirm validate required_form" onchange="validateFormEnableOrDisable('form_user_modal_editor_checking');" >
+                                            <option value="">Select Type</option>
+                                            <?php foreach( $groupsSelectionList as $next_key=>$nextGroupsSelection ) { ?>
+                                                <option value="<?=$nextGroupsSelection['key']  ?>" ><?=$nextGroupsSelection['value']  ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row md-foot-row">
+                                    <div class="col-xs-12">
+                                        <ul class ="md-foot-bot">
+                                            <li data-dismiss="modal">
+                                                <button class="btn"  data-dismiss="modal" role="button" type="button" >CANCEL</button>
+                                            </li>
+                                            <li> <!-- class="create-contact-save " data-action="save"-->
+                                                <button type="button" class="btn add_Userform" id="but-verify" onClick="javascript:onuserModalEditorChecking();" >CHECK</button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
             <div class="modal fade newclient" id="client_new_user_dialog" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class=" modal-content">
@@ -73,8 +147,8 @@ echo link_tag('/assets/layouts/default/css/custom-client-overview-view.css');
                         <div class="row">
                             <form class="col s12 form-horizontal" action="<?php echo base_url() ;?>sys-admin/users/users-edit/new" method="post" id="form_user_modal_editor" name="form_user_modal_editor" enctype="multipart/form-data">
 
-
                                 <input type="hidden" name="form_user_modal_editor_client_id" value="<?php echo $client_id;?>" id="form_user_modal_editor_client_id" />
+
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <i class="material-icons prefix">account_circle</i>
@@ -90,6 +164,7 @@ echo link_tag('/assets/layouts/default/css/custom-client-overview-view.css');
                                         <label for="first_name">First Name</label>
                                     </div>
                                 </div>
+
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <i class="material-icons prefix">supervisor_account</i>
@@ -97,6 +172,7 @@ echo link_tag('/assets/layouts/default/css/custom-client-overview-view.css');
                                         <label for="last_name">Last Name</label>
                                     </div>
                                 </div>
+
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <i class="material-icons prefix">phone</i>
@@ -104,21 +180,14 @@ echo link_tag('/assets/layouts/default/css/custom-client-overview-view.css');
                                         <label for="phone">Telephone</label>
                                     </div>
                                 </div>
+
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <i class="material-icons prefix">email</i>
-                                        <input required type="email" name="form_user_modal_editor_email" id="form_user_modal_editor_email" value="" maxlength="100" class="user_email validate required_form"  onchange="validateFormEnableOrDisable('form_user_modal_editor');"/>
+                                        <input required type="email" name="form_user_modal_editor_email" id="form_user_modal_editor_email" value="" maxlength="100" class="user_email validate required_form"  onchange="validateFormEnableOrDisable('form_user_modal_editor');" readonly/>
                                         <label for="email">Email address</label>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <i class="material-icons prefix">email</i>
-                                        <input required type="email" name="form_user_modal_editor_email1" id="form_user_modal_editor_email1" value="" maxlength="100" class="user_email_confirm validate required_form" onChange="validateFormEnableOrDisable('form_user_modal_editor');"/>
-                                        <label for="email1">Verify email address</label>
-                                    </div>
-                                </div>
-
 
                                 <div class="row">
                                     <div class="input-field row col s12">
@@ -143,10 +212,8 @@ echo link_tag('/assets/layouts/default/css/custom-client-overview-view.css');
                                 <ul class ="md-foot-bot">
                                     <li data-dismiss="modal">
                                         <button class="btn"  data-dismiss="modal" role="button" type="button" >CANCEL</button>
-                                        <!-- <button type="button" class="btn btn-cancel-action" data-dismiss="modal" role="button">Cancel</button> -->
                                     </li>
-                                    <li> <!-- class="create-contact-save " data-action="save"-->
-<!--                                        <button class="btn-flat  disable_form_id_form_user_modal_editor" disabled> VERIFY </button>-->
+                                    <li>
                                         <button type="button" class="btn add_Userform" id="but-verify" onClick="javascript:onuserModalEditorSubmit();" >VERIFY</button>
                                     </li>
                                 </ul>
@@ -249,11 +316,6 @@ echo link_tag('/assets/layouts/default/css/custom-client-overview-view.css');
 
     <div class="col hide-on-small-only m3 l2">
         <div class="toc-wrapper pin-top" style="top: 250px; position:fixed;">
-            <!--                                    <div class="buysellads hide-on-small-only">-->
-            <!--                                        <!-- CarbonAds Zone Code -->
-            <!--                                        <script async="" type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&amp;serve=C6AILKT&amp;placement=materializecss" id="_carbonads_js"></script>-->
-            <!---->
-            <!--                                    </div>-->
             <div>
                 <ul class="section table-of-contents">
                     <li><a href="#grid-pinned" class="active">Pinned</a></li>
@@ -274,6 +336,7 @@ echo link_tag('/assets/layouts/default/css/custom-client-overview-view.css');
     //validation_text = '12345';
     if(validation_text != '')
     {
-        $('#client_new_user_dialog').modal('show');
+//        $('#client_new_user_dialog').modal('show');
+        $('#client_new_user_dialog_checking').modal('show');
     }
 </script>

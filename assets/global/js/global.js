@@ -367,20 +367,20 @@ $(document).ready(function(){
         }
     };
 
-    setTitleDots();
+    // setTitleDots();
 
-    window.onresize = function(event) {
-
-        $('.page-title').removeAttr('style');
-        $('.page-title-dots').css('display', 'none');
-
-        setTimeout(function(){
-
-            document.getElementById("logo").removeEventListener("scroll", setTitleDots());
-
-        }, 200);
-
-    };
+    // window.onresize = function(event) {
+    //
+    //     $('.page-title').removeAttr('style');
+    //     $('.page-title-dots').css('display', 'none');
+    //
+    //     setTimeout(function(){
+    //
+    //         document.getElementById("logo").removeEventListener("scroll", setTitleDots());
+    //
+    //     }, 200);
+    //
+    // };
 
 })( window );
 
@@ -405,13 +405,13 @@ function validateFormEnableOrDisable(form_id){
         }
     });
 
-    if(disable){
-        $('#but-verify').css({fontWeight:'normal    '});
-        $('.disable_form_id_'+form_id).attr('disabled', true);
-    }else{
-        $('#but-verify').css({fontWeight:'bold'});
-        $('.disable_form_id_'+form_id).removeAttr('disabled');
-    }
+    // if(disable){
+    //     $('#but-verify').css({fontWeight:'normal    '});
+    //     $('.disable_form_id_'+form_id).attr('disabled', true);
+    // }else{
+    //     $('#but-verify').css({fontWeight:'bold'});
+    //     $('.disable_form_id_'+form_id).removeAttr('disabled');
+    // }
 
 
     $('.supuser').click(function(){
@@ -419,8 +419,29 @@ function validateFormEnableOrDisable(form_id){
         $('.modal-top').css('display','none');
     });
 
+    var email =$('#form_user_modal_editor_checking_email').val();
+    var v_email =$('#form_user_modal_editor_checking_email1').val();
+    if( email.includes('@') && email.includes('.') && v_email.includes('@') && v_email.includes('.') && email == v_email) {
+        $('#'+form_id+' .required_form_to_check').each(function(){
+            var name = $(this).attr('name');
 
+            if($('input[name='+name+']:checked').val() == undefined){
+                disable = true;
+            }
+        });
+
+        if(disable){
+            $('#but-verify').css({fontWeight:'normal    '});
+            $('.disable_form_id_'+form_id).attr('disabled', true);
+        }else{
+            $('#but-verify').css({fontWeight:'bold'});
+            $('.disable_form_id_'+form_id).removeAttr('disabled');
+        }
+
+    }
 }
+
+
 
 function init() {
     window.addEventListener('scroll', function(e){

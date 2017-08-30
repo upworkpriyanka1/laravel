@@ -13,15 +13,17 @@ $img_url = base_url()."/assets/avatar/".$res->filename;
 <!-- BEGIN HEADER -->
 
 <header>
+<input name="base_url_hidden" id="base_url_hidden" value="<?php echo base_url(); ?>" />
     <nav class="top-nav">
+    
         <div class="container">
             <div class="page-header navbar navbar-fixed-top">
                 <!-- BEGIN PAGE TITLE-->
                 <div class="page-title client-ed">
                     <h1  id="logo">
-                        <span class='logo_first' id="span_client_client_name_logo_first"></span>
+<!--                        <span class='logo_first' id="span_client_client_name_logo_first"></span>-->
                         <?php if ( !empty($client->image_url) and !empty($client->image_path_height) ) : ?>
-                            <img src="<?= $client->image_url ?>" width="<?= $client->image_path_width ?>"  height="<?= $client->image_path_height ?>" >
+                            <img class='logo_first' id="span_client_client_name_logo_first" src="<?= $client->image_url ?>">
                         <?php endif; ?>
                         <span id="span_client_client_name"></span>
                     </h1>

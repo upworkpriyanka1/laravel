@@ -11,12 +11,12 @@ class Volunteer extends CI_Controller {
 				redirect('./', 'refresh');
 			}
 		/*check if allowed to access page */
-        echo '<h2>INSIDE OF Volunteer</h2>';
-        die("-1 XXZ");
-			if (!$this->common_mdl->in_job($job)){
-				echo "Not allowed";
-				return die();
-			}
+//        echo '<h2>INSIDE OF Volunteer</h2>';
+//        die("-1 XXZ");
+//			if (!$this->common_mdl->in_job($job)){
+//				echo "Not allowed";
+//				return die();
+//			}
 	/* load library & model with aliases, config and language */
 			$this->load->library('Volunteer_lib',NULL, 'nurse_lib');
 			$this->load->model('volunteer_mdl','nurse_mdl');
@@ -24,7 +24,8 @@ class Volunteer extends CI_Controller {
 			$this->config->load('volunteer_menu', true );
 			$this->menu    			= $this->config->item( 'volunteer_menu' );
 
-			$this->user 			= $this->common_mdl->get_user();
+			//$this->user 			= $this->common_mdl->get_user();
+			$this->user 			= $this->common_mdl->get_user_dashboard_info();
 			$this->superviser 		=  $this->ion_auth->user($this->user->super_id)->row();
 			$this->superviser_name 	= $this->superviser->first_name." ".$this->superviser->last_name;
 			$this->group 			= $this->ion_auth->get_users_groups()->row();

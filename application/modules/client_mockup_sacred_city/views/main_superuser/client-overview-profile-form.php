@@ -9,27 +9,28 @@
     <meta content="" name="keywords" />
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
-    <link href="/assets/global/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets/global/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
     <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css" />
-    <link href="/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/global/css/materialize.min.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/global/css/ghpages-materialize.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets/global/css/materialize.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets/global/css/ghpages-materialize.css" rel="stylesheet" type="text/css" />
     <!-- END GLOBAL MANDATORY STYLES -->
 
     <!-- BEGIN THEME GLOBAL STYLES -->
-    <link href="/assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
-    <link href="/assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
+    <link href="<?= base_url(); ?>assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
     <!-- END THEME GLOBAL STYLES -->
 
     <!-- BEGIN THEME LAYOUT STYLES -->
-    <link href="/assets/layouts/default/css/layout.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/layouts/default/css/themes/light2.min.css" rel="stylesheet" type="text/css" id="style_color" />
-    <link href="/assets/layouts/default/css/custom-client-overview.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets/layouts/default/css/layout.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets/layouts/default/css/themes/light2.min.css" rel="stylesheet" type="text/css" id="style_color" />
+    <link href="<?= base_url(); ?>assets/layouts/default/css/custom-client-overview.css" rel="stylesheet" type="text/css" />
     <!-- END THEME LAYOUT STYLES -->
-    <link rel="shortcut icon" href="/assets/favicon.ico" />
+    <link rel="shortcut icon" href="<?= base_url(); ?>assets/favicon.ico" />
+	<script src="<?= base_url(); ?>assets/global/plugins/jquery.min.js" type="text/javascript" ></script>
 </head>
 <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-md user form-edit-us" id="profile-form-mock">
 
@@ -57,18 +58,18 @@
                                 <ul>
                                     <li><a href="#">ALL</a></li>
                                     <li class="new-messages">
-                                        <a href="#"> <img src="/assets/layouts/default/img/new-messages.png" alt="new-messages">
+                                        <a href="#"> <img src="<?= base_url(); ?>assets/layouts/default/img/new-messages.png" alt="new-messages">
                                             <span class="round">1</span>
                                         </a>
                                     </li>
                                     <li class="patient-updates">
-                                        <a href="#"> <img src="/assets/layouts/default/img/patient-updates.png" alt="patient-updates">
+                                        <a href="#"> <img src="<?= base_url(); ?>assets/layouts/default/img/patient-updates.png" alt="patient-updates">
                                             <span class="round">2</span>
                                         </a>
                                     </li>
                                     <li class="news">
                                         <a href="#">
-                                            <img src="/assets/layouts/default/img/news.png" alt="news">
+                                            <img src="<?= base_url(); ?>assets/layouts/default/img/news.png" alt="news">
                                             <span class="round">3</span>
                                         </a>
                                     </li>
@@ -94,7 +95,7 @@
     <ul id="nav-mobile" class="side-nav fixed" style="transform: translateX(-100%);">
         <li class="logo">
             <a href="/client-mockup-sacred-city/superuser" class="brand-logo">
-                <!--                    <img src="/assets/img/logo.png" alt="logo" class="logo-default" /> -->
+                <!--                    <img src="<?= base_url(); ?>assets/img/logo.png" alt="logo" class="logo-default" /> -->
                 <span class="logo-default"> Sacred City</span>
             </a>
         </li>
@@ -221,7 +222,7 @@
                 <li class="nav-item">
                     <a href="javascript:;" class="nav-link nav-toggle collapsible-header waves-effect waves-teal">
 
-                        <span><img alt="" class="img-circle" src="/assets/avatar/avatar-gr.png"></span>
+                        <span><img alt="" class="img-circle" src="<?= base_url(); ?>assets/avatar/avatar-gr.png"></span>
 
                         <span class="title">Rod D</span>
                     </a>
@@ -497,7 +498,7 @@
                                                                                     <table>
                                                                                         <tr>
                                                                                             <td style="width: 98%">
-                                                                                                <input type="text" id="us_phone" value="<?=$user->phone?>" name="data[phone]" class="form-control required_form " maxlength="50" onchange="javascript:checkPhonesVisibilty(); validateFormEnableOrDisable('form_client_edit');" " />
+                                                                                                <input type="text" id="us_phone" value="<?=$user->phone?>" name="data[phone]" class="form-control required_form " maxlength="50" onChange="javascript:checkPhonesVisibilty(); validateFormEnableOrDisable('form_client_edit');" " />
                                                                                                 <label for="us_phone" class=""><?php echo lang('phone') ?><span class="required">&nbsp;*&nbsp;</span></label>
                                                                                             </td>
                                                                                         </tr>
@@ -524,7 +525,7 @@
                                                                         <div class="col-md-12 phone  phone-second-row" id="div_phone_2" style="display: <?= ( !empty($client->client_phone_2) ? 'block' : 'none' ); ?>">
                                                                             <div class="form-group input-field">
                                                                                 <div class="col-md-6" style="padding-left: 0">
-                                                                                    <input type="text"  id="us_phone-2" name="data[phone2]" class="form-control " maxlength="50" onchange="javascript:checkPhonesVisibilty(); " />
+                                                                                    <input type="text"  id="us_phone-2" name="data[phone2]" class="form-control " maxlength="50" onChange="javascript:checkPhonesVisibilty(); " />
                                                                                     <label for="us_phone-2" class=""><?php echo lang('phone_2') ?></label>
                                                                                 </div><!-- ./col -->
                                                                                 <div class="input-field col-md-6" style="margin-top: 0">
@@ -549,7 +550,7 @@
                                                                         <div class="col-md-12 phone  phone-third-row" id="div_phone_3" style="display: none;">
                                                                             <div class="form-group input-field">
                                                                                 <div class="col-md-6" style="padding-left: 0">
-                                                                                    <input type="text" id="us_phone_3"  name="data[phone3]" class="form-control " maxlength="50" onchange="javascript:checkPhonesVisibilty(); " />
+                                                                                    <input type="text" id="us_phone_3"  name="data[phone3]" class="form-control " maxlength="50" onChange="javascript:checkPhonesVisibilty(); " />
                                                                                     <label for="us_phone_3" class=""><?php echo lang('phone_3') ?></label>
                                                                                 </div><!-- ./col -->
                                                                                 <div class="input-field col-md-6" style="margin-top: 0">
@@ -827,7 +828,7 @@
                                         <div class="row">
                                             <div class="input-field col s12">
                                                 <i class="material-icons prefix">email</i>
-                                                <input id="email" type="email" class="validate required_form" onchange="validateFormEnableOrDisable('form_client_edit2');"/>
+                                                <input id="email" type="email" class="validate required_form" onChange="validateFormEnableOrDisable('form_client_edit2');"/>
                                                 <label for="email">Verify email address</label>
                                             </div>
                                         </div>
@@ -890,32 +891,32 @@
 
 
 <!--[if lt IE 9]>
-<script src="/assets/global/plugins/respond.min.js" type="text/javascript" ></script>
-<script src="/assets/global/plugins/excanvas.min.js" type="text/javascript" ></script>
+<script src="<?= base_url(); ?>assets/global/plugins/respond.min.js" type="text/javascript" ></script>
+<script src="<?= base_url(); ?>assets/global/plugins/excanvas.min.js" type="text/javascript" ></script>
 <![endif]-->
 <!-- BEGIN CORE PLUGINS -->
-<script src="/assets/global/plugins/jquery.min.js" type="text/javascript" ></script>
-<script src="/assets/global/js/materialize.min.js" type="text/javascript" ></script>
-<script src="/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript" ></script>
-<script src="/assets/global/plugins/js.cookie.min.js" type="text/javascript" ></script>
-<script src="/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript" ></script>
-<script src="/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript" ></script>
-<script src="/assets/global/plugins/jquery.blockui.min.js" type="text/javascript" ></script>
-<script src="/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript" ></script>
-<script src="/assets/global/js/init.js" type="text/javascript" ></script>
-<script src="/assets/global/js/client-overview.js" type="text/javascript" ></script>
+
+<script src="<?= base_url(); ?>assets/global/js/materialize.min.js" type="text/javascript" ></script>
+<script src="<?= base_url(); ?>assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript" ></script>
+<script src="<?= base_url(); ?>assets/global/plugins/js.cookie.min.js" type="text/javascript" ></script>
+<script src="<?= base_url(); ?>assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript" ></script>
+<script src="<?= base_url(); ?>assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript" ></script>
+<script src="<?= base_url(); ?>assets/global/plugins/jquery.blockui.min.js" type="text/javascript" ></script>
+<script src="<?= base_url(); ?>assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript" ></script>
+<script src="<?= base_url(); ?>assets/global/js/init.js" type="text/javascript" ></script>
+<script src="<?= base_url(); ?>assets/global/js/client-overview.js" type="text/javascript" ></script>
 
 <!-- END CORE PLUGINS -->
 <!-- BEGIN PAGE LEVEL PLUGINS -->
 <!-- END PAGE LEVEL PLUGINS -->
 <!-- BEGIN THEME GLOBAL SCRIPTS -->
-<script src="/assets/global/scripts/app.min.js" type="text/javascript" ></script>
+<script src="<?= base_url(); ?>assets/global/scripts/app.min.js" type="text/javascript" ></script>
 <!-- END THEME GLOBAL SCRIPTS -->
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 <!-- END PAGE LEVEL SCRIPTS -->
 <!-- BEGIN THEME LAYOUT SCRIPTS -->
-<script src="/assets/layouts/default/scripts/layout.js" type="text/javascript" ></script>
-<script src="/assets/layouts/default/scripts/demo.js" type="text/javascript" ></script>
+<script src="<?= base_url(); ?>assets/layouts/default/scripts/layout.js" type="text/javascript" ></script>
+<script src="<?= base_url(); ?>assets/layouts/default/scripts/demo.js" type="text/javascript" ></script>
 <!-- END THEME LAYOUT SCRIPTS -->
 
 

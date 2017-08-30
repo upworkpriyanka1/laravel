@@ -1,1 +1,12 @@
 .idea
+application/modules/client_mockup_sacred_city/views/main_superuser/client-overview-patient-new.php
+application/modules/sys_admin/controllers/Sys_admin_old_1.php
+application/modules/sys_admin/views/main/msg.php
+application/modules/sys_admin/views/users/html_topbar_user_edit.php
+application/views/design/html_topbar_client.php
+application/views/design/html_topbar_client_edit.php
+application/views/design/html_topbar_client_overview.php
+devB/loglog-2017-06-29.php
+devB/loglog-2017-06-30.php
+devB/loglog-2017-07-03.php
+devB/loglog-2017-07-05.php

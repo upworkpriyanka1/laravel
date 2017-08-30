@@ -79,10 +79,8 @@ class Sys_admin extends CI_Controller {
 	 public function grid_without_shortcuts(){
         $data['meta_description']='';
         $data['menu']		= $this->menu;
-
         $data['user'] 		= $this->user;
         $data['group'] 		= $this->group->name;
-
         $data['page']		= 'main/grid-without-shortcuts';
         $data['pls'] 		= array(); //page level scripts optional
         $data['plugins'] 	= array(); //page plugins
@@ -224,6 +222,7 @@ class Sys_admin extends CI_Controller {
         // Get list of color scheme options
         $data['client_color_schemes'] = $this->config->item('client_color_schemes');
 
+<<<<<<< HEAD
 
         $data['is_insert']  = $is_insert;
         $data['cid']      = $cid;        
@@ -234,6 +233,18 @@ class Sys_admin extends CI_Controller {
 //        echo '<pre>$client_id::'.print_r($client_id,true).'</pre>';
         $client		= $this->clients_mdl->getRowById( $client_id, array('show_file_info'=> 1, 'image_width'=> 128, 'image_height'=> 128) );
 
+=======
+
+        $data['is_insert']  = $is_insert;
+        $data['cid']      = $cid;        
+//		$data['job'] 		= $this->job;
+        $data['group'] 		= $this->group->name;
+
+        $client_id= $this->uri->segment(3);
+//        echo '<pre>$client_id::'.print_r($client_id,true).'</pre>';
+        $client		= $this->clients_mdl->getRowById( $client_id, array('show_file_info'=> 1, 'image_width'=> 128, 'image_height'=> 128) );
+
+>>>>>>> Dev
         $groupsSelectionList= $this->users_mdl->getGroupsSelectionList( array(), 'id',  'asc', ['sys-admin'] );
         usort($groupsSelectionList,'cmpGroups');
         $data['groupsSelectionList']  = $groupsSelectionList;
@@ -1870,7 +1881,7 @@ class Sys_admin extends CI_Controller {
 
         $data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
         $data['client_status_array']= $this->clients_mdl->getClientStatusValueArray(false);
-        $data['user_active_status_array']= $this->clients_mdl->getUserActiveStatusValueArray(true);
+        $data['user_status_array']= $this->clients_mdl->getUserStatusValueArray(true);
         $data['client_phone_type_array']= $this->clients_mdl->getClientPhoneTypeArray();
         $data['client_color_schemes'] = $this->config->item('client_color_schemes');
 
@@ -1951,6 +1962,22 @@ class Sys_admin extends CI_Controller {
         $views				= array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php' );
         $this->layout->view($views, $data);
     }
+    /**********************
+     * view and add Contact Types
+     * access public
+     * @params
+     * return view
+     *********************************/
+    public function manage_client_type(){
+
+        //		************************************************************* ____START____ **********************************************************************************
+        $data['menu']		= $this->menu;
+        $data['user'] 		= $this->user;
+        $data['page']		='clients/manage_client_type';
+        $views				= array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php' );
+        $this->layout->view( $views,$data);
+    }
+
     /**********************
      * view and add Contact Types
      * access public

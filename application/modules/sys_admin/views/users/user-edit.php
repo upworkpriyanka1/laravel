@@ -27,7 +27,7 @@
 						<input type="hidden" name="<?= $ci->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
 
 						<input type="hidden" id="filter_username" name="filter_username" value="<?=$filter_username?>">
-						<input type="hidden" id="filter_user_active_status" name="filter_user_active_status" value="<?=$filter_user_active_status?>">
+						<input type="hidden" id="filter_user_status" name="filter_user_status" value="<?=$filter_user_status?>">
 						<input type="hidden" id="filter_zip" name="filter_zip" value="<?=$filter_zip?>">
 						<input type="hidden" id="filter_user_group_id" name="filter_user_group_id" value="<?=$filter_user_group_id?>">
 						<input type="hidden" id="filter_created_at_from" name="filter_created_at_from" value="<?=$filter_created_at_from?>">
@@ -90,11 +90,11 @@
 
 							<?php if ( !$is_insert ) : ?>
 							<div class="row">
-								<!-- user_active_status -->
+								<!-- user_status -->
 								<div class="col-md-6">
-									<div class="form-group <?= $this->common_lib->set_field_error_tag("data[user_active_status]", ' has-error ')?>">
+									<div class="form-group <?= $this->common_lib->set_field_error_tag("data[user_status]", ' has-error ')?>">
 
-										<label class="col-md-4 control-label" for="user_active_status">New Password</label>
+										<label class="col-md-4 control-label" for="user_status">New Password</label>
 										<div class="col-md-7">
 											<button type="button" class="btn btn-primary" onclick="javascript:generateNewPassword(<?php echo $editable_user->id ?>);" >Generate</button>
 										</div>
@@ -105,16 +105,16 @@
 							<?php endif; ?>
 
 							<div class="row">
-								<!-- user_active_status -->
+								<!-- user_status -->
 								<div class="col-md-6">
-									<div class="form-group <?= $this->common_lib->set_field_error_tag("data[user_active_status]", ' has-error ')?>">
+									<div class="form-group <?= $this->common_lib->set_field_error_tag("data[user_status]", ' has-error ')?>">
 
-										<label class="col-md-4 control-label" for="user_active_status">User Status</label>
+										<label class="col-md-4 control-label" for="user_status">User Status</label>
 										<div class="col-md-7">
-											<select id="user_active_status" name="data[user_active_status]"  class="form-control editable_field">
+											<select id="user_status" name="data[user_status]"  class="form-control editable_field">
 												<option value="">  -Select User Status-  </option>
-												<?php foreach( $userActiveStatusValueArray as $next_key=>$next_User_Status ) { ?>
-													<option value="<?= $next_User_Status['key'] ?>" <?= ( !empty($editable_user->user_active_status) and $editable_user->user_active_status == $next_User_Status['key'] ) ? "selected" : "" ?> ><?= $next_User_Status['value'] ?></option>
+												<?php foreach( $userStatusValueArray as $next_key=>$next_User_Status ) { ?>
+													<option value="<?= $next_User_Status['key'] ?>" <?= ( !empty($editable_user->user_status) and $editable_user->user_status == $next_User_Status['key'] ) ? "selected" : "" ?> ><?= $next_User_Status['value'] ?></option>
 												<?php } ?>
 											</select>
 										</div>

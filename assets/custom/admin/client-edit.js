@@ -288,11 +288,11 @@ function load_related_users(page) {
 
     var related_users_type= $("#select_related_users_type").val()
     var related_users_filter= $("#input_related_users_filter").val()
-    var select_user_active_status= $("#select_user_active_status").val()
-    if (select_user_active_status!= "") {
-        select_user_active_status= "/user_active_status/"+select_user_active_status
+    var select_user_status= $("#select_user_status").val()
+    if (select_user_status!= "") {
+        select_user_status= "/user_status/"+select_user_status
     }
-    var href= base_url+"sys-admin/clients_edit_load_related_users/filter_client_id/"+client_id+"/filter_related_users_type/"+related_users_type+"/sort/"+sort_field_name+"/sort_direction/"+sort_direction+select_user_active_status + "/page/" + page + "/filter_related_users_filter/"+related_users_filter
+    var href= base_url+"sys-admin/clients_edit_load_related_users/filter_client_id/"+client_id+"/filter_related_users_type/"+related_users_type+"/sort/"+sort_field_name+"/sort_direction/"+sort_direction+select_user_status + "/page/" + page + "/filter_related_users_filter/"+related_users_filter
     $.ajax({
         url: href,
         type: 'GET',
@@ -313,7 +313,7 @@ function load_related_users(page) {
  * params : page - witch page must be loaded, the rest of parameters are read from inputs.
  * return none
  *********************************/
-function setRelatedUserEnabled( related_user_username, related_user_active_status_label, related_user_email, related_user_phone, uc_active_status, uc_active_status_label, related_user_id ) {
+function setRelatedUserEnabled( related_user_username, related_user_status_label, related_user_email, related_user_phone, uc_active_status, uc_active_status_label, related_user_id ) {
     console.log('mkniki click');
 
     $('.tooltip-inner').css('display', 'none');
@@ -330,7 +330,7 @@ function setRelatedUserEnabled( related_user_username, related_user_active_statu
     var current_client_name = $("#client_name").val();
     $("#span_client_name").html( current_client_name );
     $("#span_related_user_username").html( related_user_username );
-    $("#span_related_user_active_status_label").html( related_user_active_status_label );
+    $("#span_related_user_status_label").html( related_user_status_label );
     $("#span_related_user_email").html( related_user_email );
     $("#span_related_user_phone").html( related_user_phone );
     $("#span_uc_active_status").html( uc_active_status );
@@ -401,11 +401,11 @@ function load_provides_vendors(page) {
 
     var provides_vendors_type= $("#select_provides_vendors_type").val()
     var provides_vendors_filter= $("#input_provides_vendors_filter").val()
-    // var select_user_active_status= $("#select_user_active_status").val()
-    // if (select_user_active_status!= "") {
-    //     select_user_active_status= "/user_active_status/"+select_user_active_status
+    // var select_user_status= $("#select_user_status").val()
+    // if (select_user_status!= "") {
+    //     select_user_status= "/user_status/"+select_user_status
     // }
-    var href= base_url+"sys-admin/clients_edit_load_provides_vendors/filter_client_id/"+client_id+"/filter_provides_vendors_type/"+provides_vendors_type+"/sort/"+provides_vendors_sort_field_name+"/sort_direction/"+load_provided_sort_direction/*+select_user_active_status */ + "/page/" + page + "/filter_provides_vendors_filter/"+provides_vendors_filter
+    var href= base_url+"sys-admin/clients_edit_load_provides_vendors/filter_client_id/"+client_id+"/filter_provides_vendors_type/"+provides_vendors_type+"/sort/"+provides_vendors_sort_field_name+"/sort_direction/"+load_provided_sort_direction/*+select_user_status */ + "/page/" + page + "/filter_provides_vendors_filter/"+provides_vendors_filter
     $.ajax({
         url: href,
         type: 'GET',
@@ -512,36 +512,6 @@ function providesVendorsSortingClick(field_title, sort_field_name, sort_directio
 }
 
 /*  PROVIDED VENDORS BLOCK END */
-
-/**********************
- * Debugging function of different scalar/object value
- * params : oElem - scalar/object value. When oElem is too big(say in alert function) number values for from_line and till_line could be given to show big value by parts
- * access public
- * return none
- *********************************/
-function var_dump(oElem, from_line, till_line) {
-    var sStr = '';
-    if (typeof(oElem) == 'string' || typeof(oElem) == 'number')     {
-        sStr = oElem;
-    } else {
-        var sValue = '';
-        for (var oItem in oElem) {
-            sValue = oElem[oItem];
-            if (typeof(oElem) == 'innerHTML' || typeof(oElem) == 'outerHTML') {
-                sValue = sValue.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-            }
-            sStr += 'obj.' + oItem + ' = ' + sValue + '\n';
-        }
-    }
-    //alert( "from_line::"+(typeof from_line) )
-    if ( typeof from_line == "number" && typeof till_line == "number" ) {
-        return sStr.substr( from_line, till_line );
-    }
-    if ( typeof from_line == "number" ) {
-        return sStr.substr( from_line );
-    }
-    return sStr;
-}
 
 function client_phone_typeOnChange() {
     var client_phone_type= $("#client_phone_type").val()
