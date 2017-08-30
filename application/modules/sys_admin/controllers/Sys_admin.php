@@ -1,6 +1,4 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Sys_admin extends CI_Controller {
@@ -224,7 +222,7 @@ class Sys_admin extends CI_Controller {
         // Get list of color scheme options
         $data['client_color_schemes'] = $this->config->item('client_color_schemes');
 
-<<<<<<< HEAD
+
 
         $data['is_insert']  = $is_insert;
         $data['cid']      = $cid;        
@@ -235,18 +233,7 @@ class Sys_admin extends CI_Controller {
 //        echo '<pre>$client_id::'.print_r($client_id,true).'</pre>';
         $client		= $this->clients_mdl->getRowById( $client_id, array('show_file_info'=> 1, 'image_width'=> 128, 'image_height'=> 128) );
 
-=======
 
-        $data['is_insert']  = $is_insert;
-        $data['cid']      = $cid;        
-//		$data['job'] 		= $this->job;
-        $data['group'] 		= $this->group->name;
-
-        $client_id= $this->uri->segment(3);
-//        echo '<pre>$client_id::'.print_r($client_id,true).'</pre>';
-        $client		= $this->clients_mdl->getRowById( $client_id, array('show_file_info'=> 1, 'image_width'=> 128, 'image_height'=> 128) );
-
->>>>>>> Dev
         $groupsSelectionList= $this->users_mdl->getGroupsSelectionList( array(), 'id',  'asc', ['sys-admin'] );
         usort($groupsSelectionList,'cmpGroups');
         $data['groupsSelectionList']  = $groupsSelectionList;
