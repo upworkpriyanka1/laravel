@@ -150,6 +150,10 @@ class Users extends CI_Controller
 		$data['sidebarMenu'] = "users";
 		$this->layout->view($views, $data);
 	}
+	public function getAutocompleteNames(){
+		$data = $this->users_mdl->getAutocompleteNames();
+		echo json_encode($data);
+	}
 
     public function user_change_status(){
 	    $user_id=$_POST["id"];

@@ -1283,7 +1283,14 @@ class Users_mdl extends CI_Model
 
     ////////////// USERS CLIENTS BLOCK END /////////////
 
-
+	public function getAutocompleteNames(){
+		$this->db->select("first_name, last_name, username, email");
+		//$this->db->where('id', 1);
+		$this->db->from("users");
+		$query = $this->db->get();
+		$res = $query->result_array();
+		return $res;
+	}
 
     public function deleteUsers_ClientsByUserId($user_id) {
 
