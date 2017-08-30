@@ -1,4 +1,5 @@
 <?php
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Sys_admin extends CI_Controller {
@@ -12,7 +13,7 @@ class Sys_admin extends CI_Controller {
         $this->load->model('users_mdl');
         $this->load->model('cms_items_mdl');
         $this->lang->load('sys_admin');
-		$this->lang->load('sys_admin_pt');
+		//$this->lang->load('sys_admin_pt');
 		//$this->config->load('sys_admin_menu', true );
 		//$this->menu = $this->config->item( 'sys_admin_menu' );
 
@@ -276,7 +277,7 @@ class Sys_admin extends CI_Controller {
     }
 
     public function index(){
-echo "fsfsf";die;
+
         $data['meta_description']='';
         $data['menu']		= $this->menu;
 
