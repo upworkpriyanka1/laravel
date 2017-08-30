@@ -1,5 +1,5 @@
 <link href="<?php echo base_url();?>assets/global/css/jquery-ui.css" rel="stylesheet">
-<script src="<?php echo base_url();?>assets/global/plugins/jquery.min.js" type="text/javascript" ></script>
+<script src="/assets/global/plugins/jquery.min.js" type="text/javascript" ></script>
   
 </head>
 <?php 

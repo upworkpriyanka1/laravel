@@ -1961,7 +1961,7 @@ class Sys_admin extends CI_Controller {
         $data['javascript'] = array( 'assets/custom/admin/client-type-add-validation.js');
         $views				= array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php' );
         $this->layout->view($views, $data);
-    }
+    } 
     /**********************
      * view and add Contact Types
      * access public
