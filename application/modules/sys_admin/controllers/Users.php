@@ -141,7 +141,7 @@ class Users extends CI_Controller
 		$data['filters_label'] = $filters_label;
 		$data['plugins'] 	= array();
 		$data['pagination_links'] 	= $pagination_links;
-		$data['javascript'] = array( 'assets/custom/admin/users.js', 'assets/global/plugins/picker/picker.js', 'assets/global/plugins/picker/picker.date.js', 'assets/global/plugins/picker/picker.time.js'); // add picker.date pluging for date selection in fileters form
+		$data['javascript'] = array( 'assets/global/plugins/autocomplete/jquery-ui.js','assets/custom/admin/users.js', 'assets/global/plugins/picker/picker.js', 'assets/global/plugins/picker/picker.date.js', 'assets/global/plugins/picker/picker.time.js'); // add picker.date pluging for date selection in fileters form
 		$views				= array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php');
 //		echo "<pre>";
 //		print_r($data['menu']);
