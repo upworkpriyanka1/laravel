@@ -206,6 +206,7 @@ $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
 
     $('body').on('click','.create-contact-save',function(){
+		
 		    var isValid;
 			
             var client_owner=$("#client_owner").val();		 
@@ -290,12 +291,24 @@ $(document).ready(function(){
 			     $('#client_email').css('border-color', '');
 			     
 			}
+					 
+			 if (!$('.radios').is(':checked'))
+			 {
+				$('#radioerr').text('Please select one.');
+                return false;
+				 
+			}
+			else {
+			     $('#radioerr').text('');
+			     
+			}
 			
 			if(isValid!=false)
-			{//alert("fsdfsd");
+			{
 			   $('#form_client_edit').submit();	
               return true;
 			}
+			
        //$('#form_client_edit').submit();
     });
 });

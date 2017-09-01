@@ -381,14 +381,16 @@
 								  
 								  echo "<pre>";print_R($result);die;*/
 								  ?>
+								  <span id ='radioerr' style="color:red"></span>
                                     <?php foreach ($cl_type as $key => $value): ?>
 									
                                         <p>
-                                            <input class="with-gap required_form_to_check" name="group1" type="radio" id="<?php echo $key?>" value="<?php echo $value->type_id?>" onchange="validateFormEnableOrDisable('form_client_edit');" />
+                                            <input class="with-gap required_form_to_check radios" name="group1" type="radio" id="<?php echo $key?>" value="<?php echo $value->type_id?>" onchange="validateFormEnableOrDisable('form_client_edit');" />
                                             <label for="<?php echo $key?>"><?php echo $value->type_name ?></label>
                                         </p>
                                     <?php endforeach;?>
                                 </form>
+								
                             </div>
 
                             <!--Client_types-->
