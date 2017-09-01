@@ -370,7 +370,7 @@ class Sys_admin extends CI_Controller {
             $client		= $this->clients_mdl->getRowById( $this->uri->segment(3), array('show_file_info'=> 1, 'image_width'=> 128, 'image_height'=> 128) );
 
         }
-
+       
         $data['client']		= $client;
         $data['page_parameters_with_sort']= $page_parameters_with_sort;
         $data['page_parameters_without_sort']= $page_parameters_without_sort;
@@ -386,7 +386,33 @@ class Sys_admin extends CI_Controller {
 
         $UriArray = $this->uri->uri_to_assoc(3);
         $post_array = $this->input->post();
-
+		// Code to save the New Client Rinni
+         if(!empty($_POST))
+         {		
+             	 
+			 //echo "<pre>";print_r($_POST);
+			 $update_data = array(
+							'client_name' => $_POST['data']['client_owner'],
+							'client_address1' => $_POST['data']['client_address1'],
+							'client_address2' => $_POST['data']['client_address2'],
+							'client_city' => $_POST['data']['client_city'],
+							'client_state' => $_POST['data']['client_state'],
+							'client_zip' => $_POST['data']['client_zip'],
+							'client_phone' => $_POST['data']['client_phone'],
+							'client_phone_2' => $_POST['data']['client_phone_2'],
+							'client_phone_3' => $_POST['data']['client_phone_3'],
+							'client_phone_4' => $_POST['data']['client_phone_4'],
+							'client_phone_type' => $_POST['data']['client_phone_type'],
+							'client_email' => $_POST['data']['client_email_first']?$_POST['data']['client_email_first']:$_POST['data']['client_email'],
+							//'client_email' => $_POST['data']['client_email'],
+							'clients_types_id' =>$_POST['group1']  
+							
+						);
+		//echo "<pre>";print_r($update_data);die;
+           //$ret = $this->admin_mdl->update_users_clients($update_data);
+		   $ret = $this->db->insert('clients',$update_data);
+		 }	
+        // Code to save the New Client Rinni Ends here		 
         /* get and keep all filters/page for pagination and sorting parameters*/
         $sort= $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort');
         $sort_direction = $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort_direction');

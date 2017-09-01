@@ -206,8 +206,97 @@ $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
 
     $('body').on('click','.create-contact-save',function(){
-
-       $('#form_client_edit').submit();
+		    var isValid;
+			
+            var client_owner=$("#client_owner").val();		 
+			if ($('#client_owner').val() == '') {
+				$('#client_owner').css('border-color', 'red');
+                isValid = false;
+				 
+			}
+			else {
+			     $('#client_owner').css('border-color', '');
+			     
+			}
+			
+            var client_address1=$("#client_address1").val();		 
+			if ($('#client_address1').val() == '') {
+				$('#client_address1').css('border-color', 'red');
+                isValid = false;
+				 
+			}
+			else {
+			     $('#client_address1').css('border-color', '');
+			     
+			}
+			var client_address2=$("#client_address2").val();		 
+			if ($('#client_address2').val() == '') {
+				$('#client_address2').css('border-color', 'red');
+                isValid = false;
+				 
+			}
+			else {
+			     $('#client_address2').css('border-color', '');
+			     
+			}
+			var client_city=$("#client_city").val();		 
+			if ($('#client_city').val() == '') {
+				$('#client_city').css('border-color', 'red');
+                isValid = false;
+				 
+			}
+			else {
+			     $('#client_city').css('border-color', '');
+			     
+			}
+			var client_state=$("#client_state").val();		 
+			if ($('#client_state').val() == '') {
+				$('#client_state').css('border-color', 'red');
+                isValid = false;
+				 
+			}
+			else {
+			     $('#client_state').css('border-color', '');
+			     
+			}
+			var client_zip=$("#client_zip").val();		 
+			if ($('#client_zip').val() == '') {
+				$('#client_zip').css('border-color', 'red');
+                isValid = false;
+				 
+			}
+			else {
+			     $('#client_zip').css('border-color', '');
+			     
+			}
+			var client_phone=$("#client_phone").val();	
+           			
+			if ($('#client_phone').val() == '') {
+				$('#client_phone').css('border-color', 'red');
+                isValid = false;
+				 
+			}							
+			else {
+			     $('#client_phone').css('border-color', '');
+			     
+			}
+			var client_email=$("#client_email").val();		 
+			if ($('#client_email').val() == '') {
+				$('#client_email').css('border-color', 'red');
+                isValid = false;
+				 
+			}
+			else {
+			     $('#client_email').css('border-color', '');
+			     
+			}
+			
+			if(isValid!=false)
+			{//alert("fsdfsd");
+			   $('#form_client_edit').submit();	
+              return true;
+			}
+       //$('#form_client_edit').submit();
     });
 });
 
