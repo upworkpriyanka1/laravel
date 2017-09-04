@@ -11,7 +11,7 @@
                 </div>
 
                 <div class="portlet-body">
-                    <!-- BEGIN FORM-->
+                    <!-- BEGIN FORM 50 -->
                     <form action="<?php echo base_url() ;?>sys-admin/clients-view/<?= ( $is_insert ? "new" : $cid ) ?><?= $page_parameters_with_sort ?>" method="post" id="form_client_edit" name="form_client_edit" class="form-horizontal"  enctype="multipart/form-data">
 
 
