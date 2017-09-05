@@ -11,7 +11,7 @@
                 </div>
 
                 <div class="portlet-body">
-                    <!-- BEGIN FORM-->
+                    <!-- BEGIN FORM 50 -->
                     <form action="<?php echo base_url() ;?>sys-admin/clients-view/<?= ( $is_insert ? "new" : $cid ) ?><?= $page_parameters_with_sort ?>" method="post" id="form_client_edit" name="form_client_edit" class="form-horizontal"  enctype="multipart/form-data">
 
 
@@ -129,9 +129,10 @@
                                             <tr>
                                                 <td style="width: 98%">
                                                     <i class="material-icons prefix">phone</i>
-                                                    <input type="text" name="data[client_phone]" id="client_phone" value="<?= ( !empty($client->client_phone) ? $client->client_phone : '' ); ?>" class="form-control required_form " maxlength="50" onchange="javascript:checkPhonesVisibilty(); validateFormEnableOrDisable('form_client_edit');" " />
+                                                    <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="data[client_phone]" id="client_phone" value="<?= ( !empty($client->client_phone) ? $client->client_phone : '' ); ?>" class="form-control required_form " maxlength="50" onchange="javascript:checkPhonesVisibilty(); validateFormEnableOrDisable('form_client_edit');" " />
                                                     <label for="client_phone" class=""><?php echo lang('phone') ?><span class="required">&nbsp;*&nbsp;</span></label>
                                                 </td>
+												
                                             </tr>
                                         </table>
                                     </div><!-- ./col -->
@@ -159,7 +160,7 @@
                                 <div class="form-group input-field <?= $this->common_lib->set_field_error_tag("data[client_phone_2]", ' has-error ')?>">
                                     <div class="col-md-6">
                                         <i class="material-icons prefix">phone</i>
-                                        <input type="text" name="data[client_phone_2]" id="client_phone_2" value="<?= ( !empty($client->client_phone_2) ? $client->client_phone_2 : '' ); ?>" class="form-control " maxlength="50" onchange="javascript:checkPhonesVisibilty(); " />
+                                        <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="data[client_phone_2]" id="client_phone_2" value="<?= ( !empty($client->client_phone_2) ? $client->client_phone_2 : '' ); ?>" class="form-control " maxlength="50" onchange="javascript:checkPhonesVisibilty(); " />
                                         <label for="client_phone_2" class=""><?php echo lang('phone_2') ?></label>
                                     </div><!-- ./col -->
                                     <div class="input-field col-md-6">
@@ -186,7 +187,7 @@
                                 <div class="form-group input-field <?= $this->common_lib->set_field_error_tag("data[client_phone_2]", ' has-error ')?>">
                                     <div class="col-md-6">
                                         <i class="material-icons prefix">phone</i>
-                                        <input type="text" name="data[client_phone_3]" id="client_phone_3" value="<?= ( !empty($client->client_phone_3) ? $client->client_phone_3 : '' ); ?>" class="form-control " maxlength="50" onchange="javascript:checkPhonesVisibilty(); " />
+                                        <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="data[client_phone_2]" name="data[client_phone_3]" id="client_phone_3" value="<?= ( !empty($client->client_phone_3) ? $client->client_phone_3 : '' ); ?>" class="form-control " maxlength="50" onchange="javascript:checkPhonesVisibilty(); " />
                                         <label for="client_phone_3" class=""><?php echo lang('phone_3') ?></label>
                                     </div><!-- ./col -->
                                     <div class="input-field col-md-6">
@@ -366,13 +367,30 @@
 
 
                                 <form action="#">
+								  <?php /*
+								  $query = $this->db->select('clients_types_id')->get('clients');
+								  $fi=$query->result();
+								  $oneDimensionalArray = array_map('current', $fi);
+								  $res=array_unique($oneDimensionalArray);
+								  echo "<pre>";print_R($res);
+								  foreach($res as $values)
+								  {echo $values;
+								   $query = $this->db->where('type_id != ',$values)->get('clients_types');
+								   $result=$query->result();
+								  }
+								  
+								  echo "<pre>";print_R($result);die;*/
+								  ?>
+								  <span id ='radioerr' style="color:red"></span>
                                     <?php foreach ($cl_type as $key => $value): ?>
+									
                                         <p>
-                                            <input class="with-gap required_form_to_check" name="group1" type="radio" id="<?php echo $key?>" onchange="validateFormEnableOrDisable('form_client_edit');" />
+                                            <input class="with-gap required_form_to_check radios" name="group1" type="radio" id="<?php echo $key?>" value="<?php echo $value->type_id?>" onchange="validateFormEnableOrDisable('form_client_edit');" />
                                             <label for="<?php echo $key?>"><?php echo $value->type_name ?></label>
                                         </p>
                                     <?php endforeach;?>
                                 </form>
+								
                             </div>
 
                             <!--Client_types-->
@@ -387,7 +405,9 @@
 
                                 </div>
                             </div>
+							
                         </div>
+						
                     </form>
                     <!-- END FORM-->
                 </div>

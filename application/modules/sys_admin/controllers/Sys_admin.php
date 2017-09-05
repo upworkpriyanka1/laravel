@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Sys_admin extends CI_Controller {
 
     public function __construct() {
-        parent::__construct();
+        parent::__construct(); 
 
         $this->load->library('Sys_admin_lib',NULL,'admin_lib');
         $this->load->model('sys_admin_mdl','admin_mdl');
@@ -80,10 +80,8 @@ class Sys_admin extends CI_Controller {
 	 public function grid_without_shortcuts(){
         $data['meta_description']='';
         $data['menu']		= $this->menu;
-
         $data['user'] 		= $this->user;
         $data['group'] 		= $this->group->name;
-
         $data['page']		= 'main/grid-without-shortcuts';
         $data['pls'] 		= array(); //page level scripts optional
         $data['plugins'] 	= array(); //page plugins
@@ -200,6 +198,7 @@ class Sys_admin extends CI_Controller {
         // Get list of color scheme options
         $data['client_color_schemes'] = $this->config->item('client_color_schemes');
 
+<<<<<<< HEAD
 
         $data['is_insert']  = $is_insert;
         $data['cid']      = $cid;        
@@ -210,6 +209,18 @@ class Sys_admin extends CI_Controller {
 //        echo '<pre>$client_id::'.print_r($client_id,true).'</pre>';
         $client		= $this->clients_mdl->getRowById( $client_id, array('show_file_info'=> 1, 'image_width'=> 128, 'image_height'=> 128) );
 
+=======
+
+        $data['is_insert']  = $is_insert;
+        $data['cid']      = $cid;        
+//		$data['job'] 		= $this->job;
+        $data['group'] 		= $this->group->name;
+
+        $client_id= $this->uri->segment(3);
+//        echo '<pre>$client_id::'.print_r($client_id,true).'</pre>';
+        $client		= $this->clients_mdl->getRowById( $client_id, array('show_file_info'=> 1, 'image_width'=> 128, 'image_height'=> 128) );
+
+>>>>>>> Dev
         $groupsSelectionList= $this->users_mdl->getGroupsSelectionList( array(), 'id',  'asc', ['sys-admin'] );
         usort($groupsSelectionList,'cmpGroups');
         $data['groupsSelectionList']  = $groupsSelectionList;
@@ -353,7 +364,7 @@ class Sys_admin extends CI_Controller {
             $client		= $this->clients_mdl->getRowById( $this->uri->segment(3), array('show_file_info'=> 1, 'image_width'=> 128, 'image_height'=> 128) );
 
         }
-
+       
         $data['client']		= $client;
         $data['page_parameters_with_sort']= $page_parameters_with_sort;
         $data['page_parameters_without_sort']= $page_parameters_without_sort;
@@ -369,7 +380,33 @@ class Sys_admin extends CI_Controller {
 
         $UriArray = $this->uri->uri_to_assoc(3);
         $post_array = $this->input->post();
-
+		// Code to save the New Client Rinni
+         if(!empty($_POST))
+         {		
+             	 
+			 //echo "<pre>";print_r($_POST);
+			 $update_data = array(
+							'client_name' => $_POST['data']['client_owner'],
+							'client_address1' => $_POST['data']['client_address1'],
+							'client_address2' => $_POST['data']['client_address2'],
+							'client_city' => $_POST['data']['client_city'],
+							'client_state' => $_POST['data']['client_state'],
+							'client_zip' => $_POST['data']['client_zip'],
+							'client_phone' => $_POST['data']['client_phone'],
+							'client_phone_2' => $_POST['data']['client_phone_2'],
+							'client_phone_3' => $_POST['data']['client_phone_3'],
+							'client_phone_4' => $_POST['data']['client_phone_4'],
+							'client_phone_type' => $_POST['data']['client_phone_type'],
+							'client_email' => $_POST['data']['client_email_first']?$_POST['data']['client_email_first']:$_POST['data']['client_email'],
+							//'client_email' => $_POST['data']['client_email'],
+							'clients_types_id' =>$_POST['group1']  
+							
+						);
+		//echo "<pre>";print_r($update_data);die;
+           //$ret = $this->admin_mdl->update_users_clients($update_data);
+		   $ret = $this->db->insert('clients',$update_data);
+		 }	
+        // Code to save the New Client Rinni Ends here		 
         /* get and keep all filters/page for pagination and sorting parameters*/
         $sort= $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort');
         $sort_direction = $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort_direction');
@@ -1870,7 +1907,7 @@ class Sys_admin extends CI_Controller {
      *********************************/
     public function clients_type(){
         //		************************************************************* ____START____ **********************************************************************************
-
+       //echo "<pre>";print_r($_REQUEST);die;
         $UriArray = $this->uri->uri_to_assoc(2);
         $is_insert= true;
         $app_config = $this->config->config;
@@ -1903,11 +1940,31 @@ class Sys_admin extends CI_Controller {
         $data['group'] 		= $this->group->name;
         $client= '';
         $data['validation_errors_text'] = '';
+
+//        BOF Update Param
+        if(isset($_POST['is_edit'])){
+            $is_insert = false;
+        }
+        if(isset($_POST['row-to-update']) && !empty($_POST['row-to-update'])){
+            $cid = $_POST['row-to-update'];
+        }
+//        EFO Update Param
+
+
         // Commented by BBITS Dev to add client type. It is setting validation rule for another fields.
         //H//$this->client_edit_form_validation($is_insert, $cid);
         $this->client_type_add_form_validation($is_insert, $cid);
         if (!empty($_POST)) {
             $validation_status = $this->form_validation->run();
+            if(isset($_POST['is_edit']) && isset($_POST['row-to-update'])){
+                $dataUpdate = array();
+                $dataUpdate['type_name']= preg_replace("/[^A-Za-z-]/", '-', $_POST['data']['name']);
+                $dataUpdate['type_description']=$_POST['data']['description'];
+
+                $this->admin_lib->CI->common_mdl->db_update('clients_types',$dataUpdate,'type_id',$_POST['row-to-update']); //isert job
+                echo $_POST['row-to-update'];
+                return true;
+            }
             if ($validation_status != FALSE) {
                 //echo "here we are... in validation if";
                 //$this->client_edit_makesave($is_insert, $cid, $data['select_on_update'], $redirect_url, $page_parameters_with_sort, $post_array, $app_config, $data['client_color_schemes'] );
@@ -1951,8 +2008,7 @@ class Sys_admin extends CI_Controller {
         $data['javascript'] = array( 'assets/custom/admin/client-type-add-validation.js');
         $views				= array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php' );
         $this->layout->view($views, $data);
-    }
-
+    } 
     /**********************
      * view and add Contact Types
      * access public
@@ -1968,6 +2024,22 @@ class Sys_admin extends CI_Controller {
         $views				= array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php' );
         $this->layout->view( $views,$data);
     }
+
+    /**********************
+     * view and add Contact Types
+     * access public
+     * @params
+     * return view
+     *********************************/
+    /*public function manage_client_type(){
+
+        //		************************************************************* ____START____ **********************************************************************************
+        $data['menu']		= $this->menu;
+        $data['user'] 		= $this->user;
+        $data['page']		='clients/manage_client_type';
+        $views				= array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php' );
+        $this->layout->view( $views,$data);
+    }*/
 
     /**********************
      * view and add Contact Types
