@@ -11,7 +11,7 @@ class Superuser extends CI_Controller {
 
 
     }
-    public function index(){
+    public function user_overview_client_super_user_view(){
         $data['page']		= 'main_superuser/dasboard';
         $data['title']		= 'dashboard';
         $data['pls'] 		= array(); //page level scripts optional

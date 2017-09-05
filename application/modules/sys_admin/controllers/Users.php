@@ -60,7 +60,7 @@ class Users extends CI_Controller
 		$data['group'] 		= $this->group->name;
 		$data['page']		= 'users/user-overview-page';
 		$data['javascript'] = array( 'assets/global/js/users-overview-view.js','assets/global/js/validate.js' );//page javascript
-		$views				=  array('design/html_topbar_user_overview','sidebar','design/page','design/html_footer', 'common_dialogs.php');
+		$views				=  array('design/topbar_superuser','sidebar','design/page','design/html_footer', 'common_dialogs.php');
 
 
         $us_id =  $this->uri->segment(4, 0);
@@ -74,6 +74,11 @@ class Users extends CI_Controller
 	}
 
 	public function users_view(){
+
+		
+		
+		
+		
 		$data['meta_description']='';
 		$data['menu']		= $this->menu;
 
@@ -141,14 +146,11 @@ class Users extends CI_Controller
 		$data['filters_label'] = $filters_label;
 		$data['plugins'] 	= array();
 		$data['pagination_links'] 	= $pagination_links;
-		$data['javascript'] = array( 'assets/global/plugins/autocomplete/jquery-ui.js','assets/custom/admin/users.js', 'assets/global/plugins/picker/picker.js', 'assets/global/plugins/picker/picker.date.js', 'assets/global/plugins/picker/picker.time.js'); // add picker.date pluging for date selection in fileters form
+		$data['javascript'] = array( 'assets/global/plugins/autocomplete/jquery-ui.js', 'assets/custom/admin/users.js', 'assets/global/plugins/picker/picker.js', 'assets/global/plugins/picker/picker.date.js', 'assets/global/plugins/picker/picker.time.js'); // add picker.date pluging for date selection in fileters form
 		$views				= array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php');
 //		echo "<pre>";
 //		print_r($data['menu']);
 //		die;
-		$data['TotalRecords'] = count($data['users']);
-		$data['sidebarMenu'] = "users";
-		
 		$flag = 0;
 		
 		if($this->input->get("search")){
@@ -176,10 +178,10 @@ class Users extends CI_Controller
 				$j++;
 			}
 		}
-		
+		//echo "<pre>";print_r($data['users']);echo "</pre>";exit;
+
 		$this->layout->view($views, $data);
 	}
-	
 	public function getAutocompleteNames(){
 		$data = $this->users_mdl->getAutocompleteNames();
 		echo json_encode($data);

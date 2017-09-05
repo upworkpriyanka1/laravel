@@ -1,7 +1,7 @@
 ﻿       <!-- BEGIN FOOTER -->
         <div class="clearfix"></div>
         <div class="page-footer">
-            <div class="container">
+            <div class="container footmenu">
 
                     <div class="col-lg-6 col-md-12 text-center">
                         <ul class="footer-list">

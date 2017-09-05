@@ -1008,7 +1008,7 @@ input[type=text]:focus:not([readonly]){
 }
 #users-overview .edit , #users-overview .user-st{
     display: inline-block;
-    margin-left: 10px;
+    /*margin-left: 10px;*/
 }
 #users-overview .user-st h4, #users-overview .user-st .dropdown, #users-overview .user-st .dropdown .caret {
     display: inline-block;
@@ -1019,4 +1019,13 @@ input[type=text]:focus:not([readonly]){
 }
 #users-overview #user-status-change-confirm-modal .modal-dialog{
     margin: 40vh auto;
+}
+
+/* 5-9-2017 css change */
+.gridhead .stat h4 {
+	margin-left:0px !important;
+}
+
+.footmenu {
+	margin-left: 72px;
 }

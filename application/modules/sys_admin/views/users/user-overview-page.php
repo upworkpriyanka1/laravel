@@ -11,7 +11,7 @@ echo link_tag('/assets/layouts/default/css/custom-users-overview-view.css');
     /*]]>*/
 </script>
 
-<div id="users-overview">
+<div id="users-overview" class="gridhead">
     <div class="row">
     <div class="col s12 m9 l10">
         <div>
@@ -21,11 +21,11 @@ echo link_tag('/assets/layouts/default/css/custom-users-overview-view.css');
             <div class="massege" style="background-color: #fff;padding: 10px;margin-bottom: 10px"><?=$this->session->flashdata('massege');?></div>
             <?php } ?>
             <div id="grid-pinned" class="scrollspy">
-                <div class="edit">
+                <!--<div class="edit">
                     <a  href="/client-mockup-sacred-city/superuser/client-overview-profile-form/<?php echo $editable_user->id ?>/" class="btn-floating btn-large waves-effect waves-light " style="border-radius: 50% !important;"><i class="large material-icons">edit</i></a>
-                </div>
+                </div>-->
 
-                <div class="user-st">
+                <div class="user-st stat">
                     <h4>Status</h4>
 
                     <div class="dropdown">
@@ -53,7 +53,7 @@ echo link_tag('/assets/layouts/default/css/custom-users-overview-view.css');
                     </div><!-- /.modal-dalog -->
                 </div><!-- /.modal -->
 
-                <h3 class="header">Clients</h3>
+                <!--<h3 class="header">Clients</h3>
 
 
 
@@ -89,15 +89,93 @@ echo link_tag('/assets/layouts/default/css/custom-users-overview-view.css');
                     </table>
                 </div>
 
-<!--                <div id="tab_user_related_clients" class="col s12">-->
+<!-               <div id="tab_user_related_clients" class="col s12">-->
 <!--                    <div id="div_load_user_related_clients">-->
 <!---->
 <!--                    </div>-->
-<!--                </div>-->
+<!--                </div>
 
-            </div>
+            </div> -->
             <!-- Grid History -->
             <div id="grid-history" class="scrollspy">
+            
+            <!-- Schedule section -->
+                <h3 class="header" id="assgn">Schedule</h3>
+                <div class="row">
+                 <div class="col s12 m12 schedule">
+
+                 <img src="/zntral/assets/img/calendar-img.jpg" alt="" />
+                 </div>
+                </div>
+            <!-- end schedule section -->
+             <!-- Assignment section -->
+                    <h3 class="header" id="assgn">Assignments</h3>
+                      <div class="row assdiv">
+      <div class="col s12 m6" id="leftalgn">
+        <div class="card-panel teal">
+          <span class="card-title">Card Title</span>
+         <p><span class="white-text"> I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
+          </span></p>
+        </div>
+      </div>
+       <div class="col s12 m6" id="rightalgn">
+        <div class="card-panel teal">
+         <span class="card-title">Card Title</span>
+         <p><span class="white-text"> I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
+          </span></p>
+        </div>
+      </div>
+       <div class="col s12 m6" id="leftalgn">
+        <div class="card-panel teal">
+        <span class="card-title">Card Title</span>
+         <p><span class="white-text"> I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
+          </span></p>
+        </div>
+      </div>
+       <div class="col s12 m6" id="rightalgn">
+        <div class="card-panel teal">
+        <span class="card-title">Card Title</span>
+         <p><span class="white-text"> I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
+          </span></p>
+        </div>
+      </div>
+    </div>
+            <!-- end assignment section -->
+            <!-- drafts section -->
+        <h3 class="header" id="assgn">Drafts</h3>
+                      <div class="row assdiv">
+      <div class="col s12 m6" id="leftalgn">
+        <div class="card-panel teal">
+          <span class="card-title">Card Title</span>
+        </div>
+      </div>
+       <div class="col s12 m6" id="rightalgn">
+        <div class="card-panel teal">
+         <span class="card-title">Card Title</span>
+        </div>
+      </div>
+       <div class="col s12 m6" id="leftalgn">
+        <div class="card-panel teal">
+        <span class="card-title">Card Title</span>
+        </div>
+      </div>
+       <div class="col s12 m6" id="rightalgn">
+        <div class="card-panel teal">
+        <span class="card-title">Card Title</span>
+        </div>
+      </div>
+      <div class="col s12 m6" id="leftalgn">
+        <div class="card-panel teal">
+        <span class="card-title">Card Title</span>
+        </div>
+      </div>
+      <div class="col s12 m6" id="rightalgn">
+        <div class="card-panel teal">
+        <span class="card-title">Card Title</span>
+        </div>
+      </div>
+    </div>
+            <!-- end drafts section -->
                 <h3 class="header">Activity</h3>
 
 
@@ -121,6 +199,7 @@ echo link_tag('/assets/layouts/default/css/custom-users-overview-view.css');
                     </div><!-- Widget Area -->
 
                 </div>
+            
                 <div class="row">
                     <ul class="collapsible popout" data-collapsible="accordion">
                         <li>
@@ -154,7 +233,7 @@ echo link_tag('/assets/layouts/default/css/custom-users-overview-view.css');
         </div>
     </div>
     <div class="col hide-on-small-only m3 l2">
-        <div class="toc-wrapper pin-top" style="top: 250px; position:fixed;">
+        <div class="toc-wrapper pin-top" id="toc-wrap" style="top: 250px; position:fixed;">
             <div>
                 <ul class="section table-of-contents">
                     <li><a href="#grid-pinned" class="active">Clients</a></li>

@@ -603,13 +603,13 @@ background-color: #666;
     background-color: #fff;
 }*/
 #nav-mobile, .page-footer{
-    background-color: #26a69a;
+    /*background-color: #26a69a;*/
 }
 .side-nav .collapsible-body, .side-nav.fixed .collapsible-body{
     background-color: #33c0b3;
 }
 ul.side-nav.fixed ul.collapsible-accordion a.collapsible-header, ul.side-nav.fixed ul.collapsible-accordion .collapsible-body li a, header h1#logo,.page-footer, .page-footer .footer-list>li a, .page-footer .page-footer-inner, a.button-collapse.top-nav i, header .chevron .chevron-down i, header .chevron .chevron-up i {
-    color: #fff;
+    color: #000;
 }
 ul.side-nav.fixed li.logo a{
     color: #333 !important;
@@ -618,7 +618,7 @@ ul.side-nav.fixed li.logo a{
     color: rgb(32, 141, 131) !important;
 }
 .page-header.navbar,header .chevron .chevron-down i, header .chevron .chevron-up i,  nav.top-nav{
-    background-color: #35cec0;
+    /*background-color: #35cec0;*/
 }
 ul.side-nav.fixed ul.collapsible-accordion-green{
     background-color: transparent !important; ;
@@ -917,4 +917,32 @@ input[type=text]:focus:not([readonly]){
 
 ul.side-nav.fixed li.logo, ul.side-nav.fixed li.logo:hover, ul.side-nav.fixed li.logo a:hover{
     background-color: transparent !important;
+}
+
+/* card color 05-9-2017 */
+.profilecard .pad-card .card {
+    background-color: #fff !important;
+}
+
+.profilecard .pad-card .card .card-title{
+	color:#000;
+}
+
+.profilecard .btn-add {
+    display: inline-block;
+    position: absolute;
+    right: 20px;
+    top: 5px;
+}
+.profilecard .col-md-12{
+    background-color: transparent !important;
+    color: #000;
+}
+.profilecard select.leng, select.title-drop{
+    border: none;
+    border-bottom: 1px solid #9e9e9e;
+    color: #9e9e9e;
+}
+.pagecon .page-content {
+	    padding-top: 155px !important;
 }
