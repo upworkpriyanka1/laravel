@@ -1,6 +1,5 @@
 <?php
-
-//test 48-by rod
+//test
 /*
  *---------------------------------------------------------------
  * APPLICATION ENVIRONMENT
@@ -40,13 +39,11 @@ else if (strpos ($domain,'devk') !==FALSE)
 else if (strpos ($domain,'devs') !==FALSE)
 	define('ENVIRONMENT', 'devs');
 else if (strpos ($domain,'localhost') !==FALSE)
-	define('ENVIRONMENT', 'dev');	
+	define('ENVIRONMENT', 'devB');	
 else if (strpos ($domain,'dev') !==FALSE)
 	define('ENVIRONMENT', 'dev');
 else
-	define('ENVIRONMENT', 'dev');
-	
-	//echo "Hi:".ENVIRONMENT;exit;
+	define('ENVIRONMENT', 'production');
 
 /*
  *---------------------------------------------------------------
@@ -110,6 +107,7 @@ switch (ENVIRONMENT)
 
 	case 'devs':
 		//Report all errors
+
 		//error_reporting(-1);
 		//Report only errors and warning. Do not show uninitialized variables because it can break the normal functioning.
 		error_reporting(E_ERROR | E_WARNING);
@@ -137,10 +135,10 @@ switch (ENVIRONMENT)
 	break;
 	case 'dev':
 		//Report all errors
-		error_reporting(E_ALL);
+		//error_reporting(-1);
 		//Report only errors and warning. Do not show uninitialized variables because it can break the normal functioning.
-		//error_reporting(E_ERROR | E_WARNING);
-		//ini_set('display_errors', 1);
+		error_reporting(E_ERROR | E_WARNING);
+		ini_set('display_errors', 1);
 	break;
 
 	case 'testing':
@@ -206,7 +204,6 @@ if ( ! is_dir($system_path))
 	exit(3); // EXIT_CONFIG
 }
 
-
 /*
  * -------------------------------------------------------------------
  *  Now that we know the path, set the main path constants
@@ -254,7 +251,6 @@ else
 	echo 'Your application folder path does not appear to be set correctly. Please open the following file and correct this: '.SELF;
 	exit(3); // EXIT_CONFIG
 }
-
 
 define('APPPATH', $application_folder.DIRECTORY_SEPARATOR);
 
