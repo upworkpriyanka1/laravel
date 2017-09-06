@@ -105,7 +105,7 @@ echo link_tag('/assets/layouts/default/css/custom-users-overview-view.css');
                 <div class="row">
                  <div class="col s12 m12">
 				 <div class="schedule">
-                 <img src="/zntral/assets/img/calendar-img.jpg" alt="" />
+                 <img src="/assets/img/calendar-img.jpg" alt="Calendar Image" />
 				 </div>
                  </div>
                 </div>
