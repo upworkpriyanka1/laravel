@@ -4,7 +4,7 @@
 
     <div class="page-footer">
         <footer>
-            <div class="container">
+            <div class="container footmenu">
                 <div class="col-lg-6 col-md-12 pg-footer-center">
                     <ul class="footer-list">
                         <li><a href="#">About</a> |</li>
