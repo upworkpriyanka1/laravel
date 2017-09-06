@@ -912,7 +912,7 @@ class Users_mdl extends CI_Model
         if ( ( !empty($limit) and $ci->common_lib->is_positive_integer($limit) ) ) {
             $this->db->limit($limit);
         }
-		$this->db->group_by('uc_group_id');
+//		$this->db->group_by('uc_group_id');
         $fields_for_select.= ' ' . $additive_fields_for_select;
         if (!empty($sort)) {
             $this->db->order_by($sort, ((strtolower($sort_direction) == 'desc' or strtolower($sort_direction) == 'asc') ? $sort_direction : ''));

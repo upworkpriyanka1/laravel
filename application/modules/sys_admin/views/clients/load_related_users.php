@@ -27,14 +27,16 @@ if ( !isset($related_users_list) or empty($related_users_list) ) {
             <tr>
                 <td>
                     <a href="<?= base_url('/sys-admin/users/users-overview/' . $next_related_user->user_id . '/'); ?>">
-                        <?= $next_related_user->uc_id.'->'.$next_related_user->username; ?><small> (<?= $next_related_user->user_id.'->'.$next_related_user->user_email; ?>&nbsp;user_status:<?php echo $next_related_user->user_status .', '. $this->users_mdl->getUserStatusLabel($next_related_user->user_status) ?>)</small>
+                        <?= /* $next_related_user->uc_id.'->' .*/ $next_related_user->username; ?><small> (<?= /*$next_related_user->user_id.'->'.*/$next_related_user->user_email; ?> <!--&nbsp;user_status:--><?php /*  echo $next_related_user->user_status .', '.$this->users_mdl->getUserStatusLabel($next_related_user->user_status)  */ ?>)</small>
                     </a>
                 </td>
 
                 <td>
-                    relation_group_name::<?php echo $next_related_user->uc_group_id.', './* $this->users_mdl->getUserStatusLabel( */$next_related_user->relation_group_name /*)*/ ?>
+                    <!-- relation_group_name::--><?php echo /* $next_related_user->uc_group_id.', '. */ /* $this->users_mdl->getUserStatusLabel( */$next_related_user->relation_group_name /*)*/ ?>
                 </td>
-                <td>uc_active_status::<?php echo $next_related_user->uc_active_status .', '.$this->clients_mdl->getUsersClientsActiveStatusLabel($next_related_user->uc_active_status); ?> </td>
+                <td>
+                    <!-- uc_active_status:: --><?php echo $this->clients_mdl->getClientStatusLabel($next_related_user->uc_active_status) /*.', '.$next_related_user->uc_active_status; */ ?>
+                </td>
                 <td><?php echo $this->common_lib->format_datetime($next_related_user->created_at) ?></td>
             </tr>
 <!--        --><?php //echo '<pre>$next_related_user::'.print_r($next_related_user,true).'</pre>';  die("-1 XXZ++++");  ?>

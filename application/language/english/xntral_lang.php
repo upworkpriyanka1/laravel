@@ -109,6 +109,7 @@ $lang ['locations-view']        = "Manage";
 $lang['company']                = "Company";
 $lang['company_name']           = "Company Name";
 $lang['my-company']             = $lang['profile-company'] = "My Company";
+$lang['job-title']                    = "Title";
 $lang['job']                    = "Job Title";
 $lang['user_group_description'] = "Job Description";
 $lang['group']                  = "Group";
