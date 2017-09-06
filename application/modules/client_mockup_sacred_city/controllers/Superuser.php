@@ -17,7 +17,7 @@ class Superuser extends CI_Controller {
         $data['pls'] 		= array(); //page level scripts optional
         $data['plugins'] 	= array(); //page plugins
         $data['javascript'] = array('/assets/global/js/client-overview.js'); //page javascript
-        $views				= array('layout/topbar_superuser','layout/sidebar_superuser','layout/page_superuser','layout/footer_superuser');
+        $views				= array('layout/html_topbar_user_overview','layout/sidebar_superuser','layout/page_superuser','layout/footer_superuser');
 
         $this->layout->view($views,$data);
 //        $this->load->view('main_superuser/dasboard');

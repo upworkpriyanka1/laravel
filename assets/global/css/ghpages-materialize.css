@@ -9290,30 +9290,29 @@ body.parallax-demo footer {
     padding: 0 !important;
     min-width: 180px;
 }
-#toc-wrap {
-    position: relative;
-    margin-top: -15px;
-    right: 240px;
+#toc-wrap ul.table-of-contents {
+    margin-top: 25px;
+    padding-top: 48px;
 }
 #assgn {
-	font-weight:bold;
+	/*font-weight:bold;*/
 }
 
 .card-title{
-	font-weight:bold;
+	/*font-weight:bold;*/
 	font-size:24px;
 }
 
-.assdiv #leftalgn{
+/*.assdiv #leftalgn{
 	padding-left:0px !important;
 }
 
 .assdiv #rightalgn{
 	padding-right:0px!important;
-}
-#grid-history .schedule{
+}*/
+#grid-pinned .schedule{
 	padding:0px;
 }
-#grid-history .schedule img{
+#grid-pinned .schedule img{
 	width:100%;
 }

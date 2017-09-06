@@ -60,7 +60,7 @@ class Users extends CI_Controller
 		$data['group'] 		= $this->group->name;
 		$data['page']		= 'users/user-overview-page';
 		$data['javascript'] = array( 'assets/global/js/users-overview-view.js','assets/global/js/validate.js' );//page javascript
-		$views				=  array('design/topbar_superuser','sidebar','design/page','design/html_footer', 'common_dialogs.php');
+		$views				=  array('design/html_topbar_user_overview','sidebar','design/page','design/html_footer', 'common_dialogs.php');
 
 
         $us_id =  $this->uri->segment(4, 0);

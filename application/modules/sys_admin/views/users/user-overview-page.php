@@ -20,7 +20,7 @@ echo link_tag('/assets/layouts/default/css/custom-users-overview-view.css');
             if($message && $message != ''){ ?>
             <div class="massege" style="background-color: #fff;padding: 10px;margin-bottom: 10px"><?=$this->session->flashdata('massege');?></div>
             <?php } ?>
-            <div id="grid-pinned" class="scrollspy">
+            
                 <!--<div class="edit">
                     <a  href="/client-mockup-sacred-city/superuser/client-overview-profile-form/<?php echo $editable_user->id ?>/" class="btn-floating btn-large waves-effect waves-light " style="border-radius: 50% !important;"><i class="large material-icons">edit</i></a>
                 </div>-->
@@ -97,18 +97,23 @@ echo link_tag('/assets/layouts/default/css/custom-users-overview-view.css');
 
             </div> -->
             <!-- Grid History -->
-            <div id="grid-history" class="scrollspy">
+            
             
             <!-- Schedule section -->
+			<div id="grid-pinned" class="scrollspy">
                 <h3 class="header" id="assgn">Schedule</h3>
                 <div class="row">
-                 <div class="col s12 m12 schedule">
-
-                 <img src="/assets/img/calendar-img.jpg" alt="" />
+                 <div class="col s12 m12">
+				 <div class="schedule">
+                 <img src="/zntral/assets/img/calendar-img.jpg" alt="" />
+				 </div>
                  </div>
                 </div>
+			 </div>	
+				
             <!-- end schedule section -->
              <!-- Assignment section -->
+			 <div id="grid-assignment" class="scrollspy">
                     <h3 class="header" id="assgn">Assignments</h3>
                       <div class="row assdiv">
       <div class="col s12 m6" id="leftalgn">
@@ -140,46 +145,51 @@ echo link_tag('/assets/layouts/default/css/custom-users-overview-view.css');
         </div>
       </div>
     </div>
+	    </div>
             <!-- end assignment section -->
             <!-- drafts section -->
+			<div id="grid-drafts" class="scrollspy">
         <h3 class="header" id="assgn">Drafts</h3>
                       <div class="row assdiv">
-      <div class="col s12 m6" id="leftalgn">
+      <div class="col s12 m6">
         <div class="card-panel teal">
           <span class="card-title">Card Title</span>
         </div>
       </div>
-       <div class="col s12 m6" id="rightalgn">
+       <div class="col s12 m6">
         <div class="card-panel teal">
          <span class="card-title">Card Title</span>
         </div>
       </div>
-       <div class="col s12 m6" id="leftalgn">
+       <div class="col s12 m6">
         <div class="card-panel teal">
         <span class="card-title">Card Title</span>
         </div>
       </div>
-       <div class="col s12 m6" id="rightalgn">
+       <div class="col s12 m6">
         <div class="card-panel teal">
         <span class="card-title">Card Title</span>
         </div>
       </div>
-      <div class="col s12 m6" id="leftalgn">
+      <div class="col s12 m6">
         <div class="card-panel teal">
         <span class="card-title">Card Title</span>
         </div>
       </div>
-      <div class="col s12 m6" id="rightalgn">
+      <div class="col s12 m6">
         <div class="card-panel teal">
         <span class="card-title">Card Title</span>
         </div>
       </div>
     </div>
+	     </div>
             <!-- end drafts section -->
+			<div id="grid-history" class="scrollspy">
                 <h3 class="header">Activity</h3>
 
 
                 <div class="row">
+				<div class="col s12 m12">
                     <div class="widget-area no-padding blank">
                         <div class="status-upload">
                             <form action="#">
@@ -197,7 +207,7 @@ echo link_tag('/assets/layouts/default/css/custom-users-overview-view.css');
                             </form>
                         </div><!-- Status Upload  -->
                     </div><!-- Widget Area -->
-
+                 </div>
                 </div>
             
                 <div class="row">
@@ -230,14 +240,18 @@ echo link_tag('/assets/layouts/default/css/custom-users-overview-view.css');
                 </div>
 
             </div>
-        </div>
+       
     </div>
+</div>	
     <div class="col hide-on-small-only m3 l2">
-        <div class="toc-wrapper pin-top" id="toc-wrap" style="top: 250px; position:fixed;">
+        <div class="toc-wrapper pin-top" id="toc-wrap" style="top: 140px; position:fixed;">
             <div>
                 <ul class="section table-of-contents">
-                    <li><a href="#grid-pinned" class="active">Clients</a></li>
-                    <li><a href="#grid-history" class="">History</a></li>
+                    
+                   	<li><a href="##grid-pinned" class="active">Schedule</a></li>
+					<li><a href="#grid-assignment" class="">Assignment</a></li>
+					<li><a href="#grid-drafts" class="">Drafts</a></li>
+					<li><a href="#grid-history" class="">Activity</a></li>
                 </ul>
             </div>
         </div>
