@@ -259,33 +259,4 @@ echo link_tag('/assets/layouts/default/css/custom-users-overview-view.css');
 </div>
 
 
-<script>
-    $(window).scroll(function (event) {
-        var scroll = $(window).scrollTop();
-        var width = $(window).width();
-        var grid_pinned = $('#grid-pinned').offset().top - 300;
-        var grid_assignment = $('#grid-assignment').offset().top - 300;
-        var grid_drafts = $('#grid-drafts').offset().top - 300;
-        var grid_history = $('#grid-history').offset().top - 300;
-       
-        // Do something
-//        alert('wwwwww');
-//        console.log(scroll+' - '+width+" - "+grid_responsive);
-        if(scroll >= grid_history){
-            $('.table-of-contents li a').removeClass('active');
-            $('.table-of-contents li a[href="#grid-history"]').addClass('active');
-        }else if(scroll >= grid_drafts) {
-            $('.table-of-contents li a').removeClass('active');
-            $('.table-of-contents li a[href="#grid-drafts"]').addClass('active');
-        }else if(scroll >= grid_assignment) {
-            $('.table-of-contents li a').removeClass('active');
-            $('.table-of-contents li a[href="#grid-assignment"]').addClass('active');
-        }else if(scroll >= grid_pinned) {
-            $('.table-of-contents li a').removeClass('active');
-            $('.table-of-contents li a[href="#grid-pinned"]').addClass('active');
-        }
-
-    });
-
-</script>
 
