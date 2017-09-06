@@ -70,7 +70,6 @@ class Super_mdl extends CI_Model {
         $this->db->where('users_clients.uc_client_id', $cid);
         $query = $this->db->get();
 //		echo "last query is : " . $this->db->last_query();
-
         return $query->result();*/
 
         if (empty( $sort ))

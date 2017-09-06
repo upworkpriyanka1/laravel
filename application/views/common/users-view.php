@@ -1,5 +1,3 @@
-<!-- <pre><?php print_r($users) ?></pre> -->
-
 <div class="row">
     <div class="col-md-12">
         <!-- BEGIN EXAMPLE TABLE PORTLET-->

@@ -1,8 +1,5 @@
 <?php
 
-
-
-
 if ( !isset($related_users_list) or empty($related_users_list) ) {
     echo '<h4>There are no users for this client</h4>';
     return;

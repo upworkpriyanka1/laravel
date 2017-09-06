@@ -177,6 +177,7 @@ $lang['full_time']              = "Full time";
 $lang['part_time']              = "Part time";
 $lang['contractor']             = "Contractor";
 
+
 $lang['user']                   = "User";
 $lang['user_id']                = "ID";
 $lang['username']               = "Username";
