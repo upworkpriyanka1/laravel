@@ -11,10 +11,10 @@ class Health_aide extends CI_Controller {
 				redirect('./', 'refresh');
 			}
 		/*check if allowed to access page */
-			/*if (!$this->common_mdl->in_job($job)){
+			if (!$this->common_mdl->in_job($job)){
 				echo "Not allowed";
 				return die();
-			}*/
+			}
 	/* load library & model with aliases, config and language */
 			$this->load->library('Health_aide_lib',NULL, 'health_lib');
 			$this->load->model('health_aide_mdl','health_mdl');
@@ -22,8 +22,7 @@ class Health_aide extends CI_Controller {
 			$this->config->load('health_aide_menu', true );
 			$this->menu    			= $this->config->item( 'health_aide_menu' );
 
-			//$this->user 			= $this->common_mdl->get_user();
-			$this->user 			= $this->common_mdl->get_user_dashboard_info();
+			$this->user 			= $this->common_mdl->get_user();
 			$this->superviser 		=  $this->ion_auth->user($this->user->super_id)->row();
 			$this->superviser_name 	= $this->superviser->first_name." ".$this->superviser->last_name;
 			$this->group 			= $this->ion_auth->get_users_groups()->row();

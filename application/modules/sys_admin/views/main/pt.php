@@ -30,6 +30,86 @@
     <link href="<?= base_url(); ?>assets/layouts/default/css/custom-eh.css" rel="stylesheet" type="text/css" />
     <!-- END THEME LAYOUT STYLES -->
     <link rel="shortcut icon" href="<?= base_url(); ?>assets/favicon.ico" />
+    
+    <style>
+		.panel-heading {
+		  padding: 0;
+			border:0;
+		}
+		.panel-title>a, .panel-title>a:active{
+			display:block;
+			padding:15px;
+		  color:#555;
+		  font-size:16px;
+		  font-weight:bold;
+			text-transform:uppercase;
+			letter-spacing:1px;
+		  word-spacing:3px;
+			text-decoration:none;
+		}
+		.panel-heading  a:before {
+		   font-family: 'Glyphicons Halflings';
+		   content: "\e114";
+		   float: left;
+		   transition: all 0.5s;
+		   
+		   webkit-transform: rotate(180deg); 
+    -moz-transform: rotate(180deg);
+    transform: rotate(-90deg);
+		}
+		.panel-heading.active a:before {
+			-webkit-transform: rotate(180deg);
+			-moz-transform: rotate(180deg);
+			transform: rotate(0deg);
+		} 
+		div.patient-plans div.col.s12 p{
+			padding-left:30px;
+		}
+		div.patient-plans .panel-title a{
+			padding:9px;
+		}
+		.patient-plans .tabs.tab-demo.z-depth-1{
+			margin-bottom:20px;
+		}
+		/*.patient-plans div.panel.panel-default div.panel-collapse.collapse .panel-body{
+			padding-left:25px;
+		}*/
+		ul.tabs.tab-demo.z-depth-1:after {
+			content: "";
+			display: table;
+			clear: both;
+		}
+		.panel-collapse .panel-body{
+			background-color: transparent;
+			padding-left:25px;
+		}
+		.section_one .panel-title a{
+			text-transform:none;
+		}
+		.sec-back{
+			background-color: #cccccc;
+		}
+		.save-btn{
+			margin-top:20px;
+			margin-bottom:20px;
+			margin-left:15px;
+		}
+		.panel-default {
+			border-color: transparent;
+		}
+		.panel-default>.panel-heading {
+			background-color: transparent !important;
+			border-color: transparent !important;
+		}
+		.panel-default {
+			border-color: transparent;
+			background-color: transparent;
+		}
+		.section_one{
+			background: transparent;
+		}
+	</style>
+    
 </head>
 <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-md">
 
@@ -117,7 +197,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="zang"></div>
+                    <div class="zang" style="right:0px;"></div>
                     <!-- END PAGE TITLE-->
 
                     <!-- BEGIN HEADER INNER -->
@@ -127,7 +207,7 @@
                             <ul class="right">
                                 <li>
                                     <div class="theme-panel">
-                                        <div class="toggler" style="display: block;"> </div>
+                                        <!--<div class="toggler" style="display: block;"> </div>-->
                                         <div class="toggler-close" style="display: none;"> </div>
                                         <div class="theme-options" style="display: none;">
                                             <div class="theme-option theme-colors clearfix">
@@ -441,15 +521,16 @@
     <main>
         <div class="page-content" id="top_container">
             <div class="row">
-                <div class="col s12">
+                <div class="col s12 patient-plans">
                     <div id="structure" class="section scrollspy">
                         <!-- BEGIN CONTENT -->
                         <div class="page-content-wrapper">
                             <!-- BEGIN CONTENT BODY -->
                             <div class="page-content"><br/>
                                 <div class="clearfix"></div>
-                                <div class="col s12">
-									<ul class="tabs tab-demo z-depth-1">
+                                <div class="col s12 sec-back">
+									<ul class="tabs tab-demo z-depth-1 rand-place">
+                                    	<li class="tab"><a class="" href="#vs_pain"><?php echo lang('vs_pain')?></a></li>	
 										<li class="tab"><a href="#circulatory" class=""><?php echo lang('circulatory')?></a></li>
 										<li class="tab"><a class="" href="#digestive"><?php echo lang('digestive')?></a></li>
 										<li class="tab"><a href="#endocrine" class=""><?php echo lang('endocrine')?></a></li>
@@ -460,17 +541,50 @@
 										<li class="tab"><a class="" href="#reproductive"><?php echo lang('reproductive')?></a></li>
 										<li class="tab"><a class="" href="#respiratory"><?php echo lang('respiratory')?></a></li>
 										<li class="tab"><a class="" href="#urinary"><?php echo lang('urinary')?></a></li>
-										<li class="tab"><a class="" href="#vs_pain"><?php echo lang('vs_pain')?></a></li>		
+											
 									</ul>
+                                    
+                                    
+  
 									<div id="circulatory" class="col s12">
-										<h3>Section 1</h3>
-										<p>The container class is not strictly part of the grid but is important in laying out content. It allows you to center your page content. The container class is set to ~70% of the window width. It helps you center and contain your page content. We use the container to contain our body content.</p>
-
-										<h3>Care Plan</h3>
-										<p>The tabs structure consists of an unordered list of tabs that have hashes corresponding to tab ids. Then when you click on each tab, only the container with the corresponding tab id will become visible.</p>	
+                                    	
+                                        <div class="panel-heading active section_one" role="tab" id="headingOne">
+                                            <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-target="#circulatory-section">
+                                            	Circulatory
+                                            </a>
+                                            </h4>
+                                        </div>
+        
+										<p id="circulatory-section" class="panel-collapse collapse in">The container class is not strictly part of the grid but is important in laying out content. It allows you to center your page content. The container class is set to ~70% of the window width. It helps you center and contain your page content. We use the container to contain our body content.</p>
+                                        
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading" role="tab" id="heading-circulatory">
+                                                <h4 class="panel-title">
+                                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#circulatory-care_plan" aria-expanded="false" aria-controls="circulatory-care_plan">
+                                                        Care Plan
+                                                    </a>
+                                                </h4>
+                                            </div><!--End of panel-heading -->
+                                            <div id="circulatory-care_plan" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-circulatory">
+                                                <div class="panel-body">
+                                                    The tabs structure consists of an unordered list of tabs that have hashes corresponding to tab ids. Then when you click on each tab, only the container with the corresponding tab id will become visible. 
+                                                </div>
+                                            </div>
+                                        </div><!--End of panel panel-default -->
+                                        	
 									</div>
 									<div id="digestive" class="col s12">
-										<h3>Section 2</h3>
+                                    
+										<div class="panel-heading active section_one" role="tab" id="heading-digestive">
+                                            <h4 class="panel-title">
+                                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#digestive-section" aria-expanded="true" aria-controls="digestive-section" class="">
+                                            	Digestive
+                                            </a>
+                                            </h4>
+                                        </div>
+
+										<div id="digestive-section" class="panel-collapse collapse in">	
 										<div class="row">
 											<div class="col-md-12">
 												<div class="input-field">
@@ -494,39 +608,151 @@
 												</div>
 											</div>											
 										</div>
-										<h3>Care Plan</h3>
-										<p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>	
+                                        </div>
+										
+                                        
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading" role="tab" id="heading-digestive">
+                                                <h4 class="panel-title">
+                                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#digestive-care_plan" aria-expanded="false" aria-controls="digestive-care_plan">
+                                                        Care Plan
+                                                    </a>
+                                                </h4>
+                                            </div><!--End of panel-heading -->
+                                            <div id="digestive-care_plan" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-digestive">
+                                                <div class="panel-body">
+                                                    There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. 
+                                                </div>
+                                            </div>
+                                        </div><!--End of panel panel-default -->
+                                        
 									</div>
 									<div id="endocrine" class="col s12">
-										<h3>Section 3</h3>
-										<p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet.</p>
+                                    	<div class="panel-heading active section_one" role="tab" id="headingOne">
+                                            <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-target="#endocrine-section">
+                                            	Endocrine
+                                            </a>
+                                            </h4>
+                                        </div>
+        
+										<p id="endocrine-section" class="panel-collapse collapse in">If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet.</p>
+                                        
 
-										<h3>Care Plan</h3>
-										<p>The tabs structure consists of an unordered list of tabs that have hashes corresponding to tab ids. Then when you click on each tab, only the container with the corresponding tab id will become visible.</p>	
+										
+                                        
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading" role="tab" id="heading-endocrine">
+                                                <h4 class="panel-title">
+                                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#endocrine-care_plan" aria-expanded="false" aria-controls="endocrine-care_plan">
+                                                        Care Plan
+                                                    </a>
+                                                </h4>
+                                            </div><!--End of panel-heading -->
+                                            <div id="endocrine-care_plan" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-endocrine">
+                                                <div class="panel-body">
+                                                    The tabs structure consists of an unordered list of tabs that have hashes corresponding to tab ids. Then when you click on each tab, only the container with the corresponding tab id will become visible. 
+                                                </div>
+                                            </div>
+                                        </div><!--End of panel panel-default -->
+                                        	
 									</div>
 									<div id="skin_wounds" class="col s12">
-										<h3>Section 4</h3>
-										<p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet.</p>
+										<div class="panel-heading active section_one" role="tab" id="headingOne">
+                                            <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-target="#skin_wounds-section">
+                                            	Skin-wounds
+                                            </a>
+                                            </h4>
+                                        </div>
+        
+										<p id="skin_wounds-section" class="panel-collapse collapse in">If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet.</p>
 
-										<h3>Care Plan</h3>
-										<p>It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable.</p>	
+										
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading" role="tab" id="heading-skin_wounds">
+                                                <h4 class="panel-title">
+                                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#skin_wounds-care_plan" aria-expanded="false" aria-controls="skin_wounds-care_plan">
+                                                        Care Plan
+                                                    </a>
+                                                </h4>
+                                            </div><!--End of panel-heading -->
+                                            <div id="skin_wounds-care_plan" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-skin_wounds">
+                                                <div class="panel-body">
+                                                    It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. 
+                                                </div>
+                                            </div>
+                                        </div><!--End of panel panel-default -->
+                                        	
 									</div>
 									<div id="lymphatic" class="col s12">
-										<h3>Section 5</h3>
-										<p>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.</p>
+										<div class="panel-heading active section_one" role="tab" id="headingOne">
+                                            <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-target="#lymphatic-section">
+                                            	Lymphatic
+                                            </a>
+                                            </h4>
+                                        </div>
+        
+										<p id="lymphatic-section" class="panel-collapse collapse in">The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.</p>
 
-										<h3>Care Plan</h3>
-										<p>It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>	
+										
+                                        
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading" role="tab" id="heading-lymphatic">
+                                                <h4 class="panel-title">
+                                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#lymphatic-care_plan" aria-expanded="false" aria-controls="lymphatic-care_plan">
+                                                        Care Plan
+                                                    </a>
+                                                </h4>
+                                            </div><!--End of panel-heading -->
+                                            <div id="lymphatic-care_plan" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-lymphatic">
+                                                <div class="panel-body">
+                                                    It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. 
+                                                </div>
+                                            </div>
+                                        </div><!--End of panel panel-default -->
+                                        	
 									</div>
 									<div id="musc_skeletal" class="col s12">
-										<h3>Section 6</h3>
-										<p>The container class is not strictly part of the grid but is important in laying out content. It allows you to center your page content. The container class is set to ~70% of the window width. It helps you center and contain your page content. We use the container to contain our body content.</p>
+										<div class="panel-heading active section_one" role="tab" id="headingOne">
+                                            <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-target="#musc_skeletal-section">
+                                            	Musc-skeletal
+                                            </a>
+                                            </h4>
+                                        </div>
+        
+										<p id="musc_skeletal-section" class="panel-collapse collapse in">The container class is not strictly part of the grid but is important in laying out content. It allows you to center your page content. The container class is set to ~70% of the window width. It helps you center and contain your page content. We use the container to contain our body content.</p>
 
-										<h3>Care Plan</h3>
-										<p>The tabs structure consists of an unordered list of tabs that have hashes corresponding to tab ids. Then when you click on each tab, only the container with the corresponding tab id will become visible.</p>	
+										
+                                        
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading" role="tab" id="heading-musc_skeletal">
+                                                <h4 class="panel-title">
+                                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#musc_skeletal-care_plan" aria-expanded="false" aria-controls="musc_skeletal-care_plan">
+                                                        Care Plan
+                                                    </a>
+                                                </h4>
+                                            </div><!--End of panel-heading -->
+                                            <div id="musc_skeletal-care_plan" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-musc_skeletal">
+                                                <div class="panel-body">
+                                                    The tabs structure consists of an unordered list of tabs that have hashes corresponding to tab ids. Then when you click on each tab, only the container with the corresponding tab id will become visible. 
+                                                </div>
+                                            </div>
+                                        </div><!--End of panel panel-default -->
+                                        	
 									</div>
 									<div id="nervous" class="col s12">
-										<h3>Section 7</h3>
+										<div class="panel-heading active section_one" role="tab" id="headingOne">
+                                            <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-target="#nervous-section">
+                                            	Nervous
+                                            </a>
+                                            </h4>
+                                        </div>
+        								
+                                        <div id="nervous-section" class="panel-collapse collapse in">
 										<div class="row">
 											<div class="col-md-12">
 												<div class="input-field">
@@ -541,19 +767,64 @@
 												</div>
 											</div>											
 										</div>
+                                        </div>
 
-										<h3>Care Plan</h3>
-										<p>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...</p>	
+										
+                                        	
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading" role="tab" id="heading-nervous">
+                                                <h4 class="panel-title">
+                                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#nervous-care_plan" aria-expanded="false" aria-controls="nervous-care_plan">
+                                                        Care Plan
+                                                    </a>
+                                                </h4>
+                                            </div><!--End of panel-heading -->
+                                            <div id="nervous-care_plan" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-nervous">
+                                                <div class="panel-body">
+                                                    Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit... 
+                                                </div>
+                                            </div>
+                                        </div><!--End of panel panel-default -->
+                                        
 									</div>
 									<div id="reproductive" class="col s12">
-										<h3>Where does it come from?</h3>
-										<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. </p>
+										
+										<div class="panel-heading active section_one" role="tab" id="headingOne">
+                                            <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-target="#reproductive-section">
+                                            	Reproductive
+                                            </a>
+                                            </h4>
+                                        </div>
+        
+										<p id="reproductive-section" class="panel-collapse collapse in">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. </p>
 
-										<h3>Care Plan</h3>
-										<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. </p>	
+										
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading" role="tab" id="heading-reproductive">
+                                                <h4 class="panel-title">
+                                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#reproductive-care_plan" aria-expanded="false" aria-controls="reproductive-care_plan">
+                                                        Care Plan
+                                                    </a>
+                                                </h4>
+                                            </div><!--End of panel-heading -->
+                                            <div id="reproductive-care_plan" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-reproductive">
+                                                <div class="panel-body">
+                                                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. 
+                                                </div>
+                                            </div>
+                                        </div><!--End of panel panel-default -->
+                                        	
 									</div>
 									<div id="respiratory" class="col s12">
-										<h3>Section 9</h3>
+										<div class="panel-heading active section_one" role="tab" id="headingOne">
+                                            <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-target="#respiratory-section">
+                                            	Respiratory
+                                            </a>
+                                            </h4>
+                                        </div>
+        								<div id="respiratory-section" class="panel-collapse collapse in">
 										<div class="row">
 											<div class="col-md-12">
 												<div class="input-field">
@@ -568,24 +839,93 @@
 												</div>
 											</div>											
 										</div>
+                                        </div>
 
-										<h3>Care Plan</h3>
-										<p>But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?</p>	
+										
+                                        
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading" role="tab" id="heading-respiratory">
+                                                <h4 class="panel-title">
+                                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#respiratory-care_plan" aria-expanded="false" aria-controls="respiratory-care_plan">
+                                                        Care Plan
+                                                    </a>
+                                                </h4>
+                                            </div><!--End of panel-heading -->
+                                            <div id="respiratory-care_plan" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-respiratory">
+                                                <div class="panel-body">
+                                                    But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure? 
+                                                </div>
+                                            </div>
+                                        </div><!--End of panel panel-default -->
+                                        	
 									</div>
 									<div id="urinary" class="col s12">
-										<h3>Section 10</h3>
-										<p>On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain.</p>
+										<div class="panel-heading active section_one" role="tab" id="headingOne">
+                                            <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-target="#urinary-section">
+                                            	Urinary
+                                            </a>
+                                            </h4>
+                                        </div>
+        
+										<p id="urinary-section" class="panel-collapse collapse in">On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain.</p>
 
-										<h3>Care Plan</h3>
-										<p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>	
+											
+                                        
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading" role="tab" id="heading-urinary">
+                                                <h4 class="panel-title">
+                                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#urinary-care_plan" aria-expanded="false" aria-controls="urinary-care_plan">
+                                                        Care Plan
+                                                    </a>
+                                                </h4>
+                                            </div><!--End of panel-heading -->
+                                            <div id="urinary-care_plan" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-urinary">
+                                                <div class="panel-body">
+                                                    Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? 
+                                                </div>
+                                            </div>
+                                        </div><!--End of panel panel-default -->
+                                    
+                                    
 									</div>
 									<div id="vs_pain" class="col s12">
-										<h3>The standard Lorem Ipsum passage, used since the 1500s</h3>
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-
-										<h3>Care Plan</h3>
-										<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>	
+										<div class="panel-heading active section_one" role="tab" id="headingOne">
+                                            <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-target="#vs_pain-section">
+                                            	Vs-Pain
+                                            </a>
+                                            </h4>
+                                        </div>
+                                        
+                                        
+        
+										<p id="vs_pain-section" class="panel-collapse collapse in">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                        
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading" role="tab" id="heading-vs_pain">
+                                                <h4 class="panel-title">
+                                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#vs_pain-care_plan" aria-expanded="false" aria-controls="vs_pain-care_plan">
+                                                        Care Plan
+                                                    </a>
+                                                </h4>
+                                            </div><!--End of panel-heading -->
+                                            <div id="vs_pain-care_plan" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-vs_pain">
+                                                <div class="panel-body">
+                                                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                                </div>
+                                            </div>
+                                        </div><!--End of panel panel-default -->
+                                        
+                                        
+                                            
+                                        
 									</div>
+                                    
+                                   
+                                    <button type="button" class="btn btn-default save-btn">SAVE</button>
+                                    <button type="button" class="btn btn-default save-btn">SAVE AND NEXT</button>
+                                      
 									
                                 </div>
                             </div><!-- ./page-conten -->
@@ -655,7 +995,15 @@
     <script src="<?= base_url(); ?>assets/layouts/default/scripts/layout.js" type="text/javascript" ></script>
     <script src="<?= base_url(); ?>assets/layouts/default/scripts/demo.js" type="text/javascript" ></script>
     <!-- END THEME LAYOUT SCRIPTS -->
-
+	<script>
+		$('.panel-collapse').on('show.bs.collapse', function () {
+		$(this).siblings('.panel-heading').addClass('active');
+		});
+		
+		$('.panel-collapse').on('hide.bs.collapse', function () {
+		$(this).siblings('.panel-heading').removeClass('active');
+		});
+	</script>
 
 
 </body>

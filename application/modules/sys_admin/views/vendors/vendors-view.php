@@ -10,27 +10,32 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
         <div class="portlet light bordered">
             <div class="portlet-body">
 
-	            <?= $this->common_lib->show_info($editor_message) ?>
-	            <div class="clear">&nbsp;</div>
+	            
+	            <div class="page-bar">
+					<?= $this->common_lib->show_info($editor_message) ?>
+				</div>
 	            <?php if ( count($vendors) == 0 ) : ?>
                     <div class="row">
                         <button type="button" class="btn btn-error btn-lg btn-block"><?= lang('table_no_data') ?></button>
                     </div>
                 <?php endif; ?>
 
-                <div class="table-toolbar table_info">
+				<?php $this->load->view('../modules/sys_admin/views/table_header'); ?>
+                <?php /*?><div class="table-toolbar table_info" >
+                	<h4>
 	                <?php if ( count($vendors) > 0 ) { ?>
-		                <?= count($vendors); ?>&nbsp;Row<?php if ( count($vendors) > 1 ) { ?>s<?php } ?>&nbsp;of&nbsp;<?= $RowsInTable ?>&nbsp;(Page # <strong><?= $page_number ?> </strong>)
+		                <span> <?= count($vendors); ?>&nbsp;Row<?php if ( count($vendors) > 1 ) { ?>s<?php } ?>&nbsp;of&nbsp;<?= $RowsInTable ?>&nbsp;(Page # <strong><?= $page_number ?> </strong>)</span>
 		            <?php } ?>
+                    </h4>
 <!--	                <button type="button" class="btn sbold green waves-effect tooltipped waves-light btn-sm pull_right_only_on_xs padding_right_sm" onclick="javascript:vendorsListFilterApplied();" data-position="top" data-tooltip="Open dialog window to set filter for Vendors. --><?//= ( trim($filters_label) != "" ? "Current filter(s):".$filters_label : "") ?><!-- "><i class="glyphicon glyphicon-filter"></i>&nbsp;Filter </button>-->
                     <button type="button" class="btn btn-filter btn-default btn-sm pull_right_only_on_xs padding_right_sm" onclick="javascript:vendorsListFilterApplied();" data-toggle="tooltip" data-html="true" data-position="top" title="" data-original-title="Open dialog window to set filter for Vendors. <?= ( trim($filters_label) != "" ? "Current filter(s):".$filters_label : "") ?> "><i class="glyphicon glyphicon-filter"></i>&nbsp;Filter </button>
 
 
                     <!--<button type="button" class="btn sbold green waves-effect waves-light btn-sm pull-right" onclick="javascript:document.location='<?= base_url() ?>sys-admin/vendors/vendors-edit/new<?=$page_parameters_with_sort ?>'" ><i class="glyphicon glyphicon-plus"></i></button> -->
                     <button type="button" class="btn btn-plus sbold btn-sm pull-right" onclick="javascript:document.location='<?= base_url() ?>sys-admin/vendors/vendors-edit/new<?=$page_parameters_with_sort ?>'" ><i class="glyphicon glyphicon-plus"></i></button>
-                </div>
+                </div><?php */?>
 
-	            <div class="clear">&nbsp;</div>
+	            
                 <?php if ( count($vendors) > 0 ) : ?>
                 <div class="table-responsive">
 

@@ -1243,7 +1243,6 @@ class Users_mdl extends CI_Model
 
     }
 
-
     public function getUserClientGroup($user_id, $client_id)
     {
         $this->db->where('uc_user_id', $user_id);

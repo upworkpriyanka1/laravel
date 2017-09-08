@@ -22,8 +22,7 @@ class Vocation_nurse extends CI_Controller {
 			$this->config->load('vocation_nurse_menu', true );
 			$this->menu    			= $this->config->item( 'vocation_nurse_menu' );
 
-			//$this->user 			= $this->common_mdl->get_user();
-			$this->user 			= $this->common_mdl->get_user_dashboard_info();
+			$this->user 			= $this->common_mdl->get_user();
 			$this->superviser 		=  $this->ion_auth->user($this->user->super_id)->row();
 			$this->superviser_name 	= $this->superviser->first_name." ".$this->superviser->last_name;
 			$this->group 			= $this->ion_auth->get_users_groups()->row();

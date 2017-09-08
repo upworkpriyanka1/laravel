@@ -14,7 +14,8 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
                     <?= $this->common_lib->show_info($editor_message) ?>
                 </div>
 
-                <div class="table-toolbar table_info">
+				<?php $this->load->view('../modules/sys_admin/views/table_header'); ?>
+                <?php /*?><div class="table-toolbar table_info">
                     <h4>
                         <? if ( count($clients) > 0 ) { ?>
                             <?= count($clients); ?>&nbsp;Row<? if ( count($clients) > 1 ) { ?>s<? } ?>&nbsp;of&nbsp;<?= $RowsInTable ?>&nbsp;(Page # <strong><?= $page_number ?> </strong>)
@@ -25,7 +26,7 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
 <!--                    <button type="button" class="btn btn-plus sbold btn-sm pull-right create_contact" ><i class="glyphicon glyphicon-plus"></i></button>-->
                     <button type="button" class="btn btn-plus sbold btn-sm pull-right create_contact" onclick="javascript:dialogAddNewClient();" >
                         <i class="glyphicon glyphicon-plus"></i></button>
-                </div>
+                </div><?php */?>
                     <!-- Dropdown Structure -->
 
                     <ul id='dropdown1' class='dropdown-content'>
