@@ -58,13 +58,25 @@
                             <div class="col-xs-12">
                                 <div id="profile-form">
                                     <div class="row card">
-                                        <div class="col-md-12"> 
+                                        <div class="col-md-12">
                                             <div class="row">
                                                 <div class="col-md-12"><h3>Sign Up Form</h3></div>
-                                            </div>      
+                                            </div>
                                            <form action="" id="new_user_form" method="POST" enctype="multipart/form-data">
-                                                <?php echo validation_errors(); ?>          
-                                                <div class="row">
+                                                <?php echo validation_errors(); ?>
+
+                                                                                                <div class="row" id="step1">
+                                                                                                        <div class="col-md-12">
+                                                                                                                <div class="collection">
+                                                                                                                        <a href="javascript:void(0);" class="collection-item">I am a licensee of a Residential Care Home (also called Assisted Living, Board and Care Homes, Group Homes, Adult Family Homes).</a>
+                                                                                                                        <a href="javascript:void(0);" class="collection-item">I am an administrator / manager of a Residential Care Home (also called Assisted Living, Board and Care Homes, Group Homes, Adult Family Homes).</a>
+                                                                                                                        <a href="javascript:void(0);" class="collection-item">I own or live in a Home Care / House / Home.</a>
+                                                                                                                </div>
+                                                                                                        </div>
+                                                                                                </div>
+                                                                                                <div style="height:30px;"></div>
+
+                                                <div class="row" id="step2" style="display:none;">
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <div class="input-field">
@@ -107,9 +119,9 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-12">                 
+                                                    <div class="col-md-12">
                                                         <button class="btn " name="cancel" type="reset">Reset</button>
-                                                        <button class="btn disabled" name="submit" type="submit" id="send">Send</button>                   
+                                                        <button class="btn disabled" name="submit" type="submit" id="send">Send</button>
                                                     </div>
                                                 </div>
                                            </form>
@@ -129,7 +141,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content modal-top">
                         <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">Ã—</span><span class="sr-only">Close</span></button>
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
                             <h3 class="modal-title" id="lineModalLabel">New User</h3>
                         </div>
                         <div class="modal-body">
@@ -237,18 +249,24 @@
 <!-- END THEME LAYOUT SCRIPTS -->
 
 <script>
-  $("#us-email-conf").blur(function(){
-    var email=$("#us-email").val();
-    var emailc=$("#us-email-conf").val();
+$("#us-email-conf").blur(function(){
+                var email=$("#us-email").val();
+                var emailc=$("#us-email-conf").val();
+                if(email==emailc){
+                        $("#send").removeClass('disabled');
+                }else{
+                        $("#send").addClass('disabled');
+                }
+        });
+        $(document).ready(function(){
+                $('#step1 .collection a').click(function(){
+                        $('#step1 .collection a').removeClass('active');
+                        $(this).addClass('active');
+                        $('#step2').show('slow','swing');
+                });
+        });
 
-    if(email==emailc)
-    {
-        $("#send").removeClass('disabled');
-    }  
-    else{
-$("#send").addClass('disabled');
-    }  
-  });
+
 </script>
 <style>
 .login {
