@@ -1,5 +1,3 @@
-<!-- <pre><?php print_r($users) ?></pre> -->
-
 <div class="row">
     <div class="col-md-12">
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
@@ -20,29 +18,23 @@
                 <table class="table table-striped table-bordered table-hover  order-column" id="users">
                     <thead>
                         <tr>
-
-                            <th><?= lang('name');?></th>
-                            <th><?= lang('email');?></th>
-                            <th><?= lang('phone');?></th>
-                            <th><?= lang('job');?></th>
-                            <th><?= lang('group');?></th>
-                            <th><?= lang('company');?></th>
+                            <th><?= $this->common_lib->showListHeaderItem ( '/super/users-view', $page_parameters_without_sort, lang('user'), "users.username", $sort_direction, $sort ) ?></th>
+                            <th><?= $this->common_lib->showListHeaderItem ( '/super/users-view', $page_parameters_without_sort, lang('job-title'), "type_description", $sort_direction, $sort ) ?></th>
+                            <th><?= $this->common_lib->showListHeaderItem ( '/super/users-view', $page_parameters_without_sort, lang('phone'), "phone", $sort_direction, $sort ) ?></th>
+                            <th><?= $this->common_lib->showListHeaderItem ( '/super/users-view', $page_parameters_without_sort, lang('status'), "uc_active_status", $sort_direction, $sort ) ?></th>
                             <th><i class="fa fa-pencil"></i></th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php if (isset($users) && count($users)>0){
-                		    foreach($users as $row){?>
+                		    foreach($users as $row){ ?>
                         <tr>
 
-                            <td><?php echo $row->first_name;?> <?php echo $row->last_name;?></td>
-                            <td>
-                                <a href="mailto:<?php echo $row->email;?>"> <?php echo $row->email;?> </a>
-                            </td>
+                            <td><?php echo $row->username;?></td>
+                            <td><?php echo $row->type_description;?></td>
                             <td> <?php echo $row->phone;?>  </td>
-                            <td><?php echo lang($row->job_title);?></td>
-                            <td><?php echo lang($row->group_title);?></td>
-                            <td><?php echo $row->client_name;?></td>
+                            <td> <?php echo /*$row->uc_active_status .' : '.*/$this->clients_mdl->getClientStatusLabel($row->uc_active_status) ?>  </td>
+
                             <td><a class="btn btn-sm blue" href="<?= base_url($this->uri->segment(1).'/users-edit/'.$row->UserID);?>">
                                 <i class="fa fa-pencil"></i>
                             </a></td>
