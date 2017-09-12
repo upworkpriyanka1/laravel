@@ -45,7 +45,7 @@ else if (strpos ($domain,'localhost') !==FALSE)
 else if (strpos ($domain,'dev') !==FALSE)
 	define('ENVIRONMENT', 'dev');
 else
-	define('ENVIRONMENT', 'dev');
+	define('ENVIRONMENT', 'production');
 	
 	//echo "Hi:".ENVIRONMENT;exit;
 
