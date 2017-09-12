@@ -21,7 +21,7 @@ class Vendors extends CI_Controller
         $this->menu = $this->config->item('sys_admin_menu_new');
 
         $this->user = $this->common_mdl->get_admin_user();
-	    if ( $this->user->user_active_status != 'A' ) { // Only active user can access admin pages
+	    if ( $this->user->user_status != 'A' ) { // Only active user can access admin pages
 		    redirect( base_url() . "login/logout" );
 	    }
         $this->group = $this->ion_auth->get_users_groups()->row();
@@ -412,6 +412,10 @@ class Vendors extends CI_Controller
 	    $data['javascript'] = array( 'assets/custom/admin/vendor-types.js', 'assets/global/plugins/picker/classic.js', 'assets/global/plugins/picker/classic.date.js', 'assets/global/plugins/picker/picker.time.js');
 
 	    $views				= array('design/html_topbar','sidebar','design/page','design/html_footer', 'common_dialogs.php');
+		
+		$data['TotalRecords'] = count($data['vendors']);
+		$data['sidebarMenu'] = "vendors";
+		
         $this->layout->view($views, $data);
     }
 

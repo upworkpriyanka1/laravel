@@ -3,15 +3,24 @@
 Login page
 ***/
 /* bg color */
+
 .login {
-  background-color: #a0b4c9 !important; }
+  background-color: #e4e4e4 !important; }
 
 .login .logo {
   margin: 0 auto;
   margin-top: 20px;
   /*padding: 15px;*/
   text-align: center; }
+.loginc {
+  background-color: none !important; }
 
+.loginc .logo {
+  margin: 0 auto;
+  margin-top: 20px;
+  /*padding: 15px;*/
+  text-align: center; 
+}
 .login .content {
   background-color: #FFF;
   -webkit-border-radius: 7px;
@@ -25,9 +34,11 @@ Login page
   padding-top: 10px;
   overflow: hidden;
   position: relative;
-  border-radius: 7px!important;
-  -webkit-border-radius: 7px!important;
-  -moz-border-radius: 7px!important; }
+  border-radius: 0px!important;
+  -webkit-border-radius: 0px!important;
+  -moz-border-radius: 0px!important; 
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+}
 
 .login .content h3 {
   color: #4db3a5;
@@ -53,7 +64,10 @@ Login page
   background-color: #FFF;
   height: 43px;
   color: #8290a3;
-  border: 1px solid #dde3ec; }
+  border: 1px solid #dde3ec;
+  padding:0 10px;
+  width:95%;
+}
   .login .content .form-control:focus,
   .login .content .form-control:active {
     border: 1px solid #c3ccda; }
@@ -116,15 +130,30 @@ Login page
 
 .login .content .form-actions .btn {
   font-weight: 600;
+  float:left;
  /* padding: 10px 20px !important;*/ }
 
 .login .content .form-actions .btn-default {
   font-weight: 600;
   padding: 10px 25px !important;
   color: #6c7a8d;
-  background-color: #ffffff;
-  border: none; }
-
+  background-color: #efefef;
+  border: none;
+  display:inline-block;
+  line-height:17px;
+}
+.login .content .form-actions #forget-password{
+	float:none;
+}
+.login .content .form-actions #forget-password.forget-password{
+	float:right;
+}
+.login .content .form-actions button.btn {
+    background-color: #4CAF50 !important;
+}
+.login .content .form-actions button.btn:hover{
+	background-color: #1c9821 !important;
+}
 .login .content .form-actions .btn-default:hover {
   background-color: #fafaff;
   color: #45b6af; }
@@ -140,9 +169,14 @@ Login page
 
 .login .content .rememberme {
   margin-left: 8px;
-  margin-top: 10px;
-  cursor: pointer; }
-
+  margin-top: 11px;
+  cursor: pointer; 
+}
+.login .content .rememberme input{
+	position:relative;
+	top:2px;
+	margin:0 5px 0 0;
+}
 .login .content .create-account {
   margin: 0 -40px -30px -40px;
   padding: 15px 0 17px 0;
@@ -185,16 +219,16 @@ Login page
   text-align:center;
 }
 .login .xntral-footer li{
-  float:left;
+  float:none;
   text-align:center;
   margin-left:20px;
   list-style:none;
   color:#337ab7;
+  display:inline-block;
 }
 .login .xntral-footer li.first{
   margin-left:0;
 }
-
 @media (max-width: 440px) {
   /***
   Login page
@@ -213,7 +247,6 @@ Login page
   .login-options{
       overflow: visible;
     }
-  
   .login .checkbox {
     font-size: 13px; }
   .login .xntral-footer{
@@ -223,4 +256,4 @@ Login page
     width:200px;
     margin:10px auto;
   }
-}
+} 

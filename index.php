@@ -1,5 +1,7 @@
 <?php
-//test
+
+
+//test 48-by rod
 /*
  *---------------------------------------------------------------
  * APPLICATION ENVIRONMENT
@@ -31,15 +33,21 @@ else if (strpos ($domain,'dev4') !==FALSE)
 else if (strpos ($domain,'dev4b') !==FALSE)
 	define('ENVIRONMENT', 'dev4b');
 else if (strpos ($domain,'dev5') !==FALSE)
-	define('ENVIRONMENT', 'devB');   	//define('ENVIRONMENT', 'dev5');
+	define('ENVIRONMENT', 'dev5');   	//define('ENVIRONMENT', 'dev5');
+else if (strpos ($domain,'devk2') !==FALSE)
+	define('ENVIRONMENT', 'devK2');
 else if (strpos ($domain,'devk') !==FALSE)
 	define('ENVIRONMENT', 'devK');
-//else if (strpos ($domain,'localhost') !==FALSE)
-//	define('ENVIRONMENT', 'devB');	
+else if (strpos ($domain,'devs') !==FALSE)
+	define('ENVIRONMENT', 'devs');
+else if (strpos ($domain,'localhost') !==FALSE)
+	define('ENVIRONMENT', 'dev');	
 else if (strpos ($domain,'dev') !==FALSE)
 	define('ENVIRONMENT', 'dev');
 else
-	define('ENVIRONMENT', 'production');
+	define('ENVIRONMENT', 'dev');
+	
+	//echo "Hi:".ENVIRONMENT;exit;
 
 /*
  *---------------------------------------------------------------
@@ -93,12 +101,29 @@ switch (ENVIRONMENT)
 		error_reporting(E_ERROR | E_WARNING);
 		ini_set('display_errors', 1);
 		break;
+	case 'devK2':
+		//Report all errors
+		//error_reporting(-1);
+		//Report only errors and warning. Do not show uninitialized variables because it can break the normal functioning.
+		error_reporting(E_ERROR | E_WARNING);
+		ini_set('display_errors', 1);
+		break;
+
+	case 'devs':
+		//Report all errors
+		//error_reporting(-1);
+		//Report only errors and warning. Do not show uninitialized variables because it can break the normal functioning.
+		error_reporting(E_ERROR | E_WARNING);
+		ini_set('display_errors', 1);
+		break;
 	case 'devB':
 		//Report all errors
 		//error_reporting(-1);
 		//Report only errors and warning. Do not show uninitialized variables because it can break the normal functioning.
-		error_reporting(E_ERROR );
-		ini_set('display_errors', 1);
+		/*error_reporting(E_ERROR );
+		ini_set('display_errors', 1);*/
+		error_reporting(0 );
+		ini_set('display_errors', 0);
 		break;	
 	case 'dev4b':
 		//Report all errors
@@ -113,10 +138,10 @@ switch (ENVIRONMENT)
 	break;
 	case 'dev':
 		//Report all errors
-		//error_reporting(-1);
+		error_reporting(E_ALL);
 		//Report only errors and warning. Do not show uninitialized variables because it can break the normal functioning.
-		error_reporting(E_ERROR | E_WARNING);
-		ini_set('display_errors', 1);
+		//error_reporting(E_ERROR | E_WARNING);
+		//ini_set('display_errors', 1);
 	break;
 
 	case 'testing':
@@ -182,6 +207,7 @@ if ( ! is_dir($system_path))
 	exit(3); // EXIT_CONFIG
 }
 
+
 /*
  * -------------------------------------------------------------------
  *  Now that we know the path, set the main path constants
@@ -229,6 +255,7 @@ else
 	echo 'Your application folder path does not appear to be set correctly. Please open the following file and correct this: '.SELF;
 	exit(3); // EXIT_CONFIG
 }
+
 
 define('APPPATH', $application_folder.DIRECTORY_SEPARATOR);
 

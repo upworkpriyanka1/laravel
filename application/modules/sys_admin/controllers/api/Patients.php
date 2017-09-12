@@ -61,7 +61,7 @@ class Patients extends REST_Controller {
             // Check if the patients data store contains patients (in case the database result returns NULL)
             // apply all filters to data retrieving
             $filter_pt_patient_login= !empty($uri_array['filter_pt_patient_login']) ? $uri_array['filter_pt_patient_login'] : '';
-            $filter_pt_patient_active_status= !empty($uri_array['filter_pt_patient_active_status']) ? $uri_array['filter_pt_patient_active_status'] : '';
+            $filter_patient_status= !empty($uri_array['filter_patient_status']) ? $uri_array['filter_patient_status'] : '';
             $filter_pt_state= !empty($uri_array['filter_pt_state']) ? $uri_array['filter_pt_state'] : '';
             $filter_pt_zip= !empty($uri_array['filter_pt_zip']) ? $uri_array['filter_pt_zip'] : '';
             $filter_pt_gender= !empty($uri_array['filter_pt_gender']) ? $uri_array['filter_pt_gender'] : '';
@@ -75,7 +75,7 @@ class Patients extends REST_Controller {
             $filter_pt_birth_date_till= !empty($uri_array['filter_pt_birth_date_till']) ? $uri_array['filter_pt_birth_date_till'] : '';
             $sort= !empty($uri_array['sort']) ? $uri_array['sort'] : '';
             $sort_direction= !empty($uri_array['sort_direction']) ? $uri_array['sort_direction'] : '';
-            $patients= $this->patients_mdl->getPatientsList(false, '', array( 'pt_patient_login'=> $filter_pt_patient_login, 'pt_patient_active_status'=> $filter_pt_patient_active_status, 'pt_state'=> $filter_pt_state, 'pt_zip'=> $filter_pt_zip, 'pt_gender'=> $filter_pt_gender,'pt_birth_date'=> $filter_pt_birth_date, 'pt_ss_number'=> $filter_pt_ss_number,  'created_at_from'=> $filter_created_at_from, 'created_at_till'=> $filter_created_at_till, 'show_patient_bereavements'=> $show_patient_bereavements,  'show_patient_contacts'=> $show_patient_contacts,  'pt_birth_date_from'=> $filter_pt_birth_date_from, 'pt_birth_date_till'=> $filter_pt_birth_date_till ), $sort, $sort_direction );
+            $patients= $this->patients_mdl->getPatientsList(false, '', array( 'pt_patient_login'=> $filter_pt_patient_login, 'patient_status'=> $filter_patient_status, 'pt_state'=> $filter_pt_state, 'pt_zip'=> $filter_pt_zip, 'pt_gender'=> $filter_pt_gender,'pt_birth_date'=> $filter_pt_birth_date, 'pt_ss_number'=> $filter_pt_ss_number,  'created_at_from'=> $filter_created_at_from, 'created_at_till'=> $filter_created_at_till, 'show_patient_bereavements'=> $show_patient_bereavements,  'show_patient_contacts'=> $show_patient_contacts,  'pt_birth_date_from'=> $filter_pt_birth_date_from, 'pt_birth_date_till'=> $filter_pt_birth_date_till ), $sort, $sort_direction );
             if ($patients)     // If there are patients set the response and exit
             {
                 $this->response($patients, REST_Controller::HTTP_OK); // OK (200) being the HTTP response code

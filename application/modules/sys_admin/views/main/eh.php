@@ -9,25 +9,25 @@
     <meta content="" name="keywords" />
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
-    <link href="/assets/global/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets/global/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
     <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css" />
-    <link href="/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/global/css/materialize.min.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/global/css/ghpages-materialize.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets/global/css/materialize.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets/global/css/ghpages-materialize.css" rel="stylesheet" type="text/css" />
     <!-- END GLOBAL MANDATORY STYLES -->
 
     <!-- BEGIN THEME GLOBAL STYLES -->
-    <link href="/assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
-    <link href="/assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
+    <link href="<?= base_url(); ?>assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
     <!-- END THEME GLOBAL STYLES -->
 
     <!-- BEGIN THEME LAYOUT STYLES -->
-    <link href="/assets/layouts/default/css/layout.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/layouts/default/css/themes/light2.min.css" rel="stylesheet" type="text/css" id="style_color" />
-    <link href="/assets/layouts/default/css/custom-eh.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets/layouts/default/css/layout.css" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url(); ?>assets/layouts/default/css/themes/light2.min.css" rel="stylesheet" type="text/css" id="style_color" />
+    <link href="<?= base_url(); ?>assets/layouts/default/css/custom-eh.css" rel="stylesheet" type="text/css" />
     <!-- END THEME LAYOUT STYLES -->
     <link rel="shortcut icon" href="/assets/favicon.ico" />
 </head>
@@ -193,7 +193,7 @@
         <ul id="nav-mobile" class="side-nav fixed" style="transform: translateX(-100%);">
             <li class="logo">
                 <a href="./" class="brand-logo">
-                    <img src="/assets/img/logo.png" alt="logo" class="logo-default" />
+                    <img src="<?= base_url(); ?>assets/img/logo.png" alt="logo" class="logo-default" />
                 </a>
             </li>
 
@@ -512,8 +512,8 @@
                                             <div class="row">
                                                 <div class="pad-card">
                                                     <div class="cards-container">
-                                                        <div class="card blue-grey darken-1">
-                                                            <div class="card-content white-text">
+                                                        <div class="card white">
+                                                            <div class="card-content black-text">
                                                                 <span class="card-title">Card Title</span>
                                                                 <p>I am a very simple card. I am good at containing small bits of information.
                                                                     I am convenient because I require little markup to use effectively.</p>
@@ -523,8 +523,8 @@
                                                                 <a href="#">This is a link</a>
                                                             </div>
                                                         </div>
-                                                        <div class="card blue-grey darken-1">
-                                                            <div class="card-content white-text">
+                                                        <div class="card white">
+                                                            <div class="card-content black-text">
                                                                 <span class="card-title">Card Title</span>
                                                                 <p>I am a very simple card. I am good at containing small bits of information.</p>
                                                             </div>
@@ -533,8 +533,8 @@
                                                                 <a href="#">This is a link</a>
                                                             </div>
                                                         </div>
-                                                        <div class="card blue-grey darken-1">
-                                                            <div class="card-content white-text">
+                                                        <div class="card white">
+                                                            <div class="card-content black-text">
                                                                 <span class="card-title">Card Title</span>
                                                                 <p>I am a very simple card. I am good at containing small bits of information.
                                                                     I am convenient because I require little markup to use effectively.</p>
@@ -544,8 +544,8 @@
                                                                 <a href="#">This is a link</a>
                                                             </div>
                                                         </div>
-                                                        <div class="card blue-grey darken-1">
-                                                            <div class="card-content white-text">
+                                                        <div class="card white">
+                                                            <div class="card-content black-text">
                                                                 <span class="card-title">Card Title</span>
                                                                 <p>I am a very simple card. I am good at containing small bits of information.
                                                                     I am convenient because I require little markup to use effectively.</p>
@@ -555,8 +555,8 @@
                                                                 <a href="#">This is a link</a>
                                                             </div>
                                                         </div>
-                                                        <div class="card blue-grey darken-1">
-                                                            <div class="card-content white-text">
+                                                        <div class="card white">
+                                                            <div class="card-content black-text">
                                                                 <span class="card-title">Card Title</span>
                                                                 <p>I am a very simple card. I am good at containing small bits of information.
                                                                     I am convenient because I require little markup to use effectively.</p>
@@ -566,8 +566,8 @@
                                                                 <a href="#">This is a link</a>
                                                             </div>
                                                         </div>
-                                                        <div class="card blue-grey darken-1">
-                                                            <div class="card-content white-text">
+                                                        <div class="card white">
+                                                            <div class="card-content black-text">
                                                                 <span class="card-title">Card Title</span>
                                                                 <p>I am a very simple card. I am good at containing small bits of information.
                                                                     I am convenient because I require little markup to use effectively.</p>
@@ -577,8 +577,8 @@
                                                                 <a href="#">This is a link</a>
                                                             </div>
                                                         </div>
-                                                        <div class="card blue-grey darken-1">
-                                                            <div class="card-content white-text">
+                                                        <div class="card white">
+                                                            <div class="card-content black-text">
                                                                 <span class="card-title">Card Title</span>
                                                                 <p>I am a very simple card. I am good at containing small bits of information</p>
                                                             </div>
@@ -587,8 +587,8 @@
                                                                 <a href="#">This is a link</a>
                                                             </div>
                                                         </div>
-                                                        <div class="card blue-grey darken-1">
-                                                            <div class="card-content white-text">
+                                                        <div class="card white">
+                                                            <div class="card-content black-text">
                                                                 <span class="card-title">Card Title</span>
                                                                 <p>I am a very simple card. I am good at containing small bits of information.
                                                                     I am convenient because I require little markup to use effectively.</p>
@@ -600,8 +600,8 @@
                                                                 <a href="#">This is a link</a>
                                                             </div>
                                                         </div>
-                                                        <div class="card blue-grey darken-1">
-                                                            <div class="card-content white-text">
+                                                        <div class="card white">
+                                                            <div class="card-content black-text">
                                                                 <span class="card-title">Card Title</span>
                                                                 <p>I am a very simple card. I am good at containing small bits of information.
                                                                     I am convenient because I require little markup to use effectively.</p>
@@ -612,8 +612,8 @@
                                                                 <a href="#">This is a link</a>
                                                             </div>
                                                         </div>
-                                                        <div class="card blue-grey darken-1">
-                                                            <div class="card-content white-text">
+                                                        <div class="card white">
+                                                            <div class="card-content black-text">
                                                                 <span class="card-title">Card Title</span>
                                                                 <p>I am a very simple card. I am good at containing small bits of information.
                                                                     I am convenient because I require little markup to use effectively.</p>
@@ -624,8 +624,8 @@
                                                                 <a href="#">This is a link</a>
                                                             </div>
                                                         </div>
-                                                        <div class="card blue-grey darken-1">
-                                                            <div class="card-content white-text">
+                                                        <div class="card white">
+                                                            <div class="card-content black-text">
                                                                 <span class="card-title">Card Title</span>
                                                                 <p>I am a very simple card. I am good at containing small bits of information.
                                                                     I am convenient because I require little markup to use effectively.</p>
@@ -636,8 +636,8 @@
                                                                 <a href="#">This is a link</a>
                                                             </div>
                                                         </div>
-                                                        <div class="card blue-grey darken-1">
-                                                            <div class="card-content white-text">
+                                                        <div class="card white">
+                                                            <div class="card-content black-text">
                                                                 <span class="card-title">Card Title</span>
                                                                 <p>I am a very simple card. I am good at containing small bits of information.
                                                                     I am convenient because I require little markup to use effectively.</p>
@@ -647,8 +647,8 @@
                                                                 <a href="#">This is a link</a>
                                                             </div>
                                                         </div>
-                                                        <div class="card blue-grey darken-1">
-                                                            <div class="card-content white-text">
+                                                        <div class="card white">
+                                                            <div class="card-content black-text">
                                                                 <span class="card-title">Card Title</span>
                                                                 <p>I am a very simple card. I am good at containing small bits of information.
                                                                     I am convenient because I require little markup to use effectively.</p>
@@ -658,8 +658,8 @@
                                                                 <a href="#">This is a link</a>
                                                             </div>
                                                         </div>
-                                                        <div class="card blue-grey darken-1">
-                                                            <div class="card-content white-text">
+                                                        <div class="card white">
+                                                            <div class="card-content black-text">
                                                                 <span class="card-title">Card Title</span>
                                                                 <p>I am a very simple card. I am good at containing small bits of information.
                                                                     I am convenient because I require little markup to use effectively.</p>
@@ -669,8 +669,8 @@
                                                                 <a href="#">This is a link</a>
                                                             </div>
                                                         </div>
-                                                        <div class="card blue-grey darken-1">
-                                                            <div class="card-content white-text">
+                                                        <div class="card white">
+                                                            <div class="card-content black-text">
                                                                 <span class="card-title">Card Title</span>
                                                                 <p>I am a very simple card. I am good at containing small bits of information.
                                                                     I am convenient because I require little markup to use effectively.</p>
@@ -731,28 +731,28 @@
     <script src="/assets/global/plugins/excanvas.min.js" type="text/javascript" ></script>
     <![endif]-->
     <!-- BEGIN CORE PLUGINS -->
-    <script src="/assets/global/plugins/jquery.min.js" type="text/javascript" ></script>
-    <script src="/assets/global/js/materialize.min.js" type="text/javascript" ></script>
-    <script src="/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript" ></script>
-    <script src="/assets/global/plugins/js.cookie.min.js" type="text/javascript" ></script>
-    <script src="/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript" ></script>
-    <script src="/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript" ></script>
-    <script src="/assets/global/plugins/jquery.blockui.min.js" type="text/javascript" ></script>
-    <script src="/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript" ></script>
-    <script src="/assets/global/js/init.js" type="text/javascript" ></script>
-    <script src="/assets/global/js/eh.js" type="text/javascript" ></script>
+    <script src="<?= base_url(); ?>assets/global/plugins/jquery.min.js" type="text/javascript" ></script>
+    <script src="<?= base_url(); ?>assets/global/js/materialize.min.js" type="text/javascript" ></script>
+    <script src="<?= base_url(); ?>assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript" ></script>
+    <script src="<?= base_url(); ?>assets/global/plugins/js.cookie.min.js" type="text/javascript" ></script>
+    <script src="<?= base_url(); ?>assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript" ></script>
+    <script src="<?= base_url(); ?>assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript" ></script>
+    <script src="<?= base_url(); ?>assets/global/plugins/jquery.blockui.min.js" type="text/javascript" ></script>
+    <script src="<?= base_url(); ?>assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript" ></script>
+    <script src="<?= base_url(); ?>assets/global/js/init.js" type="text/javascript" ></script>
+    <script src="<?= base_url(); ?>assets/global/js/eh.js" type="text/javascript" ></script>
 
     <!-- END CORE PLUGINS -->
     <!-- BEGIN PAGE LEVEL PLUGINS -->
     <!-- END PAGE LEVEL PLUGINS -->
     <!-- BEGIN THEME GLOBAL SCRIPTS -->
-    <script src="/assets/global/scripts/app.min.js" type="text/javascript" ></script>
+    <script src="<?= base_url(); ?>assets/global/scripts/app.min.js" type="text/javascript" ></script>
     <!-- END THEME GLOBAL SCRIPTS -->
     <!-- BEGIN PAGE LEVEL SCRIPTS -->
     <!-- END PAGE LEVEL SCRIPTS -->
     <!-- BEGIN THEME LAYOUT SCRIPTS -->
-    <script src="/assets/layouts/default/scripts/layout.js" type="text/javascript" ></script>
-    <script src="/assets/layouts/default/scripts/demo.js" type="text/javascript" ></script>
+    <script src="<?= base_url(); ?>assets/layouts/default/scripts/layout.js" type="text/javascript" ></script>
+    <script src="<?= base_url(); ?>assets/layouts/default/scripts/demo.js" type="text/javascript" ></script>
     <!-- END THEME LAYOUT SCRIPTS -->
 
 

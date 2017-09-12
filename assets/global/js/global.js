@@ -206,8 +206,110 @@ $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
 
     $('body').on('click','.create-contact-save',function(){
-
-       $('#form_client_edit').submit();
+		
+		    var isValid;
+			
+            var client_owner=$("#client_owner").val();		 
+			if ($('#client_owner').val() == '') {
+				$('#client_owner').css('border-color', 'red');
+                isValid = false;
+				 
+			}
+			else {
+			     $('#client_owner').css('border-color', '');
+			     
+			}
+			
+            var client_address1=$("#client_address1").val();		 
+			if ($('#client_address1').val() == '') {
+				$('#client_address1').css('border-color', 'red');
+                isValid = false;
+				 
+			}
+			else {
+			     $('#client_address1').css('border-color', '');
+			     
+			}
+			var client_address2=$("#client_address2").val();		 
+			if ($('#client_address2').val() == '') {
+				$('#client_address2').css('border-color', 'red');
+                isValid = false;
+				 
+			}
+			else {
+			     $('#client_address2').css('border-color', '');
+			     
+			}
+			var client_city=$("#client_city").val();		 
+			if ($('#client_city').val() == '') {
+				$('#client_city').css('border-color', 'red');
+                isValid = false;
+				 
+			}
+			else {
+			     $('#client_city').css('border-color', '');
+			     
+			}
+			var client_state=$("#client_state").val();		 
+			if ($('#client_state').val() == '') {
+				$('#client_state').css('border-color', 'red');
+                isValid = false;
+				 
+			}
+			else {
+			     $('#client_state').css('border-color', '');
+			     
+			}
+			var client_zip=$("#client_zip").val();		 
+			if ($('#client_zip').val() == '') {
+				$('#client_zip').css('border-color', 'red');
+                isValid = false;
+				 
+			}
+			else {
+			     $('#client_zip').css('border-color', '');
+			     
+			}
+			var client_phone=$("#client_phone").val();	
+           			
+			if ($('#client_phone').val() == '') {
+				$('#client_phone').css('border-color', 'red');
+                isValid = false;
+				 
+			}							
+			else {
+			     $('#client_phone').css('border-color', '');
+			     
+			}
+			var client_email=$("#client_email").val();		 
+			if ($('#client_email').val() == '') {
+				$('#client_email').css('border-color', 'red');
+                isValid = false;
+				 
+			}
+			else {
+			     $('#client_email').css('border-color', '');
+			     
+			}
+					 
+			 if (!$('.radios').is(':checked'))
+			 {
+				$('#radioerr').text('Please select one.');
+                return false;
+				 
+			}
+			else {
+			     $('#radioerr').text('');
+			     
+			}
+			
+			if(isValid!=false)
+			{
+			   $('#form_client_edit').submit();	
+              return true;
+			}
+			
+       //$('#form_client_edit').submit();
     });
 });
 
@@ -367,20 +469,20 @@ $(document).ready(function(){
         }
     };
 
-    setTitleDots();
+    // setTitleDots();
 
-    window.onresize = function(event) {
-
-        $('.page-title').removeAttr('style');
-        $('.page-title-dots').css('display', 'none');
-
-        setTimeout(function(){
-
-            document.getElementById("logo").removeEventListener("scroll", setTitleDots());
-
-        }, 200);
-
-    };
+    // window.onresize = function(event) {
+    //
+    //     $('.page-title').removeAttr('style');
+    //     $('.page-title-dots').css('display', 'none');
+    //
+    //     setTimeout(function(){
+    //
+    //         document.getElementById("logo").removeEventListener("scroll", setTitleDots());
+    //
+    //     }, 200);
+    //
+    // };
 
 })( window );
 
@@ -405,13 +507,13 @@ function validateFormEnableOrDisable(form_id){
         }
     });
 
-    if(disable){
-        $('#but-verify').css({fontWeight:'normal    '});
-        $('.disable_form_id_'+form_id).attr('disabled', true);
-    }else{
-        $('#but-verify').css({fontWeight:'bold'});
-        $('.disable_form_id_'+form_id).removeAttr('disabled');
-    }
+    // if(disable){
+    //     $('#but-verify').css({fontWeight:'normal    '});
+    //     $('.disable_form_id_'+form_id).attr('disabled', true);
+    // }else{
+    //     $('#but-verify').css({fontWeight:'bold'});
+    //     $('.disable_form_id_'+form_id).removeAttr('disabled');
+    // }
 
 
     $('.supuser').click(function(){
@@ -419,8 +521,29 @@ function validateFormEnableOrDisable(form_id){
         $('.modal-top').css('display','none');
     });
 
+    var email =$('#form_user_modal_editor_checking_email').val();
+    var v_email =$('#form_user_modal_editor_checking_email1').val();
+    if( email.includes('@') && email.includes('.') && v_email.includes('@') && v_email.includes('.') && email == v_email) {
+        $('#'+form_id+' .required_form_to_check').each(function(){
+            var name = $(this).attr('name');
 
+            if($('input[name='+name+']:checked').val() == undefined){
+                disable = true;
+            }
+        });
+
+        if(disable){
+            $('#but-verify').css({fontWeight:'normal    '});
+            $('.disable_form_id_'+form_id).attr('disabled', true);
+        }else{
+            $('#but-verify').css({fontWeight:'bold'});
+            $('.disable_form_id_'+form_id).removeAttr('disabled');
+        }
+
+    }
 }
+
+
 
 function init() {
     window.addEventListener('scroll', function(e){

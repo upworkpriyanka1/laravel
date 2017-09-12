@@ -7,25 +7,29 @@ class Admin extends CI_Controller {
 
 	   $job = array('admin');
 	/*check if logged in */
-			if (!$this->ion_auth->logged_in()){
-				redirect('./', 'refresh');
-			}
-	/*check if allowed to access page */
-			if (!$this->common_mdl->in_job($job)){
-				echo "Not allowed";
-				return die();
-			}
-	/* load library & model with aliases, config and language */
-			$this->load->library('Admin_lib',NULL, 'admin_lib');
-			$this->load->model('admin_mdl','admin_mdl');
-			$this->lang->load('admin');
-			$this->config->load('admin_menu', true );
-			$this->menu    			= $this->config->item( 'admin_menu' );
 
-			$this->user 			= $this->common_mdl->get_user();
-			$this->superviser 		=  $this->ion_auth->user($this->user->super_id)->row();
-			$this->superviser_name 	= $this->superviser->first_name." ".$this->superviser->last_name;
-			$this->group 			= $this->ion_auth->get_users_groups()->row();
+		if (!$this->ion_auth->logged_in()){
+            $method_name= $this->router->method;
+            if ( $method_name!= "msg" ) { // to msg method all has access
+                redirect('./', 'refresh');
+            }
+		}
+	/*check if allowed to access page */
+//			if (!$this->common_mdl->in_job($job)){
+//				echo "Not allowed";
+//				return die();
+//			}
+	/* load library & model with aliases, config and language */
+		$this->load->library('Admin_lib',NULL, 'admin_lib');
+		$this->load->model('admin_mdl','admin_mdl');
+		$this->lang->load('admin');
+		$this->config->load('admin_menu', true );
+		$this->menu    			= $this->config->item( 'admin_menu' );
+
+		$this->user 			= $this->common_mdl->get_user();
+		$this->superviser 		=  $this->ion_auth->user($this->user->super_id)->row();
+		$this->superviser_name 	= $this->superviser->first_name." ".$this->superviser->last_name;
+		$this->group 			= $this->ion_auth->get_users_groups()->row();
 	}
 /**********************
 * View Dashboard Home
@@ -105,4 +109,27 @@ class Admin extends CI_Controller {
 	public function profile(){
 		$this->common_lib->profile($this->user,$this->menu,$this->group->name);
 	}
+
+    public function msg()
+    {
+        $UriArray = $this->uri->uri_to_assoc(1);
+        $msg= $this->common_lib->getParameter($this, $UriArray, [], 'msg');
+        $sign= $this->common_lib->getParameter($this, $UriArray, [], 'sign');
+        $data['page_title']= '';
+        $data['msg']= $msg;
+        $data['sign']= $sign;
+        $data['meta_description']='';
+        $data['menu']		= array();
+        $data['user'] 		= $this->user;
+//		$data['job'] 		= $this->job;
+        $data['group'] 		= $this->group->name;
+        $data['page']		= 'admin/msg';
+        $data['pls'] 		= array(); //page level scripts optional
+        $data['plugins'] 	= array(); //page plugins
+        $data['javascript'] = array(); //page javascript
+        $views				= array('design/html_topbar','sidebar','design/page','design/html_footer' );
+        $this->layout->view($views,$data);
+
+    }
+
 }

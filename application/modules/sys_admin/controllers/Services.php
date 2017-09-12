@@ -20,7 +20,7 @@ class Services extends CI_Controller
         $this->menu = $this->config->item('sys_admin_menu');
 
         $this->user = $this->common_mdl->get_admin_user();
-	    if ( $this->user->user_active_status != 'A' ) { // Only active user can access admin pages
+	    if ( $this->user->user_status != 'A' ) { // Only active user can access admin pages
 		    redirect( base_url() . "login/logout" );
 	    }
         $this->group = $this->ion_auth->get_users_groups()->row();

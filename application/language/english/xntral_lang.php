@@ -77,6 +77,8 @@ $lang['sacred-city']            = "Sacred City";
 $lang['license']                = "License";
 $lang['type']                   = "Type";
 $lang['users']                  = "Users";
+$lang['SAVE']                  = "SAVE";
+
 
 
 
@@ -107,6 +109,7 @@ $lang ['locations-view']        = "Manage";
 $lang['company']                = "Company";
 $lang['company_name']           = "Company Name";
 $lang['my-company']             = $lang['profile-company'] = "My Company";
+$lang['job-title']                    = "Title";
 $lang['job']                    = "Job Title";
 $lang['user_group_description'] = "Job Description";
 $lang['group']                  = "Group";
@@ -174,6 +177,7 @@ $lang['full_time']              = "Full time";
 $lang['part_time']              = "Part time";
 $lang['contractor']             = "Contractor";
 
+
 $lang['user']                   = "User";
 $lang['user_id']                = "ID";
 $lang['username']               = "Username";
@@ -185,7 +189,7 @@ $lang['middle_name']            = "Middle  Name";
 $lang['last_name']              = "Last Name";
 $lang['mobile']                 = "Mobile";
 $lang['users-edit']             = "Edit User";
-$lang['user_active_status']     = "User's Status";
+$lang['user_status']            = "User's Status";
 $lang['user_has_groups']        = "Title(s)";
 $lang['user_has_groups_label']  = "Title(s)";
 $lang['authenticity']  			= "Authenticity"; // BBITS

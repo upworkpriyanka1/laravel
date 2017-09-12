@@ -25,7 +25,7 @@ class Sys_admin_mdl extends CI_Model {
      * Get users list/rows count depending of filters parameters
      * access public
      * @ params : $OutputFormatCount = TRUE- returns number of rows, FALSE- returns array of user objects; $page - page number($OutputFormatCount must be = FALSE)
-     * $filters : assoc keys of fieldname=>fieldvalue, if field value is not empty filter is set by this value for user_active_status, user_zip, user_type and between
+     * $filters : assoc keys of fieldname=>fieldvalue, if field value is not empty filter is set by this value for user_status, user_zip, user_type and between
      * created_at_from and created_at_till
      * filters work independently on $OutputFormatCount returning list(FALSE) or rows count(TRUE).
      * Sense of using $OutputFormatCount with $filters is to have common function with same filter parameters
@@ -61,8 +61,8 @@ class Sys_admin_mdl extends CI_Model {
         if (!empty($filters['username'])) {
             $this->db->like( $this->m_users_table . '.username', $filters['username'] );
         }
-        if (!empty($filters['user_active_status']) ) {
-            $this->db->where($this->m_users_table.'.user_active_status ', $filters['user_active_status'] );
+        if (!empty($filters['user_status']) ) {
+            $this->db->where($this->m_users_table.'.user_status ', $filters['user_status'] );
         }
         if (!empty($filters['email'])) {
             $this->db->where($this->m_users_table.'.email', $filters['email'] );
@@ -177,10 +177,11 @@ class Sys_admin_mdl extends CI_Model {
      * @ params
      * return users_clients.uc_id
      *********************************/
-    public function update_users_clients( $client_id, $related_user_id, $new_status ) {
+    public function update_users_clients( $client_id, $related_user_id, $new_status, $group_id ) {
         $date_time_mysql_format= $this->common_lib->getSettings('date_time_mysql_format', '%Y-%m-%d %H:%M:%S');
         $this->db->where( $this->m_users_clients_table . '.uc_client_id', $client_id);
         $this->db->where( $this->m_users_clients_table . '.uc_user_id', $related_user_id);
+        $this->db->where( $this->m_users_clients_table . '.uc_group_id', $group_id);
         $query = $this->db->from($this->m_users_clients_table);
         $row = $query->get()->result();
         if ( !empty($row) and !empty($row[0]->uc_id) ) {
@@ -188,6 +189,7 @@ class Sys_admin_mdl extends CI_Model {
             $data = array(
                 'uc_client_id' => $client_id ,
                 'uc_user_id' => $related_user_id,
+                'uc_group_id' => $group_id,
                 'uc_active_status'=> $new_status,
                 'updated_at'=> strftime($date_time_mysql_format)
             );
@@ -197,6 +199,7 @@ class Sys_admin_mdl extends CI_Model {
             $data = array(
                 'uc_client_id' => $client_id ,
                 'uc_user_id' => $related_user_id,
+                'uc_group_id' => $group_id,
                 'uc_active_status'=> $new_status,
                 'updated_at'=> strftime($date_time_mysql_format)
             );

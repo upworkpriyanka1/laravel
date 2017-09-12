@@ -11,12 +11,13 @@ class Clients_mdl extends CI_Model
     public $m_vendor_table;     // P-Provides; N-Does Not Provides
     private $ClientStatusLabelValueArray = Array('A' => 'Active', 'I' => 'Inactive', 'P' => 'Pending');  // values/labels for enum field
     private $UsersClientsActiveStatusLabelValueArray = Array('E' => 'Employee', 'O' => 'Out Of Staff', 'N' => 'Not Related');
-    private $UserActiveStatusLabelValueArray = Array('N' => 'New', 'A' => 'Active', 'I' => 'Inactive');
+    private $UserStatusLabelValueArray = Array('N' => 'New', 'A' => 'Active', 'I' => 'Inactive');
     private $ClientsVendorsActiveStatusLabelValueArray = Array('P' => 'Provides', 'N' => 'Does Not Provides');
 
     function __construct()
     {
         parent::__construct();
+        $this->load->model('users_mdl');
         $this->m_clients_vendors_table = 'clients_vendors';
         $this->m_clients_table = 'clients';
         $this->m_clients_types_table= 'clients_types';
@@ -70,10 +71,10 @@ class Clients_mdl extends CI_Model
     }
 
 
-    public function getUserActiveStatusValueArray($ret_with_subarray= true)
+    public function getUserStatusValueArray($ret_with_subarray= true)
     {
         $ResArray = array();
-        foreach ($this->UserActiveStatusLabelValueArray as $Key => $Value) {
+        foreach ($this->UserStatusLabelValueArray as $Key => $Value) {
             if ( $ret_with_subarray ) {
                 $ResArray[] = array('key' => $Key, 'value' => $Value);
             }else {
@@ -83,10 +84,10 @@ class Clients_mdl extends CI_Model
         return $ResArray;
     }
 
-    public function getUserActiveStatusLabel($user_active_status)
+    public function getUserStatusLabel($user_status)
     {
-        if (!empty($this->UserActiveStatusLabelValueArray[$user_active_status])) {
-            return $this->UserActiveStatusLabelValueArray[$user_active_status];
+        if (!empty($this->UserStatusLabelValueArray[$user_status])) {
+            return $this->UserStatusLabelValueArray[$user_status];
         }
         return '';
     }
@@ -205,6 +206,7 @@ class Clients_mdl extends CI_Model
             return $ret_array;
         }
     }
+	
 
     public function checkIsClient_NameUnique($client_name, $client_id='')
     {
@@ -560,6 +562,50 @@ class Clients_mdl extends CI_Model
         $query = $this->db->get();
         return $query->result();
 //        $result = $query->result_array();
+    }
+
+    public  function getClients($us_id)
+    {
+		
+        $this->db->where('uc_user_id', $us_id);
+        $this->db->from('users_clients');
+		$this->db->select('users_clients.created_at as client_created_date_sid, users_clients.*');
+        $query = $this->db->get();
+
+        $res = $query->result();
+		//echo "<pre>";print_r($res);
+        $result = array();
+		$i = 0;
+        foreach ($res as $re) {
+			$data = array();
+            $group=$this->users_mdl->getGroupRowById($re->uc_group_id);
+            $cl_id = $re->uc_client_id;
+            $this->db->where('cid', $cl_id);
+            $this->db->from('clients');
+            $query = $this->db->get();
+ 
+            $query->row()->group=$group;
+			
+			$result[]= $query->row();
+			$result[$i]->created_at = $re->client_created_date_sid;
+			
+			$i++;
+        }
+        return $result;
+    }
+	
+	// Function to get Client detail based on client id 
+	public  function getClientDetail($client_id)
+    {
+
+        $this->db->where('cid', $client_id);
+        $this->db->from('clients');
+        $query = $this->db->get();
+		$res = $query->row();
+		/*echo "res is ";
+		print_r($res);
+		exit(0);*/
+		return $res;
     }
 
 }
