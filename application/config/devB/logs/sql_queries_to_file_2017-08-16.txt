@@ -1,0 +1,8 @@
+================ ERROR BEGIN ================= 
+Now : 2017-08-16 17:18:29 :
+Unable to connect to your database server using the provided settings.
+Filename: C:/xampp/htdocs/zntral/system/database/DB_driver.php
+Line Number: 436
+================ ERROR END ===================
+
+

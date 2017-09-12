@@ -1,7 +1,5 @@
 <?php
 $lang['dashboard-title'] = "Dashboard";
-$lang['locations-list'] = "Locations";
-$lang['residents-list'] = "Residents";
 $lang['locations'] = "Locations";
 $lang['residents'] = "Residents";
 $lang['contacts'] = "Contacts";

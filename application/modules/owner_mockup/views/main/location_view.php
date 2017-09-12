@@ -18,7 +18,7 @@
 						<tr>
 							<th><?= lang('name') ?></th>
 							<th><?= lang('address') ?></th>
-							<th><?= lang('locations') ?></th>  
+							<th><?= lang('residents') ?></th>  
 						</tr>
 					</thead>
 					<tbody>                    

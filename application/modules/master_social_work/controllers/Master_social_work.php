@@ -11,10 +11,10 @@ class Master_social_work extends CI_Controller {
 				redirect('./', 'refresh');
 			}
 		/*check if allowed to access page */
-			/*if (!$this->common_mdl->in_job($job)){
+			if (!$this->common_mdl->in_job($job)){
 				echo "Not allowed";
 				return die();
-			}*/
+			}
 	/* load library & model with aliases, config and language */
 			$this->load->library('Master_social_work_lib',NULL, 'social_lib');
 			$this->load->model('master_social_work_mdl','social_mdl');
@@ -22,8 +22,7 @@ class Master_social_work extends CI_Controller {
 			$this->config->load('master_social_work_menu', true );
 			$this->menu    			= $this->config->item( 'master_social_work_menu' );
 
-			//$this->user 			= $this->common_mdl->get_user();
-			$this->user 			= $this->common_mdl->get_user_dashboard_info();
+			$this->user 			= $this->common_mdl->get_user();
 			$this->superviser 		=  $this->ion_auth->user($this->user->super_id)->row();
 			$this->superviser_name 	= $this->superviser->first_name." ".$this->superviser->last_name;
 			$this->group 			= $this->ion_auth->get_users_groups()->row();

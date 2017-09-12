@@ -13,81 +13,101 @@ echo link_tag('assets/global/plugins/picker/classic.date.css');
 
 </script>
 
+  
+
+  <script>
+  $(document).ready(function(e) {
+    $( function() {
+    var availableTags = [
+      "ActionScript",
+      "AppleScript",
+      "Asp",
+      "BASIC",
+      "C",
+      "C++",
+      "Clojure",
+      "COBOL",
+      "ColdFusion",
+      "Erlang",
+      "Fortran",
+      "Groovy",
+      "Haskell",
+      "Java",
+      "JavaScript",
+      "Lisp",
+      "Perl",
+      "PHP",
+      "Python",
+      "Ruby",
+      "Scala",
+      "Scheme"
+    ];
+    $( "#search" ).autocomplete({
+      source: availableTags
+    });
+  } );
+});
+  
+  </script>
 
 <div class="row">
-    <div class="col-md-12">
-        <!-- BEGIN EXAMPLE TABLE PORTLET-->
-        <div class="portlet light bordered">
-            <div class="portlet-body">
+	<div class="col-md-12">
+		<!-- BEGIN EXAMPLE TABLE PORTLET-->
+		<div class="portlet light bordered">
+			<div class="portlet-body">
 
-                <div class="page-bar">
-                    <!--<h3 class="page-title"><?= lang('users-view') ?></h3>-->
-                    <?= $this->common_lib->show_info($editor_message) ?>
-                </div>
+				<div class="page-bar">
+					<!--<h3 class="page-title"><?=lang('users-view')?></h3>-->
+					<?= $this->common_lib->show_info($editor_message) ?>
+				</div>
 
-                <? if (count($users) == 0) : ?>
-                    <div class="row" style="margin: 5px 0 5px 0;">
-                        <button type="button"
-                                class="btn btn-error btn-lg btn-block"><?= lang('table_no_data') ?></button>
-                    </div>
-                <? endif; ?>
-
-                <div class="table-toolbar table_info">
-                    <? if (count($users) > 0) { ?>
-                        <?= count($users); ?>&nbsp;Row<? if (count($users) > 1) { ?>s<? } ?>&nbsp;of&nbsp;<?= $RowsInTable ?>&nbsp;(Page #
-                        <strong><?= $page_number ?> </strong>)
-                    <? } ?>
-
-                    <button type="button"
-                            class="btn btn-filter btn-default btn-sm pull_right_only_on_xs padding_right_sm"
-                            onclick="javascript:usersListFilterApplied();" data-toggle="tooltip" data-html="true"
-                            data-placement="top" title=""
-                            data-original-title="Open dialog window to set filter for Users. <?= (trim($filters_label) != "" ? "Current filter(s):" . $filters_label : "") ?> ">
-                        <i class="glyphicon glyphicon-filter"></i>&nbsp;Filter
-                    </button>
-                    <span><button type="button" class="btn btn-plus sbold btn-sm pull-right"
-                                  onclick="javascript:document.location='<?= base_url() ?>sys-admin/users/users-edit/new<?= $page_parameters_with_sort ?>'"><i
-                                    class="glyphicon glyphicon-plus"></i></button>
+				<? if ( count($users) == 0 ) : ?>
+					<div class="row" style="margin: 5px 0 5px 0;">
+						<button type="button" class="btn btn-error btn-lg btn-block"><?= lang('table_no_data') ?></button>
+					</div>
+				<? endif; ?>
+				<?php $this->load->view('../modules/sys_admin/views/table_header'); ?>
+				<?php /*?><div class="table-toolbar table_info">
+                	<h4>
+					<? if ( count($users) > 0 ) { ?>
+						<?= count($users); ?>&nbsp;Row<? if ( count($users) > 1 ) { ?>s<? } ?>&nbsp;of&nbsp;<?= $RowsInTable ?>&nbsp;(Page # <strong><?= $page_number ?> </strong>)
+					<? } ?>
+					</h4>
+					<button type="button" class="btn btn-filter btn-default btn-sm pull_right_only_on_xs padding_right_sm" onclick="javascript:usersListFilterApplied();" data-toggle="tooltip" data-html="true" data-placement="top" title="" data-original-title="Open dialog window to set filter for Users. <?= ( trim($filters_label) != "" ? "Current filter(s):".$filters_label : "") ?> "><i class="glyphicon glyphicon-filter"></i>&nbsp;Filter </button>
+					<span><button type="button" class="btn btn-plus sbold btn-sm pull-right" onclick="javascript:document.location='<?= base_url() ?>sys-admin/users/users-edit/new<?=$page_parameters_with_sort ?>'" ><i class="glyphicon glyphicon-plus"></i></button>
                     
-                    <form method="get" action=""><input type="text" placeholder="Enter text to search" name="search"
-                                                        id="autocomplete"/></form>
-                     </span>
-                </div>
+                    <input type="text" name="search" id="search" /> </span>
+				</div><?php */?>
 
-                <? if (count($users) > 0) : ?>
-                    <div class="table-responsive">
+				<? if ( count($users) > 0 ) : ?>
+					<div class="table-responsive">
 
-                        <table class="table table-striped table-bordered table-hover  order-column" id="users_listing">
-                            <thead>
-                            <tr>
-                                <th><?= $this->common_lib->showListHeaderItem('/sys-admin/users/users-view', $page_parameters_without_sort, lang('user'), "username", $sort_direction, $sort) ?></th>
-                                <th><?= $this->common_lib->showListHeaderItem('/sys-admin/users/users-view', $page_parameters_without_sort, lang('client(s)'), "client_name", $sort_direction, $sort) ?></th>
-                                <th><?= $this->common_lib->showListHeaderItem('/sys-admin/users/users-view', $page_parameters_without_sort, lang('status'), "user_status", $sort_direction, $sort) ?></th>
-                                <th><?= $this->common_lib->showListHeaderItem('/sys-admin/users/users-view', $page_parameters_without_sort, lang('title'), "user_group_description", $sort_direction, $sort) ?></th>
-                                <th><?= $this->common_lib->showListHeaderItem('/sys-admin/users/users-view', $page_parameters_without_sort, lang('created'), "users.created_at", $sort_direction, $sort) ?></th>
-                                <!--                                <th>-->
-                                <? //= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('phone'), "phone", $sort_direction, $sort ) ?><!--</th>-->
-                                <!--								<th>-->
-                                <? //= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('job'), "job_name", $sort_direction, $sort ) ?><!--</th>-->
-                                <!--								<th>-->
-                                <? //= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('zip'), "zip", $sort_direction, $sort ) ?><!--</th>-->
+						<table class="table table-striped table-bordered table-hover  order-column" id="users_listing">
+							<thead>
+							<tr>
+								<th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('user'), "username", $sort_direction, $sort ) ?></th>
+								<th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('client(s)'), "client_name", $sort_direction, $sort ) ?></th>
+                                <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('status'), "user_status", $sort_direction, $sort ) ?></th>
+                                <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('title'), "user_group_description", $sort_direction, $sort ) ?></th>
+                                <th><?= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('created'), "users.created_at", $sort_direction, $sort ) ?></th>
+<!--                                <th>--><?//= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('phone'), "phone", $sort_direction, $sort ) ?><!--</th>-->
+<!--								<th>--><?//= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('job'), "job_name", $sort_direction, $sort ) ?><!--</th>-->
+<!--								<th>--><?//= $this->common_lib->showListHeaderItem ( '/sys-admin/users/users-view', $page_parameters_without_sort, lang('zip'), "zip", $sort_direction, $sort ) ?><!--</th>-->
 
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <?php if (isset($users) && count($users) > 0) {
-                                $userName = "";
-                                foreach ($users as $row) {
-                                    ?>
-                                    <tr>
-
-                                        <td>
-                                            <?php if ($userName != $row->username) { ?>
-                                                <a class="a_link"
-                                                   href="<?= base_url($this->uri->segment(1) . '/users/users-overview/' . $row->id); ?><?= $page_parameters_with_sort ?>">
-                                                    <?php echo $row->username; ?>
-                                                </a>
-                                                <?php $userName = $row->username; ?>
+							</tr>
+							</thead>
+							<tbody>
+							<?php if (isset($users) && count($users)>0){
+									$userName = "";
+								foreach($users as $row){?>
+									<tr>
+										
+										<td>
+                                        	<?php if($userName != $row->username){ ?>
+											<a class="a_link" href="<?= base_url($this->uri->segment(1).'/users/users-overview/'.$row->id);?><?= $page_parameters_with_sort ?>">
+												<?php echo $row->username;?>
+											</a>
+                                            <?php $userName = $row->username; ?>
                                             <?php } ?>
                                         </td>
                                         <td>

@@ -17,12 +17,13 @@ class Super extends CI_Controller {
 		}
 		$this->load->library('Super_lib',NULL,'super_lib');
 		$this->load->model('super_mdl','super_mdl');
+		$this->load->model('clients_mdl','clients_mdl');
+		$this->load->model('users_mdl','users_mdl');
 		$this->lang->load('super');
 		$this->config->load('super_menu', true );
 		$this->menu    			= $this->config->item( 'super_menu' );
 
-		//$this->user 			= $this->common_mdl->get_user();
-		$this->user 			= $this->common_mdl->get_user_dashboard_info();
+		$this->user 			= $this->common_mdl->get_user();
 		$this->superviser 		=  $this->ion_auth->user($this->user->super_id)->row();
 		$this->superviser_name 	= $this->superviser->first_name." ".$this->superviser->last_name;
 		$this->group 			= $this->ion_auth->get_users_groups()->row();
@@ -37,7 +38,7 @@ class Super extends CI_Controller {
  * return view
  *********************************/
 	public function index(){
-	
+
 		$data['meta_description']='';
 		$data['menu']		= $this->menu;
 
@@ -64,14 +65,18 @@ class Super extends CI_Controller {
 		$data['meta_description']='';
 		$data['menu']		= $this->menu;
 		$data['user'] 		= $this->user;
-		//$data['job'] 		= $this->job;
 		$data['group'] 		= $this->group->name;
-		// echo "cid is : " . $this->user->cid;
-		// echo "user id is : " . $this->session->userdata('user_id');
-		////$user_id = $this->ion_auth->user()->row()->id;
-		$data['users']		= $this->super_mdl->get_users($this->user->cid);
-		////$data['users']		= $this->super_mdl->get_users($user_id);
+        $post_array = $this->input->post();
+        $UriArray = $this->uri->uri_to_assoc(3);
 
+        $page_parameters_without_sort = $this->superUsersPreparePageParameters($UriArray, $post_array, false, false);
+        $sort= $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort', 'users.username');
+        $sort_direction = $this->common_lib->getParameter($this, $UriArray, $post_array, 'sort_direction', 'asc');
+
+        $data['users'] = $this->super_mdl->getUsersClientsList( false, 0, array('client_id'=> $this->user->cid), $sort, $sort_direction );
+	    $data['sort_direction']		= $sort_direction;
+	    $data['sort']		= $sort;
+	    $data['page_parameters_without_sort']		= $page_parameters_without_sort;
 	    $data['page']		= 'common/users-view';
 	    $data['menu']		= $this->menu;
 	    $data['plugins'] 	= array();
@@ -262,4 +267,60 @@ class Super extends CI_Controller {
 	public function profile(){
 		$this->common_lib->profile($this->user,$this->menu,$this->group->name);
 	}
+
+    /**********************
+     * create string with all sorting parameters for using in sorting by column header or at editor submitting to keep current filters
+     * access public
+     * @params : $UriArray - $_GET array in assoc array, $_post_array - $_POST array,
+     * $WithPage - if TRUE"page" is added to the url, $WithSort - if to show current sort in resulting string. With TRUEif used in links to editoe, with FALSEis used in
+     * sorting columns, as sorting is set for any column.
+     * return string with filters in pairs filter_name/filter_value
+     *********************************/
+    private function superUsersPreparePageParameters($UriArray, $_post_array, $WithPage, $WithSort)
+    {
+        $ResStr = '';
+        if (!empty($_post_array)) { // form was submitted
+            if ($WithPage) {
+                $page = $this->input->post('page');
+                $ResStr .= !empty($page) ? 'page/' . $page . '/' : 'page/1/';
+            }
+//            $filter_client_name = $this->input->post('filter_client_name');
+//            $ResStr .= !empty($filter_client_name) ? 'filter_client_name/' . $filter_client_name . '/' : '';
+//            $filter_client_status = $this->input->post('filter_client_status');
+//            $ResStr .= !empty($filter_client_status) ? 'filter_client_status/' . $filter_client_status . '/' : '';
+//            $filter_client_type = $this->input->post('filter_client_type');
+//            $ResStr .= !empty($filter_client_type) ? 'filter_client_type/' . $filter_client_type . '/' : '';
+//            $filter_client_zip = $this->input->post('filter_client_zip');
+//            $ResStr .= !empty($filter_client_zip) ? 'filter_client_zip/' . $filter_client_zip . '/' : '';
+//            $filter_created_at_from = $this->input->post('filter_created_at_from');
+//            $ResStr .= !empty($filter_created_at_from) ? 'filter_created_at_from/' . $filter_created_at_from . '/' : '';
+//            $filter_created_at_till = $this->input->post('filter_created_at_till');
+//            $ResStr .= !empty($filter_created_at_till) ? 'filter_created_at_till/' . $filter_created_at_till . '/' : '';
+            if ($WithSort) {
+                $sort_direction = $this->input->post('sort_direction');
+                $ResStr .= !empty($sort_direction) ? 'sort_direction/' . $sort_direction . '/' : '';
+                $sort = $this->input->post('sort');
+                $ResStr .= !empty($sort) ? 'sort/' . $sort . '/' : '';
+            }
+        } else {
+            if ($WithPage) {
+                $ResStr .= !empty($UriArray['page']) ? 'page/' . $UriArray['page'] . '/' : 'page/1/';
+            }
+//            $ResStr .= !empty($UriArray['filter_client_name']) ? 'filter_client_name/' . $UriArray['filter_client_name'] . '/' : '';
+//            $ResStr .= !empty($UriArray['filter_client_status']) ? 'filter_client_status/' . $UriArray['filter_client_status'] . '/' : '';
+//            $ResStr .= !empty($UriArray['filter_client_type']) ? 'filter_client_type/' . $UriArray['filter_client_type'] . '/' : '';
+//            $ResStr .= !empty($UriArray['filter_client_zip']) ? 'filter_client_zip/' . $UriArray['filter_client_zip'] . '/' : '';
+//            $ResStr .= !empty($UriArray['filter_created_at_from']) ? 'filter_created_at_from/' . $UriArray['filter_created_at_from'] . '/' : '';
+//            $ResStr .= !empty($UriArray['filter_created_at_till']) ? 'filter_created_at_till/' . $UriArray['filter_created_at_till'] . '/' : '';
+            if ($WithSort) {
+                $ResStr .= !empty($UriArray['sort_direction']) ? 'sort_direction/' . $UriArray['sort_direction'] . '/' : '';
+                $ResStr .= !empty($UriArray['sort']) ? 'sort/' . $UriArray['sort'] . '/' : '';
+            }
+        }
+        if (substr($ResStr, strlen($ResStr) - 1, 1) == '/') {
+            $ResStr = substr($ResStr, 0, strlen($ResStr) - 1);
+        }
+        return '/' . $ResStr;
+    }
+
 }

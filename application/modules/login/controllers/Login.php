@@ -26,8 +26,7 @@ class Login extends CI_Controller {
 		echo "User is :";
 		print_r($user);*/
         $groupsList = $this->users_mdl->getUsersGroupsList( false, 0, array('user_id'=> $user->id, 'client_id' => $client_id, 'status'=>'A', 'show_groups_description'=> 1) );
-		/*echo "last query is : " . $this->db->last_query();
-		echo "<br/>Group list is : ";
+		/*echo "Group list is : ";
 		print_r($groupsList);
 		exit(0);*/
         if ( count($groupsList) == 0 ) {
@@ -56,12 +55,10 @@ class Login extends CI_Controller {
         $user = $this->ion_auth->user()->row();
 		$this->load->model('clients_mdl','clients_mdl');
         //$clients = $this->clients_mdl->getUsersClientsList( false, 0, array('user_id'=> $user->id, 'status'=>'A') );
-		$clientList = $this->users_mdl->getUsersClientsList( false, 0, array('user_id'=> $user->id, 'active_status'=>'A') );
-		/*echo "<pre>";
-		echo 'last query is : ' . $this->db->last_query(); 
-		echo "Client list is :";
-		print_r($clientList);
-		exit(0);*/
+		$clientList = $this->users_mdl->getUsersClientsList( false, 0, array('user_id'=> $user->id, 'status'=>'A') );
+		//echo "<pre>";
+		//echo "Client list is :";
+		//print_r($clientList);
 		$clients = array();
 		$client_ids = array();
 		$i=0;
@@ -91,8 +88,8 @@ class Login extends CI_Controller {
 			}
 		}
 		/*echo "clients are :";
-		print_r($clients);
-		exit(0);*/
+		print_r($clients);*/
+		
         if ( count($clients) == 0 ) {
             redirect('/msg/' . urldecode(lang("account_has_no_active_clients")) . '/sign/danger');
         }
@@ -119,7 +116,7 @@ class Login extends CI_Controller {
 		else if(!$is_multi_client && !$is_multi_title)
 		{
 			$client_id = $clientList[0]->uc_client_id;
-			$title_id = $clients[0]['titles'][0]->id;
+			$title_id = $clients[0]['titles']->id;
 		
 			// Get client name
 			$client_detail = $this->clients_mdl->getClientDetail($client_id);
@@ -373,7 +370,7 @@ class Login extends CI_Controller {
 			echo '';
 		}
 	}
-
+	
 	public function index(){
 		if ($this->ion_auth->logged_in()){
 			//echo "in if...";

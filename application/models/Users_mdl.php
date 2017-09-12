@@ -1,5 +1,4 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*****************************
  * Class for Users Db functions
  *
@@ -1242,7 +1241,6 @@ class Users_mdl extends CI_Model
         }
 
     }
-
 
     public function getUserClientGroup($user_id, $client_id)
     {

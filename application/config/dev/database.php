@@ -76,9 +76,9 @@ $query_builder = TRUE;
 $db['default'] = array(
         'dsn'   => '',
         'hostname' => 'localhost',
-        'username' => 'zntral_devM',
-        'password' => 'RA.cvosu=aS1',
-        'database' => 'zntral_devM',
+        'username' => 'root',
+        'password' => '',
+        'database' => 'zntral',
         'dbdriver' => 'mysqli',
         'dbprefix' => '',
         'pconnect' => FALSE,
