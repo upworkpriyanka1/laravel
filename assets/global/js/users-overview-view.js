@@ -124,7 +124,7 @@ $(function() {
 
 
 function loadUserRelatedClients(page) {
-    var href= "/sys-admin/users/load_user_related_clients/filter_user_id/"+$("input[name='id']").val()+"/page/"+page
+    var href= "/zntral/sys-admin/users/load_user_related_clients/filter_user_id/"+$("input[name='id']").val()+"/page/"+page;
     $.ajax({
         url: href,
         type: 'GET',

@@ -34,7 +34,8 @@ class Owner_mockup extends CI_Controller {
         $views=  array('design-mockup/html_topbar','sidebar','design-mockup/page','design-mockup/html_footer');
         $this->layout->view($views, $data);
     }
-	public function residents_list(){		
+	public function residents_list(){
+		$data['page_title']= 'residents';		
 		$data['meta_description']='';
         $data['menu'] = $this->menu;
 		$data['user'] = $this->user; 	
@@ -42,13 +43,22 @@ class Owner_mockup extends CI_Controller {
         $views=  array('design-mockup/html_topbar','sidebar','design-mockup/page','design-mockup/html_footer');
         $this->layout->view($views, $data);
     }
-	public function col3_1(){		
+	public function edit_user_info(){
+		$data['page_title']= 'residents';		
 		$data['meta_description']='';
         $data['menu'] = $this->menu;
-		$data['user'] = $this->user;	
-		$data['body_class'] = 'responsive_design_1';	
-        $data['page'] = 'main/col3';        
+		$data['user'] = $this->user; 	
+        $data['page'] = 'main/edit_user_info';        
         $views=  array('design-mockup/html_topbar','sidebar','design-mockup/page','design-mockup/html_footer');
         $this->layout->view($views, $data);
-    }
+	}
+	public function new_pt(){
+		$data['page_title']= 'residents';		
+		$data['meta_description']='';
+        $data['menu'] = $this->menu;
+		$data['user'] = $this->user; 	
+        $data['page'] = 'main/new_pt';        
+        $views=  array('design-mockup/html_topbar','sidebar','design-mockup/page','design-mockup/html_footer');
+        $this->layout->view($views, $data);
+	}
 }	

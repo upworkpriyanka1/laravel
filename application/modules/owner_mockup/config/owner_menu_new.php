@@ -62,7 +62,7 @@ $config['menu_4'] = array(
     "icon" => "fa fa-user",
     "title" =>'profile', //should be the same as the lang()
     "sub_1" => array(
-        'href'	=>	'owner-mockup/#', //make sure to use dash
+        'href'	=>	'owner-mockup/edit-user-info/', //make sure to use dash
         'title'	=>	'profile-my',//should be the same as the lang()
         'icon'	=>	'fa fa-plus'
     ),

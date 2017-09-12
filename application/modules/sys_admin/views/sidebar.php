@@ -53,7 +53,8 @@
                                                 <?php if($link['href'] == '/client/new/') echo 'class="create_contact"' ?>  class="nav-link <?php if($link['href'] == '/users/users-edit/new/') echo 'new_user_btn'?> ">
 <!--                                        <a href="--><?php //echo base_url().$this->uri->segment('1').$link['href'];?><!--" class="nav-link ">-->
                                             <span class="<?php echo $link['icon'];?>"></span>
-                                            <span class="title"><?php echo lang($link['title']);?></span>
+                                            <span class="title"><?php if($link['title'] == "locations-types"){ echo "Types"; }else{ echo lang($link['title']); }?></span>
+											
                                         </a>
                                     </li>
                                     <!-- END SIDEBAR MENU LINK -->
