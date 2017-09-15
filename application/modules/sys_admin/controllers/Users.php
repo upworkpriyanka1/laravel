@@ -118,7 +118,7 @@ class Users extends CI_Controller
             $data['users'] = $this->users_mdl->getUsersList(false, $page_number, array('search' => $this->input->get("search"), 'show_user_group' => 1, 'show_clients_name' => 1, 'username' => $filter_username, 'user_status' => $filter_user_status, 'zip' => $filter_zip, 'user_group_id' => $filter_user_group_id, 'created_at_from' => $filter_created_at_from, 'created_at_till' => $filter_created_at_till), $sort, $sort_direction);
         } // IMPORTANT : all filter parameters must be similar as in calling of getUsersList above
 
-        echo $this->db->last_query();
+        // echo $this->db->last_query();
 
         $data['page'] = 'users/users-view';
         $data['page_number'] = $page_number;
@@ -192,7 +192,7 @@ class Users extends CI_Controller
 
         $this->layout->view($views, $data);
 
-        $this->output->enable_profiler(TRUE);
+        // $this->output->enable_profiler(TRUE);
     }
 
     public function getAutocompleteNames()
