@@ -111,15 +111,19 @@ class Users extends CI_Controller
         //$rows_in_table = $this->users_mdl->getUsersList(true, '', array('username' => $filter_username, 'user_status' => $filter_user_status, 'zip' => $filter_zip, 'user_group_id' => $filter_user_group_id, 'created_at_from' => $filter_created_at_from, 'created_at_till' => $filter_created_at_till), $sort, $sort_direction);  // get number of rows by given parameters
         $rows_in_table = $this->users_mdl->getUsersList(true, $page_number, array('search' => $this->input->get("search"), 'show_user_group' => 1, 'show_clients_name' => 1, 'username' => $filter_username, 'user_status' => $filter_user_status, 'zip' => $filter_zip, 'user_group_id' => $filter_user_group_id, 'created_at_from' => $filter_created_at_from, 'created_at_till' => $filter_created_at_till), $sort, $sort_direction);
         $pagination_config['total_rows'] = $rows_in_table;
+
         $this->pagination->initialize($pagination_config);  // pagination system initialization by parameters in config file
         $data['users'] = array();
         if ($rows_in_table > 0) { // number of rows by given parameters > 0 - get rows by given parameters for given $page_number.
             $data['users'] = $this->users_mdl->getUsersList(false, $page_number, array('search' => $this->input->get("search"), 'show_user_group' => 1, 'show_clients_name' => 1, 'username' => $filter_username, 'user_status' => $filter_user_status, 'zip' => $filter_zip, 'user_group_id' => $filter_user_group_id, 'created_at_from' => $filter_created_at_from, 'created_at_till' => $filter_created_at_till), $sort, $sort_direction);
         } // IMPORTANT : all filter parameters must be similar as in calling of getUsersList above
 
+        echo $this->db->last_query();
+
         $data['page'] = 'users/users-view';
         $data['page_number'] = $page_number;
         $data['RowsInTable'] = $rows_in_table;
+        $data['TotalRecords'] = count($data['users']);
         $data['editor_message'] = $this->session->flashdata('editor_message');
         $data['select_on_update'] = $this->common_lib->getParameter($this, $UriArray, $post_array, 'select_on_update');
 
@@ -187,6 +191,8 @@ class Users extends CI_Controller
         //echo "<pre>";print_r($data['users']);echo "</pre>";exit;
 
         $this->layout->view($views, $data);
+
+        $this->output->enable_profiler(TRUE);
     }
 
     public function getAutocompleteNames()

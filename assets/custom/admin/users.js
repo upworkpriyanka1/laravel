@@ -172,10 +172,24 @@ $.ajax({
     }
 });
 
+
 $("#autocomplete").autocomplete({
     source: searchFields,
     select: function (event, ui) {
         //alert("Selected: " + ui.item.value + " aka " + ui.item.id);
         redirect_to_user(ui.item.id);
     }
+}).autocomplete( "instance" )._renderItem = function( ul, item ) {
+    return $( "<li>" )
+        .append("<span>" + item.label + "</span>")
+        .appendTo( ul );
+};
+
+$( document ).ready(function() {
+    $(".ui-autocomplete").addClass("autocomplete-content dropdown-content");
+    $(".autocomplete-content").removeClass("ui-menu ui-widget ui-widget-content ui-autocomplete ui-front");
+    $(".ui-autocomplete li").removeClass("ui-menu-item");
+    $(".ui-autocomplete li a").removeClass("ui-corner-all");
+    $(".ui-autocomplete li a").removeClass("custom-focus");
 });
+

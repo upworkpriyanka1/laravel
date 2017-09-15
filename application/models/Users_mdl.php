@@ -1,4 +1,5 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+
 /*****************************
  * Class for Users Db functions
  *
@@ -124,6 +125,7 @@ class Users_mdl extends CI_Model
         $are_clients_joined = false;
         $is_user_group_joined = false;
         $is_user_client_joined = false;
+
         if (!empty($page) and $is_page_positive_integer && !$OutputFormatCount) {
             $limit = '';
             $offset = '';
@@ -149,23 +151,24 @@ class Users_mdl extends CI_Model
 
         if (!empty($filters['show_user_group'])) {
 
-            /*
-            $additive_fields_for_select .= ", ".$this->m_groups_table.".description as user_group_description, " . $this->m_users_groups_table.'.status as user_group_status';
-            $additive_group_fields .= ", ".$this->m_groups_table.".description, user_group_status";
+            $additive_fields_for_select .= ", GROUP_CONCAT(" . $this->m_groups_table . ".description ) as user_group_description";
+            //$additive_fields_for_select .= ", ".$this->m_groups_table.".description as user_group_description, " . $this->m_users_groups_table.'.status as user_group_status';
+            //$additive_group_fields .= ", ".$this->m_groups_table.".description, user_group_status";
 //			echo '<pre>$additive_fields_for_select::'.print_r($additive_fields_for_select,true).'</pre>';
 
 
-            if ( !$is_user_group_joined ) {
-                $is_user_group_joined= true;
+            if (!$is_user_group_joined) {
+                $is_user_group_joined = true;
                 $this->db->join($this->m_users_groups_table, $this->m_users_groups_table . '.user_id = ' . $this->m_users_table . '.id', 'left');
             }
             $this->db->join($this->m_groups_table, $this->m_groups_table . '.id = ' . $this->m_users_groups_table . '.group_id', 'left');
-            */
 
+
+            /*
             if (!$is_user_group_joined) {
                 $is_user_group_joined = true;
                 $additive_fields_for_select .= ", " . "user_group_subquery_table.description as user_group_description, " . 'user_group_subquery_table.status as user_group_status';
-                $additive_group_fields .= ", " . "user_group_subquery_table.description, user_group_subquery_table.status";
+                // $additive_group_fields .= ", " . "user_group_subquery_table.description, user_group_subquery_table.status";
 
                 $this->db
                     ->select($this->m_users_groups_table . '.*, ' . $this->m_groups_table . '.group_title, ' . $this->m_groups_table . '.name, ' . $this->m_groups_table . '.description')
@@ -175,9 +178,10 @@ class Users_mdl extends CI_Model
                 $this->db->join("($subquery)  user_group_subquery_table", "user_group_subquery_table.user_id = " . $this->m_users_table . '.id', 'left');
             } else {
                 $additive_fields_for_select .= ", " . $this->m_groups_table . ".description as user_group_description, " . $this->m_users_groups_table . '.status as user_group_status';
-                $additive_group_fields .= ", " . $this->m_groups_table . ".description, user_group_status";
+                // $additive_group_fields .= ", " . $this->m_groups_table . ".description, user_group_status";
                 $this->db->join($this->m_groups_table, $this->m_groups_table . '.id = ' . $this->m_users_groups_table . '.group_id', 'left');
             }
+            */
         }
 
         if (!empty($filters['username'])) {
@@ -214,7 +218,6 @@ class Users_mdl extends CI_Model
         }
 
 
-
         if (!empty($filters['show_user_client_relation_group'])) {
             $additive_fields_for_select .= ", " . "groups_1.description as user_client_relation_description, " . $this->m_users_clients_table . '.uc_id ';
             $additive_group_fields .= ", groups_1.description, uc_id";
@@ -248,9 +251,9 @@ class Users_mdl extends CI_Model
         }
 
         if (!empty($filters['search'])) {
-            //$this->db->like($this->m_users_table . '.username', $filters['search']);
+            $this->db->or_like($this->m_users_table . '.username', $filters['search']);
             $this->db->or_like($this->m_users_table . '.first_name', $filters['search']);
-            $this->db->or_like($this->m_users_table . '.last_name', $filters['search']);
+            $this->db->or_like($this->m_users_table . '.first_name', $filters['search']);
             $this->db->or_like($this->m_users_table . '.email', $filters['search']);
         }
 
@@ -263,10 +266,10 @@ class Users_mdl extends CI_Model
         }
 
 
-        if (!$OutputFormatCount) {
+        //if (!$OutputFormatCount) {
             $this->db->group_by($this->m_users_table . '.id ' . $additive_group_fields);
 //			$this->db->group_by( $this->m_users_table . '.id, ' . $this->m_groups_table . '.id ' . ( $is_user_client_joined ? ', '.$this->m_clients_table . '.cid '  : "" ) );
-        }
+        //}
 
         $fields_for_select .= ' ' . $additive_fields_for_select;
         if (!empty($sort)) {
@@ -275,6 +278,7 @@ class Users_mdl extends CI_Model
 
 //        echo '<pre>$fields_for_select::'.print_r($fields_for_select,true).'</pre>';
 
+        /*
         if ($OutputFormatCount) {
             return $this->db->count_all_results($this->m_users_table);
         } else {
@@ -286,6 +290,20 @@ class Users_mdl extends CI_Model
             $ret_array = $query->get()->result();
             return $ret_array;
         }
+        */
+        $query = $this->db->from($this->m_users_table);
+        if (strlen(trim($fields_for_select)) > 0) {
+            $query->select($fields_for_select);
+        }
+        $query = $query->get();
+        //$ret_array = $query->get()->result();
+
+        if ($OutputFormatCount) {
+            return $query->num_rows();
+        } else {
+            return $query->result();
+        }
+
     }
 
 
