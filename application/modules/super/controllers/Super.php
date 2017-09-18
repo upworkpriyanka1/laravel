@@ -384,5 +384,4 @@ class Super extends CI_Controller {
 //		die;
 
     }
-
 }
