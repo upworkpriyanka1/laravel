@@ -36,6 +36,7 @@
                                 if (is_array($link)): //if $link, ie  $key value is array
                                     $LinkActive = ($link['href'] == "/".$segment) ? 'active' : '';
                     ?>
+				
                     <!-- SIDEBAR MENU LINK -->
                             <li class="nav-item <?= $LinkActive ;?>">
                                 <a href="<?php echo base_url().$this->uri->segment('1').$link['href'];?>" class="nav-link ">
