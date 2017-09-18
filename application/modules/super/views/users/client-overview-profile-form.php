@@ -815,7 +815,5 @@
 <script src="<?= base_url(); ?>assets/layouts/default/scripts/layout.js" type="text/javascript" ></script>
 <script src="<?= base_url(); ?>assets/layouts/default/scripts/demo.js" type="text/javascript" ></script>
 <!-- END THEME LAYOUT SCRIPTS -->
-
-
 </body>
 </html>
