@@ -35,12 +35,18 @@
                             $page_title= lang($this->uri->segment('2'));
                         }
                         ?>
+						<div class="logo_super">
+							<a href="<?php echo base_url ()?>super/" class="brand-logo">
+								<img src="<?= base_url('assets/img/logo.png');?>" alt="logo" class="logo-default" />
+							</a>
+						</div>
                         <h1 class="page-title" id="logo">
-                            <span class="page-title-text">
-                                <?php if($page_title != ''){ echo $page_title; }else{ ?>
-                                   <?=$page_title?>
-                                <?php } ?>
-                            </span>
+						
+						<span class="page-title-text">
+							<?php if($page_title != ''){ echo $page_title; }else{ ?>
+							   <?=$page_title?>
+							<?php } ?>
+						</span>
                         </h1>
                         <h1 class="page-title-dots">...</h1>
                         <div class="top-notific-page">

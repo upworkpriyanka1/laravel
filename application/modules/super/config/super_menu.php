@@ -6,21 +6,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 * href should be the same as title, which should be defined in language file
 * href,title seperated with dash(-) and not underscore
 ******************/
-$config['menu_1'] = array(
-    "icon" => "fa fa-book",
-    "title" =>'users', //should be the same as the lang()
-    "sub_1" => array(
-    					'href'	=>	'/users-view',
-    					'title'	=>	'users-view', //make sure to use dash
-    					'icon'	=>	'fa fa-folder-open'
-    					),
-    "sub_2" => array(
-    					'href'	=>	'/users-add', //make sure to use dash
-    					'title'	=>	'users-add',//should be the same as the lang()
-    					'icon'	=>	'fa fa-plus'
-    					)
-    );
-    $config['menu_2'] = array(
+
+    $config['menu_1'] = array(
         "icon" => "fa fa-book",
         "title" =>'contacts', //should be the same as the lang()
         "sub_1" => array(
@@ -34,7 +21,7 @@ $config['menu_1'] = array(
             'icon'	=>	'fa fa-plus'
             )
         );
-    $config['menu_3'] = array(
+    $config['menu_2'] = array(
         "icon" => "fa fa-book",
         "title" =>'profile', //should be the same as the lang()
         "sub_1" => array(
@@ -50,7 +37,7 @@ $config['menu_1'] = array(
         );
 
 
-    $config['menu_4'] = array(
+    $config['menu_3'] = array(
         "icon" => "fa fa-book",
         "title" =>'activity', //should be the same as the lang()
         "sub_1" => array(
@@ -59,6 +46,31 @@ $config['menu_1'] = array(
         					'icon'	=>	'fa fa-bars'
         					)
         );
+		
+/* 	$config['menu_4'] = array(
+		"icon" => "fa fa-book",
+		"title" =>'users', //should be the same as the lang()
+		 "sub_1" => array(
+							'href'	=>	'/users-view',
+							'title'	=>	'users-view', //make sure to use dash
+							'icon'	=>	'fa fa-folder-open'
+							),
+		"sub_2" => array(
+							'href'	=>	'/users-add', //make sure to use dash
+							'title'	=>	'users-add',//should be the same as the lang()
+							'icon'	=>	'fa fa-plus'
+							),
+		"sub_3" => array(
+							'href'	=>	'/super/client-overview-profile-form', //make sure to use dash
+							'title'	=>	'users-profile',//should be the same as the lang()
+							'icon'	=>	'fa fa-plus'
+							),
+		"sub_4" => array(
+							'href'	=>	'/logout', //make sure to use dash
+							'title'	=>	'logout',//should be the same as the lang()
+							'icon'	=>	'fa fa-plus'
+							)
+		); */
 
 
 

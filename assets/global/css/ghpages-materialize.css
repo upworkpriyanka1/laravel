@@ -9290,3 +9290,41 @@ body.parallax-demo footer {
     padding: 0 !important;
     min-width: 180px;
 }
+
+.logo_super {
+    float: left;
+    padding: 30px;
+}
+
+.page-sidebar-menu.page-header-fixed.super {
+    background: #c8c8c8;
+}
+.fa.fa-sign-out, .fa.fa-user, .fa.fa-plus.custom, .fa.fa-folder-open.custom {
+    margin-left: 60px;
+    margin-top: 20px;
+    color: #555;
+}
+.title_super {
+    color: #555;
+}
+.super_link, .super_link:focus, .super_link:active, .super_link:hover{
+    background: #c8c8c8;
+    border: none;
+    color: #555;
+}
+.collapsible.collapsible-accordion.super_border {
+    border-top: none !important;
+    border-right: none !important;
+	margin-bottom:0px;
+}
+.super_padding{
+	padding-bottom:18px;
+}
+.fa.fa-pencil {
+    float: right;
+    margin-top: 20px;
+    margin-right: 13px;
+}
+.super_pencil {
+    color: #555;
+}
