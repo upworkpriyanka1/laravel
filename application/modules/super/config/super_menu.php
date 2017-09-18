@@ -71,7 +71,3 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							'icon'	=>	'fa fa-plus'
 							)
 		); */
-
-
-
-
