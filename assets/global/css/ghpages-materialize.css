@@ -9290,29 +9290,19 @@ body.parallax-demo footer {
     padding: 0 !important;
     min-width: 180px;
 }
-#toc-wrap ul.table-of-contents {
-    margin-top: 25px;
-    padding-top: 48px;
-}
-#assgn {
-	/*font-weight:bold;*/
-}
 
-.card-title{
-	/*font-weight:bold;*/
-	font-size:24px;
+.brand-logo .logo-default{
+	font-size:20px !important;
+	text-align:justify;
+	line-height: 30px;
 }
+.nav-item.profile-li{
+    position: relative;
+}
+ul.side-nav.fixed ul.collapsible-accordion .collapsible-body li.nav-item.profile-li a.editpencil{
+    position: absolute;
+    padding: 17px;
+    top: 0;
+    right: 0;
 
-/*.assdiv #leftalgn{
-	padding-left:0px !important;
-}
 
-.assdiv #rightalgn{
-	padding-right:0px!important;
-}*/
-#grid-pinned .schedule{
-	padding:0px;
-}
-#grid-pinned .schedule img{
-	width:100%;
-}

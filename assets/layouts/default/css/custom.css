@@ -487,8 +487,8 @@ header h1#logo {
     display: inline-block;
     height: 76px;
     /*height: 130px;*/
-    /*line-height: 100px;*/
-    float: left;
+    /*line-height: 100px;
+    float: left;*/
     font-size: 48px;
     /*font-size: 60px;*/
     color: #666;

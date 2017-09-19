@@ -12,16 +12,20 @@ class Super extends CI_Controller {
 	/*check if allowed to access page */
 		$group = array('super'); //allowed group admin,super etc
 		if (!$this->ion_auth->in_group($group)){
-			echo "Not allowed";
-			die();
+			//echo "Not allowed";
+			//die();
 		}
 		$this->load->library('Super_lib',NULL,'super_lib');
 		$this->load->model('super_mdl','super_mdl');
+		$this->load->model('common_mdl','common_mdl');
+		$this->load->model('users_mdl','users_mdl');
+		$this->load->model('clients_mdl','clients_mdl');
 		$this->lang->load('super');
 		$this->config->load('super_menu', true );
 		$this->menu    			= $this->config->item( 'super_menu' );
 
 		$this->user 			= $this->common_mdl->get_user();
+		$this->user 			= $this->common_mdl->get_user_dashboard_info();
 		$this->superviser 		=  $this->ion_auth->user($this->user->super_id)->row();
 		$this->superviser_name 	= $this->superviser->first_name." ".$this->superviser->last_name;
 		$this->group 			= $this->ion_auth->get_users_groups()->row();
@@ -36,7 +40,7 @@ class Super extends CI_Controller {
  * return view
  *********************************/
 	public function index(){
-
+		$data['userInfoById'] 			= $this->common_mdl->get_user_info_by_id($this->session->userdata('user_id'));
 		$data['meta_description']='';
 		$data['menu']		= $this->menu;
 
@@ -60,6 +64,7 @@ class Super extends CI_Controller {
 * return view
 *********************************/
 	public function users_view(){
+		$data['userInfoById']= $this->common_mdl->get_user_info_by_id($this->session->userdata('user_id'));
 		$data['meta_description']='';
 		$data['menu']		= $this->menu;
 		$data['user'] 		= $this->user;
@@ -79,6 +84,43 @@ class Super extends CI_Controller {
 	    $this->layout->view($views, $data);
 	}
 
+	
+	public function user_overview(){
+		$data['userInfoById']= $this->common_mdl->get_user_info_by_id($this->session->userdata('user_id'));
+		$UriArray = $this->uri->uri_to_assoc(3);
+		if ( !empty($UriArray['users-overview']) and $this->common_lib->is_positive_integer($UriArray['users-overview'])  ) {
+			$user_id= $UriArray['users-overview'];
+		}
+		$editable_user= $this->users_mdl->getUserRowById( $user_id, array('show_file_info'=> 1, 'image_width'=> 128, 'image_height'=> 128) );
+		if ($editable_user->user_status == 'N' || $editable_user->user_status == 'P' )
+            $data['user_status'] = 'Pending';
+		elseif ($editable_user->user_status == 'A')
+            $data['user_status'] = 'Active';
+        elseif ($editable_user->user_status == 'I')
+            $data['user_status'] = 'Inactive';
+        else
+            $data['user_status'] = $editable_user->user_status;
+
+		$data['editable_user']		= $editable_user;
+		$data['meta_description']='';
+		$data['menu']		= $this->menu;
+		$data['user'] 		= $this->user;
+		$data['group'] 		= $this->group->name;
+		$data['page']		= 'users/user-overview';
+		$data['javascript'] = array( 'assets/global/js/users-overview-view.js','assets/global/js/validate.js' );//page javascript
+		$views				=  array('design/html_topbar_user_overview','sidebar','design/page','design/html_footer', 'common_dialogs.php');
+
+
+        $us_id =  $this->uri->segment(4, 0);
+        $data['client_types']= object_to_array($this->common_mdl->get_records('clients_types'),'type_id');
+		$data['clients']=$this->clients_mdl->getClients($us_id);
+//        echo "<pre>";
+//        print_r( $data);
+//        die;
+//		$this->load->view('users/user-overview-page');
+		$this->layout->view($views, $data);
+	}
+	
 /**********************
 * Edit User
 * access public
@@ -86,6 +128,7 @@ class Super extends CI_Controller {
 * return view
 *********************************/
 	public function users_edit(){
+		$data['userInfoById'] 			= $this->common_mdl->get_user_info_by_id($this->session->userdata('user_id'));
 		$this->lang->load('ion_auth');
 		$this->lang->load('auth');
 		if (isset($_POST['ajaxpost'])){
@@ -116,6 +159,7 @@ class Super extends CI_Controller {
 * return view
 *********************************/
 	public function users_add(){
+		$data['userInfoById'] 			= $this->common_mdl->get_user_info_by_id($this->session->userdata('user_id'));
 		$this->lang->load('ion_auth');
 		$this->lang->load('auth');
 		if (isset($_POST['ajaxpost'])){

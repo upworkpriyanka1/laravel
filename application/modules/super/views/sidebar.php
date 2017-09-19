@@ -103,7 +103,7 @@
                         <div class="collapsible-body">
                             <ul>
                                 <li class="nav-item profile-li">
-                                    <a href="<?= base_url($logged_user_title_name.'/sys-admin/users/users-overview');?>">
+                                    <a href="<?= base_url($logged_user_title_name.'/super/user-overview');?>">
                                         <span class="fa fa-user"></span>
                                         <span><?= lang('my-profile'); ?></span>
                                     </a>

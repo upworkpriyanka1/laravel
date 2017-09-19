@@ -37,11 +37,11 @@ $config['menu_1'] = array(
     $config['menu_3'] = array(
         "icon" => "fa fa-book",
         "title" =>'profile', //should be the same as the lang()
-        "sub_1" => array(
-        					'href'	=>	'/profile',
-        					'title'	=>	'my-profile', //make sure to use dash
-        					'icon'	=>	'fa fa-pencil-square'
-        					),
+        //"sub_1" => array(
+        //					'href'	=>	'/profile',
+        //					'title'	=>	'my-profile', //make sure to use dash
+        //					'icon'	=>	'fa fa-pencil-square'
+        //					),
         "sub_2" => array(
         					'href'	=>	'/profile-company', //make sure to use dash
         					'title'	=>	'my-company',//should be the same as the lang()
