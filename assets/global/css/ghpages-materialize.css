@@ -9304,5 +9304,8 @@ ul.side-nav.fixed ul.collapsible-accordion .collapsible-body li.nav-item.profile
     padding: 17px;
     top: 0;
     right: 0;
-
+}
+.cl-logo {
+	background:transparent !important;
+}
 

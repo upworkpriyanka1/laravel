@@ -5,7 +5,7 @@
     </a>
 </div>
 <ul id="nav-mobile" class="side-nav fixed" style="transform: translateX(-100%);">
-    <li class="logo cl-logo"">
+    <li class="logo cl-logo">
         <a href="/super" class="brand-logo ">
             <!--<img src="<?= base_url('assets/img/logo.png');?>" alt="logo" class="logo-default" /> -->
 			<span class="logo-default"> Client Name </span>
