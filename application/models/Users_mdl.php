@@ -891,7 +891,16 @@ class Users_mdl extends CI_Model
         if ((!empty($limit) and $ci->common_lib->is_positive_integer($limit))) {
             $this->db->limit($limit);
         }
-        $this->db->group_by('uc_group_id');
+//        $this->db->group_by('uc_group_id');
+//        $this->db->group_by('group_description');
+//        $this->db->group_by('group_name');
+        /*SELECT `users_clients`.*, `description` as `group_description`, `name` as `group_name`
+FROM `users_clients`
+LEFT JOIN `groups` ON `groups`.`id` = `users_clients`.`uc_group_id`
+WHERE `users_clients`.`uc_user_id` = '1'
+AND `users_clients`.`uc_active_status` = 'A'
+GROUP BY `uc_group_id`
+ORDER BY `uc_user_id*/
         $fields_for_select .= ' ' . $additive_fields_for_select;
         if (!empty($sort)) {
             $this->db->order_by($sort, ((strtolower($sort_direction) == 'desc' or strtolower($sort_direction) == 'asc') ? $sort_direction : ''));
@@ -1266,6 +1275,7 @@ class Users_mdl extends CI_Model
 
     public function getUsersCount($clientIds = array())
     {
+        if ( empty($clientIds) ) return 0;
         $query = $this->db->query("SELECT uc_client_id, COUNT(uc_client_id) as user_count FROM users_clients WHERE uc_client_id IN (" . implode(',', $clientIds) . ") GROUP BY uc_client_id ORDER BY `uc_client_id` ASC");
 
         return $query->result();
